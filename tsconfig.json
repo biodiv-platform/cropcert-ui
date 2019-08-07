@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@stores/*": ["./src/stores/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@services/*": ["./src/services/*"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,92 @@
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.eco--title {
+  display: inline-block;
+}
+
+.eco--w100 {
+  width: 100%;
+}
+
+.bx--modal-container {
+  overflow: visible;
+}
+
+.bx--body--with-modal-open {
+  overflow: initial;
+}
+
+.eco--modal-container {
+  padding: 0 1rem;
+}
+
+.eco--btn-transparent {
+  background: none;
+  border: none;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.react-datetime-picker__wrapper {
+  border: 0 !important;
+  width: 100%;
+}
+
+.rdt_Table {
+  .rdt_TableHeadRow {
+    background-color: #dcdcdc;
+    div {
+      color: inherit;
+      font-weight: bold;
+    }
+  }
+  .rdt_TableRow {
+    background-color: #f3f3f3;
+    div {
+      color: #565656;
+    }
+  }
+}
+
+.ck-content {
+  min-height: 200px;
+}
+
+ol,
+ul {
+  list-style: initial;
+  margin-left: 16px;
+  li {
+    line-height: 1.4em;
+    padding-left: 6px;
+  }
+}
+
+ol {
+  list-style: decimal;
+}
+
+// .ck.ck-editor__editable_inline {
+//   border-color: var(--ck-color-toolbar-border) !important;
+// }
+
+[data-tag="___react-data-table--click-clip___"] {
+  display: none;
+}
+
+.dropdown-heading {
+  background-color: #f3f3f3 !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid #8c8c8c !important;
+}

@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:700i,900");
+
+.blog {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  h1,
+  h2,
+  p,
+  i,
+  a,
+  .first-letter,
+  .authorName a {
+    color: rgba(0, 0, 0, 0.84);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 48px;
+    text-align: left;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+    padding: 0;
+    margin: 36px 0 20px -1.883px;
+    text-align: left;
+    line-height: 34.5px;
+    letter-spacing: -0.45px;
+  }
+
+  p {
+    margin: 21px 0;
+    font-size: 21px;
+    letter-spacing: -0.03px;
+    line-height: 1.58;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  blockquote {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    font-style: italic;
+    letter-spacing: -0.36px;
+    line-height: 44.4px;
+    overflow-wrap: break-word;
+    margin: 55px 0 33px 0;
+    /* text-align: center; */
+    color: rgba(0, 0, 0, 0.68);
+    padding: 0 0 0 50px;
+  }
+
+  code {
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 3px 5px;
+  }
+
+  mark,
+  .highlighted {
+    background: #7dffb3;
+  }
+
+  .first-letter {
+    overflow-wrap: break-word;
+    font-family: "Playfair Display", serif;
+    font-size: 60px;
+    line-height: 60px;
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0px 7px 0 -5px;
+  }
+
+  .subtitle {
+    color: rgba(0, 0, 0, 0.54);
+    margin: 0 0 24px 0;
+  }
+
+  @media (min-width: 768px) {
+    width: 750px;
+  }
+
+  @media (min-width: 992px) {
+    width: 970px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
+}

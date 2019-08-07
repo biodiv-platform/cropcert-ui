@@ -1,0 +1,94 @@
+import { axUpdateWetBatch } from "@services/batch.service";
+import { camelCaseToStartCase } from "@utils/basic.util";
+import { DATATYPE } from "@utils/constants";
+import { ComposedModal, ModalHeader } from "carbon-components-react";
+import { Field, Formik } from "formik";
+import React from "react";
+import * as Yup from "yup";
+
+import { dateTimeInput, textInput } from "../formik";
+
+export default function GenricModal({
+  row,
+  keyName,
+  keyId,
+  isOpen = false,
+  onClose,
+  dataType = DATATYPE.TEXT,
+  endpoint,
+  ...props
+}) {
+  const form = {
+    validationSchema: Yup.object().shape({
+      value:
+        dataType === DATATYPE.DATETIME
+          ? Yup.number()
+              .min(1)
+              .max(props.max)
+              .required()
+          : Yup.string().required(),
+    }),
+    initialValues: {
+      value: row[keyName],
+    },
+  };
+
+  const submitForm = (values, actions) => {
+    actions.setSubmitting(false);
+    axUpdateWetBatch(`${endpoint}${keyName}`, {
+      [keyName]: values.value,
+      id: row[keyId],
+    }).then(() => {
+      onClose(true);
+    });
+  };
+
+  return form && isOpen ? (
+    <ComposedModal id="1" open={isOpen} onClose={onClose}>
+      <ModalHeader
+        title={`Update ${camelCaseToStartCase(keyName)}`}
+        closeModal={onclose}
+      />
+      <Formik
+        {...form}
+        enableReinitialize={true}
+        onSubmit={submitForm}
+        isInitialValid={!row[keyName]}
+        render={({ handleSubmit, isValid }) => {
+          return (
+            <form className="bx--form" onSubmit={handleSubmit}>
+              <div className="eco--modal-container">
+                <div className="bx--row">
+                  <div className="bx--col-lg-6 bx--col-sm-12">
+                    <Field
+                      label={camelCaseToStartCase(keyName)}
+                      name="value"
+                      component={
+                        dataType === DATATYPE.DATETIME
+                          ? dateTimeInput
+                          : textInput
+                      }
+                      type={dataType}
+                      {...props}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="bx--modal-footer">
+                <button
+                  className="bx--btn bx--btn--primary"
+                  disabled={!isValid}
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          );
+        }}
+      />
+    </ComposedModal>
+  ) : (
+    <></>
+  );
+}

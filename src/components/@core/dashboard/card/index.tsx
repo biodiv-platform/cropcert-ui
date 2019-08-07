@@ -7,15 +7,28 @@ interface IProps {
   title: string;
   description: string;
   to: string;
+  external: boolean;
 }
 
-function Card(props: IProps) {
+function Card({ title, description, to, external = false }: IProps) {
+  const getContent = () => (
+    <>
+      <h2>{title}</h2>
+      <p className="mt-2">{description} &rarr;</p>
+    </>
+  );
+
   return (
     <div className="bx--col-lg-3 bx--col-sm-12 mb-4">
-      <Link className="bx--tile eco--card" to={props.to}>
-        <h2>{props.title}</h2>
-        <p className="mt-2">{props.description} &rarr;</p>
-      </Link>
+      {external ? (
+        <a className="bx--tile eco--card" href={to}>
+          {getContent()}
+        </a>
+      ) : (
+        <Link className="bx--tile eco--card" to={to}>
+          {getContent()}
+        </Link>
+      )}
     </div>
   );
 }

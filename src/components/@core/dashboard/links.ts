@@ -88,6 +88,7 @@ const links = [
         description: "View aggregated data on ODK",
         to: "/ODKAggregate/",
         access: [ROLES.ADMIN, ROLES.UNION],
+        external: true,
       },
     ],
   },

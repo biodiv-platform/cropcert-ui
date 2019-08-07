@@ -3,6 +3,7 @@ import { axCreateBatch } from "@services/batch.service";
 import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
 import { TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
+import dayjs from "dayjs";
 import { Field, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
@@ -57,7 +58,10 @@ function BatchCreate({ CCAccessible }: IProps) {
     axCreateBatch({
       ...values,
       createdOn: local2utc(),
-      batchName: `${getCCById(values.ccCode).ccName}_${getToday()}`,
+      batchName: `${getCCById(values.ccCode).ccName}_${dayjs(
+        values.date,
+        "YYYY-MM-DD"
+      ).format("DD-MM-YYYY")}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );

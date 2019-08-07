@@ -4,12 +4,14 @@ import MultiSelect from "@khanacademy/react-multi-select";
 import BatchStore from "@stores/batch.store";
 import { BATCH_TYPE, DATATYPE, ENDPOINT } from "@utils/constants";
 import { Button } from "carbon-components-react";
+import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component-tmp";
 import InfiniteScroll from "react-infinite-scroller";
+import { local2utc } from "@utils/basic.util";
 
 interface IProps {
   CCAccessible: any[];
@@ -49,7 +51,11 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
               row,
               keyName: "startTime",
               dataType: DATATYPE.DATETIME,
-              min: row.createdOn,
+              min: local2utc(
+                dayjs(row.date, "YYYY-MM-DD")
+                  .toDate()
+                  .getTime()
+              ).getTime(),
             });
             setIsModalOpen(true);
           }}

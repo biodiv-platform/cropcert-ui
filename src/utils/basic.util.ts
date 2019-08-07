@@ -6,8 +6,12 @@ export const getToday = () => {
   return dayjs().format("YYYY-MM-DD");
 };
 
-export const formattedDateTime = (d = new Date()) => {
-  return dayjs(d).format("YYYY-MM-DDTHH:mm");
+export const getTodayDisplay = () => {
+  return dayjs().format("DD-MM-YYYY");
+};
+
+export const toSimpleDate = (d = new Date()) => {
+  return dayjs(d).format("YYYY-MM-DD");
 };
 
 export const camelCaseToStartCase = camelCase => {
@@ -24,7 +28,7 @@ export const camelCaseToStartCase = camelCase => {
 };
 
 export const formattedTimeStamp = (d = new Date()) => {
-  return dayjs(d).format("YYYY-MM-DD HH:mm:ss");
+  return dayjs(d).format("DD-MM-YYYY HH:mm");
 };
 
 export const toFriendlyCellValue = c => {

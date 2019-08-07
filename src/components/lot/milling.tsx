@@ -2,7 +2,6 @@ import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { formattedDateTime, utc2local } from "@utils/basic.util";
 import { DATATYPE, ENDPOINT, LOT_AT } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";

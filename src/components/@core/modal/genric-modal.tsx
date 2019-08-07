@@ -21,12 +21,13 @@ export default function GenricModal({
   const form = {
     validationSchema: Yup.object().shape({
       value:
-        dataType === DATATYPE.DATETIME
-          ? Yup.number()
+        dataType === DATATYPE.TEXT
+          ? Yup.string().required()
+          : dataType === DATATYPE.DATETIME
+          ? Yup.number().required()
+          : Yup.number()
               .min(1)
-              .max(props.max)
-              .required()
-          : Yup.string().required(),
+              .max(props.max),
     }),
     initialValues: {
       value: row[keyName],

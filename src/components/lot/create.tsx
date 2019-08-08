@@ -14,7 +14,11 @@ interface IProps {
 }
 
 export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
-  const qty = batches.reduce((acc, { quantity }) => acc + quantity, 0);
+  const qty = batches.reduce(
+    (acc, row) =>
+      acc + (type === BATCH_TYPE.WET ? row.perchmentQuantity : row.quantity),
+    0
+  );
 
   const handleFinalizeWetBatch = () => {
     axCreateLotFromBatches({

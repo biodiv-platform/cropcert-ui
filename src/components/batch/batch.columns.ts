@@ -48,3 +48,22 @@ export const columnsDry = [
     selector: "quantity",
   },
 ];
+
+export const columnsWetExpand = [
+  {
+    name: "Batch Id",
+    selector: "batchId",
+  },
+  {
+    name: "Batch Name",
+    selector: "batchName",
+  },
+  {
+    name: "Total Quantity",
+    selector: "quantity",
+  },
+  {
+    name: "Perchment Quantity",
+    selector: "perchmentQuantity",
+  },
+];

@@ -1,8 +1,9 @@
 import { axGetBatchesByLotId } from "@services/lot.service";
+import { BATCH_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component-tmp";
 
-import { columnsDry } from "./batch.columns";
+import { columnsDry, columnsWetExpand } from "./batch.columns";
 
 export default function BatchlistExpanded(data) {
   const [rows, setRows] = useState([] as any);
@@ -17,7 +18,9 @@ export default function BatchlistExpanded(data) {
     <DataTable
       className="eco--table-expanded p-3"
       keyField="batchId"
-      columns={columnsDry}
+      columns={
+        data.data.type === BATCH_TYPE.WET ? columnsWetExpand : columnsDry
+      }
       noHeader={true}
       data={rows}
     />

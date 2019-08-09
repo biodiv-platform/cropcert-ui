@@ -76,10 +76,6 @@ ol {
   list-style: decimal;
 }
 
-// .ck.ck-editor__editable_inline {
-//   border-color: var(--ck-color-toolbar-border) !important;
-// }
-
 [data-tag="___react-data-table--click-clip___"] {
   display: none;
 }
@@ -89,4 +85,9 @@ ol {
   border-radius: 0 !important;
   border: 0 !important;
   border-bottom: 1px solid #8c8c8c !important;
+}
+
+.leaflet-container {
+  height: 70vh;
+  margin-bottom: 2rem;
 }

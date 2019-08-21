@@ -4,7 +4,9 @@ import notification from "@utils/notification.util";
 
 export const axListPages = async () => {
   try {
-    const res = await http.get(`${ENDPOINT.PAGES}/page/all`);
+    const res = await http.get(`${ENDPOINT.PAGES}/page/all`, {
+      headers: { unauthorized: true },
+    });
     return res.data;
   } catch (e) {
     notification(MESSAGE.ERROR);

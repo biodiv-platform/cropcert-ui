@@ -1,3 +1,7 @@
+:root {
+  --spacing-base: 2rem;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -90,4 +94,8 @@ ol {
 .leaflet-container {
   height: 70vh;
   margin-bottom: 2rem;
+}
+
+.eco--sign-in {
+  margin-top: calc(var(--spacing-base) * 2);
 }

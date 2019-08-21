@@ -14,6 +14,13 @@ export const ENDPOINT = {
   TRACEABILITY: `${process.env.APP_ROOT}${process.env.ENDPOINT_TRACEABILITY}`,
 };
 
+export const TOKEN = {
+  ACCESS: "access_token",
+  REFRESH: "refresh_token",
+  TIMEOUT: "timeout",
+  TYPE: "Bearer ",
+};
+
 export const BACKGROUND = {
   WHITE: "#fff",
   GRAY: "#f3f3f3",
@@ -65,6 +72,7 @@ export const MAP: { MAP_CENTER: [number, number]; [key: string]: any } = {
 export const MESSAGE = {
   SUCCESS: "operation completed successfully",
   ERROR: "There was an error while performing this operation",
+  INVALID_CREDENTIALS: "Invalid credentials",
 };
 
 export const OPERATION_MESSAGES = {

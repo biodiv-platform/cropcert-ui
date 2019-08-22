@@ -30,7 +30,6 @@ ax.interceptors.request.use(
       return options;
     }
     const { accessToken, refreshToken, isExpired } = getSession();
-    console.log("isExpired", isExpired);
     const finalToken = !isExpired
       ? accessToken
       : await axRenewToken(refreshToken);

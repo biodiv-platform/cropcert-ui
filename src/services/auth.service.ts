@@ -1,4 +1,4 @@
-import { CAS_LOGOUT_URL, ENDPOINT } from "@utils/constants";
+import { ENDPOINT } from "@utils/constants";
 import http, { httpFormData } from "@utils/http";
 import queryString from "query-string";
 
@@ -34,18 +34,5 @@ export const axPingAll = async (url = "ping") => {
     await http.get(`${ENDPOINT.USER}/${url}`, { params: ts });
   } catch (e) {
     console.error(e);
-  }
-};
-
-export const axSignOut = async () => {
-  try {
-    const res = await http.get(`${CAS_LOGOUT_URL}`);
-    await http.get(`${ENDPOINT.PAGES}/logout`);
-    await http.get(`${ENDPOINT.TRACEABILITY}/logout`);
-    await http.get(`${ENDPOINT.USER}/logout`);
-    return res.data;
-  } catch (e) {
-    console.error(e);
-    return {};
   }
 };

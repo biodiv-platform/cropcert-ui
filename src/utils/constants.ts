@@ -43,11 +43,6 @@ export const ROLES = {
   ADMIN: "admin",
 };
 
-export const CAS_AUTH_URL = `${ENDPOINT.CAS}/login?service=${
-  ENDPOINT.ROOT
-}auth/continue`;
-export const CAS_LOGOUT_URL = `${ENDPOINT.CAS}/logout`;
-
 export const TYPE_OPTIONS = {
   DRY: { label: "Dry", value: "DRY" },
   WET: { label: "Wet", value: "WET" },

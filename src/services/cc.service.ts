@@ -29,7 +29,7 @@ export const axGetCCById = async id => {
 export const axListCCAccessible = async () => {
   const coCode = getUserKey("coCode");
   const endpoint = hasAccess([ROLES.COOPERATIVE])
-    ? `cc/coOperativeId/${coCode}`
+    ? `cc/coCode/${coCode}`
     : `cc/${coCode}`;
   try {
     const res = await http.get(`${ENDPOINT.USER}/${endpoint}`);

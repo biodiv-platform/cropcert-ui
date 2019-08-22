@@ -4,7 +4,6 @@ import { navigate } from "gatsby";
 import { isBrowser, ROLES, TOKEN } from "./constants";
 import storage from "./storage.util";
 import { getUser } from "./user.util";
-import { axGetUser } from "@services/auth.service";
 
 interface Session {
   accessToken: string;
@@ -58,8 +57,6 @@ export const getSession = (): Session => {
   const refreshToken = storage.get(TOKEN.REFRESH);
   const timeout = storage.get(TOKEN.TIMEOUT, 0);
   const isExpired = dayjs(timeout).isBefore(dayjs());
-  console.log(dayjs().toISOString());
-  console.log(dayjs(timeout).toISOString());
   return {
     accessToken,
     refreshToken,
@@ -74,7 +71,7 @@ export const getSession = (): Session => {
  */
 const checkSessionExpired = () => {
   const timeout = storage.get(TOKEN.TIMEOUT, 0);
-  if (dayjs().isBefore(dayjs(timeout))) {
+  if (dayjs(timeout).isBefore(dayjs())) {
     console.info("❌ Session expired");
     navigate("/auth/sign-out");
   }

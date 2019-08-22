@@ -6,6 +6,7 @@ import { MESSAGE } from "@utils/constants";
 import { setUser } from "@utils/user.util";
 import { Button, InlineNotification } from "carbon-components-react";
 import { Field, Formik } from "formik";
+import { navigate } from "gatsby";
 import React, { useState } from "react";
 import * as Yup from "yup";
 
@@ -31,7 +32,10 @@ export default function SignIn() {
     axSignIn(values)
       .then(d => {
         setSession(d);
-        axGetUser().then(setUser);
+        axGetUser().then(u => {
+          setUser(u);
+          navigate("/dashboard");
+        });
       })
       .catch(() => {
         setShowError(true);

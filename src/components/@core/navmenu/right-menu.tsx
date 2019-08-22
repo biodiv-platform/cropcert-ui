@@ -1,6 +1,6 @@
 import { Information20, Login20, Logout20 } from "@carbon/icons-react";
 import { hasAccess } from "@utils/auth.util";
-import { CAS_AUTH_URL, ROLES } from "@utils/constants";
+import { ROLES } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Link } from "gatsby";
 import React from "react";
@@ -22,9 +22,9 @@ function NavbarRightMenu() {
         </li>
       ) : (
         <li>
-          <a href={`${CAS_AUTH_URL}`}>
+          <Link to="/auth/sign-in">
             <Login20 /> Sign In
-          </a>
+          </Link>
         </li>
       )}
     </ul>

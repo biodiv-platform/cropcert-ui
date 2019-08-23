@@ -14,7 +14,7 @@ const PageListPage = () => {
 
   return (
     <Container roles={[ROLES.UNION, ROLES.ADMIN]}>
-      {pages.length > 0 && <PageList pages={pages} />}
+      <PageList pages={pages} />
     </Container>
   );
 };

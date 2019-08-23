@@ -7,13 +7,13 @@ const links = [
       {
         title: "Create Batch",
         description: "Create Batch",
-        to: "batch/create",
+        to: "/batch/create",
         access: [ROLES.COLLECTION_CENTER, ROLES.COOPERATIVE],
       },
       {
         title: "Update Wet Batch",
         description: "Update wet batch data",
-        to: "batch/list-wet",
+        to: "/batch/list-wet",
         access: [ROLES.COLLECTION_CENTER, ROLES.COOPERATIVE],
       },
     ],
@@ -24,13 +24,13 @@ const links = [
       {
         title: "Create Lot",
         description: "Create lot from batches",
-        to: "batch/list",
+        to: "/batch/list",
         access: [ROLES.COOPERATIVE],
       },
       {
         title: "Dispatch Lots",
         description: "Dispatch Lots to Factory",
-        to: "lot/list",
+        to: "/lot/list",
         access: [ROLES.COOPERATIVE],
       },
     ],
@@ -41,7 +41,7 @@ const links = [
       {
         title: "Milling Lots",
         description: "Milling lots from factories",
-        to: "lot/milling",
+        to: "/lot/milling",
         access: [ROLES.FACTORY, ROLES.UNION],
       },
     ],
@@ -52,19 +52,19 @@ const links = [
       {
         title: "Add GRN Number",
         description: "Add GRN Number to Lot(s)",
-        to: "lot/grn",
+        to: "/lot/grn",
         access: [ROLES.UNION],
       },
       {
         title: "Add Green Report",
         description: "Add Green Report to Lot(s)",
-        to: "lot/report/list?type=green",
+        to: "/lot/report/list?type=green",
         access: [ROLES.UNION],
       },
       {
         title: "Add Cupping Report",
         description: "Add Cupping Report to Lot(s)",
-        to: "lot/report/list?type=cupping",
+        to: "/lot/report/list?type=cupping",
         access: [ROLES.UNION],
       },
     ],
@@ -75,7 +75,7 @@ const links = [
       {
         title: "Pages",
         description: "Manage Static Pages",
-        to: "page/list",
+        to: "/page/list",
         access: [ROLES.ADMIN],
       },
     ],

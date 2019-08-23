@@ -18,6 +18,19 @@ const axRenewToken = async (refreshToken: string) => {
   return res.data.accessToken;
 };
 
+/**
+ * Returns `accessToken`
+ *
+ * @returns {string}
+ */
+export const getBearerToken = async () => {
+  const { accessToken, refreshToken, isExpired } = getSession();
+  const finalToken = !isExpired
+    ? accessToken
+    : await axRenewToken(refreshToken);
+  return `Bearer ${finalToken}`;
+};
+
 const ax = axios.create({
   headers: {
     "Content-Type": "application/json",
@@ -29,11 +42,7 @@ ax.interceptors.request.use(
     if (options.headers["unauthorized"] && options.headers.unauthorized) {
       return options;
     }
-    const { accessToken, refreshToken, isExpired } = getSession();
-    const finalToken = !isExpired
-      ? accessToken
-      : await axRenewToken(refreshToken);
-    options.headers["Authorization"] = `Bearer ${finalToken}`;
+    options.headers["Authorization"] = await getBearerToken();
     return options;
   },
   error => {

@@ -12,7 +12,7 @@ import { getUserKey } from "@utils/user.util";
 
 export const axCreateLotFromBatches = async body => {
   try {
-    await http.post(`${ENDPOINT.TRACEABILITY}/lotCreation`, body);
+    await http.post(`${ENDPOINT.TRACEABILITY}/lot`, body);
     return { success: true, id: body.lotName };
   } catch (e) {
     console.error(e);
@@ -35,10 +35,9 @@ export const axLotByLotId = async id => {
 
 export const axOriginByLotId = async id => {
   try {
-    const res1 = await http.get(
-      `${ENDPOINT.TRACEABILITY}/lotCreation/lot/origin`,
-      { params: { lotId: id } }
-    );
+    const res1 = await http.get(`${ENDPOINT.TRACEABILITY}/lot/origin`, {
+      params: { lotId: id },
+    });
     const res2 = await http.get(`${ENDPOINT.USER}/cc/origin`, {
       params: {
         ccCodes: res1.data.toString(),
@@ -54,7 +53,7 @@ export const axOriginByLotId = async id => {
 
 export const axGetBatchesByLotId = async id => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lotCreation/lotId`, {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/batches`, {
       params: {
         lotId: id,
       },
@@ -88,18 +87,7 @@ export const axLazyListLot = async (at, params) => {
         ...params,
       },
     });
-    const data: any[] = res.data.map(o => {
-      switch (at) {
-        case LOT_AT.FACTORY:
-          return {
-            ...o,
-            disabled: o.millingTime && o.outTurn > 0 ? false : true,
-          };
-
-        default:
-          return o;
-      }
-    });
+    const data: any[] = res.data.map(o => postProcessRow(o, at));
     return {
       success: true,
       offset: params.offset + PAGINATION_LIMIT,
@@ -121,6 +109,17 @@ export const axLazyListLot = async (at, params) => {
   }
 };
 
+export const axUpdateLot = async (keyName, body, at) => {
+  try {
+    const r = await http.put(`${ENDPOINT.TRACEABILITY}/lot/${keyName}`, body);
+    notification(MESSAGE.SUCCESS, "success");
+    return { success: true, body: postProcessRow(r.data, at) };
+  } catch (e) {
+    notification(e);
+    return { success: false, body: {} };
+  }
+};
+
 const getCoCodes = async () => {
   if (hasAccess([ROLES.COOPERATIVE])) {
     return Promise.resolve(getUserKey("coCode"));
@@ -131,6 +130,19 @@ const getCoCodes = async () => {
       },
     });
     const data: [any] = res.data;
-    return data.map(co => co.coCode).toString();
+    return data.map(co => co.code).toString();
+  }
+};
+
+const postProcessRow = (o, at) => {
+  switch (at) {
+    case LOT_AT.FACTORY:
+      return {
+        ...o,
+        disabled: o.millingTime && o.outTurn > 0 ? false : true,
+      };
+
+    default:
+      return o;
   }
 };

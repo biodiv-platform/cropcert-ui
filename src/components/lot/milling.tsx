@@ -76,11 +76,11 @@ function MillingLots() {
     });
   };
 
-  const onClose = (updated = false) => {
-    setIsModalOpen(false);
+  const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      lotStore.lazyList(true, LOT_AT.FACTORY);
+      await lotStore.updateLot(keyName, body, LOT_AT.FACTORY);
     }
+    setIsModalOpen(false);
   };
 
   return (
@@ -89,7 +89,6 @@ function MillingLots() {
         isOpen={isDateModalOpen}
         onClose={onClose}
         keyId="id"
-        endpoint={`${ENDPOINT.TRACEABILITY}/lot/`}
         {...modalData}
       />
 

@@ -15,7 +15,6 @@ export default function GenricModal({
   isOpen = false,
   onClose,
   dataType = DATATYPE.TEXT,
-  endpoint,
   ...props
 }) {
   const form = {
@@ -36,11 +35,9 @@ export default function GenricModal({
 
   const submitForm = (values, actions) => {
     actions.setSubmitting(false);
-    axUpdateWetBatch(`${endpoint}${keyName}`, {
+    onClose(true, keyName, {
       [keyName]: values.value,
       id: row[keyId],
-    }).then(() => {
-      onClose(true);
     });
   };
 

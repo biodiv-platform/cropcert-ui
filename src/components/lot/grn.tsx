@@ -43,11 +43,11 @@ function GRNLots() {
     },
   ];
 
-  const onClose = (updated = false) => {
-    setIsModalOpen(false);
+  const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      lotStore.lazyList(true, LOT_AT.UNION);
+      await lotStore.updateLot(keyName, body, LOT_AT.UNION);
     }
+    setIsModalOpen(false);
   };
 
   return (
@@ -56,7 +56,6 @@ function GRNLots() {
         isOpen={isDateModalOpen}
         onClose={onClose}
         keyId="id"
-        endpoint={`${ENDPOINT.TRACEABILITY}/lot/`}
         {...modalData}
       />
 

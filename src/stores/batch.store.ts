@@ -1,4 +1,6 @@
-import { axLazyListBatch } from "@services/batch.service";
+import { axLazyListBatch, axUpdateWetBatch } from "@services/batch.service";
+import { updateArrayImmutable } from "@utils/basic.util";
+import { ENDPOINT } from "@utils/constants";
 import { decorate, observable } from "mobx";
 import { createContext } from "react";
 
@@ -23,6 +25,13 @@ export class BatchStore {
     this.lazyListHasMore = r.lazyListHasMore;
     this.offset = r.offset;
     this.batches = reset ? r.data : [...this.batches, ...r.data];
+  };
+
+  updateWetBatch = async (keyName, body) => {
+    const r = await axUpdateWetBatch(keyName, body);
+    if (r.success) {
+      this.batches = updateArrayImmutable(this.batches, "batchId", r.body);
+    }
   };
 }
 

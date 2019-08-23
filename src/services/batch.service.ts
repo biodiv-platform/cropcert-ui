@@ -54,8 +54,7 @@ export const axLazyListBatch = async (type, params) => {
       data,
     };
   } catch (e) {
-    console.error(e);
-    notification(MESSAGE.ERROR);
+    notification(e);
     return {
       success: false,
       offset: params.offset,
@@ -65,15 +64,17 @@ export const axLazyListBatch = async (type, params) => {
   }
 };
 
-export const axUpdateWetBatch = async (endpoint, body) => {
+export const axUpdateWetBatch = async (keyName, body) => {
   try {
-    await http.put(endpoint, body);
+    const r = await http.put(
+      `${ENDPOINT.TRACEABILITY}/wetbatch/${keyName}`,
+      body
+    );
     notification(MESSAGE.SUCCESS, "success");
-    return { success: true, id: body.id };
+    return { success: true, body: r.data };
   } catch (e) {
-    console.error(e);
-    notification(MESSAGE.ERROR);
-    return { success: false };
+    notification(e);
+    return { success: false, body: {} };
   }
 };
 

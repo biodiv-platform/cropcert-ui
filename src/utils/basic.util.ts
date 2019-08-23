@@ -2,6 +2,25 @@ import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import queryString from "query-string";
 
+/**
+ * Immutably updates row into Array
+ *
+ * @param {any[]} array
+ * @param {string} key
+ * @param {*} row
+ * @returns {any[]}
+ */
+export const updateArrayImmutable = (
+  array: any[],
+  key: string,
+  row: any
+): any[] => {
+  const index = array.findIndex(o => o[key] === row[key]);
+  return index > -1
+    ? [...array.slice(0, index), row, ...array.slice(index + 1)]
+    : [...array, row];
+};
+
 export const getToday = () => {
   return dayjs().format("YYYY-MM-DD");
 };

@@ -2,6 +2,12 @@
   --spacing-base: 2rem;
 }
 
+body {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif,
+    "apple color emoji", "segoe ui emoji", "noto color emoji", "android emoji",
+    "emojisymbols", "emojione mozilla", "twemoji mozilla", "segoe ui symbol";
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

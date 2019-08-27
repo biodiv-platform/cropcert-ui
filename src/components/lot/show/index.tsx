@@ -1,3 +1,4 @@
+import { Timeline } from "@components/lot/show/timeline";
 import { axGetLotById } from "@services/lot.service";
 import { Tag } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ export default function LotShow({ lotId = -1 }) {
       </h1>
       <BasicInfo lot={lot.data.lot} />
       <LotBatches lotId={lotId} batchType={lot.data.lot.type} />
-      <h2>Activities</h2>
+      <Timeline activities={lot.data.activities} />
     </>
   ) : (
     <>...</>

@@ -1,0 +1,71 @@
+@import "../../../../styles/variables";
+
+.eco--timeline-container {
+  display: block;
+
+  .eco--timeline-container-list {
+    margin: 0;
+    position: relative;
+    list-style: none;
+    &:before {
+      background-color: $text-01;
+      content: "";
+      margin-left: -1px;
+      position: absolute;
+      top: 0;
+      left: 2em;
+      width: 2px;
+      height: 100%;
+    }
+  }
+
+  .event {
+    position: relative;
+  }
+
+  .icon {
+    transform: rotate(45deg);
+    background-color: $text-01;
+    outline: 10px solid $ui-background;
+    display: block;
+    margin: 0.5em 0.5em 0.5em -0.5em;
+    position: absolute;
+    top: 0;
+    left: 2em;
+    width: 1em;
+    height: 1em;
+  }
+
+  .body {
+    padding: 2em 2em 0 2em;
+    position: relative;
+    top: -1.875em;
+    left: 2em;
+    width: 95%;
+  }
+
+  .title {
+    color: $ui-background;
+    background-color: $text-01;
+    display: inline-block;
+    margin-bottom: 1.2em;
+    padding: 0.25em 1em 0.2em 1em;
+  }
+
+  .description {
+    font-size: 1.2em;
+    span {
+      font-family: monospace;
+      margin: 0 5px;
+      padding: 3px 8px;
+      background: #f3f3f3;
+      border-radius: 1em;
+    }
+  }
+
+  .user {
+    svg {
+      vertical-align: top;
+    }
+  }
+}

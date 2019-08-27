@@ -74,13 +74,19 @@ function ListBatch({ CCAccessible }: IProps) {
       </div>
       <div className="bx--row">
         <div className="bx--col-lg-2 bx--col-md-12 mb-4">
-          <ContentSwitcher
-            onChange={({ name }) => {
-              setBatchType(name);
-            }}
-          >
-            <Switch name={BATCH_TYPE.WET} text={BATCH_TYPE.WET} />
-            <Switch name={BATCH_TYPE.DRY} text={BATCH_TYPE.DRY} />
+          <ContentSwitcher onChange={() => null}>
+            <Switch
+              text={BATCH_TYPE.WET}
+              onClick={() => {
+                setBatchType(BATCH_TYPE.WET);
+              }}
+            />
+            <Switch
+              text={BATCH_TYPE.DRY}
+              onClick={() => {
+                setBatchType(BATCH_TYPE.DRY);
+              }}
+            />
           </ContentSwitcher>
         </div>
         <div className="bx--col-lg-4 bx--col-md-12 mb-4">

@@ -22,7 +22,15 @@ export default function LotShow({ lotId = -1 }) {
         </Tag>
       </h1>
       <BasicInfo lot={lot.data.lot} />
+
       <LotBatches lotId={lotId} batchType={lot.data.lot.type} />
+
+      <h2>📗 Green Report</h2>
+      <p>Coming Soon</p>
+
+      <h2>☕ Cupping Report</h2>
+      <p>Coming Soon</p>
+
       <Timeline activities={lot.data.activities} />
     </>
   ) : (

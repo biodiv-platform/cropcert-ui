@@ -15,7 +15,7 @@ export default function LotBatches({ lotId, batchType }) {
 
   return (
     <>
-      <h2>Batches</h2>
+      <h2>📦 Batches</h2>
       <DataTable
         keyField="batchId"
         columns={batchType === BATCH_TYPE.WET ? columnsWet : columnsDry}

@@ -1,12 +1,11 @@
 import "./style.scss";
 
-import { UserAvatar16 } from "@carbon/icons-react";
 import { formattedTimeStamp } from "@utils/basic.util";
 import React from "react";
 
 export const Timeline = ({ activities }) => (
   <>
-    <h2>Activities</h2>
+    <h2>🕓 Activities</h2>
     <div className="eco--timeline-container">
       <ul className="eco--timeline-container-list">
         {activities.reverse().map(activity => (
@@ -43,7 +42,7 @@ const getMessage = (type, value) => {
     case "lotCreation":
       return (
         <>
-          📦 Created <span>Lot</span> named <span>{value}</span>
+          🚚 Created <span>Lot</span> named <span>{value}</span>
         </>
       );
 

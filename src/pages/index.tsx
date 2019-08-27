@@ -5,7 +5,7 @@ import React from "react";
 export default function index() {
   return (
     <Container>
-      <h1>🏠 Rwenzori Mountain Coffee Landing Page</h1>
+      <h1 className="eco--title">🏠 Rwenzori Mountain Coffee Landing Page</h1>
     </Container>
   );
 }

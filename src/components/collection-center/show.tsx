@@ -1,7 +1,7 @@
 import { Map32 } from "@carbon/icons-react";
+import FarmerListTable from "@components/farmer/list";
 import { axGetCCById } from "@services/cc.service";
 import React, { useEffect, useState } from "react";
-import FarmerListTable from "@components/farmer/list";
 
 const CCShow = ({ ccId }) => {
   const [cc, setCC] = useState({ success: false, data: {} as any });

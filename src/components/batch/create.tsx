@@ -5,7 +5,7 @@ import { TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import dayjs from "dayjs";
 import { Field, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 interface IProps {
@@ -13,6 +13,10 @@ interface IProps {
 }
 
 function BatchCreate({ CCAccessible }: IProps) {
+  useEffect(() => {
+    console.log(CCAccessible);
+  }, [CCAccessible]);
+
   const getCCById = id => {
     return CCAccessible.find(c => c.value.toString() === id.toString());
   };

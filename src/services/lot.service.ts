@@ -120,6 +120,20 @@ export const axUpdateLot = async (keyName, body, at) => {
   }
 };
 
+export const axGetLotById = async lotId => {
+  try {
+    const res = await http.get(`${ENDPOINT.API}/traceability/show`, {
+      params: {
+        lotId,
+      },
+    });
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
 const getCoCodes = async () => {
   if (hasAccess([ROLES.COOPERATIVE])) {
     return Promise.resolve(getUserKey("coCode"));

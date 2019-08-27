@@ -13,7 +13,7 @@ const BatchCreatePage = () => {
   }, []);
 
   return (
-    <Container roles={[ROLES.COOPERATIVE]}>
+    <Container roles={[ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER]}>
       <h1 className="eco--title">Create Batch</h1>
       {ccStore.CCAccessible.length > 0 && (
         <BatchCreate CCAccessible={ccStore.CCAccessible} />

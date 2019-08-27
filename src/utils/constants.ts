@@ -12,6 +12,7 @@ export const ENDPOINT = {
   USER: `${process.env.APP_ROOT}${process.env.ENDPOINT_USER}`,
   PAGES: `${process.env.APP_ROOT}${process.env.ENDPOINT_PAGES}`,
   TRACEABILITY: `${process.env.APP_ROOT}${process.env.ENDPOINT_TRACEABILITY}`,
+  API: `${process.env.APP_ROOT}${process.env.ENDPOINT_API}`,
 };
 
 export const TOKEN = {
@@ -23,7 +24,7 @@ export const TOKEN = {
 
 export const BACKGROUND = {
   WHITE: "#fff",
-  GRAY: "#f3f3f3",
+  GRAY: "#F0F0F0",
 };
 
 export const BATCH_TYPE = {

@@ -10,6 +10,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .eco--title {
   display: inline-block;
+  font-weight: 400;
 }
 
 .eco--w100 {
@@ -94,4 +95,14 @@ ol {
 
 .eco--sign-in {
   margin-top: calc(var(--spacing-base) * 2);
+}
+
+.bx--accordion {
+  margin-left: 0;
+}
+
+.eco--tag-heading {
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }

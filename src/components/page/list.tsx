@@ -119,7 +119,7 @@ export default function PageList({ pages }) {
     <>
       <div className="bx--row mt-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1>Static Pages</h1>
+          <h1 className="eco--title">Static Pages</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right mt-2">
           <Button className="ml-2" onClick={createRootPage}>

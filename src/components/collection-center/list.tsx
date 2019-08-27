@@ -21,7 +21,7 @@ export default function CollectionCenterListPage() {
 
   return (
     <>
-      <h1>Collection Centers</h1>
+      <h1 className="eco--title">Collection Centers</h1>
       {CCList.data.length > 0 && (
         <div className="bx--row">
           <div className="bx--col-lg-6 bx--col-md-12">

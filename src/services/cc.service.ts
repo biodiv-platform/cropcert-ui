@@ -16,7 +16,6 @@ export const axListCC = async () => {
 };
 
 export const axGetCCById = async id => {
-  console.log(id);
   try {
     const res = await http.get(`${ENDPOINT.USER}/cc/${id}`);
     return { success: true, data: res.data };
@@ -27,10 +26,9 @@ export const axGetCCById = async id => {
 };
 
 export const axListCCAccessible = async () => {
-  const coCode = getUserKey("coCode");
   const endpoint = hasAccess([ROLES.COOPERATIVE])
-    ? `cc/coCode/${coCode}`
-    : `cc/${coCode}`;
+    ? `cc/coCode/${getUserKey("coCode")}`
+    : `cc/${getUserKey("ccCode")}`;
   try {
     const res = await http.get(`${ENDPOINT.USER}/${endpoint}`);
     return Array.isArray(res.data) ? res.data : [res.data];

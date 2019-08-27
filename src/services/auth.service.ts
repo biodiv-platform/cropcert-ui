@@ -18,8 +18,9 @@ export const axSignIn = async body => {
 
 export const axGetUser = async () => {
   try {
-    const res = await http.get(`${ENDPOINT.USER}/auth/me`);
-    return res.data;
+    const res = await http.get(`${ENDPOINT.USER}/user/me`);
+    const { user, ...data } = res.data;
+    return { ...user, ...data };
   } catch (e) {
     console.error(e);
     return {};

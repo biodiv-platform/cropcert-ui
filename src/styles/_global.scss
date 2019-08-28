@@ -112,3 +112,35 @@ ol {
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
+.eco--panel,
+.eco--panel svg {
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.eco--lot-show-expand {
+  background: #e5e5e5;
+  padding: 2em;
+  .section {
+    display: inline-flex;
+  }
+  table {
+    min-width: 300px;
+    thead {
+      td {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+    td {
+      &:first-child {
+        width: 200px;
+      }
+      width: 50px;
+      padding: 10px;
+      text-align: left;
+    }
+  }
+}

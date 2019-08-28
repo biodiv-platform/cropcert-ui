@@ -1,10 +1,12 @@
 import { Timeline } from "@components/lot/show/timeline";
 import { axGetLotById } from "@services/lot.service";
-import { Tag } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
 
-import BasicInfo from "./basic-info";
-import LotBatches from "./batches";
+import LotBatches from "./lot-batches";
+import LotCuppingReport from "./lot-cupping";
+import LotGreenReport from "./lot-green";
+import LotInfo from "./lot-info";
+import LotName from "./lot-name";
 
 export default function LotShow({ lotId = -1 }) {
   const [lot, setLot] = useState({ success: false, data: {} as any });
@@ -15,22 +17,11 @@ export default function LotShow({ lotId = -1 }) {
 
   return lot.success ? (
     <>
-      <h1 className="eco--title mb-0">
-        Lot #{lot.data.lot.id}. {lot.data.lot.lotName}
-        <Tag className="eco--tag-heading" type="cyan">
-          {lot.data.lot.lotStatus}
-        </Tag>
-      </h1>
-      <BasicInfo lot={lot.data.lot} />
-
+      <LotName name={lot.data.lot.lotName} status={lot.data.lot.lotStatus} />
+      <LotInfo lot={lot.data.lot} />
       <LotBatches lotId={lotId} batchType={lot.data.lot.type} />
-
-      <h2>📗 Green Report</h2>
-      <p>Coming Soon</p>
-
-      <h2>☕ Cupping Report</h2>
-      <p>Coming Soon</p>
-
+      <LotGreenReport reports={lot.data.quality_report} />
+      <LotCuppingReport reports={lot.data.cupping_report} />
       <Timeline activities={lot.data.activities} />
     </>
   ) : (

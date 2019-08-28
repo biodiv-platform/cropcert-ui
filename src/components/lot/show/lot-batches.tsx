@@ -4,6 +4,8 @@ import { BATCH_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component-tmp";
 
+import LotShowPanel from "./panel";
+
 export default function LotBatches({ lotId, batchType }) {
   const [rows, setRows] = useState([] as any);
 
@@ -14,14 +16,13 @@ export default function LotBatches({ lotId, batchType }) {
   }, [lotId]);
 
   return (
-    <>
-      <h2>📦 Batches</h2>
+    <LotShowPanel title="📦 Batches">
       <DataTable
         keyField="batchId"
         columns={batchType === BATCH_TYPE.WET ? columnsWet : columnsDry}
         noHeader={true}
         data={rows}
       />
-    </>
+    </LotShowPanel>
   );
 }

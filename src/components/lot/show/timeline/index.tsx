@@ -3,9 +3,10 @@ import "./style.scss";
 import { formattedTimeStamp } from "@utils/basic.util";
 import React from "react";
 
+import LotShowPanel from "../panel";
+
 export const Timeline = ({ activities }) => (
-  <>
-    <h2>🕓 Activities</h2>
+  <LotShowPanel title="🕓 Activities">
     <div className="eco--timeline-container">
       <ul className="eco--timeline-container-list">
         {activities.reverse().map(activity => (
@@ -13,7 +14,7 @@ export const Timeline = ({ activities }) => (
         ))}
       </ul>
     </div>
-  </>
+  </LotShowPanel>
 );
 
 const Event = ({ activity }) => (

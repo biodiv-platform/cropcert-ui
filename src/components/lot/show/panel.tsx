@@ -2,8 +2,8 @@ import { ChevronDown24, ChevronRight24 } from "@carbon/icons-react";
 import useToggle from "@rooks/use-toggle";
 import React from "react";
 
-export default function LotShowPanel({ title, children }) {
-  const [show, toggleShow] = useToggle(true);
+export default function LotShowPanel({ title, children, isOpen = false }) {
+  const [show, toggleShow] = useToggle(isOpen);
 
   return (
     <>

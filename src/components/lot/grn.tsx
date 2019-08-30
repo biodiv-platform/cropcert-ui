@@ -2,7 +2,7 @@ import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { DATATYPE, ENDPOINT, LOT_AT } from "@utils/constants";
+import { DATATYPE, LOT_AT } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component-tmp";

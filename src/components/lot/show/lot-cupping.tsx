@@ -7,7 +7,7 @@ import LotShowPanel from "./panel";
 
 export default function LotCuppingReport({ reports }) {
   return (
-    <LotShowPanel title="☕ Cupping Report">
+    <LotShowPanel title={`☕ Cupping Report (${reports.length})`}>
       <DataTable
         keyField="id"
         columns={CuppingReportHeader}

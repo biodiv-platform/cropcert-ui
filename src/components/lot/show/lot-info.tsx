@@ -28,7 +28,7 @@ export default function BasicInfo({ lot }) {
   ];
 
   return (
-    <LotShowPanel title="ℹ️ Information">
+    <LotShowPanel title="ℹ️ Information" isOpen={true}>
       <DataTable
         keyField="id"
         columns={basicInfoHeader}

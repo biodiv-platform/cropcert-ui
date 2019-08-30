@@ -169,7 +169,7 @@ export default class GreenReport extends Component<IProps> {
   };
 
   handleSubmit = (values, actions) => {
-    const { grnNumber, ...v } = actions;
+    const { grnNumber, ...v } = values;
     actions.setSubmitting(false);
     axCreateGreenReport({
       ...v,

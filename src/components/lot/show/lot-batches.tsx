@@ -16,7 +16,7 @@ export default function LotBatches({ lotId, batchType }) {
   }, [lotId]);
 
   return (
-    <LotShowPanel title="📦 Batches">
+    <LotShowPanel title={`📦 Batches (${rows.length})`}>
       <DataTable
         keyField="batchId"
         columns={batchType === BATCH_TYPE.WET ? columnsWet : columnsDry}

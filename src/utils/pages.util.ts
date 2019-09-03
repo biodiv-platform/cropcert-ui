@@ -50,3 +50,14 @@ export const flatToTree = (rows, options?: FlatOption) => {
 
   return nodes;
 };
+
+export const treeToFlat = (tree, parentId = -1) => {
+  let flatTree: any = [];
+  tree.map((o, i) => {
+    flatTree.push({ id: o.id, index: i, parentId });
+    if (o.hasOwnProperty("children")) {
+      flatTree = [...flatTree, ...treeToFlat(o.children, o.id)];
+    }
+  });
+  return flatTree;
+};

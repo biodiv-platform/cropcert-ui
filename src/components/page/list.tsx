@@ -8,6 +8,7 @@ import { Button, Search } from "carbon-components-react";
 import { navigate } from "gatsby";
 import React, { useEffect, useState } from "react";
 import SortableTree, { toggleExpandedForAll } from "react-sortable-tree";
+import { treeToFlat } from "@utils/pages.util";
 
 export default function PageList({ pages }) {
   const [searchString, setSearchString] = useState("");
@@ -94,11 +95,15 @@ export default function PageList({ pages }) {
     navigate("/page/manage?parentId=-1&mode=create");
   };
 
+  const handleMoveNode = e => {
+    console.log(treeToFlat(e.treeData));
+  };
+
   const RenderSortableTree = () => (
     <SortableTree
       treeData={treeData}
       onChange={handleTreeOnChange}
-      onMoveNode={console.log}
+      onMoveNode={handleMoveNode}
       maxDepth={5}
       searchQuery={searchString}
       searchFocusOffset={searchFocusIndex}

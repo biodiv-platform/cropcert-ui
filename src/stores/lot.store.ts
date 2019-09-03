@@ -29,6 +29,7 @@ export class LotStore {
     if (r.success) {
       this.lots = updateArrayImmutable(this.lots, "id", r.body);
     }
+    return r.success;
   };
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 
 import LotShowPanel from "./panel";
 
@@ -28,7 +28,7 @@ export default function BasicInfo({ lot }) {
   ];
 
   return (
-    <LotShowPanel title="ℹ️ Information" isOpen={true}>
+    <LotShowPanel icon="ℹ" title="Information" isOpen={true}>
       <DataTable
         keyField="id"
         columns={basicInfoHeader}

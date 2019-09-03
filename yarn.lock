@@ -6976,7 +6976,7 @@ mem@^4.0.0:
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
 
-memoize-one@^5.0.0, memoize-one@^5.0.5:
+memoize-one@^5.0.0, memoize-one@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.1.1.tgz#047b6e3199b508eaec03504de71229b8eb1d75c0"
   integrity sha512-HKeeBpWvqiVJD57ZUAsJNm71eHTykffzcLZVYWiVfQeI1rJtuEaS7hQiEpWfVVk18donPwJEcFKIkCmPJNOhHA==
@@ -7281,9 +7281,9 @@ nan@^2.12.1, nan@^2.13.2, nan@^2.14.0:
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
 nanoid@^2.0.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.3.tgz#dde999e173bc9d7bd2ee2746b89909ade98e075e"
-  integrity sha512-NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.0.tgz#3de3dbd68cfb2f3bd52550e2bfd439cf75040eb2"
+  integrity sha512-g5WwS+p6Cm+zQhO2YOpRbQThZVnNb7DDq74h8YDCLfAGynrEOrbx2E16dc8ciENiP1va5sqaAruqn2sN+xpkWg==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -8869,13 +8869,13 @@ react-clock@^2.3.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-data-table-component-tmp@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/react-data-table-component-tmp/-/react-data-table-component-tmp-3.0.4.tgz#e4ebe50a636e15c2c316440778f60ea2555b63b5"
-  integrity sha512-HTq6iOA/RJIMl5aAARBLBRqZRg2s29Up31yW/AjxCHY5T8wilc4RuETdo1NcgvfUyJlBRujpDsbERDxD8zhpHQ==
+react-data-table-component@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-3.4.0.tgz#647a694eda77553d906c47f08d039482cf35f501"
+  integrity sha512-rrafvMrdDNUhZV6i6BR19XjGksERzZx+vewnbZY9Skb4day1JZh+izZDj/pAP6keaKadRvtv7ty8G95r5KdF/Q==
   dependencies:
     lodash "^4.17.15"
-    memoize-one "^5.0.5"
+    memoize-one "^5.1.1"
     shortid "^2.2.14"
 
 react-date-picker@^7.8.0:

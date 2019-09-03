@@ -1,7 +1,7 @@
 import { axGetBatchesByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 
 import { columnsDry, columnsWetExpand } from "./batch.columns";
 

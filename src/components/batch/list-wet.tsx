@@ -10,7 +10,7 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 interface IProps {
@@ -186,6 +186,7 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
           columns={columns}
           noHeader={true}
           selectableRows={true}
+          selectableRowsDisabledField="disabled"
           onRowSelected={e => {
             setSelectedRows(e.selectedRows);
           }}

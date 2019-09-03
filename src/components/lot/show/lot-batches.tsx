@@ -2,7 +2,7 @@ import { columnsDry, columnsWet } from "@components/batch/batch.columns";
 import { axGetBatchesByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 
 import LotShowPanel from "./panel";
 
@@ -16,7 +16,7 @@ export default function LotBatches({ lotId, batchType }) {
   }, [lotId]);
 
   return (
-    <LotShowPanel title={`📦 Batches (${rows.length})`}>
+    <LotShowPanel icon="📦" title="Batch(s)" count={rows.length}>
       <DataTable
         keyField="batchId"
         columns={batchType === BATCH_TYPE.WET ? columnsWet : columnsDry}

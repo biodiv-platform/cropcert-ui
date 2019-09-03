@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 
 import { ExpandedSection } from "./expand";
 import { CuppingReportExpand, CuppingReportHeader } from "./models";
@@ -7,7 +7,7 @@ import LotShowPanel from "./panel";
 
 export default function LotCuppingReport({ reports }) {
   return (
-    <LotShowPanel title={`☕ Cupping Report (${reports.length})`}>
+    <LotShowPanel icon="☕" title="Cupping Report(s)" count={reports.length}>
       <DataTable
         keyField="id"
         columns={CuppingReportHeader}

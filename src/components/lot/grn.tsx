@@ -5,7 +5,7 @@ import LotStore from "@stores/lot.store";
 import { DATATYPE, LOT_AT } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
@@ -45,9 +45,11 @@ function GRNLots() {
 
   const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      await lotStore.updateLot(keyName, body, LOT_AT.UNION);
+      const isUpdated = await lotStore.updateLot(keyName, body, LOT_AT.UNION);
+      if (isUpdated) {
+        setIsModalOpen(false);
+      }
     }
-    setIsModalOpen(false);
   };
 
   return (

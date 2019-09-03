@@ -5,7 +5,7 @@ import { LOT_AT, REPORT_TYPE } from "@utils/constants";
 import { Link } from "gatsby";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "../lot.columns";

@@ -9,7 +9,7 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDry, columnsWet } from "./batch.columns";
@@ -112,6 +112,7 @@ function ListBatch({ CCAccessible }: IProps) {
           columns={batchType === BATCH_TYPE.DRY ? columnsDry : columnsWet}
           noHeader={true}
           selectableRows={true}
+          selectableRowsDisabledField="disabled"
           onRowSelected={e => {
             setSelectedRows(
               e.selectedRows.map(o => toJS(o)).filter(o => o.type === batchType)

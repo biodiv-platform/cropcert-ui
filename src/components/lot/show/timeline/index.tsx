@@ -6,7 +6,7 @@ import React from "react";
 import LotShowPanel from "../panel";
 
 export const Timeline = ({ activities }) => (
-  <LotShowPanel title={`🕓 Activities (${activities.length})`}>
+  <LotShowPanel icon="🕓" title="Activity(s)" count={activities.length}>
     <div className="eco--timeline-container">
       <ul className="eco--timeline-container-list">
         {activities.reverse().map(activity => (

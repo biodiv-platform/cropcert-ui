@@ -46,6 +46,10 @@ export const camelCaseToStartCase = camelCase => {
     .replace("Grn", "GRN");
 };
 
+export const elipsis = (txt, max = 20, add = "...") => {
+  return txt.length > max ? txt.substring(0, max).trim() + add : txt;
+};
+
 export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format("DD-MM-YYYY HH:mm");
 };

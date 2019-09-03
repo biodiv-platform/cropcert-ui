@@ -2,7 +2,7 @@ import { axListCC } from "@services/cc.service";
 import { isBrowser, MAP } from "@utils/constants";
 import L from "leaflet";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
 import ListColumns from "./list-columns";

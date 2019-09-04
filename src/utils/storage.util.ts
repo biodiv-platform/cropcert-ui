@@ -1,4 +1,5 @@
 const localStorageSupported =
+  typeof window !== "undefined" &&
   typeof window["localStorage"] !== "undefined" &&
   window["localStorage"] !== null;
 

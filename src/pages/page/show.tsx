@@ -18,7 +18,7 @@ const ShowPage = ({ query }) => {
     <Container>
       {page.success && (
         <div className="blog">
-          <h1>{page.data.title}</h1>
+          <h1>{page.data.heading}</h1>
           <div dangerouslySetInnerHTML={{ __html: page.data.content }} />
         </div>
       )}

@@ -7,8 +7,6 @@ import SimpleuploadPlugin from "ckeditor5-simple-upload/src/simpleupload";
 import React from "react";
 
 export default function Editor({ data, token, onUpdate }) {
-  console.log(token);
-
   return (
     <CKEditor
       editor={DecoupledEditor}

@@ -69,6 +69,7 @@ export const MESSAGE = {
   SUCCESS: "operation completed successfully",
   ERROR: "There was an error while performing this operation",
   INVALID_CREDENTIALS: "Invalid credentials",
+  TREE_UPDATE_SUCCESS: "Page(s) order updated successfully",
 };
 
 export const OPERATION_MESSAGES = {

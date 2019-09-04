@@ -25,6 +25,7 @@ export default function ManagePage({ mode, page, id }) {
     validationSchema: Yup.object().shape({
       title: Yup.string().required(),
       content: Yup.string().required(),
+      heading: Yup.string().required(),
       authorId: Yup.string().required(),
     }),
   };
@@ -53,12 +54,15 @@ export default function ManagePage({ mode, page, id }) {
       render={props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
           <div className="bx--row">
+            <div className="bx--col-lg-4 bx--col-sm-12">
+              <Field label="Menu Heading" name="title" component={textInput} />
+            </div>
             <div className="bx--col-lg-8 bx--col-sm-12">
-              <Field label="Title" name="title" component={textInput} />
+              <Field label="Page Title" name="heading" component={textInput} />
             </div>
           </div>
           <div className="bx--row">
-            <div className="bx--col-lg-8 bx--col-sm-12">
+            <div className="bx--col-lg-12 bx--col-sm-12">
               <Field label="Content" name="content" component={ckInput} />
             </div>
           </div>

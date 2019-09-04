@@ -1,61 +1,66 @@
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display:700i,900");
-
 .blog {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 
-  h1,
-  h2,
+  img {
+    max-width: 100%;
+  }
+
   p,
-  i,
-  a,
-  .first-letter,
-  .authorName a {
-    color: rgba(0, 0, 0, 0.84);
-    text-rendering: optimizeLegibility;
+  h1,
+  h2 {
+    line-height: 1em;
+    margin-bottom: 0.4em;
+    font-weight: 500;
+    padding: 0;
   }
 
   h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 48px;
-    text-align: left;
-    margin-bottom: 8px;
+    font-size: 3.7em;
+    margin: 0.75em 0;
+    font-style: italic;
   }
 
   h2 {
-    font-size: 26px;
-    font-weight: 700;
-    padding: 0;
-    margin: 36px 0 20px -1.883px;
-    text-align: left;
-    line-height: 34.5px;
-    letter-spacing: -0.45px;
+    font-size: 2.25em;
+    margin-top: 1em;
   }
 
-  p {
-    margin: 21px 0;
-    font-size: 21px;
-    letter-spacing: -0.03px;
+  p,
+  ol,
+  ul {
+    font-family: Palatino, "Palatino Linotype", "Palatino LT STD",
+      "Book Antiqua", Georgia, serif;
+    font-weight: 300;
+    margin-bottom: 1.25rem;
+    font-size: 1.5em;
     line-height: 1.58;
+    font-weight: 400;
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  ol,
+  ul {
+    margin-left: 20px;
   }
 
   a {
-    text-decoration: underline;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   blockquote {
-    font-family: "Playfair Display", serif;
-    font-size: 30px;
     font-style: italic;
-    letter-spacing: -0.36px;
-    line-height: 44.4px;
-    overflow-wrap: break-word;
-    margin: 55px 0 33px 0;
-    /* text-align: center; */
-    color: rgba(0, 0, 0, 0.68);
-    padding: 0 0 0 50px;
+    margin-left: -20px;
+    padding-left: 23px;
+    box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
   }
 
   code {
@@ -65,20 +70,13 @@
     padding: 3px 5px;
   }
 
-  .first-letter {
-    overflow-wrap: break-word;
-    font-family: "Playfair Display", serif;
-    font-size: 60px;
-    line-height: 60px;
-    display: block;
-    position: relative;
-    float: left;
-    margin: 0px 7px 0 -5px;
-  }
-
-  .subtitle {
-    color: rgba(0, 0, 0, 0.54);
-    margin: 0 0 24px 0;
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.4em;
+    }
+    h2 {
+      font-size: 2em;
+    }
   }
 
   @media (min-width: 768px) {

@@ -1,9 +1,24 @@
+import dayjs from "dayjs";
 import { navigate } from "gatsby";
 
-import { isBrowser, ROLES } from "./constants";
+import { isBrowser, ROLES, TOKEN } from "./constants";
+import storage from "./storage.util";
 import { getUser } from "./user.util";
 
-export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED]) => {
+interface Session {
+  accessToken: string;
+  refreshToken: string;
+  timeout: string;
+  isExpired?: boolean;
+}
+
+/**
+ * Role based access validation
+ *
+ * @param {string[]} [roles=[ROLES.UNAUTHORIZED]]
+ * @returns {boolean}
+ */
+export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED]): boolean => {
   if (roles.includes(ROLES.UNAUTHORIZED)) {
     return true;
   }
@@ -11,7 +26,7 @@ export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED]) => {
   if (isBrowser) {
     const user = getUser();
     if (user.hasOwnProperty("role")) {
-      checkSessionExpired(user.lts);
+      checkSessionExpired();
       if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
         return true;
       }
@@ -21,12 +36,42 @@ export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED]) => {
   return false;
 };
 
-/*
- * Temp Fix for session expiration after 2 Hours
+/**
+ * Sets/Updates session to localStorage
+ *
+ * @param {*} { access_token, refresh_token, timeout }
  */
-const checkSessionExpired = (lts = 0) => {
-  const diff = (new Date().getTime() - lts) / 60000;
-  if (diff > 120) {
+export const setSession = ({ access_token, refresh_token, timeout }) => {
+  storage.set(TOKEN.ACCESS, access_token);
+  storage.set(TOKEN.REFRESH, refresh_token);
+  storage.set(TOKEN.TIMEOUT, timeout);
+};
+
+/**
+ * Retrive session tokens from localStorage
+ *
+ * @returns {Session}
+ */
+export const getSession = (): Session => {
+  const accessToken = storage.get(TOKEN.ACCESS);
+  const refreshToken = storage.get(TOKEN.REFRESH);
+  const timeout = storage.get(TOKEN.TIMEOUT, 0);
+  const isExpired = dayjs(timeout).isBefore(dayjs());
+  return {
+    accessToken,
+    refreshToken,
+    timeout,
+    isExpired,
+  };
+};
+
+/**
+ * Redirect to `sign-out` page if session is expired
+ *
+ */
+const checkSessionExpired = () => {
+  const timeout = storage.get(TOKEN.TIMEOUT, 0);
+  if (dayjs(timeout).isBefore(dayjs())) {
     console.info("❌ Session expired");
     navigate("/auth/sign-out");
   }

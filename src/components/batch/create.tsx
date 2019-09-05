@@ -5,7 +5,7 @@ import { TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import dayjs from "dayjs";
 import { Field, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 interface IProps {
@@ -13,15 +13,15 @@ interface IProps {
 }
 
 function BatchCreate({ CCAccessible }: IProps) {
-  const getCCById = ccId => {
-    return CCAccessible.find(c => c.value.toString() === ccId.toString());
+  const getCCById = id => {
+    return CCAccessible.find(c => c.value.toString() === id.toString());
   };
 
-  const getTypeOptions = (ccId?) => {
-    if (!ccId) {
-      ccId = CCAccessible[0].id;
+  const getTypeOptions = (id?) => {
+    if (!id) {
+      id = CCAccessible[0].id;
     }
-    const ccType = getCCById(ccId);
+    const ccType = getCCById(id);
     switch (ccType.type) {
       case "D":
         return [TYPE_OPTIONS.DRY];
@@ -45,7 +45,7 @@ function BatchCreate({ CCAccessible }: IProps) {
       date: Yup.date().required(),
     }),
     initialValues: {
-      ccCode: CCAccessible[0].value,
+      ccCode: CCAccessible[0].id,
       type: getTypeOptions()[0].value,
       quantity: 0,
       date: getToday(),

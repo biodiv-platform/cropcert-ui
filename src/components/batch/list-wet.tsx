@@ -2,16 +2,16 @@ import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import MultiSelect from "@khanacademy/react-multi-select";
 import BatchStore from "@stores/batch.store";
-import { BATCH_TYPE, DATATYPE, ENDPOINT } from "@utils/constants";
+import { local2utc } from "@utils/basic.util";
+import { BATCH_TYPE, DATATYPE } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
-import { local2utc } from "@utils/basic.util";
 
 interface IProps {
   CCAccessible: any[];
@@ -123,11 +123,11 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
     batchStore.lazyList(true, batchType, ccCodes, false);
   }, [ccCodes]);
 
-  const onClose = (updated = false) => {
-    setIsModalOpen(false);
+  const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      batchStore.lazyList(true, batchType, ccCodes, false);
+      await batchStore.updateWetBatch(keyName, body);
     }
+    setIsModalOpen(false);
   };
 
   const handleFinalizeWetBatch = () => {
@@ -144,7 +144,6 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
         isOpen={isDateModalOpen}
         onClose={onClose}
         keyId="batchId"
-        endpoint={`${ENDPOINT.TRACEABILITY}/wetbatch/`}
         {...modalData}
       />
 
@@ -187,6 +186,7 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
           columns={columns}
           noHeader={true}
           selectableRows={true}
+          selectableRowsDisabledField="disabled"
           onRowSelected={e => {
             setSelectedRows(e.selectedRows);
           }}

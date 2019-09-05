@@ -8,7 +8,7 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
@@ -76,11 +76,11 @@ function MillingLots() {
     });
   };
 
-  const onClose = (updated = false) => {
-    setIsModalOpen(false);
+  const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      lotStore.lazyList(true, LOT_AT.FACTORY);
+      await lotStore.updateLot(keyName, body, LOT_AT.FACTORY);
     }
+    setIsModalOpen(false);
   };
 
   return (
@@ -89,7 +89,6 @@ function MillingLots() {
         isOpen={isDateModalOpen}
         onClose={onClose}
         keyId="id"
-        endpoint={`${ENDPOINT.TRACEABILITY}/lot/`}
         {...modalData}
       />
 
@@ -123,6 +122,7 @@ function MillingLots() {
           columns={columns}
           noHeader={true}
           selectableRows={true}
+          selectableRowsDisabledField="disabled"
           onRowSelected={e => {
             setSelectedRows(e.selectedRows.map(o => toJS(o)));
           }}

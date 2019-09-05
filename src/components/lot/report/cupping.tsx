@@ -14,7 +14,7 @@ interface IProps {
   outTurn;
   quantity;
   grnNumber;
-  coOperativeName;
+  cooperativeName;
   ccNames;
 }
 
@@ -53,7 +53,7 @@ export default class CuppingComponent extends Component<IProps> {
       lotName: this.props.lotName,
       lotId: this.props.id,
       date: getToday(),
-      cfa: this.props.coOperativeName,
+      cfa: this.props.cooperativeName,
       ccName: this.props.ccNames.toString(),
 
       cupper: this.props.cupper,

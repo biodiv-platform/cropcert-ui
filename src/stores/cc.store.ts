@@ -8,11 +8,11 @@ export class CCStore {
   listCCAccessible = async () => {
     const list = await axListCCAccessible();
     this.CCAccessible = list.map(c => ({
-      name: `${c.ccId} - ${c.ccName}`,
-      label: `${c.ccId} - ${c.ccName}`,
-      value: c.ccId,
-      id: c.ccId,
-      ccName: c.ccName,
+      name: c.name,
+      label: c.name,
+      value: c.id,
+      id: c.id,
+      ccName: c.name,
       type: c.type,
     }));
   };

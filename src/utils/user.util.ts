@@ -1,20 +1,13 @@
-import react from "react";
-import { isBrowser } from "./constants";
+import storage from "./storage.util";
 
-const KEY_USER = "ecoUser";
+const KEY_USER = "__user";
 
-export const getUser = () => JSON.parse(localStorage.getItem(KEY_USER) || "{}");
-
-export const getUserKey = key => {
-  const value = getUser();
-  return value && value.hasOwnProperty(key) ? value[key] : undefined;
+export const setUser = data => {
+  storage.set(KEY_USER, data);
 };
 
-export const setUser = (user = {}) => {
-  localStorage.setItem(
-    KEY_USER,
-    JSON.stringify({ ...user, lts: new Date().getTime() })
-  );
-};
+export const getUser = () => storage.get(KEY_USER, {});
 
-export const removeUser = () => isBrowser && localStorage.removeItem(KEY_USER);
+export const getUserKey = key => getUser()[key];
+
+export const removeUser = () => storage.remove(KEY_USER);

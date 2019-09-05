@@ -1,3 +1,13 @@
+:root {
+  --spacing-base: 2rem;
+}
+
+body {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif,
+    "apple color emoji", "segoe ui emoji", "noto color emoji", "android emoji",
+    "emojisymbols", "emojione mozilla", "twemoji mozilla", "segoe ui symbol";
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -6,6 +16,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .eco--title {
   display: inline-block;
+  font-weight: 400;
 }
 
 .eco--w100 {
@@ -58,10 +69,6 @@ input[type="date"]::-webkit-outer-spin-button {
   }
 }
 
-.ck-content {
-  min-height: 200px;
-}
-
 ol,
 ul {
   list-style: initial;
@@ -90,4 +97,50 @@ ol {
 .leaflet-container {
   height: 70vh;
   margin-bottom: 2rem;
+}
+
+.eco--sign-in {
+  margin-top: calc(var(--spacing-base) * 2);
+}
+
+.bx--accordion {
+  margin-left: 0;
+}
+
+.eco--tag-heading {
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.eco--panel,
+.eco--panel svg {
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.eco--lot-show-expand {
+  background: #e5e5e5;
+  padding: 2em;
+  .section {
+    display: inline-flex;
+  }
+  table {
+    min-width: 300px;
+    thead {
+      td {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+    td {
+      &:first-child {
+        width: 200px;
+      }
+      width: 50px;
+      padding: 10px;
+      text-align: left;
+    }
+  }
 }

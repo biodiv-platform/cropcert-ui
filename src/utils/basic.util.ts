@@ -2,6 +2,25 @@ import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import queryString from "query-string";
 
+/**
+ * Immutably updates row into Array
+ *
+ * @param {any[]} array
+ * @param {string} key
+ * @param {*} row
+ * @returns {any[]}
+ */
+export const updateArrayImmutable = (
+  array: any[],
+  key: string,
+  row: any
+): any[] => {
+  const index = array.findIndex(o => o[key] === row[key]);
+  return index > -1
+    ? [...array.slice(0, index), row, ...array.slice(index + 1)]
+    : [...array, row];
+};
+
 export const getToday = () => {
   return dayjs().format("YYYY-MM-DD");
 };
@@ -25,6 +44,10 @@ export const camelCaseToStartCase = camelCase => {
     .replace(/([a-z])([0-9])/gi, "$1 $2")
     .replace(/([0-9])([a-z])/gi, "$1 $2")
     .replace("Grn", "GRN");
+};
+
+export const elipsis = (txt, max = 20, add = "...") => {
+  return txt.length > max ? txt.substring(0, max).trim() + add : txt;
 };
 
 export const formattedTimeStamp = (d = new Date()) => {

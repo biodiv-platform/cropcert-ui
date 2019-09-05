@@ -1,3 +1,7 @@
+import "@styles/theme.scss";
+// tslint:disable-next-line: ordered-imports
+import "@styles/index.scss";
+
 import { hasAccess } from "@utils/auth.util";
 import { BACKGROUND } from "@utils/constants";
 import React from "react";

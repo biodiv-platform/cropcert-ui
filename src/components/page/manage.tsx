@@ -1,14 +1,11 @@
 import "@styles/medium.scss";
 
-import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-import CKEditor from "@ckeditor/ckeditor5-react";
 import { textInput } from "@components/@core/formik";
+import ckInput from "@components/@core/formik/ckInput";
 import { axUpdatePage } from "@services/pages.services";
 import { local2utc, messageRedirect } from "@utils/basic.util";
-import { ENDPOINT } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button } from "carbon-components-react";
-import SimpleuploadPlugin from "ckeditor5-simple-upload/src/simpleupload";
 import { Field, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -19,7 +16,7 @@ export default function ManagePage({ mode, page, id }) {
   useEffect(() => {
     setInitialValues(
       mode !== "edit"
-        ? { ...page, parentId: id, authorId: getUserKey("id") }
+        ? { content: "", ...page, parentId: id, authorId: getUserKey("id") }
         : page
     );
   }, [page]);
@@ -28,6 +25,7 @@ export default function ManagePage({ mode, page, id }) {
     validationSchema: Yup.object().shape({
       title: Yup.string().required(),
       content: Yup.string().required(),
+      heading: Yup.string().required(),
       authorId: Yup.string().required(),
     }),
   };
@@ -56,33 +54,16 @@ export default function ManagePage({ mode, page, id }) {
       render={props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
           <div className="bx--row">
+            <div className="bx--col-lg-4 bx--col-sm-12">
+              <Field label="Menu Heading" name="title" component={textInput} />
+            </div>
             <div className="bx--col-lg-8 bx--col-sm-12">
-              <Field label="Title" name="title" component={textInput} />
+              <Field label="Page Title" name="heading" component={textInput} />
             </div>
           </div>
           <div className="bx--row">
-            <div className="bx--col-lg-8 bx--col-sm-12">
-              <CKEditor
-                editor={DecoupledEditor}
-                onInit={editor => {
-                  editor.ui
-                    .getEditableElement()
-                    .parentElement.insertBefore(
-                      editor.ui.view.toolbar.element,
-                      editor.ui.getEditableElement()
-                    );
-                }}
-                data={props.values.content}
-                config={{
-                  extraPlugins: [SimpleuploadPlugin],
-                  simpleUpload: {
-                    uploadUrl: `${ENDPOINT.PAGES}/image`,
-                  },
-                }}
-                onChange={(event, editor) => {
-                  props.setFieldValue("content", editor.getData());
-                }}
-              />
+            <div className="bx--col-lg-12 bx--col-sm-12">
+              <Field label="Content" name="content" component={ckInput} />
             </div>
           </div>
           <br />

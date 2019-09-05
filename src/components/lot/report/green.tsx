@@ -14,7 +14,7 @@ interface IProps {
   outTurn;
   quantity;
   grnNumber;
-  coOperativeName;
+  cooperativeName;
   ccNames;
 }
 
@@ -73,7 +73,7 @@ export default class GreenReport extends Component<IProps> {
       lotName: this.props.lotName,
       lotId: this.props.id,
       date: getToday(),
-      cfa: this.props.coOperativeName,
+      cfa: this.props.cooperativeName,
       ccName: this.props.ccNames.toString(),
 
       coffeeType: this.props.type,
@@ -169,7 +169,7 @@ export default class GreenReport extends Component<IProps> {
   };
 
   handleSubmit = (values, actions) => {
-    const { grnNumber, ...v } = actions;
+    const { grnNumber, ...v } = values;
     actions.setSubmitting(false);
     axCreateGreenReport({
       ...v,

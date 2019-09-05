@@ -4,6 +4,8 @@ import ArrowLeft from "@carbon/icons-react/es/arrow--left/20";
 import ArrowRight from "@carbon/icons-react/es/arrow--right/20";
 import DocumentAdd from "@carbon/icons-react/es/document--add/20";
 import Edit from "@carbon/icons-react/es/edit/20";
+import { axUpdateTree } from "@services/pages.services";
+import { treeToFlat } from "@utils/pages.util";
 import { Button, Search } from "carbon-components-react";
 import { navigate } from "gatsby";
 import React, { useEffect, useState } from "react";
@@ -14,6 +16,7 @@ export default function PageList({ pages }) {
   const [searchFocusIndex, setSearchFocusIndex] = useState(0);
   const [searchFoundCount, setSearchFoundCount] = useState(0);
   const [treeData, setTreeData] = useState([] as any);
+  const [flatOrder, setFlatOrder] = useState([] as any);
 
   useEffect(() => {
     setTreeData(pages);
@@ -94,11 +97,19 @@ export default function PageList({ pages }) {
     navigate("/page/manage?parentId=-1&mode=create");
   };
 
+  const handleMoveNode = e => {
+    setFlatOrder(treeToFlat(e.treeData));
+  };
+
+  const saveUpdatedTree = () => {
+    axUpdateTree(flatOrder);
+  };
+
   const RenderSortableTree = () => (
     <SortableTree
       treeData={treeData}
       onChange={handleTreeOnChange}
-      onMoveNode={console.log}
+      onMoveNode={handleMoveNode}
       maxDepth={5}
       searchQuery={searchString}
       searchFocusOffset={searchFocusIndex}
@@ -119,11 +130,12 @@ export default function PageList({ pages }) {
     <>
       <div className="bx--row mt-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1>Static Pages</h1>
+          <h1 className="eco--title">Static Pages</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right mt-2">
-          <Button className="ml-2" onClick={createRootPage}>
-            Create Menu Item
+          <Button onClick={createRootPage}>Create Menu Item</Button>
+          <Button className="ml-2" onClick={saveUpdatedTree}>
+            Save Reordering
           </Button>
         </div>
       </div>

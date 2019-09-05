@@ -4,12 +4,12 @@ export default function ListColumns() {
   return [
     {
       name: "CC Code",
-      selector: "ccCode",
+      selector: "code",
       sortable: true,
     },
     {
       name: "Name",
-      selector: "ccName",
+      selector: "name",
     },
     {
       name: "Village",

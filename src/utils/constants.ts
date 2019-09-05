@@ -12,11 +12,19 @@ export const ENDPOINT = {
   USER: `${process.env.APP_ROOT}${process.env.ENDPOINT_USER}`,
   PAGES: `${process.env.APP_ROOT}${process.env.ENDPOINT_PAGES}`,
   TRACEABILITY: `${process.env.APP_ROOT}${process.env.ENDPOINT_TRACEABILITY}`,
+  API: `${process.env.APP_ROOT}${process.env.ENDPOINT_API}`,
+};
+
+export const TOKEN = {
+  ACCESS: "access_token",
+  REFRESH: "refresh_token",
+  TIMEOUT: "timeout",
+  TYPE: "Bearer ",
 };
 
 export const BACKGROUND = {
   WHITE: "#fff",
-  GRAY: "#f3f3f3",
+  GRAY: "#F0F0F0",
 };
 
 export const BATCH_TYPE = {
@@ -35,11 +43,6 @@ export const ROLES = {
   UNION: "union",
   ADMIN: "admin",
 };
-
-export const CAS_AUTH_URL = `${ENDPOINT.CAS}/login?service=${
-  ENDPOINT.ROOT
-}auth/continue`;
-export const CAS_LOGOUT_URL = `${ENDPOINT.CAS}/logout`;
 
 export const TYPE_OPTIONS = {
   DRY: { label: "Dry", value: "DRY" },
@@ -65,6 +68,8 @@ export const MAP: { MAP_CENTER: [number, number]; [key: string]: any } = {
 export const MESSAGE = {
   SUCCESS: "operation completed successfully",
   ERROR: "There was an error while performing this operation",
+  INVALID_CREDENTIALS: "Invalid credentials",
+  TREE_UPDATE_SUCCESS: "Page(s) order updated successfully",
 };
 
 export const OPERATION_MESSAGES = {

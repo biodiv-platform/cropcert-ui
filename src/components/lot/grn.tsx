@@ -2,10 +2,10 @@ import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { DATATYPE, ENDPOINT, LOT_AT } from "@utils/constants";
+import { DATATYPE, LOT_AT } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
@@ -43,10 +43,12 @@ function GRNLots() {
     },
   ];
 
-  const onClose = (updated = false) => {
-    setIsModalOpen(false);
+  const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      lotStore.lazyList(true, LOT_AT.UNION);
+      const isUpdated = await lotStore.updateLot(keyName, body, LOT_AT.UNION);
+      if (isUpdated) {
+        setIsModalOpen(false);
+      }
     }
   };
 
@@ -56,7 +58,6 @@ function GRNLots() {
         isOpen={isDateModalOpen}
         onClose={onClose}
         keyId="id"
-        endpoint={`${ENDPOINT.TRACEABILITY}/lot/`}
         {...modalData}
       />
 

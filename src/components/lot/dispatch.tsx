@@ -2,7 +2,7 @@ import { axLotDispatch } from "@services/lot.service";
 import { local2utc, messageRedirect } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
 import React from "react";
-import DataTable from "react-data-table-component-tmp";
+import DataTable from "react-data-table-component";
 
 import { columnsDispatch } from "./lot.columns";
 

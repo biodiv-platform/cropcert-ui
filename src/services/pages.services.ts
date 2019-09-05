@@ -4,10 +4,12 @@ import notification from "@utils/notification.util";
 
 export const axListPages = async () => {
   try {
-    const res = await http.get(`${ENDPOINT.PAGES}/page/all`);
+    const res = await http.get(`${ENDPOINT.PAGES}/page/all`, {
+      headers: { unauthorized: true },
+    });
     return res.data;
   } catch (e) {
-    notification(MESSAGE.ERROR);
+    notification(e);
     return [];
   }
 };
@@ -30,5 +32,14 @@ export const axUpdatePage = async (body, mode) => {
   } catch (e) {
     notification(MESSAGE.ERROR);
     return [];
+  }
+};
+
+export const axUpdateTree = async body => {
+  try {
+    await http.put(`${ENDPOINT.PAGES}/page/tree`, body);
+    notification(MESSAGE.TREE_UPDATE_SUCCESS, "success");
+  } catch (e) {
+    notification(e);
   }
 };

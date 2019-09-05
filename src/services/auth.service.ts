@@ -1,10 +1,26 @@
-import { CAS_LOGOUT_URL, ENDPOINT } from "@utils/constants";
-import http from "@utils/http";
+import { ENDPOINT } from "@utils/constants";
+import http, { httpFormData } from "@utils/http";
+import queryString from "query-string";
+
+/**
+ * Acquires initial tokens against provided credentials
+ *
+ * @param {userName: string, password: string} body
+ * @returns {*}
+ */
+export const axSignIn = async body => {
+  const res = await httpFormData.post(
+    `${ENDPOINT.USER}/auth/login`,
+    queryString.stringify(body)
+  );
+  return res.data;
+};
 
 export const axGetUser = async () => {
   try {
-    const res = await http.get(`${ENDPOINT.USER}/me`);
-    return res.data;
+    const res = await http.get(`${ENDPOINT.USER}/user/me`);
+    const { user, ...data } = res.data;
+    return { ...user, ...data };
   } catch (e) {
     console.error(e);
     return {};
@@ -19,18 +35,5 @@ export const axPingAll = async (url = "ping") => {
     await http.get(`${ENDPOINT.USER}/${url}`, { params: ts });
   } catch (e) {
     console.error(e);
-  }
-};
-
-export const axSignOut = async () => {
-  try {
-    const res = await http.get(`${CAS_LOGOUT_URL}`);
-    await http.get(`${ENDPOINT.PAGES}/logout`);
-    await http.get(`${ENDPOINT.TRACEABILITY}/logout`);
-    await http.get(`${ENDPOINT.USER}/logout`);
-    return res.data;
-  } catch (e) {
-    console.error(e);
-    return {};
   }
 };

@@ -46,7 +46,7 @@ export default function CollectionCenterListPage() {
                     key={cc["id"]}
                     position={[cc["latitude"], cc["longitude"]]}
                   >
-                    <Popup>{`#${cc.coCode} - ${cc.ccName} - ${
+                    <Popup>{`${cc.ccName} - ${
                       cc.village
                     }`}</Popup>
                   </Marker>

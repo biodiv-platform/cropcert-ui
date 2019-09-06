@@ -10,8 +10,8 @@ export class CCStore {
     this.CCAccessible = list.map(c => ({
       name: c.name,
       label: c.name,
-      value: c.id,
-      id: c.id,
+      value: c.code,
+      id: c.code,
       ccName: c.name,
       type: c.type,
     }));

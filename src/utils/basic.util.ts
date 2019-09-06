@@ -47,6 +47,9 @@ export const camelCaseToStartCase = camelCase => {
 };
 
 export const elipsis = (txt, max = 20, add = "...") => {
+  if (!txt) {
+    return txt;
+  }
   return txt.length > max ? txt.substring(0, max).trim() + add : txt;
 };
 

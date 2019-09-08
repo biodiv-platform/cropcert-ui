@@ -1,4 +1,3 @@
-import { axUpdateWetBatch } from "@services/batch.service";
 import { camelCaseToStartCase } from "@utils/basic.util";
 import { DATATYPE } from "@utils/constants";
 import { ComposedModal, ModalHeader } from "carbon-components-react";
@@ -51,7 +50,6 @@ export default function GenricModal({
         {...form}
         enableReinitialize={true}
         onSubmit={submitForm}
-        isInitialValid={!row[keyName]}
         render={({ handleSubmit, isValid }) => {
           return (
             <form className="bx--form" onSubmit={handleSubmit}>
@@ -67,6 +65,7 @@ export default function GenricModal({
                           : textInput
                       }
                       type={dataType}
+                      isValid={isValid}
                       {...props}
                     />
                   </div>

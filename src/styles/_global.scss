@@ -19,6 +19,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: 400;
 }
 
+.react-datepicker-wrapper,
 .eco--w100 {
   width: 100%;
 }
@@ -46,11 +47,6 @@ input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.react-datetime-picker__wrapper {
-  border: 0 !important;
-  width: 100%;
 }
 
 .rdt_Table {

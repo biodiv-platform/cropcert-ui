@@ -1,6 +1,8 @@
 import { local2utc, utc2local } from "@utils/basic.util";
+import { DATEFORMATS } from "@utils/constants";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import DateTimePicker from "react-datetime-picker";
+import DatePicker from "react-datepicker";
 
 export const textInput = ({ field, form: { errors }, label, ...props }) => {
   return (
@@ -15,7 +17,48 @@ export const textInput = ({ field, form: { errors }, label, ...props }) => {
           placeholder={`Enter ${label}`}
           {...field}
           {...props}
-          {...(errors[field.name] ? { "data-invalid": true } : {})}
+          {...(errors[field.name] && { "data-invalid": true })}
+        />
+        {errors[field.name] && (
+          <div className="bx--form-requirement">{errors[field.name]}</div>
+        )}
+      </div>
+    </fieldset>
+  );
+};
+
+export const dateInput = ({
+  field,
+  form: { errors, setFieldValue },
+  label,
+  ...props
+}) => {
+  const [dateValue, setDate] = useState(utc2local(field.value));
+
+  useEffect(() => {
+    setFieldValue(
+      field.name,
+      dayjs(local2utc(dateValue).getTime()).format(DATEFORMATS.DAYJS_DATE)
+    );
+  }, [dateValue]);
+
+  return (
+    <fieldset className="bx--fieldset">
+      <div className="bx--form-item">
+        <label className="bx--label">{label}</label>
+        <DatePicker
+          selected={dateValue}
+          onChange={setDate}
+          className="bx--text-input"
+          autocomplete="off"
+          timeIntervals={15}
+          dateFormat={DATEFORMATS.DATE}
+          minDate={
+            props.hasOwnProperty("min") ? utc2local(props.min) : undefined
+          }
+          maxDate={
+            props.hasOwnProperty("max") ? utc2local(props.max) : new Date()
+          }
         />
         {errors[field.name] && (
           <div className="bx--form-requirement">{errors[field.name]}</div>
@@ -27,27 +70,28 @@ export const textInput = ({ field, form: { errors }, label, ...props }) => {
 
 export const dateTimeInput = ({
   field,
-  form: { touched, errors, setFieldValue },
+  form: { errors, setFieldValue },
   label,
   ...props
 }) => {
-  const hasErrors = touched[field.name] && errors[field.name];
-  const [dateTimeValue, setDateTimeValue] = useState(utc2local(field.value));
+  const [dateTime, setDateTime] = useState(utc2local(field.value));
 
   useEffect(() => {
-    setFieldValue(field.name, local2utc(dateTimeValue).getTime());
-  }, [dateTimeValue]);
+    setFieldValue(field.name, local2utc(dateTime).getTime());
+  }, [dateTime]);
 
   return (
     <fieldset className="bx--fieldset">
       <div className="bx--form-item">
         <label className="bx--label">{label}</label>
-        <DateTimePicker
+        <DatePicker
+          selected={dateTime}
+          onChange={setDateTime}
           className="bx--text-input"
-          onChange={setDateTimeValue}
-          value={dateTimeValue}
-          format="dd-MM-yyyy H:mm"
           autocomplete="off"
+          showTimeSelect={true}
+          timeIntervals={15}
+          dateFormat={DATEFORMATS.DATETIME}
           minDate={
             props.hasOwnProperty("min") ? utc2local(props.min) : undefined
           }

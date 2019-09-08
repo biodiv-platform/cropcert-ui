@@ -1,10 +1,10 @@
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axGetCoById } from "@services/co.service";
 import BatchStore from "@stores/batch.store";
+import { getToday } from "@utils/basic.util";
 import { BATCH_TYPE, MESSAGE } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button, ContentSwitcher, Switch } from "carbon-components-react";
-import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
@@ -39,9 +39,8 @@ function ListBatch({ CCAccessible }: IProps) {
       const coName = toJS(CCAccessible.find(c => c.id === o.ccCode)).ccName;
       return acc.includes(coName) ? acc : [...acc, coName];
     }, []);
-    return `${ccs.length > 1 ? currentCO.coName : ccs[0]}_Lot_${dayjs().format(
-      "DD-MM-YYYY"
-    )}`;
+    console.log(ccs);
+    return `${ccs.length > 1 ? currentCO.coName : ccs[0]}_Lot_${getToday()}`;
   };
 
   const handleCreateLot = () => {

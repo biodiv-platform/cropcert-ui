@@ -6,6 +6,13 @@ export const safeWindow = isBrowser
 export const SITE_TITLE = "Rwenzori Mountain Coffee";
 export const PAGINATION_LIMIT = 10;
 
+export const DATEFORMATS = {
+  DAYJS_DATE: "DD-MM-YYYY",
+  DAYJS_DATETIME: "DD-MM-YYYY HH:mm",
+  DATE: "dd-MM-yyyy",
+  DATETIME: "dd-MM-yyyy HH:mm",
+};
+
 export const ENDPOINT = {
   ROOT: `${process.env.APP_ROOT}`,
   CAS: `${process.env.APP_ROOT}${process.env.ENDPOINT_CAS}`,

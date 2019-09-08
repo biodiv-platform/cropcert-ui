@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import queryString from "query-string";
+import { DATEFORMATS } from "./constants";
 
 /**
  * Immutably updates row into Array
@@ -22,15 +23,7 @@ export const updateArrayImmutable = (
 };
 
 export const getToday = () => {
-  return dayjs().format("YYYY-MM-DD");
-};
-
-export const getTodayDisplay = () => {
-  return dayjs().format("DD-MM-YYYY");
-};
-
-export const toSimpleDate = (d = new Date()) => {
-  return dayjs(d).format("YYYY-MM-DD");
+  return dayjs().format(DATEFORMATS.DAYJS_DATE);
 };
 
 export const camelCaseToStartCase = camelCase => {
@@ -54,7 +47,7 @@ export const elipsis = (txt, max = 20, add = "...") => {
 };
 
 export const formattedTimeStamp = (d = new Date()) => {
-  return dayjs(d).format("DD-MM-YYYY HH:mm");
+  return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
 };
 
 export const toFriendlyCellValue = c => {
@@ -63,11 +56,6 @@ export const toFriendlyCellValue = c => {
       ? formattedTimeStamp(utc2local(c.value))
       : c.value
     : "NA";
-};
-
-export const toUTCDateTime = modalData => {
-  const d = dayjs(`${modalData.date} ${modalData.time}`, "MM-DD-YYYY HH:mm");
-  return local2utc(d.toDate().getTime()).getTime();
 };
 
 /*

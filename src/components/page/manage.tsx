@@ -35,8 +35,8 @@ export default function ManagePage({ mode, page, id }) {
     axUpdatePage(
       {
         ...values,
-        createdOn: local2utc(),
-        modifiedOn: local2utc(),
+        createdOn: local2utc().getTime(),
+        modifiedOn: local2utc().getTime(),
         isDeleted: false,
       },
       mode

@@ -16,10 +16,8 @@ export default function SignIn() {
 
   const signInForm = {
     validationSchema: Yup.object().shape({
-      userName: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string().required(),
+      userName: Yup.string().email(),
+      password: Yup.string(),
     }),
     initialValues: {
       userName: "",

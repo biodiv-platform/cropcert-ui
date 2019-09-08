@@ -51,11 +51,7 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
               row,
               keyName: "startTime",
               dataType: DATATYPE.DATETIME,
-              min: local2utc(
-                dayjs(row.date, "YYYY-MM-DD")
-                  .toDate()
-                  .getTime()
-              ).getTime(),
+              min: local2utc(row.date).getTime(),
             });
             setIsModalOpen(true);
           }}

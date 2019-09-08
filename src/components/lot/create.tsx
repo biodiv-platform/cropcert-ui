@@ -1,6 +1,6 @@
 import { columnsDry, columnsWet } from "@components/batch/batch.columns";
 import { axCreateLotFromBatches } from "@services/lot.service";
-import { getTodayDisplay, local2utc, messageRedirect } from "@utils/basic.util";
+import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
 import { BATCH_TYPE } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import React from "react";
@@ -23,8 +23,8 @@ export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
   const handleFinalizeWetBatch = () => {
     axCreateLotFromBatches({
       batchIds: batches.map(o => o.batchId),
-      createdOn: local2utc(),
-      timeToFactory: local2utc(),
+      createdOn: local2utc().getTime(),
+      timeToFactory: local2utc().getTime(),
       quantity: qty,
       coCode,
       type,
@@ -65,11 +65,11 @@ export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
         </div>
         <div className="bx--col-lg-3 bx--col-md-12">
           <h2>Date</h2>
-          {getTodayDisplay()}
+          {getToday()}
         </div>
         <div className="bx--col-lg-3 bx--col-md-12">
           <h2>Lot Type</h2>
-          {getTodayDisplay()}
+          {getToday()}
         </div>
         <div className="bx--col-lg-3 bx--col-md-12">
           <h2>Total Quantity</h2>

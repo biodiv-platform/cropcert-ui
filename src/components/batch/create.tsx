@@ -1,9 +1,8 @@
-import { selectInput, textInput } from "@components/@core/formik";
+import { dateInput, selectInput, textInput } from "@components/@core/formik";
 import { axCreateBatch } from "@services/batch.service";
-import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
+import { local2utc, messageRedirect } from "@utils/basic.util";
 import { TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
-import dayjs from "dayjs";
 import { Field, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -48,7 +47,7 @@ function BatchCreate({ CCAccessible }: IProps) {
       ccCode: CCAccessible[0].id,
       type: getTypeOptions()[0].value,
       quantity: 0,
-      date: getToday(),
+      date: new Date().getTime(),
       note: "",
     },
   };
@@ -57,11 +56,8 @@ function BatchCreate({ CCAccessible }: IProps) {
     actions.setSubmitting(false);
     axCreateBatch({
       ...values,
-      createdOn: local2utc(),
-      batchName: `${getCCById(values.ccCode).ccName}_${dayjs(
-        values.date,
-        "YYYY-MM-DD"
-      ).format("DD-MM-YYYY")}`,
+      createdOn: local2utc().getTime(),
+      batchName: `${getCCById(values.ccCode).ccName}_${values.date}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );
@@ -92,9 +88,8 @@ function BatchCreate({ CCAccessible }: IProps) {
               <Field
                 label="Date"
                 name="date"
-                component={textInput}
+                component={dateInput}
                 type="date"
-                max={getToday()}
               />
             </div>
           </div>

@@ -1,8 +1,13 @@
-import { dateInput, selectInput, textInput } from "@components/@core/formik";
+import {
+  dateTimeInput,
+  selectInput,
+  textInput,
+} from "@components/@core/formik";
 import { axCreateBatch } from "@services/batch.service";
 import { local2utc, messageRedirect } from "@utils/basic.util";
-import { TYPE_OPTIONS } from "@utils/constants";
+import { DATEFORMATS, TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
+import dayjs from "dayjs";
 import { Field, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -57,7 +62,9 @@ function BatchCreate({ CCAccessible }: IProps) {
     axCreateBatch({
       ...values,
       createdOn: local2utc().getTime(),
-      batchName: `${getCCById(values.ccCode).ccName}_${values.date}`,
+      batchName: `${getCCById(values.ccCode).ccName}_${dayjs(
+        values.date
+      ).format(DATEFORMATS.DAYJS_DATE)}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );
@@ -88,7 +95,8 @@ function BatchCreate({ CCAccessible }: IProps) {
               <Field
                 label="Date"
                 name="date"
-                component={dateInput}
+                component={dateTimeInput}
+                hint={false}
                 type="date"
               />
             </div>
@@ -121,7 +129,6 @@ function BatchCreate({ CCAccessible }: IProps) {
               />
             </div>
           </div>
-
           <Button type="submit" disabled={!props.isValid}>
             Create Batch
           </Button>

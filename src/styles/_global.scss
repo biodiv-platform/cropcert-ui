@@ -49,6 +49,11 @@ input[type="date"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.react-datetime-picker__wrapper {
+  border: 0 !important;
+  width: 100%;
+}
+
 .rdt_Table {
   .rdt_TableHeadRow {
     background-color: #dcdcdc;
@@ -79,7 +84,8 @@ ol {
   list-style: decimal;
 }
 
-[data-tag="___react-data-table--click-clip___"] {
+[data-tag="___react-data-table--click-clip___"],
+.react-datetime-picker__clear-button {
   display: none;
 }
 

@@ -70,6 +70,7 @@ export const MESSAGE = {
   ERROR: "There was an error while performing this operation",
   INVALID_CREDENTIALS: "Invalid credentials",
   TREE_UPDATE_SUCCESS: "Page(s) order updated successfully",
+  ALL_CC_SELECTED: "All Collection Centers selected",
 };
 
 export const OPERATION_MESSAGES = {

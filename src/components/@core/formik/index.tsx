@@ -2,13 +2,7 @@ import { local2utc, utc2local } from "@utils/basic.util";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 
-export const textInput = ({
-  field,
-  form: { touched, errors },
-  label,
-  ...props
-}) => {
-  const hasErrors = touched[field.name] && errors[field.name];
+export const textInput = ({ field, form: { errors }, label, ...props }) => {
   return (
     <fieldset className="bx--fieldset">
       <div className="bx--form-item">
@@ -21,9 +15,9 @@ export const textInput = ({
           placeholder={`Enter ${label}`}
           {...field}
           {...props}
-          {...(hasErrors ? { "data-invalid": true } : {})}
+          {...(errors[field.name] ? { "data-invalid": true } : {})}
         />
-        {hasErrors && (
+        {errors[field.name] && (
           <div className="bx--form-requirement">{errors[field.name]}</div>
         )}
       </div>
@@ -53,6 +47,7 @@ export const dateTimeInput = ({
           onChange={setDateTimeValue}
           value={dateTimeValue}
           format="dd-MM-yyyy H:mm"
+          autocomplete="off"
           minDate={
             props.hasOwnProperty("min") ? utc2local(props.min) : undefined
           }
@@ -60,7 +55,7 @@ export const dateTimeInput = ({
             props.hasOwnProperty("max") ? utc2local(props.max) : new Date()
           }
         />
-        {hasErrors && (
+        {errors[field.name] && (
           <div className="bx--form-requirement">{errors[field.name]}</div>
         )}
       </div>

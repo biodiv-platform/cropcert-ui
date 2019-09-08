@@ -1,7 +1,7 @@
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axGetCoById } from "@services/co.service";
 import BatchStore from "@stores/batch.store";
-import { BATCH_TYPE } from "@utils/constants";
+import { BATCH_TYPE, MESSAGE } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button, ContentSwitcher, Switch } from "carbon-components-react";
 import dayjs from "dayjs";
@@ -92,6 +92,7 @@ function ListBatch({ CCAccessible }: IProps) {
         <div className="bx--col-lg-4 bx--col-md-12 mb-4">
           <MultiSelect
             options={CCAccessible}
+            overrideStrings={{ allItemsAreSelected: MESSAGE.ALL_CC_SELECTED }}
             selected={ccCodes}
             onSelectedChanged={setccCodes}
           />

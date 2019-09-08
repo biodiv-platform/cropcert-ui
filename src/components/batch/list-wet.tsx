@@ -3,7 +3,7 @@ import GenricModal from "@components/@core/modal/genric-modal";
 import MultiSelect from "@khanacademy/react-multi-select";
 import BatchStore from "@stores/batch.store";
 import { local2utc } from "@utils/basic.util";
-import { BATCH_TYPE, DATATYPE } from "@utils/constants";
+import { BATCH_TYPE, DATATYPE, MESSAGE } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import dayjs from "dayjs";
 import { navigate } from "gatsby";
@@ -166,6 +166,7 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
         <div className="bx--col-lg-4 bx--col-md-12 mb-4">
           <MultiSelect
             options={CCAccessible}
+            overrideStrings={{ allItemsAreSelected: MESSAGE.ALL_CC_SELECTED }}
             selected={ccCodes}
             onSelectedChanged={setccCodes}
           />

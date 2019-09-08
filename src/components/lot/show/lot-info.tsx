@@ -1,3 +1,4 @@
+import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 import DataTable from "react-data-table-component";
 
@@ -19,11 +20,12 @@ export default function BasicInfo({ lot }) {
     },
     {
       name: "Created On",
-      selector: "td",
+      selector: "createdOn",
+      cell: row => timeCell(row.createdOn),
     },
     {
       name: "GRN",
-      selector: "td",
+      selector: "grnNumber",
     },
   ];
 
@@ -33,7 +35,7 @@ export default function BasicInfo({ lot }) {
         keyField="id"
         columns={basicInfoHeader}
         noHeader={true}
-        data={[{ ...lot, td: "TBA" }]}
+        data={[lot]}
       />
     </LotShowPanel>
   );

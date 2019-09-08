@@ -1,6 +1,5 @@
 import { local2utc, utc2local } from "@utils/basic.util";
 import { DATEFORMATS } from "@utils/constants";
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
@@ -36,10 +35,7 @@ export const dateInput = ({
   const [dateValue, setDate] = useState(utc2local(field.value));
 
   useEffect(() => {
-    setFieldValue(
-      field.name,
-      dayjs(local2utc(dateValue).getTime()).format(DATEFORMATS.DAYJS_DATE)
-    );
+    setFieldValue(field.name, local2utc(dateValue).getTime());
   }, [dateValue]);
 
   return (

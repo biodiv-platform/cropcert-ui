@@ -94,7 +94,7 @@ function MillingLots() {
 
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Dispatch Lot(s) to Factory</h1>
+          <h1 className="eco--title">Dispatch Lot(s) to Union</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button

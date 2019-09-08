@@ -41,7 +41,7 @@ function BatchCreate({ CCAccessible }: IProps) {
       quantity: Yup.number()
         .min(1)
         .required(),
-      date: Yup.date().required(),
+      date: Yup.number().required(),
     }),
     initialValues: {
       ccCode: CCAccessible[0].id,

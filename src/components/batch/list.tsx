@@ -39,8 +39,7 @@ function ListBatch({ CCAccessible }: IProps) {
       const coName = toJS(CCAccessible.find(c => c.id === o.ccCode)).ccName;
       return acc.includes(coName) ? acc : [...acc, coName];
     }, []);
-    console.log(ccs);
-    return `${ccs.length > 1 ? currentCO.coName : ccs[0]}_Lot_${getToday()}`;
+    return `${ccs.length > 1 ? currentCO.name : ccs[0]}_Lot_${getToday()}`;
   };
 
   const handleCreateLot = () => {

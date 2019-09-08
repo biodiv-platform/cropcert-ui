@@ -46,9 +46,9 @@ function GRNLots() {
   const onClose = async (updated, keyName?, body?) => {
     if (updated) {
       const isUpdated = await lotStore.updateLot(keyName, body, LOT_AT.UNION);
-      if (isUpdated) {
-        setIsModalOpen(false);
-      }
+      setIsModalOpen(!isUpdated);
+    } else {
+      setIsModalOpen(false);
     }
   };
 

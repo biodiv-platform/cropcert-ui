@@ -115,9 +115,7 @@ export const axUpdateLot = async (keyName, body, at) => {
     notification(MESSAGE.SUCCESS, "success");
     return { success: true, body: postProcessRow(r.data, at) };
   } catch (e) {
-    notification(
-      e.response.status < 500 ? e.response.data : notification(e.error)
-    );
+    notification(e.response.data.error);
     return { success: false, body: {} };
   }
 };

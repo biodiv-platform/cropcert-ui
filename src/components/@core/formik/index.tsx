@@ -49,13 +49,16 @@ export const dateTimeInput = ({
   return (
     <fieldset className="bx--fieldset">
       <div className="bx--form-item">
-        <label className="bx--label">{label}</label>
-        {hint && (
+        {hint ? (
           <div className="bx--form__helper-text">
+            Provide date and time between
+            <br />
             {minDate && formattedTimeStamp(minDate)}
             {minDate && maxDate && " - "}
             {maxDate && formattedTimeStamp(maxDate)}
           </div>
+        ) : (
+          <label className="bx--label">{label}</label>
         )}
         <DateTimePicker
           className="bx--text-input"

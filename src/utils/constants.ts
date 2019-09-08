@@ -9,6 +9,7 @@ export const PAGINATION_LIMIT = 10;
 export const DATEFORMATS = {
   DAYJS_DATE: "DD-MM-YYYY",
   DAYJS_DATETIME: "DD-MM-YYYY HH:mm",
+  TIME: "HH:mm",
   DATE: "dd-MM-yyyy",
   DATETIME: "dd-MM-yyyy HH:mm",
 };

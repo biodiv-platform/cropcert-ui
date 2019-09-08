@@ -76,10 +76,16 @@ export const dateTimeInput = ({
     setFieldValue(field.name, local2utc(dateTime).getTime());
   }, [dateTime]);
 
+  const min = props.hasOwnProperty("min") ? utc2local(props.min) : undefined;
+  const max = props.hasOwnProperty("max") ? utc2local(props.max) : new Date();
+
   return (
     <fieldset className="bx--fieldset">
       <div className="bx--form-item">
-        <label className="bx--label">{label}</label>
+        <label className="bx--label">
+          {label}
+          {props.hasOwnProperty("max") ? "t" : "f"}
+        </label>
         <DatePicker
           selected={dateTime}
           onChange={setDateTime}
@@ -87,13 +93,12 @@ export const dateTimeInput = ({
           autocomplete="off"
           showTimeSelect={true}
           timeIntervals={15}
+          timeFormat={DATEFORMATS.TIME}
           dateFormat={DATEFORMATS.DATETIME}
-          minDate={
-            props.hasOwnProperty("min") ? utc2local(props.min) : undefined
-          }
-          maxDate={
-            props.hasOwnProperty("max") ? utc2local(props.max) : new Date()
-          }
+          minDate={min}
+          minTime={min}
+          maxDate={max}
+          maxTime={max}
         />
         {errors[field.name] && (
           <div className="bx--form-requirement">{errors[field.name]}</div>

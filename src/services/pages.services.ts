@@ -16,7 +16,9 @@ export const axListPages = async () => {
 
 export const axGetPageByPageId = async id => {
   try {
-    const res = await http.get(`${ENDPOINT.PAGES}/page/${id}`);
+    const res = await http.get(`${ENDPOINT.PAGES}/page/${id}`, {
+      headers: { unauthorized: true },
+    });
     return { success: true, data: res.data };
   } catch (e) {
     notification(MESSAGE.ERROR);

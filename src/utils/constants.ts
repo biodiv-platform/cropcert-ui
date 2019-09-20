@@ -52,6 +52,25 @@ export const ROLES = {
   ADMIN: "admin",
 };
 
+export const KEYS_TO_ROLES = {
+  role_unauthorized: "Unauthorized",
+  authorized: "Authorized",
+  farmer: "Farmer",
+  cc: "Collection center",
+  co: "Cooperative",
+  factory: "Factory",
+  union: "Union",
+  admin: "Admin",
+};
+
+export const ROLE_HIERARCHY = [
+  ROLES.ADMIN,
+  ROLES.UNION,
+  ROLES.COOPERATIVE,
+  ROLES.COLLECTION_CENTER,
+  ROLES.COLLECTION_CENTER,
+];
+
 export const TYPE_OPTIONS = {
   DRY: { label: "Dry", value: "DRY" },
   WET: { label: "Wet", value: "WET" },

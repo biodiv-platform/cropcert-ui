@@ -1,8 +1,9 @@
+import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { DATATYPE, ENDPOINT, LOT_AT } from "@utils/constants";
+import { DATATYPE, LOT_AT, ROLES } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
@@ -15,6 +16,7 @@ import { columnsDispatch } from "./lot.columns";
 
 function MillingLots() {
   const lotStore = useContext(LotStore);
+  const [coCodes, setCoCodes] = useState([] as any);
   const [selectedRows, setSelectedRows] = useState([] as any);
   const [isDateModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({
@@ -22,8 +24,10 @@ function MillingLots() {
   } as any);
 
   useEffect(() => {
-    lotStore.lazyList(true, LOT_AT.FACTORY);
-  }, []);
+    if (coCodes.length > 0) {
+      lotStore.lazyList(true, LOT_AT.FACTORY, coCodes);
+    }
+  }, [coCodes]);
 
   const columns = [
     ...columnsDispatch,
@@ -83,6 +87,8 @@ function MillingLots() {
     setIsModalOpen(false);
   };
 
+  const onCoSelected = co => co && setCoCodes([co.value]);
+
   return (
     <>
       <GenricModal
@@ -108,11 +114,15 @@ function MillingLots() {
         </div>
       </div>
 
+      <div className="bx--row">
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={onCoSelected} />
+      </div>
+
       <InfiniteScroll
         pageStart={0}
         loadMore={() => {
           if (lotStore.lots.length > 0) {
-            lotStore.lazyList(false, LOT_AT.FACTORY);
+            lotStore.lazyList(false, LOT_AT.FACTORY, coCodes);
           }
         }}
         hasMore={lotStore.lazyListHasMore}

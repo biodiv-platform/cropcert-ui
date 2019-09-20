@@ -11,3 +11,15 @@ export const axGetCoById = async coId => {
     return {};
   }
 };
+
+export const axCoByUnionId = async unionCode => {
+  try {
+    const res = await http.get(`${ENDPOINT.USER}/co/union`, {
+      params: { unionCode },
+    });
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(MESSAGE.ERROR);
+    return { success: true, data: [] };
+  }
+};

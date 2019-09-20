@@ -2,6 +2,7 @@ import Container from "@components/@core/container";
 import GreenReport from "@components/lot/report/green";
 import withLocation from "@components/withLocation";
 import { axLotByLotId, axOriginByLotId } from "@services/lot.service";
+import { hierarchicalRoles } from "@utils/auth.util";
 import { isBrowser, ROLES } from "@utils/constants";
 import React, { useEffect, useState } from "react";
 
@@ -18,7 +19,7 @@ function GreenReportPage({ query }) {
   }, []);
 
   return (
-    <Container roles={[ROLES.FACTORY, ROLES.UNION]}>
+    <Container roles={hierarchicalRoles(ROLES.UNION)}>
       {lot && origin && <GreenReport {...lot} {...origin} />}
     </Container>
   );

@@ -78,12 +78,12 @@ export const axLotDispatch = async (to, body) => {
   }
 };
 
-export const axLazyListLot = async (at, params) => {
+export const axLazyListLot = async (at, params, coCodes) => {
   try {
     const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/${at}`, {
       params: {
         limit: PAGINATION_LIMIT,
-        coCodes: await getCoCodes(),
+        coCodes,
         ...params,
       },
     });
@@ -131,20 +131,6 @@ export const axGetLotById = async lotId => {
   } catch (e) {
     notification(e);
     return { success: false, data: {} };
-  }
-};
-
-const getCoCodes = async () => {
-  if (hasAccess([ROLES.COOPERATIVE])) {
-    return Promise.resolve(getUserKey("coCode"));
-  } else {
-    const res = await http.get(`${ENDPOINT.USER}/co/union`, {
-      params: {
-        unionCode: getUserKey("unionCode"),
-      },
-    });
-    const data: [any] = res.data;
-    return data.map(co => co.code).toString();
   }
 };
 

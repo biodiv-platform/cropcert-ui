@@ -1,7 +1,7 @@
 import { axLazyListLot, axUpdateLot } from "@services/lot.service";
+import { updateArrayImmutable } from "@utils/basic.util";
 import { decorate, observable } from "mobx";
 import { createContext } from "react";
-import { updateArrayImmutable } from "@utils/basic.util";
 
 export class LotStore {
   offset = 0;
@@ -9,15 +9,19 @@ export class LotStore {
   lazyListHasMore = true;
   lots: any[] = [];
 
-  lazyList = async (reset, at) => {
+  lazyList = async (reset, at, coCodes) => {
     if (reset) {
       this.offset = 0;
       this.lots = [];
     }
 
-    const r = await axLazyListLot(at, {
-      offset: this.offset,
-    });
+    const r = await axLazyListLot(
+      at,
+      {
+        offset: this.offset,
+      },
+      coCodes.toString()
+    );
 
     this.lazyListHasMore = r.lazyListHasMore;
     this.offset = r.offset;

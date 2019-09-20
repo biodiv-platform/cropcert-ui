@@ -1,6 +1,8 @@
+import Accesser from "@components/@core/accesser";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
+import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
-import { LOT_AT } from "@utils/constants";
+import { LOT_AT, ROLES } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
@@ -13,11 +15,14 @@ import { columnsDispatch } from "./lot.columns";
 
 function ListLots() {
   const lotStore = useContext(LotStore);
+  const [coCodes, setCoCodes] = useState([] as any);
   const [selectedRows, setSelectedRows] = useState([] as any);
 
   useEffect(() => {
-    lotStore.lazyList(true, LOT_AT.COOPERATIVE);
-  }, []);
+    if (coCodes.length > 0) {
+      lotStore.lazyList(true, LOT_AT.COOPERATIVE, coCodes);
+    }
+  }, [coCodes]);
 
   const handleDispatchLot = () => {
     navigate("/lot/dispatch", {
@@ -28,6 +33,14 @@ function ListLots() {
       },
     });
   };
+
+  const onUnionSelected = union =>
+    union &&
+    axCoByUnionId(union.value).then(({ success, data }) => {
+      if (success) {
+        setCoCodes(data.map(o => o.code));
+      }
+    });
 
   return (
     <>
@@ -47,11 +60,15 @@ function ListLots() {
         </div>
       </div>
 
+      <div className="bx--row">
+        <Accesser toRole={ROLES.UNION} onChange={onUnionSelected} />
+      </div>
+
       <InfiniteScroll
         pageStart={0}
         loadMore={() => {
           if (lotStore.lots.length > 0) {
-            lotStore.lazyList(false, LOT_AT.COOPERATIVE);
+            lotStore.lazyList(false, LOT_AT.COOPERATIVE, coCodes);
           }
         }}
         hasMore={lotStore.lazyListHasMore}

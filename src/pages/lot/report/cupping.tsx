@@ -2,11 +2,12 @@ import Container from "@components/@core/container";
 import CuppingReport from "@components/lot/report/cupping";
 import withLocation from "@components/withLocation";
 import { axLotByLotId, axOriginByLotId } from "@services/lot.service";
+import { hierarchicalRoles } from "@utils/auth.util";
 import { isBrowser, ROLES } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import React, { useEffect, useState } from "react";
 
-function CuppingReportPage({query}) {
+function CuppingReportPage({ query }) {
   const [lot, setLot] = useState(null as any);
   const [origin, setOrigin] = useState(null as any);
   const lotId = query.id || -1;
@@ -19,7 +20,7 @@ function CuppingReportPage({query}) {
   }, []);
 
   return (
-    <Container roles={[ROLES.FACTORY, ROLES.UNION]}>
+    <Container roles={hierarchicalRoles(ROLES.UNION)}>
       {lot && origin && (
         <CuppingReport {...lot} {...origin} cupper={getUserKey("userName")} />
       )}
@@ -27,4 +28,4 @@ function CuppingReportPage({query}) {
   );
 }
 
-export default withLocation(CuppingReportPage)
+export default withLocation(CuppingReportPage);

@@ -1,7 +1,8 @@
-import { ENDPOINT, ROLES } from "@utils/constants";
-import http from "@utils/http";
+import { ROLES } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
+
 import { axListCCByCoId } from "./cc.service";
+import { axCoByUnionId } from "./co.service";
 import { axListUnion } from "./union.service";
 
 /**
@@ -25,9 +26,7 @@ export const getByRole = async (role: string, code: number = -1) => {
 
     case ROLES.COOPERATIVE:
       const unionCode = code > 0 ? code : getUserKey(`unionCode`);
-      const co = await http.get(`${ENDPOINT.USER}/co/union`, {
-        params: { unionCode },
-      });
+      const co = await axCoByUnionId(unionCode);
       res = co.data.map(o => ({
         label: o.name,
         value: o.code,

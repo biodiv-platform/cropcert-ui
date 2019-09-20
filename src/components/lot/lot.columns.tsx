@@ -4,9 +4,8 @@ import lotTableLink from "./lot-table-link";
 
 export const columnsDispatch = [
   {
-    name: "Lot Id",
-    selector: "id",
-    cell: row => lotTableLink(row.id),
+    name: "GRN Number",
+    selector: "grnNumber",
   },
   {
     name: "Lot Name",
@@ -19,5 +18,10 @@ export const columnsDispatch = [
   {
     name: "Type",
     selector: "type",
+  },
+  {
+    name: "Lot Id",
+    selector: "id",
+    cell: row => lotTableLink(row.id),
   },
 ];

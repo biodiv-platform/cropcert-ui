@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { parse } from "query-string";
 import React from "react";
 
-const MillingListPage = () => {
+const ReportListPage = () => {
   const reportType: string = isBrowser
     ? parse(location.search).type || REPORT_TYPE.GREEN
     : REPORT_TYPE.GREEN;
@@ -18,4 +18,4 @@ const MillingListPage = () => {
   );
 };
 
-export default observer(MillingListPage);
+export default observer(ReportListPage);

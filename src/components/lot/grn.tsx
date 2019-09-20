@@ -26,8 +26,10 @@ function GRNLots() {
     }
   }, [coCodes]);
 
+  const [, ...initialColumnsDispatch] = columnsDispatch;
+
   const columns = [
-    ...columnsDispatch,
+    ...initialColumnsDispatch,
     {
       name: "GRN",
       selector: "grnNumber",

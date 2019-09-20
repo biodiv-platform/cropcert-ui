@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { navigate } from "gatsby";
 
-import { isBrowser, ROLES, TOKEN } from "./constants";
+import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "./constants";
 import storage from "./storage.util";
 import { getUser } from "./user.util";
 
@@ -75,4 +75,15 @@ const checkSessionExpired = () => {
     console.info("❌ Session expired");
     navigate("/auth/sign-out");
   }
+};
+
+/**
+ * Returns parent role(s) array
+ *
+ * @param {string} role
+ * @returns {string[]}
+ */
+export const hierarchicalRoles = (role: string): string[] => {
+  const roleIndex = ROLE_HIERARCHY.findIndex(r => r === role) + 1;
+  return ROLE_HIERARCHY.slice(0, roleIndex);
 };

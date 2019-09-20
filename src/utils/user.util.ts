@@ -10,4 +10,7 @@ export const getUser = () => storage.get(KEY_USER, {});
 
 export const getUserKey = key => getUser()[key];
 
+export const setUserKey = (key: string, value) =>
+  setUser({ ...getUser(), [key]: value });
+
 export const removeUser = () => storage.remove(KEY_USER);

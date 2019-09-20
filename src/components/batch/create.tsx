@@ -1,3 +1,4 @@
+import Accesser from "@components/@core/accesser";
 import {
   dateTimeInput,
   selectInput,
@@ -5,40 +6,34 @@ import {
 } from "@components/@core/formik";
 import { axCreateBatch } from "@services/batch.service";
 import { local2utc, messageRedirect } from "@utils/basic.util";
-import { DATEFORMATS, TYPE_OPTIONS } from "@utils/constants";
+import { DATEFORMATS, ROLES, TYPE_OPTIONS } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import dayjs from "dayjs";
 import { Field, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
-interface IProps {
-  CCAccessible;
-}
+function BatchCreate() {
+  const [cc, setCc] = useState();
+  const [ccCode, setccCode] = useState();
 
-function BatchCreate({ CCAccessible }: IProps) {
-  const getCCById = id => {
-    return CCAccessible.find(c => c.value.toString() === id.toString());
-  };
+  const [typeOptions, setTypeOptions] = useState([] as any);
 
-  const getTypeOptions = (id?) => {
-    if (!id) {
-      id = CCAccessible[0].id;
+  useEffect(() => {
+    if (cc) {
+      switch (cc.type) {
+        case "D":
+          setTypeOptions([TYPE_OPTIONS.DRY]);
+
+        case "P":
+          setTypeOptions([TYPE_OPTIONS.WET]);
+
+        default:
+          setTypeOptions([TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET]);
+      }
+      setccCode(cc.value);
     }
-    const ccType = getCCById(id);
-    switch (ccType.type) {
-      case "D":
-        return [TYPE_OPTIONS.DRY];
-
-      case "P":
-        return [TYPE_OPTIONS.WET];
-
-      default:
-        return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET];
-    }
-  };
-
-  const [typeOptions, setTypeOptions] = useState(getTypeOptions());
+  }, [cc]);
 
   const collectForm = {
     validationSchema: Yup.object().shape({
@@ -49,8 +44,8 @@ function BatchCreate({ CCAccessible }: IProps) {
       date: Yup.number().required(),
     }),
     initialValues: {
-      ccCode: CCAccessible[0].id,
-      type: getTypeOptions()[0].value,
+      ccCode,
+      type: typeOptions[0].value,
       quantity: 0,
       date: new Date().getTime(),
       note: "",
@@ -62,9 +57,9 @@ function BatchCreate({ CCAccessible }: IProps) {
     axCreateBatch({
       ...values,
       createdOn: local2utc().getTime(),
-      batchName: `${getCCById(values.ccCode).ccName}_${dayjs(
-        values.date
-      ).format(DATEFORMATS.DAYJS_DATE)}`,
+      batchName: `${cc.label}_${dayjs(values.date).format(
+        DATEFORMATS.DAYJS_DATE
+      )}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );
@@ -73,22 +68,18 @@ function BatchCreate({ CCAccessible }: IProps) {
   return (
     <Formik
       {...collectForm}
+      enableReinitialize={true}
       onSubmit={handleSubmit}
       render={props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
+          <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
           <div className="bx--row">
             <div className="bx--col-lg-4 bx--col-sm-12">
               <Field
-                label="Collection Center Name"
-                name="ccCode"
+                label="Batch Type"
+                name="type"
                 component={selectInput}
-                options={CCAccessible}
-                onChange={e => {
-                  const typeOptions1 = getTypeOptions(e.target.value);
-                  props.setFieldValue("ccCode", e.target.value);
-                  props.setFieldValue("type", typeOptions1[0].value);
-                  setTypeOptions(typeOptions1);
-                }}
+                options={typeOptions}
               />
             </div>
             <div className="bx--col-lg-4 bx--col-sm-12">
@@ -108,14 +99,6 @@ function BatchCreate({ CCAccessible }: IProps) {
                 name="quantity"
                 component={textInput}
                 type="number"
-              />
-            </div>
-            <div className="bx--col-lg-4 bx--col-sm-12">
-              <Field
-                label="Batch Type"
-                name="type"
-                component={selectInput}
-                options={typeOptions}
               />
             </div>
           </div>

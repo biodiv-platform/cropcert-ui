@@ -1,25 +1,22 @@
 import Container from "@components/@core/container";
 import BatchCreate from "@components/batch/create";
-import CCStore from "@stores/cc.store";
 import { ROLES } from "@utils/constants";
-import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 
 const BatchCreatePage = () => {
-  const ccStore = useContext(CCStore);
-
-  useEffect(() => {
-    ccStore.listCCAccessible();
-  }, []);
-
   return (
-    <Container roles={[ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER]}>
+    <Container
+      roles={[
+        ROLES.COLLECTION_CENTER,
+        ROLES.COOPERATIVE,
+        ROLES.UNION,
+        ROLES.ADMIN,
+      ]}
+    >
       <h1 className="eco--title">Create Batch</h1>
-      {ccStore.CCAccessible.length > 0 && (
-        <BatchCreate CCAccessible={ccStore.CCAccessible} />
-      )}
+      <BatchCreate />
     </Container>
   );
 };
 
-export default observer(BatchCreatePage);
+export default BatchCreatePage;

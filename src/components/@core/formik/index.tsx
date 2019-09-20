@@ -1,4 +1,4 @@
-import { local2utc, utc2local, formattedTimeStamp } from "@utils/basic.util";
+import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 

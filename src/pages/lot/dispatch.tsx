@@ -1,5 +1,6 @@
 import Container from "@components/@core/container";
 import DispatchLot from "@components/lot/dispatch";
+import { hierarchicalRoles } from "@utils/auth.util";
 import { isBrowser, ROLES } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
@@ -19,7 +20,7 @@ const FinalizeWetBatchPage = () => {
   }, []);
 
   return (
-    <Container roles={[ROLES.COOPERATIVE, ROLES.UNION]}>
+    <Container roles={hierarchicalRoles(ROLES.COOPERATIVE)}>
       <DispatchLot {...state} />
     </Container>
   );

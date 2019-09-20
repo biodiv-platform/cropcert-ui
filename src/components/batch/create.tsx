@@ -45,7 +45,7 @@ function BatchCreate() {
     }),
     initialValues: {
       ccCode,
-      type: typeOptions[0].value,
+      type: undefined,
       quantity: 0,
       date: new Date().getTime(),
       note: "",

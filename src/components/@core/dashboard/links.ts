@@ -1,3 +1,4 @@
+import { hierarchicalRoles } from "@utils/auth.util";
 import { ROLES } from "@utils/constants";
 
 const links = [
@@ -8,23 +9,13 @@ const links = [
         title: "Create Batch",
         description: "Create Batch",
         to: "/batch/create",
-        access: [
-          ROLES.COLLECTION_CENTER,
-          ROLES.COOPERATIVE,
-          ROLES.UNION,
-          ROLES.ADMIN,
-        ],
+        access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
       },
       {
         title: "Update Wet Batch",
         description: "Update wet batch data",
         to: "/batch/list-wet",
-        access: [
-          ROLES.COLLECTION_CENTER,
-          ROLES.COOPERATIVE,
-          ROLES.UNION,
-          ROLES.ADMIN,
-        ],
+        access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
       },
     ],
   },
@@ -35,13 +26,13 @@ const links = [
         title: "Create Lot",
         description: "Create lot from batches",
         to: "/batch/list",
-        access: [ROLES.COOPERATIVE, ROLES.UNION, ROLES.ADMIN],
+        access: hierarchicalRoles(ROLES.COOPERATIVE),
       },
       {
         title: "Dispatch Lots",
         description: "Dispatch Lots to Factory",
         to: "/lot/list",
-        access: [ROLES.COOPERATIVE, ROLES.UNION, ROLES.ADMIN],
+        access: hierarchicalRoles(ROLES.COOPERATIVE),
       },
     ],
   },
@@ -52,7 +43,7 @@ const links = [
         title: "Milling Lots",
         description: "Milling lots from factories",
         to: "/lot/milling",
-        access: [ROLES.FACTORY, ROLES.UNION, ROLES.ADMIN],
+        access: [ROLES.FACTORY, ...hierarchicalRoles(ROLES.UNION)],
       },
     ],
   },
@@ -63,19 +54,19 @@ const links = [
         title: "Add GRN Number",
         description: "Add GRN Number to Lot(s)",
         to: "/lot/grn",
-        access: [ROLES.UNION, ROLES.ADMIN],
+        access: hierarchicalRoles(ROLES.UNION),
       },
       {
         title: "Add Green Report",
         description: "Add Green Report to Lot(s)",
         to: "/lot/report/list?type=green",
-        access: [ROLES.UNION, ROLES.ADMIN],
+        access: hierarchicalRoles(ROLES.UNION),
       },
       {
         title: "Add Cupping Report",
         description: "Add Cupping Report to Lot(s)",
         to: "/lot/report/list?type=cupping",
-        access: [ROLES.UNION, ROLES.ADMIN],
+        access: hierarchicalRoles(ROLES.UNION),
       },
     ],
   },

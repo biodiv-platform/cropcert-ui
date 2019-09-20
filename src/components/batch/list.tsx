@@ -1,9 +1,9 @@
+import Accesser from "@components/@core/accesser";
 import MultiSelect from "@khanacademy/react-multi-select";
-import { axGetCoById } from "@services/co.service";
+import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
 import { getToday } from "@utils/basic.util";
-import { BATCH_TYPE, MESSAGE } from "@utils/constants";
-import { getUserKey } from "@utils/user.util";
+import { BATCH_TYPE, MESSAGE, ROLES } from "@utils/constants";
 import { Button, ContentSwitcher, Switch } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
@@ -14,21 +14,13 @@ import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDry, columnsWet } from "./batch.columns";
 
-interface IProps {
-  CCAccessible: any[];
-}
-
-function ListBatch({ CCAccessible }: IProps) {
-  const [ccCodes, setccCodes] = useState(CCAccessible.map(i => i.id));
+function ListBatch() {
+  const [ccList, setCCList] = useState([] as any[]);
+  const [ccCodes, setccCodes] = useState([] as any[]);
   const batchStore = useContext(BatchStore);
   const [selectedRows, setSelectedRows] = useState([] as any);
   const [batchType, setBatchType] = useState(BATCH_TYPE.WET);
-  const [currentCO, setCurrentCo] = useState({} as any);
-  const coCode = getUserKey("coCode");
-
-  useEffect(() => {
-    axGetCoById(coCode).then(setCurrentCo);
-  }, []);
+  const [co, setCO] = useState({} as any);
 
   useEffect(() => {
     batchStore.lazyList(true, batchType, ccCodes, true);
@@ -36,12 +28,10 @@ function ListBatch({ CCAccessible }: IProps) {
 
   const generateLotName = () => {
     const ccs = selectedRows.reduce((acc, o) => {
-      const coName = toJS(CCAccessible.find(c => c.id === o.ccCode)).ccName;
+      const coName = toJS(ccList.find(c => c.code === o.ccCode)).name;
       return acc.includes(coName) ? acc : [...acc, coName];
     }, []);
-    return `${
-      ccs.length > 1 ? `${currentCO.name}_co` : ccs[0]
-    }_Lot_${getToday()}`;
+    return `${ccs.length > 1 ? `${co.label}_co` : ccs[0]}_Lot_${getToday()}`;
   };
 
   const handleCreateLot = () => {
@@ -50,10 +40,21 @@ function ListBatch({ CCAccessible }: IProps) {
         batches: selectedRows,
         lotName: generateLotName(),
         type: batchType,
-        coCode,
+        coCode: co.value,
       },
     });
   };
+
+  const onCoSelected = coCode =>
+    coCode &&
+    axListCCByCoId(coCode.value).then(data => {
+      setCO(coCode);
+      if (data.success) {
+        const ccs = data.data;
+        setCCList(ccs.map(o => ({ ...o, label: o.name, value: o.code })));
+        setccCodes(ccs.map(o => o.code));
+      }
+    });
 
   return (
     <>
@@ -89,9 +90,13 @@ function ListBatch({ CCAccessible }: IProps) {
             />
           </ContentSwitcher>
         </div>
+      </div>
+      <div className="bx--row">
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={onCoSelected} />
         <div className="bx--col-lg-4 bx--col-md-12 mb-4">
+          <label className="bx--label">Collection Center(s)</label>
           <MultiSelect
-            options={CCAccessible}
+            options={ccList}
             overrideStrings={{ allItemsAreSelected: MESSAGE.ALL_CC_SELECTED }}
             selected={ccCodes}
             onSelectedChanged={setccCodes}

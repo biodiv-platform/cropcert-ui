@@ -23,7 +23,6 @@ export default function AccesserForm({
   const [rolesValues, setRolesValues] = useState(initialState.values);
 
   useEffect(() => {
-    console.log(initialState);
     if (rolesValues[toRole]) {
       onChange(rolesValues[toRole]);
     }

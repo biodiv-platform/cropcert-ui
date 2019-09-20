@@ -13,10 +13,15 @@ const ListWetPage = () => {
   }, []);
 
   return (
-    <Container roles={[ROLES.COOPERATIVE]}>
-      {ccStore.CCAccessible.length > 0 && (
-        <ListWet CCAccessible={ccStore.CCAccessible} />
-      )}
+    <Container
+      roles={[
+        ROLES.COLLECTION_CENTER,
+        ROLES.COOPERATIVE,
+        ROLES.UNION,
+        ROLES.ADMIN,
+      ]}
+    >
+      {ccStore.CCAccessible.length > 0 && <ListWet />}
     </Container>
   );
 };

@@ -1,11 +1,14 @@
+import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
 import MultiSelect from "@khanacademy/react-multi-select";
+import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
+import { hasAccess } from "@utils/auth.util";
 import { local2utc } from "@utils/basic.util";
-import { BATCH_TYPE, DATATYPE, MESSAGE } from "@utils/constants";
+import { BATCH_TYPE, DATATYPE, MESSAGE, ROLES } from "@utils/constants";
+import { getUserKey } from "@utils/user.util";
 import { Button } from "carbon-components-react";
-import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
@@ -14,12 +17,12 @@ import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 interface IProps {
-  CCAccessible: any[];
   batchType?;
 }
 
-function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
-  const [ccCodes, setccCodes] = useState(CCAccessible.map(i => i.id));
+function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
+  const [ccList, setCCList] = useState([] as any[]);
+  const [ccCodes, setccCodes] = useState([] as any[]);
   const batchStore = useContext(BatchStore);
   const [isDateModalOpen, setIsModalOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -134,6 +137,18 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
     });
   };
 
+  const onCoSelected = coCode =>
+    coCode &&
+    axListCCByCoId(coCode.value).then(data => {
+      if (data.success) {
+        const ccs = hasAccess([ROLES.COLLECTION_CENTER])
+          ? data.data.filter(o => o.code === getUserKey("ccCode"))
+          : data.data;
+        setCCList(ccs.map(o => ({ ...o, label: o.name, value: o.code })));
+        setccCodes(ccs.map(o => o.code));
+      }
+    });
+
   return (
     <>
       <GenricModal
@@ -158,10 +173,13 @@ function ListWet({ CCAccessible, batchType = BATCH_TYPE.WET }: IProps) {
           </Button>
         </div>
       </div>
+
       <div className="bx--row">
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={onCoSelected} />
         <div className="bx--col-lg-4 bx--col-md-12 mb-4">
+          <label className="bx--label">Collection Center(s)</label>
           <MultiSelect
-            options={CCAccessible}
+            options={ccList}
             overrideStrings={{ allItemsAreSelected: MESSAGE.ALL_CC_SELECTED }}
             selected={ccCodes}
             onSelectedChanged={setccCodes}

@@ -1,6 +1,8 @@
 import { ENDPOINT, ROLES } from "@utils/constants";
 import http from "@utils/http";
 import { getUserKey } from "@utils/user.util";
+import { axListCCByCoId } from "./cc.service";
+import { axListUnion } from "./union.service";
 
 /**
  * Provides list of entities by role and entity code
@@ -14,7 +16,7 @@ export const getByRole = async (role: string, code: number = -1) => {
 
   switch (role) {
     case ROLES.UNION:
-      const un = await http.get(`${ENDPOINT.USER}/union/all`);
+      const un = await axListUnion();
       res = un.data.map(o => ({
         label: o.name,
         value: o.code,
@@ -34,7 +36,7 @@ export const getByRole = async (role: string, code: number = -1) => {
 
     case ROLES.COLLECTION_CENTER:
       const coCode = code > 0 ? code : getUserKey(`coCode`);
-      const cc = await http.get(`${ENDPOINT.USER}/cc/coCode/${coCode}`);
+      const cc = await axListCCByCoId(coCode);
       res = cc.data.map(o => ({
         label: o.name,
         value: o.code,

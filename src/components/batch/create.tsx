@@ -72,7 +72,9 @@ function BatchCreate() {
       onSubmit={handleSubmit}
       render={props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
-          <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
+          <div className="bx--row">
+            <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
+          </div>
           <div className="bx--row">
             <div className="bx--col-lg-4 bx--col-sm-12">
               <Field

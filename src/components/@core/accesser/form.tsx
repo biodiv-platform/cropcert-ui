@@ -94,5 +94,5 @@ export default function AccesserForm({
     );
   };
 
-  return <div className="bx--row">{roles.map(RoleDropdown)}</div>;
+  return <>{roles.map(RoleDropdown)}</>;
 }

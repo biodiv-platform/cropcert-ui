@@ -1,7 +1,8 @@
 import { getByRole } from "@services/accessor.service";
 import { KEYS_TO_ROLES } from "@utils/constants";
-import { Dropdown } from "carbon-components-react";
+import { ComboBox } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
+import { setUserKey } from "@utils/user.util";
 
 interface IProps {
   toRole: string;
@@ -29,6 +30,9 @@ export default function AccesserForm({
   }, []);
 
   useEffect(() => {
+    Object.keys(rolesValues).forEach(k => {
+      setUserKey(`${k}Code`, rolesValues[k] ? rolesValues[k].value : -1);
+    });
     onChange(rolesValues[toRole]);
   }, [rolesValues[toRole]]);
 
@@ -75,17 +79,17 @@ export default function AccesserForm({
         return (
           role !== currentRole && (
             <div key={index} className="bx--col-lg-4 bx--col-sm-12 mb-4">
-              <Dropdown
+              <ComboBox
                 id={role}
                 items={rolesOptions[role]}
-                label={`Select ${roleLabel}`}
+                placeholder={`Select ${roleLabel}`}
                 titleText={roleLabel}
                 ariaLabel={roleLabel}
                 disabled={rolesOptions[role].length < 1}
                 onChange={e => {
                   onOptionChange(role, index, e.selectedItem);
                 }}
-                selectedItem={rolesValues[role]}
+                initialSelectedItem={rolesValues[role]}
               />
             </div>
           )

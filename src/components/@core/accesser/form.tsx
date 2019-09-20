@@ -1,8 +1,8 @@
 import { getByRole } from "@services/accessor.service";
 import { KEYS_TO_ROLES } from "@utils/constants";
-import { ComboBox } from "carbon-components-react";
-import React, { useEffect, useState } from "react";
 import { setUserKey } from "@utils/user.util";
+import { Dropdown } from "carbon-components-react";
+import React, { useEffect, useState } from "react";
 
 interface IProps {
   toRole: string;
@@ -72,29 +72,27 @@ export default function AccesserForm({
     });
   };
 
-  return (
-    <div className="bx--row">
-      {roles.map((role, index) => {
-        const roleLabel = KEYS_TO_ROLES[role];
-        return (
-          role !== currentRole && (
-            <div key={index} className="bx--col-lg-4 bx--col-sm-12 mb-4">
-              <ComboBox
-                id={role}
-                items={rolesOptions[role]}
-                placeholder={`Select ${roleLabel}`}
-                titleText={roleLabel}
-                ariaLabel={roleLabel}
-                disabled={rolesOptions[role].length < 1}
-                onChange={e => {
-                  onOptionChange(role, index, e.selectedItem);
-                }}
-                initialSelectedItem={rolesValues[role]}
-              />
-            </div>
-          )
-        );
-      })}
-    </div>
-  );
+  const RoleDropdown = (role, index) => {
+    const roleLabel = KEYS_TO_ROLES[role];
+    return (
+      role !== currentRole && (
+        <div key={index} className="bx--col-lg-4 bx--col-sm-12 mb-4">
+          <Dropdown
+            id={role}
+            items={rolesOptions[role]}
+            label={`Select ${roleLabel}`}
+            titleText={roleLabel}
+            ariaLabel={roleLabel}
+            disabled={rolesOptions[role].length < 1}
+            onChange={e => {
+              onOptionChange(role, index, e.selectedItem);
+            }}
+            selectedItem={rolesValues[role]}
+          />
+        </div>
+      )
+    );
+  };
+
+  return <div className="bx--row">{roles.map(RoleDropdown)}</div>;
 }

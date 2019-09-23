@@ -1,4 +1,4 @@
-import { textInput } from "@components/@core/formik";
+import { textInput, dateTimeInput } from "@components/@core/formik";
 import { axCreateCuppingReport } from "@services/report.service";
 import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
@@ -16,6 +16,8 @@ interface IProps {
   grnNumber;
   cooperativeName;
   ccNames;
+  grnTimestamp;
+  report;
 }
 
 export default class CuppingComponent extends Component<IProps> {
@@ -23,7 +25,7 @@ export default class CuppingComponent extends Component<IProps> {
     validationSchema: Yup.object().shape({
       lotName: Yup.string().required(),
       lotId: Yup.string().required(),
-      date: Yup.date().required(),
+      date: Yup.number().required(),
       cfa: Yup.string().required(),
       ccName: Yup.string().required(),
 
@@ -52,7 +54,8 @@ export default class CuppingComponent extends Component<IProps> {
     initialValues: {
       lotName: this.props.lotName,
       lotId: this.props.id,
-      date: getToday(),
+      date: this.props.grnTimestamp,
+      timestamp: local2utc(),
       cfa: this.props.cooperativeName,
       ccName: this.props.ccNames.toString(),
 
@@ -61,22 +64,22 @@ export default class CuppingComponent extends Component<IProps> {
       grnNumber: this.props.grnNumber,
 
       // Params
-      fragranceAroma: "",
-      flavour: "",
-      acidity: "",
-      body: "",
-      afterTaste: "",
-      balance: "",
-      sweetness: "",
-      uniformity: "",
-      cleanCup: "",
-      overAll: "",
+      fragranceAroma: this.props.report.fragranceAroma || "",
+      flavour: this.props.report.flavour || "",
+      acidity: this.props.report.acidity || "",
+      body: this.props.report.body || "",
+      afterTaste: this.props.report.afterTaste || "",
+      balance: this.props.report.balance || "",
+      sweetness: this.props.report.sweetness || "",
+      uniformity: this.props.report.uniformity || "",
+      cleanCup: this.props.report.cleanCup || "",
+      overAll: this.props.report.overAll || "",
 
       // Problems
-      taint: "",
-      fault: "",
+      taint: this.props.report.taint || "",
+      fault: this.props.report.fault || "",
 
-      notes: "",
+      notes: this.props.report.notes || "",
     },
   };
 
@@ -101,7 +104,7 @@ export default class CuppingComponent extends Component<IProps> {
     actions.setSubmitting(false);
     axCreateCuppingReport({
       ...v,
-      timestamp: local2utc(),
+      id: this.props.report.id || -1,
     }).then(response =>
       messageRedirect({ ...response, mcode: "CUPPING_REPORT_CREATED" })
     );
@@ -129,11 +132,11 @@ export default class CuppingComponent extends Component<IProps> {
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
-            label="Cupping Date"
+            label="Lot Reception Date"
             name="date"
-            component={textInput}
-            type="date"
-            readOnly={true}
+            component={dateTimeInput}
+            hint={false}
+            disabled={true}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -159,6 +162,19 @@ export default class CuppingComponent extends Component<IProps> {
             name="sampleType"
             component={textInput}
             readOnly={true}
+          />
+        </div>
+      </div>
+
+      <h3 className="eco--form-title">Report</h3>
+      <div className="bx--row">
+        <div className="bx--col-lg-3 bx--col-sm-12">
+          <Field
+            label="Report Time"
+            name="timestamp"
+            component={dateTimeInput}
+            min={this.props.grnTimestamp}
+            hint={false}
           />
         </div>
       </div>

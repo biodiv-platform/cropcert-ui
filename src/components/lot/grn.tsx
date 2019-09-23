@@ -4,6 +4,7 @@ import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
+import { local2utc } from "@utils/basic.util";
 import { DATATYPE, LOT_AT, ROLES } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
@@ -26,10 +27,8 @@ function GRNLots() {
     }
   }, [coCodes]);
 
-  const [, ...initialColumnsDispatch] = columnsDispatch;
-
   const columns = [
-    ...initialColumnsDispatch,
+    ...columnsDispatch,
     {
       name: "GRN",
       selector: "grnNumber",
@@ -52,7 +51,11 @@ function GRNLots() {
 
   const onClose = async (updated, keyName?, body?) => {
     if (updated) {
-      const isUpdated = await lotStore.updateLot(keyName, body, LOT_AT.UNION);
+      const isUpdated = await lotStore.updateLot(
+        keyName,
+        { ...body, grnTimestamp: local2utc().getTime() },
+        LOT_AT.UNION
+      );
       setIsModalOpen(!isUpdated);
     } else {
       setIsModalOpen(false);

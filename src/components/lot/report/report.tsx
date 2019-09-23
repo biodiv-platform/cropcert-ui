@@ -4,13 +4,13 @@ import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
 import { camelCaseToStartCase } from "@utils/basic.util";
 import { LOT_AT, REPORT_TYPE, ROLES } from "@utils/constants";
-import { Link } from "gatsby";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "../lot.columns";
+import actionButton from "./action-button";
 
 function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
   const lotStore = useContext(LotStore);
@@ -24,15 +24,15 @@ function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
   }, [coCodes]);
 
   const columns = [
+    {
+      name: "GRN Number",
+      selector: "grnNumber",
+    },
     ...columnsDispatch,
     {
       name: "Report",
       selector: "id",
-      cell: row => (
-        <Link to={`/lot/report/${reportType}?id=${row.id}`}>
-          {reportTypeTitle} Report
-        </Link>
-      ),
+      cell: row => actionButton(reportType, row),
     },
   ];
 

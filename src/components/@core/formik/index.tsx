@@ -30,6 +30,7 @@ export const dateTimeInput = ({
   form: { touched, errors, setFieldValue },
   label,
   hint = true,
+  disabled = false,
   ...props
 }) => {
   const hasErrors = touched[field.name] && errors[field.name];
@@ -67,6 +68,7 @@ export const dateTimeInput = ({
           autoComplete={false}
           format="dd-MM-yyyy H:mm"
           required={true}
+          disabled={disabled}
           minDate={minDate}
           maxDate={maxDate}
         />

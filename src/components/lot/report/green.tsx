@@ -1,11 +1,10 @@
-import { getToday, messageRedirect } from "@utils/basic.util";
+import { dateTimeInput, textInput } from "@components/@core/formik";
+import { axCreateGreenReport } from "@services/report.service";
+import { local2utc, messageRedirect } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
 import { Field, Formik } from "formik";
 import React, { Component } from "react";
 import * as Yup from "yup";
-
-import { textInput } from "@components/@core/formik";
-import { axCreateGreenReport } from "@services/report.service";
 
 interface IProps {
   id;
@@ -14,11 +13,14 @@ interface IProps {
   outTurn;
   quantity;
   grnNumber;
+  grnTimestamp;
   cooperativeName;
   ccNames;
+  report;
 }
 
 export default class GreenReport extends Component<IProps> {
+  report = this.props.report;
   getOutTurn = () => {
     return ((this.props.outTurn * 100) / this.props.quantity).toFixed(2);
   };
@@ -27,12 +29,12 @@ export default class GreenReport extends Component<IProps> {
     validationSchema: Yup.object().shape({
       lotName: Yup.string().required(),
       lotId: Yup.string().required(),
-      date: Yup.date().required(),
+      date: Yup.number().required(),
       cfa: Yup.string().required(),
       ccName: Yup.string().required(),
 
       coffeeType: Yup.string().required(),
-      overTurnPercentage: Yup.string().required(),
+      overTurnPercentage: Yup.number().required(),
       mc: Yup.number().required(),
       grnNumber: Yup.string().required(),
 
@@ -72,43 +74,44 @@ export default class GreenReport extends Component<IProps> {
     initialValues: {
       lotName: this.props.lotName,
       lotId: this.props.id,
-      date: getToday(),
+      date: this.props.grnTimestamp,
+      timestamp: local2utc(),
       cfa: this.props.cooperativeName,
       ccName: this.props.ccNames.toString(),
 
       coffeeType: this.props.type,
       overTurnPercentage: this.getOutTurn(),
-      mc: "",
+      mc: this.report.mc || "",
       grnNumber: this.props.grnNumber,
 
       // Grades
-      gradeAA: "",
-      gradeA: "",
-      gradeB: "",
-      gradeAB: "",
-      gradeC: "",
-      gradePB: "",
-      gradeTriage: "",
+      gradeAA: this.report.gradeAA || "",
+      gradeA: this.report.gradeA || "",
+      gradeB: this.report.gradeB || "",
+      gradeAB: this.report.gradeAB || "",
+      gradeC: this.report.gradeC || "",
+      gradePB: this.report.gradePB || "",
+      gradeTriage: this.report.gradeTriage || "",
 
       // Severe defects
-      fullBlack: 0,
-      fullSour: 0,
-      pods: 0,
-      fungasDamaged: 0,
-      em: 0,
-      severeInsect: 0,
+      fullBlack: this.report.fullBlack || 0,
+      fullSour: this.report.fullSour || 0,
+      pods: this.report.pods || 0,
+      fungasDamaged: this.report.fungasDamaged || 0,
+      em: this.report.em || 0,
+      severeInsect: this.report.severeInsect || 0,
 
       // Less Severe defects
-      partialBlack: 0,
-      partialSour: 0,
-      patchment: 0,
-      floatersChalky: 0,
-      immature: 0,
-      withered: 0,
-      shells: 0,
-      brokenChipped: 0,
-      husks: 0,
-      pinHole: 0,
+      partialBlack: this.report.partialBlack || 0,
+      partialSour: this.report.partialSour || 0,
+      patchment: this.report.patchment || 0,
+      floatersChalky: this.report.floatersChalky || 0,
+      immature: this.report.immature || 0,
+      withered: this.report.withered || 0,
+      shells: this.report.shells || 0,
+      brokenChipped: this.report.brokenChipped || 0,
+      husks: this.report.husks || 0,
+      pinHole: this.report.pinHole || 0,
     },
   };
 
@@ -157,7 +160,8 @@ export default class GreenReport extends Component<IProps> {
     if (
       typeof qualityGrading === "number" &&
       typeof severeDefectsTotal === "number" &&
-      typeof lessSevereDefectsTotal === "number"
+      typeof lessSevereDefectsTotal === "number" &&
+      severeDefectsTotal + lessSevereDefectsTotal <= qualityGrading
     ) {
       return (
         ((qualityGrading - (severeDefectsTotal + lessSevereDefectsTotal)) /
@@ -165,7 +169,7 @@ export default class GreenReport extends Component<IProps> {
         100
       ).toFixed(2);
     }
-    return "";
+    return -1;
   };
 
   handleSubmit = (values, actions) => {
@@ -173,8 +177,8 @@ export default class GreenReport extends Component<IProps> {
     actions.setSubmitting(false);
     axCreateGreenReport({
       ...v,
+      id: this.report.id || -1,
       percentageOutTurn: this.outTurnFAQ(values),
-      timestamp: new Date().getTime(),
     }).then(response =>
       messageRedirect({ ...response, mcode: "GREEN_REPORT_CREATED" })
     );
@@ -204,8 +208,9 @@ export default class GreenReport extends Component<IProps> {
           <Field
             label="Lot Reception Date"
             name="date"
-            component={textInput}
-            type="date"
+            component={dateTimeInput}
+            hint={false}
+            disabled={true}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -240,6 +245,19 @@ export default class GreenReport extends Component<IProps> {
             component={textInput}
             type="number"
             readOnly={true}
+          />
+        </div>
+      </div>
+
+      <h3 className="eco--form-title">Report</h3>
+      <div className="bx--row">
+        <div className="bx--col-lg-3 bx--col-sm-12">
+          <Field
+            label="Report Time"
+            name="timestamp"
+            component={dateTimeInput}
+            min={this.props.grnTimestamp}
+            hint={false}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -453,7 +471,10 @@ export default class GreenReport extends Component<IProps> {
         {this.outTurnFAQ(values)}%
       </h3>
 
-      <Button type="submit" disabled={!isValid}>
+      <Button
+        type="submit"
+        disabled={!(isValid && this.outTurnFAQ(values) >= 0)}
+      >
         Submit
       </Button>
     </form>

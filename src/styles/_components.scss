@@ -1,0 +1,38 @@
+@import "variables";
+
+.text-green,
+.text-orange {
+  padding: 3px 6px;
+  border-radius: 2px;
+  min-width: 64px;
+  text-align: center;
+  &:hover {
+    color: #fff;
+  }
+}
+
+.text-orange {
+  border: 1px solid $brand-orange;
+  background: transparent;
+  color: $brand-orange;
+  &:hover {
+    background: $brand-orange;
+  }
+}
+
+.text-green {
+  border: 1px solid $brand-green;
+  background: transparent;
+  color: $brand-green;
+  &:hover {
+    background: $brand-green;
+  }
+}
+
+.icon-link {
+  text-decoration: none;
+  svg {
+    vertical-align: middle;
+    fill: currentColor;
+  }
+}

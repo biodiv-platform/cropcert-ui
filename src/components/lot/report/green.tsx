@@ -184,6 +184,26 @@ export default class GreenReport extends Component<IProps> {
     );
   };
 
+  defectsTotalError = v => {
+    const qualityGrading = this.qualityGrading(v);
+    const severeDefectsTotal = this.severeDefectsTotal(v);
+    const lessSevereDefectsTotal = this.lessSevereDefectsTotal(v);
+    if (
+      typeof qualityGrading === "number" &&
+      typeof severeDefectsTotal === "number" &&
+      typeof lessSevereDefectsTotal === "number" &&
+      severeDefectsTotal + lessSevereDefectsTotal > qualityGrading
+    ) {
+      return (
+        <>
+          <span className="text-danger">
+            Severe and Less Severe Defects should be less then {qualityGrading}
+          </span>
+        </>
+      );
+    }
+  };
+
   renderGreenForm = ({ handleSubmit, isValid, values }) => (
     <form className="bx--form" onSubmit={handleSubmit}>
       <h3 className="eco--form-title">Lot Information</h3>
@@ -248,7 +268,6 @@ export default class GreenReport extends Component<IProps> {
           />
         </div>
       </div>
-
       <h3 className="eco--form-title">Report</h3>
       <div className="bx--row">
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -269,7 +288,6 @@ export default class GreenReport extends Component<IProps> {
           />
         </div>
       </div>
-
       {this.props.type === "WET" && (
         <>
           <h3 className="eco--form-title">
@@ -335,9 +353,9 @@ export default class GreenReport extends Component<IProps> {
           </div>
         </>
       )}
-
       <h3 className="eco--form-title">
-        Severe Defects - {this.severeDefectsTotal(values)}
+        Severe Defects - {this.severeDefectsTotal(values)}&emsp;
+        {this.defectsTotalError(values)}
       </h3>
       <div className="bx--row">
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -379,9 +397,9 @@ export default class GreenReport extends Component<IProps> {
           />
         </div>
       </div>
-
       <h3 className="eco--form-title">
-        Less Severe Defects - {this.lessSevereDefectsTotal(values)}
+        Less Severe Defects - {this.lessSevereDefectsTotal(values)}&emsp;
+        {this.defectsTotalError(values)}
       </h3>
       <div className="bx--row">
         <div className="bx--col-lg-3 bx--col-sm-12">
@@ -465,12 +483,10 @@ export default class GreenReport extends Component<IProps> {
           />
         </div>
       </div>
-
       <h3 className="eco--form-title">
         {this.props.type === "DRY" ? "Out turn FAQ " : "Out turn "} &rarr;
         {this.outTurnFAQ(values)}%
       </h3>
-
       <Button
         type="submit"
         disabled={!(isValid && this.outTurnFAQ(values) >= 0)}

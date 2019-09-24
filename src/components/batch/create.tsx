@@ -21,15 +21,12 @@ function BatchCreate() {
 
   useEffect(() => {
     if (cc) {
-      switch (cc.type) {
-        case "D":
-          setTypeOptions([TYPE_OPTIONS.DRY]);
-
-        case "P":
-          setTypeOptions([TYPE_OPTIONS.WET]);
-
-        default:
-          setTypeOptions([TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET]);
+      if (cc.type === "D") {
+        setTypeOptions([TYPE_OPTIONS.DRY]);
+      } else if (cc.type === "P") {
+        setTypeOptions([TYPE_OPTIONS.WET]);
+      } else {
+        setTypeOptions([TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET]);
       }
       setccCode(cc.value);
     }

@@ -3,9 +3,8 @@ import "tinymce/plugins/code";
 import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/table";
-import "tinymce/skins/ui/oxide/content.min.css";
-import "tinymce/skins/ui/oxide/skin.min.css";
 import "tinymce/themes/silver/theme";
+import "./index.scss"
 
 import { axUploadHandler } from "@services/pages.services";
 import { Editor } from "@tinymce/tinymce-react";

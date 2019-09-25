@@ -1,19 +1,14 @@
-import { getBearerToken } from "@utils/http";
-import React, { useState, useEffect } from "react";
+import loadable from "@loadable/component";
+import React from "react";
 
-import Editor from "../editor";
+const Editor = loadable(() => import("@components/@core/wysiwyg"));
 
-const ckInput = ({
+const wysiwygInput = ({
   field,
   form: { touched, errors, setFieldValue },
   label,
 }) => {
   const hasErrors = touched[field.name] && errors[field.name];
-  const [bearerToken, setBearerToken] = useState();
-
-  useEffect(() => {
-    getBearerToken().then(setBearerToken);
-  }, []);
 
   const onEditorValueChange = v => setFieldValue(field.name, v);
 
@@ -21,9 +16,7 @@ const ckInput = ({
     <fieldset className="bx--fieldset">
       <div className="bx--form-item">
         <label className="bx--label">{label}</label>
-        {bearerToken && (
-          <Editor data={field.value} token={bearerToken} onUpdate={onEditorValueChange} />
-        )}
+        <Editor data={field.value} onUpdate={onEditorValueChange} />
         {hasErrors && (
           <div className="bx--form-requirement">{errors[field.name]}</div>
         )}
@@ -32,4 +25,4 @@ const ckInput = ({
   );
 };
 
-export default ckInput;
+export default wysiwygInput;

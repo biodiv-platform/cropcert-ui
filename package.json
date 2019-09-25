@@ -37,7 +37,6 @@
     "axios": "^0.19.0",
     "carbon-components": "^10.6.2",
     "carbon-components-react": "^7.6.2",
-    "ckeditor5-simple-upload": "1.0.6",
     "dayjs": "^1.8.16",
     "formik": "^1.5.8",
     "gatsby": "^2.15.19",

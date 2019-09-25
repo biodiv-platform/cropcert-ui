@@ -18,19 +18,6 @@ exports.onCreateWebpackConfig = function({ stage, actions, loaders }) {
   }
   */
 
-  if (stage === "build-html") {
-    customModules = {
-      module: {
-        rules: [
-          {
-            test: /ckeditor/,
-            use: loaders.null(),
-          },
-        ],
-      },
-    };
-  }
-
   actions.setWebpackConfig({
     resolve: {
       alias: {

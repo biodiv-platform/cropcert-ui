@@ -9,7 +9,7 @@ function NavbarRightMenu() {
   return (
     <ul className="main-menu right">
       <li>
-        <a href="/static/LICENSES.txt" title="Licenses">
+        <a href="/LICENSES.txt" title="Licenses">
           <Information20 />
         </a>
       </li>

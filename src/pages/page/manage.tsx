@@ -11,7 +11,7 @@ const ManagePagePage = ({ query }) => {
     if (query.id) {
       axGetPageByPageId(query.id).then(data => setPage(data));
     }
-  }, []);
+  }, [query]);
 
   return (
     <Container>

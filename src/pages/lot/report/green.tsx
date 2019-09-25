@@ -20,7 +20,7 @@ function GreenReportPage({ query }) {
       axOriginByLotId(lotId).then(({ data }) => setOrigin(data));
       axGetGreenReportById(reportId).then(({ data }) => setReport(data));
     }
-  }, []);
+  }, [query]);
 
   return (
     <Container roles={hierarchicalRoles(ROLES.UNION)}>

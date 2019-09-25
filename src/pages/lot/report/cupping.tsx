@@ -21,7 +21,7 @@ function CuppingReportPage({ query }) {
       axOriginByLotId(lotId).then(({ data }) => setOrigin(data));
       axGetCuppingReportById(reportId).then(({ data }) => setReport(data));
     }
-  }, []);
+  }, [query]);
 
   return (
     <Container roles={hierarchicalRoles(ROLES.UNION)}>

@@ -9,7 +9,7 @@ export default function ActionButton(reportType, row) {
       const edit = row.greenAnalysisId ? true : false;
       return (
         <Link
-          className={`icon-link ${edit ? "text-orange" : "text-green"}`}
+          className={`icon-link ${edit ? "btn-orange" : "btn-green"}`}
           to={`/lot/report/${reportType}?id=${
             row.id
           }&reportId=${row.greenAnalysisId || -1}`}
@@ -29,7 +29,7 @@ export default function ActionButton(reportType, row) {
     case REPORT_TYPE.CUPPING:
       return (
         <Link
-          className="icon-link text-green"
+          className="icon-link btn-green"
           to={`/lot/report/${reportType}?id=${row.id}&reportId=-1`}
         >
           <Add16 /> Add

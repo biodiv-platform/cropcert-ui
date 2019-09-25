@@ -196,7 +196,7 @@ export default class GreenReport extends Component<IProps> {
     ) {
       return (
         <>
-          <span className="text-danger">
+          <span className="btn-danger">
             Severe and Less Severe Defects should be less then {qualityGrading}
           </span>
         </>

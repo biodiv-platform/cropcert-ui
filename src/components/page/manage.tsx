@@ -1,7 +1,7 @@
 import "@styles/medium.scss";
 
 import { textInput } from "@components/@core/formik";
-import ckInput from "@components/@core/formik/ckInput";
+import wysiwygInput from "@components/@core/formik/wysiwyg";
 import { axUpdatePage } from "@services/pages.services";
 import { local2utc, messageRedirect } from "@utils/basic.util";
 import { getUserKey } from "@utils/user.util";
@@ -52,7 +52,7 @@ export default function ManagePage({ mode, page, id }) {
       initialValues={initialValues}
       onSubmit={handleSubmit}
       render={props => (
-        <form className="bx--form" onSubmit={props.handleSubmit}>
+        <form className="bx--form mb-4" onSubmit={props.handleSubmit}>
           <div className="bx--row">
             <div className="bx--col-lg-4 bx--col-sm-12">
               <Field label="Menu Heading" name="title" component={textInput} />
@@ -63,10 +63,9 @@ export default function ManagePage({ mode, page, id }) {
           </div>
           <div className="bx--row">
             <div className="bx--col-lg-12 bx--col-sm-12">
-              <Field label="Content" name="content" component={ckInput} />
+              <Field label="Content" name="content" component={wysiwygInput} />
             </div>
           </div>
-          <br />
           <Button type="submit" disabled={!props.isValid}>
             Create/Update Page
           </Button>

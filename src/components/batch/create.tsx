@@ -19,6 +19,14 @@ function BatchCreate() {
 
   const [typeOptions, setTypeOptions] = useState([] as any);
 
+  const initialValues = {
+    ccCode,
+    type: null,
+    quantity: 0,
+    date: new Date().getTime(),
+    note: "",
+  };
+
   useEffect(() => {
     if (cc) {
       if (cc.type === "D") {
@@ -29,25 +37,19 @@ function BatchCreate() {
         setTypeOptions([TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET]);
       }
       setccCode(cc.value);
+    } else {
+      setTypeOptions([]);
+      setccCode(null);
     }
   }, [cc]);
 
-  const collectForm = {
-    validationSchema: Yup.object().shape({
-      ccCode: Yup.string().required(),
-      quantity: Yup.number()
-        .min(1)
-        .required(),
-      date: Yup.number().required(),
-    }),
-    initialValues: {
-      ccCode,
-      type: undefined,
-      quantity: 0,
-      date: new Date().getTime(),
-      note: "",
-    },
-  };
+  const validationSchema = Yup.object().shape({
+    ccCode: Yup.string().required(),
+    quantity: Yup.number()
+      .min(1)
+      .required(),
+    date: Yup.number().required(),
+  });
 
   const handleSubmit = (values, actions) => {
     actions.setSubmitting(false);
@@ -64,7 +66,8 @@ function BatchCreate() {
 
   return (
     <Formik
-      {...collectForm}
+      validationSchema={validationSchema}
+      initialValues={initialValues}
       enableReinitialize={true}
       onSubmit={handleSubmit}
       render={props => (

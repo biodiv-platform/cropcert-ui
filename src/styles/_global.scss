@@ -1,17 +1,7 @@
-:root {
-  --spacing-base: 2rem;
-}
-
 body {
   font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif,
     "apple color emoji", "segoe ui emoji", "noto color emoji", "android emoji",
     "emojisymbols", "emojione mozilla", "twemoji mozilla", "segoe ui symbol";
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 .eco--title {
@@ -47,31 +37,9 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .react-datetime-picker__wrapper {
   border: 0 !important;
   width: 100%;
-}
-
-.rdt_Table {
-  .rdt_TableHeadRow {
-    background-color: #dcdcdc;
-    div {
-      color: inherit;
-      font-weight: bold;
-    }
-  }
-  .rdt_TableRow {
-    background-color: #f3f3f3;
-    div {
-      color: #565656;
-    }
-  }
 }
 
 ol,
@@ -88,25 +56,13 @@ ol {
   list-style: decimal;
 }
 
-[data-tag="___react-data-table--click-clip___"],
-.react-datetime-picker__clear-button {
-  display: none;
-}
-
-.dropdown-heading {
-  background-color: #f3f3f3 !important;
-  border-radius: 0 !important;
-  border: 0 !important;
-  border-bottom: 1px solid #8c8c8c !important;
-}
-
 .leaflet-container {
   height: 70vh;
   margin-bottom: 2rem;
 }
 
 .eco--sign-in {
-  margin-top: calc(var(--spacing-base) * 2);
+  margin-top: 4rem;
 }
 
 .bx--accordion {
@@ -124,29 +80,4 @@ ol {
   user-select: none;
   cursor: pointer;
   vertical-align: middle;
-}
-
-.eco--lot-show-expand {
-  background: #e5e5e5;
-  padding: 2em;
-  .section {
-    display: inline-flex;
-  }
-  table {
-    min-width: 300px;
-    thead {
-      td {
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-    }
-    td {
-      &:first-child {
-        width: 200px;
-      }
-      width: 50px;
-      padding: 10px;
-      text-align: left;
-    }
-  }
 }

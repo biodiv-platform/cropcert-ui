@@ -1,11 +1,103 @@
+@import "~carbon-components/scss/globals/scss/theme-tokens";
 @import "variables";
 
-.text-danger {
-  color: #da1e28;
+/* Form */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.text-green,
-.text-orange {
+.bx--form-item {
+  margin-bottom: 1.5rem;
+}
+
+.dropdown {
+  .dropdown-heading {
+    color: $text-01;
+    background-color: $field-01 !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid $ui-04 !important;
+    line-height: 40px;
+    .dropdown-heading-value span {
+      display: inline-block;
+      line-height: 40px;
+    }
+  }
+  .dropdown-content {
+    border: 0 !important;
+    margin-top: 0 !important;
+  }
+  .dropdown-content,
+  .select-item {
+    background-color: $field-01 !important;
+  }
+  .select-item:hover {
+    background-color: $hover-ui !important;
+  }
+  .select-list li {
+    padding-left: 0;
+  }
+}
+
+/* Datatable */
+.rdt_Table {
+  .rdt_TableHeadRow {
+    background-color: $ui-03;
+    div {
+      color: inherit;
+      font-weight: bold;
+    }
+  }
+  .rdt_TableRow {
+    background-color: $field-01;
+    transition: all 0.1s ease;
+    &:hover {
+      background-color: $hover-field;
+    }
+    div {
+      color: $text-01;
+    }
+  }
+}
+
+.eco--lot-show-expand {
+  background: $hover-field;
+  padding: 2em;
+  .section {
+    display: inline-flex;
+  }
+  table {
+    min-width: 300px;
+    thead {
+      td {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+    td {
+      &:first-child {
+        width: 200px;
+      }
+      width: 50px;
+      padding: 10px;
+      text-align: left;
+    }
+  }
+}
+
+/* Action Buttons in table */
+
+.btn-danger {
+  color: $support-01;
+}
+
+.btn-green,
+.btn-orange {
   padding: 3px 6px;
   border-radius: 2px;
   min-width: 64px;
@@ -15,7 +107,7 @@
   }
 }
 
-.text-orange {
+.btn-orange {
   border: 1px solid $brand-orange;
   background: transparent;
   color: $brand-orange;
@@ -24,12 +116,12 @@
   }
 }
 
-.text-green {
-  border: 1px solid $brand-green;
+.btn-green {
+  border: 1px solid $support-02;
   background: transparent;
-  color: $brand-green;
+  color: $support-02;
   &:hover {
-    background: $brand-green;
+    background: $support-02;
   }
 }
 

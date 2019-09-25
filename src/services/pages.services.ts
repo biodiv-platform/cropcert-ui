@@ -48,7 +48,7 @@ export const axUpdateTree = async body => {
 
 export const axUploadHandler = (blobInfo, success, failure) => {
   const formData = new FormData();
-  formData.append("file", blobInfo.blob(), blobInfo.filename());
+  formData.append("upload", blobInfo.blob(), blobInfo.filename());
 
   http
     .post(`${ENDPOINT.PAGES}/image`, formData, {
@@ -57,7 +57,7 @@ export const axUploadHandler = (blobInfo, success, failure) => {
       },
     })
     .then(r => {
-      success(r.data.location);
+      success(r.data.url);
     })
     .catch(e => {
       failure("Error");

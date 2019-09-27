@@ -7,7 +7,7 @@ import {
   DocumentAdd20,
   Edit20,
 } from "@carbon/icons-react";
-import { axGetPageByPageId, axUpdateTree } from "@services/pages.services";
+import { axDeletePageByPageId, axUpdateTree } from "@services/pages.services";
 import { treeToFlat } from "@utils/pages.util";
 import { Button, Search } from "carbon-components-react";
 import { navigate } from "gatsby";
@@ -80,7 +80,7 @@ export default function PageList({ pages, reloadPages }) {
   const deletePage = (id = -1) => {
     const deleteConfirmation = confirm("Are you sure?");
     if (deleteConfirmation) {
-      axGetPageByPageId(id).then(() => {
+      axDeletePageByPageId(id).then(() => {
         reloadPages();
       });
     }

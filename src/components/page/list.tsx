@@ -1,17 +1,20 @@
 import "./list.scss";
 
-import ArrowLeft from "@carbon/icons-react/es/arrow--left/20";
-import ArrowRight from "@carbon/icons-react/es/arrow--right/20";
-import DocumentAdd from "@carbon/icons-react/es/document--add/20";
-import Edit from "@carbon/icons-react/es/edit/20";
-import { axUpdateTree } from "@services/pages.services";
+import {
+  ArrowLeft20,
+  ArrowRight20,
+  Delete20,
+  DocumentAdd20,
+  Edit20,
+} from "@carbon/icons-react";
+import { axGetPageByPageId, axUpdateTree } from "@services/pages.services";
 import { treeToFlat } from "@utils/pages.util";
 import { Button, Search } from "carbon-components-react";
 import { navigate } from "gatsby";
 import React, { useEffect, useState } from "react";
 import SortableTree, { toggleExpandedForAll } from "react-sortable-tree";
 
-export default function PageList({ pages }) {
+export default function PageList({ pages, reloadPages }) {
   const [searchString, setSearchString] = useState("");
   const [searchFocusIndex, setSearchFocusIndex] = useState(0);
   const [searchFoundCount, setSearchFoundCount] = useState(0);
@@ -74,6 +77,15 @@ export default function PageList({ pages }) {
     navigate(`/page/manage?parentId=${id}&mode=create`);
   };
 
+  const deletePage = (id = -1) => {
+    const deleteConfirmation = confirm("Are you sure?");
+    if (deleteConfirmation) {
+      axGetPageByPageId(id).then(() => {
+        reloadPages();
+      });
+    }
+  };
+
   const generateNodeProps = rowInfo => ({
     buttons: [
       <button
@@ -81,14 +93,21 @@ export default function PageList({ pages }) {
         className="eco--btn-transparent"
         onClick={() => managePage(rowInfo.node.id)}
       >
-        <Edit />
+        <Edit20 />
       </button>,
       <button
         key={`add_${rowInfo.node.id}`}
         className="eco--btn-transparent"
         onClick={() => createPage(rowInfo.node.id)}
       >
-        <DocumentAdd />
+        <DocumentAdd20 />
+      </button>,
+      <button
+        key={`add_${rowInfo.node.id}`}
+        className="eco--btn-transparent"
+        onClick={() => deletePage(rowInfo.node.id)}
+      >
+        <Delete20 />
       </button>,
     ],
   });
@@ -160,7 +179,7 @@ export default function PageList({ pages }) {
               aria-label={"Previous"}
               title={"Previous"}
             >
-              <ArrowLeft />
+              <ArrowLeft20 />
             </button>
             <button
               onClick={selectNextMatch}
@@ -169,7 +188,7 @@ export default function PageList({ pages }) {
               aria-label={"Next"}
               title={"Next"}
             >
-              <ArrowRight />
+              <ArrowRight20 />
             </button>
           </div>
         </div>

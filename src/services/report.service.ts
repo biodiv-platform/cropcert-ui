@@ -27,6 +27,16 @@ export const axGetGreenReportById = async reportId => {
   }
 };
 
+export const axGetCuppingReportsByLotId = async lotId => {
+  try {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/cupping/lot/${lotId}`);
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(MESSAGE.ERROR);
+    return { success: false, data: {} };
+  }
+};
+
 export const axCreateCuppingReport = async body => {
   try {
     const http1 = body.id > 0 ? http.put : http.post;

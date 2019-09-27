@@ -1,14 +1,6 @@
-import { hasAccess } from "@utils/auth.util";
-import {
-  ENDPOINT,
-  LOT_AT,
-  MESSAGE,
-  PAGINATION_LIMIT,
-  ROLES,
-} from "@utils/constants";
+import { ENDPOINT, LOT_AT, MESSAGE, PAGINATION_LIMIT } from "@utils/constants";
 import http from "@utils/http";
 import notification from "@utils/notification.util";
-import { getUserKey } from "@utils/user.util";
 
 export const axCreateLotFromBatches = async body => {
   try {

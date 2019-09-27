@@ -84,3 +84,5 @@ export const messageRedirect = data => {
     navigate(`/message?${queryString.stringify(data)}`);
   }
 };
+
+export const nonZeroFalsy = num => (num || num === 0 ? num : "");

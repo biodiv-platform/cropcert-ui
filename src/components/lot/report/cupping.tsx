@@ -1,6 +1,6 @@
-import { textInput, dateTimeInput } from "@components/@core/formik";
+import { dateTimeInput, textInput } from "@components/@core/formik";
 import { axCreateCuppingReport } from "@services/report.service";
-import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
+import { local2utc, messageRedirect, nonZeroFalsy } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
 import { Field, Formik } from "formik";
 import React, { Component } from "react";
@@ -64,27 +64,27 @@ export default class CuppingComponent extends Component<IProps> {
       grnNumber: this.props.grnNumber,
 
       // Params
-      fragranceAroma: this.props.report.fragranceAroma || "",
-      flavour: this.props.report.flavour || "",
-      acidity: this.props.report.acidity || "",
-      body: this.props.report.body || "",
-      afterTaste: this.props.report.afterTaste || "",
-      balance: this.props.report.balance || "",
-      sweetness: this.props.report.sweetness || "",
-      uniformity: this.props.report.uniformity || "",
-      cleanCup: this.props.report.cleanCup || "",
-      overAll: this.props.report.overAll || "",
+      fragranceAroma: nonZeroFalsy(this.props.report.fragranceAroma),
+      flavour: nonZeroFalsy(this.props.report.flavour),
+      acidity: nonZeroFalsy(this.props.report.acidity),
+      body: nonZeroFalsy(this.props.report.body),
+      afterTaste: nonZeroFalsy(this.props.report.afterTaste),
+      balance: nonZeroFalsy(this.props.report.balance),
+      sweetness: nonZeroFalsy(this.props.report.sweetness),
+      uniformity: nonZeroFalsy(this.props.report.uniformity),
+      cleanCup: nonZeroFalsy(this.props.report.cleanCup),
+      overAll: nonZeroFalsy(this.props.report.overAll),
 
       // Problems
-      taint: this.props.report.taint || "",
-      fault: this.props.report.fault || "",
+      taint: nonZeroFalsy(this.props.report.taint),
+      fault: nonZeroFalsy(this.props.report.fault),
 
-      notes: this.props.report.notes || "",
+      notes: nonZeroFalsy(this.props.report.notes),
     },
   };
 
   gradeTotal = v => {
-    const _t =
+    const t =
       v.fragranceAroma +
       v.flavour +
       v.acidity +
@@ -96,7 +96,7 @@ export default class CuppingComponent extends Component<IProps> {
       v.cleanCup +
       v.overAll -
       (v.taint + v.fault);
-    return typeof _t === "number" ? _t.toFixed(2) : "0";
+    return typeof t === "number" ? t.toFixed(2) : "0";
   };
 
   handleSubmit = (values, actions) => {

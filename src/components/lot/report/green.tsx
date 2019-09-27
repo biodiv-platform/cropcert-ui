@@ -1,6 +1,6 @@
 import { dateTimeInput, textInput } from "@components/@core/formik";
 import { axCreateGreenReport } from "@services/report.service";
-import { local2utc, messageRedirect } from "@utils/basic.util";
+import { local2utc, messageRedirect, nonZeroFalsy } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
 import { Field, Formik } from "formik";
 import React, { Component } from "react";
@@ -81,17 +81,17 @@ export default class GreenReport extends Component<IProps> {
 
       coffeeType: this.props.type,
       overTurnPercentage: this.getOutTurn(),
-      mc: this.report.mc || "",
+      mc: nonZeroFalsy(this.report.mc),
       grnNumber: this.props.grnNumber,
 
       // Grades
-      gradeAA: this.report.gradeAA || "",
-      gradeA: this.report.gradeA || "",
-      gradeB: this.report.gradeB || "",
-      gradeAB: this.report.gradeAB || "",
-      gradeC: this.report.gradeC || "",
-      gradePB: this.report.gradePB || "",
-      gradeTriage: this.report.gradeTriage || "",
+      gradeAA: nonZeroFalsy(this.report.gradeAA),
+      gradeA: nonZeroFalsy(this.report.gradeA),
+      gradeB: nonZeroFalsy(this.report.gradeB),
+      gradeAB: nonZeroFalsy(this.report.gradeAB),
+      gradeC: nonZeroFalsy(this.report.gradeC),
+      gradePB: nonZeroFalsy(this.report.gradePB),
+      gradeTriage: nonZeroFalsy(this.report.gradeTriage),
 
       // Severe defects
       fullBlack: this.report.fullBlack || 0,

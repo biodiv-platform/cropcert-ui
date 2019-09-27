@@ -71,7 +71,9 @@ function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
           noHeader={true}
           data={lotStore.lots}
           expandableRows={true}
-          expandableRowsComponent={<BatchlistExpanded />}
+          expandableRowsComponent={
+            <BatchlistExpanded reportType={reportType} />
+          }
         />
       </InfiniteScroll>
     </>

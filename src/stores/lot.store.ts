@@ -1,4 +1,5 @@
 import { axLazyListLot, axUpdateLot } from "@services/lot.service";
+import { axGetCuppingReportsByLotId } from "@services/report.service";
 import { updateArrayImmutable } from "@utils/basic.util";
 import { decorate, observable } from "mobx";
 import { createContext } from "react";
@@ -23,9 +24,16 @@ export class LotStore {
       coCodes.toString()
     );
 
+    const rDataProcessed: object[] = [];
+
+    for (const lot of r.data) {
+      const { data: cuppingReports } = await axGetCuppingReportsByLotId(lot.id);
+      rDataProcessed.push({ ...lot, cuppingReports });
+    }
+
     this.lazyListHasMore = r.lazyListHasMore;
     this.offset = r.offset;
-    this.lots = reset ? r.data : [...this.lots, ...r.data];
+    this.lots = reset ? rDataProcessed : [...this.lots, ...rDataProcessed];
   };
 
   updateLot = async (keyName, body, at) => {

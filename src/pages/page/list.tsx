@@ -9,13 +9,17 @@ import React, { useEffect, useState } from "react";
 const PageListPage = () => {
   const [pages, setPages] = useState([] as any);
 
-  useEffect(() => {
+  const reloadPages = () => {
     axListPages().then(data => setPages(flatToTree(data)));
+  };
+
+  useEffect(() => {
+    reloadPages();
   }, []);
 
   return (
     <Container roles={hierarchicalRoles(ROLES.UNION)}>
-      <PageList pages={pages} />
+      <PageList pages={pages} reloadPages={reloadPages} />
     </Container>
   );
 };

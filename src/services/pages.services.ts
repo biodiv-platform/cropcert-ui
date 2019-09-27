@@ -7,7 +7,7 @@ export const axListPages = async () => {
     const res = await http.get(`${ENDPOINT.PAGES}/page/all`, {
       headers: { unauthorized: true },
     });
-    return res.data;
+    return res.data.filter(p => !p.isDeleted);
   } catch (e) {
     notification(e);
     return [];
@@ -15,6 +15,17 @@ export const axListPages = async () => {
 };
 
 export const axGetPageByPageId = async id => {
+  try {
+    const res = await http.delete(`${ENDPOINT.PAGES}/page/${id}`);
+    notification("Page Deleted", "success");
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(MESSAGE.ERROR);
+    return { success: false, data: {} };
+  }
+};
+
+export const axDeletePageByPageId = async id => {
   try {
     const res = await http.get(`${ENDPOINT.PAGES}/page/${id}`, {
       headers: { unauthorized: true },

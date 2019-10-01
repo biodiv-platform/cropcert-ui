@@ -6,6 +6,8 @@ import { Field, Formik } from "formik";
 import React, { Component } from "react";
 import * as Yup from "yup";
 
+import QualityGradingSummery from "./quality-grading-summery";
+
 interface IProps {
   id;
   lotName;
@@ -291,7 +293,7 @@ export default class GreenReport extends Component<IProps> {
       {this.props.type === "WET" && (
         <>
           <h3 className="eco--form-title">
-            Quality Grading - {this.qualityGrading(values)}
+            Quality Grading - {this.qualityGrading(values)}g
           </h3>
           <div className="bx--row">
             <div className="bx--col-lg-3 bx--col-sm-12">
@@ -351,6 +353,8 @@ export default class GreenReport extends Component<IProps> {
               />
             </div>
           </div>
+          <h3 className="eco--form-title">Quality Grading Summery</h3>
+          <QualityGradingSummery values={values} />
         </>
       )}
       <h3 className="eco--form-title">

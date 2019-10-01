@@ -24,7 +24,7 @@ export default function BatchlistExpanded({ data = [] as any, reportType }) {
       {reportType === REPORT_TYPE.CUPPING && (
         <DataTable
           keyField="id"
-          className="eco--table-expanded p-3"
+          className="eco--table-expanded pt-3 px-3"
           columns={CuppingReportHeader}
           noHeader={true}
           data={data.cuppingReports}
@@ -35,7 +35,7 @@ export default function BatchlistExpanded({ data = [] as any, reportType }) {
         />
       )}
       <DataTable
-        className="eco--table-expanded pb-3 px-3"
+        className="eco--table-expanded p-3"
         keyField="batchId"
         columns={data.type === BATCH_TYPE.WET ? columnsWetExpand : columnsDry}
         noHeader={true}

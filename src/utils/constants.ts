@@ -128,12 +128,12 @@ export const OPERATION_MESSAGES = {
   },
   GREEN_REPORT_CREATED: {
     MESSAGE: "Green Report Created with id ##id##",
-    BACK_LINK: "/report/list?type=green",
+    BACK_LINK: "/lot/report/list?type=green",
     BACK_TITLE: "Create more Reports",
   },
   CUPPING_REPORT_CREATED: {
     MESSAGE: "Cupping Report Created with id ##id##",
-    BACK_LINK: "/report/list?type=green",
+    BACK_LINK: "/lot/report/list?type=cupping",
     BACK_TITLE: "Create more Reports",
   },
   PAGE_EDIT: {

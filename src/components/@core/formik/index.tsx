@@ -10,7 +10,7 @@ export const textInput = ({ field, form: { errors }, label, ...props }) => {
       id={field.name}
       autoComplete="off"
       placeholder={`Enter ${label}`}
-      labelText={field.name}
+      labelText={label}
       {...field}
       {...props}
       {...(errors[field.name] && {
@@ -86,8 +86,8 @@ export const selectInput = ({
     <Dropdown
       id={field.name}
       items={options}
-      label={`Select ${field.name}`}
-      titleText={field.name}
+      label={`Select ${label}`}
+      titleText={label}
       ariaLabel={field.name}
       disabled={options.length < 1}
       onChange={e => {

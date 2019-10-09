@@ -41,6 +41,11 @@ export const BATCH_TYPE = {
   BOTH: "BOTH",
 };
 
+export const PAGE_TYPE_OPTIONS = {
+  CONTENT: { label: "Content", value: "CONTENT" },
+  REDIRECT: { label: "Redirect", value: "REDIRECT" },
+};
+
 export const ROLES = {
   UNAUTHORIZED: "role_unauthorized",
   AUTHORIZED: "authorized",

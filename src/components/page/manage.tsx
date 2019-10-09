@@ -1,9 +1,10 @@
 import "@styles/medium.scss";
 
-import { textInput } from "@components/@core/formik";
+import { selectInput, textInput } from "@components/@core/formik";
 import wysiwygInput from "@components/@core/formik/wysiwyg";
 import { axUpdatePage } from "@services/pages.services";
 import { local2utc, messageRedirect } from "@utils/basic.util";
+import { PAGE_TYPE_OPTIONS } from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button } from "carbon-components-react";
 import { Field, Formik } from "formik";
@@ -16,7 +17,13 @@ export default function ManagePage({ mode, page, id }) {
   useEffect(() => {
     setInitialValues(
       mode !== "edit"
-        ? { content: "", ...page, parentId: id, authorId: getUserKey("id") }
+        ? {
+            content: "",
+            pageType: PAGE_TYPE_OPTIONS.CONTENT.value,
+            ...page,
+            parentId: id,
+            authorId: getUserKey("id"),
+          }
         : page
     );
   }, [page]);
@@ -24,9 +31,11 @@ export default function ManagePage({ mode, page, id }) {
   const pageForm = {
     validationSchema: Yup.object().shape({
       title: Yup.string().required(),
-      content: Yup.string().required(),
+      content: Yup.string(),
+      url: Yup.string(),
       heading: Yup.string().required(),
       authorId: Yup.string().required(),
+      pageType: Yup.string().required(),
     }),
   };
 
@@ -51,26 +60,57 @@ export default function ManagePage({ mode, page, id }) {
       enableReinitialize={true}
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      render={props => (
-        <form className="bx--form mb-4" onSubmit={props.handleSubmit}>
-          <div className="bx--row">
-            <div className="bx--col-lg-4 bx--col-sm-12">
-              <Field label="Menu Heading" name="title" component={textInput} />
+      render={props => {
+        const isContentInput =
+          props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
+        return (
+          <form className="bx--form mb-4" onSubmit={props.handleSubmit}>
+            <div className="bx--row">
+              <div className="bx--col-lg-3 bx--col-sm-12">
+                <Field
+                  label="Page Type"
+                  name="pageType"
+                  component={selectInput}
+                  options={[
+                    PAGE_TYPE_OPTIONS.CONTENT,
+                    PAGE_TYPE_OPTIONS.REDIRECT,
+                  ]}
+                />
+              </div>
+              <div className="bx--col-lg-4 bx--col-sm-12">
+                <Field
+                  label="Menu Heading"
+                  name="title"
+                  component={textInput}
+                />
+              </div>
+              <div className="bx--col-lg-5 bx--col-sm-12">
+                <Field
+                  label="Page Title"
+                  name="heading"
+                  component={textInput}
+                />
+              </div>
             </div>
-            <div className="bx--col-lg-8 bx--col-sm-12">
-              <Field label="Page Title" name="heading" component={textInput} />
+            <div className="bx--row">
+              <div className="bx--col-lg-12 bx--col-sm-12">
+                {isContentInput ? (
+                  <Field
+                    label="Content"
+                    name="content"
+                    component={wysiwygInput}
+                  />
+                ) : (
+                  <Field label="Link" name="url" component={textInput} />
+                )}
+              </div>
             </div>
-          </div>
-          <div className="bx--row">
-            <div className="bx--col-lg-12 bx--col-sm-12">
-              <Field label="Content" name="content" component={wysiwygInput} />
-            </div>
-          </div>
-          <Button type="submit" disabled={!props.isValid}>
-            Create/Update Page
-          </Button>
-        </form>
-      )}
+            <Button type="submit" disabled={!props.isValid}>
+              Save {isContentInput ? "Page" : "Link"}
+            </Button>
+          </form>
+        );
+      }}
     />
   ) : (
     <>"Loading"</>

@@ -1,11 +1,16 @@
 import Container from "@components/@core/container";
-import notification from "@utils/notification.util";
-import React from "react";
+import PageShowComponent from "@components/page/show";
+import { axGetPageByPageId } from "@services/pages.services";
+import React, { useEffect, useState } from "react";
 
-export default function index() {
-  return (
-    <Container>
-      <h1 className="eco--title">🏠 Rwenzori Mountain Coffee Landing Page</h1>
-    </Container>
-  );
-}
+const HomePage = () => {
+  const [page, setPage] = useState({ success: false, data: {} as any });
+
+  useEffect(() => {
+    axGetPageByPageId(1).then(data => setPage(data));
+  }, []);
+
+  return <Container>{page.success && <PageShowComponent page={page} />}</Container>;
+};
+
+export default HomePage;

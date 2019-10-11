@@ -31,8 +31,8 @@ export default function ManagePage({ mode, page, id }) {
   const pageForm = {
     validationSchema: Yup.object().shape({
       title: Yup.string().required(),
-      content: Yup.string(),
-      url: Yup.string(),
+      content: Yup.string().nullable(),
+      url: Yup.string().nullable(),
       heading: Yup.string().required(),
       authorId: Yup.string().required(),
       pageType: Yup.string().required(),
@@ -65,6 +65,7 @@ export default function ManagePage({ mode, page, id }) {
           props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
         return (
           <form className="bx--form mb-4" onSubmit={props.handleSubmit}>
+            <pre>{JSON.stringify(props.values, null, 2)}</pre>
             <div className="bx--row">
               <div className="bx--col-lg-3 bx--col-sm-12">
                 <Field

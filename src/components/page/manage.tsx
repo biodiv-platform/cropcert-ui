@@ -65,7 +65,6 @@ export default function ManagePage({ mode, page, id }) {
           props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
         return (
           <form className="bx--form mb-4" onSubmit={props.handleSubmit}>
-            <pre>{JSON.stringify(props.values, null, 2)}</pre>
             <div className="bx--row">
               <div className="bx--col-lg-3 bx--col-sm-12">
                 <Field

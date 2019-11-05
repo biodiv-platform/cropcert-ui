@@ -51,20 +51,20 @@ const links = [
     title: "Union Actions",
     children: [
       {
-        title: "Add GRN Number",
-        description: "Add GRN Number to Lot(s)",
+        title: "Add Factory Report",
+        description: "Add Factory Report to Lot(s)",
         to: "/lot/grn",
         access: hierarchicalRoles(ROLES.UNION),
       },
       {
-        title: "Add Green Report",
-        description: "Add Green Report to Lot(s)",
+        title: "Add Green Lab Report",
+        description: "Add Green Lab Report to Lot(s)",
         to: "/lot/report/list?type=green",
         access: hierarchicalRoles(ROLES.UNION),
       },
       {
-        title: "Add Cupping Report",
-        description: "Add Cupping Report to Lot(s)",
+        title: "Add Cupping Lab Report",
+        description: "Add Cupping Lab Report to Lot(s)",
         to: "/lot/report/list?type=cupping",
         access: hierarchicalRoles(ROLES.UNION),
       },

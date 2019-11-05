@@ -63,3 +63,46 @@ export const axGetCuppingReportById = async reportId => {
     return { success: true, data: {} };
   }
 };
+
+export const axCreateFactoryReport = async body => {
+  try {
+    const http1 = body.id > 0 ? http.put : http.post;
+    const res = await http1(`${ENDPOINT.TRACEABILITY}/factoryReport`, body);
+    return { success: true, id: res.data.id };
+  } catch (e) {
+    notification(MESSAGE.ERROR);
+    return [];
+  }
+};
+
+export const axGetFactoryReportByLotId = async lotId => {
+  if (lotId > 0) {
+    try {
+      const res = await http.get(
+        `${ENDPOINT.TRACEABILITY}/factoryReport/lot/${lotId}`
+      );
+      return { success: true, data: res.data };
+    } catch (e) {
+      notification(MESSAGE.ERROR);
+      return { success: false, data: {} };
+    }
+  } else {
+    return { success: true, data: {} };
+  }
+};
+
+export const axGetFactoryReportById = async factoryReportId => {
+  if (factoryReportId > 0) {
+    try {
+      const res = await http.get(
+        `${ENDPOINT.TRACEABILITY}/factoryReport/${factoryReportId}`
+      );
+      return { success: true, data: res.data };
+    } catch (e) {
+      notification(MESSAGE.ERROR);
+      return { success: false, data: {} };
+    }
+  } else {
+    return { success: true, data: {} };
+  }
+};

@@ -9,6 +9,20 @@ export default function ActionButton(reportType, row) {
   let reportId = -1;
 
   switch (reportType) {
+    case REPORT_TYPE.FACTORY_DRY:
+      if (row.factoryReportId) {
+        isEdit = true;
+        reportId = row.factoryReportId;
+      }
+      break;
+
+    case REPORT_TYPE.FACTORY_WET:
+      if (row.factoryReportId) {
+        isEdit = true;
+        reportId = row.factoryReportId;
+      }
+      break;
+
     case REPORT_TYPE.GREEN:
       if (row.greenAnalysisId) {
         isEdit = true;

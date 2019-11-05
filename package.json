@@ -71,7 +71,7 @@
     "@types/react-leaflet": "^2.5.0",
     "@types/yup": "^0.26.24",
     "license-extractor": "^1.0.4",
-    "tslint": "^5.20.0",
+    "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.1.0",
     "typescript": "^3.6.4"

@@ -1,25 +1,19 @@
 import Accesser from "@components/@core/accesser";
-import EditButton from "@components/@core/modal/edit-button";
-import GenricModal from "@components/@core/modal/genric-modal";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
-import { local2utc } from "@utils/basic.util";
-import { DATATYPE, LOT_AT, ROLES } from "@utils/constants";
+import { LOT_AT, ROLES } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
+import actionButton from "./report/action-button";
 
 function GRNLots() {
   const lotStore = useContext(LotStore);
   const [coCodes, setCoCodes] = useState([] as any);
-  const [isDateModalOpen, setIsModalOpen] = useState(false);
-  const [modalData, setModalData] = useState({
-    row: {} as any,
-  } as any);
 
   useEffect(() => {
     if (coCodes.length > 0) {
@@ -30,37 +24,11 @@ function GRNLots() {
   const columns = [
     ...columnsDispatch,
     {
-      name: "GRN",
-      selector: "grnNumber",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.TEXT}
-          value={row.grnNumber}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "grnNumber",
-              dataType: DATATYPE.TEXT,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      name: "Factory Report",
+      selector: "id",
+      cell: row => actionButton(`factory-${row.type.toLowerCase()}`, row),
     },
   ];
-
-  const onClose = async (updated, keyName?, body?) => {
-    if (updated) {
-      const isUpdated = await lotStore.updateLot(
-        keyName,
-        { ...body, grnTimestamp: local2utc().getTime() },
-        LOT_AT.UNION
-      );
-      setIsModalOpen(!isUpdated);
-    } else {
-      setIsModalOpen(false);
-    }
-  };
 
   const onUnionSelected = union =>
     union &&
@@ -72,16 +40,9 @@ function GRNLots() {
 
   return (
     <>
-      <GenricModal
-        isOpen={isDateModalOpen}
-        onClose={onClose}
-        keyId="id"
-        {...modalData}
-      />
-
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Add/Update GRN Number</h1>
+          <h1 className="eco--title">Add Factory Report</h1>
         </div>
       </div>
 

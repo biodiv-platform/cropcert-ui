@@ -25,7 +25,7 @@ export default function GenricModal({
           ? Yup.number().required()
           : Yup.number()
               .min(1)
-              .max(props.max),
+              .max(props.max || Infinity),
     }),
     initialValues: {
       value: row[keyName],

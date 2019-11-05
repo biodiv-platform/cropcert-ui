@@ -98,3 +98,5 @@ export const selectInput = ({
     />
   );
 };
+
+export const Divider = () => <hr className="form--divider" />;

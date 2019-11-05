@@ -10,7 +10,7 @@ export class LotStore {
   lazyListHasMore = true;
   lots: any[] = [];
 
-  lazyList = async (reset, at, coCodes) => {
+  lazyList = async (reset, at, coCodes, fetchReport = true) => {
     if (reset) {
       this.offset = 0;
       this.lots = [];
@@ -27,8 +27,14 @@ export class LotStore {
     const rDataProcessed: object[] = [];
 
     for (const lot of r.data) {
-      const { data: cuppingReports } = await axGetCuppingReportsByLotId(lot.id);
-      rDataProcessed.push({ ...lot, cuppingReports });
+      if (fetchReport) {
+        const { data: cuppingReports } = await axGetCuppingReportsByLotId(
+          lot.id
+        );
+        rDataProcessed.push({ ...lot, cuppingReports });
+      } else {
+        rDataProcessed.push(lot);
+      }
     }
 
     this.lazyListHasMore = r.lazyListHasMore;

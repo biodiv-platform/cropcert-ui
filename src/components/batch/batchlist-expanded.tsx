@@ -10,7 +10,10 @@ import DataTable from "react-data-table-component";
 
 import { columnsDry, columnsWetExpand } from "./batch.columns";
 
-export default function BatchlistExpanded({ data = [] as any, reportType }) {
+export default function BatchlistExpanded({
+  data = [] as any,
+  reportType = "NA",
+}) {
   const [rows, setRows] = useState([] as any);
 
   useEffect(() => {

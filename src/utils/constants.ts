@@ -103,6 +103,7 @@ export const MESSAGE = {
   INVALID_CREDENTIALS: "Invalid credentials",
   TREE_UPDATE_SUCCESS: "Page(s) order updated successfully",
   ALL_CC_SELECTED: "All Collection Centers selected",
+  ERROR_FACTORY_REPORT: "Input quantity does not match with graded quantities",
 };
 
 export const OPERATION_MESSAGES = {
@@ -141,6 +142,11 @@ export const OPERATION_MESSAGES = {
     BACK_LINK: "/lot/report/list?type=cupping",
     BACK_TITLE: "Create more Reports",
   },
+  FACTORY_REPORT_CREATED: {
+    MESSAGE: "Factory Report Created with id ##id##",
+    BACK_LINK: "/lot/grn",
+    BACK_TITLE: "Create more Reports",
+  },
   PAGE_EDIT: {
     MESSAGE: "Page ##id## Updated",
     BACK_LINK: "/page/list",
@@ -173,4 +179,6 @@ export const LOT_AT = {
 export const REPORT_TYPE = {
   GREEN: "green",
   CUPPING: "cupping",
+  FACTORY_DRY: "factory-dry",
+  FACTORY_WET: "factory-wet",
 };

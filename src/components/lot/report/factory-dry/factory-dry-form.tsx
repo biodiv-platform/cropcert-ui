@@ -17,9 +17,9 @@ export const renderFactoryReportDryForm = ({
     `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
 
   const isValidTotal =
-    v.highGradeWeight +
+    cv.highGradeWeight +
       cv.lowGradeWeight +
-      v.totalBlackBeans +
+      cv.totalBlackBeans +
       cv.wasteSubTotal +
       cv.otherLossSubTotal ===
     cv.netInputWeight;

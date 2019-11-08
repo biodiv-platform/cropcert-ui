@@ -56,9 +56,9 @@ function BatchCreate() {
     axCreateBatch({
       ...values,
       createdOn: local2utc().getTime(),
-      batchName: `${cc.label}_${dayjs(values.date).format(
-        DATEFORMATS.DAYJS_DATE
-      )}`,
+      batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(
+        values.date
+      ).format(DATEFORMATS.DAYJS_DATE)}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );

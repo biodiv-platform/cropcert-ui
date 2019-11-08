@@ -31,7 +31,9 @@ function ListBatch() {
       const coName = toJS(ccList.find(c => c.code === o.ccCode)).name;
       return acc.includes(coName) ? acc : [...acc, coName];
     }, []);
-    return `${ccs.length > 1 ? `${co.label}_co` : ccs[0]}_Lot_${getToday()}`;
+    return `${
+      ccs.length > 1 ? `${co.label}_co` : ccs[0]
+    }_${batchType.charAt(0)}_Lot_${getToday()}`;
   };
 
   const handleCreateLot = () => {

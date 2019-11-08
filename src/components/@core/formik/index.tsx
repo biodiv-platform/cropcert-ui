@@ -82,9 +82,17 @@ export const selectInput = ({
   ...props
 }) => {
   const hasErrors = touched[field.name] && errors[field.name];
+  const [selectFieldValue, setSelectFieldValue] = useState(field);
 
-  const selectedItem =
-    field.label || (options.length === 1 ? options[0] : undefined);
+  useEffect(() => {
+    setFieldValue(field.name, selectFieldValue.value);
+  }, [selectFieldValue]);
+
+  useEffect(() => {
+    if (options.length === 1) {
+      setSelectFieldValue(options[0]);
+    }
+  }, [options]);
 
   return (
     <Dropdown
@@ -93,10 +101,10 @@ export const selectInput = ({
       label={`Select ${label}`}
       titleText={label}
       ariaLabel={field.name}
-      selectedItem={selectedItem}
+      selectedItem={selectFieldValue.label}
       disabled={options.length < 1}
       onChange={e => {
-        setFieldValue(field.name, e.selectedItem.value);
+        setSelectFieldValue(e.selectedItem);
       }}
       {...props}
       {...(hasErrors && { invalid: true, invalidText: errors[field.name] })}

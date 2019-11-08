@@ -16,7 +16,6 @@ import { columnsDispatch } from "./lot.columns";
 
 function MillingLots() {
   const lotStore = useContext(LotStore);
-  const [lots, setLots] = useState([] as any);
   const [coCodes, setCoCodes] = useState([] as any);
   const [selectedRows, setSelectedRows] = useState([] as any);
   const [isDateModalOpen, setIsModalOpen] = useState(false);
@@ -25,45 +24,13 @@ function MillingLots() {
   } as any);
 
   useEffect(() => {
-    setLots(
-      lotStore.lots.map(l => ({
-        ...l,
-        disabled:
-          l.weightArrivingFactory &&
-          l.mcArrivingFactory &&
-          l.weightLeavingFactory &&
-          l.mcLeavingFactory &&
-          l.millingTime &&
-          l.outTurn
-            ? false
-            : true,
-      }))
-    );
-  }, [lotStore.lots]);
-
-  useEffect(() => {
     if (coCodes.length > 0) {
       lotStore.lazyList(true, LOT_AT.FACTORY, coCodes, false);
     }
   }, [coCodes]);
 
   const columns = [
-    {
-      ...columnsDispatch[0],
-      minWidth: "200px",
-    },
-    {
-      ...columnsDispatch[1],
-      width: "80px",
-    },
-    {
-      ...columnsDispatch[2],
-      width: "80px",
-    },
-    {
-      ...columnsDispatch[3],
-      width: "80px",
-    },
+    ...columnsDispatch,
     {
       name: "Weight Arriving Factory",
       selector: "id",

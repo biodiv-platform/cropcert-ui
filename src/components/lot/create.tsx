@@ -41,7 +41,7 @@ export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button
             kind="primary"
-            className="mt-2"
+            className="mt-3"
             disabled={batches.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

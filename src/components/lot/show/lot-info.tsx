@@ -1,5 +1,6 @@
 import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
+import tooltipCell from "@components/@core/table/tooltip-cell";
 import React from "react";
 
 import LotShowPanel from "./panel";
@@ -26,6 +27,12 @@ export default function BasicInfo({ lot }) {
     {
       name: "GRN",
       selector: "grnNumber",
+      cell: row => tooltipCell(row.grnNumber),
+    },
+    {
+      name: "Note",
+      selector: "note",
+      cell: row => tooltipCell(row.note),
     },
   ];
 

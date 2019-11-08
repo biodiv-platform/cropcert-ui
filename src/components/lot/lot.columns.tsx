@@ -14,7 +14,7 @@ export const columnsDispatch = [
     selector: "quantity",
   },
   {
-    name: "Notes",
+    name: "Note",
     selector: "note",
     cell: row => tooltipCell(row.note),
   },

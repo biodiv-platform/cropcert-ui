@@ -83,7 +83,7 @@ export const CuppingReportHeader = [
     selector: "id",
   },
   {
-    name: "Notes",
+    name: "Note",
     selector: "notes",
   },
 ];

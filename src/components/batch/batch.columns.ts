@@ -12,7 +12,7 @@ export const columnsDefault = [
     cell: row => tooltipCell(row.batchName),
   },
   {
-    name: "Notes",
+    name: "Note",
     selector: "note",
     cell: row => tooltipCell(row.note),
   },

@@ -60,6 +60,7 @@
     "react-leaflet": "^2.5.0",
     "react-sortable-tree": "^2.6.2",
     "styled-components": "^4.4.1",
+    "tiny-skeleton-loader-react": "^1.1.2",
     "tinymce": "^5.1.1",
     "yup": "^0.27.0"
   },

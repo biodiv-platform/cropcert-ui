@@ -11204,6 +11204,11 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+tiny-skeleton-loader-react@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/tiny-skeleton-loader-react/-/tiny-skeleton-loader-react-1.1.2.tgz#b8ffdc27aac70def3fbd3fa7bbb784697a11955d"
+  integrity sha512-9utfz3YREfJqFOIq70d4Lp4JhFgf+5JP7PisIwpCrYHdi6bzBlebR4tuM/jxuqB+4z4UGiYq1wNf4/14smpmLA==
+
 tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"

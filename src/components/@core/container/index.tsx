@@ -4,9 +4,11 @@ import "@styles/index.scss";
 
 import { hasAccess } from "@utils/auth.util";
 import { BACKGROUND } from "@utils/constants";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "../navmenu";
+import Loading from "./loading";
+import Unauthorized from "./unauthorized";
 
 interface IProps {
   children;
@@ -19,15 +21,25 @@ const Container = ({
   roles,
   background = BACKGROUND.WHITE,
 }: IProps) => {
-  return hasAccess(roles) ? (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  return (
     <>
       <Navbar />
-      <div style={{ background, minHeight: "calc(100vh - 48px)" }}>
-        <div className="bx--grid eco--grid pt-2">{children}</div>
-      </div>
+      {hasAccess(roles) ? (
+        <div style={{ background, minHeight: "calc(100vh - 48px)" }}>
+          <div className="bx--grid eco--grid pt-2">{children}</div>
+        </div>
+      ) : loading ? (
+        <Loading />
+      ) : (
+        <Unauthorized />
+      )}
     </>
-  ) : (
-    <></>
   );
 };
 

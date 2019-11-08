@@ -70,7 +70,8 @@ function BatchCreate() {
       initialValues={initialValues}
       enableReinitialize={true}
       onSubmit={handleSubmit}
-      render={props => (
+    >
+      {props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
           <div className="bx--row">
             <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
@@ -119,7 +120,7 @@ function BatchCreate() {
           </Button>
         </form>
       )}
-    />
+    </Formik>
   );
 }
 

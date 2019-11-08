@@ -82,6 +82,10 @@ export const selectInput = ({
   ...props
 }) => {
   const hasErrors = touched[field.name] && errors[field.name];
+
+  const selectedItem =
+    field.label || (options.length === 1 ? options[0] : undefined);
+
   return (
     <Dropdown
       id={field.name}
@@ -89,6 +93,7 @@ export const selectInput = ({
       label={`Select ${label}`}
       titleText={label}
       ariaLabel={field.name}
+      selectedItem={selectedItem}
       disabled={options.length < 1}
       onChange={e => {
         setFieldValue(field.name, e.selectedItem.value);

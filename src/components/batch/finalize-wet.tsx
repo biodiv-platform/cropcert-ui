@@ -1,3 +1,4 @@
+import CancelButton from "@components/@core/cancel-button";
 import DataTable from "@components/@core/table";
 import { axFinalizeWetBatch } from "@services/batch.service";
 import { messageRedirect } from "@utils/basic.util";
@@ -23,10 +24,10 @@ export default function FinalizeWetBatch({ batches }: IProps) {
         <div className="bx--col-lg-6 bx--col-md-12">
           <h1 className="eco--title">Finalize Wetbatch(s)</h1>
         </div>
-        <div className="bx--col-lg-6 bx--col-md-12 text-right">
+        <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
+          <CancelButton />
           <Button
             kind="primary"
-            className="mt-3"
             disabled={batches.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

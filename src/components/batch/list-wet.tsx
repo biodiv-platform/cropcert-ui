@@ -149,10 +149,9 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
         <div className="bx--col-lg-6 bx--col-md-12">
           <h1 className="eco--title">Update Wet Batch</h1>
         </div>
-        <div className="bx--col-lg-6 bx--col-md-12 text-right">
+        <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
           <Button
             kind="primary"
-            className="mt-3"
             disabled={selectedRows.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

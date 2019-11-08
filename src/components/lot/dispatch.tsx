@@ -1,3 +1,4 @@
+import CancelButton from "@components/@core/cancel-button";
 import DataTable from "@components/@core/table";
 import { axLotDispatch } from "@services/lot.service";
 import { local2utc, messageRedirect } from "@utils/basic.util";
@@ -31,10 +32,10 @@ export default function CreateLot({ rows, to, timeKey }: IProps) {
         <div className="bx--col-lg-6 bx--col-md-12">
           <h1 className="eco--title">Finalize Dispatch Lot to {to}</h1>
         </div>
-        <div className="bx--col-lg-6 bx--col-md-12 text-right">
+        <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
+          <CancelButton />
           <Button
             kind="primary"
-            className="mt-3"
             disabled={rows.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

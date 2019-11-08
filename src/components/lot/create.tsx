@@ -1,3 +1,4 @@
+import CancelButton from "@components/@core/cancel-button";
 import DataTable from "@components/@core/table";
 import { columnsDry, columnsWet } from "@components/batch/batch.columns";
 import { axCreateLotFromBatches } from "@services/lot.service";
@@ -38,10 +39,10 @@ export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
         <div className="bx--col-lg-6 bx--col-md-12">
           <h1 className="eco--title">Finalize Lot</h1>
         </div>
-        <div className="bx--col-lg-6 bx--col-md-12 text-right">
+        <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
+          <CancelButton />
           <Button
             kind="primary"
-            className="mt-3"
             disabled={batches.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

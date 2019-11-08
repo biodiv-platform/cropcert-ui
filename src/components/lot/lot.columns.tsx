@@ -7,7 +7,7 @@ export const columnsDispatch = [
   {
     name: "Lot Name",
     selector: "lotName",
-    cell: row => tooltipCell(row.lotName),
+    cell: row => lotTableLink(row.id, row.lotName),
   },
   {
     name: "Quantity",
@@ -17,14 +17,5 @@ export const columnsDispatch = [
     name: "Note",
     selector: "note",
     cell: row => tooltipCell(row.note),
-  },
-  {
-    name: "Type",
-    selector: "type",
-  },
-  {
-    name: "Lot Id",
-    selector: "id",
-    cell: row => lotTableLink(row.id),
   },
 ];

@@ -3,10 +3,6 @@ import tooltipCell from "@components/@core/table/tooltip-cell";
 
 export const columnsDefault = [
   {
-    name: "Batch Id",
-    selector: "batchId",
-  },
-  {
     name: "Batch Name",
     selector: "batchName",
     cell: row => tooltipCell(row.batchName),

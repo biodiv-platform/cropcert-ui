@@ -1,8 +1,8 @@
+import DataTable from "@components/@core/table";
 import { axFinalizeWetBatch } from "@services/batch.service";
 import { messageRedirect } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
 import React from "react";
-import DataTable from "react-data-table-component";
 
 import { columnsWet } from "./batch.columns";
 

@@ -1,4 +1,5 @@
 import Accesser from "@components/@core/accesser";
+import DataTable from "@components/@core/table";
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
@@ -9,7 +10,6 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDry, columnsWet } from "./batch.columns";

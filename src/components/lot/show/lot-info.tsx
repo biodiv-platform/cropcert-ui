@@ -1,6 +1,6 @@
+import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
-import DataTable from "react-data-table-component";
 
 import LotShowPanel from "./panel";
 

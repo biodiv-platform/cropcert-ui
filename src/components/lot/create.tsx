@@ -1,10 +1,10 @@
+import DataTable from "@components/@core/table";
 import { columnsDry, columnsWet } from "@components/batch/batch.columns";
 import { axCreateLotFromBatches } from "@services/lot.service";
 import { getToday, local2utc, messageRedirect } from "@utils/basic.util";
 import { BATCH_TYPE } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import React from "react";
-import DataTable from "react-data-table-component";
 
 interface IProps {
   batches: [any];

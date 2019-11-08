@@ -1,11 +1,11 @@
 import Accesser from "@components/@core/accesser";
+import DataTable from "@components/@core/table";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
 import { LOT_AT, ROLES } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";

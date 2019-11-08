@@ -1,12 +1,9 @@
+import DataTable from "@components/@core/table";
 import { ExpandedSection } from "@components/lot/show/expand";
-import {
-  CuppingReportExpand,
-  CuppingReportHeader,
-} from "@components/lot/show/models";
+import { CuppingReportExpand, CuppingReportHeader } from "@components/lot/show/models";
 import { axGetBatchesByLotId } from "@services/lot.service";
 import { BATCH_TYPE, REPORT_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 
 import { columnsDry, columnsWetExpand } from "./batch.columns";
 

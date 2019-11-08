@@ -1,6 +1,7 @@
 import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
+import DataTable from "@components/@core/table";
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
@@ -13,14 +14,11 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
-interface IProps {
-  batchType?;
-}
+import { columnsDefault } from "./batch.columns";
 
-function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
+function ListWet({ batchType = BATCH_TYPE.WET }) {
   const [ccList, setCCList] = useState([] as any[]);
   const [ccCodes, setccCodes] = useState([] as any[]);
   const batchStore = useContext(BatchStore);
@@ -31,18 +29,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
   } as any);
 
   const columns = [
-    {
-      name: "Batch Id",
-      selector: "batchId",
-    },
-    {
-      name: "Batch Name",
-      selector: "batchName",
-    },
-    {
-      name: "Total Quantity",
-      selector: "quantity",
-    },
+    ...columnsDefault,
     {
       name: "Start Time",
       selector: "startTime",

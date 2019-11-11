@@ -48,6 +48,7 @@ function ListLots() {
             setModalData({
               row,
               keyName: "weightLeavingCooperative",
+              keyTitle: "Weight Leaving Cooperative",
               dataType: DATATYPE.NUMBER,
             });
             setIsModalOpen(true);
@@ -66,6 +67,7 @@ function ListLots() {
             setModalData({
               row,
               keyName: "mcLeavingCooperative",
+              keyTitle: "Moisture Content Leaving Cooperative",
               dataType: DATATYPE.NUMBER,
               max: 100,
             });

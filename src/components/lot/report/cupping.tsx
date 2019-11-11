@@ -1,4 +1,8 @@
-import { dateTimeInput, textInput } from "@components/@core/formik";
+import {
+  dateTimeInput,
+  numberInput,
+  textInput,
+} from "@components/@core/formik";
 import { axCreateCuppingReport } from "@services/report.service";
 import { local2utc, messageRedirect, nonZeroFalsy } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
@@ -135,7 +139,6 @@ export default class CuppingComponent extends Component<IProps> {
             label="Lot Reception Date"
             name="date"
             component={dateTimeInput}
-            hint={false}
             disabled={true}
           />
         </div>
@@ -174,7 +177,6 @@ export default class CuppingComponent extends Component<IProps> {
             name="timestamp"
             component={dateTimeInput}
             min={this.props.grnTimestamp}
-            hint={false}
           />
         </div>
       </div>
@@ -185,76 +187,39 @@ export default class CuppingComponent extends Component<IProps> {
           <Field
             label="Fragrance Aroma"
             name="fragranceAroma"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Flavour"
-            name="flavour"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Flavour" name="flavour" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Acidity"
-            name="acidity"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Acidity" name="acidity" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field label="Body" name="body" component={textInput} type="number" />
+          <Field label="Body" name="body" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="After Taste"
             name="afterTaste"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Balance"
-            name="balance"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Balance" name="balance" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Sweetness"
-            name="sweetness"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Sweetness" name="sweetness" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Uniformity"
-            name="uniformity"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Uniformity" name="uniformity" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Clean Cup"
-            name="cleanCup"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Clean Cup" name="cleanCup" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Overall"
-            name="overAll"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Overall" name="overAll" component={numberInput} />
         </div>
       </div>
 
@@ -263,20 +228,10 @@ export default class CuppingComponent extends Component<IProps> {
           <h3 className="eco--form-title">Problems</h3>
           <div className="bx--row">
             <div className="bx--col-lg-6 bx--col-sm-12">
-              <Field
-                label="Taint"
-                name="taint"
-                component={textInput}
-                type="number"
-              />
+              <Field label="Taint" name="taint" component={numberInput} />
             </div>
             <div className="bx--col-lg-6 bx--col-sm-12">
-              <Field
-                label="Fault"
-                name="fault"
-                component={textInput}
-                type="number"
-              />
+              <Field label="Fault" name="fault" component={numberInput} />
             </div>
           </div>
         </div>

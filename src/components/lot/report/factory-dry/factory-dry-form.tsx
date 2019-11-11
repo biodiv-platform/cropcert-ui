@@ -32,12 +32,7 @@ export const renderFactoryReportDryForm = ({
           <Field label="GRN Number" name="grnNumber" component={textInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Date"
-            name="date"
-            component={dateTimeInput}
-            hint={false}
-          />
+          <Field label="Date" name="date" component={dateTimeInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field label="MC In" name="mcIn" component={textInput} />

@@ -3,16 +3,60 @@ import { Dropdown, TextInput } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 
-export const textInput = ({ field, form: { errors }, label, ...props }) => {
+export const textInput = ({
+  field,
+  form: { errors },
+  label,
+  type = "text",
+  hint = false,
+  ...props
+}) => {
   return (
     <TextInput
-      type="text"
+      id={field.name}
+      autoComplete="off"
+      placeholder={`Enter ${label}`}
+      labelText={label}
+      type={type}
+      {...field}
+      {...props}
+      {...(errors[field.name] && {
+        invalid: true,
+        invalidText: errors[field.name],
+      })}
+    />
+  );
+};
+
+export const numberInput = ({
+  field,
+  form: { errors },
+  label,
+  hint = false,
+  ...props
+}) => {
+  let helperText = "";
+
+  if (hint) {
+    if (props && props.min && props.max) {
+      helperText = `Minimum ${props.min} and ${props.max}`;
+    } else if (props && props.max) {
+      helperText = `Maximum ${props.max}`;
+    } else if (props && props.min) {
+      helperText = `Minimum ${props.max}`;
+    }
+  }
+
+  return (
+    <TextInput
+      type="number"
       id={field.name}
       autoComplete="off"
       placeholder={`Enter ${label}`}
       labelText={label}
       {...field}
       {...props}
+      {...(hint && { helperText })}
       {...(errors[field.name] && {
         invalid: true,
         invalidText: errors[field.name],
@@ -25,7 +69,7 @@ export const dateTimeInput = ({
   field,
   form: { touched, errors, setFieldValue },
   label,
-  hint = true,
+  hint = false,
   disabled = false,
   ...props
 }) => {
@@ -45,7 +89,8 @@ export const dateTimeInput = ({
 
   return (
     <div className="bx--form-item">
-      {hint ? (
+      <label className="bx--label">{label}</label>
+      {hint && (
         <div className="bx--form__helper-text">
           Provide date and time between
           <br />
@@ -53,8 +98,6 @@ export const dateTimeInput = ({
           {minDate && maxDate && " - "}
           {maxDate && formattedTimeStamp(maxDate)}
         </div>
-      ) : (
-        <label className="bx--label">{label}</label>
       )}
       <DateTimePicker
         className="bx--text-input"

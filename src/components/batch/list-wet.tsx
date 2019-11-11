@@ -40,6 +40,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
             setModalData({
               row,
               keyName: "startTime",
+              keyTitle: "Start Time",
               dataType: DATATYPE.DATETIME,
               min: local2utc(row.date).getTime(),
             });
@@ -58,6 +59,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
             setModalData({
               row,
               keyName: "fermentationEndTime",
+              keyTitle: "Fermentation Ended on",
               dataType: DATATYPE.DATETIME,
               min: row.startTime,
             });
@@ -76,6 +78,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
             setModalData({
               row,
               keyName: "dryingEndTime",
+              keyTitle: "Drying Ended on",
               dataType: DATATYPE.DATETIME,
               min: row.fermentationEndTime,
             });
@@ -95,6 +98,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
             setModalData({
               row,
               keyName: "perchmentQuantity",
+              keyTitle: "Perchment Quantity",
               dataType: DATATYPE.NUMBER,
               max: row.quantity,
             });

@@ -1,6 +1,7 @@
 import Accesser from "@components/@core/accesser";
 import {
   dateTimeInput,
+  numberInput,
   selectInput,
   textInput,
 } from "@components/@core/formik";
@@ -90,19 +91,13 @@ function BatchCreate() {
                 label="Date"
                 name="date"
                 component={dateTimeInput}
-                hint={false}
                 type="date"
               />
             </div>
           </div>
           <div className="bx--row">
             <div className="bx--col-lg-4 bx--col-sm-12">
-              <Field
-                label="Quantity"
-                name="quantity"
-                component={textInput}
-                type="number"
-              />
+              <Field label="Quantity" name="quantity" component={numberInput} />
             </div>
           </div>
           <div className="bx--row">

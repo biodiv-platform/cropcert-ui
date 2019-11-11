@@ -42,6 +42,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "weightArrivingFactory",
+              keyTitle: "Weight Arriving Factory",
               dataType: DATATYPE.NUMBER,
             });
             setIsModalOpen(true);
@@ -60,6 +61,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "mcArrivingFactory",
+              keyTitle: "Moisture Content Arriving Factory",
               dataType: DATATYPE.NUMBER,
               max: 100,
             });
@@ -78,6 +80,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "millingTime",
+              keyTitle: "Milling Time",
               dataType: DATATYPE.DATETIME,
               min: row.timeToFactory,
             });
@@ -97,6 +100,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "outTurn",
+              keyTitle: "Out Turn",
               dataType: DATATYPE.NUMBER,
               max: row.quantity,
             });
@@ -116,6 +120,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "weightLeavingFactory",
+              keyTitle: "Weight Leaving Factory",
               dataType: DATATYPE.NUMBER,
             });
             setIsModalOpen(true);
@@ -134,6 +139,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "mcLeavingFactory",
+              keyTitle: "Moisture Content Leaving Factory",
               dataType: DATATYPE.NUMBER,
               max: 100,
             });

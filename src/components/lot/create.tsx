@@ -70,7 +70,7 @@ export default function CreateLot({ batches, type, lotName, coCode }: IProps) {
         </div>
         <div className="bx--col-lg-3 bx--col-md-12">
           <h2>Lot Type</h2>
-          {getToday()}
+          {type}
         </div>
         <div className="bx--col-lg-3 bx--col-md-12">
           <h2>Total Quantity</h2>

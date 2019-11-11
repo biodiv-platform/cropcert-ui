@@ -17,7 +17,7 @@ export default function Dashboard() {
     const linkList = getLinks(cardGroup.children);
     return linkList.length > 0 ? (
       <React.Fragment key={index}>
-        <h1 className="eco--title">{cardGroup.title}</h1>
+        <h1>{cardGroup.title}</h1>
         <div className="bx--row">{linkList}</div>
       </React.Fragment>
     ) : null;

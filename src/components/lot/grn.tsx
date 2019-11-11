@@ -42,7 +42,7 @@ function GRNLots() {
     <>
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Add Factory Report</h1>
+          <h1>Add Factory Report</h1>
         </div>
       </div>
 

@@ -20,7 +20,7 @@ function FactoryReportPageWet({ query }) {
 
   return (
     <Container roles={hierarchicalRoles(ROLES.UNION)}>
-      <h1 className="eco--title">Factory Report: Lot #{lotId}</h1>
+      <h1>Factory Report: Lot #{lotId}</h1>
       {report && <FactoryReportWetComponent report={report} lotId={lotId} />}
     </Container>
   );

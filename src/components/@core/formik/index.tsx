@@ -71,6 +71,8 @@ export const dateTimeInput = ({
   label,
   hint = false,
   disabled = false,
+  className = ``,
+  format = "dd-MM-yyyy H:mm",
   ...props
 }) => {
   const hasErrors = touched[field.name] && errors[field.name];
@@ -88,7 +90,7 @@ export const dateTimeInput = ({
     : new Date();
 
   return (
-    <div className="bx--form-item">
+    <div className={`bx--form-item ${className}`}>
       <label className="bx--label">{label}</label>
       {hint && (
         <div className="bx--form__helper-text">
@@ -104,11 +106,12 @@ export const dateTimeInput = ({
         onChange={setDateTimeValue}
         value={dateTimeValue}
         autoComplete={false}
-        format="dd-MM-yyyy H:mm"
+        format={format}
         required={true}
         disabled={disabled}
         minDate={minDate}
         maxDate={maxDate}
+        clearIcon={null}
       />
       {hasErrors && (
         <div className="bx--form-requirement">{errors[field.name]}</div>

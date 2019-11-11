@@ -62,6 +62,11 @@ input[type="date"]::-webkit-outer-spin-button {
     div {
       color: $text-01;
     }
+    .rdt_TableCell {
+      .eco--btn-transparent {
+        display: initial;
+      }
+    }
   }
 }
 

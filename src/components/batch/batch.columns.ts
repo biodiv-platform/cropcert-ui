@@ -13,7 +13,7 @@ export const columnsDefault = [
     cell: row => tooltipCell(row.note),
   },
   {
-    name: "Total Quantity",
+    name: "Quantity",
     selector: "quantity",
   },
 ];

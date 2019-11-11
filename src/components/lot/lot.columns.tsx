@@ -10,10 +10,6 @@ export const columnsDispatch = [
     cell: row => lotTableLink(row.id, row.lotName),
   },
   {
-    name: "Quantity",
-    selector: "quantity",
-  },
-  {
     name: "Note",
     selector: "note",
     cell: row => tooltipCell(row.note),

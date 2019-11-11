@@ -38,6 +38,10 @@ function ListLots() {
   const columns = [
     ...columnsDispatch,
     {
+      name: "Quantity",
+      selector: "quantity",
+    },
+    {
       name: "Weight Leaving Cooperative",
       selector: "id",
       cell: row => (
@@ -120,7 +124,7 @@ function ListLots() {
 
       <div className="bx--row">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Dispatch Lot(s) to Factory</h1>
+          <h1>Dispatch Lot(s) to Factory</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button

@@ -7,7 +7,7 @@ import React from "react";
 const BatchCreatePage = () => {
   return (
     <Container roles={hierarchicalRoles(ROLES.COLLECTION_CENTER)}>
-      <h1 className="eco--title">Create Batch</h1>
+      <h1>Create Batch</h1>
       <BatchCreate />
     </Container>
   );

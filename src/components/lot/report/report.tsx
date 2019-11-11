@@ -3,7 +3,7 @@ import DataTable from "@components/@core/table";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
-import { camelCaseToStartCase } from "@utils/basic.util";
+import { capitalize } from "@utils/basic.util";
 import { LOT_AT, REPORT_TYPE, ROLES } from "@utils/constants";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import actionButton from "./action-button";
 
 function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
   const lotStore = useContext(LotStore);
-  const reportTypeTitle = camelCaseToStartCase(reportType);
+  const reportTypeTitle = capitalize(reportType);
   const [coCodes, setCoCodes] = useState([] as any);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
     <>
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Add/Update {reportTypeTitle} Report</h1>
+          <h1>Add/Update {reportTypeTitle} Report</h1>
         </div>
       </div>
 

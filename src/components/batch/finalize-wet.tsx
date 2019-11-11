@@ -22,7 +22,7 @@ export default function FinalizeWetBatch({ batches }: IProps) {
     <>
       <div className="bx--row mb-1">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Finalize Wetbatch(s)</h1>
+          <h1>Finalize Wetbatch(s)</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
           <CancelButton />

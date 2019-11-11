@@ -7,7 +7,13 @@ import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
 import { hasAccess } from "@utils/auth.util";
 import { local2utc } from "@utils/basic.util";
-import { BATCH_TYPE, DATATYPE, MESSAGE, ROLES } from "@utils/constants";
+import {
+  BATCH_TYPE,
+  DATATYPE,
+  MESSAGE,
+  ROLES,
+  TABLE_DATE_CELL,
+} from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
@@ -48,6 +54,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Fermentation Ended on",
@@ -67,6 +74,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Drying Ended on",
@@ -86,6 +94,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Perchment Quantity",
@@ -106,6 +115,12 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
           }}
         />
       ),
+    },
+    {
+      name: "Net Quantity (%)",
+      selector: "perchmentQuantity",
+      cell: row =>
+        `${((row.perchmentQuantity * 100) / row.quantity).toFixed(2)}%`,
     },
   ];
 
@@ -151,7 +166,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }) {
 
       <div className="bx--row">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Update Wet Batch</h1>
+          <h1>Update Wet Batch</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
           <Button

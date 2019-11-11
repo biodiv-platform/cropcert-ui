@@ -1,5 +1,5 @@
 import { Edit16 } from "@carbon/icons-react";
-import { elipsis } from "@utils/basic.util";
+import { elipsis, formattedTimeStamp } from "@utils/basic.util";
 import { DATATYPE } from "@utils/constants";
 import React from "react";
 
@@ -11,8 +11,11 @@ export default function EditButton({
   onClick,
 }) {
   const displayValue = dataType === DATATYPE.DATETIME ? timeCell(value) : value;
+  const title =
+    dataType === DATATYPE.DATETIME ? formattedTimeStamp(value) : value;
+
   return (
-    <span title={displayValue}>
+    <span title={title} className={dataType}>
       {elipsis(displayValue)}
       <button
         className="eco--btn-transparent"

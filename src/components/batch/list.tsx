@@ -3,7 +3,6 @@ import DataTable from "@components/@core/table";
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
-import { getToday } from "@utils/basic.util";
 import { BATCH_TYPE, MESSAGE, ROLES } from "@utils/constants";
 import { Button, ContentSwitcher, Switch } from "carbon-components-react";
 import { navigate } from "gatsby";
@@ -31,9 +30,9 @@ function ListBatch() {
       const coName = toJS(ccList.find(c => c.code === o.ccCode)).name;
       return acc.includes(coName) ? acc : [...acc, coName];
     }, []);
-    return `${
-      ccs.length > 1 ? `${co.label}_co` : ccs[0]
-    }_${batchType.charAt(0)}_Lot_${getToday()}`;
+    return `${ccs.length > 1 ? `${co.label}_CO` : ccs[0]}_${batchType.charAt(
+      0
+    )}_Lot_`;
   };
 
   const handleCreateLot = () => {
@@ -62,7 +61,7 @@ function ListBatch() {
     <>
       <div className="bx--row">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Create Lot from Batch(s)</h1>
+          <h1>Create Lot from Batch(s)</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button

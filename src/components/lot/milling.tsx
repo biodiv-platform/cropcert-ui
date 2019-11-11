@@ -4,7 +4,7 @@ import GenricModal from "@components/@core/modal/genric-modal";
 import DataTable from "@components/@core/table";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { DATATYPE, LOT_AT, ROLES } from "@utils/constants";
+import { DATATYPE, LOT_AT, ROLES, TABLE_DATE_CELL } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
@@ -31,6 +31,10 @@ function MillingLots() {
 
   const columns = [
     ...columnsDispatch,
+    {
+      name: "Weight Leaving Cooperative",
+      selector: "weightLeavingCooperative",
+    },
     {
       name: "Weight Arriving Factory",
       selector: "id",
@@ -88,6 +92,7 @@ function MillingLots() {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Out Turn",
@@ -180,7 +185,7 @@ function MillingLots() {
 
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Dispatch Lot(s) to Union</h1>
+          <h1>Dispatch Lot(s) to Union</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button
@@ -219,6 +224,7 @@ function MillingLots() {
           data={lotStore.lots}
           expandableRows={true}
           expandableRowsComponent={<BatchlistExpanded />}
+          className="mb-4"
         />
       </InfiniteScroll>
     </>

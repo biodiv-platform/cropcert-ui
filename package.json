@@ -41,7 +41,7 @@
     "formik": "^2.0.3",
     "gatsby": "^2.17.11",
     "gatsby-plugin-manifest": "^2.2.26",
-    "gatsby-plugin-offline": "^3.0.18",
+    "gatsby-plugin-offline": "^3.0.19",
     "gatsby-plugin-react-helmet": "^3.1.14",
     "gatsby-plugin-react-leaflet": "^2.0.11",
     "gatsby-plugin-sass": "^2.1.20",

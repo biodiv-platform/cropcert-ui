@@ -107,12 +107,18 @@ function MillingLots() {
               keyName: "outTurn",
               keyTitle: "Out Turn",
               dataType: DATATYPE.NUMBER,
-              max: row.quantity,
+              max: row.weightArrivingFactory,
             });
             setIsModalOpen(true);
           }}
         />
       ),
+    },
+    {
+      name: "Out Turn (%)",
+      selector: "outTurn",
+      cell: row =>
+        `${((row.outTurn * 100) / row.weightArrivingFactory || 0).toFixed(2)}%`,
     },
     {
       name: "Weight Leaving Factory",
@@ -127,6 +133,7 @@ function MillingLots() {
               keyName: "weightLeavingFactory",
               keyTitle: "Weight Leaving Factory",
               dataType: DATATYPE.NUMBER,
+              max: row.outTurn,
             });
             setIsModalOpen(true);
           }}
@@ -161,6 +168,16 @@ function MillingLots() {
         rows: selectedRows,
         to: "union",
         timeKey: "dispatchTime",
+        extraColumns: [
+          {
+            name: "Weight Leaving Factory",
+            selector: "weightLeavingFactory",
+          },
+          {
+            name: "Moisture Content Leaving Factory",
+            selector: "mcLeavingFactory",
+          },
+        ],
       },
     });
   };

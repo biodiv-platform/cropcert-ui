@@ -100,9 +100,10 @@ function FactoryReportWetComponent({ report, lotId }) {
     <Formik
       {...factoryReportForm}
       onSubmit={handleFactoryReportSubmit}
-      render={renderFactoryReportWetForm}
       enableReinitialize={true}
-    />
+    >
+      {renderFactoryReportWetForm}
+    </Formik>
   );
 }
 

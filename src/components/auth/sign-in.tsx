@@ -45,10 +45,8 @@ export default function SignIn() {
 
   return (
     <div className="bx--grid eco--sign-in">
-      <Formik
-        {...signInForm}
-        onSubmit={onSignInSubmit}
-        render={({ handleSubmit, isValid }) => {
+      <Formik {...signInForm} onSubmit={onSignInSubmit}>
+        {({ handleSubmit, isValid }) => {
           return (
             <form className="bx--form" onSubmit={handleSubmit}>
               <div className="bx--row">
@@ -88,7 +86,7 @@ export default function SignIn() {
             </form>
           );
         }}
-      />
+      </Formik>
     </div>
   );
 }

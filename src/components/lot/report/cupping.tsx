@@ -255,11 +255,9 @@ export default class CuppingComponent extends Component<IProps> {
 
   render() {
     return (
-      <Formik
-        {...this.cuppingForm}
-        onSubmit={this.handleSubmit}
-        render={this.renderGreenForm}
-      />
+      <Formik {...this.cuppingForm} onSubmit={this.handleSubmit}>
+        {this.renderGreenForm}
+      </Formik>
     );
   }
 }

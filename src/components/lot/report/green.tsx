@@ -421,11 +421,9 @@ export default class GreenReport extends Component<IProps> {
 
   render() {
     return (
-      <Formik
-        {...this.greenForm}
-        onSubmit={this.handleSubmit}
-        render={this.renderGreenForm}
-      />
+      <Formik {...this.greenForm} onSubmit={this.handleSubmit}>
+        {this.renderGreenForm}
+      </Formik>
     );
   }
 }

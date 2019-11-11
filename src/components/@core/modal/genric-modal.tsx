@@ -52,11 +52,8 @@ export default function GenricModal({
   return form && isOpen ? (
     <ComposedModal id="1" open={isOpen} onClose={onClose}>
       <ModalHeader title={`Update ${keyTitle}`} closeModal={onclose} />
-      <Formik
-        {...form}
-        enableReinitialize={true}
-        onSubmit={submitForm}
-        render={({ handleSubmit, isValid }) => {
+      <Formik {...form} enableReinitialize={true} onSubmit={submitForm}>
+        {({ handleSubmit, isValid }) => {
           return (
             <form className="bx--form" onSubmit={handleSubmit}>
               <div className="eco--modal-container">
@@ -85,7 +82,7 @@ export default function GenricModal({
             </form>
           );
         }}
-      />
+      </Formik>
     </ComposedModal>
   ) : (
     <></>

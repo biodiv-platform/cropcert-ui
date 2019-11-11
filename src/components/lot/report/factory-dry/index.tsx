@@ -92,9 +92,10 @@ function FactoryReportDryComponent({ report, lotId }) {
     <Formik
       {...factoryReportForm}
       onSubmit={handleFactoryReportSubmit}
-      render={renderFactoryReportDryForm}
       enableReinitialize={true}
-    />
+    >
+      {renderFactoryReportDryForm}
+    </Formik>
   );
 }
 

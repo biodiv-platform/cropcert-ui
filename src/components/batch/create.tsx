@@ -22,7 +22,7 @@ function BatchCreate() {
 
   const initialValues = {
     ccCode,
-    type: null,
+    type: undefined,
     quantity: 0,
     date: new Date().getTime(),
     note: "",
@@ -50,6 +50,7 @@ function BatchCreate() {
       .min(1)
       .required(),
     date: Yup.number().required(),
+    type: Yup.string().required(),
   });
 
   const handleSubmit = (values, actions) => {

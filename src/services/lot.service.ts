@@ -4,8 +4,8 @@ import notification from "@utils/notification.util";
 
 export const axCreateLotFromBatches = async body => {
   try {
-    await http.post(`${ENDPOINT.TRACEABILITY}/lot`, body);
-    return { success: true, id: body.lotName };
+    const res = await http.post(`${ENDPOINT.TRACEABILITY}/lot`, body);
+    return { success: true, id: res.data.lotName };
   } catch (e) {
     console.error(e);
     notification(MESSAGE.ERROR);

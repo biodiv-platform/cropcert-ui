@@ -153,7 +153,8 @@ export const selectInput = ({
         setSelectFieldValue(e.selectedItem);
       }}
       {...props}
-      {...(hasErrors && { invalid: true, invalidText: errors[field.name] })}
+      {...(errors[field.name] && { invalid: true })}
+      {...(hasErrors && { invalidText: errors[field.name] })}
     />
   );
 };

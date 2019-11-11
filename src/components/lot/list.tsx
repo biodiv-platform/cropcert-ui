@@ -94,6 +94,16 @@ function ListLots() {
         rows: selectedRows,
         to: "factory",
         timeKey: "timeToFactory",
+        extraColumns: [
+          {
+            name: "Weight Leaving Cooperative",
+            selector: "weightLeavingCooperative",
+          },
+          {
+            name: "Moisture Content Leaving Cooperative",
+            selector: "mcLeavingCooperative",
+          },
+        ],
       },
     });
   };

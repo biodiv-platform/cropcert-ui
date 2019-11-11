@@ -14,9 +14,15 @@ interface IProps {
   rows: [any];
   to: string;
   timeKey: string;
+  extraColumns: object[];
 }
 
-export default function CreateLot({ rows, to, timeKey }: IProps) {
+export default function DispatchLot({
+  rows,
+  to,
+  timeKey,
+  extraColumns = [],
+}: IProps) {
   const initialValues = {
     date: new Date().getTime(),
   };
@@ -24,6 +30,8 @@ export default function CreateLot({ rows, to, timeKey }: IProps) {
   const validationSchema = Yup.object().shape({
     date: Yup.number().required(),
   });
+
+  const columns = [...columnsDispatch, ...extraColumns];
 
   const handleSubmit = ({ date }) => {
     axLotDispatch(to, {
@@ -73,7 +81,7 @@ export default function CreateLot({ rows, to, timeKey }: IProps) {
           <DataTable
             keyField="id"
             className="mb-4"
-            columns={columnsDispatch}
+            columns={columns}
             noHeader={true}
             data={rows}
           />

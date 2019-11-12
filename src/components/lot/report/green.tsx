@@ -279,7 +279,6 @@ export default class GreenReport extends Component<IProps> {
             label="Report Time"
             name="timestamp"
             component={dateTimeInput}
-            min={this.props.grnTimestamp}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">

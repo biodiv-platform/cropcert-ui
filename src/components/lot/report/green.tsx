@@ -24,14 +24,15 @@ interface IProps {
   cooperativeName;
   ccNames;
   report;
+  highGradeWeight;
 }
 
 export default class GreenReport extends Component<IProps> {
   report = this.props.report;
   getOutTurn = () => {
     return (
-      (this.props.weightLeavingFactory * 100) /
-      this.props.quantity
+      (this.props.highGradeWeight * 100) /
+      this.props.weightLeavingFactory
     ).toFixed(2);
   };
 

@@ -24,6 +24,14 @@ function GRNLots() {
   const columns = [
     ...columnsDispatch,
     {
+      name: "Factory Out Turn",
+      selector: "weightLeavingFactory",
+    },
+    {
+      name: "Factory Moisture Content",
+      selector: "mcLeavingFactory",
+    },
+    {
       name: "Factory Report",
       selector: "id",
       cell: row => actionButton(`factory-${row.type.toLowerCase()}`, row),

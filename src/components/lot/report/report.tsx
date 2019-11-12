@@ -28,6 +28,14 @@ function GRNLots({ reportType = REPORT_TYPE.GREEN }: { reportType: string }) {
       name: "GRN Number",
       selector: "grnNumber",
     },
+    {
+      name: "Factory Out Turn",
+      selector: "weightLeavingFactory",
+    },
+    {
+      name: "Factory Moisture Content",
+      selector: "mcLeavingFactory",
+    },
     ...columnsDispatch,
     {
       name: "Report",

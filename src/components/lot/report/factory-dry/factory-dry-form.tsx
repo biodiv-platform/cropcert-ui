@@ -16,12 +16,12 @@ export const renderFactoryReportDryForm = ({
   const calcPersentage = num =>
     `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
 
-  const isValidTotal =
+  const totalDiff =
     cv.highGradeWeight +
-      cv.lowGradeWeight +
-      cv.totalBlackBeans +
-      cv.wasteSubTotal +
-      cv.otherLossSubTotal ===
+    cv.lowGradeWeight +
+    cv.totalBlackBeans +
+    cv.wasteSubTotal +
+    cv.otherLossSubTotal -
     cv.netInputWeight;
 
   return (
@@ -175,16 +175,18 @@ export const renderFactoryReportDryForm = ({
         Sub Total: {cv.otherLossSubTotal} KG(s)
       </div>
 
-      {isValid && !isValidTotal && (
-        <InlineNotification
-          kind="error"
-          lowConstrast={true}
-          role="alert"
-          title={MESSAGE.ERROR_FACTORY_REPORT}
-        />
+      {totalDiff !== 0 && (
+        <>
+          <div className="eco--divider" style={{ color: "#da1e28" }}>
+            {`${MESSAGE.ERROR_FACTORY_REPORT} Total `}
+            <strong>
+              {totalDiff > 0 ? "Over" : "Under"} by {Math.abs(totalDiff)} KG(s)
+            </strong>
+          </div>
+        </>
       )}
 
-      <Button type="submit" disabled={!(isValid && isValidTotal)}>
+      <Button type="submit" disabled={!(isValid && totalDiff === 0)}>
         Submit
       </Button>
     </form>

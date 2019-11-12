@@ -58,7 +58,7 @@
     "react-helmet": "^5.2.1",
     "react-infinite-scroller": "^1.2.4",
     "react-leaflet": "^2.5.0",
-    "react-sortable-tree": "^2.6.2",
+    "react-sortable-tree": "^2.7.1",
     "styled-components": "^4.4.1",
     "tinymce": "^5.1.1",
     "yup": "^0.27.0"

@@ -95,70 +95,54 @@ function MillingLots() {
       ...TABLE_DATE_CELL,
     },
     {
-      name: "Out Turn",
-      selector: "outTurn",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.outTurn}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "outTurn",
-              keyTitle: "Out Turn",
-              dataType: DATATYPE.NUMBER,
-              max: row.weightArrivingFactory,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      name: "Weight Leaving Factory",
+      selector: "id",
+      cell: row =>
+        row.weightArrivingFactory && (
+          <EditButton
+            dataType={DATATYPE.NUMBER}
+            value={row.weightLeavingFactory}
+            onClick={() => {
+              setModalData({
+                row,
+                keyName: "weightLeavingFactory",
+                keyTitle: "Weight Leaving Factory",
+                dataType: DATATYPE.NUMBER,
+                max: row.weightArrivingFactory,
+              });
+              setIsModalOpen(true);
+            }}
+          />
+        ),
     },
     {
       name: "Out Turn (%)",
-      selector: "outTurn",
+      selector: "weightLeavingFactory",
       cell: row =>
-        `${((row.outTurn * 100) / row.weightArrivingFactory || 0).toFixed(2)}%`,
-    },
-    {
-      name: "Weight Leaving Factory",
-      selector: "id",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.weightLeavingFactory}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "weightLeavingFactory",
-              keyTitle: "Weight Leaving Factory",
-              dataType: DATATYPE.NUMBER,
-              max: row.outTurn,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+        `${(
+          (row.weightLeavingFactory * 100) / row.weightArrivingFactory || 0
+        ).toFixed(2)}%`,
     },
     {
       name: "Moisture Content Leaving Factory",
       selector: "id",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.mcLeavingFactory}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "mcLeavingFactory",
-              keyTitle: "Moisture Content Leaving Factory",
-              dataType: DATATYPE.NUMBER,
-              max: 100,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      cell: row =>
+        row.mcArrivingFactory && (
+          <EditButton
+            dataType={DATATYPE.NUMBER}
+            value={row.mcLeavingFactory}
+            onClick={() => {
+              setModalData({
+                row,
+                keyName: "mcLeavingFactory",
+                keyTitle: "Moisture Content Leaving Factory",
+                dataType: DATATYPE.NUMBER,
+                max: 100,
+              });
+              setIsModalOpen(true);
+            }}
+          />
+        ),
     },
   ];
 

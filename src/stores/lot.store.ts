@@ -1,4 +1,8 @@
-import { axLazyListLot, axUpdateLot } from "@services/lot.service";
+import {
+  axLazyListLot,
+  axUpdateLot,
+  postProcessRow,
+} from "@services/lot.service";
 import { axGetCuppingReportsByLotId } from "@services/report.service";
 import { updateArrayImmutable } from "@utils/basic.util";
 import { decorate, observable } from "mobx";
@@ -44,8 +48,9 @@ export class LotStore {
 
   updateLot = async (keyName, body, at) => {
     const r = await axUpdateLot(keyName, body, at);
+    const row = postProcessRow(r.body, at);
     if (r.success) {
-      this.lots = updateArrayImmutable(this.lots, "id", r.body);
+      this.lots = updateArrayImmutable(this.lots, "id", row);
     }
     return r.success;
   };

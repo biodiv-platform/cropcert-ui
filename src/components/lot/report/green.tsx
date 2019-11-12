@@ -17,6 +17,7 @@ interface IProps {
   lotName;
   type;
   outTurn;
+  weightLeavingFactory;
   quantity;
   grnNumber;
   grnTimestamp;
@@ -28,7 +29,10 @@ interface IProps {
 export default class GreenReport extends Component<IProps> {
   report = this.props.report;
   getOutTurn = () => {
-    return ((this.props.outTurn * 100) / this.props.quantity).toFixed(2);
+    return (
+      (this.props.weightLeavingFactory * 100) /
+      this.props.quantity
+    ).toFixed(2);
   };
 
   greenForm = {

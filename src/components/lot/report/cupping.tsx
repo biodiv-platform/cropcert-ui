@@ -176,7 +176,6 @@ export default class CuppingComponent extends Component<IProps> {
             label="Report Time"
             name="timestamp"
             component={dateTimeInput}
-            min={this.props.grnTimestamp}
           />
         </div>
       </div>

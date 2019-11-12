@@ -38,7 +38,7 @@
     "carbon-components": "^10.7.4",
     "carbon-components-react": "^7.7.4",
     "dayjs": "^1.8.17",
-    "formik": "^2.0.3",
+    "formik": "^2.0.4",
     "gatsby": "^2.17.11",
     "gatsby-plugin-manifest": "^2.2.27",
     "gatsby-plugin-offline": "^3.0.19",

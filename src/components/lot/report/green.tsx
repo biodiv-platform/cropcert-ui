@@ -93,7 +93,7 @@ export default class GreenReport extends Component<IProps> {
       coffeeType: this.props.type,
       overTurnPercentage: this.getOutTurn(),
       mc: nonZeroFalsy(this.report.mc),
-      grnNumber: this.props.grnNumber,
+      grnNumber: this.props.grnNumber || "",
 
       // Grades
       gradeAA: nonZeroFalsy(this.report.gradeAA),

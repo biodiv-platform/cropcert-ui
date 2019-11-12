@@ -65,7 +65,7 @@ export default class CuppingComponent extends Component<IProps> {
 
       cupper: this.props.cupper,
       sampleType: this.props.type,
-      grnNumber: this.props.grnNumber,
+      grnNumber: this.props.grnNumber || "",
 
       // Params
       fragranceAroma: nonZeroFalsy(this.props.report.fragranceAroma),

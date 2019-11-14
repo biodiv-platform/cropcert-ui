@@ -71,4 +71,16 @@ export const messageRedirect = data => {
   }
 };
 
+export const flatten = (data: any[] = []) => {
+  return data.reduce((acc, cv) => {
+    const { children, ...ob } = cv;
+    const processedO = (children && flatten(children)) || [];
+    return [
+      ...acc,
+      ...processedO,
+      { value: ob.name, label: ob.name, color: ob.color },
+    ];
+  }, []);
+};
+
 export const nonZeroFalsy = num => (num || num === 0 ? num : "");

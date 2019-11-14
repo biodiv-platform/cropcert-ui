@@ -2,6 +2,7 @@ import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
 import { Dropdown, TextInput } from "carbon-components-react";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
+import Select from "react-select";
 
 export const textInput = ({
   field,
@@ -156,6 +157,38 @@ export const selectInput = ({
       {...(errors[field.name] && { invalid: true })}
       {...(hasErrors && { invalidText: errors[field.name] })}
     />
+  );
+};
+
+export const tagSelectInput = ({ options, field, form }) => {
+  return (
+    <>
+      <label className="bx--label">{field.label}</label>
+      <Select
+        isMulti={true}
+        options={options}
+        name={field.name}
+        value={
+          options
+            ? options.filter(option => field.value.includes(option.value))
+            : []
+        }
+        onChange={option =>
+          form.setFieldValue(field.name, option ? option.map(o => o.value) : [])
+        }
+        onBlur={field.onBlur}
+        styles={{
+          control: styles => ({
+            ...styles,
+            background: "#f4f4f4",
+            border: 0,
+            boxShadow: "none",
+            borderBottom: "1px solid #8d8d8d",
+            borderRadius: 0,
+          }),
+        }}
+      />
+    </>
   );
 };
 

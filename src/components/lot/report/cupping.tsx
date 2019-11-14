@@ -1,11 +1,18 @@
 import {
   dateTimeInput,
   numberInput,
+  tagSelectInput,
   textInput,
 } from "@components/@core/formik";
 import { axCreateCuppingReport } from "@services/report.service";
-import { local2utc, messageRedirect, nonZeroFalsy } from "@utils/basic.util";
+import {
+  flatten,
+  local2utc,
+  messageRedirect,
+  nonZeroFalsy,
+} from "@utils/basic.util";
 import { Button } from "carbon-components-react";
+import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Field, Formik } from "formik";
 import React, { Component } from "react";
 import * as Yup from "yup";
@@ -53,7 +60,7 @@ export default class CuppingComponent extends Component<IProps> {
       taint: Yup.number().required(),
       fault: Yup.number().required(),
 
-      notes: Yup.string().required(),
+      notes: Yup.array().required(),
     }),
     initialValues: {
       lotName: this.props.lotName,
@@ -83,7 +90,7 @@ export default class CuppingComponent extends Component<IProps> {
       taint: nonZeroFalsy(this.props.report.taint),
       fault: nonZeroFalsy(this.props.report.fault),
 
-      notes: nonZeroFalsy(this.props.report.notes),
+      notes: (this.props.report.notes || "").split(","),
     },
   };
 
@@ -104,10 +111,11 @@ export default class CuppingComponent extends Component<IProps> {
   };
 
   handleSubmit = (values, actions) => {
-    const { grnNumber, ...v } = values;
+    const { grnNumber, notes, ...v } = values;
     actions.setSubmitting(false);
     axCreateCuppingReport({
       ...v,
+      notes: notes.toString(),
       id: this.props.report.id || -1,
     }).then(response =>
       messageRedirect({ ...response, mcode: "CUPPING_REPORT_CREATED" })
@@ -239,14 +247,15 @@ export default class CuppingComponent extends Component<IProps> {
           <Field
             label="Notes (comma seprated)"
             name="notes"
-            component={textInput}
+            component={tagSelectInput}
+            options={flatten(CoffeeFlavors)}
           />
         </div>
       </div>
 
       <h3 className="eco--form-title">TT - {this.gradeTotal(values)}</h3>
 
-      <Button type="submit" disabled={!isValid}>
+      <Button type="submit" className="mb-4" disabled={!isValid}>
         Submit
       </Button>
     </form>

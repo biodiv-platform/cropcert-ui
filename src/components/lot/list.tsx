@@ -1,6 +1,7 @@
 import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
+import DataTable from "@components/@core/table";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import { axCoByUnionId } from "@services/co.service";
 import LotStore from "@stores/lot.store";
@@ -10,7 +11,6 @@ import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
@@ -38,6 +38,10 @@ function ListLots() {
   const columns = [
     ...columnsDispatch,
     {
+      name: "Quantity",
+      selector: "quantity",
+    },
+    {
       name: "Weight Leaving Cooperative",
       selector: "id",
       cell: row => (
@@ -48,6 +52,7 @@ function ListLots() {
             setModalData({
               row,
               keyName: "weightLeavingCooperative",
+              keyTitle: "Weight Leaving Cooperative",
               dataType: DATATYPE.NUMBER,
             });
             setIsModalOpen(true);
@@ -66,6 +71,7 @@ function ListLots() {
             setModalData({
               row,
               keyName: "mcLeavingCooperative",
+              keyTitle: "Moisture Content Leaving Cooperative",
               dataType: DATATYPE.NUMBER,
               max: 100,
             });
@@ -88,6 +94,16 @@ function ListLots() {
         rows: selectedRows,
         to: "factory",
         timeKey: "timeToFactory",
+        extraColumns: [
+          {
+            name: "Weight Leaving Cooperative",
+            selector: "weightLeavingCooperative",
+          },
+          {
+            name: "Moisture Content Leaving Cooperative",
+            selector: "mcLeavingCooperative",
+          },
+        ],
       },
     });
   };
@@ -118,12 +134,12 @@ function ListLots() {
 
       <div className="bx--row">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Dispatch Lot(s) to Factory</h1>
+          <h1>Dispatch Lot(s) to Factory</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button
             kind="primary"
-            className="mt-2"
+            className="mt-3"
             disabled={selectedRows.length <= 0}
             onClick={handleDispatchLot}
           >

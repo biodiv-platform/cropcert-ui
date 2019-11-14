@@ -60,7 +60,8 @@ export default function ManagePage({ mode, page, id }) {
       enableReinitialize={true}
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      render={props => {
+    >
+      {props => {
         const isContentInput =
           props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
         return (
@@ -111,8 +112,8 @@ export default function ManagePage({ mode, page, id }) {
           </form>
         );
       }}
-    />
+    </Formik>
   ) : (
-    <>"Loading"</>
+    <>Loading...</>
   );
 }

@@ -1,4 +1,8 @@
-import { dateTimeInput, textInput } from "@components/@core/formik";
+import {
+  dateTimeInput,
+  numberInput,
+  textInput,
+} from "@components/@core/formik";
 import { axCreateGreenReport } from "@services/report.service";
 import { local2utc, messageRedirect, nonZeroFalsy } from "@utils/basic.util";
 import { Button } from "carbon-components-react";
@@ -13,18 +17,23 @@ interface IProps {
   lotName;
   type;
   outTurn;
+  weightLeavingFactory;
   quantity;
   grnNumber;
   grnTimestamp;
   cooperativeName;
   ccNames;
   report;
+  highGradeWeight;
 }
 
 export default class GreenReport extends Component<IProps> {
   report = this.props.report;
   getOutTurn = () => {
-    return ((this.props.outTurn * 100) / this.props.quantity).toFixed(2);
+    return (
+      (this.props.highGradeWeight * 100) /
+      this.props.weightLeavingFactory
+    ).toFixed(2);
   };
 
   greenForm = {
@@ -84,7 +93,7 @@ export default class GreenReport extends Component<IProps> {
       coffeeType: this.props.type,
       overTurnPercentage: this.getOutTurn(),
       mc: nonZeroFalsy(this.report.mc),
-      grnNumber: this.props.grnNumber,
+      grnNumber: this.props.grnNumber || "",
 
       // Grades
       gradeAA: nonZeroFalsy(this.report.gradeAA),
@@ -231,7 +240,6 @@ export default class GreenReport extends Component<IProps> {
             label="Lot Reception Date"
             name="date"
             component={dateTimeInput}
-            hint={false}
             disabled={true}
           />
         </div>
@@ -264,8 +272,7 @@ export default class GreenReport extends Component<IProps> {
           <Field
             label="Outturn Percentage"
             name="overTurnPercentage"
-            component={textInput}
-            type="number"
+            component={numberInput}
             readOnly={true}
           />
         </div>
@@ -277,17 +284,10 @@ export default class GreenReport extends Component<IProps> {
             label="Report Time"
             name="timestamp"
             component={dateTimeInput}
-            min={this.props.grnTimestamp}
-            hint={false}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Moisture Content"
-            name="mc"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Moisture Content" name="mc" component={numberInput} />
         </div>
       </div>
       {this.props.type === "WET" && (
@@ -297,59 +297,28 @@ export default class GreenReport extends Component<IProps> {
           </h3>
           <div className="bx--row">
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="AA"
-                name="gradeAA"
-                component={textInput}
-                type="number"
-              />
+              <Field label="AA" name="gradeAA" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="A"
-                name="gradeA"
-                component={textInput}
-                type="number"
-              />
+              <Field label="A" name="gradeA" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="B"
-                name="gradeB"
-                component={textInput}
-                type="number"
-              />
+              <Field label="B" name="gradeB" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="AB"
-                name="gradeAB"
-                component={textInput}
-                type="number"
-              />
+              <Field label="AB" name="gradeAB" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="C"
-                name="gradeC"
-                component={textInput}
-                type="number"
-              />
+              <Field label="C" name="gradeC" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
-              <Field
-                label="PB"
-                name="gradePB"
-                component={textInput}
-                type="number"
-              />
+              <Field label="PB" name="gradePB" component={numberInput} />
             </div>
             <div className="bx--col-lg-3 bx--col-sm-12">
               <Field
                 label="Triage"
                 name="gradeTriage"
-                component={textInput}
-                type="number"
+                component={numberInput}
               />
             </div>
           </div>
@@ -363,41 +332,29 @@ export default class GreenReport extends Component<IProps> {
       </h3>
       <div className="bx--row">
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Full Black"
-            name="fullBlack"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Full Black" name="fullBlack" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Full Sour"
-            name="fullSour"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Full Sour" name="fullSour" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field label="Pods" name="pods" component={textInput} type="number" />
+          <Field label="Pods" name="pods" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="Fungas Damaged"
             name="fungasDamaged"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field label="E M" name="em" component={textInput} type="number" />
+          <Field label="E M" name="em" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="Severe Insect"
             name="severeInsect"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
       </div>
@@ -410,81 +367,47 @@ export default class GreenReport extends Component<IProps> {
           <Field
             label="Partial Black"
             name="partialBlack"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="Partial Sour"
             name="partialSour"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Patchment"
-            name="patchment"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Patchment" name="patchment" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="Floaters/Chalky"
             name="floatersChalky"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Immature"
-            name="immature"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Immature" name="immature" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Withered"
-            name="withered"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Withered" name="withered" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Shells"
-            name="shells"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Shells" name="shells" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
           <Field
             label="Broken/Chipped"
             name="brokenChipped"
-            component={textInput}
-            type="number"
+            component={numberInput}
           />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Husks"
-            name="husks"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Husks" name="husks" component={numberInput} />
         </div>
         <div className="bx--col-lg-3 bx--col-sm-12">
-          <Field
-            label="Pin Hole"
-            name="pinHole"
-            component={textInput}
-            type="number"
-          />
+          <Field label="Pin Hole" name="pinHole" component={numberInput} />
         </div>
       </div>
       <h3 className="eco--form-title">
@@ -502,11 +425,9 @@ export default class GreenReport extends Component<IProps> {
 
   render() {
     return (
-      <Formik
-        {...this.greenForm}
-        onSubmit={this.handleSubmit}
-        render={this.renderGreenForm}
-      />
+      <Formik {...this.greenForm} onSubmit={this.handleSubmit}>
+        {this.renderGreenForm}
+      </Formik>
     );
   }
 }

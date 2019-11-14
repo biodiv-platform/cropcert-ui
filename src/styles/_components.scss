@@ -62,6 +62,11 @@ input[type="date"]::-webkit-outer-spin-button {
     div {
       color: $text-01;
     }
+    .rdt_TableCell {
+      .eco--btn-transparent {
+        display: initial;
+      }
+    }
   }
 }
 
@@ -130,5 +135,30 @@ input[type="date"]::-webkit-outer-spin-button {
   svg {
     vertical-align: middle;
     fill: currentColor;
+  }
+}
+
+.eco--divider {
+  font-style: italic;
+}
+
+.eco--report-factory-grades {
+  @media screen and (min-width: 674px) and (max-width: 1055px) {
+    .eco--form-title {
+      min-height: 4em;
+      display: block;
+    }
+  }
+}
+
+@media screen and (min-width: 674px) {
+  .eco--report-factory-grades {
+    & > div {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+    .eco--divider {
+      margin-top: auto;
+    }
   }
 }

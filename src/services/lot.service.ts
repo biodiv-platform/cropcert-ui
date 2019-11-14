@@ -4,8 +4,8 @@ import notification from "@utils/notification.util";
 
 export const axCreateLotFromBatches = async body => {
   try {
-    await http.post(`${ENDPOINT.TRACEABILITY}/lot`, body);
-    return { success: true, id: body.lotName };
+    const res = await http.post(`${ENDPOINT.TRACEABILITY}/lot`, body);
+    return { success: true, id: res.data.lotName };
   } catch (e) {
     console.error(e);
     notification(MESSAGE.ERROR);
@@ -126,12 +126,15 @@ export const axGetLotById = async lotId => {
   }
 };
 
-const postProcessRow = (o, at) => {
+export const postProcessRow = (o, at) => {
   switch (at) {
     case LOT_AT.FACTORY:
       return {
         ...o,
-        disabled: o.millingTime && o.outTurn > 0 ? false : true,
+        disabled:
+          o.millingTime && o.weightLeavingFactory && o.mcLeavingFactory
+            ? false
+            : true,
       };
 
     default:

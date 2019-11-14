@@ -1,26 +1,30 @@
 import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
+import DataTable from "@components/@core/table";
 import MultiSelect from "@khanacademy/react-multi-select";
 import { axListCCByCoId } from "@services/cc.service";
 import BatchStore from "@stores/batch.store";
 import { hasAccess } from "@utils/auth.util";
 import { local2utc } from "@utils/basic.util";
-import { BATCH_TYPE, DATATYPE, MESSAGE, ROLES } from "@utils/constants";
+import {
+  BATCH_TYPE,
+  DATATYPE,
+  MESSAGE,
+  ROLES,
+  TABLE_DATE_CELL,
+} from "@utils/constants";
 import { getUserKey } from "@utils/user.util";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
-interface IProps {
-  batchType?;
-}
+import { columnsDefault } from "./batch.columns";
 
-function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
+function ListWet({ batchType = BATCH_TYPE.WET }) {
   const [ccList, setCCList] = useState([] as any[]);
   const [ccCodes, setccCodes] = useState([] as any[]);
   const batchStore = useContext(BatchStore);
@@ -31,18 +35,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
   } as any);
 
   const columns = [
-    {
-      name: "Batch Id",
-      selector: "batchId",
-    },
-    {
-      name: "Batch Name",
-      selector: "batchName",
-    },
-    {
-      name: "Total Quantity",
-      selector: "quantity",
-    },
+    ...columnsDefault,
     {
       name: "Start Time",
       selector: "startTime",
@@ -53,6 +46,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
             setModalData({
               row,
               keyName: "startTime",
+              keyTitle: "Start Time",
               dataType: DATATYPE.DATETIME,
               min: local2utc(row.date).getTime(),
             });
@@ -60,6 +54,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Fermentation Ended on",
@@ -71,6 +66,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
             setModalData({
               row,
               keyName: "fermentationEndTime",
+              keyTitle: "Fermentation Ended on",
               dataType: DATATYPE.DATETIME,
               min: row.startTime,
             });
@@ -78,6 +74,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Drying Ended on",
@@ -89,6 +86,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
             setModalData({
               row,
               keyName: "dryingEndTime",
+              keyTitle: "Drying Ended on",
               dataType: DATATYPE.DATETIME,
               min: row.fermentationEndTime,
             });
@@ -96,6 +94,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
           }}
         />
       ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Perchment Quantity",
@@ -108,6 +107,7 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
             setModalData({
               row,
               keyName: "perchmentQuantity",
+              keyTitle: "Perchment Quantity",
               dataType: DATATYPE.NUMBER,
               max: row.quantity,
             });
@@ -115,6 +115,12 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
           }}
         />
       ),
+    },
+    {
+      name: "Net Quantity (%)",
+      selector: "perchmentQuantity",
+      cell: row =>
+        `${((row.perchmentQuantity * 100) / row.quantity).toFixed(2)}%`,
     },
   ];
 
@@ -160,12 +166,11 @@ function ListWet({ batchType = BATCH_TYPE.WET }: IProps) {
 
       <div className="bx--row">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Update Wet Batch</h1>
+          <h1>Update Wet Batch</h1>
         </div>
-        <div className="bx--col-lg-6 bx--col-md-12 text-right">
+        <div className="bx--col-lg-6 bx--col-md-12 text-right mt-3">
           <Button
             kind="primary"
-            className="mt-2"
             disabled={selectedRows.length <= 0}
             onClick={handleFinalizeWetBatch}
           >

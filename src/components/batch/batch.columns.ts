@@ -1,18 +1,25 @@
 import timeCell from "@components/@core/table/time-cell";
+import tooltipCell from "@components/@core/table/tooltip-cell";
 
-export const columnsWet = [
-  {
-    name: "Batch Id",
-    selector: "batchId",
-  },
+export const columnsDefault = [
   {
     name: "Batch Name",
     selector: "batchName",
+    cell: row => tooltipCell(row.batchName),
   },
   {
-    name: "Total Quantity",
+    name: "Note",
+    selector: "note",
+    cell: row => tooltipCell(row.note),
+  },
+  {
+    name: "Quantity",
     selector: "quantity",
   },
+];
+
+export const columnsWet = [
+  ...columnsDefault,
   {
     name: "Start Time",
     selector: "startTime",
@@ -34,34 +41,10 @@ export const columnsWet = [
   },
 ];
 
-export const columnsDry = [
-  {
-    name: "Batch Id",
-    selector: "batchId",
-  },
-  {
-    name: "Batch Name",
-    selector: "batchName",
-  },
-  {
-    name: "Total Quantity",
-    selector: "quantity",
-  },
-];
+export const columnsDry = columnsDefault;
 
 export const columnsWetExpand = [
-  {
-    name: "Batch Id",
-    selector: "batchId",
-  },
-  {
-    name: "Batch Name",
-    selector: "batchName",
-  },
-  {
-    name: "Total Quantity",
-    selector: "quantity",
-  },
+  ...columnsDefault,
   {
     name: "Perchment Quantity",
     selector: "perchmentQuantity",

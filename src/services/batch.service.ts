@@ -6,7 +6,7 @@ const getEndpoint = type => {
   return type === "WET" ? "wetbatch" : "batch";
 };
 
-const isRowDisabled = o => {
+export const isRowDisabled = o => {
   return o.type === "DRY" ||
     (o.startTime &&
       o.fermentationEndTime &&

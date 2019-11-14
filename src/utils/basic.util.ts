@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { navigate } from "gatsby";
 import queryString from "query-string";
+
 import { DATEFORMATS } from "./constants";
 
 /**
@@ -26,18 +27,7 @@ export const getToday = () => {
   return dayjs().format(DATEFORMATS.DAYJS_DATE);
 };
 
-export const camelCaseToStartCase = camelCase => {
-  if (!camelCase) {
-    return "";
-  }
-  const pascalCase = camelCase.charAt(0).toUpperCase() + camelCase.substr(1);
-  return pascalCase
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
-    .replace(/([a-z])([0-9])/gi, "$1 $2")
-    .replace(/([0-9])([a-z])/gi, "$1 $2")
-    .replace("Grn", "GRN");
-};
+export const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1);
 
 export const elipsis = (txt, max = 20, add = "...") => {
   if (!txt) {
@@ -50,12 +40,8 @@ export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
 };
 
-export const toFriendlyCellValue = c => {
-  return c.value
-    ? c.id.toLowerCase().includes("time", " on")
-      ? formattedTimeStamp(utc2local(c.value))
-      : c.value
-    : "NA";
+export const formattedDate = (d = new Date().getTime()) => {
+  return dayjs(d).format(DATEFORMATS.DAYJS_DATE);
 };
 
 /*
@@ -83,6 +69,18 @@ export const messageRedirect = data => {
   if (data.success) {
     navigate(`/message?${queryString.stringify(data)}`);
   }
+};
+
+export const flatten = (data: any[] = []) => {
+  return data.reduce((acc, cv) => {
+    const { children, ...ob } = cv;
+    const processedO = (children && flatten(children)) || [];
+    return [
+      ...acc,
+      ...processedO,
+      { value: ob.name, label: ob.name, color: ob.color },
+    ];
+  }, []);
 };
 
 export const nonZeroFalsy = num => (num || num === 0 ? num : "");

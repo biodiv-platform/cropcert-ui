@@ -1,6 +1,7 @@
 import Accesser from "@components/@core/accesser";
 import {
   dateTimeInput,
+  numberInput,
   selectInput,
   textInput,
 } from "@components/@core/formik";
@@ -21,7 +22,7 @@ function BatchCreate() {
 
   const initialValues = {
     ccCode,
-    type: null,
+    type: undefined,
     quantity: 0,
     date: new Date().getTime(),
     note: "",
@@ -49,6 +50,7 @@ function BatchCreate() {
       .min(1)
       .required(),
     date: Yup.number().required(),
+    type: Yup.string().required(),
   });
 
   const handleSubmit = (values, actions) => {
@@ -56,9 +58,9 @@ function BatchCreate() {
     axCreateBatch({
       ...values,
       createdOn: local2utc().getTime(),
-      batchName: `${cc.label}_${dayjs(values.date).format(
-        DATEFORMATS.DAYJS_DATE
-      )}`,
+      batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(
+        values.date
+      ).format(DATEFORMATS.DAYJS_DATE)}`,
     }).then(response =>
       messageRedirect({ ...response, mcode: "BATCH_CREATED" })
     );
@@ -70,7 +72,8 @@ function BatchCreate() {
       initialValues={initialValues}
       enableReinitialize={true}
       onSubmit={handleSubmit}
-      render={props => (
+    >
+      {props => (
         <form className="bx--form" onSubmit={props.handleSubmit}>
           <div className="bx--row">
             <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
@@ -89,19 +92,13 @@ function BatchCreate() {
                 label="Date"
                 name="date"
                 component={dateTimeInput}
-                hint={false}
                 type="date"
               />
             </div>
           </div>
           <div className="bx--row">
             <div className="bx--col-lg-4 bx--col-sm-12">
-              <Field
-                label="Quantity"
-                name="quantity"
-                component={textInput}
-                type="number"
-              />
+              <Field label="Quantity" name="quantity" component={numberInput} />
             </div>
           </div>
           <div className="bx--row">
@@ -119,7 +116,7 @@ function BatchCreate() {
           </Button>
         </form>
       )}
-    />
+    </Formik>
   );
 }
 

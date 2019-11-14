@@ -2,7 +2,10 @@ import Container from "@components/@core/container";
 import GreenReport from "@components/lot/report/green";
 import withLocation from "@components/withLocation";
 import { axLotByLotId, axOriginByLotId } from "@services/lot.service";
-import { axGetGreenReportById } from "@services/report.service";
+import {
+  axGetFactoryReportByLotId,
+  axGetGreenReportById,
+} from "@services/report.service";
 import { hierarchicalRoles } from "@utils/auth.util";
 import { isBrowser, ROLES } from "@utils/constants";
 import React, { useEffect, useState } from "react";
@@ -10,6 +13,7 @@ import React, { useEffect, useState } from "react";
 function GreenReportPage({ query }) {
   const [lot, setLot] = useState(null as any);
   const [report, setReport] = useState(-1);
+  const [factoryreport, setFactoryReport] = useState({} as any);
   const [origin, setOrigin] = useState(null as any);
   const lotId = query.id || -1;
   const reportId = query.reportId || -1;
@@ -18,14 +22,26 @@ function GreenReportPage({ query }) {
     if (isBrowser) {
       axLotByLotId(lotId).then(({ data }) => setLot(data));
       axOriginByLotId(lotId).then(({ data }) => setOrigin(data));
+      axGetFactoryReportByLotId(lotId).then(({ data }) =>
+        setFactoryReport(data)
+      );
       axGetGreenReportById(reportId).then(({ data }) => setReport(data));
     }
   }, [query]);
 
+  useEffect(() => {
+    console.log(factoryreport);
+  }, [factoryreport]);
+
   return (
     <Container roles={hierarchicalRoles(ROLES.UNION)}>
-      {lot && origin && report && (
-        <GreenReport report={report} {...lot} {...origin} />
+      {lot && origin && report && factoryreport && (
+        <GreenReport
+          report={report}
+          highGradeWeight={factoryreport.highGradeWeight}
+          {...lot}
+          {...origin}
+        />
       )}
     </Container>
   );

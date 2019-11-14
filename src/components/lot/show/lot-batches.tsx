@@ -1,8 +1,8 @@
+import DataTable from "@components/@core/table";
 import { columnsDry, columnsWet } from "@components/batch/batch.columns";
 import { axGetBatchesByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@utils/constants";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 
 import LotShowPanel from "./panel";
 

@@ -1,6 +1,6 @@
+import DataTable from "@components/@core/table";
 import { axGetFarmersByCCId } from "@services/farmer.service";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 
 import ListColumns from "./list-columns";
 

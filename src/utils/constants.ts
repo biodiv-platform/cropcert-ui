@@ -170,6 +170,8 @@ export const DATATYPE = {
   TEXT: "text",
 };
 
+export const TABLE_DATE_CELL = { minWidth: "165px" };
+
 export const LOT_AT = {
   COOPERATIVE: "AtCoOperative",
   FACTORY: "AtFactory",

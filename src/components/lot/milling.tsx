@@ -1,22 +1,21 @@
 import Accesser from "@components/@core/accesser";
 import EditButton from "@components/@core/modal/edit-button";
 import GenricModal from "@components/@core/modal/genric-modal";
+import DataTable from "@components/@core/table";
 import BatchlistExpanded from "@components/batch/batchlist-expanded";
 import LotStore from "@stores/lot.store";
-import { DATATYPE, LOT_AT, ROLES } from "@utils/constants";
+import { DATATYPE, LOT_AT, ROLES, TABLE_DATE_CELL } from "@utils/constants";
 import { Button } from "carbon-components-react";
 import { navigate } from "gatsby";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { columnsDispatch } from "./lot.columns";
 
 function MillingLots() {
   const lotStore = useContext(LotStore);
-  const [lots, setLots] = useState([] as any);
   const [coCodes, setCoCodes] = useState([] as any);
   const [selectedRows, setSelectedRows] = useState([] as any);
   const [isDateModalOpen, setIsModalOpen] = useState(false);
@@ -25,44 +24,16 @@ function MillingLots() {
   } as any);
 
   useEffect(() => {
-    setLots(
-      lotStore.lots.map(l => ({
-        ...l,
-        disabled:
-          l.weightArrivingFactory &&
-          l.mcArrivingFactory &&
-          l.weightLeavingFactory &&
-          l.mcLeavingFactory &&
-          l.millingTime &&
-          l.outTurn
-            ? false
-            : true,
-      }))
-    );
-  }, [lotStore.lots]);
-
-  useEffect(() => {
     if (coCodes.length > 0) {
       lotStore.lazyList(true, LOT_AT.FACTORY, coCodes, false);
     }
   }, [coCodes]);
 
   const columns = [
+    ...columnsDispatch,
     {
-      ...columnsDispatch[0],
-      minWidth: "200px",
-    },
-    {
-      ...columnsDispatch[1],
-      width: "80px",
-    },
-    {
-      ...columnsDispatch[2],
-      width: "80px",
-    },
-    {
-      ...columnsDispatch[3],
-      width: "80px",
+      name: "Weight Leaving Cooperative",
+      selector: "weightLeavingCooperative",
     },
     {
       name: "Weight Arriving Factory",
@@ -75,6 +46,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "weightArrivingFactory",
+              keyTitle: "Weight Arriving Factory",
               dataType: DATATYPE.NUMBER,
             });
             setIsModalOpen(true);
@@ -93,6 +65,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "mcArrivingFactory",
+              keyTitle: "Moisture Content Arriving Factory",
               dataType: DATATYPE.NUMBER,
               max: 100,
             });
@@ -111,6 +84,7 @@ function MillingLots() {
             setModalData({
               row,
               keyName: "millingTime",
+              keyTitle: "Milling Time",
               dataType: DATATYPE.DATETIME,
               min: row.timeToFactory,
             });
@@ -118,62 +92,57 @@ function MillingLots() {
           }}
         />
       ),
-    },
-    {
-      name: "Out Turn",
-      selector: "outTurn",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.outTurn}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "outTurn",
-              dataType: DATATYPE.NUMBER,
-              max: row.quantity,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      ...TABLE_DATE_CELL,
     },
     {
       name: "Weight Leaving Factory",
       selector: "id",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.weightLeavingFactory}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "weightLeavingFactory",
-              dataType: DATATYPE.NUMBER,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      cell: row =>
+        row.weightArrivingFactory && (
+          <EditButton
+            dataType={DATATYPE.NUMBER}
+            value={row.weightLeavingFactory}
+            onClick={() => {
+              setModalData({
+                row,
+                keyName: "weightLeavingFactory",
+                keyTitle: "Weight Leaving Factory",
+                dataType: DATATYPE.NUMBER,
+                max: row.weightArrivingFactory,
+              });
+              setIsModalOpen(true);
+            }}
+          />
+        ),
+    },
+    {
+      name: "Out Turn (%)",
+      selector: "weightLeavingFactory",
+      cell: row =>
+        `${(
+          (row.weightLeavingFactory * 100) / row.weightArrivingFactory || 0
+        ).toFixed(2)}%`,
     },
     {
       name: "Moisture Content Leaving Factory",
       selector: "id",
-      cell: row => (
-        <EditButton
-          dataType={DATATYPE.NUMBER}
-          value={row.mcLeavingFactory}
-          onClick={() => {
-            setModalData({
-              row,
-              keyName: "mcLeavingFactory",
-              dataType: DATATYPE.NUMBER,
-              max: 100,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ),
+      cell: row =>
+        row.mcArrivingFactory && (
+          <EditButton
+            dataType={DATATYPE.NUMBER}
+            value={row.mcLeavingFactory}
+            onClick={() => {
+              setModalData({
+                row,
+                keyName: "mcLeavingFactory",
+                keyTitle: "Moisture Content Leaving Factory",
+                dataType: DATATYPE.NUMBER,
+                max: 100,
+              });
+              setIsModalOpen(true);
+            }}
+          />
+        ),
     },
   ];
 
@@ -183,6 +152,16 @@ function MillingLots() {
         rows: selectedRows,
         to: "union",
         timeKey: "dispatchTime",
+        extraColumns: [
+          {
+            name: "Weight Leaving Factory",
+            selector: "weightLeavingFactory",
+          },
+          {
+            name: "Moisture Content Leaving Factory",
+            selector: "mcLeavingFactory",
+          },
+        ],
       },
     });
   };
@@ -207,12 +186,12 @@ function MillingLots() {
 
       <div className="bx--row mb-2">
         <div className="bx--col-lg-6 bx--col-md-12">
-          <h1 className="eco--title">Dispatch Lot(s) to Union</h1>
+          <h1>Dispatch Lot(s) to Union</h1>
         </div>
         <div className="bx--col-lg-6 bx--col-md-12 text-right">
           <Button
             kind="primary"
-            className="mt-2"
+            className="mt-3"
             disabled={selectedRows.length <= 0}
             onClick={handleDispatchLot}
           >
@@ -246,6 +225,7 @@ function MillingLots() {
           data={lotStore.lots}
           expandableRows={true}
           expandableRowsComponent={<BatchlistExpanded />}
+          className="mb-4"
         />
       </InfiniteScroll>
     </>

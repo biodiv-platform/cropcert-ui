@@ -8,8 +8,6 @@ import { renderFactoryReportDryForm } from "./factory-dry-form";
 import { calculateFormValues } from "./factory-dry-utils";
 
 function FactoryReportDryComponent({ report, lotId }) {
-  console.log(report);
-
   const factoryReportForm = {
     validationSchema: Yup.object().shape({
       grnNumber: Yup.string().required(),
@@ -92,9 +90,10 @@ function FactoryReportDryComponent({ report, lotId }) {
     <Formik
       {...factoryReportForm}
       onSubmit={handleFactoryReportSubmit}
-      render={renderFactoryReportDryForm}
       enableReinitialize={true}
-    />
+    >
+      {renderFactoryReportDryForm}
+    </Formik>
   );
 }
 

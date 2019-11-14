@@ -1,6 +1,9 @@
-import { axLazyListBatch, axUpdateWetBatch } from "@services/batch.service";
+import {
+  axLazyListBatch,
+  axUpdateWetBatch,
+  isRowDisabled,
+} from "@services/batch.service";
 import { updateArrayImmutable } from "@utils/basic.util";
-import { ENDPOINT } from "@utils/constants";
 import { decorate, observable } from "mobx";
 import { createContext } from "react";
 
@@ -29,8 +32,9 @@ export class BatchStore {
 
   updateWetBatch = async (keyName, body) => {
     const r = await axUpdateWetBatch(keyName, body);
+    const row = { ...r.body, disabled: isRowDisabled(r.body) };
     if (r.success) {
-      this.batches = updateArrayImmutable(this.batches, "batchId", r.body);
+      this.batches = updateArrayImmutable(this.batches, "batchId", row);
     }
   };
 }

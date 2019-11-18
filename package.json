@@ -53,7 +53,7 @@
     "node-sass": "^4.13.0",
     "notyf": "^3.1.0",
     "react": "^16.11.0",
-    "react-data-table-component": "^3.9.0",
+    "react-data-table-component": "^3.10.2",
     "react-datetime-picker": "^2.7.1",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",

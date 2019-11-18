@@ -47,7 +47,7 @@
     "gatsby-plugin-react-leaflet": "^2.0.11",
     "gatsby-plugin-sass": "^2.1.22",
     "gatsby-plugin-typescript": "^2.1.17",
-    "leaflet": "^1.5.1",
+    "leaflet": "^1.6.0",
     "mobx": "^5.15.0",
     "mobx-react-lite": "^1.5.1",
     "node-sass": "^4.13.0",

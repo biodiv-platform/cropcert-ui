@@ -9527,10 +9527,10 @@ react-clock@^2.3.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-data-table-component@^3.10.2:
-  version "3.10.2"
-  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-3.10.2.tgz#fd82ba0c7da2b3e959ee8b59753c3cb7f9d71db4"
-  integrity sha512-GoqALXDouUIG5gTzDiM7Qr/tWmodQZruQOXkS21lEyaN0uXJZv/jUNr4L64ek2HQz0K0cWLbp7nsc23v7Kp7ng==
+react-data-table-component@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-4.0.0.tgz#bc5d9aa4a1a38da1c03648abdb365cd84aad3fe0"
+  integrity sha512-NX9mYR14x5OjsyAKwd8WMToNwGe1a0oqbMyV3fD3fBRaVMB3rI7dRCiqhLad6BjSouFJFLDDWqvWSMg7QghjkQ==
   dependencies:
     lodash "^4.17.15"
     memoize-one "^5.1.1"

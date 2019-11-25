@@ -39,7 +39,7 @@
     "carbon-components-react": "^7.7.4",
     "coffee-flavor-wheel": "^1.1.0",
     "dayjs": "^1.8.17",
-    "formik": "^2.0.4",
+    "formik": "^2.0.6",
     "gatsby": "^2.17.17",
     "gatsby-plugin-manifest": "^2.2.29",
     "gatsby-plugin-offline": "^3.0.22",

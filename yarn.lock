@@ -1303,10 +1303,10 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
-"@rooks/use-toggle@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@rooks/use-toggle/-/use-toggle-3.4.0.tgz#ecbddecaddd41de5cff760a984d4f7d272c96c69"
-  integrity sha512-9k+mde99knW6TvyRnRctIp5q3sovjPFPuyaPZLdA0v+07Bz1ZxrkkRpaZMFKpdGktkYDXSY8440I9nEdn3FJXA==
+"@rooks/use-toggle@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@rooks/use-toggle/-/use-toggle-3.4.1.tgz#6c3d09fe56766fc4836bec4efc8b2838e88f7744"
+  integrity sha512-o/K5XmF4skVEfIVZw/BdKgorx2ep9I+P6BW6wjgYm5A49WZmAEjimdQ6rzSppOUG4HFnbhstDREcbr8CypQk2A==
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"

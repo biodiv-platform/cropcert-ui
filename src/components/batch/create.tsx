@@ -15,14 +15,14 @@ import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 function BatchCreate() {
-  const [cc, setCc] = useState();
+  const [cc, setCc] = useState({} as any);
   const [ccCode, setccCode] = useState();
 
   const [typeOptions, setTypeOptions] = useState([] as any);
 
   const initialValues = {
     ccCode,
-    type: undefined,
+    type: typeOptions.length ? typeOptions[0].value : undefined,
     quantity: 0,
     date: new Date().getTime(),
     note: "",

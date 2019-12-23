@@ -11,6 +11,7 @@ interface IProps {
   initialState: { options; values };
   currentRole: string;
   onChange;
+  onTouch;
 }
 
 export default function AccesserForm({
@@ -18,10 +19,12 @@ export default function AccesserForm({
   roles,
   initialState,
   currentRole,
-  onChange
+  onChange,
+  onTouch
 }: IProps) {
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
+  const [prevRolesValues, setPrevRolesValues] = useState(initialState.values);
 
   useEffect(() => {
     if (rolesValues[toRole]) {
@@ -54,7 +57,7 @@ export default function AccesserForm({
       setRolesValues({ ...rolesValues, [role]: selectedItem });
       return;
     }
-
+    onTouch && onTouch();
     const nextRole = roles[index + 1];
     getByRole(nextRole, selectedItem.value).then(opts => {
       let rolesValuesT = {

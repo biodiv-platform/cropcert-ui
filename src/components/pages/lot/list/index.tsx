@@ -35,7 +35,7 @@ function LotListPageComponent() {
     <Box>
       <PageHeading>📦 Lot(s)</PageHeading>
       <CoreGrid>
-        <Accesser toRole={ROLES.UNION} onChange={setUnion} />
+        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={actions.clearLot} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
       </CoreGrid>
       {coCodes.length && state.lot.length && (

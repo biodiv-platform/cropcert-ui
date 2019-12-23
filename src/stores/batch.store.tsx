@@ -18,6 +18,7 @@ export interface IBatchStore {
   setBatches: Action<IBatchStore, any>;
   updateBatch: Action<IBatchStore, Batch>;
   listBatch: Thunk<IBatchStore, { ccCodes: number[]; reset?: boolean }>;
+  clearBatches: Action<IBatchStore>;
 }
 
 const batchStore: IBatchStore = {
@@ -43,6 +44,11 @@ const batchStore: IBatchStore = {
     const offset = reset ? 0 : helpers.getState().offset;
     const response = await axListBatch(ccCodes, offset);
     actions.setBatches(response);
+  }),
+  clearBatches: action(state => {
+    state.batch = [];
+    state.offset = 0;
+    state.hasMore = false;
   })
 };
 

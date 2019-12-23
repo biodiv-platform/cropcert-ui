@@ -93,7 +93,7 @@ function BatchListPageComponent() {
       <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
 
       <CoreGrid>
-        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} />
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatches} />
         <Box>
           <CCMultiSelect coId={co?.value} onChange={setCCs} />
         </Box>

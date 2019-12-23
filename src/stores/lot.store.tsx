@@ -11,6 +11,7 @@ export interface ILotStore {
   setLot: Action<ILotStore, any>;
   updateLot: Action<ILotStore, Lot>;
   listLot: Thunk<ILotStore, { ccCodes: number[]; reset?: boolean }>;
+  clearLot: Action<ILotStore>;
 }
 
 const lotStore: ILotStore = {
@@ -32,6 +33,11 @@ const lotStore: ILotStore = {
     const offset = reset ? 0 : helpers.getState().offset;
     const response = await axListLot(ccCodes, offset);
     actions.setLot(response);
+  }),
+  clearLot: action(state => {
+    state.lot = [];
+    state.offset = 0;
+    state.hasMore = false;
   })
 };
 

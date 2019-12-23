@@ -13,11 +13,11 @@ import AccesserLoading from "./loading";
  * @param {*} { toRole, onChange }
  * @returns
  */
-export default function Accesser({ toRole, onChange }) {
+export default function Accesser({ toRole, onChange, onTouch = null }) {
   const user: User = useStoreState(state => state.user);
   const roles = getDropdownArray(user.role, toRole);
 
-  const [initialState, setInitialState] = useState();
+  const [initialState, setInitialState] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export default function Accesser({ toRole, onChange }) {
           onChange={onChange}
           initialState={initialState}
           currentRole={user.role}
+          onTouch={onTouch}
         />
       )}
     </>

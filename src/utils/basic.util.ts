@@ -1,39 +1,9 @@
+import { DATEFORMATS, TYPE_OPTIONS } from "@static/constants";
 import dayjs from "dayjs";
-import { navigate } from "gatsby";
 import queryString from "query-string";
-
-import { DATEFORMATS } from "./constants";
-
-/**
- * Immutably updates row into Array
- *
- * @param {any[]} array
- * @param {string} key
- * @param {*} row
- * @returns {any[]}
- */
-export const updateArrayImmutable = (
-  array: any[],
-  key: string,
-  row: any
-): any[] => {
-  const index = array.findIndex(o => o[key] === row[key]);
-  return index > -1
-    ? [...array.slice(0, index), row, ...array.slice(index + 1)]
-    : [...array, row];
-};
 
 export const getToday = () => {
   return dayjs().format(DATEFORMATS.DAYJS_DATE);
-};
-
-export const capitalize = text => text.charAt(0).toUpperCase() + text.slice(1);
-
-export const elipsis = (txt, max = 20, add = "...") => {
-  if (!txt) {
-    return txt;
-  }
-  return txt.length > max ? txt.substring(0, max).trim() + add : txt;
 };
 
 export const formattedTimeStamp = (d = new Date()) => {
@@ -50,9 +20,7 @@ export const formattedDate = (d = new Date().getTime()) => {
  */
 export const local2utc = (localTimeStamp?) => {
   const dateInLocal = !localTimeStamp ? new Date() : new Date(localTimeStamp);
-  return new Date(
-    dateInLocal.getTime() + dateInLocal.getTimezoneOffset() * 60 * 1000
-  );
+  return new Date(dateInLocal.getTime() + dateInLocal.getTimezoneOffset() * 60 * 1000);
 };
 
 /*
@@ -60,27 +28,54 @@ export const local2utc = (localTimeStamp?) => {
  */
 export const utc2local = (utcTimeStamp?) => {
   const dateInUtc = !utcTimeStamp ? local2utc() : new Date(utcTimeStamp);
-  return new Date(
-    dateInUtc.getTime() - dateInUtc.getTimezoneOffset() * 60 * 1000
-  );
+  return new Date(dateInUtc.getTime() - dateInUtc.getTimezoneOffset() * 60 * 1000);
 };
 
-export const messageRedirect = data => {
-  if (data.success) {
-    navigate(`/message?${queryString.stringify(data)}`);
+export const redirect = (data, router) => {
+  data.success && router.push(`/message?${queryString.stringify(data)}`);
+};
+
+export const typeList = type => {
+  if (type === "D") {
+    return [TYPE_OPTIONS.DRY];
+  } else if (type === "P") {
+    return [TYPE_OPTIONS.WET];
   }
+  return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET];
+};
+
+/**
+ * Mutably updates object by key does immutably with `easy-peasy` because it uses "immer" internally
+ *
+ * @param {any[]} a
+ * @param {*} o
+ * @param {string} [k="id"]
+ * @returns {any[]}
+ */
+export const updateArrayByObjectKey = (a: any[], o: any, k: string = "id"): any[] => {
+  const i = a.findIndex(ao => ao[k] === o[k]);
+  a[i] = o;
+  return a;
+};
+
+export const compiledMessage = (templateString: string, templateVariables) =>
+  templateString.replace(/\${(.*?)}/g, (_, g) => templateVariables[g]);
+
+export const nonZeroFalsy = num => (num || num === 0 ? num : "");
+
+export const isEverythingFilledExcept = (exceptionKey, values) => {
+  for (let [key, value] of Object.entries(values)) {
+    if (key !== exceptionKey && !value) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const flatten = (data: any[] = []) => {
   return data.reduce((acc, cv) => {
     const { children, ...ob } = cv;
     const processedO = (children && flatten(children)) || [];
-    return [
-      ...acc,
-      ...processedO,
-      { value: ob.name, label: ob.name, color: ob.color },
-    ];
+    return [...acc, ...processedO, { value: ob.name, label: ob.name, color: ob.color }];
   }, []);
 };
-
-export const nonZeroFalsy = num => (num || num === 0 ? num : "");

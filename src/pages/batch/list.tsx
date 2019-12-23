@@ -1,17 +1,11 @@
-import Container from "@components/@core/container";
-import ListBatch from "@components/batch/list";
-import CCStore from "@stores/cc.store";
-import { hierarchicalRoles } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
-import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import { RestrictedAccess } from "@components/@core/layout";
+import BatchListPageComponent from "@components/pages/batch/list";
+import React from "react";
 
-const ListWetPage = () => {
+export default function BatchListPage() {
   return (
-    <Container roles={hierarchicalRoles(ROLES.COOPERATIVE)}>
-      <ListBatch />
-    </Container>
+    <RestrictedAccess>
+      <BatchListPageComponent />
+    </RestrictedAccess>
   );
-};
-
-export default ListWetPage;
+}

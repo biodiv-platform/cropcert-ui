@@ -1,8 +1,9 @@
+import { FormControl, FormLabel } from "@chakra-ui/core";
 import { getByRole } from "@services/accessor.service";
-import { KEYS_TO_ROLES } from "@utils/constants";
-import { setUserKey } from "@utils/user.util";
-import { Dropdown } from "carbon-components-react";
+import { KEYS_TO_ROLES } from "@static/constants";
+import { setUserKey } from "@utils/auth.util";
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 
 interface IProps {
   toRole: string;
@@ -17,7 +18,7 @@ export default function AccesserForm({
   roles,
   initialState,
   currentRole,
-  onChange,
+  onChange
 }: IProps) {
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
@@ -47,7 +48,7 @@ export default function AccesserForm({
   const onOptionChange = (
     role: string,
     index: number,
-    selectedItem: { name: string; value: number }
+    selectedItem: { label: string; value: number }
   ) => {
     if (role === toRole) {
       setRolesValues({ ...rolesValues, [role]: selectedItem });
@@ -59,7 +60,7 @@ export default function AccesserForm({
       let rolesValuesT = {
         ...rolesValues,
         [role]: selectedItem,
-        [nextRole]: null,
+        [nextRole]: null
       };
       let rolesOptionsT = { ...rolesOptions, [nextRole]: opts };
       roles.slice(index + 2, roles.length).map(cRole => {
@@ -71,27 +72,27 @@ export default function AccesserForm({
     });
   };
 
-  const RoleDropdown = (role, index) => {
-    const roleLabel = KEYS_TO_ROLES[role];
-    return (
-      role !== currentRole && (
-        <div key={index} className="bx--col-lg-4 bx--col-sm-12 mb-4">
-          <Dropdown
-            id={role}
-            items={rolesOptions[role]}
-            label={`Select ${roleLabel}`}
-            titleText={roleLabel}
-            ariaLabel={roleLabel}
-            disabled={rolesOptions[role].length < 1}
-            onChange={e => {
-              onOptionChange(role, index, e.selectedItem);
-            }}
-            selectedItem={rolesValues[role]}
-          />
-        </div>
-      )
+  const RoleDropdown = (role, index) =>
+    role !== currentRole && (
+      <FormControl key={index} mb={4}>
+        <FormLabel htmlFor={role}>Select {KEYS_TO_ROLES[role]}</FormLabel>
+        <Select
+          id={role}
+          options={rolesOptions[role]}
+          isSearchable={true}
+          onChange={e => {
+            onOptionChange(role, index, e);
+          }}
+          value={rolesValues[role]}
+          styles={{
+            valueContainer: provided => ({
+              ...provided,
+              height: "38px"
+            })
+          }}
+        />
+      </FormControl>
     );
-  };
 
-  return <>{roles.map(RoleDropdown)}</>;
+  return <>{roles.length > 1 && roles.map(RoleDropdown)}</>;
 }

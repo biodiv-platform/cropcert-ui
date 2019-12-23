@@ -1,30 +1,33 @@
-import { Information20, Login20, Logout20 } from "@carbon/icons-react";
-import { hasAccess } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
-import { getUserKey } from "@utils/user.util";
-import { Link } from "gatsby";
+import { Link } from "@chakra-ui/core";
+import { useStoreState } from "easy-peasy";
+import NextLink from "next/link";
 import React from "react";
+import { FiLogOut } from "react-icons/fi";
 
 function NavbarRightMenu() {
+  const isLoggedIn = useStoreState(state => state.isLoggedIn);
+  const user = useStoreState(state => state.user);
+
   return (
     <ul className="main-menu right">
       <li>
-        <a href="/LICENSES.txt" title="Licenses">
-          <Information20 />
-        </a>
+        <Link href="/LICENSES.txt" title="Licenses">
+          Licenses
+        </Link>
       </li>
-      {hasAccess([ROLES.AUTHORIZED]) ? (
+      {isLoggedIn ? (
         <li>
-          <Link to="/auth/sign-out">
-            <Logout20 />
-            {`${getUserKey("userName")}`}
-          </Link>
+          <NextLink href={`/auth/sign-out?t=${new Date().getTime()}`} passHref={true}>
+            <Link>
+              {user["firstName"]} {user["lastName"]} <FiLogOut />
+            </Link>
+          </NextLink>
         </li>
       ) : (
         <li>
-          <Link to="/auth/sign-in">
-            <Login20 /> Sign In
-          </Link>
+          <NextLink href="/auth/sign-in" passHref={true}>
+            <Link>Sign In</Link>
+          </NextLink>
         </li>
       )}
     </ul>

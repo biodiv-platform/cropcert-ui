@@ -1,22 +1,20 @@
-import Container from "@components/@core/container";
-import MessageComponent from "@components/@core/message";
-import { isBrowser, OPERATION_MESSAGES, ROLES } from "@utils/constants";
-import { parse } from "query-string";
+import MessageComponent from "@components/pages/message";
+import { OPERATIONAL } from "@static/messages";
 import React from "react";
 
-export default function MessagePage() {
-  const { success, mcode, id } = isBrowser
-    ? parse(location.search, { parseBooleans: true })
-    : { success: "false", mcode: "NA", id: -1 };
+const MessagePage = ({ query }) => {
+  const { success = "false", mcode = "NA", id = -1 } = query;
 
   return (
-    <Container roles={[ROLES.AUTHORIZED]}>
-      <MessageComponent
-        success={success === "false" ? false : true}
-        message={OPERATION_MESSAGES[mcode].MESSAGE.replace("##id##", id)}
-        backLink={OPERATION_MESSAGES[mcode].BACK_LINK}
-        backLinkTitle={OPERATION_MESSAGES[mcode].BACK_TITLE}
-      />
-    </Container>
+    <MessageComponent
+      success={success === "false" ? false : true}
+      message={OPERATIONAL[mcode].MESSAGE.replace("##id##", id)}
+      backLink={OPERATIONAL[mcode].BACK_LINK}
+      backLinkTitle={OPERATIONAL[mcode].BACK_TITLE}
+    />
   );
-}
+};
+
+MessagePage.getInitialProps = async ({ query }) => ({ query });
+
+export default MessagePage;

@@ -1,0 +1,17 @@
+@import "./article.scss";
+@import "./progress.scss";
+@import "./datatable.scss";
+@import "./react-datetime-picker.scss";
+
+:root {
+  --page-height: calc(100vh - 126px);
+}
+
+html,
+body {
+  background: var(--gray-50);
+}
+
+body {
+  overflow-y: scroll;
+}

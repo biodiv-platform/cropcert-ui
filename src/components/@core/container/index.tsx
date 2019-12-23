@@ -1,46 +1,12 @@
-import "@styles/theme.scss";
-// tslint:disable-next-line: ordered-imports
-import "@styles/index.scss";
+import { NookiesProvider } from "next-nookies-persist";
+import React from "react";
 
-import { hasAccess } from "@utils/auth.util";
-import { BACKGROUND } from "@utils/constants";
-import React, { useEffect, useState } from "react";
+import StoreContainer from "./store-container";
 
-import Navbar from "../navmenu";
-import Loading from "./loading";
-import Unauthorized from "./unauthorized";
+const AppContainer = ({ extras }) => (
+  <NookiesProvider initialValue={extras.pageProps.nookies}>
+    <StoreContainer extras={extras} />
+  </NookiesProvider>
+);
 
-interface IProps {
-  children;
-  roles?: string[];
-  background?: string;
-}
-
-const Container = ({
-  children,
-  roles,
-  background = BACKGROUND.WHITE,
-}: IProps) => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
-  return (
-    <>
-      <Navbar />
-      {hasAccess(roles) ? (
-        <div style={{ background, minHeight: "calc(100vh - 48px)" }}>
-          <div className="bx--grid eco--grid pt-2">{children}</div>
-        </div>
-      ) : loading ? (
-        <Loading />
-      ) : (
-        <Unauthorized />
-      )}
-    </>
-  );
-};
-
-export default Container;
+export default AppContainer;

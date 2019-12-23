@@ -1,4 +1,4 @@
-import { ENDPOINT } from "@utils/constants";
+import { ENDPOINT } from "@static/constants";
 import http, { httpFormData } from "@utils/http";
 import queryString from "query-string";
 
@@ -9,10 +9,7 @@ import queryString from "query-string";
  * @returns {*}
  */
 export const axSignIn = async body => {
-  const res = await httpFormData.post(
-    `${ENDPOINT.USER}/auth/login`,
-    queryString.stringify(body)
-  );
+  const res = await httpFormData.post(`${ENDPOINT.USER}/auth/login`, queryString.stringify(body));
   return res.data;
 };
 
@@ -24,16 +21,5 @@ export const axGetUser = async () => {
   } catch (e) {
     console.error(e);
     return {};
-  }
-};
-
-export const axPingAll = async (url = "ping") => {
-  try {
-    const ts = { t: new Date().getTime() };
-    await http.get(`${ENDPOINT.PAGES}/${url}`, { params: ts });
-    await http.get(`${ENDPOINT.TRACEABILITY}/${url}`, { params: ts });
-    await http.get(`${ENDPOINT.USER}/${url}`, { params: ts });
-  } catch (e) {
-    console.error(e);
   }
 };

@@ -1,16 +1,18 @@
-import { PAGE_TYPE_OPTIONS } from "@utils/constants";
-import { Link } from "gatsby";
+import { Link } from "@chakra-ui/core";
+import { PAGE_TYPE_OPTIONS } from "@static/constants";
+import NextLink from "next/link";
 import React from "react";
 
 export default function CustomLink({ children, item }) {
-  if (
+  const link =
     item.hasOwnProperty("pageType") &&
     item.pageType === PAGE_TYPE_OPTIONS.CONTENT.value
-  ) {
-    return <Link to={`/page/show?id=${item.id}`}>{children}</Link>;
-  }
-  if (item.url.startsWith("/")) {
-    return <Link to={item.url}>{children}</Link>;
-  }
-  return <a href={item.url}>{children}</a>;
+      ? `/page/show/${item.id}`
+      : item.url;
+
+  return (
+    <NextLink href={link} passHref={true}>
+      <Link>{children}</Link>
+    </NextLink>
+  );
 }

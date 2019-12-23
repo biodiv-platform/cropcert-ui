@@ -1,16 +1,13 @@
-import Container from "@components/@core/container";
-import PageShowComponent from "@components/page/show";
-import { axGetPageByPageId } from "@services/pages.services";
-import React, { useEffect, useState } from "react";
+import HomePageComponent from "@components/pages/page/show";
+import { axGetPageByPageId } from "@services/page.service";
+import React from "react";
 
-const HomePage = () => {
-  const [page, setPage] = useState({ success: false, data: {} as any });
+const HomePage = ({ pageContent }) => (
+  <>{pageContent.success && <HomePageComponent page={pageContent.data} />}</>
+);
 
-  useEffect(() => {
-    axGetPageByPageId(1).then(data => setPage(data));
-  }, []);
-
-  return <Container>{page.success && <PageShowComponent page={page} />}</Container>;
+HomePage.getInitialProps = async () => {
+  return { pageContent: await axGetPageByPageId(1) };
 };
 
 export default HomePage;

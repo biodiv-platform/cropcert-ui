@@ -1,16 +1,11 @@
-import Container from "@components/@core/container";
-import BatchCreate from "@components/batch/create";
-import { hierarchicalRoles } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
+import { Heading } from "@chakra-ui/core";
+import { RestrictedAccess } from "@components/@core/layout";
 import React from "react";
 
-const BatchCreatePage = () => {
+export default function BatchCreatePage() {
   return (
-    <Container roles={hierarchicalRoles(ROLES.COLLECTION_CENTER)}>
-      <h1>Create Batch</h1>
-      <BatchCreate />
-    </Container>
+    <RestrictedAccess>
+      <Heading>🎉 Migrated to Modal</Heading>
+    </RestrictedAccess>
   );
-};
-
-export default BatchCreatePage;
+}

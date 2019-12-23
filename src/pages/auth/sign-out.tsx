@@ -1,12 +1,22 @@
-import { removeUser } from "@utils/user.util";
-import { navigate } from "gatsby";
+import { Heading } from "@chakra-ui/core";
+import { TOKEN } from "@static/constants";
+import { removeNookie } from "next-nookies-persist";
+import Router from "next/router";
 import React, { useEffect } from "react";
 
-export default function SignOutPage() {
+const SignOutPage = () => {
   useEffect(() => {
-    removeUser();
-    navigate("/");
+    removeNookie(TOKEN.AUTH);
+    removeNookie(TOKEN.USER);
+    Router.push("/");
   }, []);
 
-  return <div>Signing out...</div>;
-}
+  return <Heading fontStyle="italic">Logging you out...</Heading>;
+};
+
+SignOutPage.getInitialProps = ({ ctx }) => {
+  removeNookie(TOKEN.AUTH, ctx);
+  removeNookie(TOKEN.USER, ctx);
+};
+
+export default SignOutPage;

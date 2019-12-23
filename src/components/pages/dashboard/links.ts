@@ -7,13 +7,13 @@ const links = [
     children: [
       {
         title: "🧺 Batch(s)",
-        description: "View or manage batch(s)",
+        description: "Create, View or Manage Batches",
         to: "/batch/list",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER)
       },
       {
         title: "📦 Lot(s)",
-        description: "View or manage lot(s)",
+        description: "Create, View or Manage Lots",
         to: "/lot/list",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER)
       }

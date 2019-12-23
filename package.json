@@ -24,7 +24,7 @@
     "dayjs": "^1.8.18",
     "dompurify": "^2.0.7",
     "dotenv-load": "^2.0.0",
-    "easy-peasy": "^3.2.3",
+    "easy-peasy": "^3.2.6",
     "emotion-theming": "^10.0.19",
     "flat": "^5.0.0",
     "formik": "^2.0.8",

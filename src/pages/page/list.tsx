@@ -1,27 +1,17 @@
-import Container from "@components/@core/container";
-import PageList from "@components/page/list";
-import { axListPages } from "@services/pages.services";
-import { hierarchicalRoles } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
-import { flatToTree } from "@utils/pages.util";
-import React, { useEffect, useState } from "react";
+import { RestrictedAccess } from "@components/@core/layout";
+import { ROLES } from "@static/constants";
+import React from "react";
+import dynamic from 'next/dynamic';
 
-const PageListPage = () => {
-  const [pages, setPages] = useState([] as any);
 
-  const reloadPages = () => {
-    axListPages().then(data => setPages(flatToTree(data)));
-  };
-
-  useEffect(() => {
-    reloadPages();
-  }, []);
+const PageList = () => {
+  const LazyPageListComponent = dynamic(() => import("@components/pages/page/list"));
 
   return (
-    <Container roles={hierarchicalRoles(ROLES.UNION)}>
-      <PageList pages={pages} reloadPages={reloadPages} />
-    </Container>
+    <RestrictedAccess to={ROLES.ADMIN}>
+      <LazyPageListComponent />
+    </RestrictedAccess>
   );
 };
 
-export default PageListPage;
+export default PageList;

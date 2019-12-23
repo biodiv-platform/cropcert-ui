@@ -47,7 +47,7 @@ export const flatToTree = (rows, options?: FlatOption) => {
     });
   }
 
-  return nodes;
+  return nodes.sort((a, b) => a.pageIndex - b.pageIndex);
 };
 
 export const treeToFlat = (tree, parentId = -1) => {

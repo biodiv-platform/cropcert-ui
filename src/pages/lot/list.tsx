@@ -1,16 +1,11 @@
-import Container from "@components/@core/container";
-import LotList from "@components/lot/list";
-import { hierarchicalRoles } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
-import { observer } from "mobx-react-lite";
+import { RestrictedAccess } from "@components/@core/layout";
+import LotListPageComponent from "@components/pages/lot/list";
 import React from "react";
 
-const FinalizeWetBatchPage = () => {
+export default function LotListPage() {
   return (
-    <Container roles={hierarchicalRoles(ROLES.COOPERATIVE)}>
-      <LotList />
-    </Container>
+    <RestrictedAccess>
+      <LotListPageComponent />
+    </RestrictedAccess>
   );
-};
-
-export default observer(FinalizeWetBatchPage);
+}

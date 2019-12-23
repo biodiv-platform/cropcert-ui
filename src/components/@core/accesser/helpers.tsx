@@ -1,6 +1,6 @@
 import { getByRole } from "@services/accessor.service";
-import { ROLE_HIERARCHY } from "@utils/constants";
-import { getUserKey } from "@utils/user.util";
+import { ROLE_HIERARCHY } from "@static/constants";
+import { getUserKey } from "@utils/auth.util";
 
 /**
  * Returns index of given role name
@@ -18,10 +18,7 @@ const roleToIndex = (role: string): number =>
  * @param {string} toRole
  * @returns {string[]}
  */
-export const getDropdownArray = (
-  fromRole: string,
-  toRole: string
-): string[] => {
+export const getDropdownArray = (fromRole: string, toRole: string): string[] => {
   const iStart = roleToIndex(fromRole);
   const iEnd = roleToIndex(toRole) + 1;
   return iStart === iEnd ? [toRole] : ROLE_HIERARCHY.slice(iStart, iEnd);
@@ -33,9 +30,7 @@ export const getDropdownArray = (
  * @param {string[]} roles
  * @returns {Promise<{ options; values }>}
  */
-export const getInitialOptionsAndValues = async (
-  roles: string[]
-): Promise<{ options; values }> => {
+export const getInitialOptionsAndValues = async (roles: string[]): Promise<{ options; values }> => {
   let options = {};
   let values = {};
   for (const role of roles) {
@@ -44,10 +39,7 @@ export const getInitialOptionsAndValues = async (
     options = { ...options, [role]: opts };
     values = {
       ...values,
-      [role]:
-        initialRoleCode > 0
-          ? opts.find(o => o.value === initialRoleCode)
-          : undefined,
+      [role]: initialRoleCode > 0 ? opts.find(o => o.value === initialRoleCode) : undefined
     };
   }
   return { options, values };

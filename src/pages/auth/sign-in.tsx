@@ -1,6 +1,6 @@
-import SignIn from "@components/auth/sign-in";
+import SignInComponent from "@components/pages/auth/sign-in";
 import React from "react";
 
-export default function SignInPage() {
-  return <SignIn />;
-}
+const SignInPage = () => <SignInComponent />;
+
+export default SignInPage;

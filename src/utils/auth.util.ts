@@ -1,9 +1,6 @@
+import { ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import dayjs from "dayjs";
-import { navigate } from "gatsby";
-
-import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "./constants";
-import storage from "./storage.util";
-import { getUser } from "./user.util";
+import { getNookie, setNookie } from "next-nookies-persist";
 
 interface Session {
   accessToken: string;
@@ -18,63 +15,47 @@ interface Session {
  * @param {string[]} [roles=[ROLES.UNAUTHORIZED]]
  * @returns {boolean}
  */
-export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED]): boolean => {
+export const hasAccess = (
+  roles: string[] = [ROLES.UNAUTHORIZED],
+  nookies = getNookie(TOKEN.USER)
+): boolean => {
   if (roles.includes(ROLES.UNAUTHORIZED)) {
     return true;
   }
 
-  if (isBrowser) {
-    const user = getUser();
-    if (user.hasOwnProperty("role")) {
-      checkSessionExpired();
-      if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
-        return true;
-      }
+  const user = nookies || {};
+  if (user.hasOwnProperty("role")) {
+    if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
+      return true;
     }
   }
 
   return false;
 };
 
-/**
- * Sets/Updates session to localStorage
- *
- * @param {*} { access_token, refresh_token, timeout }
- */
-export const setSession = ({ access_token, refresh_token, timeout }) => {
-  storage.set(TOKEN.ACCESS, access_token);
-  storage.set(TOKEN.REFRESH, refresh_token);
-  storage.set(TOKEN.TIMEOUT, timeout);
+export const setTokens = token => {
+  setNookie(TOKEN.AUTH, token);
 };
 
-/**
- * Retrive session tokens from localStorage
- *
- * @returns {Session}
- */
-export const getSession = (): Session => {
-  const accessToken = storage.get(TOKEN.ACCESS);
-  const refreshToken = storage.get(TOKEN.REFRESH);
-  const timeout = storage.get(TOKEN.TIMEOUT, 0);
+export const getTokens = (ctx = {}): Session => {
+  const store = getNookie(TOKEN.AUTH, ctx) || {};
+  const accessToken = store[TOKEN.ACCESS];
+  const refreshToken = store[TOKEN.REFRESH];
+  const timeout = store[TOKEN.TIMEOUT] || 0;
   const isExpired = dayjs(timeout).isBefore(dayjs());
   return {
     accessToken,
     refreshToken,
     timeout,
-    isExpired,
+    isExpired
   };
 };
 
-/**
- * Redirect to `sign-out` page if session is expired
- *
- */
-const checkSessionExpired = () => {
-  const timeout = storage.get(TOKEN.TIMEOUT, 0);
-  if (dayjs(timeout).isBefore(dayjs())) {
-    console.info("❌ Session expired");
-    navigate("/auth/sign-out");
-  }
+export const getUserKey = (key, ctx = {}) => getNookie(TOKEN.USER, ctx)[key];
+
+export const setUserKey = (key, value) => {
+  const u = getNookie(TOKEN.USER);
+  setNookie(TOKEN.USER, { ...u, [key]: value });
 };
 
 /**

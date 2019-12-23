@@ -1,0 +1,17 @@
+.rdt_TableHeader {
+  display: none !important;
+}
+
+.rdt_TableHeadRow {
+  background: var(--gray-100);
+  .rdt_TableCol div {
+    font-weight: bold;
+    color: var(--gray-900);
+  }
+}
+
+.rdt_TableBody {
+  .rdt_TableRow:hover {
+    background: var(--gray-50);
+  }
+}

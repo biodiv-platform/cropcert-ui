@@ -1,5 +1,5 @@
-import { ROLES } from "@utils/constants";
-import { getUserKey } from "@utils/user.util";
+import { ROLES } from "@static/constants";
+import { getUserKey } from "@utils/auth.util";
 
 import { axListCCByCoId } from "./cc.service";
 import { axCoByUnionId } from "./co.service";
@@ -20,7 +20,7 @@ export const getByRole = async (role: string, code: number = -1) => {
       const un = await axListUnion();
       res = un.data.map(o => ({
         label: o.name,
-        value: o.code,
+        value: o.code
       }));
       break;
 
@@ -29,7 +29,7 @@ export const getByRole = async (role: string, code: number = -1) => {
       const co = await axCoByUnionId(unionCode);
       res = co.data.map(o => ({
         label: o.name,
-        value: o.code,
+        value: o.code
       }));
       break;
 
@@ -39,7 +39,7 @@ export const getByRole = async (role: string, code: number = -1) => {
       res = cc.data.map(o => ({
         label: o.name,
         value: o.code,
-        type: o.type,
+        type: o.type
       }));
       break;
 

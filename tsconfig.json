@@ -1,25 +1,31 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "sourceMap": true,
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "module": "commonjs",
-    "target": "esnext",
-    "lib": ["dom", "esnext"],
-    "jsx": "react",
-    "noImplicitAny": false,
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@stores/*": ["./src/stores/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],
+      "@static/*": ["./src/static/*"],
+      "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@services/*": ["./src/services/*"]
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src"]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "types/*.d.ts", "**/*.ts", "**/*.tsx"],
+  "types": ["@emotion/styled"]
 }

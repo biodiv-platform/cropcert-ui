@@ -1,4 +1,4 @@
-import { ENDPOINT, MESSAGE } from "@utils/constants";
+import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification.util";
 
@@ -8,7 +8,7 @@ export const axListUnion = async () => {
     const data: any[] = res.data;
     return { success: true, data };
   } catch (e) {
-    notification(MESSAGE.ERROR);
+    notification(e.message);
     return { success: false, data: [] };
   }
 };

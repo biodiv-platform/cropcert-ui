@@ -1,11 +1,13 @@
 import { hasAccess } from "@utils/auth.util";
-import { ROLES } from "@utils/constants";
+import { useStoreState } from "easy-peasy";
 import React from "react";
 
 import Arrow from "./arrow";
 import CustomLink from "./custom-link";
 
 export default function ListItems({ children, level = 0 }) {
+  const user = useStoreState(state => state.user);
+
   const listItem = item =>
     item.hasOwnProperty("children") ? (
       <li key={item.id}>
@@ -29,9 +31,7 @@ export default function ListItems({ children, level = 0 }) {
 
   return (
     <ul className={level === 0 ? "main-menu" : "sub-menu"}>
-      {children.map(
-        li => hasAccess(li.access || [ROLES.UNAUTHORIZED]) && listItem(li)
-      )}
+      {children.map(li => hasAccess(li.access, user) && listItem(li))}
     </ul>
   );
 }

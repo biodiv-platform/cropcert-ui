@@ -1,0 +1,104 @@
+import {
+  Badge,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure
+} from "@chakra-ui/core";
+import { CheckBox, DateTime, Submit, TextBox } from "@components/@core/formik";
+import { axUpdateGRN } from "@services/lot.service";
+import { LOT_GRN } from "@static/events";
+import { isEverythingFilledExcept } from "@utils/basic.util";
+import { Formik } from "formik";
+import React, { useState } from "react";
+import { useListener } from "react-gbus";
+import { MdSave } from "react-icons/md";
+import { Lot } from "types/traceability";
+import * as Yup from "yup";
+import { LOT_FLAGS } from "@static/constants";
+
+export default function LotGRNModal({ update }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [lot, setLot] = useState({} as Lot);
+  const [isDone, setIsDone] = useState(false);
+  const [canWrite, setCanWrite] = useState(false);
+
+  useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+    onOpen();
+    setLot(lot);
+    setCanWrite(canWrite);
+    setIsDone(lot.grnStatus === LOT_FLAGS.DONE);
+  }, LOT_GRN);
+
+  const grnUpdateForm = {
+    validationSchema: Yup.object().shape({
+      grnNumber: Yup.string().nullable(),
+      grnTimestamp: Yup.number().nullable(),
+      finalizeGrnStatus: Yup.boolean().nullable()
+    }),
+    initialValues: {
+      grnNumber: lot.grnNumber,
+      grnTimestamp: lot.grnTimestamp,
+      finalizeGrnStatus: isDone
+    }
+  };
+
+  const handleOnSubmit = async (values, actions) => {
+    const { success, data } = await axUpdateGRN({
+      id: lot.id,
+      ...values
+    });
+    if (success) {
+      update(data);
+      onClose();
+    }
+    actions.setSubmitting(false);
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+      <ModalOverlay />
+      <Formik {...grnUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
+        {props => {
+          const isFormReadOnly = !canWrite || props.values.finalizeGrnStatus;
+          const isFinalizeEnabled =
+            !isDone && canWrite && isEverythingFilledExcept("finalizeGrnStatus", props.values);
+          return (
+            <form onSubmit={props.handleSubmit}>
+              <ModalContent>
+                <ModalHeader>🔢 Add GRN Number</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <TextBox name="grnNumber" label="GRN Number" disabled={isFormReadOnly} />
+                  <DateTime name="grnTimestamp" label="Date" disabled={isFormReadOnly} />
+                  <CheckBox
+                    name="finalizeGrnStatus"
+                    label={
+                      <span>
+                        Finalize GRN Number <Badge variantColor="red">irreversible</Badge>
+                      </span>
+                    }
+                    isDisabled={!isFinalizeEnabled}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Submit props={props} leftIcon={MdSave} isDisabled={!canWrite}>
+                    Save
+                  </Submit>
+                </ModalFooter>
+              </ModalContent>
+            </form>
+          );
+        }}
+      </Formik>
+    </Modal>
+  );
+}

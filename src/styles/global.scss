@@ -15,3 +15,7 @@ body {
 body {
   overflow-y: scroll;
 }
+
+input:disabled {
+  background: var(--gray-200);
+}

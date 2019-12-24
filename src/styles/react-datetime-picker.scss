@@ -189,6 +189,9 @@
   background-color: var(--gray-200);
   color: #6d6d6d;
   opacity: 0.5;
+  .react-datetime-picker__wrapper {
+    background-color: var(--gray-200);
+  }
 }
 
 .react-datetime-picker__wrapper {

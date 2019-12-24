@@ -76,7 +76,7 @@ export default function LotFactoryDispatchModal({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
+    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="3xl">
       <ModalOverlay />
       <Formik {...batchUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
         {props => {
@@ -127,10 +127,6 @@ export default function LotFactoryDispatchModal({ update }) {
                   </CoreGrid>
 
                   <CoreGrid rows={2}>
-                    <FormControl mb={4}>
-                      <FormLabel>Out Turn</FormLabel>
-                      <Input value={`${outTurn} %`} isReadOnly={true} />
-                    </FormControl>
                     <DateTime
                       name="millingTime"
                       label="Milling Time"
@@ -139,6 +135,10 @@ export default function LotFactoryDispatchModal({ update }) {
                       disabled={isFDisabled}
                       min={lot.timeToFactory}
                     />
+                    <FormControl mb={4}>
+                      <FormLabel>Out Turn</FormLabel>
+                      <Input value={`${outTurn} %`} isDisabled={true} />
+                    </FormControl>
                   </CoreGrid>
 
                   <CheckBox

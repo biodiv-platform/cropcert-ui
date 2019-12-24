@@ -14,10 +14,14 @@ const MultiSelectInputField = ({
 }) => (
   <Field name={name}>
     {({ field, meta, form }) => {
-      const [value, setValue] = useState<any>();
+      const defaultValues =
+        field.value.length > 0
+          ? field.value.split(",").map(v => options.find(o => o.value === v))
+          : [];
+      const [value, setValue] = useState(defaultValues);
 
       useEffect(() => {
-        form.setFieldValue(field.name, value ? value.value : []);
+        form.setFieldValue(field.name, value.map(({ value }) => value).toString());
       }, [value]);
 
       return (

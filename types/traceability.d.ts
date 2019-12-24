@@ -29,7 +29,6 @@ export interface Batch {
 }
 export interface Cupping {
     id?: number; // int64
-    lotId?: number; // int64
     lotName?: string;
     date?: string; // date-time
     timestamp?: string; // date-time
@@ -50,6 +49,7 @@ export interface Cupping {
     taint?: number; // float
     fault?: number; // float
     notes?: string;
+    status?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     isDeleted?: boolean;
 }
 export interface FactoryReport {
@@ -109,6 +109,7 @@ export interface Lot {
     factoryStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     greenAnalysisId?: number; // int64
     greenAnalysisStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
+    cuppings?: Cupping[];
     lotStatus?: "AT_COLLECTION_CENTER" | "AT_CO_OPERATIVE" | "IN_TRANSPORT" | "AT_FACTORY" | "AT_UNION";
     deleted?: boolean;
 }

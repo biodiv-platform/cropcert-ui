@@ -1,6 +1,7 @@
 import { Badge, Button, ButtonProps } from "@chakra-ui/core";
 import { useActionProps } from "@components/@core/table";
-import { ROLES } from "@static/constants";
+import NotApplicable from "@components/@core/table/not-applicable";
+import { LOT_FLAGS, ROLES } from "@static/constants";
 import {
   LOT_DISPATCH_FACTORY,
   LOT_FACTORY_PROCESS,
@@ -9,10 +10,10 @@ import {
   LOT_REPORT_FACTORY,
   LOT_REPORT_GREEN
 } from "@static/events";
+import { useStoreState } from "easy-peasy";
 import React from "react";
 import { emit } from "react-gbus";
 import { Lot } from "types/traceability";
-import NotApplicable from "@components/@core/table/not-applicable";
 
 const buttonProps: Partial<ButtonProps> = {
   variant: "outline",
@@ -99,15 +100,21 @@ const GreenLabReportCell = (lot: Lot) => {
 };
 
 const CuppingLabReportCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps("ADD", ROLES.UNION);
+  const currentCupper = useStoreState(state => state.user.email);
+  const currentReport = lot.cuppings.find(r => r.cupper === currentCupper);
+  const withSkeletonReport = currentReport || {
+    status:
+      lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD
+  };
+  const { canWrite, variantColor, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
 
   return show ? (
     <Button
       {...buttonProps}
       variantColor={variantColor}
-      onClick={() => emit(LOT_REPORT_CUPPING, { lot, canWrite })}
+      onClick={() => emit(LOT_REPORT_CUPPING, { lot, currentReport, canWrite })}
     >
-      🐉
+      {withSkeletonReport.status}
     </Button>
   ) : (
     <NotApplicable />
@@ -118,19 +125,13 @@ export const lotColumns = [
   {
     name: "#",
     selector: "id",
-    sortable: true
+    sortable: true,
+    width: "70px"
   },
   {
     name: "Name",
     selector: "lotName",
     width: "250px"
-  },
-  {
-    name: "Type",
-    selector: "type",
-    center: true,
-    sortable: true,
-    width: "50px"
   },
   {
     name: "Initial Quantity",

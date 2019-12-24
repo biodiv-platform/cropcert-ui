@@ -1,16 +1,20 @@
 import {
+  Badge,
+  Box,
   Button,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  ModalHeader,
-  Box
+  ModalHeader
 } from "@chakra-ui/core";
-import { DateTime, MultiSelect, Number, Submit, TextBox } from "@components/@core/formik";
+import { CheckBox, DateTime, MultiSelect, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axCreateCuppingReport } from "@services/report.service";
-import { flatten, local2utc, nonZeroFalsy } from "@utils/basic.util";
+import { LOT_FLAGS } from "@static/constants";
+import { MREPORT } from "@static/messages";
+import { flatten, isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.util";
+import notification from "@utils/notification.util";
 import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Formik } from "formik";
 import React from "react";
@@ -24,8 +28,7 @@ interface IGreenReportProps {
   ccNames: string[];
   cooperativeName: string;
   cupper: string;
-  isDispatched: boolean;
-  isReadOnly: boolean;
+  canWrite: boolean;
   lot: Lot;
   onClose;
   report: Cupping;
@@ -36,8 +39,7 @@ export default function CuppingReportForm({
   ccNames,
   cooperativeName,
   cupper,
-  isDispatched,
-  isReadOnly,
+  canWrite,
   lot,
   onClose,
   report,
@@ -71,7 +73,8 @@ export default function CuppingReportForm({
       taint: Yup.number().required(),
       fault: Yup.number().required(),
 
-      notes: Yup.array().required()
+      notes: Yup.string().required(),
+      finalizeCuppingStatus: Yup.boolean().required()
     }),
     initialValues: {
       lotName: lot.lotName,
@@ -101,7 +104,8 @@ export default function CuppingReportForm({
       taint: nonZeroFalsy(report.taint),
       fault: nonZeroFalsy(report.fault),
 
-      notes: (report.notes || "").split(",")
+      notes: report.notes || "",
+      finalizeCuppingStatus: report.status === LOT_FLAGS.DONE
     }
   };
 
@@ -127,16 +131,21 @@ export default function CuppingReportForm({
     const { success, data } = await axCreateCuppingReport({
       ...v,
       notes: notes.toString(),
-      id: this.props.report.id || -1
+      id: report.id || -1
     });
     if (success) {
-      // TODO: trigger lot object update with success message
+      update(data.lot);
+      onClose();
+      notification(MREPORT.CUPPING_REPORT_CREATED);
     }
   };
 
   return (
     <Formik {...cuppingReportForm} enableReinitialize={true} onSubmit={handleSubmit}>
       {props => {
+        const isFinalizeEnabled =
+          canWrite && isEverythingFilledExcept("finalizeCuppingStatus", props.values);
+
         return (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
@@ -156,38 +165,53 @@ export default function CuppingReportForm({
 
                 <FormHeading>Report</FormHeading>
                 <CoreGrid>
-                  <DateTime label="Report Time" name="timestamp" />
+                  <DateTime label="Report Time" name="timestamp" disabled={!canWrite} />
                 </CoreGrid>
 
                 <FormHeading>Qualities</FormHeading>
                 <CoreGrid rows={5}>
-                  <Number label="Fragrance Aroma" name="fragranceAroma" />
-                  <Number label="Flavour" name="flavour" />
-                  <Number label="Acidity" name="acidity" />
-                  <Number label="Body" name="body" />
-                  <Number label="After Taste" name="afterTaste" />
+                  <Number label="Fragrance Aroma" name="fragranceAroma" disabled={!canWrite} />
+                  <Number label="Flavour" name="flavour" disabled={!canWrite} />
+                  <Number label="Acidity" name="acidity" disabled={!canWrite} />
+                  <Number label="Body" name="body" disabled={!canWrite} />
+                  <Number label="After Taste" name="afterTaste" disabled={!canWrite} />
                 </CoreGrid>
                 <CoreGrid rows={5}>
-                  <Number label="Balance" name="balance" />
-                  <Number label="Sweetness" name="sweetness" />
-                  <Number label="Uniformity" name="uniformity" />
-                  <Number label="Clean Cup" name="cleanCup" />
-                  <Number label="Overall" name="overAll" />
+                  <Number label="Balance" name="balance" disabled={!canWrite} />
+                  <Number label="Sweetness" name="sweetness" disabled={!canWrite} />
+                  <Number label="Uniformity" name="uniformity" disabled={!canWrite} />
+                  <Number label="Clean Cup" name="cleanCup" disabled={!canWrite} />
+                  <Number label="Overall" name="overAll" disabled={!canWrite} />
                 </CoreGrid>
 
                 <CoreGrid rows={2}>
                   <Box>
                     <FormHeading>Problems</FormHeading>
                     <CoreGrid rows={2}>
-                      <Number label="Taint" name="taint" />
-                      <Number label="Fault" name="fault" />
+                      <Number label="Taint" name="taint" disabled={!canWrite} />
+                      <Number label="Fault" name="fault" disabled={!canWrite} />
                     </CoreGrid>
                   </Box>
                   <Box>
                     <FormHeading>Additional Information</FormHeading>
-                    <MultiSelect label="Notes" name="notes" options={flatten(CoffeeFlavors)} />
+                    <MultiSelect
+                      label="Notes"
+                      name="notes"
+                      options={flatten(CoffeeFlavors)}
+                      disabled={!canWrite}
+                    />
                   </Box>
                 </CoreGrid>
+                <CheckBox
+                  name="finalizeCuppingStatus"
+                  mt={4}
+                  label={
+                    <span>
+                      Finalize Cupping Report <Badge variantColor="red">irreversible</Badge>
+                    </span>
+                  }
+                  isDisabled={!canWrite || !isFinalizeEnabled}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button mr={3} onClick={onClose}>

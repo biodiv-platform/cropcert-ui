@@ -16,14 +16,14 @@ import { axCreateBatch } from "@services/batch.service";
 import { DATEFORMATS, ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
 import { BATCH } from "@static/messages";
-import { local2utc, typeList } from "@utils/basic.util";
+import { local2utc, typeList, utc2local } from "@utils/basic.util";
+import notification, { NotificationType } from "@utils/notification.util";
 import dayjs from "dayjs";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
 import { MdCheck } from "react-icons/md";
 import * as Yup from "yup";
-import notification, { NotificationType } from "@utils/notification.util";
 
 export default function BatchCreateModal({ update }) {
   const [cc, setCc] = useState({} as any);
@@ -55,7 +55,7 @@ export default function BatchCreateModal({ update }) {
     const formData = {
       ...values,
       createdOn: local2utc().getTime(),
-      batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(values.date).format(
+      batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(utc2local(values.date)).format(
         DATEFORMATS.DAYJS_DATE
       )}`
     };

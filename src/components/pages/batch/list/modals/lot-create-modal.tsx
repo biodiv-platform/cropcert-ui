@@ -32,6 +32,7 @@ function LotCreateModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [batches, setBatches] = useState([] as Batch[]);
   const [lotConfig, setLotConfig] = useState({ name: "", type: "", coCode: -1, quantity: 0 });
+  const [highestDate, setHighestDate] = useState(0);
 
   const batchUpdateForm = {
     validationSchema: Yup.object().shape({
@@ -65,6 +66,7 @@ function LotCreateModal({ update }) {
 
   useListener(({ selected, ...props }) => {
     setBatches(selected);
+    setHighestDate(selected.reduce((acc, cv) => (cv.date > acc ? cv.date : acc), 0));
     setLotConfig({ name, ...props });
     onOpen();
   }, LOT_CREATE);
@@ -82,7 +84,12 @@ function LotCreateModal({ update }) {
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <DateTime name="creationDate" label="Creation Date" format="dd-MM-yyyy" />
+                <DateTime
+                  name="creationDate"
+                  label="Creation Date"
+                  format="dd-MM-yyyy"
+                  min={highestDate}
+                />
                 <Table
                   data={batches}
                   columns={[

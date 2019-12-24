@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Badge,
   Button,
   Modal,
@@ -12,6 +14,7 @@ import {
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Submit, TextBox } from "@components/@core/formik";
 import { axUpdateGRN } from "@services/lot.service";
+import { LOT_FLAGS } from "@static/constants";
 import { LOT_GRN } from "@static/events";
 import { isEverythingFilledExcept } from "@utils/basic.util";
 import { Formik } from "formik";
@@ -20,18 +23,19 @@ import { useListener } from "react-gbus";
 import { MdSave } from "react-icons/md";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
-import { LOT_FLAGS } from "@static/constants";
 
 export default function LotGRNModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState({} as Lot);
   const [isDone, setIsDone] = useState(false);
   const [canWrite, setCanWrite] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
     onOpen();
     setLot(lot);
     setCanWrite(canWrite);
+    setErrorMessage(undefined);
     setIsDone(lot.grnStatus === LOT_FLAGS.DONE);
   }, LOT_GRN);
 
@@ -56,6 +60,8 @@ export default function LotGRNModal({ update }) {
     if (success) {
       update(data);
       onClose();
+    } else {
+      setErrorMessage(data);
     }
     actions.setSubmitting(false);
   };
@@ -85,6 +91,11 @@ export default function LotGRNModal({ update }) {
                     }
                     isDisabled={!isFinalizeEnabled}
                   />
+                  {errorMessage && (
+                    <Alert status="error" borderRadius="md">
+                      <AlertIcon /> {errorMessage}
+                    </Alert>
+                  )}
                 </ModalBody>
                 <ModalFooter>
                   <Button mr={3} onClick={onClose}>

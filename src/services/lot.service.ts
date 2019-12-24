@@ -84,8 +84,7 @@ export const axUpdateGRN = async payload => {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/grnNumber`, payload);
     return { success: true, data };
   } catch (e) {
-    notification(e.response.data.error || e.message);
-    return { success: false, data: {} };
+    return { success: false, data: e.response.data.error || e.message };
   }
 };
 

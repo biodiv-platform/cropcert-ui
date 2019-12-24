@@ -89,7 +89,7 @@ export default function LotCoDispatchModal({ update }) {
                   />
                   <Number
                     name="mcLeavingCooperative"
-                    label="Moisture Content Leaving Cooperative"
+                    label="Moisture Content Leaving Cooperative (%)"
                     disabled={isFormReadOnly}
                   />
                   <DateTime

@@ -289,7 +289,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                   mt={4}
                   label={
                     <span>
-                      Dispatch to Factory <Badge variantColor="red">irreversible</Badge>
+                      Finalize Factory Report <Badge variantColor="red">irreversible</Badge>
                     </span>
                   }
                   isDisabled={!canWrite}

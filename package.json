@@ -6,8 +6,7 @@
   "scripts": {
     "start": "next",
     "build": "next build",
-    "serve": "next start",
-    "production": "next build && pm2 kill && pm2 start yarn -- serve"
+    "serve": "next start"
   },
   "keywords": [],
   "author": "Harsh Zalavadiya",

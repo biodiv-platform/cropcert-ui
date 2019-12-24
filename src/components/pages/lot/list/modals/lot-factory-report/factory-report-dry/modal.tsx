@@ -1,7 +1,6 @@
 import {
   Badge,
   Button,
-  Flex,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -24,6 +23,7 @@ import * as Yup from "yup";
 
 import DiffMessage from "../../diff-message";
 import FormHeading from "../../typography";
+import ReportPanel from "../panel";
 import { calculateFormValues } from "./utils";
 
 interface IFactoryReportProps {
@@ -164,8 +164,10 @@ export default function FactoryReportDryModal({
                 <Text mb={4}>Net Input: {cv.netInputWeight} KG(s)</Text>
 
                 <CoreGrid rows={5}>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>High Grades</FormHeading>
+                  <ReportPanel
+                    heading="High Grades"
+                    footer={`Net Input: ${cv.highGradeWeight} KG(s)`}
+                  >
                     <Number
                       label="Clean DRUGAR"
                       name="highGradeWeight"
@@ -173,10 +175,12 @@ export default function FactoryReportDryModal({
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.highGradeWeight)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Net Input: {cv.highGradeWeight} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Low Grades</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Low Grades"
+                    footer={`Sub Total: ${cv.lowGradeWeight} KG(s)`}
+                  >
                     <Number
                       label="Triage"
                       name="triage"
@@ -192,16 +196,18 @@ export default function FactoryReportDryModal({
                       hintText={calcPersentage(props.values.pods)}
                     />
                     <Number
-                      label="Sweeppings or Spillages"
+                      label="Sweeppings/Spillages"
                       name="sweeppingsOrSpillages"
                       hint={true}
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.sweeppingsOrSpillages)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Sub Total: {cv.lowGradeWeight} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Colour Sorter Rejects</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Colour Sorter Rejects"
+                    footer={`Sub Total: ${props.values.totalBlackBeans} KG(s)`}
+                  >
                     <Number
                       label="Black Beans"
                       name="totalBlackBeans"
@@ -209,12 +215,9 @@ export default function FactoryReportDryModal({
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.totalBlackBeans)}
                     />
-                    <Text style={{ marginTop: "auto" }}>
-                      Sub Total: {props.values.totalBlackBeans} KG(s)
-                    </Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Wastes</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel heading="Wastes" footer={`Sub Total: ${cv.wasteSubTotal} KG(s)`}>
                     <Number
                       label="Stone"
                       name="stone"
@@ -236,10 +239,12 @@ export default function FactoryReportDryModal({
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.graderHusks)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Sub Total: {cv.wasteSubTotal} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Other Loses</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Other Loses"
+                    footer={`Sub Total: ${cv.otherLossSubTotal} KG(s)`}
+                  >
                     <Number
                       label="Handling Loss"
                       name="handlingLoss"
@@ -254,10 +259,7 @@ export default function FactoryReportDryModal({
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.dryingLoss)}
                     />
-                    <Text style={{ marginTop: "auto" }}>
-                      Sub Total: {cv.otherLossSubTotal} KG(s)
-                    </Text>
-                  </Flex>
+                  </ReportPanel>
                 </CoreGrid>
                 <DiffMessage diff={totalDiff} />
                 <CheckBox

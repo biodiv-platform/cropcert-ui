@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Text,
+  Text
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
@@ -24,6 +24,7 @@ import * as Yup from "yup";
 import DiffMessage from "../../diff-message";
 import FormHeading from "../../typography";
 import { calculateFormValues } from "./utils";
+import ReportPanel from "../panel";
 
 export default function FactoryReportWetModal({ report, lot, onClose, canWrite, update }) {
   const factoryReportForm = {
@@ -105,7 +106,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
     if (success && data?.lot) {
       update(data.lot);
       notification(MLOT.FACTORY_REPORT_CREATED, NotificationType.Success, data?.factoryReport);
-      onClose()
+      onClose();
     } else {
       notification(GENERIC.ERROR);
     }
@@ -152,9 +153,10 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 <Text mb={4}>Net Input: {cv.netInputWeight} KG(s)</Text>
 
                 <CoreGrid rows={5}>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>High Grades</FormHeading>
-
+                  <ReportPanel
+                    heading="High Grades"
+                    footer={`Net Input: ${cv.highGradeWeight} KG(s)`}
+                  >
                     <Number
                       label="Grade AA"
                       name="gradeAA"
@@ -176,10 +178,12 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.gradeCAndPB)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Net Input: {cv.highGradeWeight} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Low Grades</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Low Grades"
+                    footer={`Net Input: ${cv.lowGradeWeight} KG(s)`}
+                  >
                     <Number
                       label="Triage"
                       name="triage"
@@ -202,16 +206,18 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                       hintText={calcPersentage(props.values.arabica1899)}
                     />
                     <Number
-                      label="Sweeppings or Spillages"
+                      label="Sweeppings/Spillages"
                       name="sweeppingsOrSpillages"
                       hint={true}
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.sweeppingsOrSpillages)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Sub Total: {cv.lowGradeWeight} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Colour Sorter Rejects</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Colour Sorter Rejects"
+                    footer={`Net Input: ${props.values.totalBlackBeans} KG(s)`}
+                  >
                     <Number
                       label="Black Beans AA"
                       name="blackBeansAA"
@@ -233,12 +239,9 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.blackBeansC)}
                     />
-                    <Text style={{ marginTop: "auto" }}>
-                      Sub Total: {props.values.totalBlackBeans} KG(s)
-                    </Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Wastes</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel heading="Wastes" footer={`Net Input: ${cv.wasteSubTotal} KG(s)`}>
                     <Number
                       label="Stone"
                       name="stone"
@@ -260,10 +263,12 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.graderHusks)}
                     />
-                    <Text style={{ marginTop: "auto" }}>Sub Total: {cv.wasteSubTotal} KG(s)</Text>
-                  </Flex>
-                  <Flex style={{ flexFlow: "column nowrap" }}>
-                    <FormHeading>Other Loses</FormHeading>
+                  </ReportPanel>
+
+                  <ReportPanel
+                    heading="Other Loses"
+                    footer={`Net Input: ${cv.otherLossSubTotal} KG(s)`}
+                  >
                     <Number
                       label="Handling Loss"
                       name="handlingLoss"
@@ -278,10 +283,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                       disabled={!canWrite}
                       hintText={calcPersentage(props.values.dryingLoss)}
                     />
-                    <Text style={{ marginTop: "auto" }}>
-                      Sub Total: {cv.otherLossSubTotal} KG(s)
-                    </Text>
-                  </Flex>
+                  </ReportPanel>
                 </CoreGrid>
                 <DiffMessage diff={totalDiff} />
                 <CheckBox

@@ -7,7 +7,7 @@
     "start": "next",
     "build": "next build",
     "serve": "next start",
-    "production": "pm2 kill && pm2 start npm -- run serve --name cropcert"
+    "production": "next build && pm2 kill && pm2 start yarn -- serve"
   },
   "keywords": [],
   "author": "Harsh Zalavadiya",

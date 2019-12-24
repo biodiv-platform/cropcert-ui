@@ -72,7 +72,11 @@ function BatchUpdateModal({ update }) {
         {props => (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
-              <ModalHeader>Update Batch #{batch && batch.id}</ModalHeader>
+              <ModalHeader pb={0}>
+                Update Batch
+                <br />
+                {batch && batch.batchName}
+              </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <DateTime

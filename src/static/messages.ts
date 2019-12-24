@@ -25,64 +25,7 @@ export const PAGES = {
   PAGE_UPDATED: "Page Created/Updated Successfully"
 };
 
-export const REPORT = {
-  DIFF_ERROR: "Input quantity does not match with graded quantities"
-};
-
-export const OPERATIONAL = {
-  READY_FOR_LOT: {
-    MESSAGE: "Wet batch(s) are finalized and ready for Lot",
-    BACK_LINK: "/batch/list-wet",
-    BACK_TITLE: "Finalize Other Batche(s)"
-  },
-  BATCH_CREATED: {
-    MESSAGE: "Batch created with Name ##id##",
-    BACK_LINK: "/batch/create",
-    BACK_TITLE: "Create Another Batch"
-  },
-  LOT_CREATED: {
-    MESSAGE: "Lot created with Name ##id##",
-    BACK_LINK: "/batch/list",
-    BACK_TITLE: "Create Another Lot"
-  },
-  LOT_DISPATCHED_FACTORY: {
-    MESSAGE: "Lot(s) dispatched to Factory",
-    BACK_LINK: "/lot/list",
-    BACK_TITLE: "Dispatch More Lot(s)"
-  },
-  LOT_DISPATCHED_UNION: {
-    MESSAGE: "Lot(s) dispatched to Union",
-    BACK_LINK: "/lot/milling",
-    BACK_TITLE: "Dispatch More Lot(s)"
-  },
-  GREEN_REPORT_CREATED: {
-    MESSAGE: "Green Report Created with id ##id##",
-    BACK_LINK: "/lot/report/list?type=green",
-    BACK_TITLE: "Create more Reports"
-  },
-  CUPPING_REPORT_CREATED: {
-    MESSAGE: "Cupping Report Created with id ##id##",
-    BACK_LINK: "/lot/report/list?type=cupping",
-    BACK_TITLE: "Create more Reports"
-  },
-  FACTORY_REPORT_CREATED: {
-    MESSAGE: "Factory Report Created with id ##id##",
-    BACK_LINK: "/lot/grn",
-    BACK_TITLE: "Create more Reports"
-  },
-  PAGE_EDIT: {
-    MESSAGE: "Page ##id## Updated",
-    BACK_LINK: "/page/list",
-    BACK_TITLE: "Manage Pages"
-  },
-  PAGE_CREATE: {
-    MESSAGE: "Page ##id## Created",
-    BACK_LINK: "/page/list",
-    BACK_TITLE: "Manage Pages"
-  },
-  NA: {
-    MESSAGE: "#",
-    BACK_LINK: "/",
-    BACK_TITLE: "#"
-  }
+export const MREPORT = {
+  DIFF_ERROR: "Input quantity does not match with graded quantities",
+  CUPPING_REPORT_CREATED: "Cupping Report Created/Updated successfully"
 };

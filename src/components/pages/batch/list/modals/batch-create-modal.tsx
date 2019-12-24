@@ -46,7 +46,7 @@ export default function BatchCreateModal({ update }) {
   const initialValues = {
     ccCode: cc ? cc.value : null,
     quantity: 0,
-    date: new Date().getTime(),
+    date: local2utc().getTime(),
     note: "",
     type: null
   };

@@ -46,7 +46,7 @@ const SelectInputField = ({
               })
             }}
           />
-          <FormErrorMessage>{meta.error}</FormErrorMessage>
+          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
           {hint && <FormHelperText>{hintText}</FormHelperText>}
         </FormControl>
       );

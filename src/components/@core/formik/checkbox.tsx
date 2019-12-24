@@ -17,7 +17,7 @@ const CheckBoxInputField = ({
           <Checkbox {...field} {...props} isDisabled={isDisabled} isChecked={field.value}>
             {label}
           </Checkbox>
-          <FormErrorMessage>{meta.error}</FormErrorMessage>
+          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
           {hint && <FormHelperText>{props.hintText}</FormHelperText>}
         </FormControl>
       )}

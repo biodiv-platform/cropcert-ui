@@ -31,7 +31,7 @@ const NumberInputField = ({ name, label, hint = false, mb = 4, isRequired = fals
             placeholder={label}
             type="number"
           />
-          <FormErrorMessage>{meta.error}</FormErrorMessage>
+          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
           {hint && <FormHelperText>{hintText}</FormHelperText>}
         </FormControl>
       )}

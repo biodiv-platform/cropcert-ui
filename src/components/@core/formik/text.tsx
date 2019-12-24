@@ -8,7 +8,7 @@ const TextInputField = ({ name, label, hint = false, hintText = "", mb = 4, ...p
       <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
         <Input borderColor="gray.400" placeholder={label} {...field} {...props} />
-        <FormErrorMessage>{meta.error}</FormErrorMessage>
+        <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
         {hint && <FormHelperText>{hintText}</FormHelperText>}
       </FormControl>
     )}

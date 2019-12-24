@@ -86,7 +86,7 @@ const DateTimeInputField = ({
                 </Button>
               )}
             </Flex>
-            <FormErrorMessage>{meta.error}</FormErrorMessage>
+            <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
             {hint && <FormHelperText>{hintText}</FormHelperText>}
           </FormControl>
         );

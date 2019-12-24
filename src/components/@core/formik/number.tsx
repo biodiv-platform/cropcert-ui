@@ -13,7 +13,7 @@ const hintMessage = props => {
   return "";
 };
 
-const NumberInputField = ({ name, label, hint = false, mb = 4, ...props }) => {
+const NumberInputField = ({ name, label, hint = false, mb = 4, isRequired = false, ...props }) => {
   const hintText = props.hintText || hintMessage(props);
 
   const onWheel = e => e.target.blur();
@@ -21,7 +21,7 @@ const NumberInputField = ({ name, label, hint = false, mb = 4, ...props }) => {
   return (
     <Field name={name}>
       {({ field, meta }) => (
-        <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
+        <FormControl isInvalid={meta.touched && meta.error} mb={mb} isRequired={isRequired}>
           <FormLabel htmlFor={field.name}>{label}</FormLabel>
           <Input
             {...field}

@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axUpdateBatch } from "@services/batch.service";
@@ -81,7 +81,6 @@ function BatchUpdateModal({ update }) {
                   defaultBlank={true}
                   isNow={true}
                   disabled={props.values.finalizeBatch}
-                  nowDisabled={props.values.fermentationEndTime}
                   max={props.values.fermentationEndTime}
                 />
                 <DateTime
@@ -89,8 +88,7 @@ function BatchUpdateModal({ update }) {
                   label="Fermentation Ended on"
                   defaultBlank={true}
                   isNow={true}
-                  disabled={props.values.finalizeBatch || !props.values.startTime}
-                  nowDisabled={props.values.dryingEndTime}
+                  disabled={props.values.finalizeBatch}
                   min={props.values.startTime}
                   max={props.values.dryingEndTime}
                 />
@@ -99,13 +97,14 @@ function BatchUpdateModal({ update }) {
                   label="Drying Ended on"
                   defaultBlank={true}
                   isNow={true}
-                  disabled={props.values.finalizeBatch || !props.values.fermentationEndTime}
+                  disabled={props.values.finalizeBatch}
                   min={props.values.fermentationEndTime}
                 />
                 <Number
                   name="perchmentQuantity"
                   label="Perchment Quantity"
                   hint={true}
+                  isRequired={true}
                   max={batch.quantity}
                   disabled={props.values.finalizeBatch}
                 />
@@ -116,15 +115,7 @@ function BatchUpdateModal({ update }) {
                       Ready for Lot <Badge variantColor="red">irreversible</Badge>
                     </span>
                   }
-                  isDisabled={
-                    batch.isReadyForLot ||
-                    !(
-                      props.values.startTime &&
-                      props.values.fermentationEndTime &&
-                      props.values.dryingEndTime &&
-                      props.values.perchmentQuantity
-                    )
-                  }
+                  isDisabled={batch.isReadyForLot || !props.values.perchmentQuantity}
                 />
               </ModalBody>
               <ModalFooter>

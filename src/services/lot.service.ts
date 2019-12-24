@@ -4,7 +4,7 @@ import notification from "@utils/notification.util";
 
 export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all`, {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes`, {
       params: { coCodes: coCodes.toString(), offset, limit }
     });
     return {

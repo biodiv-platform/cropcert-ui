@@ -23,3 +23,13 @@ export const axGetCCById = async id => {
     return { success: false, data: {} };
   }
 };
+
+export const axListCC = async () => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.USER}/cc/all`);
+    return { success: true, data };
+  } catch (e) {
+    notification(GENERIC.ERROR);
+    return { success: false, data: [] };
+  }
+};

@@ -19,3 +19,8 @@ body {
 input:disabled {
   background: var(--gray-200);
 }
+
+.leaflet-container,
+.scroll-container {
+  height: 70vh;
+}

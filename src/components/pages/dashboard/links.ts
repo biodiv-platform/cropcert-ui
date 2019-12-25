@@ -31,7 +31,7 @@ const links = [
       {
         title: "🌾 ODK Aggregate",
         description: "View aggregated data on ODK",
-        to: "http://demo.rwenzorimountaincoffee.org/ODKAggregate/",
+        to: "/ODKAggregate/",
         access: [ROLES.ADMIN]
       }
     ]

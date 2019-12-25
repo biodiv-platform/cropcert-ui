@@ -19,14 +19,23 @@ function Card({ title, description, to, external = false }: IProps) {
     </Stat>
   );
 
-  return (
-    <NextLink href={to} passHref={true}>
-      <Link style={{ textDecoration: "none" }}>
-        <Box w="100%" bg="white" border="1px solid var(--gray-400)" rounded="md" px={5} py={2}>
-          {getContent()}
-        </Box>
+  const XLink = ({ children }) =>
+    external ? (
+      <Link href={to} style={{ textDecoration: "none" }}>
+        {children}
       </Link>
-    </NextLink>
+    ) : (
+      <NextLink href={to} passHref={true}>
+        <Link style={{ textDecoration: "none" }}>{children}</Link>
+      </NextLink>
+    );
+
+  return (
+    <XLink>
+      <Box w="100%" bg="white" border="1px solid var(--gray-400)" rounded="md" px={5} py={2}>
+        {getContent()}
+      </Box>
+    </XLink>
   );
 }
 

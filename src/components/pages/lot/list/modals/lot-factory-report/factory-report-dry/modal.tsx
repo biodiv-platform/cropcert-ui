@@ -147,8 +147,8 @@ export default function FactoryReportDryModal({
               <ModalBody>
                 <CoreGrid>
                   <DateTime name="date" label="Date" disabled={!canWrite} />
-                  <Number name="mcIn" label="MC In" disabled={!canWrite} />
-                  <Number name="mcOut" label="MC Out" disabled={!canWrite} />
+                  <Number name="mcIn" label="MC In (%)" disabled={!canWrite} />
+                  <Number name="mcOut" label="MC Out (%)" disabled={!canWrite} />
                 </CoreGrid>
 
                 <FormHeading>Input</FormHeading>

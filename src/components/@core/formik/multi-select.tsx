@@ -16,12 +16,13 @@ const MultiSelectInputField = ({
     {({ field, meta, form }) => {
       const defaultValues =
         field.value.length > 0
-          ? field.value.split(",").map(v => options.find(o => o.value === v))
+          ? field.value.split(",(?=\\S)").map(v => options.find(o => o.value === v))
           : [];
       const [value, setValue] = useState(defaultValues);
 
       useEffect(() => {
-        form.setFieldValue(field.name, value.map(({ value }) => value).toString());
+        console.log(value);
+        form.setFieldValue(field.name, value.map(o => o.value).toString());
       }, [value]);
 
       return (

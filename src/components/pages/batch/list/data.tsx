@@ -1,10 +1,11 @@
 import { Button } from "@chakra-ui/core";
+import LotCell from "@components/@core/table/lot-cell";
+import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
 import { BATCH_TYPE } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
 import { emit } from "react-gbus";
 import { Batch } from "types/traceability";
-import NotApplicable from "@components/@core/table/not-applicable";
 
 const VARIANT_MAPPING = {
   ADD: "blue",
@@ -71,8 +72,9 @@ export const batchColumns = [
     sortable: true
   },
   {
-    name: "Lot Name",
-    selector: "lotId"
+    name: "Lot",
+    selector: "lotId",
+    cell: LotCell
   },
   {
     name: "Lot Status",

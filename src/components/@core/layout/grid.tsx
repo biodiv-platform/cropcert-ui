@@ -1,7 +1,7 @@
 import { Grid } from "@chakra-ui/core";
 import React from "react";
 
-function CoreGrid({ children, rows = 4, mb = 0 }) {
+function CoreGrid({ children, rows = 4, mb = 0, ...props }) {
   return (
     <Grid
       templateColumns={[
@@ -12,6 +12,7 @@ function CoreGrid({ children, rows = 4, mb = 0 }) {
       ]}
       gap={4}
       mb={mb}
+      {...props}
     >
       {children}
     </Grid>

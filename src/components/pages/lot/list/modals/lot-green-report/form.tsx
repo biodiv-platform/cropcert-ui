@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertIcon,
+  Badge,
   Button,
   ModalBody,
   ModalCloseButton,
@@ -6,14 +9,14 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-  AlertIcon,
-  Alert,
-  Badge
 } from "@chakra-ui/core";
-import { DateTime, Number, Submit, TextBox, CheckBox } from "@components/@core/formik";
+import { CheckBox, DateTime, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axCreateGreenReport } from "@services/report.service";
-import { local2utc, nonZeroFalsy, isEverythingFilledExcept } from "@utils/basic.util";
+import { LOT_FLAGS } from "@static/constants";
+import { MLOT } from "@static/messages";
+import { isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.util";
+import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
 import { MdSave } from "react-icons/md";
@@ -22,9 +25,6 @@ import * as Yup from "yup";
 
 import FormHeading from "../typography";
 import GreenReportSummery from "./summery";
-import { LOT_FLAGS } from "@static/constants";
-import notification, { NotificationType } from "@utils/notification.util";
-import { MLOT } from "@static/messages";
 
 interface IGreenReportProps {
   ccNames: string[];
@@ -230,7 +230,7 @@ export default function GreenReportForm({
         return (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
-              <ModalHeader>🧪 Green Lab Report</ModalHeader>
+              <ModalHeader>🧪 Quality/Green Lab Report</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <CoreGrid>

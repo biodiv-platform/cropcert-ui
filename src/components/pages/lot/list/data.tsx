@@ -1,5 +1,6 @@
 import { Badge, Button, ButtonProps } from "@chakra-ui/core";
 import { useActionProps } from "@components/@core/table";
+import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import {
@@ -126,7 +127,8 @@ export const lotColumns = [
     name: "#",
     selector: "id",
     sortable: true,
-    width: "70px"
+    width: "80px",
+    cell: LotCell
   },
   {
     name: "Name",

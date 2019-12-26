@@ -1,0 +1,65 @@
+$ui-background: var(--gray-50);
+$text-01: #171717;
+
+.eco--timeline-container {
+  display: block;
+
+  svg {
+    display: inline;
+  }
+
+  .eco--timeline-container-list {
+    margin: 0;
+    position: relative;
+    list-style: none;
+    &:before {
+      background-color: var(--gray-900);
+      content: "";
+      margin-left: -1px;
+      position: absolute;
+      top: 0;
+      left: 1em;
+      width: 2px;
+      height: 100%;
+    }
+  }
+
+  .event {
+    position: relative;
+  }
+
+  .icon {
+    transform: rotate(45deg);
+    background-color: var(--gray-900);
+    outline: 10px solid $ui-background;
+    display: block;
+    margin: 0.5em 0.5em 0.5em -0.5em;
+    position: absolute;
+    top: 0;
+    left: 1em;
+    width: 1em;
+    height: 1em;
+  }
+
+  .body {
+    padding: 2em 2em 0 2em;
+    position: relative;
+    top: -1.875em;
+    left: 1em;
+    width: 95%;
+  }
+
+  .title {
+    color: var(--white);
+    background-color: var(--gray-900);
+    display: inline-block;
+    margin-bottom: 1.2em;
+    padding: 0.25em 1em 0.2em 1em;
+  }
+
+  .user {
+    svg {
+      vertical-align: top;
+    }
+  }
+}

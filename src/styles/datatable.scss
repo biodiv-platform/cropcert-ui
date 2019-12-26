@@ -11,6 +11,9 @@
 }
 
 .rdt_TableBody {
+  a svg {
+    display: inline !important;
+  }
   .rdt_TableRow:hover {
     background: var(--gray-50);
   }

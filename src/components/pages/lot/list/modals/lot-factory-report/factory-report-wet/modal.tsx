@@ -73,25 +73,25 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
       spillPrivBatch: nonZeroFalsy(report.spillPrivBatch),
       spillCF: nonZeroFalsy(report.spillCF),
 
-      gradeAA: nonZeroFalsy(report.gradeAA),
-      gradeAB: nonZeroFalsy(report.gradeAB),
-      gradeCAndPB: nonZeroFalsy(report.gradeCAndPB),
+      gradeAA: report.gradeAA || 0,
+      gradeAB: report.gradeAB || 0,
+      gradeCAndPB: report.gradeCAndPB || 0,
 
-      triage: nonZeroFalsy(report.triage),
-      pods: nonZeroFalsy(report.pods),
-      arabica1899: nonZeroFalsy(report.arabica1899),
-      sweeppingsOrSpillages: nonZeroFalsy(report.sweeppingsOrSpillages),
+      triage: report.triage || 0,
+      pods: report.pods || 0,
+      arabica1899: report.arabica1899 || 0,
+      sweeppingsOrSpillages: report.sweeppingsOrSpillages || 0,
 
-      blackBeansAA: nonZeroFalsy(report.blackBeansAA),
-      blackBeansAB: nonZeroFalsy(report.blackBeansAB),
-      blackBeansC: nonZeroFalsy(report.blackBeansC),
+      blackBeansAA: report.blackBeansAA || 0,
+      blackBeansAB: report.blackBeansAB || 0,
+      blackBeansC: report.blackBeansC || 0,
 
-      stone: nonZeroFalsy(report.stone),
-      preCleaner: nonZeroFalsy(report.preCleaner),
-      graderHusks: nonZeroFalsy(report.graderHusks),
+      stone: report.stone || 0,
+      preCleaner: report.preCleaner || 0,
+      graderHusks: report.graderHusks || 0,
 
-      handlingLoss: nonZeroFalsy(report.handlingLoss),
-      dryingLoss: nonZeroFalsy(report.dryingLoss),
+      handlingLoss: report.handlingLoss || 0,
+      dryingLoss: report.dryingLoss || 0,
       finalizeFactoryStatus: lot.factoryStatus === LOT_FLAGS.DONE
     }
   };
@@ -155,7 +155,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 <CoreGrid rows={5}>
                   <ReportPanel
                     heading="High Grades"
-                    footer={`Net Input: ${cv.highGradeWeight} KG(s)`}
+                    footer={`Sub Total: ${cv.highGradeWeight} KG(s)`}
                   >
                     <Number
                       label="Grade AA"
@@ -182,7 +182,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
                   <ReportPanel
                     heading="Low Grades"
-                    footer={`Net Input: ${cv.lowGradeWeight} KG(s)`}
+                    footer={`Sub Total: ${cv.lowGradeWeight} KG(s)`}
                   >
                     <Number
                       label="Triage"
@@ -216,7 +216,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
                   <ReportPanel
                     heading="Colour Sorter Rejects"
-                    footer={`Net Input: ${props.values.totalBlackBeans} KG(s)`}
+                    footer={`Sub Total: ${props.values.totalBlackBeans} KG(s)`}
                   >
                     <Number
                       label="Black Beans AA"
@@ -241,7 +241,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                     />
                   </ReportPanel>
 
-                  <ReportPanel heading="Wastes" footer={`Net Input: ${cv.wasteSubTotal} KG(s)`}>
+                  <ReportPanel heading="Wastes" footer={`Sub Total: ${cv.wasteSubTotal} KG(s)`}>
                     <Number
                       label="Stone"
                       name="stone"
@@ -267,7 +267,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
                   <ReportPanel
                     heading="Other Loses"
-                    footer={`Net Input: ${cv.otherLossSubTotal} KG(s)`}
+                    footer={`Sub Total: ${cv.otherLossSubTotal} KG(s)`}
                   >
                     <Number
                       label="Handling Loss"

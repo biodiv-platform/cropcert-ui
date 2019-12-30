@@ -82,20 +82,20 @@ export default function FactoryReportDryModal({
       spillPrivBatch: nonZeroFalsy(report.spillPrivBatch),
       spillCF: nonZeroFalsy(report.spillCF),
 
-      highGradeWeight: nonZeroFalsy(report.highGradeWeight),
+      highGradeWeight: report.highGradeWeight || 0,
 
-      triage: nonZeroFalsy(report.triage),
-      pods: nonZeroFalsy(report.pods),
-      sweeppingsOrSpillages: nonZeroFalsy(report.sweeppingsOrSpillages),
+      triage: report.triage || 0,
+      pods: report.pods || 0,
+      sweeppingsOrSpillages: report.sweeppingsOrSpillages || 0,
 
-      totalBlackBeans: nonZeroFalsy(report.totalBlackBeans),
+      totalBlackBeans: report.totalBlackBeans || 0,
 
-      stone: nonZeroFalsy(report.stone),
-      preCleaner: nonZeroFalsy(report.preCleaner),
-      graderHusks: nonZeroFalsy(report.graderHusks),
+      stone: report.stone || 0,
+      preCleaner: report.preCleaner || 0,
+      graderHusks: report.graderHusks || 0,
 
-      handlingLoss: nonZeroFalsy(report.handlingLoss),
-      dryingLoss: nonZeroFalsy(report.dryingLoss),
+      handlingLoss: report.handlingLoss || 0,
+      dryingLoss: report.dryingLoss || 0,
       finalizeFactoryStatus: lot.factoryStatus === LOT_FLAGS.DONE
     }
   };
@@ -166,7 +166,7 @@ export default function FactoryReportDryModal({
                 <CoreGrid rows={5}>
                   <ReportPanel
                     heading="High Grades"
-                    footer={`Net Input: ${cv.highGradeWeight} KG(s)`}
+                    footer={`Sub Total: ${cv.highGradeWeight} KG(s)`}
                   >
                     <Number
                       label="Clean DRUGAR"

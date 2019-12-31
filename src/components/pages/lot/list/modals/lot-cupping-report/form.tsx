@@ -14,7 +14,7 @@ import { axCreateCuppingReport } from "@services/report.service";
 import { LOT_FLAGS } from "@static/constants";
 import { MREPORT } from "@static/messages";
 import { flatten, isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.util";
-import notification from "@utils/notification.util";
+import notification, { NotificationType } from "@utils/notification.util";
 import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Formik } from "formik";
 import React from "react";
@@ -136,7 +136,7 @@ export default function CuppingReportForm({
     if (success) {
       update(data.lot);
       onClose();
-      notification(MREPORT.CUPPING_REPORT_CREATED);
+      notification(MREPORT.CUPPING_REPORT_CREATED, NotificationType.Success);
     }
   };
 

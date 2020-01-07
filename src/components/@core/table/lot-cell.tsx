@@ -1,4 +1,4 @@
-import { Tooltip, Link } from "@chakra-ui/core";
+import { Link, Tooltip } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
 import { MdArrowForward } from "react-icons/md";
@@ -6,7 +6,7 @@ import { MdArrowForward } from "react-icons/md";
 export default function LotCell({ lotId, id }: { lotId?; id? }) {
   const finalLotId = lotId || id;
   const label = `View Lot #${finalLotId}`;
-  return (
+  return lotId !== "NA" ? (
     <NextLink href={`/lot/show/${finalLotId}`} passHref={true}>
       <Link>
         <Tooltip label={label} aria-label={label}>
@@ -16,5 +16,5 @@ export default function LotCell({ lotId, id }: { lotId?; id? }) {
         </Tooltip>
       </Link>
     </NextLink>
-  );
+  ) : null;
 }

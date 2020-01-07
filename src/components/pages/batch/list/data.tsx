@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/core";
+import { Badge, Button } from "@chakra-ui/core";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -74,11 +74,13 @@ export const batchColumns = [
   {
     name: "Lot",
     selector: "lotId",
+    maxWidth: "100px",
     cell: LotCell
   },
   {
     name: "Lot Status",
-    selector: "lotId"
+    selector: "lotStatus",
+    cell: row => <Badge>{row.lotStatus}</Badge>
   }
 ];
 

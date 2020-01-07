@@ -1,7 +1,6 @@
 import {
   Badge,
   Button,
-  Flex,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -23,8 +22,8 @@ import * as Yup from "yup";
 
 import DiffMessage from "../../diff-message";
 import FormHeading from "../../typography";
-import { calculateFormValues } from "./utils";
 import ReportPanel from "../panel";
+import { calculateFormValues } from "./utils";
 
 export default function FactoryReportWetModal({ report, lot, onClose, canWrite, update }) {
   const factoryReportForm = {
@@ -287,7 +286,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 </CoreGrid>
                 <DiffMessage diff={totalDiff} />
                 <CheckBox
-                  name="finalizeCoopStatus"
+                  name="finalizeFactoryStatus"
                   mt={4}
                   label={
                     <span>

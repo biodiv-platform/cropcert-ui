@@ -17,12 +17,17 @@ export const axListBatch = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT)
     const res = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
       params: { ccCodes: ccCodes.toString(), offset, limit }
     });
+    const data = res.data.map(([batch, lot]) => ({
+      ...batch,
+      lotStatus: lot?.lotStatus,
+      lotId: lot?.id || "NA"
+    }));
     return {
       success: true,
-      data: res.data,
+      data,
       offset: offset + res.data.length,
       reset: offset === 0,
-      hasMore: res.data.length === limit
+      hasMore: data.length === limit
     };
   } catch (e) {
     notification(e.message);

@@ -31,8 +31,13 @@ const batchStore: IBatchStore = {
     state.offset = state.offset + 1;
   }),
   setBatches: action((state, { success, data, reset, offset, hasMore }) => {
+    const dataN = data.map(([batch, lot]) => ({
+      ...batch,
+      lotStatus: lot?.lotStatus,
+      lotId: lot?.id
+    }));
     if (success) {
-      state.batch = reset ? data : [...state.batch, ...data];
+      state.batch = reset ? dataN : [...state.batch, ...dataN];
       state.offset = offset;
       state.hasMore = hasMore;
     }

@@ -14,18 +14,13 @@ export const axCreateBatch = async body => {
 
 export const axListBatch = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
       params: { ccCodes: ccCodes.toString(), offset, limit }
     });
-    const data = res.data.map(([batch, lot]) => ({
-      ...batch,
-      lotStatus: lot?.lotStatus,
-      lotId: lot?.id || "NA"
-    }));
     return {
       success: true,
       data,
-      offset: offset + res.data.length,
+      offset: offset + data.length,
       reset: offset === 0,
       hasMore: data.length === limit
     };

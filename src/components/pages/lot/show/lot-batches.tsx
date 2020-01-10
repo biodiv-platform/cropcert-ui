@@ -11,7 +11,8 @@ export default function LotBatches({ lotId, batchType }) {
       name: "#",
       selector: "id",
       maxWidth: "100px",
-      sortable: true
+      sortable: true,
+      cell: row => `B-${row.id}`
     },
     {
       name: "Name",

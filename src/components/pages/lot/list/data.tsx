@@ -127,8 +127,8 @@ export const lotColumns = [
     name: "#",
     selector: "id",
     sortable: true,
-    width: "80px",
-    cell: LotCell
+    width: "90px",
+    cell: row => <LotCell {...row} type="l" />
   },
   {
     name: "Name",
@@ -192,7 +192,8 @@ export const batchColumns = [
   {
     name: "#",
     selector: "id",
-    sortable: true
+    sortable: true,
+    cell: row => `B-${row.id}`
   },
   {
     name: "Name",

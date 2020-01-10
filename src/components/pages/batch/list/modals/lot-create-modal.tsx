@@ -54,7 +54,7 @@ function LotCreateModal({ update }) {
         batchIds: batches.map(b => b.id)
       });
       if (success) {
-        data.batches.map(b => update(b));
+        data.batches.map(b => update({ ...b, lotStatus: data.lot.lotStatus }));
         notification(MLOT.CREATED, NotificationType.Success, data.lot);
         onClose();
       }

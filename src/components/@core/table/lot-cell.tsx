@@ -3,15 +3,15 @@ import NextLink from "next/link";
 import React from "react";
 import { MdArrowForward } from "react-icons/md";
 
-export default function LotCell({ lotId, id }: { lotId?; id? }) {
-  const finalLotId = lotId || id;
+export default function LotCell({ lotId, id, type }: { lotId?; id?; type }) {
+  const finalLotId = type === "b" ? lotId : id;
   const label = `View Lot #${finalLotId}`;
-  return lotId !== "NA" ? (
+  return finalLotId ? (
     <NextLink href={`/lot/show/${finalLotId}`} passHref={true}>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            {finalLotId} <MdArrowForward />
+            L-{finalLotId} <MdArrowForward />
           </span>
         </Tooltip>
       </Link>

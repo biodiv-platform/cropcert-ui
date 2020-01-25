@@ -109,6 +109,15 @@ function BatchListPageComponent() {
           selectableRowDisabled={r => !r.isReadyForLot || r.lotId}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
+          conditionalRowStyles={[
+            {
+              when: row => row.lotId,
+              style: {
+                background: "var(--gray-100)!important",
+                opacity: "0.6"
+              }
+            }
+          ]}
         />
       </InfiniteScroll>
 

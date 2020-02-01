@@ -58,7 +58,7 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-leaflet": "^2.5.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   },
   "resolutions": {
     "react-spring": "8.0.27"

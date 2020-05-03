@@ -13,12 +13,15 @@ export default function FactoryReportWet({ update }) {
   const [report, setReport] = useState<FactoryReport>({});
   const [canWrite, setCanWrite] = useState(false);
 
-  useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
-    onOpen();
-    setLot(lot);
-    setCanWrite(canWrite);
-    axGetFactoryReportById(lot.factoryReportId).then(({ data }) => setReport(data));
-  }, LOT_REPORT_FACTORY_WET);
+  useListener(
+    ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+      onOpen();
+      setLot(lot);
+      setCanWrite(canWrite);
+      axGetFactoryReportById(lot.factoryReportId).then(({ data }) => setReport(data));
+    },
+    [LOT_REPORT_FACTORY_WET]
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">

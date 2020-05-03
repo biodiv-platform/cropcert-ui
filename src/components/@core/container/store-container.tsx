@@ -15,20 +15,14 @@ function StoreContainer({ extras }) {
   const hybridStore = createStore(
     { ...authStore, ...pagesStore },
     {
-      initialState: { user: nookies[TOKEN.USER] || {}, pages: pageProps.pages }
+      initialState: { user: nookies[TOKEN.USER] || {}, pages: pageProps.pages },
     }
   );
 
   return (
     <StoreProvider store={hybridStore}>
       <Navbar />
-      <Box
-        width="full"
-        maxWidth="1280px"
-        mx="auto"
-        p={6}
-        minHeight="var(--page-height)"
-      >
+      <Box width="full" maxWidth="1280px" mx="auto" p={6} minHeight="var(--page-height)">
         <Component {...pageProps} />
       </Box>
       <Footer />

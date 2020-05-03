@@ -18,7 +18,7 @@ export default function CuppingReportModal({ update }) {
   const [report, setReport] = useState<QualityReport>({});
   const [origin, setOrigin] = useState();
 
-  const user: User = useStoreState(state => state.user);
+  const user: User = useStoreState((state) => state.user);
   const isReadOnly = !hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   useListener(
@@ -29,7 +29,7 @@ export default function CuppingReportModal({ update }) {
       setReport(currentReport || {});
       axOriginByLotId(lot.id).then(({ data }) => setOrigin(data));
     },
-    LOT_REPORT_CUPPING
+    [LOT_REPORT_CUPPING]
   );
 
   return (

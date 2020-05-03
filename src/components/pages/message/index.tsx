@@ -5,7 +5,7 @@ import {
   AlertTitle,
   Button,
   Flex,
-  IAlert
+  IAlert,
 } from "@chakra-ui/core";
 import { GENERIC } from "@static/messages";
 import NextLink from "next/link";

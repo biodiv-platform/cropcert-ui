@@ -16,7 +16,7 @@ export const axGetFactoryReportById = async (factoryReportId = -1) => {
   }
 };
 
-export const axGetFactoryReportByLotId = async lotId => {
+export const axGetFactoryReportByLotId = async (lotId) => {
   if (lotId > 0) {
     try {
       const res = await http.get(`${ENDPOINT.TRACEABILITY}/factoryReport/lot/${lotId}`);
@@ -30,7 +30,7 @@ export const axGetFactoryReportByLotId = async lotId => {
   }
 };
 
-export const axCreateGreenReport = async body => {
+export const axCreateGreenReport = async (body) => {
   try {
     const http1 = body.id > 0 ? http.put : http.post;
     const { data } = await http1(`${ENDPOINT.TRACEABILITY}/report`, body);
@@ -55,7 +55,7 @@ export const axGetGreenReportById = async (reportId = -1) => {
   }
 };
 
-export const axGetCuppingReportsByLotId = async lotId => {
+export const axGetCuppingReportsByLotId = async (lotId) => {
   try {
     const res = await http.get(`${ENDPOINT.TRACEABILITY}/cupping/lot/${lotId}`);
     return { success: true, data: res.data };
@@ -65,7 +65,7 @@ export const axGetCuppingReportsByLotId = async lotId => {
   }
 };
 
-export const axCreateFactoryReport = async body => {
+export const axCreateFactoryReport = async (body) => {
   try {
     const http1 = body.id > 0 ? http.put : http.post;
     const { data } = await http1(`${ENDPOINT.TRACEABILITY}/factoryReport`, body);
@@ -76,7 +76,7 @@ export const axCreateFactoryReport = async body => {
   }
 };
 
-export const axCreateCuppingReport = async body => {
+export const axCreateCuppingReport = async (body) => {
   try {
     const http1 = body.id > 0 ? http.put : http.post;
     const { data } = await http1(`${ENDPOINT.TRACEABILITY}/cupping`, body);
@@ -87,7 +87,7 @@ export const axCreateCuppingReport = async body => {
   }
 };
 
-export const axGetCuppingReportById = async reportId => {
+export const axGetCuppingReportById = async (reportId) => {
   if (reportId > 0) {
     try {
       const res = await http.get(`${ENDPOINT.TRACEABILITY}/cupping/${reportId}`);

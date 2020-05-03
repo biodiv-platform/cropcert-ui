@@ -33,7 +33,7 @@ function BatchListPageComponent() {
   }, [ccCodes]);
 
   useEffect(() => {
-    ccs && setCCCodes(ccs.map(o => o.value));
+    ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
 
   const handleLoadMore = () => {
@@ -42,12 +42,12 @@ function BatchListPageComponent() {
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Batch[] }) => {
     setSelectedBatches(selectedRows);
-    setShowTypeError([...new Set(selectedRows.map(r => r.type))].length === 2 ? true : false);
+    setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
   };
 
   const handleOnCreateLot = () => {
-    const ccIds = [...new Set(selectedBatches.map(b => b.ccCode))];
-    const prefix = ccIds.length > 1 ? co.label : ccs.find(c => c.value === ccIds[0]).label;
+    const ccIds = [...new Set(selectedBatches.map((b) => b.ccCode))];
+    const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
     const quantity = selectedBatches.reduce(
       (acc, cv) =>
         (selectedBatches[0].type === BATCH_TYPE.DRY ? cv.quantity : cv.perchmentQuantity) + acc,
@@ -58,7 +58,7 @@ function BatchListPageComponent() {
       type: selectedBatches[0].type,
       selected: selectedBatches,
       coCode: co.value,
-      quantity
+      quantity,
     };
     emit(LOT_CREATE, payload);
   };
@@ -85,7 +85,7 @@ function BatchListPageComponent() {
     </ButtonGroup>
   );
 
-  const onBatchUpdate = props => {
+  const onBatchUpdate = (props) => {
     onToggle();
     actions.updateBatch(props);
   };
@@ -108,17 +108,17 @@ function BatchListPageComponent() {
           data={state.batch}
           columns={batchColumns}
           selectableRows={true}
-          selectableRowDisabled={r => !r.isReadyForLot || r.lotId}
+          selectableRowDisabled={(r) => !r.isReadyForLot || r.lotId}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
           conditionalRowStyles={[
             {
-              when: row => row.lotId,
+              when: (row) => row.lotId,
               style: {
                 background: "var(--gray-100)!important",
-                opacity: "0.6"
-              }
-            }
+                opacity: "0.6",
+              },
+            },
           ]}
         />
       </InfiniteScroll>

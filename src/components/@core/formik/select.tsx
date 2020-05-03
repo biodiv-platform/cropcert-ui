@@ -40,10 +40,10 @@ const SelectInputField = ({
             value={value}
             isSearchable={true}
             styles={{
-              valueContainer: provided => ({
+              valueContainer: (provided) => ({
                 ...provided,
-                height: "38px"
-              })
+                height: "38px",
+              }),
             }}
           />
           <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>

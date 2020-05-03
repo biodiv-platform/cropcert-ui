@@ -20,14 +20,14 @@ export default function PageListComponent() {
   const [flatOrder, setFlatOrder] = useState([] as any);
 
   const listAllPages = () => {
-    axListPages().then(r => setTreeData(flatToTree(r)));
+    axListPages().then((r) => setTreeData(flatToTree(r)));
   };
 
-  const handleTreeOnChange = td => {
+  const handleTreeOnChange = (td) => {
     setTreeData(td);
   };
 
-  const handleMoveNode = e => setFlatOrder(treeToFlat(e.treeData));
+  const handleMoveNode = (e) => setFlatOrder(treeToFlat(e.treeData));
 
   const saveUpdatedTree = async () => {
     const { success } = await axUpdateTree(flatOrder);
@@ -38,7 +38,7 @@ export default function PageListComponent() {
 
   useEffect(listAllPages, []);
 
-  const generateNodeProps = row => ({
+  const generateNodeProps = (row) => ({
     buttons: [
       <NextLink key={`edit_${row.node.id}`} href={`/page/edit/${row.node.id}`} passHref={true}>
         <Link>
@@ -52,8 +52,8 @@ export default function PageListComponent() {
       </NextLink>,
       <Link key={`delete_${row.node.id}`} onClick={() => emit(PAGE_DELETE, row.node)}>
         <MdDelete />
-      </Link>
-    ]
+      </Link>,
+    ],
   });
 
   const ActionButtons = () => (

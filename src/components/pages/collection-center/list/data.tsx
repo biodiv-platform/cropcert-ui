@@ -3,22 +3,22 @@ export const ccListColumns = [
     name: "#",
     selector: "code",
     sortable: true,
-    width: "70px"
+    width: "70px",
   },
   {
     name: "Name",
-    selector: "name"
+    selector: "name",
   },
   {
     name: "Village",
-    selector: "village"
+    selector: "village",
   },
   {
     name: "Type",
-    selector: "type"
+    selector: "type",
   },
   {
     name: "CO Code",
-    selector: "coCode"
-  }
+    selector: "coCode",
+  },
 ];

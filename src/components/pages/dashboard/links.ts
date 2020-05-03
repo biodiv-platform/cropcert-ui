@@ -9,15 +9,15 @@ const links = [
         title: "🧺 Batch(s)",
         description: "Create, View or Manage Batches",
         to: "/batch/list",
-        access: hierarchicalRoles(ROLES.COLLECTION_CENTER)
+        access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
       },
       {
         title: "📦 Lot(s)",
         description: "Create, View or Manage Lots",
         to: "/lot/list",
-        access: hierarchicalRoles(ROLES.COLLECTION_CENTER)
-      }
-    ]
+        access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
+      },
+    ],
   },
   {
     title: "Admin Actions",
@@ -26,16 +26,16 @@ const links = [
         title: "📄 Pages",
         description: "Manage Static Pages",
         to: "/page/list",
-        access: [ROLES.ADMIN]
+        access: [ROLES.ADMIN],
       },
       {
         title: "🌾 ODK Aggregate",
         description: "View aggregated data on ODK",
         to: "/ODKAggregate/",
-        access: [ROLES.ADMIN]
-      }
-    ]
-  }
+        access: [ROLES.ADMIN],
+      },
+    ],
+  },
 ];
 
 export default links;

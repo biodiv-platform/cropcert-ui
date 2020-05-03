@@ -7,23 +7,25 @@ import React, { useEffect, useState } from "react";
 import MultiSelect from "react-multi-select-component";
 
 function CCMultiSelect({ coId = -1, onChange }) {
-  const role = useStoreState(state => state.user.role);
+  const role = useStoreState((state) => state.user.role);
   const [cc, setCC] = useState([]);
   const [ccSelected, setCCSelected] = useState([]);
   const isCC = role === ROLES.COLLECTION_CENTER;
   const label = "Select Collection Center";
 
-  const setBoth = r => {
+  const setBoth = (r) => {
     setCC(r);
     setCCSelected(r);
   };
 
   useEffect(() => {
     isCC
-      ? axGetCCByCode(getUserKey(`ccCode`)).then(d => d.success && setBoth([{label: d.data.name, value: d.data.code}]))
+      ? axGetCCByCode(getUserKey(`ccCode`)).then(
+          (d) => d.success && setBoth([{ label: d.data.name, value: d.data.code }])
+        )
       : coId > 0
       ? axListCCByCoId(coId).then(
-          d => d.success && setBoth(d.data.map(o => ({ label: o.name, value: o.code })))
+          (d) => d.success && setBoth(d.data.map((o) => ({ label: o.name, value: o.code })))
         )
       : setBoth([]);
   }, [coId]);
@@ -43,7 +45,6 @@ function CCMultiSelect({ coId = -1, onChange }) {
             onChange={setCCSelected}
             disabled={cc.length === 0}
             labelledBy={label}
-            theme={{ height: "38px" }}
           />
         </FormControl>
       )}

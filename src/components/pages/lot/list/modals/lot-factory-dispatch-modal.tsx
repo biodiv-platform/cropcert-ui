@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
@@ -30,26 +30,25 @@ export default function LotFactoryDispatchModal({ update }) {
   const [lot, setLot] = useState({} as Lot);
   const [canWrite, setCanWrite] = useState(false);
 
-  useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
-    onOpen();
-    setLot(lot);
-    setCanWrite(canWrite);
-  }, LOT_FACTORY_PROCESS);
+  useListener(
+    ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+      onOpen();
+      setLot(lot);
+      setCanWrite(canWrite);
+    },
+    [LOT_FACTORY_PROCESS]
+  );
 
   const batchUpdateForm = {
     validationSchema: Yup.object().shape({
-      weightArrivingFactory: Yup.number()
-        .min(1)
-        .nullable(),
+      weightArrivingFactory: Yup.number().min(1).nullable(),
       mcArrivingFactory: Yup.number().nullable(),
 
-      weightLeavingFactory: Yup.number()
-        .min(1)
-        .nullable(),
+      weightLeavingFactory: Yup.number().min(1).nullable(),
       mcLeavingFactory: Yup.number().nullable(),
 
       millingTime: Yup.number().nullable(),
-      finalizeMillingStatus: Yup.boolean()
+      finalizeMillingStatus: Yup.boolean(),
     }),
     initialValues: {
       weightArrivingFactory: lot.weightArrivingFactory,
@@ -59,14 +58,14 @@ export default function LotFactoryDispatchModal({ update }) {
       mcLeavingFactory: lot.mcLeavingFactory,
 
       millingTime: lot.millingTime,
-      finalizeMillingStatus: lot.millingStatus === LOT_FLAGS.DONE
-    }
+      finalizeMillingStatus: lot.millingStatus === LOT_FLAGS.DONE,
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
     const { success, data } = await axDispatchLotFactory({
       id: lot.id,
-      ...values
+      ...values,
     });
     if (success) {
       update(data);
@@ -79,7 +78,7 @@ export default function LotFactoryDispatchModal({ update }) {
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="3xl">
       <ModalOverlay />
       <Formik {...batchUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
-        {props => {
+        {(props) => {
           const outTurn = (
             (props.values.weightLeavingFactory * 100) / props.values.weightArrivingFactory || 0
           ).toFixed(2);

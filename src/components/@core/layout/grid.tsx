@@ -8,7 +8,7 @@ function CoreGrid({ children, rows = 4, mb = 0, ...props }) {
         "repeat(1, 1fr)",
         "repeat(2, 1fr)",
         "repeat(2, 1fr)",
-        `repeat(${rows}, 1fr)`
+        `repeat(${rows}, 1fr)`,
       ]}
       gap={4}
       mb={mb}

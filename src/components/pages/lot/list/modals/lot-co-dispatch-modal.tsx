@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axDispatchLotCoOperative } from "@services/lot.service";
@@ -29,36 +29,37 @@ export default function LotCoDispatchModal({ update }) {
   const [lot, setLot] = useState({} as Lot);
   const [isDone, setIsDone] = useState(false);
 
-  const user = useStoreState(state => state.user);
+  const user = useStoreState((state) => state.user);
   const canEdit = hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
-  useListener((lot: Lot) => {
-    onOpen();
-    setLot(lot);
-    setIsDone(lot.coopStatus === LOT_FLAGS.DONE);
-  }, LOT_DISPATCH_FACTORY);
+  useListener(
+    (lot: Lot) => {
+      onOpen();
+      setLot(lot);
+      setIsDone(lot.coopStatus === LOT_FLAGS.DONE);
+    },
+    [LOT_DISPATCH_FACTORY]
+  );
 
   const batchUpdateForm = {
     validationSchema: Yup.object().shape({
-      weightLeavingCooperative: Yup.number()
-        .min(1)
-        .nullable(),
+      weightLeavingCooperative: Yup.number().min(1).nullable(),
       mcLeavingCooperative: Yup.number().nullable(),
       timeToFactory: Yup.number().nullable(),
-      finalizeCoopStatus: Yup.boolean().nullable()
+      finalizeCoopStatus: Yup.boolean().nullable(),
     }),
     initialValues: {
       weightLeavingCooperative: lot.weightLeavingCooperative,
       mcLeavingCooperative: lot.mcLeavingCooperative,
       timeToFactory: lot.timeToFactory,
-      finalizeCoopStatus: isDone
-    }
+      finalizeCoopStatus: isDone,
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
     const { success, data } = await axDispatchLotCoOperative({
       id: lot.id,
-      ...values
+      ...values,
     });
     if (success) {
       update(data);
@@ -71,7 +72,7 @@ export default function LotCoDispatchModal({ update }) {
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
       <Formik {...batchUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
-        {props => {
+        {(props) => {
           const isFormReadOnly = isDone || !canEdit || props.values.finalizeCoopStatus;
           const isFinalizeEnabled =
             !isDone && canEdit && isEverythingFilledExcept("finalizeCoopStatus", props.values);

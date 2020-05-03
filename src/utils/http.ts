@@ -12,7 +12,7 @@ import { getTokens, setTokens } from "./auth.util";
  */
 const axRenewToken = async (refreshToken: string) => {
   const res = await axios.post(`${ENDPOINT.USER}/auth/renew`, null, {
-    params: { refreshToken }
+    params: { refreshToken },
   });
   setTokens(res.data);
   return res.data.accessToken;
@@ -32,15 +32,15 @@ export const getBearerToken = async (ctx?) => {
 const ax = axios.create({
   headers: {
     post: { "Content-Type": "application/json" },
-    put: { "Content-Type": "application/json" }
-  }
+    put: { "Content-Type": "application/json" },
+  },
 });
 
 /*
  * Custom interceptor that allows user to pass custom context (for SSR)
  */
 ax.interceptors.request.use(
-  async options => {
+  async (options) => {
     if (options.headers["unauthorized"] && options.headers.unauthorized) {
       return options;
     }
@@ -50,7 +50,7 @@ ax.interceptors.request.use(
     options.headers["Authorization"] = await getBearerToken(ctx);
     return options;
   },
-  error => {
+  (error) => {
     notification("Session Expired!");
     return Promise.reject(error);
   }
@@ -64,6 +64,6 @@ export default ax;
  */
 export const httpFormData = axios.create({
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded"
-  }
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
 });

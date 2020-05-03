@@ -7,7 +7,7 @@ export enum NotificationType {
   Success = "success",
   Info = "info",
   Warning = "warn",
-  Error = "error"
+  Error = "error",
 }
 
 const notification = (message, type = NotificationType.Error, variables = {}) => {
@@ -19,7 +19,7 @@ const notification = (message, type = NotificationType.Error, variables = {}) =>
       hideAfter: 10,
       onClick: () => {
         hide();
-      }
+      },
     });
   }
   console.info(m);

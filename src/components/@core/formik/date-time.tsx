@@ -5,16 +5,16 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel
+  FormLabel,
 } from "@chakra-ui/core";
 import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
 import { Field } from "formik";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
 
-const r = v => formattedTimeStamp(utc2local(v));
+const r = (v) => formattedTimeStamp(utc2local(v));
 
-const hintMessage = props => {
+const hintMessage = (props) => {
   if (props?.min && props?.max) {
     return `Between ${r(props.min)} to ${r(props.max)}`;
   } else if (props?.max) {
@@ -86,7 +86,9 @@ const DateTimeInputField = ({
                 </Button>
               )}
             </Flex>
-            <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+            <FormErrorMessage>
+              {meta.error && meta.error.replace(field.name, label)}
+            </FormErrorMessage>
             {hint && <FormHelperText>{hintText}</FormHelperText>}
           </FormControl>
         );

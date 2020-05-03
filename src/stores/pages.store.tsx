@@ -25,9 +25,9 @@ const pagesStore: IPageStore = {
   removePage: action((state, pageId) => {
     state.pages = state.pages.filter(({ id }) => id !== pageId);
   }),
-  allPages: thunk(async actions => {
+  allPages: thunk(async (actions) => {
     actions.setPages(await axListPages());
-  })
+  }),
 };
 
 export default pagesStore;

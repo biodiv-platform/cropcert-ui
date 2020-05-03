@@ -12,52 +12,52 @@ export default function LotBatches({ lotId, batchType }) {
       selector: "id",
       maxWidth: "100px",
       sortable: true,
-      cell: row => `B-${row.id}`
+      cell: (row) => `B-${row.id}`,
     },
     {
       name: "Name",
       selector: "batchName",
-      width: "280px"
+      width: "280px",
     },
     {
       name: "Type",
       selector: "type",
       maxWidth: "100px",
-      sortable: true
+      sortable: true,
     },
     {
       name: "Quantity",
       selector: "quantity",
       maxWidth: "100px",
-      sortable: true
+      sortable: true,
     },
     {
       name: "Last Updated",
       selector: "date",
       maxWidth: "150px",
-      cell: row => timeCell(row.date),
-      sortable: true
+      cell: (row) => timeCell(row.date),
+      sortable: true,
     },
     {
       name: "Perchment Quantity",
       selector: "perchmentQuantity",
       maxWidth: "100px",
-      sortable: true
+      sortable: true,
     },
     {
       name: "Lot Name",
-      selector: "lotId"
+      selector: "lotId",
     },
     {
       name: "Lot Status",
-      selector: "lotId"
-    }
+      selector: "lotId",
+    },
   ];
 
   const [rows, setRows] = useState([] as any);
 
   useEffect(() => {
-    axListBatchByLotId(lotId).then(props => {
+    axListBatchByLotId(lotId).then((props) => {
       setRows(props.data);
     });
   }, [lotId]);

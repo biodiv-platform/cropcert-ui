@@ -14,14 +14,14 @@ import AccesserLoading from "./loading";
  * @returns
  */
 export default function Accesser({ toRole, onChange, onTouch = null }) {
-  const user: User = useStoreState(state => state.user);
+  const user: User = useStoreState((state) => state.user);
   const roles = getDropdownArray(user.role, toRole);
 
   const [initialState, setInitialState] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getInitialOptionsAndValues(roles).then(v => {
+    getInitialOptionsAndValues(roles).then((v) => {
       setInitialState(v);
       setIsLoading(false);
     });

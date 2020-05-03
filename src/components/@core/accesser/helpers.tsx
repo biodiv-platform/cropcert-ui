@@ -9,7 +9,7 @@ import { getUserKey } from "@utils/auth.util";
  * @returns {number}
  */
 const roleToIndex = (role: string): number =>
-  ROLE_HIERARCHY.findIndex(currentRole => currentRole === role);
+  ROLE_HIERARCHY.findIndex((currentRole) => currentRole === role);
 
 /**
  * Returns sliced array of roles that will represent hierarchy of roles
@@ -39,7 +39,7 @@ export const getInitialOptionsAndValues = async (roles: string[]): Promise<{ opt
     options = { ...options, [role]: opts };
     values = {
       ...values,
-      [role]: initialRoleCode > 0 ? opts.find(o => o.value === initialRoleCode) : undefined
+      [role]: initialRoleCode > 0 ? opts.find((o) => o.value === initialRoleCode) : undefined,
     };
   }
   return { options, values };

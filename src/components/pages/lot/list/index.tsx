@@ -38,7 +38,7 @@ function LotListPageComponent() {
         <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={actions.clearLot} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
       </CoreGrid>
-      {coCodes.length && state.lot.length && (
+      {coCodes.length > 0 && state.lot.length > 0 && (
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
           <Table
             data={state.lot}

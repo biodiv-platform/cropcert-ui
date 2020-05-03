@@ -6,7 +6,7 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  ModalHeader
+  ModalHeader,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, MultiSelect, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
@@ -43,7 +43,7 @@ export default function CuppingReportForm({
   lot,
   onClose,
   report,
-  update
+  update,
 }: IGreenReportProps) {
   const cuppingReportForm = {
     validationSchema: Yup.object().shape({
@@ -74,7 +74,7 @@ export default function CuppingReportForm({
       fault: Yup.number().required(),
 
       notes: Yup.string().required(),
-      finalizeCuppingStatus: Yup.boolean().required()
+      finalizeCuppingStatus: Yup.boolean().required(),
     }),
     initialValues: {
       lotName: lot.lotName,
@@ -105,11 +105,11 @@ export default function CuppingReportForm({
       fault: nonZeroFalsy(report.fault),
 
       notes: report.notes || "",
-      finalizeCuppingStatus: report.status === LOT_FLAGS.DONE
-    }
+      finalizeCuppingStatus: report.status === LOT_FLAGS.DONE,
+    },
   };
 
-  const gradeTotal = v => {
+  const gradeTotal = (v) => {
     const t =
       v.fragranceAroma +
       v.flavour +
@@ -131,7 +131,7 @@ export default function CuppingReportForm({
     const { success, data } = await axCreateCuppingReport({
       ...v,
       notes: notes.toString(),
-      id: report.id || -1
+      id: report.id || -1,
     });
     if (success) {
       update(data.lot);
@@ -142,7 +142,7 @@ export default function CuppingReportForm({
 
   return (
     <Formik {...cuppingReportForm} enableReinitialize={true} onSubmit={handleSubmit}>
-      {props => {
+      {(props) => {
         const isFinalizeEnabled =
           canWrite && isEverythingFilledExcept("finalizeCuppingStatus", props.values);
 

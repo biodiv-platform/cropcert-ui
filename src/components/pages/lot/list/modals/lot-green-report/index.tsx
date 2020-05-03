@@ -19,17 +19,20 @@ export default function GreenReportModal({ update }) {
   const [factoryReport, setFactoryReport] = useState<FactoryReport>();
   const [origin, setOrigin] = useState();
 
-  const user = useStoreState(state => state.user);
+  const user = useStoreState((state) => state.user);
   const isReadOnly = !hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
-  useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
-    onOpen();
-    setLot(lot);
-    setCanWrite(canWrite);
-    axOriginByLotId(lot.id).then(({ data }) => setOrigin(data));
-    axGetFactoryReportByLotId(lot.id).then(({ data }) => setFactoryReport(data));
-    axGetGreenReportById(lot.greenAnalysisId).then(({ data }) => setReport(data));
-  }, LOT_REPORT_GREEN);
+  useListener(
+    ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+      onOpen();
+      setLot(lot);
+      setCanWrite(canWrite);
+      axOriginByLotId(lot.id).then(({ data }) => setOrigin(data));
+      axGetFactoryReportByLotId(lot.id).then(({ data }) => setFactoryReport(data));
+      axGetGreenReportById(lot.greenAnalysisId).then(({ data }) => setReport(data));
+    },
+    [LOT_REPORT_GREEN]
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">

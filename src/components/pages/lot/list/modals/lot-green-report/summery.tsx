@@ -5,9 +5,9 @@ export default function GreenReportSummery({ values }) {
   const [QGData, setQGData] = useState([] as any);
   const GRADE_KEYS = ["gradeAA", "gradeA", "gradeB", "gradeAB", "gradeC", "gradePB", "gradeTriage"];
 
-  const qualityGradingSummeryHeader = GRADE_KEYS.map(k => ({
+  const qualityGradingSummeryHeader = GRADE_KEYS.map((k) => ({
     name: k.replace("grade", "Grade "),
-    selector: k
+    selector: k,
   }));
 
   useEffect(() => {

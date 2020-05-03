@@ -34,7 +34,7 @@ const batchStore: IBatchStore = {
     const dataN = data.map(([batch, lot]) => ({
       ...batch,
       lotStatus: lot?.lotStatus,
-      lotId: lot?.id
+      lotId: lot?.id,
     }));
     if (success) {
       state.batch = reset ? dataN : [...state.batch, ...dataN];
@@ -50,11 +50,11 @@ const batchStore: IBatchStore = {
     const response = await axListBatch(ccCodes, offset);
     actions.setBatches(response);
   }),
-  clearBatches: action(state => {
+  clearBatches: action((state) => {
     state.batch = [];
     state.offset = 0;
     state.hasMore = false;
-  })
+  }),
 };
 
 export const useBatchStore = createComponentStore(batchStore);

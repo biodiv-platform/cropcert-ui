@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axUpdateBatch } from "@services/batch.service";
@@ -31,19 +31,16 @@ function BatchUpdateModal({ update }) {
       startTime: Yup.number().nullable(),
       fermentationEndTime: Yup.number().nullable(),
       dryingEndTime: Yup.number().nullable(),
-      perchmentQuantity: Yup.number()
-        .min(1)
-        .max(batch.quantity)
-        .nullable(),
-      finalizeBatch: Yup.boolean()
+      perchmentQuantity: Yup.number().min(1).max(batch.quantity).nullable(),
+      finalizeBatch: Yup.boolean(),
     }),
     initialValues: {
       startTime: batch.startTime,
       fermentationEndTime: batch.fermentationEndTime,
       dryingEndTime: batch.dryingEndTime,
       perchmentQuantity: batch.perchmentQuantity || null,
-      finalizeBatch: batch.isReadyForLot || false
-    }
+      finalizeBatch: batch.isReadyForLot || false,
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
@@ -60,16 +57,19 @@ function BatchUpdateModal({ update }) {
     actions.setSubmitting(false);
   };
 
-  useListener((b: Batch) => {
-    setBatch(b);
-    onOpen();
-  }, BATCH_UPDATE);
+  useListener(
+    (b: Batch) => {
+      setBatch(b);
+      onOpen();
+    },
+    [BATCH_UPDATE]
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
       <Formik {...batchUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
-        {props => (
+        {(props) => (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
               <ModalHeader pb={0}>

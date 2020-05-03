@@ -21,14 +21,14 @@ export const flatToTree = (rows, options?: FlatOption) => {
   const nodes: any = [];
 
   // get the top level nodes
-  rows.forEach(row => {
+  rows.forEach((row) => {
     if (!exists(rows, row[parentProp])) {
       nodes.push({ ...row });
     }
   });
 
   const toDo: any = [];
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     toDo.push(node);
   });
 
@@ -37,7 +37,7 @@ export const flatToTree = (rows, options?: FlatOption) => {
 
     // the parent node
     // get the children nodes
-    rows.forEach(row => {
+    rows.forEach((row) => {
       if (row[parentProp] === node[idProp]) {
         const child = { ...row };
         node[childProp] = node[childProp] || [];

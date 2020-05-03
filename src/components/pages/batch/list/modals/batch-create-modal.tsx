@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import Accesser from "@components/@core/accesser";
 import { DateTime, Number, Select, Submit, TextBox } from "@components/@core/formik";
@@ -36,11 +36,9 @@ export default function BatchCreateModal({ update }) {
 
   const validationSchema = Yup.object().shape({
     ccCode: Yup.string().required(),
-    quantity: Yup.number()
-      .min(1)
-      .required(),
+    quantity: Yup.number().min(1).required(),
     date: Yup.number().required(),
-    type: Yup.string().required()
+    type: Yup.string().required(),
   });
 
   const initialValues = {
@@ -48,7 +46,7 @@ export default function BatchCreateModal({ update }) {
     quantity: 0,
     date: local2utc().getTime(),
     note: "",
-    type: null
+    type: null,
   };
 
   const handleSubmit = async (values, actions) => {
@@ -57,7 +55,7 @@ export default function BatchCreateModal({ update }) {
       createdOn: local2utc().getTime(),
       batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(utc2local(values.date)).format(
         DATEFORMATS.DAYJS_DATE
-      )}`
+      )}`,
     };
     const { success, data } = await axCreateBatch(formData);
     if (success) {
@@ -67,7 +65,7 @@ export default function BatchCreateModal({ update }) {
     }
   };
 
-  useListener(onOpen, BATCH_CREATE);
+  useListener(onOpen, [BATCH_CREATE]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
@@ -78,7 +76,7 @@ export default function BatchCreateModal({ update }) {
         enableReinitialize={true}
         onSubmit={handleSubmit}
       >
-        {props => (
+        {(props) => (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
               <ModalHeader>✨ Create Batch</ModalHeader>

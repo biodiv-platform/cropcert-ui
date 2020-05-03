@@ -34,11 +34,11 @@ const lotStore: ILotStore = {
     const response = await axListLot(ccCodes, offset);
     actions.setLot(response);
   }),
-  clearLot: action(state => {
+  clearLot: action((state) => {
     state.lot = [];
     state.offset = 0;
     state.hasMore = false;
-  })
+  }),
 };
 
 export const useLotStore = createComponentStore(lotStore);

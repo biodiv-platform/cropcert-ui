@@ -9,7 +9,7 @@ import {
   LOT_GRN,
   LOT_REPORT_CUPPING,
   LOT_REPORT_FACTORY,
-  LOT_REPORT_GREEN
+  LOT_REPORT_GREEN,
 } from "@static/events";
 import { useStoreState } from "easy-peasy";
 import React from "react";
@@ -19,7 +19,7 @@ import { Lot } from "types/traceability";
 const buttonProps: Partial<ButtonProps> = {
   variant: "outline",
   minWidth: "50px",
-  size: "xs"
+  size: "xs",
 };
 
 const CoActionCell = (lot: Lot) => {
@@ -101,11 +101,11 @@ const GreenLabReportCell = (lot: Lot) => {
 };
 
 const CuppingLabReportCell = (lot: Lot) => {
-  const currentCupper = useStoreState(state => state.user.email);
-  const currentReport = lot.cuppings.find(r => r.cupper === currentCupper);
+  const currentCupper = useStoreState((state) => state.user.email);
+  const currentReport = lot.cuppings.find((r) => r.cupper === currentCupper);
   const withSkeletonReport = currentReport || {
     status:
-      lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD
+      lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
   };
   const { canWrite, variantColor, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
 
@@ -128,19 +128,19 @@ export const lotColumns = [
     selector: "id",
     sortable: true,
     width: "90px",
-    cell: row => <LotCell {...row} type="l" />
+    cell: (row) => <LotCell {...row} type="l" />,
   },
   {
     name: "Name",
     selector: "lotName",
-    width: "250px"
+    width: "250px",
   },
   {
     name: "Initial Quantity",
     selector: "quantity",
     center: true,
     sortable: true,
-    width: "70px"
+    width: "70px",
   },
   {
     name: "Lot Status",
@@ -148,44 +148,44 @@ export const lotColumns = [
     center: true,
     sortable: true,
     width: "160px",
-    cell: ({ lotStatus }) => <Badge>{lotStatus.split("_").join(" ")}</Badge>
+    cell: ({ lotStatus }) => <Badge>{lotStatus.split("_").join(" ")}</Badge>,
   },
   {
     center: true,
     name: "Cooperative",
     selector: "id",
-    cell: CoActionCell
+    cell: CoActionCell,
   },
   {
     name: "Milling",
     selector: "id",
     center: true,
-    cell: MillingActionCell
+    cell: MillingActionCell,
   },
   {
     name: "GRN",
     selector: "id",
     center: true,
-    cell: GRNActionCell
+    cell: GRNActionCell,
   },
   {
     name: "Factory Report",
     selector: "id",
     center: true,
-    cell: LotFactoryActionCell
+    cell: LotFactoryActionCell,
   },
   {
     name: "Green Lab Report",
     selector: "id",
     center: true,
-    cell: GreenLabReportCell
+    cell: GreenLabReportCell,
   },
   {
     name: "Cupping Lab Report",
     selector: "id",
     center: true,
-    cell: CuppingLabReportCell
-  }
+    cell: CuppingLabReportCell,
+  },
 ];
 
 export const batchColumns = [
@@ -193,23 +193,23 @@ export const batchColumns = [
     name: "#",
     selector: "id",
     sortable: true,
-    cell: row => `B-${row.id}`
+    cell: (row) => `B-${row.id}`,
   },
   {
     name: "Name",
-    selector: "batchName"
+    selector: "batchName",
   },
   {
     name: "Quantity",
     selector: "quantity",
-    sortable: true
-  }
+    sortable: true,
+  },
 ];
 
 export const batchColumnsWet = [
   {
     name: "Perchment Quantity",
     selector: "perchmentQuantity",
-    sortable: true
-  }
+    sortable: true,
+  },
 ];

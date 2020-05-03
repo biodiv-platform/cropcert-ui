@@ -10,7 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Submit, TextBox } from "@components/@core/formik";
 import { axUpdateGRN } from "@services/lot.service";
@@ -31,31 +31,34 @@ export default function LotGRNModal({ update }) {
   const [canWrite, setCanWrite] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
 
-  useListener(({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
-    onOpen();
-    setLot(lot);
-    setCanWrite(canWrite);
-    setErrorMessage(undefined);
-    setIsDone(lot.grnStatus === LOT_FLAGS.DONE);
-  }, LOT_GRN);
+  useListener(
+    ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+      onOpen();
+      setLot(lot);
+      setCanWrite(canWrite);
+      setErrorMessage(undefined);
+      setIsDone(lot.grnStatus === LOT_FLAGS.DONE);
+    },
+    [LOT_GRN]
+  );
 
   const grnUpdateForm = {
     validationSchema: Yup.object().shape({
       grnNumber: Yup.string().nullable(),
       grnTimestamp: Yup.number().nullable(),
-      finalizeGrnStatus: Yup.boolean().nullable()
+      finalizeGrnStatus: Yup.boolean().nullable(),
     }),
     initialValues: {
       grnNumber: lot.grnNumber,
       grnTimestamp: lot.grnTimestamp,
-      finalizeGrnStatus: isDone
-    }
+      finalizeGrnStatus: isDone,
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
     const { success, data } = await axUpdateGRN({
       id: lot.id,
-      ...values
+      ...values,
     });
     if (success) {
       update(data);
@@ -70,7 +73,7 @@ export default function LotGRNModal({ update }) {
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
       <ModalOverlay />
       <Formik {...grnUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
-        {props => {
+        {(props) => {
           const isFormReadOnly = !canWrite || props.values.finalizeGrnStatus;
           const isFinalizeEnabled =
             !isDone && canWrite && isEverythingFilledExcept("finalizeGrnStatus", props.values);

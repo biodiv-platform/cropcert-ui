@@ -5,14 +5,14 @@ import notification from "@utils/notification.util";
 export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
     const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes`, {
-      params: { coCodes: coCodes.toString(), offset, limit }
+      params: { coCodes: coCodes.toString(), offset, limit },
     });
     return {
       success: true,
       data: res.data,
       offset: offset + res.data.length,
       reset: offset === 0,
-      hasMore: res.data.length === limit
+      hasMore: res.data.length === limit,
     };
   } catch (e) {
     notification(e.message);
@@ -20,7 +20,7 @@ export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) =
   }
 };
 
-export const axCreateLot = async payload => {
+export const axCreateLot = async (payload) => {
   try {
     const { data } = await http.post(`${ENDPOINT.TRACEABILITY}/lot`, payload);
     return { success: true, data };
@@ -30,10 +30,10 @@ export const axCreateLot = async payload => {
   }
 };
 
-export const axListBatchByLotId = async lotId => {
+export const axListBatchByLotId = async (lotId) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/batches`, {
-      params: { lotId }
+      params: { lotId },
     });
     return { success: true, data };
   } catch (e) {
@@ -42,7 +42,7 @@ export const axListBatchByLotId = async lotId => {
   }
 };
 
-export const axDispatchLotCoOperative = async payload => {
+export const axDispatchLotCoOperative = async (payload) => {
   try {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/updateCoopAction`, payload);
     return { success: true, data };
@@ -52,7 +52,7 @@ export const axDispatchLotCoOperative = async payload => {
   }
 };
 
-export const axDispatchLotFactory = async payload => {
+export const axDispatchLotFactory = async (payload) => {
   try {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/updateMillingAction`, payload);
     return { success: true, data };
@@ -62,15 +62,15 @@ export const axDispatchLotFactory = async payload => {
   }
 };
 
-export const axOriginByLotId = async id => {
+export const axOriginByLotId = async (id) => {
   try {
     const res1 = await http.get(`${ENDPOINT.TRACEABILITY}/lot/origin`, {
-      params: { lotId: id }
+      params: { lotId: id },
     });
     const res2 = await http.get(`${ENDPOINT.USER}/cc/origin`, {
       params: {
-        ccCodes: res1.data.toString()
-      }
+        ccCodes: res1.data.toString(),
+      },
     });
     return { success: true, data: res2.data };
   } catch (e) {
@@ -79,7 +79,7 @@ export const axOriginByLotId = async id => {
   }
 };
 
-export const axUpdateGRN = async payload => {
+export const axUpdateGRN = async (payload) => {
   try {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/grnNumber`, payload);
     return { success: true, data };
@@ -93,8 +93,8 @@ export const axGetLotById = async (lotId, ctx?) => {
     const { data } = await http.get(`${ENDPOINT.API}/traceability/show`, {
       params: {
         ctx,
-        lotId
-      }
+        lotId,
+      },
     });
     return { success: true, data };
   } catch (e) {

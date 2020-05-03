@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Heading
+  Heading,
 } from "@chakra-ui/core";
 import React from "react";
 

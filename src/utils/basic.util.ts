@@ -35,7 +35,7 @@ export const redirect = (data, router) => {
   data.success && router.push(`/message?${queryString.stringify(data)}`);
 };
 
-export const typeList = type => {
+export const typeList = (type) => {
   if (type === "D") {
     return [TYPE_OPTIONS.DRY];
   } else if (type === "P") {
@@ -53,7 +53,7 @@ export const typeList = type => {
  * @returns {any[]}
  */
 export const updateArrayByObjectKey = (a: any[], o: any, k: string = "id"): any[] => {
-  const i = a.findIndex(ao => ao[k] === o[k]);
+  const i = a.findIndex((ao) => ao[k] === o[k]);
   a[i] = o;
   return a;
 };
@@ -61,7 +61,7 @@ export const updateArrayByObjectKey = (a: any[], o: any, k: string = "id"): any[
 export const compiledMessage = (templateString: string, templateVariables) =>
   templateString.replace(/\${(.*?)}/g, (_, g) => templateVariables[g]);
 
-export const nonZeroFalsy = num => (num || num === 0 ? num : "");
+export const nonZeroFalsy = (num) => (num || num === 0 ? num : "");
 
 export const isEverythingFilledExcept = (exceptionKey, values) => {
   for (let [key, value] of Object.entries(values)) {

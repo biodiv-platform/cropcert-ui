@@ -6,8 +6,8 @@ import useActionProps from "./get-action-props";
 
 const theme = {
   title: {
-    height: 0
-  }
+    height: 0,
+  },
 };
 
 const Table = (props: any) =>

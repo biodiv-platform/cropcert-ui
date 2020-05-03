@@ -2,10 +2,10 @@ import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification.util";
 
-export const axCoByUnionId = async unionCode => {
+export const axCoByUnionId = async (unionCode) => {
   try {
     const res = await http.get(`${ENDPOINT.USER}/co/union`, {
-      params: { unionCode }
+      params: { unionCode },
     });
     return { success: true, data: res.data };
   } catch (e) {
@@ -14,7 +14,7 @@ export const axCoByUnionId = async unionCode => {
   }
 };
 
-export const axGetCoByCode = async id => {
+export const axGetCoByCode = async (id) => {
   try {
     const res = await http.get(`${ENDPOINT.USER}/co/code/${id}`);
     return { success: true, data: res.data };

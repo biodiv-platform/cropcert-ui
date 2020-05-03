@@ -45,7 +45,7 @@ export default function GreenReportForm({
   lot,
   onClose,
   report,
-  update
+  update,
 }: IGreenReportProps) {
   const outTurnPersentage = (
     (factoryReport.highGradeWeight * 100) /
@@ -74,7 +74,7 @@ export default function GreenReportForm({
             gradeAB: Yup.number().required(),
             gradeC: Yup.number().required(),
             gradePB: Yup.number().required(),
-            gradeTriage: Yup.number().required()
+            gradeTriage: Yup.number().required(),
           }
         : {}),
 
@@ -97,7 +97,7 @@ export default function GreenReportForm({
       brokenChipped: Yup.number().required(),
       husks: Yup.number().required(),
       pinHole: Yup.number().required(),
-      finalizeGreenStatus: Yup.boolean().required()
+      finalizeGreenStatus: Yup.boolean().required(),
     }),
     initialValues: {
       lotName: lot.lotName,
@@ -140,21 +140,21 @@ export default function GreenReportForm({
       brokenChipped: report.brokenChipped || 0,
       husks: report.husks || 0,
       pinHole: report.pinHole || 0,
-      finalizeGreenStatus: lot.greenAnalysisStatus === LOT_FLAGS.DONE
-    }
+      finalizeGreenStatus: lot.greenAnalysisStatus === LOT_FLAGS.DONE,
+    },
   };
 
-  const qualityGrading = v => {
+  const qualityGrading = (v) => {
     const t = v.gradeAA + v.gradeA + v.gradeB + v.gradeAB + v.gradeC + v.gradePB + v.gradeTriage;
     return v.coffeeType === "WET" ? (typeof t === "number" ? t : "0") : 100;
   };
 
-  const severeDefectsTotal = v => {
+  const severeDefectsTotal = (v) => {
     const t = v.fullBlack + v.fullSour + v.pods + v.fungasDamaged + v.em + v.severeInsect;
     return typeof t === "number" ? t : "0";
   };
 
-  const lessSevereDefectsTotal = v => {
+  const lessSevereDefectsTotal = (v) => {
     const t =
       v.partialBlack +
       v.partialSour +
@@ -169,7 +169,7 @@ export default function GreenReportForm({
     return typeof t === "number" ? t : "0";
   };
 
-  const outTurnFAQ = v => {
+  const outTurnFAQ = (v) => {
     const iQualityGrading = qualityGrading(v);
     const iSevereDefectsTotal = severeDefectsTotal(v);
     const iLessSevereDefectsTotal = lessSevereDefectsTotal(v);
@@ -187,7 +187,7 @@ export default function GreenReportForm({
     return -1;
   };
 
-  const defectsTotalError = v => {
+  const defectsTotalError = (v) => {
     const iQualityGrading = qualityGrading(v);
     const iSevereDefectsTotal = severeDefectsTotal(v);
     const iLessSevereDefectsTotal = lessSevereDefectsTotal(v);
@@ -211,7 +211,7 @@ export default function GreenReportForm({
     const { success, data } = await axCreateGreenReport({
       ...v,
       id: report.id || -1,
-      percentageOutTurn: outTurnFAQ(values)
+      percentageOutTurn: outTurnFAQ(values),
     });
     if (success && data?.lot) {
       update(data.lot);
@@ -223,7 +223,7 @@ export default function GreenReportForm({
 
   return (
     <Formik {...greenForm} enableReinitialize={true} onSubmit={handleGreenReportSubmit}>
-      {props => {
+      {(props) => {
         const isFDisabled = !canWrite;
         const isFinalizeEnabled =
           canWrite && isEverythingFilledExcept("finalizeGreenStatus", props.values);

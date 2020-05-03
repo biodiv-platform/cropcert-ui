@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Text
+  Text,
 } from "@chakra-ui/core";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
@@ -30,12 +30,8 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
     validationSchema: Yup.object().shape({
       date: Yup.number().required(),
 
-      mcIn: Yup.number()
-        .required()
-        .max(100),
-      mcOut: Yup.number()
-        .required()
-        .max(100),
+      mcIn: Yup.number().required().max(100),
+      mcOut: Yup.number().required().max(100),
 
       inputWeight: Yup.number().required(),
       spillPrivBatch: Yup.number().required(),
@@ -60,7 +56,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
       handlingLoss: Yup.number().required(),
       dryingLoss: Yup.number().required(),
-      finalizeFactoryStatus: Yup.boolean().required()
+      finalizeFactoryStatus: Yup.boolean().required(),
     }),
     initialValues: {
       date: report.date,
@@ -91,8 +87,8 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
       handlingLoss: report.handlingLoss || 0,
       dryingLoss: report.dryingLoss || 0,
-      finalizeFactoryStatus: lot.factoryStatus === LOT_FLAGS.DONE
-    }
+      finalizeFactoryStatus: lot.factoryStatus === LOT_FLAGS.DONE,
+    },
   };
 
   const handleFactoryReportSubmit = async (v, actions) => {
@@ -100,7 +96,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
       ...v,
       id: report.id || -1,
       lotId: lot.id,
-      ...calculateFormValues(v)
+      ...calculateFormValues(v),
     });
     if (success && data?.lot) {
       update(data.lot);
@@ -114,10 +110,10 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
 
   return (
     <Formik {...factoryReportForm} enableReinitialize={true} onSubmit={handleFactoryReportSubmit}>
-      {props => {
+      {(props) => {
         const cv = calculateFormValues(props.values);
 
-        const calcPersentage = num => `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
+        const calcPersentage = (num) => `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
 
         const totalDiff =
           cv.highGradeWeight +

@@ -3,7 +3,7 @@ import { GENERIC } from "@static/messages";
 import http from "@utils/http";
 import notification from "@utils/notification.util";
 
-export const axListCCByCoId = async coCode => {
+export const axListCCByCoId = async (coCode) => {
   try {
     const res = await http.get(`${ENDPOINT.USER}/cc/coCode/${coCode}`);
     const data: any[] = res.data;
@@ -14,7 +14,7 @@ export const axListCCByCoId = async coCode => {
   }
 };
 
-export const axGetCCByCode = async id => {
+export const axGetCCByCode = async (id) => {
   try {
     const res = await http.get(`${ENDPOINT.USER}/cc/code/${id}`);
     return { success: true, data: res.data };

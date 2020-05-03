@@ -15,14 +15,10 @@ function HomePageComponent({ page }: IHomePageProps) {
           {page.heading}
         </Heading>
         <Text fontSize="lg" color="gray.600">
-          Published on {formattedDate(utc2local(page.createdOn).getTime())} by{" "}
-          {page.authorName}
+          Published on {formattedDate(utc2local(page.createdOn).getTime())} by {page.authorName}
         </Text>
       </Box>
-      <div
-        className="article"
-        dangerouslySetInnerHTML={{ __html: page.content }}
-      />
+      <div className="article" dangerouslySetInnerHTML={{ __html: page.content }} />
     </Box>
   );
 }

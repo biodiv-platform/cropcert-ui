@@ -6,7 +6,7 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { axDeletePageByPageId } from "@services/page.service";
 import { PAGE_DELETE } from "@static/events";
@@ -19,10 +19,13 @@ export default function DeletePageModal({ update }) {
   const cancelRef = React.useRef();
   const [page, setPage] = useState<Page>();
 
-  useListener(page => {
-    setPage(page);
-    onOpen();
-  }, PAGE_DELETE);
+  useListener(
+    (page) => {
+      setPage(page);
+      onOpen();
+    },
+    [PAGE_DELETE]
+  );
 
   const handleOnDelete = async () => {
     const { success } = await axDeletePageByPageId(page.id);

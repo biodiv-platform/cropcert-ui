@@ -33,7 +33,7 @@ export const hasAccess = (
   return false;
 };
 
-export const setTokens = token => {
+export const setTokens = (token) => {
   setNookie(TOKEN.AUTH, token);
 };
 
@@ -47,7 +47,7 @@ export const getTokens = (ctx = {}): Session => {
     accessToken,
     refreshToken,
     timeout,
-    isExpired
+    isExpired,
   };
 };
 
@@ -65,6 +65,6 @@ export const setUserKey = (key, value) => {
  * @returns {string[]}
  */
 export const hierarchicalRoles = (role: string): string[] => {
-  const roleIndex = ROLE_HIERARCHY.findIndex(r => r === role) + 1;
+  const roleIndex = ROLE_HIERARCHY.findIndex((r) => r === role) + 1;
   return ROLE_HIERARCHY.slice(0, roleIndex);
 };

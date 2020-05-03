@@ -11,16 +11,16 @@ export const CuppingReportExpand = [
       { name: "Sweetness", key: "sweetness" },
       { name: "Uniformity", key: "uniformity" },
       { name: "Clean Cup", key: "cleanCup" },
-      { name: "Overall", key: "overAll" }
-    ]
+      { name: "Overall", key: "overAll" },
+    ],
   },
   {
     title: "Problems",
     items: [
       { name: "Taint", key: "taint" },
-      { name: "Fault", key: "fault" }
-    ]
-  }
+      { name: "Fault", key: "fault" },
+    ],
+  },
 ];
 
 export const GreenReportExpand = [
@@ -29,8 +29,8 @@ export const GreenReportExpand = [
     items: [
       { name: "OutTurn Percentage", key: "percentageOutTurn" },
       { name: "OverTurn Percentage", key: "overTurnPercentage" },
-      { name: "Moisture Content", key: "mc" }
-    ]
+      { name: "Moisture Content", key: "mc" },
+    ],
   },
   {
     title: "Quality Grading",
@@ -41,8 +41,8 @@ export const GreenReportExpand = [
       { name: "AB", key: "gradeAB" },
       { name: "C", key: "gradeC" },
       { name: "PB", key: "gradePB" },
-      { name: "Triage", key: "gradeTriage" }
-    ]
+      { name: "Triage", key: "gradeTriage" },
+    ],
   },
   {
     title: "Severe Defects",
@@ -52,8 +52,8 @@ export const GreenReportExpand = [
       { name: "Pods", key: "pods" },
       { name: "Fungas Damaged", key: "fungasDamaged" },
       { name: "E M", key: "em" },
-      { name: "Severe Insect", key: "severeInsect" }
-    ]
+      { name: "Severe Insect", key: "severeInsect" },
+    ],
   },
   {
     title: "Less Severe Defects",
@@ -67,41 +67,41 @@ export const GreenReportExpand = [
       { name: "Shells", key: "shells" },
       { name: "Broken Chipped", key: "brokenChipped" },
       { name: "Husks", key: "husks" },
-      { name: "Pin Hole", key: "pinHole" }
-    ]
-  }
+      { name: "Pin Hole", key: "pinHole" },
+    ],
+  },
 ];
 
 export const CuppingReportHeader = [
   {
     name: "Report ID",
-    selector: "id"
+    selector: "id",
   },
   {
     name: "cupper",
-    selector: "cupper"
+    selector: "cupper",
   },
   {
     name: "Timestamp",
-    selector: "id"
+    selector: "id",
   },
   {
     name: "Note",
-    selector: "notes"
-  }
+    selector: "notes",
+  },
 ];
 
 export const GreenReportHeader = [
   {
     name: "Report ID",
-    selector: "id"
+    selector: "id",
   },
   {
     name: "Over Turn Percentage",
-    selector: "overTurnPercentage"
+    selector: "overTurnPercentage",
   },
   {
     name: "Moisture Content",
-    selector: "mc"
-  }
+    selector: "mc",
+  },
 ];

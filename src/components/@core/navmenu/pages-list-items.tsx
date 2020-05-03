@@ -6,9 +6,9 @@ import Arrow from "./arrow";
 import CustomLink from "./custom-link";
 
 export default function ListItems({ children, level = 0 }) {
-  const user = useStoreState(state => state.user);
+  const user = useStoreState((state) => state.user);
 
-  const listItem = item =>
+  const listItem = (item) =>
     item.hasOwnProperty("children") ? (
       <li key={item.id}>
         <CustomLink item={item}>
@@ -31,7 +31,7 @@ export default function ListItems({ children, level = 0 }) {
 
   return (
     <ul className={level === 0 ? "main-menu" : "sub-menu"}>
-      {children.map(li => hasAccess(li.access, user) && listItem(li))}
+      {children.map((li) => hasAccess(li.access, user) && listItem(li))}
     </ul>
   );
 }

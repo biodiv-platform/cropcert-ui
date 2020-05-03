@@ -5,8 +5,8 @@ import React from "react";
 import { FiLogOut } from "react-icons/fi";
 
 function NavbarRightMenu() {
-  const isLoggedIn = useStoreState(state => state.isLoggedIn);
-  const user = useStoreState(state => state.user);
+  const isLoggedIn = useStoreState((state) => state.isLoggedIn);
+  const user = useStoreState((state) => state.user);
 
   return (
     <ul className="main-menu right">

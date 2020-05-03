@@ -9,7 +9,7 @@ export default function CCListMap({ ccList, selected }) {
     L.Icon.Default.mergeOptions(MAP.MARKER_MERGEOPTIONS);
   }, []);
 
-  const getMarkerProps = ccId =>
+  const getMarkerProps = (ccId) =>
     selected?.id === ccId
       ? { icon: L.icon(MAP.MARKER_SELECTED), zIndexOffset: 999 }
       : { icon: L.icon(MAP.MARKER_MERGEOPTIONS), zIndexOffset: 0 };
@@ -17,7 +17,7 @@ export default function CCListMap({ ccList, selected }) {
   return (
     <Map center={MAP.MAP_CENTER} zoom={9}>
       <TileLayer attribution={MAP.TILE.ATTRIBUTION} url={MAP.TILE.URL} />
-      {ccList.map(cc => (
+      {ccList.map((cc) => (
         <Marker
           key={cc.id}
           position={[cc.latitude, cc.longitude]}

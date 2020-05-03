@@ -20,11 +20,10 @@ export default function AccesserForm({
   initialState,
   currentRole,
   onChange,
-  onTouch
+  onTouch,
 }: IProps) {
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
-  const [prevRolesValues, setPrevRolesValues] = useState(initialState.values);
 
   useEffect(() => {
     if (rolesValues[toRole]) {
@@ -33,7 +32,7 @@ export default function AccesserForm({
   }, []);
 
   useEffect(() => {
-    Object.keys(rolesValues).forEach(k => {
+    Object.keys(rolesValues).forEach((k) => {
       setUserKey(`${k}Code`, rolesValues[k] ? rolesValues[k].value : -1);
     });
     onChange(rolesValues[toRole]);
@@ -59,14 +58,14 @@ export default function AccesserForm({
     }
     onTouch && onTouch();
     const nextRole = roles[index + 1];
-    getByRole(nextRole, selectedItem.value).then(opts => {
+    getByRole(nextRole, selectedItem.value).then((opts) => {
       let rolesValuesT = {
         ...rolesValues,
         [role]: selectedItem,
-        [nextRole]: null
+        [nextRole]: null,
       };
       let rolesOptionsT = { ...rolesOptions, [nextRole]: opts };
-      roles.slice(index + 2, roles.length).map(cRole => {
+      roles.slice(index + 2, roles.length).map((cRole) => {
         rolesValuesT = { ...rolesValuesT, [cRole]: null };
         rolesOptionsT = { ...rolesOptionsT, [cRole]: [] };
       });
@@ -83,15 +82,15 @@ export default function AccesserForm({
           id={role}
           options={rolesOptions[role]}
           isSearchable={true}
-          onChange={e => {
+          onChange={(e) => {
             onOptionChange(role, index, e);
           }}
           value={rolesValues[role]}
           styles={{
-            valueContainer: provided => ({
+            valueContainer: (provided) => ({
               ...provided,
-              height: "38px"
-            })
+              height: "38px",
+            }),
           }}
         />
       </FormControl>

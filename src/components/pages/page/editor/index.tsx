@@ -20,9 +20,9 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
       url: Yup.string().nullable(),
       heading: Yup.string().required(),
       authorId: Yup.string().required(),
-      pageType: Yup.string().required()
+      pageType: Yup.string().required(),
     }),
-    initialValues: page
+    initialValues: page,
   };
 
   const pageTypeOptions = Object.values(PAGE_TYPE_OPTIONS);
@@ -32,7 +32,7 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
       ...values,
       createdOn: local2utc().getTime(),
       modifiedOn: local2utc().getTime(),
-      isDeleted: false
+      isDeleted: false,
     };
     const { success } = await axUpdatePage(payload, isEdit);
     if (success) {
@@ -44,7 +44,7 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
 
   return (
     <Formik {...pageForm} onSubmit={handleSubmit}>
-      {props => {
+      {(props) => {
         const isContentInput = props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
         return (
           <form onSubmit={props.handleSubmit}>

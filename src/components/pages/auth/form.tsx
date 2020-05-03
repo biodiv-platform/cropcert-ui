@@ -15,15 +15,13 @@ function SignInForm() {
 
   const signInForm = {
     validationSchema: Yup.object().shape({
-      userName: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string().required()
+      userName: Yup.string().email().required(),
+      password: Yup.string().required(),
     }),
     initialValues: {
       userName: "",
-      password: ""
-    }
+      password: "",
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
@@ -41,7 +39,7 @@ function SignInForm() {
 
   return (
     <Formik {...signInForm} onSubmit={handleOnSubmit}>
-      {props => (
+      {(props) => (
         <form onSubmit={props.handleSubmit}>
           <TextBox name="userName" label="Username" />
           <TextBox name="password" type="password" label="Password" />

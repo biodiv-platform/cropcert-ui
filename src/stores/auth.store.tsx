@@ -17,17 +17,17 @@ const authStore: IAuthStore = {
   setUser: action((state, user) => {
     state.user = user;
   }),
-  removeUser: action(state => {
+  removeUser: action((state) => {
     state.user = {};
   }),
-  doLogOut: action(state => {
+  doLogOut: action((state) => {
     state.user = {};
     state.isLoggedIn = false;
   }),
-  isLoggedIn: computed(state => state.user.hasOwnProperty("role")),
-  userRole: computed(state =>
+  isLoggedIn: computed((state) => state.user.hasOwnProperty("role")),
+  userRole: computed((state) =>
     state.user.hasOwnProperty("role") ? state.user.role : ROLES.UNAUTHORIZED
-  )
+  ),
 };
 
 export default authStore;

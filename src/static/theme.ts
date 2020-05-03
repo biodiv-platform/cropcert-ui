@@ -4,7 +4,7 @@ const customTheme: any = {
   ...theme,
   fontWeights: {
     ...theme.fontWeights,
-    bold: 600
+    bold: 600,
   },
   colors: {
     ...theme.colors,
@@ -18,9 +18,9 @@ const customTheme: any = {
       "600": "#868e96",
       "700": "#495057",
       "800": "#343a40",
-      "900": "#212529"
-    }
-  }
+      "900": "#212529",
+    },
+  },
 };
 
 export default customTheme;

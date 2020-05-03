@@ -23,8 +23,8 @@ export default class MyApp extends App {
       pageProps: {
         nookies: parseNookies(ctx),
         pages: (await axListPages()) || [],
-        ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
-      }
+        ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+      },
     };
   }
 

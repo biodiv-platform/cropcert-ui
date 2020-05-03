@@ -6,18 +6,18 @@ import React, { useEffect, useState } from "react";
 const VARIANT_MAPPING = {
   ADD: "blue",
   EDIT: "orange",
-  DONE: "green"
+  DONE: "green",
 };
 
 const WRITE_PERMISSIONS = {
   ADD: true,
   EDIT: true,
   DONE: false,
-  NOTAPPLICABLE: false
+  NOTAPPLICABLE: false,
 };
 
 export default function useActionProps(lotStatus, role) {
-  const user = useStoreState(state => state.user);
+  const user = useStoreState((state) => state.user);
   const [canWrite, setCanWrite] = useState(false);
   const [variantColor, setVariantColor] = useState();
   const [show, setShow] = useState(false);

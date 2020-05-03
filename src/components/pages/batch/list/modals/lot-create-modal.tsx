@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/core";
 import { DateTime, Submit } from "@components/@core/formik";
 import Table from "@components/@core/table";
@@ -36,11 +36,11 @@ function LotCreateModal({ update }) {
 
   const batchUpdateForm = {
     validationSchema: Yup.object().shape({
-      creationDate: Yup.number().nullable()
+      creationDate: Yup.number().nullable(),
     }),
     initialValues: {
-      creationDate: ""
-    }
+      creationDate: "",
+    },
   };
 
   const handleOnSubmit = async (values, actions) => {
@@ -51,10 +51,10 @@ function LotCreateModal({ update }) {
         coCode: lotConfig.coCode,
         quantity: lotConfig.quantity,
         createdOn: values.creationDate,
-        batchIds: batches.map(b => b.id)
+        batchIds: batches.map((b) => b.id),
       });
       if (success) {
-        data.batches.map(b => update({ ...b, lotStatus: data.lot.lotStatus }));
+        data.batches.map((b) => update({ ...b, lotStatus: data.lot.lotStatus }));
         notification(MLOT.CREATED, NotificationType.Success, data.lot);
         onClose();
       }
@@ -64,18 +64,21 @@ function LotCreateModal({ update }) {
     actions.setSubmitting(false);
   };
 
-  useListener(({ selected, ...props }) => {
-    setBatches(selected);
-    setHighestDate(selected.reduce((acc, cv) => (cv.date > acc ? cv.date : acc), 0));
-    setLotConfig({ name, ...props });
-    onOpen();
-  }, LOT_CREATE);
+  useListener(
+    ({ selected, ...props }) => {
+      setBatches(selected);
+      setHighestDate(selected.reduce((acc, cv) => (cv.date > acc ? cv.date : acc), 0));
+      setLotConfig({ name, ...(props as any) });
+      onOpen();
+    },
+    [LOT_CREATE]
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="xl">
       <ModalOverlay />
       <Formik {...batchUpdateForm} enableReinitialize={true} onSubmit={handleOnSubmit}>
-        {props => (
+        {(props) => (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
               <ModalHeader>
@@ -94,7 +97,7 @@ function LotCreateModal({ update }) {
                   data={batches}
                   columns={[
                     ...lotCreateModalCols,
-                    ...(lotConfig.type === BATCH_TYPE.WET ? lotCreateModalColsExtra : [])
+                    ...(lotConfig.type === BATCH_TYPE.WET ? lotCreateModalColsExtra : []),
                   ]}
                 />
                 <Flex justifyContent="flex-end" mt={4}>

@@ -18,13 +18,13 @@ const MultiSelectInputField = ({
         field.value.length > 0
           ? field.value
               .split(/(,(?=[\S\n]))/)
-              .filter(v => v !== ",")
-              .map(v => options.find(o => o.value === v))
+              .filter((v) => v !== ",")
+              .map((v) => options.find((o) => o.value === v))
           : [];
       const [value, setValue] = useState(defaultValues);
 
       useEffect(() => {
-        form.setFieldValue(field.name, value.map(o => o.value).toString());
+        form.setFieldValue(field.name, value.map((o) => o.value).toString());
       }, [value]);
 
       return (
@@ -40,10 +40,10 @@ const MultiSelectInputField = ({
             isSearchable={true}
             isMulti={true}
             styles={{
-              valueContainer: provided => ({
+              valueContainer: (provided) => ({
                 ...provided,
-                height: "38px"
-              })
+                height: "38px",
+              }),
             }}
           />
           <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>

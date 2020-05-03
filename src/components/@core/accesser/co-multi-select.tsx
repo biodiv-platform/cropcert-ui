@@ -7,7 +7,7 @@ import MultiSelect from "react-multi-select-component";
 import { getUserKey } from "@utils/auth.util";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
-  const role = useStoreState(state => state.user.role);
+  const role = useStoreState((state) => state.user.role);
   const [co, setCo] = useState([]);
   const [coSelected, setCoSelected] = useState([]);
   const isCoCC = [ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER].includes(role);
@@ -15,10 +15,12 @@ function CoMultiSelect({ unionId = -1, onChange }) {
 
   useEffect(() => {
     isCoCC
-      ? axGetCoByCode(getUserKey(`coCode`)).then(d => d.success && setCo([{label: d.data.name, value: d.data.code}]))
+      ? axGetCoByCode(getUserKey(`coCode`)).then(
+          (d) => d.success && setCo([{ label: d.data.name, value: d.data.code }])
+        )
       : unionId > 0
       ? axCoByUnionId(unionId).then(
-          d => d.success && setCo(d.data.map(o => ({ label: o.name, value: o.code })))
+          (d) => d.success && setCo(d.data.map((o) => ({ label: o.name, value: o.code })))
         )
       : setCo([]);
   }, [unionId]);
@@ -28,7 +30,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
   }, [co]);
 
   useEffect(() => {
-    onChange(coSelected.map(o => o.value));
+    onChange(coSelected.map((o) => o.value));
   }, [coSelected]);
 
   return (
@@ -42,7 +44,6 @@ function CoMultiSelect({ unionId = -1, onChange }) {
             onChange={setCoSelected}
             disabled={co.length === 0}
             labelledBy={label}
-            theme={{ height: "38px" }}
           />
         </FormControl>
       )}

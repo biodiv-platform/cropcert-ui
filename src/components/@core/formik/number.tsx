@@ -2,7 +2,7 @@ import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from 
 import { Field } from "formik";
 import React from "react";
 
-const hintMessage = props => {
+const hintMessage = (props) => {
   if (props?.min && props?.max) {
     return `Between ${props.min} to ${props.max}`;
   } else if (props?.max) {
@@ -16,7 +16,7 @@ const hintMessage = props => {
 const NumberInputField = ({ name, label, hint = false, mb = 4, isRequired = false, ...props }) => {
   const hintText = props.hintText || hintMessage(props);
 
-  const onWheel = e => e.target.blur();
+  const onWheel = (e) => e.target.blur();
 
   return (
     <Field name={name}>

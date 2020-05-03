@@ -11,7 +11,7 @@ export const Timeline = ({ activities }) => (
   <LotShowPanel icon="🕓" title="Activity(s)" count={activities.length}>
     <div className="eco--timeline-container">
       <ul className="eco--timeline-container-list">
-        {activities.reverse().map(activity => (
+        {activities.reverse().map((activity) => (
           <Event key={activity.id} activity={activity} />
         ))}
       </ul>

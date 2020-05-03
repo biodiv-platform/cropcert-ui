@@ -8,7 +8,7 @@ import queryString from "query-string";
  * @param {userName: string, password: string} body
  * @returns {*}
  */
-export const axSignIn = async body => {
+export const axSignIn = async (body) => {
   const res = await httpFormData.post(`${ENDPOINT.USER}/auth/login`, queryString.stringify(body));
   return res.data;
 };

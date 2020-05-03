@@ -24,7 +24,7 @@ export default function TinymceEditor({ data, onUpdate }) {
         toolbar:
           "undo redo | bold italic numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
         images_upload_handler: axUploadHandler,
-        images_upload_base_path: "/"
+        images_upload_base_path: "/",
       }}
       onEditorChange={onUpdate}
     />

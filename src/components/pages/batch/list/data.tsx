@@ -10,7 +10,7 @@ import { Batch } from "types/traceability";
 const VARIANT_MAPPING = {
   ADD: "blue",
   EDIT: "orange",
-  DONE: "green"
+  DONE: "green",
 };
 
 export const batchColumns = [
@@ -19,31 +19,31 @@ export const batchColumns = [
     selector: "id",
     maxWidth: "100px",
     sortable: true,
-    cell: row => `B-${row.id}`
+    cell: (row) => `B-${row.id}`,
   },
   {
     name: "Name",
     selector: "batchName",
-    width: "280px"
+    width: "280px",
   },
   {
     name: "Type",
     selector: "type",
     maxWidth: "100px",
-    sortable: true
+    sortable: true,
   },
   {
     name: "Quantity",
     selector: "quantity",
     maxWidth: "100px",
-    sortable: true
+    sortable: true,
   },
   {
     name: "Last Updated",
     selector: "date",
     maxWidth: "150px",
-    cell: row => timeCell(row.date),
-    sortable: true
+    cell: (row) => timeCell(row.date),
+    sortable: true,
   },
   {
     name: "Batch Status",
@@ -64,39 +64,39 @@ export const batchColumns = [
         </Button>
       ) : (
         <NotApplicable />
-      )
+      ),
   },
   {
     name: "Perchment Quantity",
     selector: "perchmentQuantity",
     maxWidth: "100px",
-    sortable: true
+    sortable: true,
   },
   {
     name: "Lot",
     selector: "lotId",
     maxWidth: "100px",
-    cell: row => <LotCell {...row} type="b" />
+    cell: (row) => <LotCell {...row} type="b" />,
   },
   {
     name: "Lot Status",
     selector: "lotStatus",
-    cell: row => <Badge>{row.lotStatus}</Badge>
-  }
+    cell: (row) => <Badge>{row.lotStatus}</Badge>,
+  },
 ];
 
 export const lotCreateModalCols = [
   {
     name: "Name",
     selector: "batchName",
-    width: "280px"
+    width: "280px",
   },
   {
     name: "Quantity",
     selector: "quantity",
     sortable: true,
-    right: true
-  }
+    right: true,
+  },
 ];
 
 export const lotCreateModalColsExtra = [
@@ -104,6 +104,6 @@ export const lotCreateModalColsExtra = [
     name: "Perchment Quantity",
     selector: "perchmentQuantity",
     sortable: true,
-    right: true
-  }
+    right: true,
+  },
 ];

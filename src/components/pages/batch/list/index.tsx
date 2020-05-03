@@ -6,6 +6,7 @@ import Table from "@components/@core/table";
 import { BATCH_TYPE, ROLES } from "@static/constants";
 import { BATCH_CREATE, LOT_CREATE } from "@static/events";
 import { useBatchStore } from "@stores/batch.store";
+import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { MdAdd } from "react-icons/md";
@@ -13,10 +14,10 @@ import InfiniteScroll from "react-infinite-scroller";
 import { Batch } from "types/traceability";
 
 import { batchColumns } from "./data";
+import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal";
 import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
-import BatchCreateModal from "./modals/batch-create-modal";
 
 function BatchListPageComponent() {
   const [co, setCo] = useState({} as any);
@@ -71,6 +72,7 @@ function BatchListPageComponent() {
       <Button
         variantColor="green"
         variant="solid"
+        hidden={!hasAccess(hierarchicalRoles(ROLES.COOPERATIVE))}
         isDisabled={showTypeError || selectedBatches.length === 0}
         onClick={handleOnCreateLot}
         leftIcon={MdAdd}

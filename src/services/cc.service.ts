@@ -14,9 +14,9 @@ export const axListCCByCoId = async coCode => {
   }
 };
 
-export const axGetCCById = async id => {
+export const axGetCCByCode = async id => {
   try {
-    const res = await http.get(`${ENDPOINT.USER}/cc/${id}`);
+    const res = await http.get(`${ENDPOINT.USER}/cc/code/${id}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(GENERIC.ERROR);

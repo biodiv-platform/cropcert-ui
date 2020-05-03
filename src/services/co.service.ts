@@ -14,9 +14,9 @@ export const axCoByUnionId = async unionCode => {
   }
 };
 
-export const axGetCoById = async id => {
+export const axGetCoByCode = async id => {
   try {
-    const res = await http.get(`${ENDPOINT.USER}/co/${id}`);
+    const res = await http.get(`${ENDPOINT.USER}/co/code/${id}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

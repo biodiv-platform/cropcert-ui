@@ -20,7 +20,20 @@ export default function TinymceEditor({ data, onUpdate }) {
         width: "100%",
         height: "400px",
         relative_urls: false,
-        plugins: ["link", "image", "table", "code", "lists"],
+        plugins: ["image", "link", "code", "table", "lists"],
+        style_formats: [
+          { title: "Image formats" },
+          {
+            title: "Image Left",
+            selector: "img",
+            styles: { float: "left", margin: "0 10px 0 10px" },
+          },
+          {
+            title: "Image Right",
+            selector: "img",
+            styles: { float: "right", margin: "0 0 10px 10px" },
+          },
+        ],
         toolbar:
           "undo redo | bold italic numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
         images_upload_handler: axUploadHandler,

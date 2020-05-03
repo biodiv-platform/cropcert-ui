@@ -26,7 +26,7 @@ export const axGetCCByCode = async (id) => {
 
 export const axListCC = async () => {
   try {
-    const { data } = await http.get(`${ENDPOINT.USER}/cc/all`);
+    const { data } = await http.get(`${ENDPOINT.USER}/cc/all`, { headers: { unauthorized: true } });
     return { success: true, data };
   } catch (e) {
     notification(GENERIC.ERROR);

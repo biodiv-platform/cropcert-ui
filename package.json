@@ -20,7 +20,7 @@
     "coffee-flavor-wheel": "^1.1.0",
     "cogo-toast": "^4.2.3",
     "cookieman": "^1.2.3",
-    "dayjs": "^1.8.26",
+    "dayjs": "^1.8.28",
     "dompurify": "^2.0.10",
     "dotenv-load": "^2.0.0",
     "easy-peasy": "^3.3.0",

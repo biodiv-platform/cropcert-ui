@@ -21,7 +21,7 @@
     "cogo-toast": "^4.2.3",
     "cookieman": "^1.2.3",
     "dayjs": "^1.8.26",
-    "dompurify": "^2.0.10",
+    "dompurify": "^2.0.11",
     "dotenv-load": "^2.0.0",
     "easy-peasy": "^3.3.0",
     "emotion-theming": "^10.0.27",

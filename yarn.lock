@@ -6488,10 +6488,10 @@ react-clock@^2.3.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-data-table-component@^6.9.1:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-6.9.1.tgz#7ea152cff98af1e9bdfc4a9366af9fb4fddd55b8"
-  integrity sha512-84FqhmyJZAsai0AUsg+eK80Dw3vlZCKAqfZ0S9oCeKufTa6Q+8Vvk9+uQrh7/xukupp+fa3cF48FRMsuRnj/0A==
+react-data-table-component@^6.9.3:
+  version "6.9.3"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-6.9.3.tgz#f987b8a2766cc84ab08d7837b4192af85de610d3"
+  integrity sha512-6Z0dlzr60mXMbxxPEVCCER/XwYp3UWSil9OmFnZGZ68LSIzfmUI5txoX9JKyNoyxayCDF40f6V3ysWsXMaKDQQ==
   dependencies:
     deepmerge "^4.2.2"
     lodash.orderby "^4.6.0"

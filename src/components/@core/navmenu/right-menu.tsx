@@ -1,8 +1,7 @@
-import { Link } from "@chakra-ui/core";
+import { Icon, Link } from "@chakra-ui/core";
 import { useStoreState } from "easy-peasy";
 import NextLink from "next/link";
 import React from "react";
-import { FiLogOut } from "react-icons/fi";
 
 function NavbarRightMenu() {
   const isLoggedIn = useStoreState((state) => state.isLoggedIn);
@@ -19,7 +18,7 @@ function NavbarRightMenu() {
         <li>
           <NextLink href={`/auth/sign-out?t=${new Date().getTime()}`} passHref={true}>
             <Link>
-              {user["firstName"]} {user["lastName"]} <FiLogOut />
+              {user["firstName"]} {user["lastName"]} <Icon ml={1} name="logout" />
             </Link>
           </NextLink>
         </li>

@@ -20,7 +20,6 @@ import { isEverythingFilledExcept } from "@utils/basic.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { MdSave } from "react-icons/md";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -104,7 +103,7 @@ export default function LotGRNModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit props={props} leftIcon={MdSave} isDisabled={!canWrite}>
+                  <Submit props={props} leftIcon="save" isDisabled={!canWrite}>
                     Save
                   </Submit>
                 </ModalFooter>

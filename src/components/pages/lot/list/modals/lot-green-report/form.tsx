@@ -19,7 +19,6 @@ import { isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.
 import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
-import { MdSave } from "react-icons/md";
 import { FactoryReport, Lot, QualityReport } from "types/traceability";
 import * as Yup from "yup";
 
@@ -322,7 +321,7 @@ export default function GreenReportForm({
                 </Button>
                 <Submit
                   props={props}
-                  leftIcon={MdSave}
+                  leftIcon="save"
                   isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}
                 >
                   Save

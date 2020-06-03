@@ -1,15 +1,15 @@
+import { Icon } from "@chakra-ui/core";
 import React from "react";
-import { MdChevronRight, MdExpandMore, MdMenu } from "react-icons/md";
 
 export default function Arrow({ direction = "d", ...props }) {
   switch (direction) {
     case "r":
-      return <MdChevronRight />;
+      return <Icon name="chevron-right" />;
 
     case "h":
-      return <MdMenu />;
+      return <Icon name="menu" />;
 
     default:
-      return <MdExpandMore />;
+      return <Icon name="chevron-down" />;
   }
 }

@@ -1,9 +1,8 @@
 import "./style.scss";
 
-import { Badge } from "@chakra-ui/core";
+import { Badge, Icon } from "@chakra-ui/core";
 import { formattedTimeStamp } from "@utils/basic.util";
 import React from "react";
-import { MdArrowForward } from "react-icons/md";
 
 import LotShowPanel from "../panel";
 
@@ -53,13 +52,13 @@ const getMessage = (type, value) => {
       return type.toLowerCase().includes("time") ? (
         <>
           🕓 Updated Time
-          <Badge ml={1}>{type}</Badge> <MdArrowForward />
+          <Badge ml={1}>{type}</Badge> <Icon name="arrow-forward" />
           <Badge ml={1}>{formattedTimeStamp(value)}</Badge>
         </>
       ) : (
         <>
           ✏️ Updated
-          <Badge ml={1}>{type}</Badge> <MdArrowForward />
+          <Badge ml={1}>{type}</Badge> <Icon name="arrow-forward" />
           <Badge ml={1}>{value}</Badge>
         </>
       );

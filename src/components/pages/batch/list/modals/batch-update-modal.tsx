@@ -18,7 +18,6 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { MdSave } from "react-icons/md";
 import { Batch } from "types/traceability";
 import * as Yup from "yup";
 
@@ -126,7 +125,7 @@ function BatchUpdateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon={MdSave} isDisabled={batch.isReadyForLot}>
+                <Submit props={props} leftIcon={"save" as any} isDisabled={batch.isReadyForLot}>
                   Save
                 </Submit>
               </ModalFooter>

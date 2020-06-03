@@ -22,7 +22,6 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { MdCheck } from "react-icons/md";
 import { Batch } from "types/traceability";
 import * as Yup from "yup";
 
@@ -110,7 +109,7 @@ function LotCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon={MdCheck} isDisabled={batches.length === 0}>
+                <Submit props={props} leftIcon="check2" isDisabled={batches.length === 0}>
                   Create Lot
                 </Submit>
               </ModalFooter>

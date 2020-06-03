@@ -17,7 +17,6 @@ import { nonZeroFalsy } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
-import { MdSave } from "react-icons/md";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -275,7 +274,7 @@ export default function FactoryReportDryModal({
                 </Button>
                 <Submit
                   props={props}
-                  leftIcon={MdSave}
+                  leftIcon="save"
                   isDisabled={!(props.isValid && totalDiff === 0)}
                 >
                   Save

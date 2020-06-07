@@ -61,7 +61,7 @@ const DateTimeInputField = ({
         return (
           <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
             <FormLabel htmlFor={field.name}>{label}</FormLabel>
-            <Flex>
+            <Flex maxW="22rem">
               <Box flex={1}>
                 <DateTimePicker
                   {...props}

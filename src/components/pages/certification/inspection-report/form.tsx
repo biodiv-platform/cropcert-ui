@@ -1,4 +1,6 @@
 import { Accordion } from "@chakra-ui/core";
+import { Submit } from "@components/@core/formik";
+import { axCreateInspectionReport } from "@services/report.service";
 import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
@@ -9,10 +11,9 @@ import Farm from "./panels/farm";
 import GeneralInformation from "./panels/general-information";
 import FarmerInformation from "./panels/information";
 import Recommendation from "./panels/recommandation";
+import Signature from "./panels/signature";
 import SPORequirements from "./panels/spo-requirements";
 import Summery from "./panels/summery";
-import Signature from "./panels/signature";
-import { Submit } from "@components/@core/formik";
 
 export default function InspectionForm() {
   const inspectionForm = {
@@ -110,6 +111,8 @@ export default function InspectionForm() {
 
   const handleOnInspectionFormSubmit = async (values, actions) => {
     console.log(values);
+    const { success } = await axCreateInspectionReport(values);
+    console.log(success);
     actions.setSubmitting(false);
   };
 

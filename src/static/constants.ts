@@ -17,6 +17,7 @@ export const ENDPOINT = {
   USER: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_USER}`,
   PAGES: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_PAGES}`,
   TRACEABILITY: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_TRACEABILITY}`,
+  CERTIFICATION: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_CERTIFICATION}`,
   API: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_API}`,
 };
 

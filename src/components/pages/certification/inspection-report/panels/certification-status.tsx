@@ -1,11 +1,10 @@
-import { Accordion } from "@chakra-ui/core";
 import Table from "@components/@core/table";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
 const basicInfoDummy = {
-  verification: "✔️",
-  contract: "✔️",
+  verification: "TBA",
+  contract: "TBA",
 };
 
 export default function CertificationStatus() {

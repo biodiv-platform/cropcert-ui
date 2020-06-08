@@ -1,10 +1,11 @@
-import { Accordion } from "@chakra-ui/core";
 import { DateTime } from "@components/@core/formik";
 import RadioGroupInputField from "@components/@core/formik/radio-group";
 import TextInputField from "@components/@core/formik/text";
 import { CoreGrid } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
+
+import { GP_OPTIONS, MFN_OPTIONS } from "../options";
 
 export default function GeneralInformation() {
   return (
@@ -25,16 +26,25 @@ export default function GeneralInformation() {
           label="Chemical usage on non-coffee field"
         />
         <RadioGroupInputField
+          name="cutivatationNotConductedWithin5mWaterSource"
+          label="Cultivation not conducted within 5m of water source"
+        />
+        <RadioGroupInputField
           name="manure90DaysOrLossBeforeHarvest"
           label="No application of manure 90 days or less before harvest"
         />
         <RadioGroupInputField
           name="understandingOfOrganicFTStandards"
           label="Farmers Understanding of Organic FT Standards"
+          options={GP_OPTIONS}
         />
         <RadioGroupInputField name="weedControlAdequate" label="Weed Control Adequate" />
 
-        <RadioGroupInputField name="nonCoffeeTreesPlanted" label="Non-Coffee Trees Planted" />
+        <RadioGroupInputField
+          name="nonCoffeeTreesPlanted"
+          label="Non-Coffee Trees Planted"
+          options={MFN_OPTIONS}
+        />
         <RadioGroupInputField name="signsOfErosion" label="Signs of Erosion" />
         <RadioGroupInputField name="erosionControlAdequate" label="Erosion Control Adequate" />
 
@@ -43,7 +53,11 @@ export default function GeneralInformation() {
         <RadioGroupInputField name="isLabourFairlyTreated" label="Is Labour Fairly Treated" />
 
         <RadioGroupInputField name="isChildLabourImployed" label="Child Labour" />
-        <RadioGroupInputField name="plasticDisposal" label="Plastics Disposal" />
+        <RadioGroupInputField
+          name="plasticDisposal"
+          label="Plastics Disposal"
+          options={MFN_OPTIONS}
+        />
         <RadioGroupInputField
           name="isOtherWasteDisposalAdequate"
           label="Other waste disposal adequate"

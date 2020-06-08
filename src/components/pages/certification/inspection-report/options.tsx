@@ -5,8 +5,8 @@ export const GFP_OPTIONS = [
 ];
 
 export const GP_OPTIONS = [
-  { label: "Good", value: "GOOD" },
-  { label: "Poor", value: "POOR" },
+  { label: "Good", value: true },
+  { label: "Poor", value: false },
 ];
 
 export const MFN_OPTIONS = [

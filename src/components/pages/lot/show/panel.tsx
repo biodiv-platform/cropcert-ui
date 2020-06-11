@@ -8,7 +8,14 @@ import {
 } from "@chakra-ui/core";
 import React from "react";
 
-export default function LotShowPanel({ title, children, isOpen = false, count = -1, icon }) {
+export default function LotShowPanel({
+  title,
+  children,
+  isOpen = false,
+  count = -1,
+  icon,
+  noPadding = false,
+}) {
   return (
     <AccordionItem
       defaultIsOpen={isOpen}
@@ -30,7 +37,7 @@ export default function LotShowPanel({ title, children, isOpen = false, count = 
             </Box>
             <AccordionIcon />
           </AccordionHeader>
-          <AccordionPanel p={4} bg="white">
+          <AccordionPanel p={noPadding ? 0 : 4} bg="white">
             {isExpanded && children}
           </AccordionPanel>
         </>

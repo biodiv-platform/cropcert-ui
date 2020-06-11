@@ -7,22 +7,21 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import { FieldArray } from "formik";
 import React from "react";
 
+import GridRow from "../../row";
 import { ANIMAL_TYPE_OPTIONS, FIELD_SEPRATION_OPTIONS } from "../options";
 
 export default function Animals({ values }) {
   return (
     <LotShowPanel title="Animals" icon="🐄" isOpen={true}>
-      <CoreGrid rows={3}>
-        <RadioGroupInputField name="hasLiveStock" label="Farmer has Livestock" />
-        <RadioGroupInputField
-          name="chemicalTreatmentOnLivestock"
-          label="Chemical Treatment on Livestock"
-        />
-        <RadioGroupInputField
-          name="livestockTreatmentConducted5mFromCoffee"
-          label="Livestock Treatment conducted 5m from coffee"
-        />
-      </CoreGrid>
+      <GridRow label="Farmer has Livestock">
+        <RadioGroupInputField name="hasLiveStock" />
+      </GridRow>
+      <GridRow label="Chemical Treatment on Livestock" bgGray={true}>
+        <RadioGroupInputField name="chemicalTreatmentOnLivestock" />
+      </GridRow>
+      <GridRow label="Livestock Treatment conducted 5m from coffee" mb={4}>
+        <RadioGroupInputField name="livestockTreatmentConducted5mFromCoffee" />
+      </GridRow>
       <FieldArray
         name="animals"
         render={(arrayHelpers) => (

@@ -3,8 +3,8 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
 const basicInfoDummy = {
-  verification: "TBA",
-  contract: "TBA",
+  verification: "01-01-2020",
+  contract: "01-01-2020",
 };
 
 export default function CertificationStatus() {

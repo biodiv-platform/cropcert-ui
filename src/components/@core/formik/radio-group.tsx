@@ -6,8 +6,8 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/core";
-import { Field, FastField } from "formik";
-import React, { useEffect, useState, useMemo } from "react";
+import { Field } from "formik";
+import React, { useEffect, useState } from "react";
 
 const defaultOptions: { label: string; value: any }[] = [
   { label: "Yes", value: true },
@@ -16,7 +16,7 @@ const defaultOptions: { label: string; value: any }[] = [
 
 const RadioGroupInputField = ({
   name,
-  label,
+  label = null,
   hint = false,
   hintText = "",
   mb = 4,
@@ -37,15 +37,17 @@ const RadioGroupInputField = ({
 
       return (
         <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
-          <FormLabel htmlFor={field.name}>{label}</FormLabel>
+          {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
           <RadioGroup
             {...field}
             {...props}
             id={field.name}
             spacing={4}
-            my={2}
             isInline={isInline}
             defaultValue={value}
+            minH="40px"
+            display="flex"
+            alignItems="center"
             onChange={(_, v) => setValue(v)}
           >
             {options.map(({ label }, index) => (

@@ -15,7 +15,7 @@ const hintMessage = (props) => {
 
 const NumberInputField = ({
   name,
-  label,
+  label = null,
   hint = false,
   mb = 4,
   isRequired = false,
@@ -31,14 +31,14 @@ const NumberInputField = ({
     <F name={name}>
       {({ field, meta }) => (
         <FormControl isInvalid={meta.touched && meta.error} mb={mb} isRequired={isRequired}>
-          <FormLabel htmlFor={field.name}>{label}</FormLabel>
+          {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
           <Input
             {...field}
-            {...props}
             borderColor="gray.400"
             onWheel={onWheel}
             placeholder={label}
             type="number"
+            {...props}
           />
           <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
           {hint && <FormHelperText>{hintText}</FormHelperText>}

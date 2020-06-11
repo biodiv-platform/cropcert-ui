@@ -20,13 +20,19 @@ const links = [
     ],
   },
   {
-    title: "Reports",
+    title: "Certification",
     children: [
+      {
+        title: "⬇️ Farmer(s) List",
+        description: "Manage Offline Farmer(s) List",
+        to: "/certification/manage-farmers",
+        access: [ROLES.INSPECTOR, ROLES.ADMIN],
+      },
       {
         title: "📝 Inspection Report",
         description: "Create Inspection Report",
         to: "/certification/inspection-report/create",
-        access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
+        access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
     ],
   },

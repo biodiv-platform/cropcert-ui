@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
 
+import Advices from "./panels/advices";
 import Animals from "./panels/animals";
 import CertificationStatus from "./panels/certification-status";
 import Farm from "./panels/farm";
@@ -13,7 +14,6 @@ import FarmerInformation from "./panels/information";
 import Recommendation from "./panels/recommandation";
 import Signature from "./panels/signature";
 import SPORequirements from "./panels/spo-requirements";
-import Summery from "./panels/summery";
 
 export default function InspectionForm() {
   const inspectionForm = {
@@ -130,13 +130,15 @@ export default function InspectionForm() {
             <CertificationStatus />
             <GeneralInformation />
             <Farm values={props.values} />
-            <Summery />
             <Animals values={props.values} />
-            <Recommendation values={props.values} />
+            <Advices values={props.values} />
+            <Recommendation />
             <Signature />
             <SPORequirements />
           </Accordion>
-          <Submit props={props}>Save</Submit>
+          <Submit leftIcon="check2" props={props}>
+            Submit Inspection Report
+          </Submit>
         </form>
       )}
     </Formik>

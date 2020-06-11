@@ -27,7 +27,7 @@ const hintMessage = (props) => {
 
 const DateTimeInputField = ({
   name,
-  label,
+  label = null,
   hint = false,
   mb = 4,
   defaultBlank = false,
@@ -60,8 +60,8 @@ const DateTimeInputField = ({
 
         return (
           <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
-            <FormLabel htmlFor={field.name}>{label}</FormLabel>
-            <Flex maxW="22rem">
+            {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
+            <Flex>
               <Box flex={1}>
                 <DateTimePicker
                   {...props}

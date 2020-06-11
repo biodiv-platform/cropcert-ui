@@ -103,7 +103,7 @@ export const axGetCuppingReportById = async (reportId) => {
 
 export const axCreateInspectionReport = async (body) => {
   try {
-    const body1 = { ...body, date: new Date().getTime(), farmerId: 1, inspectorId: 1 };
+    const body1 = { ...body, date: new Date().getTime(), farmerId: 311, inspectorId: 1 };
     const { data } = await http.post(`${ENDPOINT.CERTIFICATION}/inspection`, body1);
     return { success: true, data };
   } catch (e) {

@@ -36,6 +36,7 @@ export const PAGE_TYPE_OPTIONS = {
 };
 
 export const ROLES = {
+  INSPECTOR: "inspector",
   UNAUTHORIZED: "role_unauthorized",
   AUTHORIZED: "authorized",
   FARMER: "farmer",

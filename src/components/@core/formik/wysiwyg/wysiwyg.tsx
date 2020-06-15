@@ -1,15 +1,16 @@
+import "tinymce/tinymce";
+import "tinymce/icons/default";
 import "tinymce/plugins/code";
 import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/table";
-import "tinymce/themes/silver/theme";
-import "tinymce/tinymce";
+import "tinymce/themes/silver";
 
 import { axUploadHandler } from "@services/page.service";
 import { Editor } from "@tinymce/tinymce-react";
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
 
 export default function TinymceEditor({ data, onUpdate }) {
   return (
@@ -18,18 +19,18 @@ export default function TinymceEditor({ data, onUpdate }) {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://unpkg.com/tinymce@5.3.1/skins/ui/oxide/content.min.css"
+          href="https://unpkg.com/tinymce@5.3.2/skins/ui/oxide/content.min.css"
         />
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://unpkg.com/tinymce@5.3.1/skins/ui/oxide/skin.min.css"
+          href="https://unpkg.com/tinymce@5.3.2/skins/ui/oxide/skin.min.css"
         />
       </Head>
       <Editor
         initialValue={data}
         init={{
-          skin: false,
+          // skin: false,
           width: "100%",
           height: "400px",
           relative_urls: false,

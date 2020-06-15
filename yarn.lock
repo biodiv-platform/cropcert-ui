@@ -8112,6 +8112,11 @@ use-dark-mode@2.3.1:
     "@use-it/event-listener" "^0.1.2"
     use-persisted-state "^0.3.0"
 
+use-indexeddb@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/use-indexeddb/-/use-indexeddb-1.0.3.tgz#bbdf6763a56bfcaba6dd6bb925dc2804244221a6"
+  integrity sha512-gpbSDERhcOn7nWHYfwXBkJZ1rml7eetaCqR30TqoJfvLHsyBkl70EmM5u+SPIwX8zdAMvQzWWZGj0LcxmHb5uw==
+
 use-persisted-state@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/use-persisted-state/-/use-persisted-state-0.3.0.tgz#f8e3d2fd8eee67e0c86fd596c3ea3e8121c07402"

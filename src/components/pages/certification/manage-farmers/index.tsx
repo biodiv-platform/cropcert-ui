@@ -2,7 +2,9 @@ import Accesser from "@components/@core/accesser";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import { axListCCByCoId } from "@services/cc.service";
 import { ROLES } from "@static/constants";
+import { DB_CONFIG } from "@static/inspection-report";
 import React, { useState } from "react";
+import IndexedDBProvider from "use-indexeddb";
 
 import DownloadTable from "./download-table";
 
@@ -26,7 +28,9 @@ export default function ManageFarmersComponent() {
       <CoreGrid>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={listCCs} />
       </CoreGrid>
-      <DownloadTable ccList={ccList} />
+      <IndexedDBProvider config={DB_CONFIG}>
+        <DownloadTable ccList={ccList} />
+      </IndexedDBProvider>
     </div>
   );
 }

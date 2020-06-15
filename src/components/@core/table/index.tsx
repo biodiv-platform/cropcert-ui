@@ -13,7 +13,9 @@ const theme = {
 const Table = (props: any) =>
   props.data.length ? (
     <Box bg="white" border="1px solid" borderColor="gray.400" borderRadius="md">
-      {props.data.length > 0 && <DataTable data={props.data} customTheme={theme} {...props} />}
+      {props.data.length > 0 && (
+        <DataTable data={props.data} customTheme={theme} striped={true} {...props} />
+      )}
     </Box>
   ) : null;
 

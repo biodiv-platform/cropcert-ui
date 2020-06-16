@@ -51,7 +51,9 @@ const RadioGroupInputField = ({
             onChange={(_, v) => setValue(v)}
           >
             {options.map(({ label }, index) => (
-              <Radio value={index.toString()}>{label}</Radio>
+              <Radio key={index} value={index.toString()}>
+                {label}
+              </Radio>
             ))}
           </RadioGroup>
           <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>

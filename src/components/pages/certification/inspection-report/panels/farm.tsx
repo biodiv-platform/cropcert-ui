@@ -33,7 +33,7 @@ export default function Farm({ values }) {
                 <AccordionItem>
                   <AccordionHeader>
                     <Box flex="1" textAlign="left">
-                      🚜 Farm #{index + 1}
+                      🚜 Plot #{index + 1}
                     </Box>
                     <AccordionIcon />
                   </AccordionHeader>
@@ -145,7 +145,7 @@ export default function Farm({ values }) {
                       mr={4}
                       onClick={() => arrayHelpers.remove(index)}
                     >
-                      Remove Current
+                      Remove this Plot
                     </Button>
                     <Button
                       variantColor="blue"
@@ -153,7 +153,7 @@ export default function Farm({ values }) {
                       leftIcon="add"
                       onClick={() => arrayHelpers.insert(index, {})}
                     >
-                      Add Farm Below
+                      Add Plot Below
                     </Button>
                   </AccordionPanel>
                 </AccordionItem>
@@ -167,7 +167,7 @@ export default function Farm({ values }) {
               onClick={() => arrayHelpers.push({})}
               leftIcon="add"
             >
-              Add a farm
+              Add a Plot
             </Button>
           </>
         )}

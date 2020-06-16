@@ -16,7 +16,7 @@ function NavbarRightMenu() {
       </li>
       {isLoggedIn ? (
         <li>
-          <NextLink href={`/auth/sign-out?t=${new Date().getTime()}`} passHref={true}>
+          <NextLink href="/auth/sign-out" passHref={true}>
             <Link>
               {user["firstName"]} {user["lastName"]} <Icon ml={1} name="logout" />
             </Link>

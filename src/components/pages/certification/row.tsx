@@ -12,22 +12,16 @@ interface GridRowProps {
 function GridRow({ children, label, previous, mb = 2, bgGray = false }: GridRowProps) {
   return (
     <Grid
+      className="grid-row"
       templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(7, 1fr)", `repeat(7, 1fr)`]}
-      alignItems="center"
-      gap={2}
       mb={mb}
-      border="1px dashed"
-      borderRadius="md"
-      borderColor="gray.400"
-      p={2}
-      minH="4rem"
-      bg={bgGray ? "gray.100" : "white"}
+      data-odd={bgGray}
     >
-      <Box gridColumn={["1/1", "1/1", "1/5", "1/5"]}>{label}</Box>
+      <Box gridColumn={{ base: "1/1", md: "1/5" }}>{label}</Box>
 
       {previous ? (
         <div>
-          <Text as="small" display={[null, null, "block", "block"]} mr={2}>
+          <Text as="small" display={{ md: "block" }} mr={2}>
             Previous
           </Text>
           {previous}
@@ -36,7 +30,7 @@ function GridRow({ children, label, previous, mb = 2, bgGray = false }: GridRowP
         <div />
       )}
 
-      <Box gridColumn={["1/1", "1/1", "6/8", "6/8"]}>
+      <Box gridColumn={{ base: "1/1", md: "6/8" }}>
         {React.cloneElement(children, { placeholder: label, mb: 0 })}
       </Box>
     </Grid>

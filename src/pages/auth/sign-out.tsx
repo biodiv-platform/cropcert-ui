@@ -1,14 +1,16 @@
 import { Heading } from "@chakra-ui/core";
 import { TOKEN } from "@static/constants";
 import { removeNookie } from "next-nookies-persist";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 const SignOutPage = () => {
+  const router = useRouter();
+
   useEffect(() => {
     removeNookie(TOKEN.AUTH);
     removeNookie(TOKEN.USER);
-    Router.push("/");
+    router.push("/");
   }, []);
 
   return <Heading fontStyle="italic">Logging you out...</Heading>;

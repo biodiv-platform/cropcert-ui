@@ -15,7 +15,6 @@
 
 .article {
   margin: 0 auto;
-  margin-bottom: 1.25rem;
   font-size: 1.2rem;
   line-height: 1.8rem;
 
@@ -27,6 +26,12 @@
 
   p {
     text-align: justify;
+  }
+
+  p,
+  ol,
+  ul {
+    margin-bottom: 1.25rem;
   }
 
   h1,

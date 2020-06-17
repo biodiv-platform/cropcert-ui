@@ -1,17 +1,18 @@
 import { Grid } from "@chakra-ui/core";
 import React from "react";
 
-interface CustomRowProps {
+interface ResponsiveRowProps {
   children;
   mb?: number;
   bgGray?: boolean;
+  rows?: number;
 }
 
-function CustomRow({ children, mb = 2, bgGray = false }: CustomRowProps) {
+function ResponsiveRow({ children, mb = 2, bgGray = false, rows = 2 }: ResponsiveRowProps) {
   return (
     <Grid
       className="grid-row fade"
-      templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(2, 1fr)", `repeat(2, 1fr)`]}
+      templateColumns={{ base: "repeat(1, 1fr)", md: `repeat(${rows}, 1fr)` }}
       mb={mb}
       p={4}
       data-odd={bgGray}
@@ -21,4 +22,4 @@ function CustomRow({ children, mb = 2, bgGray = false }: CustomRowProps) {
   );
 }
 
-export default CustomRow;
+export default ResponsiveRow;

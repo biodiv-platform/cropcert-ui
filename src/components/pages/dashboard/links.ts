@@ -31,7 +31,7 @@ const links = [
       {
         title: "📝 Inspection Report",
         description: "Create Inspection Report",
-        to: "/farmer-certification/inspection-report/create",
+        to: "/farmer-certification/inspection-report/select-farmer",
         access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
     ],

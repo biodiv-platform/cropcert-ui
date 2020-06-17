@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/core";
+import styled from "@emotion/styled";
 import { axGetFarmersWithLastReportByCC } from "@services/certification.service";
 import { IDB_SYNCED } from "@static/events";
 import { STORE } from "@static/inspection-report";
@@ -6,6 +7,12 @@ import notification, { NotificationType } from "@utils/notification.util";
 import React, { useEffect, useState } from "react";
 import { emit, useListener } from "react-gbus";
 import { useIndexedDBStore } from "use-indexeddb";
+
+const ActionButtonContainer = styled.div`
+  button {
+    min-width: 12rem;
+  }
+`;
 
 export default function ActionButton({ ccCode, ccName }) {
   const {
@@ -54,26 +61,31 @@ export default function ActionButton({ ccCode, ccName }) {
     setIsLoading(false);
   };
 
-  return offlineCC ? (
-    <Button
-      variantColor="red"
-      isLoading={isLoading}
-      onClick={handleRemove}
-      loadingText="Deleting"
-      leftIcon="delete"
-      size="sm"
-    >
-      Remove from Offline
-    </Button>
-  ) : (
-    <Button
-      size="sm"
-      onClick={handleDownload}
-      isLoading={isLoading}
-      loadingText="Downloading"
-      leftIcon="download"
-    >
-      Make Available Offline
-    </Button>
+  return (
+    <ActionButtonContainer>
+      {offlineCC ? (
+        <Button
+          variantColor="red"
+          isLoading={isLoading}
+          onClick={handleRemove}
+          loadingText="Deleting"
+          leftIcon="delete"
+          size="sm"
+        >
+          Remove from Offline
+        </Button>
+      ) : (
+        <Button
+          size="sm"
+          variantColor="blue"
+          onClick={handleDownload}
+          isLoading={isLoading}
+          loadingText="Downloading"
+          leftIcon="download"
+        >
+          Make Available Offline
+        </Button>
+      )}
+    </ActionButtonContainer>
   );
 }

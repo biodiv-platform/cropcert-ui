@@ -25,13 +25,13 @@ const links = [
       {
         title: "⬇️ Farmer(s) List",
         description: "Manage Offline Farmer(s) List",
-        to: "/certification/manage-farmers",
+        to: "/farmer-certification/manage-farmers",
         access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
       {
         title: "📝 Inspection Report",
         description: "Create Inspection Report",
-        to: "/certification/inspection-report/create",
+        to: "/farmer-certification/inspection-report/create",
         access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
     ],

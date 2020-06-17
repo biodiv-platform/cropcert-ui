@@ -3,7 +3,7 @@ import RadioGroupInputField from "@components/@core/formik/radio-group";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
-import GridRow from "../../row";
+import GridRow from "../../../row";
 
 export default function Recommendation() {
   return (

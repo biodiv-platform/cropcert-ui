@@ -18,7 +18,7 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import { FieldArray } from "formik";
 import React from "react";
 
-import GridRow from "../../row";
+import GridRow from "../../../row";
 import { FIELD_SEPRATION_OPTIONS, GFP_OPTIONS } from "../options";
 
 export default function Farm({ values }) {

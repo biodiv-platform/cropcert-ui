@@ -7,7 +7,7 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import { FieldArray } from "formik";
 import React from "react";
 
-import GridRow from "../../row";
+import GridRow from "../../../row";
 import { ANIMAL_TYPE_OPTIONS, FIELD_SEPRATION_OPTIONS } from "../options";
 
 export default function Animals({ values }) {

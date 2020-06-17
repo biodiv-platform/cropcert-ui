@@ -5,7 +5,7 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import { FieldArray } from "formik";
 import React from "react";
 
-import GridRow from "../../row";
+import GridRow from "../../../row";
 import { YPN_OPTIONS } from "../options";
 
 export default function Advices({ values }) {

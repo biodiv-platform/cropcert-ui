@@ -4,7 +4,7 @@ import TextInputField from "@components/@core/formik/text";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
-import GridRow from "../../row";
+import GridRow from "../../../row";
 import { GP_OPTIONS, MFN_OPTIONS } from "../options";
 
 export default function GeneralInformation() {

@@ -1,9 +1,11 @@
 import { Accordion } from "@chakra-ui/core";
 import { Submit } from "@components/@core/formik";
 import { axCreateInspectionReport, axUploadSignature } from "@services/report.service";
+import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
 import { Form, Formik } from "formik";
 import React, { useMemo } from "react";
+import { useIndexedDBStore } from "use-indexeddb";
 import * as yup from "yup";
 
 import Advices from "./panels/advices";
@@ -17,6 +19,8 @@ import Signature from "./panels/signature";
 import SPORequirements from "./panels/spo-requirements";
 
 export default function InspectionForm({ farmer }) {
+  const { update } = useIndexedDBStore(STORE.FARMERS);
+
   const farms = useMemo(() => {
     const farms = farmer?.inspection?.farms || [];
     return farms.map(
@@ -73,7 +77,7 @@ export default function InspectionForm({ farmer }) {
           stumping: yup.string().required(),
           numberOfStumpedTree: yup.number().required(),
           plantingNewCoffeeSeedings: yup.boolean().required(),
-          lastUseOfNonAllowedChemicals: yup.string(),
+          lastUseOfNonAllowedChemicals: yup.string().nullable(),
           interPlotBufferZones: yup.boolean().required(),
           fieldSeparation: yup.string().required(),
           multipleOwnerWithOrganic: yup.boolean().required(),
@@ -145,8 +149,9 @@ export default function InspectionForm({ farmer }) {
     try {
       console.log(values);
       const payload = await uploadSignatures(values);
-      const { success } = await axCreateInspectionReport(payload);
+      const { success, data } = await axCreateInspectionReport(payload);
       if (success) {
+        update({ ...farmer, inspection: data });
         notification("Inspection Report Created Successfully", NotificationType.Success);
       }
     } catch (e) {

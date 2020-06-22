@@ -3,11 +3,11 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
 const basicInfoDummy = {
-  verification: "01-01-2020",
-  contract: "01-01-2020",
+  verification: "01-01-1995",
+  contract: "01-01-1995",
 };
 
-export default function CertificationStatus() {
+export default function CertificationStatus({ farmer }) {
   const basicInfoHeader = [
     {
       name: "Verification",

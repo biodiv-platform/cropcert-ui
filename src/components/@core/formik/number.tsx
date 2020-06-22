@@ -1,6 +1,6 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
-import { Field, FastField } from "formik";
-import React, { useMemo } from "react";
+import { FastField, Field, useField } from "formik";
+import React from "react";
 
 const hintMessage = (props) => {
   if (props?.min && props?.max) {
@@ -22,29 +22,29 @@ const NumberInputField = ({
   fast = false,
   ...props
 }) => {
+  const [field, meta] = useField({ name, as: fast ? FastField : Field });
   const hintText = props.hintText || hintMessage(props);
-  const F = useMemo(() => (fast ? FastField : Field), []);
 
   const onWheel = (e) => e.target.blur();
 
   return (
-    <F name={name}>
-      {({ field, meta }) => (
-        <FormControl isInvalid={meta.touched && meta.error} mb={mb} isRequired={isRequired}>
-          {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
-          <Input
-            {...field}
-            borderColor="gray.400"
-            onWheel={onWheel}
-            placeholder={label}
-            type="number"
-            {...props}
-          />
-          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
-          {hint && <FormHelperText>{hintText}</FormHelperText>}
-        </FormControl>
-      )}
-    </F>
+    <FormControl
+      isInvalid={meta.touched && meta.error ? true : false}
+      mb={mb}
+      isRequired={isRequired}
+    >
+      {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
+      <Input
+        {...field}
+        borderColor="gray.400"
+        onWheel={onWheel}
+        placeholder={label}
+        type="number"
+        {...props}
+      />
+      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      {hint && <FormHelperText>{hintText}</FormHelperText>}
+    </FormControl>
   );
 };
 

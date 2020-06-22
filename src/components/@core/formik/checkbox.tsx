@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, FormErrorMessage, FormHelperText } from "@chakra-ui/core";
-import { Field } from "formik";
+import { useField } from "formik";
 import React from "react";
 
 const CheckBoxInputField = ({
@@ -10,18 +10,16 @@ const CheckBoxInputField = ({
   isDisabled = false,
   ...props
 }) => {
+  const [field, meta] = useField(name);
+
   return (
-    <Field name={name}>
-      {({ field, meta }) => (
-        <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
-          <Checkbox {...field} {...props} isDisabled={isDisabled} isChecked={field.value}>
-            {label}
-          </Checkbox>
-          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
-          {hint && <FormHelperText>{props.hintText}</FormHelperText>}
-        </FormControl>
-      )}
-    </Field>
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+      <Checkbox {...field} {...props} isDisabled={isDisabled} isChecked={field.value}>
+        {label}
+      </Checkbox>
+      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      {hint && <FormHelperText>{props.hintText}</FormHelperText>}
+    </FormControl>
   );
 };
 

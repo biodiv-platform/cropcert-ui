@@ -1,8 +1,9 @@
 import { Accordion } from "@chakra-ui/core";
 import { Submit } from "@components/@core/formik";
-import { axCreateInspectionReport } from "@services/report.service";
-import { Formik } from "formik";
-import React from "react";
+import { axCreateInspectionReport, axUploadSignature } from "@services/report.service";
+import notification, { NotificationType } from "@utils/notification.util";
+import { Form, Formik } from "formik";
+import React, { useMemo } from "react";
 import * as yup from "yup";
 
 import Advices from "./panels/advices";
@@ -15,10 +16,28 @@ import Recommendation from "./panels/recommandation";
 import Signature from "./panels/signature";
 import SPORequirements from "./panels/spo-requirements";
 
-export default function InspectionForm() {
+export default function InspectionForm({ farmer }) {
+  const farms = useMemo(() => {
+    const farms = farmer?.inspection?.farms || [];
+    return farms.map(
+      ({
+        isCoffeeTreeWellMaintained,
+        pruining,
+        numberOfPruinedCoffeeTrees,
+        stumping,
+        numberOfStumpedTree,
+        plantingNewCoffeeSeedings,
+        lastUseOfNonAllowedChemicals,
+        interPlotBufferZones,
+        ...farm
+      }) => farm
+    );
+  }, []);
+
   const inspectionForm = {
     validationSchema: yup.object().shape({
       lastUsedChemicals: yup.string().nullable(),
+      cutivatationNotConductedWithin5mWaterSource: yup.boolean().required(),
       chemicalsOnIntercrop: yup.boolean().required(),
       chemicalsOnNonCoffeeField: yup.boolean().required(),
       manure90DaysOrLossBeforeHarvest: yup.boolean().required(),
@@ -35,7 +54,7 @@ export default function InspectionForm() {
       isOtherWasteDisposalAdequate: yup.boolean().required(),
       isHHMakingJointDecision: yup.boolean().required(),
       isHHTakingFarmingAsFamilyBusiness: yup.boolean().required(),
-      comments: yup.string().required(),
+      comments: yup.string(),
 
       // Farms
       farms: yup.array().of(
@@ -103,16 +122,37 @@ export default function InspectionForm() {
       isFairTradePremiumBudgetAndWorkplan: yup.boolean().required(),
       isEnvirnmentCommitteAndItsWorkplan: yup.boolean().required(),
       isFTContractPersonAppointed: yup.boolean().required(),
+
+      // Signatures
+      farmer: yup.object().shape({ path: yup.string().required() }),
+      fieldCoordinator: yup.object().shape({ path: yup.string().required() }),
     }),
     initialValues: {
-      farms: [],
+      farms,
+      farmer: {},
+      fieldCoordinator: {},
     },
   };
 
+  const uploadSignatures = async (values) => {
+    const signatures = ["farmer", "fieldCoordinator"];
+    const r = await Promise.all(signatures.map((p) => axUploadSignature(values[p]?.path)));
+    r.forEach((path, index) => (values[signatures[index]]["path"] = path));
+    return values;
+  };
+
   const handleOnInspectionFormSubmit = async (values, actions) => {
-    console.log(values);
-    const { success } = await axCreateInspectionReport(values);
-    console.log(success);
+    try {
+      console.log(values);
+      const payload = await uploadSignatures(values);
+      const { success } = await axCreateInspectionReport(payload);
+      if (success) {
+        notification("Inspection Report Created Successfully", NotificationType.Success);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
     actions.setSubmitting(false);
   };
 
@@ -123,24 +163,20 @@ export default function InspectionForm() {
       validateOnChange={false}
       validateOnBlur={true}
     >
-      {(props) => (
-        <form onSubmit={props.handleSubmit}>
-          <Accordion allowMultiple>
-            <FarmerInformation />
-            <CertificationStatus />
-            <GeneralInformation />
-            <Farm values={props.values} />
-            <Animals values={props.values} />
-            <Advices values={props.values} />
-            <Recommendation />
-            <Signature />
-            <SPORequirements />
-          </Accordion>
-          <Submit leftIcon="check2" props={props}>
-            Submit Inspection Report
-          </Submit>
-        </form>
-      )}
+      <Form>
+        <Accordion allowMultiple>
+          <FarmerInformation farmer={farmer} />
+          <CertificationStatus farmer={farmer} />
+          <GeneralInformation i={farmer?.inspection} />
+          <Farm />
+          <Animals />
+          <Advices previousAdvices={farmer?.advices} />
+          <Recommendation />
+          <Signature />
+          <SPORequirements />
+        </Accordion>
+        <Submit leftIcon="check2">Submit Inspection Report</Submit>
+      </Form>
     </Formik>
   );
 }

@@ -111,3 +111,29 @@ export const axCreateInspectionReport = async (body) => {
     return { success: false, data: {} };
   }
 };
+
+/**
+ * This function will convert `base64` to `blob`, append it to `FormData`
+ * and upload it to server response will contain image URL
+ *
+ * @param {string} base64
+ * @returns
+ */
+export const axUploadSignature = async (base64: string) => {
+  if (!base64) {
+    return;
+  }
+
+  const r = await fetch(base64);
+  const image = await r.blob();
+  const imageName = `sig-${new Date().getTime()}.png`;
+  console.log(image, imageName);
+  const formData = new FormData();
+  formData.append("upload", image, imageName);
+
+  const { data } = await http.post(`${ENDPOINT.PAGES}/image`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+  return data.url;
+};

@@ -319,11 +319,7 @@ export default function GreenReportForm({
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit
-                  props={props}
-                  leftIcon="save"
-                  isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}
-                >
+                <Submit leftIcon="save" isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}>
                   Save
                 </Submit>
               </ModalFooter>

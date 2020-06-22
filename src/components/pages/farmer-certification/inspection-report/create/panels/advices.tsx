@@ -2,18 +2,23 @@ import { Box, Button } from "@chakra-ui/core";
 import RadioGroupInputField from "@components/@core/formik/radio-group";
 import TextInputField from "@components/@core/formik/text";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { FieldArray } from "formik";
+import { FieldArray, useFormikContext } from "formik";
 import React from "react";
 
 import GridRow from "../../../row";
 import { YPN_OPTIONS } from "../options";
 
-export default function Advices({ values }) {
+export default function Advices({ previousAdvices }) {
+  const { values }: any = useFormikContext();
+
   return (
     <LotShowPanel title="Advices" icon="💡" isOpen={true}>
-      <GridRow label="Has Farmer Implemented Previous Advice">
-        <RadioGroupInputField name="hasFarmerImplementedPreviousAdvice" options={YPN_OPTIONS} />
-      </GridRow>
+      <GridRow
+        label="Has Farmer Implemented Previous Advice"
+        name="hasFarmerImplementedPreviousAdvice"
+        field={RadioGroupInputField}
+        options={YPN_OPTIONS}
+      />
       <FieldArray
         name="advices"
         render={(arrayHelpers) => (

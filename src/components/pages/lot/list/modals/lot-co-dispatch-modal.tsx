@@ -113,7 +113,7 @@ export default function LotCoDispatchModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit props={props} leftIcon="save" isDisabled={isDone || !canEdit}>
+                  <Submit leftIcon="save" isDisabled={isDone || !canEdit}>
                     Save
                   </Submit>
                 </ModalFooter>

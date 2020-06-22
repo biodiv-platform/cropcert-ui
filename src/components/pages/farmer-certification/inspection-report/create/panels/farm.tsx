@@ -15,13 +15,34 @@ import SelectInputField from "@components/@core/formik/select";
 import TextInputField from "@components/@core/formik/text";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { FieldArray } from "formik";
-import React from "react";
+import useDebouncedState from "@hooks/use-debounced-effect";
+import { FieldArray, useFormikContext } from "formik";
+import React, { useEffect } from "react";
 
 import GridRow from "../../../row";
 import { FIELD_SEPRATION_OPTIONS, GFP_OPTIONS } from "../options";
 
-export default function Farm({ values }) {
+export default function Farm() {
+  const { values, setFieldValue }: any = useFormikContext();
+  const farmsDebounced = useDebouncedState(values.farms, 1000);
+
+  useEffect(() => {
+    const fs = farmsDebounced.reduce(
+      (acc, f) => {
+        acc["areaUnderCoffee"] += Number(f?.areaUnderCoffee || 0);
+        acc["productiveTrees"] += Number(f?.numberOfCoffeTrees || 0);
+        acc["totalAreaOfFarm"] += Number(f?.acres || 0);
+        return acc;
+      },
+      { areaUnderCoffee: 0, productiveTrees: 0, totalAreaOfFarm: 0 }
+    );
+
+    setFieldValue("numberOfCoffeeFields", farmsDebounced.length);
+    setFieldValue("areaUnderCoffee", fs.areaUnderCoffee);
+    setFieldValue("productiveTrees", fs.productiveTrees);
+    setFieldValue("totalAreaOfFarm", fs.totalAreaOfFarm);
+  }, [farmsDebounced]);
+
   return (
     <LotShowPanel title="Farm (all coffee plots)" icon="🌄" isOpen={true} noPadding={true}>
       <FieldArray
@@ -30,7 +51,7 @@ export default function Farm({ values }) {
           <>
             <Accordion allowToggle={true}>
               {values.farms.map((_farm, index) => (
-                <AccordionItem>
+                <AccordionItem key={index}>
                   <AccordionHeader>
                     <Box flex="1" textAlign="left">
                       🚜 Plot #{index + 1}
@@ -69,7 +90,7 @@ export default function Farm({ values }) {
                         />
                         <NumberInputField
                           name={`farms[${index}].numberOfCoffeTrees`}
-                          label="No of coffee trees"
+                          label="Total No of coffee trees"
                           fast={true}
                         />
                         <NumberInputField
@@ -174,24 +195,44 @@ export default function Farm({ values }) {
       />
       <Box p={4}>
         <PageHeading size="md">📑 Summery</PageHeading>
-        <GridRow label="No Coffee Fields">
-          <NumberInputField name="numberOfCoffeeFields" fast={true} />
-        </GridRow>
-        <GridRow label="Total Area of Coffee">
-          <NumberInputField name="areaUnderCoffee" fast={true} />
-        </GridRow>
-        <GridRow label="Productive Trees">
-          <NumberInputField name="productiveTrees" fast={true} />
-        </GridRow>
-        <GridRow label="Total Area of Farm">
-          <NumberInputField name="totalAreaOfFarm" fast={true} />
-        </GridRow>
-        <GridRow label="Farmers know to Harvest Ripe Cherries">
-          <RadioGroupInputField name="knownToHarvestRipeCherries" />
-        </GridRow>
-        <GridRow label="Farmer Practices Post Harvest Handling">
-          <RadioGroupInputField name="practicesPostHarvestHandlling" />
-        </GridRow>
+        <GridRow
+          field={NumberInputField}
+          label="Total No Coffee Fields"
+          name="numberOfCoffeeFields"
+          isReadOnly={true}
+          fast={true}
+        />
+        <GridRow
+          field={NumberInputField}
+          label="Total Area of Coffee"
+          name="areaUnderCoffee"
+          isReadOnly={true}
+          fast={true}
+        />
+        <GridRow
+          field={NumberInputField}
+          label="Productive Trees"
+          name="productiveTrees"
+          isReadOnly={true}
+          fast={true}
+        />
+        <GridRow
+          field={NumberInputField}
+          label="Total Area of Farm"
+          name="totalAreaOfFarm"
+          isReadOnly={true}
+          fast={true}
+        />
+        <GridRow
+          field={RadioGroupInputField}
+          label="Farmers know to Harvest Ripe Cherries"
+          name="knownToHarvestRipeCherries"
+        />
+        <GridRow
+          field={RadioGroupInputField}
+          label="Farmer Practices Post Harvest Handling"
+          name="practicesPostHarvestHandlling"
+        />
       </Box>
     </LotShowPanel>
   );

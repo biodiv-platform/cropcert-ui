@@ -7,24 +7,42 @@ import GridRow from "../../../row";
 export default function SPORequirements() {
   return (
     <LotShowPanel title="SPO Requrements" icon="🔶" isOpen={true}>
-      <GridRow label="Board and AGM Minutes kept">
-        <RadioGroupInputField name="boardAGMMinutesKept" />
-      </GridRow>
-      <GridRow label="Membership lists and Shares (updated)">
-        <RadioGroupInputField name="membershipListsAndSharesUpdated" />
-      </GridRow>
-      <GridRow label="Annual Budget and Audited Accounts">
-        <RadioGroupInputField name="isAnnualBudgetAndAuditedAccounts" />
-      </GridRow>
-      <GridRow label="Fairtrade Premium Budget and Workplan">
-        <RadioGroupInputField name="isFairTradePremiumBudgetAndWorkplan" />
-      </GridRow>
-      <GridRow label="Environment Committee and its workplan">
-        <RadioGroupInputField name="isEnvirnmentCommitteAndItsWorkplan" />
-      </GridRow>
-      <GridRow label="FT Contact Person appointed" mb={0}>
-        <RadioGroupInputField name="isFTContractPersonAppointed" />
-      </GridRow>
+      <GridRow
+        label="Board and AGM Minutes kept"
+        field={RadioGroupInputField}
+        name="boardAGMMinutesKept"
+      />
+
+      <GridRow
+        label="Membership lists and Shares (updated)"
+        field={RadioGroupInputField}
+        name="membershipListsAndSharesUpdated"
+      />
+
+      <GridRow
+        label="Annual Budget and Audited Accounts"
+        field={RadioGroupInputField}
+        name="isAnnualBudgetAndAuditedAccounts"
+      />
+
+      <GridRow
+        label="Fairtrade Premium Budget and Workplan"
+        field={RadioGroupInputField}
+        name="isFairTradePremiumBudgetAndWorkplan"
+      />
+
+      <GridRow
+        label="Environment Committee and its workplan"
+        field={RadioGroupInputField}
+        name="isEnvirnmentCommitteAndItsWorkplan"
+      />
+
+      <GridRow
+        label="FT Contact Person appointed"
+        mb={0}
+        field={RadioGroupInputField}
+        name="isFTContractPersonAppointed"
+      />
     </LotShowPanel>
   );
 }

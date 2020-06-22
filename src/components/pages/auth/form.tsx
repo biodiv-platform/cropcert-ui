@@ -43,7 +43,7 @@ function SignInForm() {
         <form onSubmit={props.handleSubmit}>
           <TextBox name="userName" label="Username" />
           <TextBox name="password" type="password" label="Password" />
-          <Submit props={props}>
+          <Submit>
             Sign In <Icon ml={2} name="arrow-forward" />
           </Submit>
         </form>

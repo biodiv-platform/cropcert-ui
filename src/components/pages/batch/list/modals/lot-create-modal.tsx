@@ -109,7 +109,7 @@ function LotCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon="check2" isDisabled={batches.length === 0}>
+                <Submit leftIcon="check2" isDisabled={batches.length === 0}>
                   Create Lot
                 </Submit>
               </ModalFooter>

@@ -103,7 +103,7 @@ export default function LotGRNModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit props={props} leftIcon="save" isDisabled={!canWrite}>
+                  <Submit leftIcon="save" isDisabled={!canWrite}>
                     Save
                   </Submit>
                 </ModalFooter>

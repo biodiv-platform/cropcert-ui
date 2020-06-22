@@ -6,62 +6,72 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/core";
-import { Field } from "formik";
-import React, { useEffect, useState } from "react";
+import { FastField, useField } from "formik";
+import React, { useMemo } from "react";
 
-const defaultOptions: { label: string; value: any }[] = [
+const defaultOptions = [
   { label: "Yes", value: true },
   { label: "No", value: false },
 ];
 
+interface RadioGroupInputFieldProps {
+  name: string;
+  label?: string;
+  hint?: boolean;
+  hintText?: string;
+  mb?: number;
+  options?: { label: string; value: any }[];
+}
+
 const RadioGroupInputField = ({
   name,
-  label = null,
-  hint = false,
-  hintText = "",
+  label,
+  hint,
+  hintText,
   mb = 4,
-  options = defaultOptions,
-  selectOnOne = true,
-  isInline = true,
-  fast = true,
+  options,
   ...props
-}) => (
-  <Field name={name}>
-    {({ field, meta, form }) => {
-      const defaultValue = options.findIndex(({ value }) => field.value === value);
-      const [value, setValue] = useState<any>(defaultValue);
+}: RadioGroupInputFieldProps) => {
+  const [field, meta, helpers] = useField({ name, as: FastField });
 
-      useEffect(() => {
-        form.setFieldValue(field.name, value ? options[value]?.value : undefined);
-      }, [value]);
+  const nOptions = options || defaultOptions;
+  const value = useMemo(
+    () => nOptions.findIndex(({ value }) => field.value === value).toString(),
+    []
+  );
 
-      return (
-        <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
-          {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
-          <RadioGroup
-            {...field}
-            {...props}
-            id={field.name}
-            spacing={4}
-            isInline={isInline}
-            defaultValue={value}
-            minH="40px"
-            display="flex"
-            alignItems="center"
-            onChange={(_, v) => setValue(v)}
-          >
-            {options.map(({ label }, index) => (
-              <Radio key={index} value={index.toString()}>
-                {label}
-              </Radio>
-            ))}
-          </RadioGroup>
-          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
-          {hint && <FormHelperText>{hintText}</FormHelperText>}
-        </FormControl>
-      );
-    }}
-  </Field>
-);
+  const onValueChange = (_, value) => {
+    helpers.setValue(nOptions[value]?.value);
+    setTimeout(() => {
+      helpers.setTouched(true);
+      field.onBlur(name);
+    }, 300);
+  };
+
+  return (
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      <RadioGroup
+        {...props}
+        id={name}
+        spacing={4}
+        isInline={true}
+        defaultValue={value}
+        minH="40px"
+        display="flex"
+        alignItems="center"
+        onChange={onValueChange}
+      >
+        {nOptions.map(({ label }, index) => (
+          <Radio key={index} value={index.toString()}>
+            {label}
+          </Radio>
+        ))}
+      </RadioGroup>
+      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      {hint && <FormHelperText>{hintText}</FormHelperText>}
+    </FormControl>
+  );
+};
 
 export default RadioGroupInputField;

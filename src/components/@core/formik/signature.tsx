@@ -1,8 +1,8 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Button } from "@chakra-ui/core";
-import { Field } from "formik";
+import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/core";
+import styled from "@emotion/styled";
+import { FastField, useField } from "formik";
 import React, { useRef } from "react";
 import SignaturePad from "react-signature-canvas";
-import styled from "@emotion/styled";
 
 const SignatureWrapper = styled.div`
   .declaration,
@@ -30,40 +30,42 @@ const SignatureInputField = ({
   hintText = "",
   mb = 4,
   ...props
-}) => (
-  <Field name={name}>
-    {({ field, meta, form }) => {
-      const ref = useRef(null);
+}) => {
+  const [field, meta, helpers] = useField({ name, as: FastField });
 
-      const onStrokeEnd = () => {
-        form.setFieldValue(field.name, ref.current.toDataURL());
-      };
+  const ref = useRef(null);
 
-      return (
-        <FormControl isInvalid={meta.touched && meta.error} mb={mb}>
-          <FormLabel htmlFor={field.name}>{label}</FormLabel>
-          <SignatureWrapper>
-            <div className="declaration">
-              {declaration} - {personName}
-            </div>
-            <div className="name">
-              <button onClick={() => ref.current.clear()}>Clear</button>
-            </div>
-            <SignaturePad
-              {...field}
-              {...props}
-              id={field.name}
-              canvasProps={{ width: 240, height: 150, className: "sigCanvas" }}
-              onEnd={onStrokeEnd}
-              ref={ref}
-            />
-          </SignatureWrapper>
-          <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
-          {hint && <FormHelperText>{hintText}</FormHelperText>}
-        </FormControl>
-      );
-    }}
-  </Field>
-);
+  const onStrokeEnd = () => {
+    helpers.setValue(ref.current.toDataURL());
+    setTimeout(() => {
+      helpers.setTouched(true);
+      field.onBlur(name);
+    }, 300);
+  };
+
+  return (
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      <SignatureWrapper>
+        <div className="declaration">
+          {declaration} - {personName}
+        </div>
+        <div className="name">
+          <button onClick={() => ref.current.clear()}>Clear</button>
+        </div>
+        <SignaturePad
+          {...field}
+          {...props}
+          id={field.name}
+          canvasProps={{ width: 240, height: 150, className: "sigCanvas" }}
+          onEnd={onStrokeEnd}
+          ref={ref}
+        />
+      </SignatureWrapper>
+      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      {hint && <FormHelperText>{hintText}</FormHelperText>}
+    </FormControl>
+  );
+};
 
 export default SignatureInputField;

@@ -216,9 +216,7 @@ export default function CuppingReportForm({
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon="save">
-                  Save
-                </Submit>
+                <Submit leftIcon="save">Save</Submit>
               </ModalFooter>
             </ModalContent>
           </form>

@@ -295,11 +295,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit
-                  props={props}
-                  leftIcon="save"
-                  isDisabled={!(props.isValid && totalDiff === 0)}
-                >
+                <Submit leftIcon="save" isDisabled={!(props.isValid && totalDiff === 0)}>
                   Save
                 </Submit>
               </ModalFooter>

@@ -125,7 +125,7 @@ function BatchUpdateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon={"save" as any} isDisabled={batch.isReadyForLot}>
+                <Submit leftIcon="save" isDisabled={batch.isReadyForLot}>
                   Save
                 </Submit>
               </ModalFooter>

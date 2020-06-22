@@ -10,8 +10,11 @@ export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
 };
 
-export const formattedDate = (d = new Date().getTime()) => {
-  return dayjs(d).format(DATEFORMATS.DAYJS_DATE);
+export const formattedDate = (d, emptyOnUndefined = false) => {
+  if (emptyOnUndefined && d === undefined) {
+    return;
+  }
+  return dayjs(d || new Date().getTime()).format(DATEFORMATS.DAYJS_DATE);
 };
 
 /*

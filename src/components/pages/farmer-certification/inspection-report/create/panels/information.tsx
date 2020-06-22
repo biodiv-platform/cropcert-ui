@@ -1,23 +1,12 @@
-import { Accordion } from "@chakra-ui/core";
 import Table from "@components/@core/table";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
-const basicInfoDummy = {
-  farmerName: "John Doe",
-  farmerCode: "#1234",
-  noOfCoffeeFields: 10,
-  ccName: "TBA",
-  district: "TBA",
-  village: "TBA",
-  coordinator: "TBA",
-};
-
-export default function FarmerInformation() {
+export default function FarmerInformation({ farmer }) {
   const basicInfoHeader = [
     {
       name: "Farmer Name",
-      selector: "farmerName",
+      selector: "firstName",
     },
     {
       name: "Farmer Code",
@@ -25,15 +14,15 @@ export default function FarmerInformation() {
     },
     {
       name: "No of Coffee Fields",
-      selector: "noOfCoffeeFields",
+      selector: "numCoffeePlots",
     },
     {
-      name: "CollectionCenter",
-      selector: "ccName",
+      name: "Collection Center Code",
+      selector: "ccCode",
     },
     {
-      name: "District",
-      selector: "district",
+      name: "Sub Country",
+      selector: "subCountry",
     },
     {
       name: "Village",
@@ -41,13 +30,13 @@ export default function FarmerInformation() {
     },
     {
       name: "Coordinator",
-      selector: "coordinator",
+      selector: "fieldCoOrdinator",
     },
   ];
 
   return (
     <LotShowPanel title="Information" icon="ℹ️" isOpen={true}>
-      <Table keyField="id" columns={basicInfoHeader} noHeader={true} data={[basicInfoDummy]} />
+      <Table keyField="id" columns={basicInfoHeader} noHeader={true} data={[farmer]} />
     </LotShowPanel>
   );
 }

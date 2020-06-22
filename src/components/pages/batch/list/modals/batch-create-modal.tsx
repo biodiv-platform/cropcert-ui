@@ -95,7 +95,7 @@ export default function BatchCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon="check2">
+                <Submit leftIcon="check2">
                   Create Batch
                 </Submit>
               </ModalFooter>

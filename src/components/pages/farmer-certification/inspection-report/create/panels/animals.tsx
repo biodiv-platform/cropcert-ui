@@ -4,24 +4,33 @@ import RadioGroupInputField from "@components/@core/formik/radio-group";
 import SelectInputField from "@components/@core/formik/select";
 import { CoreGrid } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { FieldArray } from "formik";
+import { FieldArray, useFormikContext } from "formik";
 import React from "react";
 
 import GridRow from "../../../row";
 import { ANIMAL_TYPE_OPTIONS, FIELD_SEPRATION_OPTIONS } from "../options";
 
-export default function Animals({ values }) {
+export default function Animals() {
+  const { values }: any = useFormikContext();
+
   return (
     <LotShowPanel title="Animals" icon="🐄" isOpen={true}>
-      <GridRow label="Farmer has Livestock">
-        <RadioGroupInputField name="hasLiveStock" />
-      </GridRow>
-      <GridRow label="Chemical Treatment on Livestock" bgGray={true}>
-        <RadioGroupInputField name="chemicalTreatmentOnLivestock" />
-      </GridRow>
-      <GridRow label="Livestock Treatment conducted 5m from coffee" mb={4}>
-        <RadioGroupInputField name="livestockTreatmentConducted5mFromCoffee" />
-      </GridRow>
+      <GridRow label="Farmer has Livestock" field={RadioGroupInputField} name="hasLiveStock" />
+
+      <GridRow
+        label="Chemical Treatment on Livestock"
+        bgGray={true}
+        field={RadioGroupInputField}
+        name="chemicalTreatmentOnLivestock"
+      />
+
+      <GridRow
+        label="Livestock Treatment conducted 5m from coffee"
+        mb={4}
+        field={RadioGroupInputField}
+        name="livestockTreatmentConducted5mFromCoffee"
+      />
+
       <FieldArray
         name="animals"
         render={(arrayHelpers) => (

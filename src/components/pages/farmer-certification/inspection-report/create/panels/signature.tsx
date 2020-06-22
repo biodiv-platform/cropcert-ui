@@ -19,19 +19,6 @@ export default function Signature() {
         mb={8}
         personName="John Doe"
       />
-      <SignatureInputField
-        name="icsManager.path"
-        label="ICS Manager/Supervisor Signature"
-        declaration="I, the ICS Manager/Supervisor confirm that the above information is correct"
-        mb={8}
-        personName="John Doe"
-      />
-      <SignatureInputField
-        name="chairPerson.path"
-        label="Chairperson Signature"
-        declaration="Approved by Chairperson Certification committee "
-        personName=""
-      />
     </LotShowPanel>
   );
 }

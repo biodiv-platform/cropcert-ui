@@ -65,7 +65,7 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
               <TextBox label="Link" name="url" />
             )}
 
-            <Submit props={props}>Save {isContentInput ? "Page" : "Link"}</Submit>
+            <Submit>Save {isContentInput ? "Page" : "Link"}</Submit>
           </form>
         );
       }}

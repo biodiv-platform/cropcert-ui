@@ -6649,10 +6649,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-multi-select-component@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-multi-select-component/-/react-multi-select-component-2.0.5.tgz#094844832885f6d1cef08b7c5c47c4e2ff898ece"
-  integrity sha512-EEXUSoGDATc1GLXENsuG10ba9HvAQme1y5c7W47FzZZkqzceDZvZvuJt04kn08VlNO15z0exaESefa3a2FT1tg==
+react-multi-select-component@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/react-multi-select-component/-/react-multi-select-component-2.0.12.tgz#c24b76637f4b5f248d1a1b2be7c646bdf83db95b"
+  integrity sha512-QcOc8zQgz9AQQkX51EuDokqPi8BIRGBQdvnn1im3d1gsSIIY2W09jkvd9+/ByVk6NiL4XjygJtwCGJSGQcr3+A==
   dependencies:
     "@rooks/use-outside-click" "^3.6.0"
     goober "^1.8.0"

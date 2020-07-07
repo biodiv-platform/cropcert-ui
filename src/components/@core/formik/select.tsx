@@ -20,7 +20,7 @@ const SelectInputField = ({
 
   useEffect(() => {
     helpers.setValue(value ? value.value : "");
-    helpers.setTouched(true);
+    value?.value && helpers.setTouched(true);
   }, [value]);
 
   useEffect(() => {

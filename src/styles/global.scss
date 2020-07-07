@@ -39,3 +39,7 @@ input:disabled {
     background: var(--gray-100);
   }
 }
+
+input[type="radio"] + div[type="radio"] {
+  background: white;
+}

@@ -1,5 +1,5 @@
-import { Accordion } from "@chakra-ui/core";
-import { Submit } from "@components/@core/formik";
+import { Accordion, Button } from "@chakra-ui/core";
+import ErrorSummery from "@components/@core/formik/error-summery";
 import { axCreateInspectionReport, axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
@@ -16,13 +16,12 @@ import GeneralInformation from "./panels/general-information";
 import FarmerInformation from "./panels/information";
 import Recommendation from "./panels/recommandation";
 import Signature from "./panels/signature";
-import SPORequirements from "./panels/spo-requirements";
 
 export default function InspectionForm({ farmer }) {
   const { update } = useIndexedDBStore(STORE.FARMERS);
 
   const farms = useMemo(() => {
-    const farms = farmer?.inspection?.farms || [];
+    const farms = farmer?.inspection?.farms || new Array(farmer.numCoffeePlots).fill({});
     return farms.map(
       ({
         isCoffeeTreeWellMaintained,
@@ -119,14 +118,6 @@ export default function InspectionForm({ farmer }) {
 
       isRecommendedOrganicCertificatation: yup.boolean().required(),
 
-      // SPO Requirements
-      boardAGMMinutesKept: yup.boolean().required(),
-      membershipListsAndSharesUpdated: yup.boolean().required(),
-      isAnnualBudgetAndAuditedAccounts: yup.boolean().required(),
-      isFairTradePremiumBudgetAndWorkplan: yup.boolean().required(),
-      isEnvirnmentCommitteAndItsWorkplan: yup.boolean().required(),
-      isFTContractPersonAppointed: yup.boolean().required(),
-
       // Signatures
       farmer: yup.object().shape({ path: yup.string().required() }),
       fieldCoordinator: yup.object().shape({ path: yup.string().required() }),
@@ -137,6 +128,8 @@ export default function InspectionForm({ farmer }) {
       fieldCoordinator: {},
     },
   };
+
+  console.log(farmer.numCoffeePlots);
 
   const uploadSignatures = async (values) => {
     const signatures = ["farmer", "fieldCoordinator"];
@@ -178,9 +171,11 @@ export default function InspectionForm({ farmer }) {
           <Advices previousAdvices={farmer?.advices} />
           <Recommendation />
           <Signature />
-          <SPORequirements />
         </Accordion>
-        <Submit leftIcon="check2">Submit Inspection Report</Submit>
+        <ErrorSummery />
+        <Button leftIcon={"check2" as any} variantColor="blue" type="submit">
+          Save
+        </Button>
       </Form>
     </Formik>
   );

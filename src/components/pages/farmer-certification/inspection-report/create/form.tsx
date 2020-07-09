@@ -1,6 +1,6 @@
 import { Accordion, Button } from "@chakra-ui/core";
 import ErrorSummery from "@components/@core/formik/error-summery";
-import { axCreateInspectionReport, axUploadSignature } from "@services/report.service";
+import { axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
 import { Form, Formik } from "formik";
@@ -18,7 +18,7 @@ import Recommendation from "./panels/recommandation";
 import Signature from "./panels/signature";
 
 export default function InspectionForm({ farmer }) {
-  const { update } = useIndexedDBStore(STORE.FARMERS);
+  const { add } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
 
   const farms = useMemo(() => {
     const farms = farmer?.inspection?.farms || new Array(farmer.numCoffeePlots).fill({});
@@ -95,7 +95,11 @@ export default function InspectionForm({ farmer }) {
       // Animals
       hasLiveStock: yup.boolean().required(),
       chemicalTreatmentOnLivestock: yup.boolean().required(),
-      livestockTreatmentConducted5mFromCoffee: yup.boolean().required(),
+      livestockTreatmentConducted5mFromCoffee: yup.boolean().when("chemicalTreatmentOnLivestock", {
+        is: true,
+        then: yup.boolean().required(),
+        otherwise: yup.boolean().nullable(),
+      }),
       animals: yup.array().of(
         yup.object().shape({
           type: yup.string().required(),
@@ -129,8 +133,6 @@ export default function InspectionForm({ farmer }) {
     },
   };
 
-  console.log(farmer.numCoffeePlots);
-
   const uploadSignatures = async (values) => {
     const signatures = ["farmer", "fieldCoordinator"];
     const r = await Promise.all(signatures.map((p) => axUploadSignature(values[p]?.path)));
@@ -139,17 +141,14 @@ export default function InspectionForm({ farmer }) {
   };
 
   const handleOnInspectionFormSubmit = async (values, actions) => {
-    try {
-      console.log(values);
-      const payload = await uploadSignatures(values);
-      const { success, data } = await axCreateInspectionReport(payload);
-      if (success) {
-        update({ ...farmer, inspection: data });
-        notification("Inspection Report Created Successfully", NotificationType.Success);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    add({
+      data: values,
+      version: farmer?.version,
+      subversion: farmer?.subversion,
+      farmerId: farmer.id,
+      ccCode: farmer.ccCode,
+    });
+    notification("Inspection Report Saved Locally", NotificationType.Success);
 
     actions.setSubmitting(false);
   };

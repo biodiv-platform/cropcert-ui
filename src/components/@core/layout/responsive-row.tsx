@@ -6,9 +6,10 @@ interface ResponsiveRowProps {
   mb?: number;
   bgGray?: boolean;
   rows?: number;
+  minH?;
 }
 
-function ResponsiveRow({ children, mb = 2, bgGray = false, rows = 2 }: ResponsiveRowProps) {
+function ResponsiveRow({ children, mb = 2, bgGray = false, rows = 2, minH }: ResponsiveRowProps) {
   return (
     <Grid
       className="grid-row fade"
@@ -16,6 +17,7 @@ function ResponsiveRow({ children, mb = 2, bgGray = false, rows = 2 }: Responsiv
       mb={mb}
       p={4}
       data-odd={bgGray}
+      minH={minH}
     >
       {children}
     </Grid>

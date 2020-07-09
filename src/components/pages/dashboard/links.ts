@@ -23,15 +23,9 @@ const links = [
     title: "Certification",
     children: [
       {
-        title: "⬇️ Farmer(s) List",
-        description: "Manage Offline Farmer(s) List",
-        to: "/farmer-certification/manage-farmers",
-        access: [ROLES.INSPECTOR, ROLES.ADMIN],
-      },
-      {
         title: "📝 Inspection Report",
-        description: "Create Inspection Report",
-        to: "/farmer-certification/inspection-report/select-farmer",
+        description: "Manage Inspection Report",
+        to: "/farmer-certification/manage-farmers",
         access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
     ],

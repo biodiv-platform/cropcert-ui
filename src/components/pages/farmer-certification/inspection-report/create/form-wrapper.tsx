@@ -11,7 +11,7 @@ export default function InspectionFormWrapper() {
   const router = useRouter();
 
   const fetchFarmer = async () => {
-    const f = await getOneByIndex("id", Number(router.query.farmerId));
+    const f = await getOneByIndex("id", Number(router.query.feFarmerId));
     setFarmer(f);
   };
 

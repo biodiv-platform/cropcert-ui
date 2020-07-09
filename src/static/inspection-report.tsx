@@ -41,13 +41,20 @@ export const DB_CONFIG: IndexedDBConfig = {
       indices: [
         { name: "ccCode", keyPath: "ccCode" },
         { name: "ccName", keyPath: "ccName" },
+        { name: "farmersCount", keyPath: "farmersCount" },
         { name: "lastSynced", keyPath: "lastSynced" },
       ],
     },
     {
       name: STORE.PENDING_INSPECTION_REPORT,
-      id: { keyPath: "id", autoIncrement: true },
-      indices: [{ name: "data", keyPath: "data" }],
+      id: { keyPath: "index", autoIncrement: true },
+      indices: [
+        { name: "farmerId", keyPath: "farmerId" },
+        { name: "ccCode", keyPath: "ccCode" },
+        { name: "data", keyPath: "data" },
+        { name: "version", keyPath: "version" },
+        { name: "subversion", keyPath: "subversion" },
+      ],
     },
   ],
 };

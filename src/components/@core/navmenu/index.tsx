@@ -1,9 +1,8 @@
-import "./navmenu.scss";
-
+import { Link } from "@chakra-ui/core";
+import useOnlineStatus from "@rehooks/online-status";
 import { SITE_TITLE } from "@static/constants";
 import { navmenu } from "@static/navmenu";
 import NextLink from "next/link";
-import { Link } from "@chakra-ui/core";
 import React from "react";
 
 import Arrow from "./arrow";
@@ -11,8 +10,10 @@ import PagesNavmenu from "./pages";
 import NavbarRightMenu from "./right-menu";
 
 export default function Navbar() {
+  const isOnline = useOnlineStatus();
+
   return (
-    <nav id="menu">
+    <nav id="menu" data-online={isOnline}>
       <NextLink href="/" passHref={true}>
         <Link p={1} fontWeight="bold">
           {SITE_TITLE}

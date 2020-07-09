@@ -1,5 +1,3 @@
-import "./style.scss";
-
 import { Badge, Icon } from "@chakra-ui/core";
 import { formattedTimeStamp } from "@utils/basic.util";
 import React from "react";

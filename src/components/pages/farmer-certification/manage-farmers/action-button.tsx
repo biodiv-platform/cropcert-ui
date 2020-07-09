@@ -1,91 +1,62 @@
-import { Button } from "@chakra-ui/core";
-import styled from "@emotion/styled";
-import { axGetFarmersWithLastReportByCC } from "@services/certification.service";
-import { IDB_SYNCED } from "@static/events";
-import { STORE } from "@static/inspection-report";
-import notification, { NotificationType } from "@utils/notification.util";
-import React, { useEffect, useState } from "react";
-import { emit, useListener } from "react-gbus";
-import { useIndexedDBStore } from "use-indexeddb";
+import { Button, Flex, Stack } from "@chakra-ui/core";
+import useInspectionReport from "@hooks/use-inspection-report";
+import NextLink from "next/link";
+import React, { useState } from "react";
 
-const ActionButtonContainer = styled.div`
-  button {
-    min-width: 12rem;
-  }
-`;
-
-export default function ActionButton({ ccCode, ccName }) {
-  const {
-    add: addFarmer,
-    getManyByIndex: getFarmers,
-    deleteByID: removeFarmer,
-  } = useIndexedDBStore(STORE.FARMERS);
-  const { add: addSyncStatus, getOneByIndex, deleteByID: removeSyncStatus } = useIndexedDBStore(
-    STORE.SYNC_STATUS
-  );
-
-  const [offlineCC, setOfflineCC] = useState<any>();
+export default function ActionButton({ ccCode, ccName, syncStatus }) {
   const [isLoading, setIsLoading] = useState(false);
+  const { removeCCFarmers, downloadCCFarmers } = useInspectionReport();
 
-  const checkSyncStatus = () => getOneByIndex("ccCode", ccCode).then(setOfflineCC);
-
-  useListener(checkSyncStatus, [IDB_SYNCED]);
-
-  useEffect(() => {
-    checkSyncStatus();
-  }, [ccCode]);
-
-  const handleDownload = async () => {
-    try {
-      setIsLoading(true);
-      const { data, success } = await axGetFarmersWithLastReportByCC(ccCode);
-      if (success && data.length > 0) {
-        await Promise.all(data.map((o) => addFarmer(o)));
-        await addSyncStatus({ ccCode, ccName, lastSynced: new Date() });
-        emit(IDB_SYNCED);
-      } else {
-        notification("No Farmers Available", NotificationType.Info);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  const handleOnRemove = async () => {
+    setIsLoading(true);
+    await removeCCFarmers(ccCode);
     setIsLoading(false);
   };
 
-  const handleRemove = async () => {
+  const handleOnDownload = async () => {
     setIsLoading(true);
-    const farmersToRemove = await getFarmers("ccCode", ccCode);
-    await Promise.all(farmersToRemove.map(({ index }) => removeFarmer(index)));
-    await removeSyncStatus(offlineCC.index);
-    emit(IDB_SYNCED);
+    await downloadCCFarmers({ ccCode, ccName });
     setIsLoading(false);
   };
 
   return (
-    <ActionButtonContainer>
-      {offlineCC ? (
-        <Button
-          variantColor="red"
-          isLoading={isLoading}
-          onClick={handleRemove}
-          loadingText="Deleting"
-          leftIcon="delete"
-          size="sm"
-        >
-          Remove from Offline
-        </Button>
+    <Flex justifyContent="flex-end">
+      {syncStatus ? (
+        <Stack w={{ base: "full", md: "11rem" }}>
+          <NextLink
+            href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}
+            passHref={true}
+          >
+            <Button as="a" variantColor="blue" size="sm" rightIcon="arrow-forward" mb={4}>
+              Farmers List ({syncStatus?.farmersCount})
+            </Button>
+          </NextLink>
+          <Button
+            className="download"
+            variantColor="red"
+            isLoading={isLoading}
+            onClick={handleOnRemove}
+            loadingText="Deleting"
+            leftIcon="delete"
+            size="sm"
+          >
+            Remove Farmers List
+          </Button>
+        </Stack>
       ) : (
         <Button
           size="sm"
-          variantColor="blue"
-          onClick={handleDownload}
+          className="download"
+          variantColor="teal"
+          onClick={handleOnDownload}
           isLoading={isLoading}
           loadingText="Downloading"
           leftIcon="download"
+          w="11rem"
         >
-          Make Available Offline
+          Download Farmers
         </Button>
       )}
-    </ActionButtonContainer>
+    </Flex>
   );
 }

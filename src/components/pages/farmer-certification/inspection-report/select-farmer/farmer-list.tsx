@@ -1,50 +1,66 @@
-import { Box, Button, Text } from "@chakra-ui/core";
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Spinner,
+  Text,
+} from "@chakra-ui/core";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
-import { STORE } from "@static/inspection-report";
+import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useIndexedDBStore } from "use-indexeddb";
+import { debounce } from "ts-debounce";
 
-const MIN_CHAR = 3;
-
-export default function FarmerList({ query }) {
-  const { openCursor } = useIndexedDBStore(STORE.FARMERS);
+export default function FarmerList() {
+  const { getCCFarmers } = useInspectionReport();
   const [farmers, setFarmers] = useState([]);
+  const [initialFarmers, setInitialFarmers] = useState([]);
+  const router = useRouter();
+
+  const onFilterChange = debounce(
+    (e) => {
+      const query = e.target.value.toLowerCase();
+      setFarmers(initialFarmers.filter(({ firstName }) => firstName.toLowerCase().includes(query)));
+    },
+    400,
+    { isImmediate: true }
+  );
 
   useEffect(() => {
-    setFarmers([]);
-    const results = [];
-
-    if (query.length < MIN_CHAR) {
-      return;
-    }
-
-    openCursor((e) => {
-      if (results.length >= 10) {
-        return;
-      }
-      const c = e.target.result;
-      if (c) {
-        if (c?.value?.firstName.toLowerCase().includes(query)) {
-          results.push(c.value);
-        }
-        c.continue();
-      } else {
-        setFarmers(results);
-      }
+    getCCFarmers(router.query?.feCCCode).then((data) => {
+      setInitialFarmers(data);
+      setFarmers(data);
     });
-  }, [query]);
+  }, [router.query?.feCCCode]);
 
-  return (
+  return farmers.length ? (
     <>
+      <InputGroup mt={8} mb={4} size="lg" maxW="25rem">
+        <InputLeftElement children={<Icon name="search" color="gray.300" />} />
+        <Input
+          type="text"
+          placeholder="Find Farmer"
+          borderColor="gray.400"
+          onChange={onFilterChange}
+        />
+      </InputGroup>
+
+      <Text mb={8}>
+        Showing {farmers.length} of {initialFarmers.length} Farmer(s)
+      </Text>
+
       {farmers.map((farmer, index) => (
-        <ResponsiveRow bgGray={index % 2 !== 0}>
+        <ResponsiveRow bgGray={index % 2 !== 0} key={farmer?.farmerCode}>
           <div>
             <small>{farmer.farmerCode}</small>
             <Text fontSize="lg">{farmer.firstName}</Text>
           </div>
           <Box textAlign="right">
-            <NextLink href={`create?farmerId=${farmer.id}`} passHref={true}>
+            <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true}>
               <Button as="a" variantColor="blue" rightIcon="arrow-forward">
                 Continue
               </Button>
@@ -52,9 +68,8 @@ export default function FarmerList({ query }) {
           </Box>
         </ResponsiveRow>
       ))}
-      {farmers.length === 0 && query.length >= MIN_CHAR
-        ? "No Farmer Found"
-        : "Try entering 3 characters or more"}
     </>
+  ) : (
+    <Spinner />
   );
 }

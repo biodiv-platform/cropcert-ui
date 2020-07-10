@@ -13,3 +13,15 @@ export const axGetFarmersWithLastReportByCC = async (ccCode) => {
     return { success: false, data: [] };
   }
 };
+
+export const axGetFarmerWithLastReportByFarmerId = async (farmerId) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.CERTIFICATION}/inspection/farmer/latest`, {
+      params: { farmerId },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};

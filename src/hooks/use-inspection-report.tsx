@@ -1,5 +1,9 @@
 import { axListCCByCoId } from "@services/cc.service";
-import { axGetFarmersWithLastReportByCC } from "@services/certification.service";
+import {
+  axGetFarmersWithLastReportByCC,
+  axGetFarmerWithLastReportByFarmerId,
+} from "@services/certification.service";
+import { axUploadInspectionReport, axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
 import React, { createContext, useContext } from "react";
@@ -16,6 +20,8 @@ interface InspectionReportContextProviderProps {
   downloadCCFarmers;
   removeCCFarmers;
   getCCFarmers;
+  uploadInspectionReport;
+  discardInspectionReport;
 }
 
 const InspectionReportContext = createContext<InspectionReportContextProviderProps>(
@@ -28,7 +34,9 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
   const {
     add: addFarmer,
     getManyByIndex: getFarmers,
+    getOneByIndex: getFarmer,
     deleteByID: removeFarmer,
+    update: addOrUpdateFarmer,
   } = useIndexedDBStore(STORE.FARMERS);
 
   const {
@@ -39,6 +47,8 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
 
   const {
     getAll: getAllPendingInspectionReports,
+    getManyByIndex: getPendingReports,
+    getOneByIndex: getPendingReport,
     deleteByID: removeInspectionReport,
   } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
 
@@ -58,18 +68,32 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
     });
   };
 
-  const downloadCCFarmers = async ({ ccCode, ccName }) => {
+  const downloadCCFarmers = async (ccCode, isUpdate = false) => {
     try {
       const { data, success } = await axGetFarmersWithLastReportByCC(ccCode);
       if (success && data.length) {
-        await Promise.all(data.map((o) => addFarmer(o)));
+        await Promise.all(
+          data.map(async (o) => {
+            if (isUpdate) {
+              const pendingReport = await getPendingReports("farmerId", o.id);
+              if (!pendingReport.length) {
+                const farmers: any = await getFarmers("id", o.id);
+                addOrUpdateFarmer({ ...o, index: farmers.length && farmers[0]?.index });
+              }
+            } else {
+              addFarmer(o);
+            }
+          })
+        );
+
         const syncStatus = {
           ccCode,
-          ccName,
+          ccName: `X-${ccCode}`,
           lastSynced: new Date(),
           farmersCount: data.length,
         };
         await addSyncStatus(syncStatus);
+
         updateCCList((_draft) => {
           const index = ccList.l.findIndex((cc) => ccCode === cc.code);
           if (index > -1) {
@@ -84,8 +108,28 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
     }
   };
 
-  const getCCFarmers = async (ccCode) => {
-    return await getFarmers("ccCode", Number(ccCode));
+  const getCCFarmers = async (ccCode, isOnline, isUpdate) => {
+    if (isOnline) {
+      await downloadCCFarmers(ccCode, isUpdate);
+    }
+
+    const farmers: any = await getFarmers("ccCode", Number(ccCode));
+
+    return await Promise.all(farmers.map((f) => getUpdatedFarmer(f, isOnline)));
+  };
+
+  const getUpdatedFarmer = async (farmer, isOnline) => {
+    let isConflict = false;
+    let isSubVersionConflict = false;
+    let lFarmer;
+    const pendingReport = await getPendingReport("farmerId", farmer.id);
+    if (pendingReport && isOnline) {
+      const { success, data } = await axGetFarmerWithLastReportByFarmerId(farmer.id);
+      lFarmer = data;
+      isConflict = success && lFarmer.version !== farmer.version;
+      isSubVersionConflict = success && lFarmer.subVersion !== farmer.subVersion;
+    }
+    return { ...farmer, pendingReport, isConflict, isSubVersionConflict, lFarmer };
   };
 
   const removeCCFarmers = async (ccCode) => {
@@ -101,6 +145,29 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
     });
   };
 
+  const uploadSignatures = async (values) => {
+    const signatures = ["farmer", "fieldCoordinator"];
+    const r = await Promise.all(signatures.map((p) => axUploadSignature(values[p]?.path)));
+    r.forEach((path, index) => (values[signatures[index]]["path"] = path));
+    return values;
+  };
+
+  const uploadInspectionReport = async (r) => {
+    const inspectionReport = await uploadSignatures(r.data);
+    const { success: uploaded } = await axUploadInspectionReport(inspectionReport);
+    if (uploaded) {
+      removeInspectionReport(r.index);
+      const { index }: any = await getFarmer("id", r.farmerId);
+
+      // TODO: we can avoid this network call directly
+      // back-end has to make following changes
+      // 1. Return correct subversion
+      // 2. And return farmer record instead of inspection report
+      const { success, data: newFarmer } = await axGetFarmerWithLastReportByFarmerId(r.farmerId);
+      success && addOrUpdateFarmer({ ...newFarmer, index });
+    }
+  };
+
   return (
     <InspectionReportContext.Provider
       value={{
@@ -109,6 +176,8 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
         downloadCCFarmers,
         removeCCFarmers,
         getCCFarmers,
+        uploadInspectionReport,
+        discardInspectionReport: removeInspectionReport,
       }}
     >
       {children}

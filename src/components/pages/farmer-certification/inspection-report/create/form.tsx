@@ -1,8 +1,9 @@
 import { Accordion, Button } from "@chakra-ui/core";
 import ErrorSummery from "@components/@core/formik/error-summery";
-import { axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
+import { local2utc } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
+import { useStoreState } from "easy-peasy";
 import { Form, Formik } from "formik";
 import React, { useMemo } from "react";
 import { useIndexedDBStore } from "use-indexeddb";
@@ -19,6 +20,7 @@ import Signature from "./panels/signature";
 
 export default function InspectionForm({ farmer }) {
   const { add } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
+  const inspectorId = useStoreState((state) => state.user.id);
 
   const farms = useMemo(() => {
     const farms = farmer?.inspection?.farms || new Array(farmer.numCoffeePlots).fill({});
@@ -133,19 +135,13 @@ export default function InspectionForm({ farmer }) {
     },
   };
 
-  const uploadSignatures = async (values) => {
-    const signatures = ["farmer", "fieldCoordinator"];
-    const r = await Promise.all(signatures.map((p) => axUploadSignature(values[p]?.path)));
-    r.forEach((path, index) => (values[signatures[index]]["path"] = path));
-    return values;
-  };
-
   const handleOnInspectionFormSubmit = async (values, actions) => {
+    const farmerId = farmer.id;
     add({
-      data: values,
+      data: { ...values, farmerId, inspectorId, date: local2utc().getTime() },
       version: farmer?.version,
       subversion: farmer?.subversion,
-      farmerId: farmer.id,
+      farmerId,
       ccCode: farmer.ccCode,
     });
     notification("Inspection Report Saved Locally", NotificationType.Success);

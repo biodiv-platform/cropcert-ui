@@ -15,7 +15,7 @@ export default function ActionButton({ ccCode, ccName, syncStatus }) {
 
   const handleOnDownload = async () => {
     setIsLoading(true);
-    await downloadCCFarmers({ ccCode, ccName });
+    await downloadCCFarmers(ccCode);
     setIsLoading(false);
   };
 

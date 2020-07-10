@@ -9,7 +9,7 @@ import FarmerList from "./farmer-list";
 export default function SelectFarmerComponent() {
   return (
     <div>
-      <PageHeading>👨‍🌾 Farmers List</PageHeading>
+      <PageHeading mb={8}>👨‍🌾 Farmers List</PageHeading>
 
       <IndexedDBProvider config={DB_CONFIG}>
         <InspectionReportProvider>

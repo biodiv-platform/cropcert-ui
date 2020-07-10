@@ -44,8 +44,8 @@ export default function DownloadTable() {
               {code}. {name}
             </Text>
             {syncStatus && pendingReports.length > 0 && (
-              <Badge variantColor="purple" variant="outline">
-                {pendingReports.length} Pending Report
+              <Badge variantColor="green" variant="outline">
+                {pendingReports.length} Report Completed
               </Badge>
             )}
             {syncStatus && <Box fontSize="sm">Synced {format(syncStatus.lastSynced)}</Box>}

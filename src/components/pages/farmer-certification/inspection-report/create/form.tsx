@@ -1,5 +1,6 @@
-import { Accordion, Button } from "@chakra-ui/core";
+import { Accordion } from "@chakra-ui/core";
 import ErrorSummery from "@components/@core/formik/error-summery";
+import SubmitButton from "@components/@core/formik/submit-button";
 import { STORE } from "@static/inspection-report";
 import { local2utc } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
@@ -177,9 +178,7 @@ export default function InspectionForm({ farmer }) {
           <Signature />
         </Accordion>
         <ErrorSummery />
-        <Button leftIcon={"check2" as any} variantColor="blue" type="submit">
-          Save
-        </Button>
+        <SubmitButton leftIcon="check2">Save</SubmitButton>
       </Form>
     </Formik>
   );

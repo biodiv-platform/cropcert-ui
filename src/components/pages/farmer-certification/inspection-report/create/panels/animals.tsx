@@ -8,7 +8,7 @@ import { FieldArray, useFormikContext } from "formik";
 import React from "react";
 
 import GridRow from "../../../row";
-import { ANIMAL_TYPE_OPTIONS, FIELD_SEPRATION_OPTIONS } from "../options";
+import { ANIMAL_HUSBANDARY_OPTIONS, ANIMAL_TYPE_OPTIONS } from "../options";
 
 export default function Animals() {
   const { values }: any = useFormikContext();
@@ -52,7 +52,7 @@ export default function Animals() {
                     <SelectInputField
                       name={`animals[${index}].husbandryType`}
                       label="Husbandry Type"
-                      options={FIELD_SEPRATION_OPTIONS}
+                      options={ANIMAL_HUSBANDARY_OPTIONS}
                     />
                     <RadioGroupInputField
                       name={`animals[${index}].medication`}

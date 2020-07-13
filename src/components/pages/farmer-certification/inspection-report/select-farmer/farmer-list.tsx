@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Checkbox,
@@ -24,7 +26,10 @@ import FarmerItem from "./farmer-item";
 const LIMITS = ["50", "100", "200"];
 
 export default function FarmerList() {
-  const { getCCFarmers } = useInspectionReport();
+  const {
+    getCCFarmers,
+    affected: { added, updated },
+  } = useInspectionReport();
   const isOnline = useOnlineStatus();
   const [farmers, setFarmers] = useState([]);
   const [initialFarmers, setInitialFarmers] = useState([]);
@@ -86,6 +91,14 @@ export default function FarmerList() {
           </Stack>
         </Box>
       </Flex>
+
+      {(added > 0 || updated > 0) && (
+        <Alert mb={6} borderRadius="md">
+          <AlertIcon />
+          {added > 0 && `${added} Farmers Added, `}
+          {updated > 0 && `${updated} Farmers Updated`}
+        </Alert>
+      )}
 
       {farmers.map((farmer, index) => (
         <FarmerItem

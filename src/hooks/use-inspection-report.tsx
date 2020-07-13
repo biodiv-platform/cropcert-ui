@@ -6,7 +6,7 @@ import {
 import { axUploadInspectionReport, axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useImmer } from "use-immer";
 import { useIndexedDBStore } from "use-indexeddb";
 
@@ -22,6 +22,7 @@ interface InspectionReportContextProviderProps {
   getCCFarmers;
   uploadInspectionReport;
   discardInspectionReport;
+  affected: { added; updated };
 }
 
 const InspectionReportContext = createContext<InspectionReportContextProviderProps>(
@@ -30,6 +31,11 @@ const InspectionReportContext = createContext<InspectionReportContextProviderPro
 
 export const InspectionReportProvider = ({ children }: InspectionReportProviderProps) => {
   const [ccList, updateCCList] = useImmer({ l: [] });
+  const [affected, setAffected] = useReducer(
+    ({ added, updated }, isAdded) =>
+      isAdded ? { added: added + 1, updated } : { added, updated: updated + 1 },
+    { added: 0, updated: 0 }
+  );
 
   const {
     add: addFarmer,
@@ -79,6 +85,15 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
               if (!pendingReport.length) {
                 const farmers: any = await getFarmers("id", o.id);
                 addOrUpdateFarmer({ ...o, index: farmers.length && farmers[0]?.index });
+
+                // To show added/updated message
+                if (farmers.length) {
+                  if (farmers[0].version !== o.version || farmers[0].subVersion !== o.subVersion) {
+                    setAffected(false);
+                  }
+                } else {
+                  setAffected(true);
+                }
               }
             } else {
               addFarmer(o);
@@ -178,6 +193,7 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
         getCCFarmers,
         uploadInspectionReport,
         discardInspectionReport: removeInspectionReport,
+        affected,
       }}
     >
       {children}

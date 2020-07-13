@@ -13,8 +13,10 @@ import {
 } from "@chakra-ui/core";
 import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
+import { UPLOAD_ALL_INSPECTION } from "@static/events";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { emit } from "react-gbus";
 import { debounce } from "ts-debounce";
 
 import FarmerItem from "./farmer-item";
@@ -65,14 +67,16 @@ export default function FarmerList() {
             </InputGroup>
             <Select w="10rem" defaultValue={limit} onChange={(e) => setLimit(e.target.value)}>
               {LIMITS.map((limit) => (
-                <option value={limit}>{limit} records</option>
+                <option value={limit} key={limit}>
+                  {limit} records
+                </option>
               ))}
             </Select>
           </Stack>
           Showing {farmers.length} of {initialFarmers.length} Farmer(s)
         </Box>
         <Box>
-          <Button mb={4} variantColor="orange">
+          <Button mb={4} variantColor="orange" onClick={() => emit(UPLOAD_ALL_INSPECTION)}>
             Upload All Completed Reports
           </Button>
           <Stack>
@@ -88,7 +92,7 @@ export default function FarmerList() {
           farmer={farmer}
           isOnline={isOnline}
           bgGray={index % 2 !== 0}
-          key={farmer?.farmerCode}
+          key={farmer.id}
           updateFarmer={refetchFarmers}
         />
       ))}

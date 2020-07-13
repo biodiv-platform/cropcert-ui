@@ -1,8 +1,10 @@
 import { Box, Button, Icon, Text } from "@chakra-ui/core";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
 import useInspectionReport from "@hooks/use-inspection-report";
+import { UPLOAD_ALL_INSPECTION } from "@static/events";
 import NextLink from "next/link";
 import React, { useState } from "react";
+import { useListener } from "react-gbus";
 
 export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
   const { uploadInspectionReport, discardInspectionReport } = useInspectionReport();
@@ -15,6 +17,12 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
     updateFarmer();
     setIsLoading(false);
   };
+
+  useListener(() => {
+    if (farmer?.pendingReport && isOnline && !isConflict && !isSubVersionConflict) {
+      upload();
+    }
+  }, [UPLOAD_ALL_INSPECTION]);
 
   const discard = async () => {
     await discardInspectionReport(farmer.pendingReport.index);

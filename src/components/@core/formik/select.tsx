@@ -20,7 +20,9 @@ const SelectInputField = ({
 
   useEffect(() => {
     helpers.setValue(value ? value.value : "");
-    value?.value && helpers.setTouched(true);
+    setTimeout(() => {
+      value?.value && helpers.setTouched(true);
+    }, 1000);
   }, [value]);
 
   useEffect(() => {

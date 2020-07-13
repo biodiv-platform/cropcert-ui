@@ -126,7 +126,6 @@ export const axUploadSignature = async (base64: string) => {
   const r = await fetch(base64);
   const image = await r.blob();
   const imageName = `sig-${new Date().getTime()}.png`;
-  console.log(image, imageName);
   const formData = new FormData();
   formData.append("upload", image, imageName);
 

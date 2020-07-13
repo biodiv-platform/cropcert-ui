@@ -104,14 +104,21 @@ export default function InspectionForm({ farmer }) {
         then: yup.boolean().required(),
         otherwise: yup.boolean().nullable(),
       }),
-      animals: yup.array().of(
-        yup.object().shape({
-          type: yup.string().required(),
-          number: yup.number().required(),
-          husbandryType: yup.string().required(),
-          medication: yup.boolean().required(),
-        })
-      ),
+      animals: yup
+        .array()
+        .of(
+          yup.object().shape({
+            type: yup.string().required(),
+            number: yup.number().required(),
+            husbandryType: yup.string().required(),
+            medication: yup.boolean().required(),
+          })
+        )
+        .when("hasLiveStock", {
+          is: true,
+          then: yup.array().min(1).required(),
+          otherwise: yup.array().nullable(),
+        }),
 
       // Recommandation
       hasFarmerImplementedPreviousAdvice: yup.string().required(),
@@ -141,8 +148,8 @@ export default function InspectionForm({ farmer }) {
     const farmerId = farmer.id;
     add({
       data: { ...values, farmerId, inspectorId, date: local2utc().getTime() },
-      version: farmer?.version,
-      subversion: farmer?.subversion,
+      version: farmer?.version || null,
+      subversion: farmer?.subversion || null,
       farmerId,
       ccCode: farmer.ccCode,
     });

@@ -48,7 +48,7 @@ export default function DownloadTable() {
                 {pendingReports.length} Report Completed
               </Badge>
             )}
-            {syncStatus && <Box fontSize="sm">Synced {format(syncStatus.lastSynced)}</Box>}
+            {syncStatus && <Box fontSize="sm">Last updated {format(syncStatus.lastSynced)}</Box>}
           </Box>
           <Box textAlign={{ md: "right" }}>
             <ActionButton ccCode={code} ccName={name} syncStatus={syncStatus} />

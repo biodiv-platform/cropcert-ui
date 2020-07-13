@@ -5,6 +5,7 @@ import { local2utc } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
 import { useStoreState } from "easy-peasy";
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { useIndexedDBStore } from "use-indexeddb";
 import * as yup from "yup";
@@ -21,6 +22,7 @@ import Signature from "./panels/signature";
 export default function InspectionForm({ farmer }) {
   const { add } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
   const inspectorId = useStoreState((state) => state.user.id);
+  const router = useRouter();
 
   const farms = useMemo(() => {
     const farms = farmer?.inspection?.farms || new Array(farmer.numCoffeePlots).fill({});
@@ -145,7 +147,7 @@ export default function InspectionForm({ farmer }) {
       ccCode: farmer.ccCode,
     });
     notification("Inspection Report Saved Locally", NotificationType.Success);
-
+    router.push(`/farmer-certification/inspection-report/select-farmer?feCCCode=${farmer.ccCode}`);
     actions.setSubmitting(false);
   };
 

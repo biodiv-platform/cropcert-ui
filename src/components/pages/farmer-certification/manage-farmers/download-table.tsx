@@ -3,6 +3,7 @@ import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
 import useInspectionReport from "@hooks/use-inspection-report";
+import useOnlineStatus from "@rehooks/online-status";
 import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
 import { format } from "timeago.js";
@@ -12,6 +13,7 @@ import ActionButton from "./action-button";
 export default function DownloadTable() {
   const { ccList, onCoCodeChange } = useInspectionReport();
   const [ccListF, setCCListF] = useState([]);
+  const isOnline = useOnlineStatus();
 
   const onFilterChange = (e) => {
     const q = new RegExp(e.target.value, "i");
@@ -51,7 +53,7 @@ export default function DownloadTable() {
             {syncStatus && <Box fontSize="sm">Last updated {format(syncStatus.lastSynced)}</Box>}
           </Box>
           <Box textAlign={{ md: "right" }}>
-            <ActionButton ccCode={code} ccName={name} syncStatus={syncStatus} />
+            <ActionButton ccCode={code} syncStatus={syncStatus} isOnline={isOnline} />
           </Box>
         </ResponsiveRow>
       ))}

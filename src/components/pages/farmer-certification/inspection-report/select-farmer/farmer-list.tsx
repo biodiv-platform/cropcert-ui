@@ -81,7 +81,12 @@ export default function FarmerList() {
           Showing {farmers.length} of {initialFarmers.length} Farmer(s)
         </Box>
         <Box>
-          <Button mb={4} variantColor="orange" onClick={() => emit(UPLOAD_ALL_INSPECTION)}>
+          <Button
+            mb={4}
+            variantColor="orange"
+            onClick={() => emit(UPLOAD_ALL_INSPECTION)}
+            isDisabled={!isOnline}
+          >
             Upload All Completed Reports
           </Button>
           <Stack>

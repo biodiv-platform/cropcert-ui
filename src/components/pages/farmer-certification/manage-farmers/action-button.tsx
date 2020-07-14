@@ -3,7 +3,7 @@ import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
 import React, { useState } from "react";
 
-export default function ActionButton({ ccCode, ccName, syncStatus }) {
+export default function ActionButton({ ccCode, syncStatus, isOnline }) {
   const [isLoading, setIsLoading] = useState(false);
   const { removeCCFarmers, downloadCCFarmers } = useInspectionReport();
 
@@ -50,6 +50,7 @@ export default function ActionButton({ ccCode, ccName, syncStatus }) {
           variantColor="teal"
           onClick={handleOnDownload}
           isLoading={isLoading}
+          isDisabled={!isOnline}
           loadingText="Downloading"
           leftIcon="download"
           w="11rem"

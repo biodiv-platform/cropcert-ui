@@ -32,6 +32,14 @@ export default function FarmerInformation({ farmer }) {
       name: "Coordinator",
       selector: "fieldCoOrdinator",
     },
+    {
+      name: "Last version",
+      selector: "version",
+    },
+    {
+      name: "Last sub-version",
+      selector: "subVersion",
+    },
   ];
 
   return (

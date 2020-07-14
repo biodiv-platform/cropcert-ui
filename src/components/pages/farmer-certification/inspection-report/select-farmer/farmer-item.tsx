@@ -47,7 +47,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
       </div>
       <Box textAlign="right">
         {farmer?.pendingReport ? (
-          isOnline && (
+          isOnline ? (
             <>
               {!isConflict && !isSubVersionConflict && (
                 <Button
@@ -77,6 +77,15 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 Discard
               </Button>
             </>
+          ) : (
+            <Button
+              variant="outline"
+              variantColor="green"
+              leftIcon="check-circle"
+              isDisabled={true}
+            >
+              Report Ready
+            </Button>
           )
         ) : (
           <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true}>

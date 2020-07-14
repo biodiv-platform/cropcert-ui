@@ -64,7 +64,7 @@ export default function Farm() {
                         rows={2}
                         alignItems="flex-end"
                         border="1px dashed"
-                        borderColor="gray.300"
+                        borderColor="gray.500"
                         p={4}
                         borderRadius="md"
                       >
@@ -116,7 +116,7 @@ export default function Farm() {
                           />
                         </Box>
                       </CoreGrid>
-                      <Box border="1px dashed" borderColor="gray.300" p={4} borderRadius="md">
+                      <Box border="1px dashed" borderColor="gray.500" p={4} borderRadius="md">
                         <CoreGrid rows={2} alignItems="flex-end">
                           <RadioGroupInputField
                             name={`farms[${index}].isCoffeeTreeWellMaintained`}

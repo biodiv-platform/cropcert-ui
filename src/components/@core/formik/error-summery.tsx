@@ -8,7 +8,7 @@ export default function ErrorSummery() {
 
   const readableError = (key, error) => {
     const capatalizedKey = key.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
-    return error.replace(key, `"${capatalizedKey}"`);
+    return error && error.replace(key, `"${capatalizedKey}"`);
   };
 
   return (

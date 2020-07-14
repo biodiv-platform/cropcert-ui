@@ -99,7 +99,11 @@ export default function InspectionForm({ farmer }) {
 
       // Animals
       hasLiveStock: yup.boolean().required(),
-      chemicalTreatmentOnLivestock: yup.boolean().required(),
+      chemicalTreatmentOnLivestock: yup.boolean().when("hasLiveStock", {
+        is: true,
+        then: yup.boolean().required(),
+        otherwise: yup.boolean().nullable(),
+      }),
       livestockTreatmentConducted5mFromCoffee: yup.boolean().when("chemicalTreatmentOnLivestock", {
         is: true,
         then: yup.boolean().required(),

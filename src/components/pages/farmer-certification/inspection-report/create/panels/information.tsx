@@ -35,10 +35,7 @@ export default function FarmerInformation({ farmer }) {
     {
       name: "Last version",
       selector: "version",
-    },
-    {
-      name: "Last sub-version",
-      selector: "subVersion",
+      cell: ({ version, subVersion }) => `${version || 0}.${subVersion || 0}`,
     },
   ];
 

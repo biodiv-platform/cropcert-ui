@@ -13,7 +13,7 @@ import * as Yup from "yup";
 
 import dynamic from "next/dynamic";
 
-const CKInput = dynamic(() => import("@components/@core/formik/ck-editor"), { ssr: false });
+const CKInput = dynamic(() => import("@components/@core/formik/wysiwyg"), { ssr: false });
 
 export default function PageEditorComponent({ page, isEdit }: { page: Page; isEdit: boolean }) {
   const pageForm = {

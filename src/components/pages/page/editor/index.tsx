@@ -1,8 +1,7 @@
 import { Select, Submit, TextBox } from "@components/@core/formik";
-import Wysiwyg from "@components/@core/formik/wysiwyg";
 import { CoreGrid } from "@components/@core/layout";
 import { axUpdatePage } from "@services/page.service";
-import { PAGE_TYPE_OPTIONS } from "@static/constants";
+import { isBrowser, PAGE_TYPE_OPTIONS } from "@static/constants";
 import { PAGES } from "@static/messages";
 import { local2utc } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
@@ -11,6 +10,10 @@ import Router from "next/router";
 import React from "react";
 import { Page } from "types/pages";
 import * as Yup from "yup";
+
+import dynamic from "next/dynamic";
+
+const CKInput = dynamic(() => import("@components/@core/formik/ck-editor"), { ssr: false });
 
 export default function PageEditorComponent({ page, isEdit }: { page: Page; isEdit: boolean }) {
   const pageForm = {
@@ -60,7 +63,7 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
             </CoreGrid>
 
             {isContentInput ? (
-              <Wysiwyg label="Content" name="content" />
+              <CKInput label="Content" name="content" />
             ) : (
               <TextBox label="Link" name="url" />
             )}

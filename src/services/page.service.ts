@@ -56,21 +56,3 @@ export const axUpdateTree = async (body) => {
     return { success: false };
   }
 };
-
-export const axUploadHandler = (blobInfo, success, failure) => {
-  const formData = new FormData();
-  formData.append("upload", blobInfo.blob(), blobInfo.filename());
-
-  http
-    .post(`${ENDPOINT.PAGES}/image`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((r) => {
-      success(r.data.url);
-    })
-    .catch((e) => {
-      failure("Error");
-    });
-};

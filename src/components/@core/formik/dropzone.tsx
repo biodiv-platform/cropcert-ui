@@ -1,8 +1,15 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Image } from "@chakra-ui/core";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Spinner,
+} from "@chakra-ui/core";
 import styled from "@emotion/styled";
 import { axUploadImage } from "@services/page.service";
 import { FastField, useField } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface DropzoneInputFieldProps {
@@ -17,7 +24,7 @@ const DropzoneWrapper = styled.div`
   background: white;
   border: 1px dashed var(--gray-300);
   border-radius: 0.25rem;
-  min-height: 13rem;
+  min-height: 11rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,8 +38,10 @@ const DropzoneWrapper = styled.div`
 
 const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInputFieldProps) => {
   const [field, meta, helpers] = useField({ name, as: FastField });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
+    setIsLoading(true);
     const { success, data } = await axUploadImage(acceptedFiles[0]);
     if (success) {
       helpers.setValue(data.url);
@@ -41,6 +50,7 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
         field.onBlur(name);
       }, 300);
     }
+    setIsLoading(false);
   };
 
   const handleOnClear = () => {
@@ -54,14 +64,17 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <DropzoneWrapper {...getRootProps()}>
         <input {...getInputProps()} />
-        {field.value ? (
-          <Image src={field.value} borderRadius="md" />
+        {isLoading ? (
+          <Spinner />
+        ) : field.value ? (
+          <img src={field.value} />
         ) : (
           <div>Drop Banner Image Here</div>
         )}
-
-        {field.value && <button onClick={handleOnClear}>Remove</button>}
       </DropzoneWrapper>
+      <Button size="xs" isDisabled={!field.value} variantColor="red" onClick={handleOnClear} mt={2}>
+        Remove Banner Image
+      </Button>
       <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>

@@ -54,7 +54,7 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
   };
 
   const handleOnClear = () => {
-    helpers.setValue("");
+    helpers.setValue(null);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });

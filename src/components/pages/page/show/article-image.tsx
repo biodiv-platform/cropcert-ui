@@ -11,6 +11,7 @@ const ArticleImageBox = styled.div`
   align-items: flex-end;
   overflow: hidden;
   background-size: cover !important;
+  background-position: center center !important;
   margin-bottom: 1rem;
   .main-title {
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
@@ -21,12 +22,10 @@ const ArticleImageBox = styled.div`
 `;
 
 export default function ArticleImage({ page }: { page: Page }) {
+  const bannerUrl = page?.bannerUrl || "/assets/article-fallback.jpeg";
+
   return (
-    <ArticleImageBox
-      style={{
-        background: `url(${page?.bannerUrl}), url(/assets/article-fallback.jpeg), var(--gray-300)`,
-      }}
-    >
+    <ArticleImageBox style={{ background: `url(${bannerUrl}), var(--gray-300)` }}>
       <div className="main-title">
         <small>
           Published on {formattedDate(utc2local(page.createdOn).getTime())} by {page.authorName}

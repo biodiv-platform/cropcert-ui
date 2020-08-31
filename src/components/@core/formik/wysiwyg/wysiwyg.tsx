@@ -28,7 +28,7 @@ export default function TinymceEditor({ data, onUpdate }) {
           contextmenu: "link image imagetools table configurepermanentpen",
           imagetools_toolbar: "alignleft aligncenter alignright | imageoptions",
           toolbar:
-            "undo redo | formatselect fontselect bold italic forecolor backcolor | numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
+            "undo redo | formatselect fontselect fontsizeselect bold italic forecolor backcolor removeformat | numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
           images_upload_handler: axUploadHandler,
           images_upload_base_path: "/",
         }}

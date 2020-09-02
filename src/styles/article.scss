@@ -21,17 +21,27 @@
   padding: 1.4rem 2.8rem;
   border: 1px solid var(--gray-300);
   border-radius: 0.25rem;
+  word-break: break-all;
 
   img {
-    max-width: 100%;
+    max-width: 80vw;
     margin: 0.5rem;
+  }
+
+  img {
+    display: none;
   }
 
   p,
   ol,
   ul,
-  table {
+  .table-responsive {
     margin-bottom: 1.25rem;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    max-width: 80vw;
   }
 
   h1,
@@ -84,7 +94,7 @@
 
   table {
     border-collapse: collapse;
-    max-width: 100%;
+    width: 100%;
   }
 
   th,
@@ -99,6 +109,7 @@
   }
 
   @media (max-width: 768px) {
+    padding: 1rem;
     h1 {
       font-size: 2.4em;
     }
@@ -141,5 +152,12 @@
     &:hover {
       color: var(--blue-700);
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .toc-container .toc {
+    max-height: 50vh;
+    overflow: auto;
   }
 }

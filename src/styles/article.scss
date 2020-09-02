@@ -48,11 +48,11 @@
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: #454545;
   }
 
@@ -124,6 +124,11 @@
   position: -webkit-sticky;
   position: sticky;
   top: 15px;
+  .toc {
+    padding-left: 0.5rem;
+    height: 100vh;
+    overflow-x: auto;
+  }
   ul {
     margin-left: 1rem;
   }

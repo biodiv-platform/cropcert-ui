@@ -21,10 +21,13 @@
   padding: 1.4rem 2.8rem;
   border: 1px solid var(--gray-300);
   border-radius: 0.25rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   word-break: break-word;
+  hyphens: auto;
 
   img {
-    max-width: 100%;
+    max-width: 80vw;
     margin: 0.5rem;
   }
 

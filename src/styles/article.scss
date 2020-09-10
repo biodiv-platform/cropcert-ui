@@ -27,7 +27,7 @@
   hyphens: auto;
 
   img {
-    max-width: 80vw;
+    max-width: 100%;
     margin: 0.5rem;
   }
 
@@ -36,11 +36,6 @@
   ul,
   .table-responsive {
     margin-bottom: 1.25rem;
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-    max-width: 80vw;
   }
 
   h1,
@@ -115,6 +110,13 @@
     h2 {
       font-size: 2em;
     }
+    img {
+      max-width: 80vw;
+    }
+    .table-responsive {
+      overflow-x: auto;
+      max-width: 80vw;
+    }
   }
 
   @media (min-width: 768px) {
@@ -123,6 +125,9 @@
     ol {
       padding-left: 0;
       margin-left: 2rem;
+    }
+    table {
+      table-layout: fixed;
     }
   }
 

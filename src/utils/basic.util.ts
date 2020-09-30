@@ -82,3 +82,5 @@ export const flatten = (data: any[] = []) => {
     return [...acc, ...processedO, { value: ob.name, label: ob.name, color: ob.color }];
   }, []);
 };
+
+export const booleanOrText = (v) => (typeof v === "boolean" ? (v ? "Yes" : "No") : v);

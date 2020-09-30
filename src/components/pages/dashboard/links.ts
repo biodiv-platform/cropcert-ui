@@ -28,6 +28,12 @@ const links = [
         to: "/farmer-certification/manage-farmers",
         access: [ROLES.INSPECTOR, ROLES.ADMIN],
       },
+      {
+        title: "📝 ICS Reports",
+        description: "Approve ICS Reports",
+        to: "/farmer-certification/inspection-report/list",
+        access: [ROLES.ICS_MANAGER, ROLES.ADMIN],
+      },
     ],
   },
   {

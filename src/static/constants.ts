@@ -37,6 +37,7 @@ export const PAGE_TYPE_OPTIONS = {
 
 export const ROLES = {
   INSPECTOR: "inspector",
+  ICS_MANAGER: "ics_manager",
   UNAUTHORIZED: "role_unauthorized",
   AUTHORIZED: "authorized",
   FARMER: "farmer",

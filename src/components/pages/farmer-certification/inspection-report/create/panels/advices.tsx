@@ -7,14 +7,15 @@ import React from "react";
 
 import GridRow from "../../../row";
 import { YPN_OPTIONS } from "../options";
+import { ADVICES_PANEL } from "./data";
 
 export default function Advices({ previousAdvices }) {
   const { values }: any = useFormikContext();
 
   return (
-    <LotShowPanel title="Advices" icon="💡" isOpen={true}>
+    <LotShowPanel title={ADVICES_PANEL.title} icon={ADVICES_PANEL.icon} isOpen={true}>
       <GridRow
-        label="Has Farmer Implemented Previous Advice"
+        label={ADVICES_PANEL.keys.hasFarmerImplementedPreviousAdvice}
         name="hasFarmerImplementedPreviousAdvice"
         field={RadioGroupInputField}
         options={YPN_OPTIONS}

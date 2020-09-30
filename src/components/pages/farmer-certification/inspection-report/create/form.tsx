@@ -130,7 +130,7 @@ export default function InspectionForm({ farmer }) {
       advices: yup.array().of(
         yup.object().shape({
           advice: yup.string().required(),
-          time: yup.string().required(),
+          time: yup.mixed(),
         })
       ),
 

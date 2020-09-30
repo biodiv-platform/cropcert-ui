@@ -21,6 +21,7 @@ import React, { useEffect } from "react";
 
 import GridRow from "../../../row";
 import { FIELD_SEPRATION_OPTIONS, GFP_OPTIONS } from "../options";
+import { FARM_PANEL } from "./data";
 
 export default function Farm() {
   const { values, setFieldValue }: any = useFormikContext();
@@ -44,7 +45,7 @@ export default function Farm() {
   }, [farmsDebounced]);
 
   return (
-    <LotShowPanel title="Farm (all coffee plots)" icon="🌄" isOpen={true} noPadding={true}>
+    <LotShowPanel title={FARM_PANEL.title} icon={FARM_PANEL.icon} isOpen={true} noPadding={true}>
       <FieldArray
         name="farms"
         render={(arrayHelpers) => (
@@ -70,48 +71,48 @@ export default function Farm() {
                       >
                         <TextInputField
                           name={`farms[${index}].fieldName`}
-                          label="Field Name (similar on field map)"
+                          label={FARM_PANEL.keys.fieldName}
                           fast={true}
                         />
                         <NumberInputField
                           name={`farms[${index}].acres`}
-                          label="Acres"
+                          label={FARM_PANEL.keys.acres}
                           fast={true}
                         />
                         <TextInputField
                           name={`farms[${index}].mainCrop`}
-                          label="Main crop"
+                          label={FARM_PANEL.keys.mainCrop}
                           fast={true}
                         />
                         <TextInputField
                           name={`farms[${index}].intercrops`}
-                          label="Intercrops"
+                          label={FARM_PANEL.keys.intercrops}
                           fast={true}
                         />
                         <NumberInputField
                           name={`farms[${index}].numberOfCoffeTrees`}
-                          label="Total No of coffee trees"
+                          label={FARM_PANEL.keys.numberOfCoffeTrees}
                           fast={true}
                         />
                         <NumberInputField
                           name={`farms[${index}].yeildEstimate`}
-                          label="Yield estimate (kg) Coffee cherry"
+                          label={FARM_PANEL.keys.yeildEstimate}
                           fast={true}
                         />
                         <NumberInputField
                           name={`farms[${index}].areaUnderCoffee`}
-                          label="Area under coffee (acre)"
+                          label={FARM_PANEL.keys.areaUnderCoffee}
                           fast={true}
                         />
                         <SelectInputField
                           name={`farms[${index}].fieldSeparation`}
-                          label="Field separation"
+                          label={FARM_PANEL.keys.fieldSeparation}
                           options={FIELD_SEPRATION_OPTIONS}
                         />
                         <Box gridColumn="1/3">
                           <RadioGroupInputField
                             name={`farms[${index}].multipleOwnerWithOrganic`}
-                            label="In case of organic holding in field with multiple owners and no clear borders, all owners are organic."
+                            label={FARM_PANEL.keys.multipleOwnerWithOrganic}
                             mb={0}
                           />
                         </Box>
@@ -120,41 +121,41 @@ export default function Farm() {
                         <CoreGrid rows={2} alignItems="flex-end">
                           <RadioGroupInputField
                             name={`farms[${index}].isCoffeeTreeWellMaintained`}
-                            label="Coffee trees Well Maintained"
+                            label={FARM_PANEL.keys.isCoffeeTreeWellMaintained}
                           />
                           <RadioGroupInputField
                             name={`farms[${index}].pruining`}
-                            label="Pruning"
+                            label={FARM_PANEL.keys.pruining}
                             options={GFP_OPTIONS}
                           />
                           <NumberInputField
                             name={`farms[${index}].numberOfPruinedCoffeeTrees`}
-                            label="Number of pruned coffee trees"
+                            label={FARM_PANEL.keys.numberOfPruinedCoffeeTrees}
                             fast={true}
                           />
                           <RadioGroupInputField
                             name={`farms[${index}].stumping`}
-                            label="Stumping"
+                            label={FARM_PANEL.keys.stumping}
                             options={GFP_OPTIONS}
                           />
                           <NumberInputField
                             name={`farms[${index}].numberOfStumpedTree`}
-                            label="Number of Stumped trees"
+                            label={FARM_PANEL.keys.numberOfStumpedTree}
                             fast={true}
                           />
                           <RadioGroupInputField
                             name={`farms[${index}].plantingNewCoffeeSeedings`}
-                            label="Planting New Coffee Seedlings"
+                            label={FARM_PANEL.keys.plantingNewCoffeeSeedings}
                           />
                           <DateTime
                             name={`farms[${index}].lastUseOfNonAllowedChemicals`}
-                            label="Last use of non-allowed chemicals"
+                            label={FARM_PANEL.keys.lastUseOfNonAllowedChemicals}
                             format="dd-MM-yyyy"
                             defaultBlank={true}
                           />
                           <RadioGroupInputField
                             name={`farms[${index}].interPlotBufferZones`}
-                            label="Inter-plot buffer Zones"
+                            label={FARM_PANEL.keys.interPlotBufferZones}
                           />
                         </CoreGrid>
                       </Box>
@@ -197,41 +198,41 @@ export default function Farm() {
         <PageHeading size="md">📑 Summery</PageHeading>
         <GridRow
           field={NumberInputField}
-          label="Total No Coffee Fields"
           name="numberOfCoffeeFields"
+          label={FARM_PANEL.keys.summery.numberOfCoffeeFields}
           isReadOnly={true}
           fast={true}
         />
         <GridRow
           field={NumberInputField}
-          label="Total Area of Coffee"
           name="areaUnderCoffee"
+          label={FARM_PANEL.keys.summery.areaUnderCoffee}
           isReadOnly={true}
           fast={true}
         />
         <GridRow
           field={NumberInputField}
-          label="Productive Trees"
           name="productiveTrees"
+          label={FARM_PANEL.keys.summery.productiveTrees}
           isReadOnly={true}
           fast={true}
         />
         <GridRow
           field={NumberInputField}
-          label="Total Area of Farm"
           name="totalAreaOfFarm"
+          label={FARM_PANEL.keys.summery.totalAreaOfFarm}
           isReadOnly={true}
           fast={true}
         />
         <GridRow
           field={RadioGroupInputField}
-          label="Farmers know to Harvest Ripe Cherries"
           name="knownToHarvestRipeCherries"
+          label={FARM_PANEL.keys.summery.knownToHarvestRipeCherries}
         />
         <GridRow
           field={RadioGroupInputField}
-          label="Farmer Practices Post Harvest Handling"
           name="practicesPostHarvestHandlling"
+          label={FARM_PANEL.keys.summery.practicesPostHarvestHandlling}
         />
       </Box>
     </LotShowPanel>

@@ -9,23 +9,28 @@ import React from "react";
 
 import GridRow from "../../../row";
 import { ANIMAL_HUSBANDARY_OPTIONS, ANIMAL_TYPE_OPTIONS } from "../options";
+import { ANIMALS_PANEL } from "./data";
 
 export default function Animals() {
   const { values }: any = useFormikContext();
 
   return (
-    <LotShowPanel title="Animals" icon="🐄" isOpen={true}>
-      <GridRow label="Farmer has Livestock" field={RadioGroupInputField} name="hasLiveStock" />
+    <LotShowPanel title={ANIMALS_PANEL.title} icon={ANIMALS_PANEL.icon} isOpen={true}>
+      <GridRow
+        label={ANIMALS_PANEL.keys.general.hasLiveStock}
+        field={RadioGroupInputField}
+        name="hasLiveStock"
+      />
 
       <GridRow
-        label="Chemical Treatment on Livestock"
+        label={ANIMALS_PANEL.keys.general.chemicalTreatmentOnLivestock}
         bgGray={true}
         field={RadioGroupInputField}
         name="chemicalTreatmentOnLivestock"
       />
 
       <GridRow
-        label="Livestock Treatment conducted 5m from coffee"
+        label={ANIMALS_PANEL.keys.general.livestockTreatmentConducted5mFromCoffee}
         mb={4}
         field={RadioGroupInputField}
         name="livestockTreatmentConducted5mFromCoffee"
@@ -41,22 +46,22 @@ export default function Animals() {
                   <CoreGrid>
                     <SelectInputField
                       name={`animals[${index}].type`}
-                      label="Type of animal"
+                      label={ANIMALS_PANEL.keys.animals.type}
                       options={ANIMAL_TYPE_OPTIONS}
                     />
                     <NumberInputField
                       name={`animals[${index}].number`}
-                      label="Number of animal"
+                      label={ANIMALS_PANEL.keys.animals.number}
                       fast={true}
                     />
                     <SelectInputField
                       name={`animals[${index}].husbandryType`}
-                      label="Husbandry Type"
+                      label={ANIMALS_PANEL.keys.animals.husbandryType}
                       options={ANIMAL_HUSBANDARY_OPTIONS}
                     />
                     <RadioGroupInputField
                       name={`animals[${index}].medication`}
-                      label="Medication"
+                      label={ANIMALS_PANEL.keys.animals.medication}
                     />
                   </CoreGrid>
 

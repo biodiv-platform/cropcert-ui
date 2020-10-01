@@ -1361,11 +1361,6 @@
   resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.1.4.tgz#0dc4ecedf523004337214187db70a46183bd945b"
   integrity sha512-QHbzXjflSlCvDd6vJwdwx16mSB+vUCCQMiU/wK/CgVNPibtpEiIbisyxkpZc55DyDFNUIqP91rSUsNae+ogGDQ==
 
-"@rooks/use-outside-click@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@rooks/use-outside-click/-/use-outside-click-3.6.0.tgz#4189dc16b92f13c25f1c8e161c8aef6945aff486"
-  integrity sha512-DDxdcD9bDDArV2tBmh5okaJNee/7EWaC5DsPrjTxIhhvXPpUatizcn2qYLcvX7y1vYpd64Wyqvkb87E6fsIfEQ==
-
 "@styled-system/background@^5.1.2":
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@styled-system/background/-/background-5.1.2.tgz#75c63d06b497ab372b70186c0bf608d62847a2ba"
@@ -3978,10 +3973,10 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-goober@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/goober/-/goober-1.8.0.tgz#ed97e40e87300c6d1c8304a9d4b0f1398ff7669a"
-  integrity sha512-9ZFoOkBccexjqIgcwlhq7C/eCSkgTZX0BdNUkOnBFLedrJgo3R8lp9ckd/qqtngtF/JDyXSxJzwMU98kNjZ4Mw==
+goober@^2.0.4:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.0.6.tgz#c73d9a70690ba431f55173b88842ac1c440b3cf1"
+  integrity sha512-Gx+IUfZ+aPEw/a1BPPEOfnTsG2TzMo0rbOBrlRQ0KX5pZ9dXQMAXWSniUJXUnSugoaTL28hcy1clH7ToXx9IFA==
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2:
   version "4.2.3"
@@ -6649,13 +6644,12 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-multi-select-component@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-multi-select-component/-/react-multi-select-component-2.0.5.tgz#094844832885f6d1cef08b7c5c47c4e2ff898ece"
-  integrity sha512-EEXUSoGDATc1GLXENsuG10ba9HvAQme1y5c7W47FzZZkqzceDZvZvuJt04kn08VlNO15z0exaESefa3a2FT1tg==
+react-multi-select-component@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-multi-select-component/-/react-multi-select-component-3.0.2.tgz#e19be2a0c8a9c339e5930d0f999b729f5308a4d3"
+  integrity sha512-7uT2g/3waS2l8io//LQ0ZyS0wL/On6Md22U/yANmdC+ObYct4si/iRuRVrshzBdYUrKKP1NOw2Wy7egfGfntSw==
   dependencies:
-    "@rooks/use-outside-click" "^3.6.0"
-    goober "^1.8.0"
+    goober "^2.0.4"
 
 react-refresh@0.8.1:
   version "0.8.1"

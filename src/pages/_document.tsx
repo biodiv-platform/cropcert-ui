@@ -13,7 +13,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="theme-color" content="#2f855a" />
           <meta name="Description" content={SITE_TITLE} />
           <link rel="manifest" href="/site.webmanifest" />

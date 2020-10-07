@@ -83,4 +83,11 @@ export const flatten = (data: any[] = []) => {
   }, []);
 };
 
-export const booleanOrText = (v) => (typeof v === "boolean" ? (v ? "Yes" : "No") : v);
+export const booleanOrText = (v, parseDate?) =>
+  typeof v === "boolean"
+    ? v
+      ? "Yes"
+      : "No"
+    : parseDate && typeof v === "number"
+    ? formattedDate(utc2local(v))
+    : v;

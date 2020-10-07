@@ -26,15 +26,9 @@ export const axGetFarmerWithLastReportByFarmerId = async (farmerId) => {
   }
 };
 
-export const axGetInspectionReportsByCCIds = async (ccCode, limit) => {
+export const axGetInspectionReportsByCCIds = async (params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.CERTIFICATION}/sync/all/ccCode`, {
-      params: {
-        // Temporary fix till API changes
-        ccCode: ccCode.toString(),
-        limit,
-      },
-    });
+    const { data } = await http.get(`${ENDPOINT.CERTIFICATION}/sync/all/ccCode`, { params });
     return { success: true, data };
   } catch (e) {
     notification(e.message);
@@ -49,14 +43,14 @@ export const axGetInspectionReportById = async (reportId) => {
     });
     return { success: true, data };
   } catch (e) {
-    notification(e.message);
+    // notification(e.message);
     return { success: false, data: {} };
   }
 };
 
 export const axSaveICSInspectionReport = async (body) => {
   try {
-    const { data } = await http.post(`${ENDPOINT.CERTIFICATION}/ics/sign`, body);
+    const { data } = await http.post(`${ENDPOINT.CERTIFICATION}/inspection/ics/sign`, body);
     return { success: true, data };
   } catch (e) {
     notification(e.message);

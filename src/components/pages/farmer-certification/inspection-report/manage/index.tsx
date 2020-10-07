@@ -4,12 +4,28 @@ import InspectionReportApprovalForm from "./form";
 
 import InspectionReportPreview from "./report";
 
-export default function ManageInspectionReport({ report }) {
+export default function ManageInspectionReport({
+  currentReport,
+  previousReport,
+  showCurrent,
+  version,
+  subVersion,
+}) {
   return (
     <div>
-      <PageHeading>📄 Inspection Report #{report.id}</PageHeading>
-      <InspectionReportPreview report={report} />
-      <InspectionReportApprovalForm report={report} />
+      <PageHeading>📄 Inspection Report #{currentReport.id}</PageHeading>
+      <InspectionReportPreview
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
+      {showCurrent && (
+        <InspectionReportApprovalForm
+          report={currentReport}
+          version={version}
+          subVersion={subVersion}
+        />
+      )}
     </div>
   );
 }

@@ -25,18 +25,30 @@ export const inspectionReportColumns = [
   {
     name: "Last Approved Certification",
     selector: "version",
-    cell: ({ version, subVersion }) => `v${version}.${subVersion}`,
+    cell: ({ prevReportId }) =>
+      prevReportId ? (
+        <NextLink
+          href={`/farmer-certification/inspection-report/show?pid=${prevReportId}`}
+          passHref={true}
+        >
+          <Button variant="outline" variantColor="blue" size="xs" as={Link}>
+            View Report
+          </Button>
+        </NextLink>
+      ) : (
+        "No Previous Report"
+      ),
   },
   {
     name: "Pending Reports",
     selector: "isReportFinalized",
     width: "160px",
-    cell: ({ isReportFinalized, reportId }) =>
+    cell: ({ isReportFinalized, reportId, prevReportId }) =>
       isReportFinalized ? (
         "No Pending Report"
       ) : (
         <NextLink
-          href={`/farmer-certification/inspection-report/manage/${reportId}`}
+          href={`/farmer-certification/inspection-report/show?cid=${reportId}&pid=${prevReportId}`}
           passHref={true}
         >
           <Button variant="outline" variantColor="blue" size="xs" as={Link}>

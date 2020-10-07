@@ -1,16 +1,35 @@
-import { Box, SimpleGrid } from "@chakra-ui/core";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/core";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic.util";
 import React from "react";
 
 import { GI_PANEL } from "../../create/panels/data";
 
-const GeneralInformation = ({ report }) => (
+const GeneralInformation = ({ currentReport, previousReport, showCurrent }) => (
   <LotShowPanel title={GI_PANEL.title} icon={GI_PANEL.icon} isOpen={true}>
     {Object.entries(GI_PANEL.keys).map(([key, title], index) => (
-      <SimpleGrid key={key} columns={{ base: 1, md: 2 }} mb={2} data-odd={index % 2 === 0}>
-        <Box>{title}</Box>
-        <Box>{booleanOrText(report[key])}</Box>
+      <SimpleGrid
+        key={key}
+        columns={{ base: 1, md: showCurrent ? 3 : 2 }}
+        mb={4}
+        spacingX={2}
+        data-odd={index % 2 === 0}
+      >
+        <Flex alignItems="center">{title}</Flex>
+        <Box>
+          <Text color="gray.600" fontSize="0.8em">
+            Previous
+          </Text>
+          {booleanOrText(previousReport?.[key], true) || "NA"}
+        </Box>
+        {showCurrent && (
+          <Box>
+            <Text color="gray.600" fontSize="0.8em">
+              New
+            </Text>
+            {booleanOrText(currentReport[key], true)}
+          </Box>
+        )}
       </SimpleGrid>
     ))}
   </LotShowPanel>

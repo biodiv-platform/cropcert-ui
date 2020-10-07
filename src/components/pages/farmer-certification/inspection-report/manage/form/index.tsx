@@ -10,20 +10,21 @@ import React from "react";
 import * as yup from "yup";
 
 import ICSSignature from "./signature";
-import SPORequirements from "./spo-requirements";
 
-export default function InspectionReportApprovalForm({ report }) {
+export default function InspectionReportApprovalForm({ report, version, subVersion }) {
   const router = useRouter();
 
   const ICSInspectionForm = {
     validationSchema: yup.object().shape({
       ics: yup.object().shape({ path: yup.string().required() }),
+      /*
       boardAGMMinutesKept: yup.boolean().required(),
       membershipListsAndSharesUpdated: yup.boolean().required(),
       isAnnualBudgetAndAuditedAccounts: yup.boolean().required(),
       isFairTradePremiumBudgetAndWorkplan: yup.boolean().required(),
       isEnvirnmentCommitteAndItsWorkplan: yup.boolean().required(),
       isFTContractPersonAppointed: yup.boolean().required(),
+      */
     }),
     initialValues: {
       ics: {},
@@ -34,9 +35,10 @@ export default function InspectionReportApprovalForm({ report }) {
     const signatureURL = await axUploadSignature(values?.ics?.path);
 
     const payload = {
-      ...values,
-      reportId: report.id,
-      ics: { path: signatureURL },
+      farmerId: report.farmerId,
+      version,
+      subVersion,
+      signature: { path: signatureURL, date: null, done: true },
     };
 
     const { success } = await axSaveICSInspectionReport(payload);
@@ -57,7 +59,6 @@ export default function InspectionReportApprovalForm({ report }) {
       <Form>
         <Accordion allowMultiple>
           <ICSSignature />
-          <SPORequirements />
         </Accordion>
         <ErrorSummery />
         <SubmitButton leftIcon="check2">Save</SubmitButton>

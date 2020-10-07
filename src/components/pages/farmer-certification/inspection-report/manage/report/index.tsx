@@ -5,13 +5,29 @@ import AnimalsInformation from "./animals-information";
 import FarmInformation from "./farm-information";
 import GeneralInformation from "./general-information";
 
-export default function InspectionReportPreview({ report }) {
+export default function InspectionReportPreview({ currentReport, previousReport, showCurrent }) {
   return (
     <>
-      <GeneralInformation report={report} />
-      <FarmInformation report={report} />
-      <AnimalsInformation report={report} />
-      <AdvicesInformation report={report} />
+      <GeneralInformation
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
+      <FarmInformation
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
+      <AnimalsInformation
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
+      <AdvicesInformation
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
     </>
   );
 }

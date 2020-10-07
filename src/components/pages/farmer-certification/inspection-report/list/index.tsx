@@ -24,7 +24,8 @@ export default function InspectionReportListComponent() {
         ccCodes: ccCodes.toString(),
         limit,
         pendingReportOnly,
-        firstName: query,
+        offset: 0,
+        firstName: query || undefined,
       });
       if (success) {
         setReports(data);

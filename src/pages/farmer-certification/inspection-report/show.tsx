@@ -6,7 +6,6 @@ function ManageInspectionReportPage({
   currentReport,
   previousReport,
   showCurrent,
-  success,
   version,
   subVersion,
 }) {

@@ -56,8 +56,16 @@ export default function InspectionForm({ farmer }) {
       erosionControlAdequate: yup.boolean().required(),
       burningOfCropWaste: yup.boolean().required(),
       farmerHireLabour: yup.boolean().required(),
-      isLabourFairlyTreated: yup.boolean().required(),
-      isChildLabourImployed: yup.boolean().required(),
+      isLabourFairlyTreated: yup.boolean().when("farmerHireLabour", {
+        is: true,
+        then: yup.boolean().required(),
+        otherwise: yup.boolean().nullable(),
+      }),
+      isChildLabourImployed: yup.boolean().when("farmerHireLabour", {
+        is: true,
+        then: yup.boolean().required(),
+        otherwise: yup.boolean().nullable(),
+      }),
       plasticDisposal: yup.string().required(),
       isOtherWasteDisposalAdequate: yup.boolean().required(),
       isHHMakingJointDecision: yup.boolean().required(),

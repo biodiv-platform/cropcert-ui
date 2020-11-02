@@ -1,16 +1,25 @@
 import { Button } from "@chakra-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
+import { useFormikContext } from "formik";
 
-const SubmitButton = ({ props, children, leftIcon = undefined, isDisabled = false }) => (
-  <Button
-    variantColor="blue"
-    isLoading={props.isSubmitting}
-    isDisabled={!props.isValid || isDisabled}
-    leftIcon={leftIcon}
-    type="submit"
-  >
-    {children}
-  </Button>
-);
+const SubmitButton = ({ children, leftIcon = undefined, isDisabled = false }) => {
+  const { isValid, isSubmitting, validateForm } = useFormikContext();
+
+  useEffect(() => {
+    validateForm();
+  }, []);
+
+  return (
+    <Button
+      variantColor="blue"
+      isLoading={isSubmitting}
+      isDisabled={!isValid || isDisabled}
+      leftIcon={leftIcon}
+      type="submit"
+    >
+      {children}
+    </Button>
+  );
+};
 
 export default SubmitButton;

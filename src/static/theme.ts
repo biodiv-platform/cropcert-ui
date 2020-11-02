@@ -1,5 +1,7 @@
 import { theme } from "@chakra-ui/core";
 
+import customIcons from "./custom-icons";
+
 const customTheme: any = {
   ...theme,
   fontWeights: {
@@ -20,6 +22,10 @@ const customTheme: any = {
       "800": "#343a40",
       "900": "#212529",
     },
+  },
+  icons: {
+    ...theme.icons,
+    ...customIcons,
   },
 };
 

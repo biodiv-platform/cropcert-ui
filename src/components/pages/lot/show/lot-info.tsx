@@ -33,7 +33,7 @@ export default function LotInfo({ lot }) {
   ];
 
   return (
-    <LotShowPanel icon="ℹ" title="Information" isOpen={true}>
+    <LotShowPanel icon="ℹ️" title="Information" isOpen={true}>
       <DataTable keyField="id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
     </LotShowPanel>
   );

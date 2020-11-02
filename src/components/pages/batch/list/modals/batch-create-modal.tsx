@@ -22,7 +22,6 @@ import dayjs from "dayjs";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
-import { MdCheck } from "react-icons/md";
 import * as Yup from "yup";
 
 export default function BatchCreateModal({ update }) {
@@ -96,7 +95,7 @@ export default function BatchCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon={MdCheck}>
+                <Submit leftIcon="check2">
                   Create Batch
                 </Submit>
               </ModalFooter>

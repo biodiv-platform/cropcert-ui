@@ -4,6 +4,10 @@ import http from "@utils/http";
 import notification from "@utils/notification.util";
 
 export const axListCCByCoId = async (coCode) => {
+  if (!coCode) {
+    return { success: false, data: [] };
+  }
+
   try {
     const res = await http.get(`${ENDPOINT.USER}/cc/coCode/${coCode}`);
     const data: any[] = res.data;

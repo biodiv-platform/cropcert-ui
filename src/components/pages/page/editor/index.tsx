@@ -1,4 +1,6 @@
+import { Box } from "@chakra-ui/core";
 import { Select, Submit, TextBox } from "@components/@core/formik";
+import DropzoneInputField from "@components/@core/formik/dropzone";
 import Wysiwyg from "@components/@core/formik/wysiwyg";
 import { CoreGrid } from "@components/@core/layout";
 import { axUpdatePage } from "@services/page.service";
@@ -18,6 +20,8 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
       title: Yup.string().required(),
       content: Yup.string().nullable(),
       url: Yup.string().nullable(),
+      bannerUrl: Yup.string().nullable(),
+      description: Yup.string().nullable(),
       heading: Yup.string().required(),
       authorId: Yup.string().required(),
       pageType: Yup.string().required(),
@@ -48,15 +52,21 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
         const isContentInput = props.values.pageType === PAGE_TYPE_OPTIONS.CONTENT.value;
         return (
           <form onSubmit={props.handleSubmit}>
-            <CoreGrid rows={3}>
-              <Select
-                label="Page Type"
-                name="pageType"
-                options={pageTypeOptions}
-                selectOnOne={false}
-              />
-              <TextBox label="Menu Heading" name="title" />
-              <TextBox label="Page Title" name="heading" />
+            <CoreGrid rows={4}>
+              <Box gridColumn="1/4">
+                <CoreGrid rows={2}>
+                  <Select
+                    label="Page Type"
+                    name="pageType"
+                    options={pageTypeOptions}
+                    selectOnOne={false}
+                  />
+                  <TextBox label="Menu Heading" name="title" />
+                </CoreGrid>
+                <TextBox label="Page Title" name="heading" />
+                <TextBox label="Description" name="description" />
+              </Box>
+              <DropzoneInputField label="Banner Image" name="bannerUrl" />
             </CoreGrid>
 
             {isContentInput ? (
@@ -65,7 +75,7 @@ export default function PageEditorComponent({ page, isEdit }: { page: Page; isEd
               <TextBox label="Link" name="url" />
             )}
 
-            <Submit props={props}>Save {isContentInput ? "Page" : "Link"}</Submit>
+            <Submit>Save {isContentInput ? "Page" : "Link"}</Submit>
           </form>
         );
       }}

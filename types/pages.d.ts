@@ -5,6 +5,8 @@ export interface Page {
     title?: string;
     pageType?: "CONTENT" | "REDIRECT";
     url?: string;
+    bannerUrl?: string;
+    description?: string;
     heading?: string;
     authorId?: number; // int64
     authorName?: string;

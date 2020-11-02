@@ -1,5 +1,5 @@
-import { hierarchicalRoles } from "@utils/auth.util";
 import { ROLES } from "@static/constants";
+import { hierarchicalRoles } from "@utils/auth.util";
 
 const links = [
   {
@@ -16,6 +16,23 @@ const links = [
         description: "Create, View or Manage Lots",
         to: "/lot/list",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
+      },
+    ],
+  },
+  {
+    title: "Certification",
+    children: [
+      {
+        title: "📝 Inspection Report",
+        description: "Manage Inspection Report",
+        to: "/farmer-certification/manage-farmers",
+        access: [ROLES.INSPECTOR, ROLES.ADMIN],
+      },
+      {
+        title: "📝 ICS Reports",
+        description: "Approve ICS Reports",
+        to: "/farmer-certification/inspection-report/list",
+        access: [ROLES.ICS_MANAGER, ROLES.ADMIN],
       },
     ],
   },

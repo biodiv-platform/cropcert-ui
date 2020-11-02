@@ -18,7 +18,6 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Formik } from "formik";
 import React from "react";
-import { MdSave } from "react-icons/md";
 import { Cupping, Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -217,9 +216,7 @@ export default function CuppingReportForm({
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit props={props} leftIcon={MdSave}>
-                  Save
-                </Submit>
+                <Submit leftIcon="save">Save</Submit>
               </ModalFooter>
             </ModalContent>
           </form>

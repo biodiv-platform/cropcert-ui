@@ -1,7 +1,10 @@
 @import "./article.scss";
 @import "./progress.scss";
 @import "./datatable.scss";
+@import "./transitions.scss";
 @import "./react-datetime-picker.scss";
+@import "./navmenu.scss";
+@import "./timeline.scss";
 
 :root {
   --page-height: calc(100vh - 126px);
@@ -23,4 +26,22 @@ input:disabled {
 .leaflet-container,
 .scroll-container {
   height: 70vh;
+}
+
+.grid-row {
+  display: grid;
+  align-items: center;
+  border: 1px dashed var(--gray-400);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  min-height: 4rem;
+  background: var(--white);
+  &[data-odd="true"] {
+    background: var(--gray-100);
+  }
+}
+
+input[type="radio"] + div[type="radio"] {
+  background: white;
 }

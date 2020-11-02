@@ -1,24 +1,35 @@
-import { Box, Heading, Text } from "@chakra-ui/core";
-import { formattedDate, utc2local } from "@utils/basic.util";
-import React from "react";
+import { Box, SimpleGrid } from "@chakra-ui/core";
+import { generateToC, wrapResponsiveTable } from "@utils/pages.util";
+import React, { useEffect } from "react";
 import { Page } from "types/pages";
+
+import ArticleImage from "./article-image";
 
 interface IHomePageProps {
   page: Page;
 }
 
 function HomePageComponent({ page }: IHomePageProps) {
+  useEffect(() => {
+    generateToC(".article", ".toc");
+  }, []);
+
   return (
     <Box>
-      <Box textAlign="center" py={8}>
-        <Heading as="h1" pb={3}>
-          {page.heading}
-        </Heading>
-        <Text fontSize="lg" color="gray.600">
-          Published on {formattedDate(utc2local(page.createdOn).getTime())} by {page.authorName}
-        </Text>
-      </Box>
-      <div className="article" dangerouslySetInnerHTML={{ __html: page.content }} />
+      <ArticleImage page={page} />
+      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} maxW="full">
+        <div>
+          <div className="toc-container">
+            <div className="toc"></div>
+          </div>
+        </div>
+        <Box gridColumn={{ md: "2/5" }} borderRadius="md">
+          <div
+            className="article"
+            dangerouslySetInnerHTML={{ __html: wrapResponsiveTable(page.content) }}
+          />
+        </Box>
+      </SimpleGrid>
     </Box>
   );
 }

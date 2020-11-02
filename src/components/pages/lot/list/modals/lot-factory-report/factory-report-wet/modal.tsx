@@ -17,7 +17,6 @@ import { nonZeroFalsy } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
-import { MdSave } from "react-icons/md";
 import * as Yup from "yup";
 
 import DiffMessage from "../../diff-message";
@@ -296,11 +295,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit
-                  props={props}
-                  leftIcon={MdSave}
-                  isDisabled={!(props.isValid && totalDiff === 0)}
-                >
+                <Submit leftIcon="save" isDisabled={!(props.isValid && totalDiff === 0)}>
                   Save
                 </Submit>
               </ModalFooter>

@@ -10,8 +10,11 @@ export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
 };
 
-export const formattedDate = (d = new Date().getTime()) => {
-  return dayjs(d).format(DATEFORMATS.DAYJS_DATE);
+export const formattedDate = (d, emptyOnUndefined = false) => {
+  if (emptyOnUndefined && d === undefined) {
+    return;
+  }
+  return dayjs(d || new Date().getTime()).format(DATEFORMATS.DAYJS_DATE);
 };
 
 /*
@@ -79,3 +82,12 @@ export const flatten = (data: any[] = []) => {
     return [...acc, ...processedO, { value: ob.name, label: ob.name, color: ob.color }];
   }, []);
 };
+
+export const booleanOrText = (v, parseDate?) =>
+  typeof v === "boolean"
+    ? v
+      ? "Yes"
+      : "No"
+    : parseDate && typeof v === "number"
+    ? formattedDate(utc2local(v))
+    : v;

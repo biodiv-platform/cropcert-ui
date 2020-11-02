@@ -74,3 +74,20 @@ export const axUploadHandler = (blobInfo, success, failure) => {
       failure("Error");
     });
 };
+
+export const axUploadImage = async (file: File) => {
+  const formData = new FormData();
+  formData.append("upload", file);
+
+  try {
+    const { data } = await http.post(`${ENDPOINT.PAGES}/image`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return { success: true, data };
+  } catch (e) {
+    console.error(e);
+    return { success: false, data: null };
+  }
+};

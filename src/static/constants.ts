@@ -1,6 +1,6 @@
 export const isBrowser = typeof window !== `undefined`;
 
-export const SITE_TITLE = process.env.NEXT_APP_TITLE;
+export const SITE_TITLE = process.env.NEXT_PUBLIC_APP_TITLE;
 export const PAGINATION_LIMIT = 10;
 
 export const DATEFORMATS = {
@@ -12,12 +12,13 @@ export const DATEFORMATS = {
 };
 
 export const ENDPOINT = {
-  ROOT: `${process.env.NEXT_APP_ENDPOINT}`,
-  CAS: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_CAS}`,
-  USER: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_USER}`,
-  PAGES: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_PAGES}`,
-  TRACEABILITY: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_TRACEABILITY}`,
-  API: `${process.env.NEXT_APP_ENDPOINT}${process.env.NEXT_ENDPOINT_API}`,
+  ROOT: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}`,
+  CAS: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CAS}`,
+  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_USER}`,
+  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_PAGES}`,
+  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_TRACEABILITY}`,
+  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CERTIFICATION}`,
+  API: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_API}`,
 };
 
 export const TOKEN = {
@@ -35,6 +36,8 @@ export const PAGE_TYPE_OPTIONS = {
 };
 
 export const ROLES = {
+  INSPECTOR: "inspector",
+  ICS_MANAGER: "ics_manager",
   UNAUTHORIZED: "role_unauthorized",
   AUTHORIZED: "authorized",
   FARMER: "farmer",

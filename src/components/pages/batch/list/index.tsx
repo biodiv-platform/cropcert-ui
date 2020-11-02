@@ -9,7 +9,6 @@ import { useBatchStore } from "@stores/batch.store";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import { MdAdd } from "react-icons/md";
 import InfiniteScroll from "react-infinite-scroller";
 import { Batch } from "types/traceability";
 
@@ -75,11 +74,16 @@ function BatchListPageComponent() {
         hidden={!hasAccess(hierarchicalRoles(ROLES.COOPERATIVE))}
         isDisabled={showTypeError || selectedBatches.length === 0}
         onClick={handleOnCreateLot}
-        leftIcon={MdAdd}
+        leftIcon={"add2" as any}
       >
         Create Lot
       </Button>
-      <Button variantColor="blue" variant="solid" onClick={handleOnCreateBatch} leftIcon={MdAdd}>
+      <Button
+        variantColor="blue"
+        variant="solid"
+        onClick={handleOnCreateBatch}
+        leftIcon={"add2" as any}
+      >
         Create Batch
       </Button>
     </ButtonGroup>

@@ -52,7 +52,7 @@
     "react-sortable-tree": "^2.8.0",
     "sass": "^1.27.0",
     "sparkles": "^1.0.1",
-    "styled-components": "^5.2.0",
+    "styled-components": "^5.2.1",
     "timeago.js": "^4.0.2",
     "tiny-skeleton-loader-react": "^1.1.4",
     "tinymce": "^5.5.1",

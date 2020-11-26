@@ -102,6 +102,12 @@
     border: 1px solid var(--gray-700);
   }
 
+  @media (max-width: 425px) {
+    img {
+      max-width: 80vw;
+    }
+  }
+
   @media (max-width: 768px) {
     padding: 1rem;
     h1 {
@@ -111,7 +117,7 @@
       font-size: 2em;
     }
     img {
-      max-width: 80vw;
+      max-width: 100%;
     }
     .table-responsive {
       overflow-x: auto;

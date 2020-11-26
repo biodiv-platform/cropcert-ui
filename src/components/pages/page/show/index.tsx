@@ -12,7 +12,7 @@ interface IHomePageProps {
 function HomePageComponent({ page }: IHomePageProps) {
   useEffect(() => {
     generateToC(".article", ".toc");
-  }, []);
+  }, [page.id]);
 
   return (
     <Box>

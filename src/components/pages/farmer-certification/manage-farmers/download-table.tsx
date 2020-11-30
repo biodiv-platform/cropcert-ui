@@ -53,7 +53,7 @@ export default function DownloadTable() {
             {syncStatus && <Box fontSize="sm">Last updated {format(syncStatus.lastSynced)}</Box>}
           </Box>
           <Box textAlign={{ md: "right" }}>
-            <ActionButton ccCode={code} syncStatus={syncStatus} isOnline={isOnline} hasPendingreports={pendingReports.length} />
+            <ActionButton ccCode={code} syncStatus={syncStatus} isOnline={isOnline} pendingReports={pendingReports.length} />
           </Box>
         </ResponsiveRow>
       ))}

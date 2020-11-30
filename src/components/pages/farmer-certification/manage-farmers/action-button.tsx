@@ -3,13 +3,17 @@ import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
 import React, { useState } from "react";
 
-export default function ActionButton({ ccCode, syncStatus, isOnline, hasPendingreports }) {
+export default function ActionButton({ ccCode, syncStatus, isOnline, pendingReports }) {
   const [isLoading, setIsLoading] = useState(false);
   const { removeCCFarmers, downloadCCFarmers } = useInspectionReport();
 
   const handleOnRemove = async () => {
-    if (hasPendingreports) {
-      if (!confirm("Are you sure?\nThere are pending reports for this collection center")) {
+    if (pendingReports) {
+      if (
+        !confirm(
+          `There are ${pendingReports} certification forms that have not been uploaded.\nDo you want to delete the farmers list?`
+        )
+      ) {
         return;
       }
     }

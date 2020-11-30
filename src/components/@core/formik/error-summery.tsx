@@ -16,7 +16,7 @@ export default function ErrorSummery() {
       {Object.entries(flat(errors)).map(([key, error]) => (
         <ListItem className="fade" key={key}>
           <ListIcon icon="warning" color="red.500" />
-          {readableError(key, error)}
+          <a href={`#${key.replace(/\.([0-9])\./g, "[$1].")}`}>{readableError(key, error)}</a>
         </ListItem>
       ))}
     </List>

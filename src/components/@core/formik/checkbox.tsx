@@ -13,7 +13,7 @@ const CheckBoxInputField = ({
   const [field, meta] = useField(name);
 
   return (
-    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb} id={field.name}>
       <Checkbox {...field} {...props} isDisabled={isDisabled} isChecked={field.value}>
         {label}
       </Checkbox>

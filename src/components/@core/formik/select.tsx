@@ -32,7 +32,7 @@ const SelectInputField = ({
   }, [options]);
 
   return (
-    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb} id={field.name}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <Select
         {...field}

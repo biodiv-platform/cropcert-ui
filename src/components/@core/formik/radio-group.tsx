@@ -49,7 +49,7 @@ const RadioGroupInputField = ({
   };
 
   return (
-    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb} id={field.name}>
       {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <RadioGroup
         {...props}

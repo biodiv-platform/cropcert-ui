@@ -24,7 +24,7 @@ const TextInputField = ({
   const [field, meta] = useField({ name, as: fast ? FastField : Field });
 
   return (
-    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb}>
+    <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb} id={field.name}>
       {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
       <Input borderColor="gray.400" placeholder={label} {...field} {...props} />
       <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>

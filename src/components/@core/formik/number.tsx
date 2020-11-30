@@ -32,6 +32,7 @@ const NumberInputField = ({
       isInvalid={meta.touched && meta.error ? true : false}
       mb={mb}
       isRequired={isRequired}
+      id={field.name}
     >
       {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
       <Input

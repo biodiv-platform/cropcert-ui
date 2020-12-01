@@ -20,7 +20,7 @@
     "axios": "^0.21.0",
     "coffee-flavor-wheel": "^1.1.0",
     "cogo-toast": "^4.2.3",
-    "dayjs": "^1.9.4",
+    "dayjs": "^1.9.6",
     "dompurify": "^2.2.0",
     "dotenv-load": "^2.0.0",
     "easy-peasy": "3",

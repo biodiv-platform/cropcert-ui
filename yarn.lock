@@ -5811,14 +5811,14 @@ react-clock@^2.3.0:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
-react-data-table-component@^6.11.5:
-  version "6.11.5"
-  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-6.11.5.tgz#e6f40d5380cf1c59eb260bb3851186db71c95e1a"
-  integrity sha512-MuYgyDyJQs6lpsMxk5AJigEUve2onTbPN6AC4xGgNhsEIrvyiMdwq2TwE77TDixdOttP+PmsLPZ9D+WkAogU3g==
+react-data-table-component@^6.11.6:
+  version "6.11.6"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-6.11.6.tgz#4859182afb6885de94cc04336dc9ca5b4dbbf3a5"
+  integrity sha512-TQv8udIZbMQNYIdoD2t8WTW81A18RH2erowE9Cka030NE6YOY6wX0E1bqeaCTN4+dQkmTOvwNdHCc5EDXuXewg==
   dependencies:
     deepmerge "^4.2.2"
     lodash.orderby "^4.6.0"
-    shortid "^2.2.15"
+    shortid "^2.2.16"
 
 react-date-picker@^8.0.0:
   version "8.0.1"
@@ -6565,10 +6565,10 @@ shelljs@^0.8.1:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shortid@^2.2.15:
-  version "2.2.15"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.15.tgz#2b902eaa93a69b11120373cd42a1f1fe4437c122"
-  integrity sha512-5EaCy2mx2Jgc/Fdn9uuDuNIIfWBpzY4XIlhoqtXF6qsf+/+SGZ+FxDdX/ZsMZiWupIWNqAEmiNY4RC+LSmCeOw==
+shortid@^2.2.16:
+  version "2.2.16"
+  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.16.tgz#b742b8f0cb96406fd391c76bfc18a67a57fe5608"
+  integrity sha512-Ugt+GIZqvGXCIItnsL+lvFJOiN7RYqlGy7QE41O3YC1xbNSeDGIRO7xg2JJXIAj1cAGnOeC1r7/T9pgrtQbv4g==
   dependencies:
     nanoid "^2.1.0"
 

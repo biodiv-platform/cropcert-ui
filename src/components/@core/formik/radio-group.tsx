@@ -41,11 +41,11 @@ const RadioGroupInputField = ({
   );
 
   const onValueChange = (_, value) => {
-    helpers.setValue(nOptions[value]?.value);
+    helpers.setValue(nOptions[value]?.value, true);
     setTimeout(() => {
       helpers.setTouched(true);
       field.onBlur(name);
-    }, 300);
+    }, 1000);
   };
 
   return (

@@ -48,7 +48,7 @@ const links = [
       {
         title: "🌾 ODK Aggregate",
         description: "View aggregated data on ODK",
-        to: "/ODKAggregate/",
+        to: "/ODKAggregate/Aggregate.html",
         access: [ROLES.ADMIN],
       },
     ],

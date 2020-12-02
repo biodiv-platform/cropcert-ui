@@ -8,16 +8,8 @@ import { getUserKey } from "@utils/auth.util";
  * @param {string} role
  * @returns {number}
  */
-const roleToIndex = (role: string): number => {
-  let finalRole = role;
-
-  // Inspector is at the same position at union for dropdown
-  if (role === ROLES.INSPECTOR) {
-    finalRole = ROLES.UNION;
-  }
-
-  return ROLE_HIERARCHY.findIndex((currentRole) => currentRole === finalRole);
-};
+const roleToIndex = (role: string): number =>
+  ROLE_HIERARCHY.findIndex((currentRole) => currentRole === role);
 
 /**
  * Returns sliced array of roles that will represent hierarchy of roles

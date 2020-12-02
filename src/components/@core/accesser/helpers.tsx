@@ -1,5 +1,5 @@
 import { getByRole } from "@services/accessor.service";
-import { ROLE_HIERARCHY } from "@static/constants";
+import { ROLE_HIERARCHY, ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
 
 /**
@@ -8,8 +8,16 @@ import { getUserKey } from "@utils/auth.util";
  * @param {string} role
  * @returns {number}
  */
-const roleToIndex = (role: string): number =>
-  ROLE_HIERARCHY.findIndex((currentRole) => currentRole === role);
+const roleToIndex = (role: string): number => {
+  let finalRole = role;
+
+  // Inspector is at the same position at union for dropdown
+  if (role === ROLES.INSPECTOR) {
+    finalRole = ROLES.UNION;
+  }
+
+  return ROLE_HIERARCHY.findIndex((currentRole) => currentRole === finalRole);
+};
 
 /**
  * Returns sliced array of roles that will represent hierarchy of roles

@@ -19,7 +19,7 @@ export const FIELD_SEPRATION_OPTIONS = [
   { label: "None", value: "NONE" },
   { label: "Trees", value: "TREES" },
   { label: "Fence", value: "FENCE" },
-  { label: "Drench", value: "DRENCH" },
+  { label: "Trench", value: "TRENCH" },
   { label: "Other", value: "OTHER" },
 ];
 

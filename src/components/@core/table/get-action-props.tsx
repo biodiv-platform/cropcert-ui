@@ -1,7 +1,7 @@
 import { LOT_FLAGS } from "@static/constants";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import { useStoreState } from "easy-peasy";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const VARIANT_MAPPING = {
   ADD: "blue",

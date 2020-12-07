@@ -24,7 +24,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
       <PageHeading>📦 {show.lot.lotName}</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <LotInfo lot={show.lot} />
-        <LotBatches lotId={show.lot.id} batchType={show.lot.type} />
+        <LotBatches lotId={show.lot.id} />
         <LotGreenReport reports={show.quality_report} />
         <LotCuppingReport reports={show.cupping_report} />
         <Timeline activities={show.activities} />

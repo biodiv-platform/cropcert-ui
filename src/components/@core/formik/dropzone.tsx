@@ -1,16 +1,11 @@
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Spinner,
-} from "@chakra-ui/core";
+import { Button, FormControl, FormHelperText, FormLabel, Spinner } from "@chakra-ui/core";
 import styled from "@emotion/styled";
 import { axUploadImage } from "@services/page.service";
 import { FastField, useField } from "formik";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+
+import ErrorMessage from "./common/error-message";
 
 interface DropzoneInputFieldProps {
   name: string;
@@ -75,7 +70,7 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
       <Button size="xs" isDisabled={!field.value} variantColor="red" onClick={handleOnClear} mt={2}>
         Remove Banner Image
       </Button>
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

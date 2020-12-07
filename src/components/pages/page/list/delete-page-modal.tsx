@@ -16,8 +16,8 @@ import { Page } from "types/pages";
 
 export default function DeletePageModal({ update }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const cancelRef = React.useRef();
-  const [page, setPage] = useState<Page>();
+  const cancelRef = React.useRef(null);
+  const [page, setPage] = useState<Required<Page>>();
 
   useListener(
     (page) => {
@@ -28,7 +28,7 @@ export default function DeletePageModal({ update }) {
   );
 
   const handleOnDelete = async () => {
-    const { success } = await axDeletePageByPageId(page.id);
+    const { success } = await axDeletePageByPageId(page?.id);
     if (success) {
       update();
       onClose();

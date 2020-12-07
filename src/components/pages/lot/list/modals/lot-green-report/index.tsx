@@ -1,15 +1,12 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/core";
-import { axGetGreenReportById, axGetFactoryReportByLotId } from "@services/report.service";
-import { ROLES } from "@static/constants";
+import { axOriginByLotId } from "@services/lot.service";
+import { axGetFactoryReportByLotId, axGetGreenReportById } from "@services/report.service";
 import { LOT_REPORT_GREEN } from "@static/events";
-import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { Lot, FactoryReport, QualityReport } from "types/traceability";
+import { FactoryReport, Lot, QualityReport } from "types/traceability";
 
 import GreenReportForm from "./form";
-import { axOriginByLotId } from "@services/lot.service";
 
 export default function GreenReportModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -18,9 +15,6 @@ export default function GreenReportModal({ update }) {
   const [report, setReport] = useState<QualityReport>();
   const [factoryReport, setFactoryReport] = useState<FactoryReport>();
   const [origin, setOrigin] = useState();
-
-  const user = useStoreState((state) => state.user);
-  const isReadOnly = !hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   useListener(
     ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {

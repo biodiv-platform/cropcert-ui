@@ -1,6 +1,8 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
 import { FastField, Field, useField } from "formik";
 import React from "react";
+
+import ErrorMessage from "./common/error-message";
 
 const hintMessage = (props) => {
   if (props?.min && props?.max) {
@@ -13,15 +15,25 @@ const hintMessage = (props) => {
   return "";
 };
 
+interface NumberInputFieldProps {
+  name;
+  label?;
+  hint?: boolean;
+  mb?: number;
+  isRequired?: boolean;
+  fast?: boolean;
+  [x: string]: any;
+}
+
 const NumberInputField = ({
   name,
-  label = null,
+  label,
   hint = false,
   mb = 4,
   isRequired = false,
   fast = false,
   ...props
-}) => {
+}: NumberInputFieldProps) => {
   const [field, meta] = useField({ name, as: fast ? FastField : Field });
   const hintText = props.hintText || hintMessage(props);
 
@@ -43,7 +55,7 @@ const NumberInputField = ({
         type="number"
         {...props}
       />
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

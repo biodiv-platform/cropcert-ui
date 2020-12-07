@@ -12,7 +12,7 @@ import ActionButton from "./action-button";
 
 export default function DownloadTable() {
   const { ccList, onCoCodeChange } = useInspectionReport();
-  const [ccListF, setCCListF] = useState([]);
+  const [ccListF, setCCListF] = useState<any>([]);
   const isOnline = useOnlineStatus();
 
   const onFilterChange = (e) => {
@@ -53,7 +53,12 @@ export default function DownloadTable() {
             {syncStatus && <Box fontSize="sm">Last updated {format(syncStatus.lastSynced)}</Box>}
           </Box>
           <Box textAlign={{ md: "right" }}>
-            <ActionButton ccCode={code} syncStatus={syncStatus} isOnline={isOnline} pendingReports={pendingReports.length} />
+            <ActionButton
+              ccCode={code}
+              syncStatus={syncStatus}
+              isOnline={isOnline}
+              pendingReports={pendingReports.length}
+            />
           </Box>
         </ResponsiveRow>
       ))}

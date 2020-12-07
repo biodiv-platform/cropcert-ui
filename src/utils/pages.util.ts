@@ -56,7 +56,7 @@ export const treeToFlat = (tree, parentId = -1) => {
   let flatTree: any = [];
   tree.map((o, i) => {
     flatTree.push({ id: o.id, pageIndex: i, parentId });
-    if (o.hasOwnProperty("children")) {
+    if (o["children"]) {
       flatTree = [...flatTree, ...treeToFlat(o.children, o.id)];
     }
   });
@@ -64,12 +64,12 @@ export const treeToFlat = (tree, parentId = -1) => {
 };
 
 export const generateToC = (contentSelector, tocSelector) => {
-  var content = document.querySelector(contentSelector);
-  var headings = content.querySelectorAll("h1, h2, h3, h4, h5, h6, h7");
-  var headingMap = {};
+  const content = document.querySelector(contentSelector);
+  const headings = content.querySelectorAll("h1, h2, h3, h4, h5, h6, h7");
+  const headingMap = {};
 
   Array.prototype.forEach.call(headings, function (heading) {
-    var id = heading.id
+    const id = heading.id
       ? heading.id
       : heading.textContent
           .trim()
@@ -88,7 +88,7 @@ export const generateToC = (contentSelector, tocSelector) => {
   autoToC(contentSelector, tocSelector);
 };
 
-export const wrapResponsiveTable = (content: string = "") => {
+export const wrapResponsiveTable = (content = "") => {
   return content
     .replace(/\<table/g, '<div class="table-responsive"><table')
     .replace(/\<\/table\>/g, "</table></div>");

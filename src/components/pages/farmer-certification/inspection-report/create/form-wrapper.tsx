@@ -1,5 +1,6 @@
 import { STORE } from "@static/inspection-report";
 import { useRouter } from "next/router";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useIndexedDBStore } from "use-indexeddb";
 

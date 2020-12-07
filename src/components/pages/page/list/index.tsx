@@ -37,7 +37,7 @@ const PageListContainer = styled.div`
 `;
 
 export default function PageListComponent() {
-  const [treeData, setTreeData] = useState([]);
+  const [treeData, setTreeData] = useState<any>([]);
   const [flatOrder, setFlatOrder] = useState([] as any);
 
   const listAllPages = () => {

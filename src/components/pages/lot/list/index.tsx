@@ -20,7 +20,7 @@ import LotGRNModal from "./modals/lot-grn-modal";
 
 function LotListPageComponent() {
   const [union, setUnion] = useState({} as any);
-  const [coCodes, setCoCodes] = useState([]);
+  const [coCodes, setCoCodes] = useState<any>([]);
   const [state, actions] = useLotStore();
 
   const handleLoadMore = () => {

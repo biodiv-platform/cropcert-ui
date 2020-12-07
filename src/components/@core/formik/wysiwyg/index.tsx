@@ -5,7 +5,7 @@ import React from "react";
 
 const Editor = dynamic(() => import("./wysiwyg"), { ssr: false });
 
-const wysiwygInput = ({ name, label, hint = false, hintText = "", mb = 4, ...props }) => {
+const wysiwygInput = ({ name, label, hint = false, hintText = "", mb = 4 }) => {
   const [field, meta, helpers] = useField(name);
 
   const onEditorValueChange = (v) => helpers.setValue(v);

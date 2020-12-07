@@ -8,8 +8,8 @@ import MultiSelect from "react-multi-select-component";
 
 function CCMultiSelect({ coId = -1, onChange }) {
   const role = useStoreState((state) => state.user.role);
-  const [cc, setCC] = useState([]);
-  const [ccSelected, setCCSelected] = useState([]);
+  const [cc, setCC] = useState<any>([]);
+  const [ccSelected, setCCSelected] = useState<any>([]);
   const isCC = role === ROLES.COLLECTION_CENTER;
   const label = "Select Collection Center";
 

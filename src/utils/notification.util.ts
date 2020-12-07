@@ -14,7 +14,7 @@ const notification = (message, type = NotificationType.Error, variables = {}) =>
   const m = compiledMessage(message.toString(), variables);
   if (isBrowser) {
     const toaster = cogoToast[type];
-    const { hide } = toaster(m, {
+    const { hide }: any = toaster(m, {
       position: "top-center",
       hideAfter: 10,
       onClick: () => {
@@ -22,7 +22,7 @@ const notification = (message, type = NotificationType.Error, variables = {}) =>
       },
     });
   }
-  console.info(m);
+  console.debug(m);
 };
 
 export default notification;

@@ -1,5 +1,5 @@
 import { getByRole } from "@services/accessor.service";
-import { ROLE_HIERARCHY, ROLES } from "@static/constants";
+import { ROLE_HIERARCHY } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
 
 /**

@@ -71,6 +71,7 @@ export const axUploadHandler = (blobInfo, success, failure) => {
       success(r.data.url);
     })
     .catch((e) => {
+      console.error(e);
       failure("Error");
     });
 };

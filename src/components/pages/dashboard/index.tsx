@@ -10,7 +10,7 @@ import links from "./links";
 export default function DashboardPageComponent() {
   const user = useStoreState((state) => state.user);
 
-  const getLinks = (children): [object] => {
+  const getLinks = (children): Record<string, unknown>[] => {
     return children.reduce(
       (acc, link, index) =>
         hasAccess(link.access, user) ? [...acc, <Card key={index} {...link} />] : acc,

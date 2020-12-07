@@ -112,7 +112,7 @@ export const LOT_STATUS_HIERARCHY = [
   "AT_UNION",
 ];
 
-export const MAP: { MAP_CENTER: [number, number]; [key: string]: any } = {
+export const MAP: { MAP_CENTER: any; [key: string]: any } = {
   MAP_CENTER: [0.4363, 30.1675],
   MARKER_MERGEOPTIONS: {
     iconRetinaUrl: "/assets/marker-default@2x.png",

@@ -28,9 +28,9 @@ import GreenReportSummery from "./summery";
 interface IGreenReportProps {
   ccNames: string[];
   cooperativeName: string;
-  factoryReport: FactoryReport;
+  factoryReport: Required<FactoryReport>;
   canWrite: boolean;
-  lot: Lot;
+  lot: Required<Lot>;
   onClose;
   report: QualityReport;
   update;

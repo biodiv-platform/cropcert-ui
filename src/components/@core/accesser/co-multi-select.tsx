@@ -8,8 +8,8 @@ import { getUserKey } from "@utils/auth.util";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
   const role = useStoreState((state) => state.user.role);
-  const [co, setCo] = useState([]);
-  const [coSelected, setCoSelected] = useState([]);
+  const [co, setCo] = useState<any[]>([]);
+  const [coSelected, setCoSelected] = useState<any>([]);
   const isCoCC = [ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER].includes(role);
   const label = "Select Cooperatives";
 

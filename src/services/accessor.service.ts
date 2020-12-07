@@ -12,7 +12,7 @@ import { axListUnion } from "./union.service";
  * @param {number} [code=-1]
  * @returns
  */
-export const getByRole = async (role: string, code: number = -1) => {
+export const getByRole = async (role: string, code = -1) => {
   let res: any = { data: [] };
 
   switch (role) {

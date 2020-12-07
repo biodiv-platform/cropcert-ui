@@ -1,16 +1,10 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from "@chakra-ui/core";
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel } from "@chakra-ui/core";
 import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
 import { useField } from "formik";
 import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
+
+import ErrorMessage from "./common/error-message";
 
 const r = (v) => formattedTimeStamp(utc2local(v));
 
@@ -25,21 +19,37 @@ const hintMessage = (props) => {
   return "";
 };
 
+interface DateTimeInputFieldProps {
+  name;
+  label?;
+  hint?: boolean;
+  mb?: number;
+  defaultBlank?: boolean;
+  nowDisabled?: boolean;
+  isNow?: boolean;
+  format?: string;
+  min?;
+  max?;
+  [x: string]: any;
+}
+
 const DateTimeInputField = ({
   name,
-  label = null,
-  hint = false,
+  label,
+  hint,
   mb = 4,
-  defaultBlank = false,
-  nowDisabled = false,
-  isNow = false,
+  defaultBlank,
+  nowDisabled,
+  isNow,
   format = "dd-MM-yyyy H:mm",
+  min,
+  max,
   ...props
-}) => {
+}: DateTimeInputFieldProps) => {
   const [field, meta, helpers] = useField(name);
 
-  const minDate = props.hasOwnProperty("min") ? utc2local(props.min) : undefined;
-  const maxDate = props.hasOwnProperty("max") ? utc2local(props.max) : new Date();
+  const minDate = min ? utc2local(min) : undefined;
+  const maxDate = max ? utc2local(max) : new Date();
 
   const hintText = hintMessage(props);
 
@@ -89,7 +99,7 @@ const DateTimeInputField = ({
           </Button>
         )}
       </Flex>
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

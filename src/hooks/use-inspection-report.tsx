@@ -6,7 +6,7 @@ import {
 import { axUploadInspectionReport, axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
 import notification, { NotificationType } from "@utils/notification.util";
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { useImmer } from "use-immer";
 import { useIndexedDBStore } from "use-indexeddb";
 
@@ -30,7 +30,7 @@ const InspectionReportContext = createContext<InspectionReportContextProviderPro
 );
 
 export const InspectionReportProvider = ({ children }: InspectionReportProviderProps) => {
-  const [ccList, updateCCList] = useImmer({ l: [] });
+  const [ccList, updateCCList] = useImmer<any>({ l: [] });
   const [affected, setAffected] = useReducer(
     ({ added, updated }, isAdded) =>
       isAdded ? { added: added + 1, updated } : { added, updated: updated + 1 },
@@ -59,11 +59,11 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
   } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
 
   const onCoCodeChange = async (coCode) => {
-    const { data: ccList } = await axListCCByCoId(coCode?.value);
+    const { data: ccList }: any = await axListCCByCoId(coCode?.value);
     const allSyncStatus = await getAllSyncStatus();
     const pendingInspectionReports = await getAllPendingInspectionReports();
 
-    const updatedCCList = ccList.map((cc) => ({
+    const updatedCCList: any = ccList.map((cc) => ({
       ...cc,
       pendingReports: pendingInspectionReports.filter(({ ccCode }) => ccCode === cc.code),
       syncStatus: allSyncStatus.find(({ ccCode }) => ccCode === cc.code),

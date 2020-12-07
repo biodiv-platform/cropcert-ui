@@ -12,11 +12,11 @@ import { inspectionReportColumns } from "./data";
 export default function InspectionReportListComponent() {
   const [co, setCo] = useState({} as any);
   const [ccs, setCCs] = useState([] as any);
-  const [ccCodes, setCCCodes] = useState([]);
+  const [ccCodes, setCCCodes] = useState<any>([]);
   const [limit, setLimit] = useState(50);
   const [pendingReportOnly, setPendingReportOnly] = useState(true);
   const [query, setQuery] = useState("");
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState<any>([]);
 
   const fetchReports = async () => {
     if (ccCodes.length) {

@@ -5,7 +5,7 @@ import React from "react";
 
 export default function CustomLink({ children, item }) {
   const link =
-    item.hasOwnProperty("pageType") && item.pageType === PAGE_TYPE_OPTIONS.CONTENT.value
+    item["pageType"] && item.pageType === PAGE_TYPE_OPTIONS.CONTENT.value
       ? `/page/show/${item.id}`
       : item.url;
 

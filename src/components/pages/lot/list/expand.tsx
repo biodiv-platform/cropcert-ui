@@ -3,21 +3,21 @@ import Table from "@components/@core/table";
 import { axListBatchByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@static/constants";
 import React, { useEffect, useState } from "react";
-import { Batch, Lot } from "types/traceability";
+import { Batch } from "types/traceability";
 
 import { batchColumns, batchColumnsWet } from "./data";
 
-function LotExpand({ data }: { data?: Lot }) {
+function LotExpand(props) {
   const { isOpen, onOpen } = useDisclosure();
-  const [batchList, setBatchList] = useState([] as Batch);
-  const columns = [...batchColumns, ...(data.type === BATCH_TYPE.WET ? batchColumnsWet : [])];
+  const [batchList, setBatchList] = useState([] as Batch[]);
+  const columns = [...batchColumns, ...(props.data.type === BATCH_TYPE.WET ? batchColumnsWet : [])];
 
   useEffect(() => {
-    axListBatchByLotId(data.id).then(({ data }) => {
+    axListBatchByLotId(props.data.id).then(({ data }) => {
       setBatchList(data);
       onOpen();
     });
-  }, [data]);
+  }, [props.data]);
 
   return isOpen ? (
     <Box p={3}>

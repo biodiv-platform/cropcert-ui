@@ -26,7 +26,7 @@ import * as Yup from "yup";
 
 export default function BatchCreateModal({ update }) {
   const [cc, setCc] = useState({} as any);
-  const [batchType, setBatchType] = useState([]);
+  const [batchType, setBatchType] = useState<any[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function BatchCreateModal({ update }) {
     type: null,
   };
 
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values) => {
     const formData = {
       ...values,
       createdOn: local2utc().getTime(),
@@ -95,9 +95,7 @@ export default function BatchCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="check2">
-                  Create Batch
-                </Submit>
+                <Submit leftIcon="check2">Create Batch</Submit>
               </ModalFooter>
             </ModalContent>
           </form>

@@ -1,6 +1,8 @@
-import { Checkbox, FormControl, FormErrorMessage, FormHelperText } from "@chakra-ui/core";
+import { Checkbox, FormControl, FormHelperText } from "@chakra-ui/core";
 import { useField } from "formik";
 import React from "react";
+
+import ErrorMessage from "./common/error-message";
 
 const CheckBoxInputField = ({
   name,
@@ -17,7 +19,7 @@ const CheckBoxInputField = ({
       <Checkbox {...field} {...props} isDisabled={isDisabled} isChecked={field.value}>
         {label}
       </Checkbox>
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{props.hintText}</FormHelperText>}
     </FormControl>
   );

@@ -7,16 +7,10 @@ import {
   Box,
   Flex,
   SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Text,
 } from "@chakra-ui/core";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic.util";
-import { current } from "immer";
 import React from "react";
 
 import { ANIMALS_PANEL } from "../../create/panels/data";
@@ -25,7 +19,7 @@ import ReportTabs from "./tabs";
 const AnimalsList = ({ data = [] }) =>
   data.length ? (
     <Accordion allowToggle={true} allowMultiple={true}>
-      {data.map((animal) => (
+      {data.map((animal: any) => (
         <AccordionItem key={animal.id}>
           <AccordionHeader _expanded={{ bg: "gray.100" }}>
             <Box flex="1" textAlign="left">

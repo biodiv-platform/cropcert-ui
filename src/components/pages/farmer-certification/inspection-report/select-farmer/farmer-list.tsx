@@ -31,8 +31,8 @@ export default function FarmerList() {
     affected: { added, updated },
   } = useInspectionReport();
   const isOnline = useOnlineStatus();
-  const [farmers, setFarmers] = useState([]);
-  const [initialFarmers, setInitialFarmers] = useState([]);
+  const [farmers, setFarmers] = useState<any>([]);
+  const [initialFarmers, setInitialFarmers] = useState<any>([]);
   const [query, setQuery] = useState("");
   const [pendingOnly, setPendingOnly] = useState<boolean>();
   const [limit, setLimit] = useState(LIMITS[0]);
@@ -110,7 +110,7 @@ export default function FarmerList() {
           farmer={farmer}
           isOnline={isOnline}
           bgGray={index % 2 !== 0}
-          key={farmer.id}
+          key={farmer["id"]}
           updateFarmer={refetchFarmers}
         />
       ))}

@@ -1,7 +1,9 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/core";
 import { useField } from "formik";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+
+import ErrorMessage from "./common/error-message";
 
 const MultiSelectInputField = ({
   name,
@@ -9,7 +11,7 @@ const MultiSelectInputField = ({
   hint = false,
   hintText = "",
   mb = 4,
-  options = [],
+  options = [] as any[],
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -52,7 +54,7 @@ const MultiSelectInputField = ({
           }),
         }}
       />
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

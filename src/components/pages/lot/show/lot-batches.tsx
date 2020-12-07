@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import LotShowPanel from "./panel";
 
-export default function LotBatches({ lotId, batchType }) {
+export default function LotBatches({ lotId }) {
   const batchColumns = [
     {
       name: "#",

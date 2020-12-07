@@ -21,10 +21,10 @@ import MultipleTypeWarning from "./multiple-warning";
 function BatchListPageComponent() {
   const [co, setCo] = useState({} as any);
   const [ccs, setCCs] = useState([] as any);
-  const [ccCodes, setCCCodes] = useState([]);
+  const [ccCodes, setCCCodes] = useState<any>([]);
   const [state, actions] = useBatchStore();
   const [showTypeError, setShowTypeError] = useState(false);
-  const [selectedBatches, setSelectedBatches] = useState([] as Batch[]);
+  const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function BatchListPageComponent() {
     actions.listBatch({ ccCodes });
   };
 
-  const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Batch[] }) => {
+  const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
     setSelectedBatches(selectedRows);
     setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
   };
@@ -49,7 +49,9 @@ function BatchListPageComponent() {
     const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
     const quantity = selectedBatches.reduce(
       (acc, cv) =>
-        (selectedBatches[0].type === BATCH_TYPE.DRY ? cv.quantity : cv.perchmentQuantity) + acc,
+        (selectedBatches.length && selectedBatches[0].type === BATCH_TYPE.DRY
+          ? cv.quantity
+          : cv.perchmentQuantity) + acc,
       0
     );
     const payload = {

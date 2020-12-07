@@ -4,6 +4,7 @@ import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
 import { BATCH_TYPE } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
+import React from "react";
 import { emit } from "react-gbus";
 import { Batch } from "types/traceability";
 
@@ -53,7 +54,7 @@ export const batchColumns = [
     cell: (row: Batch) =>
       row.type === BATCH_TYPE.WET ? (
         <Button
-          variantColor={VARIANT_MAPPING[row.batchStatus]}
+          variantColor={VARIANT_MAPPING[row.batchStatus as any]}
           variant="outline"
           minWidth="50px"
           isDisabled={row.type === BATCH_TYPE.DRY}

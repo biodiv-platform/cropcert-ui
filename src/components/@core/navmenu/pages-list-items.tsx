@@ -9,7 +9,7 @@ export default function ListItems({ children, level = 0 }) {
   const user = useStoreState((state) => state.user);
 
   const listItem = (item) =>
-    item.hasOwnProperty("children") ? (
+    item["children"] ? (
       <li key={item.id}>
         <CustomLink item={item}>
           {item.title}

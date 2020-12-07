@@ -23,7 +23,8 @@ const buttonProps: Partial<ButtonProps> = {
 };
 
 const CoActionCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.coopStatus, ROLES.COOPERATIVE);
+  const { variantColor, show } = useActionProps(lot.coopStatus, ROLES.COOPERATIVE);
+
   return show ? (
     <Button
       {...buttonProps}
@@ -100,7 +101,7 @@ const GreenLabReportCell = (lot: Lot) => {
   );
 };
 
-const CuppingLabReportCell = (lot: Lot) => {
+const CuppingLabReportCell = (lot: Required<Lot>) => {
   const currentCupper = useStoreState((state) => state.user.email);
   const currentReport = lot.cuppings.find((r) => r.cupper === currentCupper);
   const withSkeletonReport = currentReport || {

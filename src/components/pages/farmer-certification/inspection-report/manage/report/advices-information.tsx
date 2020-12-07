@@ -1,16 +1,4 @@
-import {
-  Box,
-  Flex,
-  List,
-  ListItem,
-  SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/core";
+import { Box, Flex, List, ListItem, SimpleGrid, Text } from "@chakra-ui/core";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic.util";
 import React from "react";

@@ -1,8 +1,10 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/core";
 import styled from "@emotion/styled";
 import { FastField, useField } from "formik";
 import React, { useRef } from "react";
 import SignaturePad from "react-signature-canvas";
+
+import ErrorMessage from "./common/error-message";
 
 const SignatureWrapper = styled.div`
   .declaration,
@@ -33,7 +35,7 @@ const SignatureInputField = ({
 }) => {
   const [field, meta, helpers] = useField({ name, as: FastField });
 
-  const ref = useRef(null);
+  const ref: any = useRef(null);
 
   const onStrokeEnd = () => {
     helpers.setValue(ref.current.toDataURL());
@@ -62,7 +64,7 @@ const SignatureInputField = ({
           ref={ref}
         />
       </SignatureWrapper>
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

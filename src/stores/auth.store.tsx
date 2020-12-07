@@ -24,10 +24,8 @@ const authStore: IAuthStore = {
     state.user = {};
     state.isLoggedIn = false;
   }),
-  isLoggedIn: computed((state) => state.user.hasOwnProperty("role")),
-  userRole: computed((state) =>
-    state.user.hasOwnProperty("role") ? state.user.role : ROLES.UNAUTHORIZED
-  ),
+  isLoggedIn: computed((state) => state.user["role"]),
+  userRole: computed((state) => (state.user["role"] ? state.user.role : ROLES.UNAUTHORIZED)),
 };
 
 export default authStore;

@@ -11,6 +11,7 @@ import { ADVICES_PANEL } from "./data";
 
 export default function Advices({ previousAdvices }) {
   const { values }: any = useFormikContext();
+  console.debug(previousAdvices);
 
   return (
     <LotShowPanel title={ADVICES_PANEL.title} icon={ADVICES_PANEL.icon} isOpen={true}>

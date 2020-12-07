@@ -55,7 +55,7 @@ export const typeList = (type) => {
  * @param {string} [k="id"]
  * @returns {any[]}
  */
-export const updateArrayByObjectKey = (a: any[], o: any, k: string = "id"): any[] => {
+export const updateArrayByObjectKey = (a: any[], o: any, k = "id"): any[] => {
   const i = a.findIndex((ao) => ao[k] === o[k]);
   a[i] = o;
   return a;
@@ -67,7 +67,7 @@ export const compiledMessage = (templateString: string, templateVariables) =>
 export const nonZeroFalsy = (num) => (num || num === 0 ? num : "");
 
 export const isEverythingFilledExcept = (exceptionKey, values) => {
-  for (let [key, value] of Object.entries(values)) {
+  for (const [key, value] of Object.entries(values)) {
     if (key !== exceptionKey && !value) {
       return false;
     }
@@ -91,3 +91,24 @@ export const booleanOrText = (v, parseDate?) =>
     : parseDate && typeof v === "number"
     ? formattedDate(utc2local(v))
     : v;
+
+/**
+ * Works similar to loadash's `_.get` to retrive value from nested objects
+ * getByPath(input,path)
+ * path input.0.name
+ * input [{name:"text"}]
+ * output "text"
+ * @param {*} obj
+ * @param {*} path
+ * @returns
+ */
+export const getByPath = (obj, path) => {
+  path.split(".").forEach(function (level) {
+    if (!obj) {
+      return;
+    }
+    obj = obj[level];
+  });
+
+  return obj;
+};

@@ -7,15 +7,19 @@ import AccesserForm from "./form";
 import { getDropdownArray, getInitialOptionsAndValues } from "./helpers";
 import AccesserLoading from "./loading";
 
-const parsedAccessorRole = (role) => {
-  let finalRole = role;
+interface AccesserProps {
+  toRole: string;
+  onChange;
+  onTouch?;
+}
 
+const parsedAccessorRole = (role) => {
   // Inspector is at the same position at union for dropdown
   if (role === ROLES.INSPECTOR) {
     return ROLES.UNION;
   }
 
-  return finalRole;
+  return role;
 };
 
 /**
@@ -25,7 +29,7 @@ const parsedAccessorRole = (role) => {
  * @param {*} { toRole, onChange }
  * @returns
  */
-export default function Accesser({ toRole, onChange, onTouch = null }) {
+export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
   const user: User = useStoreState((state) => state.user);
   const parsedRole = useMemo(() => parsedAccessorRole(user.role), [user.role]);
   const roles = getDropdownArray(parsedRole, toRole);

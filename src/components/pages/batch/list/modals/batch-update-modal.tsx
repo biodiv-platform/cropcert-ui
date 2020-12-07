@@ -23,7 +23,7 @@ import * as Yup from "yup";
 
 function BatchUpdateModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [batch, setBatch] = useState({} as Batch);
+  const [batch, setBatch] = useState({} as Required<Batch>);
 
   const batchUpdateForm = {
     validationSchema: Yup.object().shape({
@@ -57,7 +57,7 @@ function BatchUpdateModal({ update }) {
   };
 
   useListener(
-    (b: Batch) => {
+    (b: Required<Batch>) => {
       setBatch(b);
       onOpen();
     },

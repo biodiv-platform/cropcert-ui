@@ -1,13 +1,8 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel, Radio, RadioGroup } from "@chakra-ui/core";
 import { FastField, useField } from "formik";
 import React, { useMemo } from "react";
+
+import ErrorMessage from "./common/error-message";
 
 const defaultOptions = [
   { label: "Yes", value: true },
@@ -68,7 +63,7 @@ const RadioGroupInputField = ({
           </Radio>
         ))}
       </RadioGroup>
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

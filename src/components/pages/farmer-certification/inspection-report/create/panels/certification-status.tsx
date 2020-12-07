@@ -18,6 +18,7 @@ export default function CertificationStatus({ farmer }) {
       selector: "contract",
     },
   ];
+  console.debug(farmer);
 
   return (
     <LotShowPanel title="Certification: Current Status" icon="🗃" isOpen={true}>

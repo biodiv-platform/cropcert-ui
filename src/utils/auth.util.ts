@@ -24,7 +24,7 @@ export const hasAccess = (
   }
 
   const user = nookies || {};
-  if (user.hasOwnProperty("role")) {
+  if (user["role"]) {
     if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
       return true;
     }

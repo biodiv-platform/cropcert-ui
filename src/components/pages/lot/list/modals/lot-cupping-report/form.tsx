@@ -108,22 +108,6 @@ export default function CuppingReportForm({
     },
   };
 
-  const gradeTotal = (v) => {
-    const t =
-      v.fragranceAroma +
-      v.flavour +
-      v.acidity +
-      v.body +
-      v.afterTaste +
-      v.balance +
-      v.sweetness +
-      v.uniformity +
-      v.cleanCup +
-      v.overAll -
-      (v.taint + v.fault);
-    return typeof t === "number" ? t.toFixed(2) : "0";
-  };
-
   const handleSubmit = async (values, actions) => {
     const { grnNumber, notes, ...v } = values;
     actions.setSubmitting(false);

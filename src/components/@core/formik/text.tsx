@@ -1,6 +1,8 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
 import { FastField, Field, useField } from "formik";
-import React, { useMemo } from "react";
+import React from "react";
+
+import ErrorMessage from "./common/error-message";
 
 interface TextInputFieldProps {
   name: string;
@@ -27,7 +29,7 @@ const TextInputField = ({
     <FormControl isInvalid={meta.touched && meta.error ? true : false} mb={mb} id={field.name}>
       {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
       <Input borderColor="gray.400" placeholder={label} {...field} {...props} />
-      <FormErrorMessage>{meta.error && meta.error.replace(field.name, label)}</FormErrorMessage>
+      <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}
     </FormControl>
   );

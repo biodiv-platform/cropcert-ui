@@ -15,7 +15,7 @@ interface AccesserProps {
 
 const parsedAccessorRole = (role) => {
   // Inspector is at the same position at union for dropdown
-  if (role === ROLES.INSPECTOR) {
+  if ([ROLES.INSPECTOR, ROLES.ICS_MANAGER].includes(role)) {
     return ROLES.UNION;
   }
 

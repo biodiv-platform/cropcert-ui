@@ -10,7 +10,7 @@ export default function ICSSignature() {
         label="ICS Manager Signature"
         declaration="I, The ICS Manager, declare that this information is correct and that I have understood the conditions for organic production. I have also received a copy of the farmer’s organic contract and internal organic standard"
         mb={8}
-        personName="John Doe"
+        personName=""
       />
     </LotShowPanel>
   );

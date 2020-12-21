@@ -38,7 +38,7 @@ export default function SignatureInformation({ currentReport, previousReport, sh
         current={currentReport?.fieldCoordinator}
         previous={previousReport?.fieldCoordinator}
         showCurrent={showCurrent}
-        title="Field Coordinator"
+        title="Inspector"
       />
       <SignatureBlock
         current={currentReport?.icsManager}

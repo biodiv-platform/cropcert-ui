@@ -3,7 +3,7 @@ import { hierarchicalRoles } from "@utils/auth.util";
 
 const links = [
   {
-    title: "General",
+    title: "Traceability",
     children: [
       {
         title: "🧺 Batch(s)",

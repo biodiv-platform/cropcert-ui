@@ -10,14 +10,14 @@ export default function Signature() {
         label="Farmer Signature"
         declaration="I, The farmer, declare that this information is correct and that I have understood the conditions for organic production. I have also received a copy of the farmer’s organic contract and internal organic standard"
         mb={8}
-        personName="John Doe"
+        personName=""
       />
       <SignatureInputField
         name="fieldCoordinator.path"
-        label="Field Coordinator Signature"
-        declaration="I, the field coordinator, confirm that the above information is correct."
+        label="Inspector Signature"
+        declaration="I, the Inspector, confirm that the above information is correct."
         mb={8}
-        personName="John Doe"
+        personName=""
       />
     </LotShowPanel>
   );

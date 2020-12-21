@@ -29,7 +29,7 @@ export default function FarmerInformation({ farmer }) {
       selector: "village",
     },
     {
-      name: "Coordinator",
+      name: "Inspector",
       selector: "fieldCoOrdinator",
     },
     {

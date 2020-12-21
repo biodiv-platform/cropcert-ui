@@ -13,6 +13,7 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/core";
+import { PageHeading } from "@components/@core/layout";
 import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
@@ -21,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { debounce } from "ts-debounce";
 
+import Breadcrumbs from "./breadcrumbs";
 import FarmerItem from "./farmer-item";
 
 const LIMITS = ["50", "100", "200"];
@@ -63,6 +65,8 @@ export default function FarmerList() {
 
   return initialFarmers.length ? (
     <>
+      <PageHeading mb={8}>👨‍🌾 Farmers List - {initialFarmers[0]["ccName"]}</PageHeading>
+      <Breadcrumbs {...initialFarmers[0]} />
       <Flex flexDirection={{ base: "column", md: "row" }} my={4} justifyContent="space-between">
         <Box mb={4}>
           <Stack flexDirection={{ base: "column", md: "row" }} mb={1}>

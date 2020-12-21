@@ -119,23 +119,14 @@ export default function Farm() {
                       </CoreGrid>
                       <Box border="1px solid" borderColor="gray.500" p={4} borderRadius="md">
                         <CoreGrid rows={2} alignItems="flex-end">
-                          <RadioGroupInputField
-                            name={`farms[${index}].isCoffeeTreeWellMaintained`}
-                            label={FARM_PANEL.keys.isCoffeeTreeWellMaintained}
-                          />
-                          <RadioGroupInputField
-                            name={`farms[${index}].pruining`}
-                            label={FARM_PANEL.keys.pruining}
-                            options={GFP_OPTIONS}
-                          />
                           <NumberInputField
                             name={`farms[${index}].numberOfPruinedCoffeeTrees`}
                             label={FARM_PANEL.keys.numberOfPruinedCoffeeTrees}
                             fast={true}
                           />
                           <RadioGroupInputField
-                            name={`farms[${index}].stumping`}
-                            label={FARM_PANEL.keys.stumping}
+                            name={`farms[${index}].pruining`}
+                            label={FARM_PANEL.keys.pruining}
                             options={GFP_OPTIONS}
                           />
                           <NumberInputField
@@ -144,8 +135,17 @@ export default function Farm() {
                             fast={true}
                           />
                           <RadioGroupInputField
-                            name={`farms[${index}].plantingNewCoffeeSeedings`}
-                            label={FARM_PANEL.keys.plantingNewCoffeeSeedings}
+                            name={`farms[${index}].stumping`}
+                            label={FARM_PANEL.keys.stumping}
+                            options={GFP_OPTIONS}
+                          />
+                          <RadioGroupInputField
+                            name={`farms[${index}].isCoffeeTreeWellMaintained`}
+                            label={FARM_PANEL.keys.isCoffeeTreeWellMaintained}
+                          />
+                          <RadioGroupInputField
+                            name={`farms[${index}].interPlotBufferZones`}
+                            label={FARM_PANEL.keys.interPlotBufferZones}
                           />
                           <DateTime
                             name={`farms[${index}].lastUseOfNonAllowedChemicals`}
@@ -154,8 +154,8 @@ export default function Farm() {
                             defaultBlank={true}
                           />
                           <RadioGroupInputField
-                            name={`farms[${index}].interPlotBufferZones`}
-                            label={FARM_PANEL.keys.interPlotBufferZones}
+                            name={`farms[${index}].plantingNewCoffeeSeedings`}
+                            label={FARM_PANEL.keys.plantingNewCoffeeSeedings}
                           />
                         </CoreGrid>
                       </Box>

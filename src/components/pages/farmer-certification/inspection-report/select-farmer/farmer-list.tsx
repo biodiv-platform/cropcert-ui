@@ -17,7 +17,6 @@ import { PageHeading } from "@components/@core/layout";
 import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { debounce } from "ts-debounce";
@@ -27,7 +26,7 @@ import FarmerItem from "./farmer-item";
 
 const LIMITS = ["50", "100", "200"];
 
-export default function FarmerList() {
+export default function FarmerList({ feCCCode }) {
   const {
     getCCFarmers,
     affected: { added, updated },
@@ -38,14 +37,13 @@ export default function FarmerList() {
   const [query, setQuery] = useState("");
   const [pendingOnly, setPendingOnly] = useState<boolean>();
   const [limit, setLimit] = useState(LIMITS[0]);
-  const router = useRouter();
 
   const onFilterChange = debounce((e) => setQuery(e.target.value.toLowerCase()), 300, {
     isImmediate: true,
   });
 
   const refetchFarmers = (isOnline = false) => {
-    getCCFarmers(router.query?.feCCCode, isOnline, true).then(setInitialFarmers);
+    getCCFarmers(feCCCode, isOnline, true).then(setInitialFarmers);
   };
 
   useEffect(() => {

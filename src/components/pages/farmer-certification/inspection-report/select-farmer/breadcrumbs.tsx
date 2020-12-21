@@ -12,16 +12,22 @@ export default function Breadcrumbs({ ccName, coName, unionName }) {
       borderColor="gray.200"
       mb={8}
     >
-      <BreadcrumbItem>
-        <BreadcrumbLink>{unionName}</BreadcrumbLink>
+      <BreadcrumbItem isCurrentPage={true}>
+        <BreadcrumbLink>
+          Union: <b>{unionName}</b>
+        </BreadcrumbLink>
       </BreadcrumbItem>
 
       <BreadcrumbItem>
-        <BreadcrumbLink href="/farmer-certification/manage-farmers">{coName}</BreadcrumbLink>
+        <BreadcrumbLink href="/farmer-certification/manage-farmers">
+          Cooperative: <b>{coName}</b>
+        </BreadcrumbLink>
       </BreadcrumbItem>
 
       <BreadcrumbItem isCurrentPage>
-        <BreadcrumbLink href="#">{ccName}</BreadcrumbLink>
+        <BreadcrumbLink as="span">
+          Collection Center: <b>{ccName}</b>
+        </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
   );

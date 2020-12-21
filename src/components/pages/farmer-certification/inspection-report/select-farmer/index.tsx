@@ -5,12 +5,12 @@ import IndexedDBProvider from "use-indexeddb";
 
 import FarmerList from "./farmer-list";
 
-export default function SelectFarmerComponent() {
+export default function SelectFarmerComponent({ feCCCode }) {
   return (
     <div>
       <IndexedDBProvider config={DB_CONFIG}>
         <InspectionReportProvider>
-          <FarmerList />
+          <FarmerList feCCCode={feCCCode} />
         </InspectionReportProvider>
       </IndexedDBProvider>
     </div>

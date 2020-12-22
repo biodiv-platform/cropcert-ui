@@ -1,5 +1,6 @@
 import Table from "@components/@core/table";
 import LotShowPanel from "@components/pages/lot/show/panel";
+import { formattedDate } from "@utils/basic.util";
 import React from "react";
 
 export default function FarmerInformation({ farmer }) {
@@ -36,6 +37,11 @@ export default function FarmerInformation({ farmer }) {
       name: "Last version",
       selector: "version",
       cell: ({ version, subVersion }) => `${version || 0}.${subVersion || 0}`,
+    },
+    {
+      name: "Last Report Date",
+      selector: "inspection.date",
+      cell: ({ inspection }) => formattedDate(inspection.date),
     },
   ];
 

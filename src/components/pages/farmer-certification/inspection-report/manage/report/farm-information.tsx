@@ -21,7 +21,7 @@ const FarmsList = ({ data = [] }) =>
   data.length ? (
     <Accordion allowToggle={true} allowMultiple={true}>
       {data.map((farm, index) => (
-        <AccordionItem>
+        <AccordionItem key={index}>
           <AccordionHeader _expanded={{ bg: "gray.100" }}>
             <Box flex="1" textAlign="left">
               Farm #{index + 1}

@@ -42,7 +42,7 @@ export default function Advices({ previousAdvices }) {
                     variantColor="blue"
                     type="button"
                     leftIcon="add"
-                    onClick={() => arrayHelpers.insert(index, "")}
+                    onClick={() => arrayHelpers.insert(index + 1, "")}
                   >
                     Add Below
                   </Button>

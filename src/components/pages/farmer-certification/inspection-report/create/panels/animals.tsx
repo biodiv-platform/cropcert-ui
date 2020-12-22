@@ -42,7 +42,7 @@ export default function Animals() {
           <div>
             {values.animals && values.animals.length > 0 ? (
               values.animals.map((_farm, index) => (
-                <Box key={index} mt={index !== 0 ? 6 : 0}>
+                <Box key={index + _farm.type} mt={index !== 0 ? 6 : 0}>
                   <CoreGrid>
                     <SelectInputField
                       name={`animals[${index}].type`}
@@ -78,7 +78,7 @@ export default function Animals() {
                     variantColor="blue"
                     type="button"
                     leftIcon="add"
-                    onClick={() => arrayHelpers.insert(index, {})}
+                    onClick={() => arrayHelpers.insert(index + 1, {})}
                   >
                     Add Below
                   </Button>

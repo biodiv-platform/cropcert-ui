@@ -50,7 +50,7 @@ export default function Farm() {
         name="farms"
         render={(arrayHelpers) => (
           <>
-            <Accordion allowToggle={true}>
+            <Accordion defaultIndex={[...Array(values.farms.length).keys()]} allowMultiple={true}>
               {values.farms.map((_farm, index) => (
                 <AccordionItem key={index}>
                   <AccordionHeader>
@@ -173,7 +173,7 @@ export default function Farm() {
                       variantColor="blue"
                       type="button"
                       leftIcon="add"
-                      onClick={() => arrayHelpers.insert(index, {})}
+                      onClick={() => arrayHelpers.insert(index + 1, {})}
                     >
                       Add Plot Below
                     </Button>

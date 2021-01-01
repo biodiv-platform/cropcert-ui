@@ -7864,10 +7864,10 @@ yaml@^1.7.2:
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.10.0.tgz#3b593add944876077d4d683fee01081bd9fff31e"
   integrity sha512-yr2icI4glYaNG+KWONODapy2/jDdMSDnrONSjblABjD9B4Z5LgiircSt8m8sRZFNi08kG9Sm0uSHtEmP3zaEGg==
 
-yup@^0.32.1:
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/yup/-/yup-0.32.3.tgz#34d665bd24230596294faf3a1cdd96ad544c389a"
-  integrity sha512-Xpm5W0sPX+bUEqPO6MAHlBwWdY6B2PlZa0rwdljOcvOepQfrBx46bb6arq9YZr4esl+/9iRjNDo7XM1nzCzbJQ==
+yup@^0.32.8:
+  version "0.32.8"
+  resolved "https://registry.yarnpkg.com/yup/-/yup-0.32.8.tgz#16e4a949a86a69505abf99fd0941305ac9adfc39"
+  integrity sha512-SZulv5FIZ9d5H99EN5tRCRPXL0eyoYxWIP1AacCrjC9d4DfP13J1dROdKGfpfRHT3eQB6/ikBl5jG21smAfCkA==
   dependencies:
     "@babel/runtime" "^7.10.5"
     "@types/lodash" "^4.14.165"

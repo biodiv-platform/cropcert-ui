@@ -29,7 +29,7 @@
     "flat": "^5.0.2",
     "formik": "^2.2.5",
     "friendly-http-status": "^1.0.0",
-    "immer": "^8.0.0",
+    "immer": "^8.0.1",
     "leaflet": "^1.7.1",
     "nanoid": "^3.1.20",
     "next": "^10.0.3",

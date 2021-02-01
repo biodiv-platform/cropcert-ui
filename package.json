@@ -46,7 +46,7 @@
     "react-dropzone": "^11.2.4",
     "react-gbus": "^1.1.2",
     "react-infinite-scroller": "^1.2.4",
-    "react-leaflet": "2",
+    "react-leaflet": "3",
     "react-multi-select-component": "^3.0.7",
     "react-select": "^3.1.1",
     "react-signature-canvas": "^1.0.3",

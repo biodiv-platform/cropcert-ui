@@ -54,7 +54,7 @@ const GRNActionCell = (lot: Lot) => {
 };
 
 const MillingActionCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.millingStatus, ROLES.UNION);
+  const { canWrite, variantColor, show } = useActionProps(lot.millingStatus, ROLES.COOPERATIVE);
 
   return show ? (
     <Button

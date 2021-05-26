@@ -41,7 +41,7 @@ export default function FarmerInformation({ farmer }) {
     {
       name: "Last Report Date",
       selector: "inspection.date",
-      cell: ({ inspection }) => formattedDate(inspection.date),
+      cell: ({ inspection }) => inspection?.date ? formattedDate(inspection?.date) : "NA",
     },
   ];
 

@@ -1,5 +1,6 @@
 import { Icon } from "@chakra-ui/core";
 import { Submit, TextBox } from "@components/@core/formik";
+import PasswordInputField from "@components/@core/formik/password";
 import { axGetUser, axSignIn } from "@services/auth.service";
 import { TOKEN } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
@@ -42,7 +43,7 @@ function SignInForm() {
       {(props) => (
         <form onSubmit={props.handleSubmit}>
           <TextBox name="userName" label="Username" />
-          <TextBox name="password" type="password" label="Password" />
+          <PasswordInputField name="password" label="Password" />
           <Submit>
             Sign In <Icon ml={2} name="arrow-forward" />
           </Submit>

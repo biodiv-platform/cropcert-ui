@@ -68,7 +68,7 @@ const DateTimeInputField = ({
     setTimeout(() => {
       helpers.setTouched(true);
       field.onBlur(name);
-    }, 300);
+    }, 500);
   }, [dateTimeValue]);
 
   return (

@@ -25,7 +25,7 @@
     "dayjs": "^1.10.5",
     "dompurify": "^2.2.8",
     "dotenv-load": "^2.0.0",
-    "easy-peasy": "3",
+    "easy-peasy": "5",
     "flat": "^5.0.2",
     "formik": "^2.2.8",
     "framer-motion": "^4.1.17",

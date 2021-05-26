@@ -9,4 +9,4 @@ updates:
   ignore:
   - dependency-name: easy-peasy
     versions:
-    - ">= 4.a, < 5"
+    - ">= 4.a, < 10"

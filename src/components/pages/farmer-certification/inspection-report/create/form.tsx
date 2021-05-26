@@ -1,4 +1,4 @@
-import { Accordion } from "@chakra-ui/core";
+import { Accordion } from "@chakra-ui/react";
 import ErrorSummery from "@components/@core/formik/error-summery";
 import SubmitButton from "@components/@core/formik/submit-button";
 import { STORE } from "@static/inspection-report";
@@ -8,6 +8,7 @@ import { useStoreState } from "easy-peasy";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
+import Check2Icon from "src/icons/check2";
 import { useIndexedDBStore } from "use-indexeddb";
 import * as yup from "yup";
 
@@ -190,7 +191,7 @@ export default function InspectionForm({ farmer }) {
           <Signature />
         </Accordion>
         <ErrorSummery />
-        <SubmitButton leftIcon="check2">Save</SubmitButton>
+        <SubmitButton leftIcon={<Check2Icon />}>Save</SubmitButton>
       </Form>
     </Formik>
   );

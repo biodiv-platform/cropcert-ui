@@ -10,7 +10,7 @@
     position: relative;
     list-style: none;
     &:before {
-      background-color: var(--gray-900);
+      background-color: var(--chakra-colors-gray-900);
       content: "";
       margin-left: -1px;
       position: absolute;
@@ -27,8 +27,8 @@
 
   .icon {
     transform: rotate(45deg);
-    background-color: var(--gray-900);
-    outline: 10px solid var(--gray-50);
+    background-color: var(--chakra-colors-gray-900);
+    outline: 10px solid var(--chakra-colors-gray-50);
     display: block;
     margin: 0.5em 0.5em 0.5em -0.5em;
     position: absolute;
@@ -47,8 +47,8 @@
   }
 
   .title {
-    color: var(--white);
-    background-color: var(--gray-900);
+    color: var(--chakra-colors-white);
+    background-color: var(--chakra-colors-gray-900);
     display: inline-block;
     margin-bottom: 1.2em;
     padding: 0.25em 1em 0.2em 1em;

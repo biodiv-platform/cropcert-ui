@@ -1,4 +1,4 @@
-import { Box, Grid, Text } from "@chakra-ui/core";
+import { Box, Grid, Text } from "@chakra-ui/react";
 import React from "react";
 
 interface GridRowProps {

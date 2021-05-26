@@ -1,4 +1,4 @@
-import { FormControl, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormLabel } from "@chakra-ui/react";
 import { getByRole } from "@services/accessor.service";
 import { KEYS_TO_ROLES } from "@static/constants";
 import { setUserKey } from "@utils/auth.util";

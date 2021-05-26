@@ -1,11 +1,11 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/core";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import React from "react";
 
 export const ExpandedSection = (data) => (
   <CoreGrid p={4} gap={6}>
     {data.modal.map((section) => (
-      <Box border="1px dashed var(--gray-100)" p={4} borderRadius="md">
+      <Box border="1px dashed var(--chakra-colors-gray-100)" p={4} borderRadius="md">
         <Heading as="h3" size="md" mb={2}>
           {section.title}
         </Heading>

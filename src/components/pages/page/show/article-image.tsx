@@ -1,4 +1,4 @@
-import { Heading, Text } from "@chakra-ui/core";
+import { Heading, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { formattedDate, utc2local } from "@utils/basic.util";
 import React from "react";
@@ -25,7 +25,7 @@ export default function ArticleImage({ page }: { page: Page }) {
   const bannerUrl = page?.bannerUrl || "/assets/article-fallback.jpeg";
 
   return (
-    <ArticleImageBox style={{ background: `url(${bannerUrl}), var(--gray-300)` }}>
+    <ArticleImageBox style={{ background: `url(${bannerUrl}), var(--chakra-colors-gray-300)` }}>
       <div className="main-title">
         <small>
           Published on {formattedDate(utc2local(page.createdOn).getTime())} by {page.authorName}

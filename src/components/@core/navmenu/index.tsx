@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/core";
+import { Link } from "@chakra-ui/react";
 import { SITE_TITLE } from "@static/constants";
 import { navmenu } from "@static/navmenu";
 import NextLink from "next/link";

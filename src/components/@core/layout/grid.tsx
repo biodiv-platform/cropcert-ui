@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/core";
+import { Grid } from "@chakra-ui/react";
 import React from "react";
 
 function CoreGrid({ children, rows = 4, mb = 0, ...props }) {

@@ -1,3 +1,4 @@
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -5,14 +6,13 @@ import {
   Button,
   Checkbox,
   Flex,
-  Icon,
   Input,
   InputGroup,
   InputLeftElement,
   Select,
   Spinner,
   Stack,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
@@ -69,7 +69,7 @@ export default function FarmerList({ feCCCode }) {
         <Box mb={4}>
           <Stack flexDirection={{ base: "column", md: "row" }} mb={1}>
             <InputGroup w="24rem" mr={4}>
-              <InputLeftElement children={<Icon name="search" color="gray.300" />} />
+              <InputLeftElement children={<SearchIcon color="gray.300" />} />
               <Input type="text" placeholder="Find Farmer" onChange={onFilterChange} />
             </InputGroup>
             <Select w="10rem" defaultValue={limit} onChange={(e) => setLimit(e.target.value)}>
@@ -85,7 +85,7 @@ export default function FarmerList({ feCCCode }) {
         <Box>
           <Button
             mb={4}
-            variantColor="orange"
+            colorScheme="orange"
             onClick={() => emit(UPLOAD_ALL_INSPECTION)}
             isDisabled={!isOnline}
           >

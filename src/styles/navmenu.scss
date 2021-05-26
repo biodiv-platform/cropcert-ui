@@ -3,8 +3,8 @@
 }
 
 #menu {
-  background: var(--gray-900);
-  color: var(--gray-400);
+  background: var(--chakra-colors-gray-900);
+  color: var(--chakra-colors-gray-400);
   line-height: 1.4em;
   .title {
     display: none;
@@ -26,11 +26,11 @@
   a {
     position: relative;
     display: inline-block;
-    color: var(--gray-400);
+    color: var(--chakra-colors-gray-400);
     padding: 1rem;
     &:focus-within,
     &:hover {
-      background-color: var(--gray-800);
+      background-color: var(--chakra-colors-gray-800);
     }
   }
   svg {
@@ -38,7 +38,7 @@
   }
   .sub-menu {
     display: none;
-    background-color: var(--gray-900);
+    background-color: var(--chakra-colors-gray-900);
     li {
       position: relative;
       display: flex;
@@ -57,7 +57,7 @@
     text-align: center;
   }
   #toggle-menu .drop-icon {
-    background-color: var(--gray-800);
+    background-color: var(--chakra-colors-gray-800);
   }
 }
 

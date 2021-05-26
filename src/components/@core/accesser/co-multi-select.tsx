@@ -1,4 +1,4 @@
-import { FormControl, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormLabel } from "@chakra-ui/react";
 import { axCoByUnionId, axGetCoByCode } from "@services/co.service";
 import { ROLES } from "@static/constants";
 import { useStoreState } from "easy-peasy";

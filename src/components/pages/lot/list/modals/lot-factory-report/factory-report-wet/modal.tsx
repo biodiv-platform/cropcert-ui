@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axCreateFactoryReport } from "@services/report.service";
@@ -17,6 +17,7 @@ import { nonZeroFalsy } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
+import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
 
 import DiffMessage from "../../diff-message";
@@ -285,7 +286,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                   mt={4}
                   label={
                     <span>
-                      Finalize Factory Report <Badge variantColor="red">irreversible</Badge>
+                      Finalize Factory Report <Badge colorScheme="red">irreversible</Badge>
                     </span>
                   }
                   isDisabled={!canWrite}
@@ -295,7 +296,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="save" isDisabled={!(props.isValid && totalDiff === 0)}>
+                <Submit leftIcon={<SaveIcon />} isDisabled={!(props.isValid && totalDiff === 0)}>
                   Save
                 </Submit>
               </ModalFooter>

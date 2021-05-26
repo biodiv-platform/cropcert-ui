@@ -1,7 +1,7 @@
 import { MAP } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect } from "react";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export default function CCListMap({ ccList, selected }) {
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function CCListMap({ ccList, selected }) {
       : { icon: L.icon(MAP.MARKER_MERGEOPTIONS), zIndexOffset: 0 };
 
   return (
-    <Map center={MAP.MAP_CENTER} zoom={9}>
-      <TileLayer attribution={MAP.TILE.ATTRIBUTION} url={MAP.TILE.URL} />
+    <MapContainer center={MAP.MAP_CENTER} zoom={9}>
+      <TileLayer url={MAP.TILE.URL} />
       {ccList.map((cc) => (
         <Marker
           key={cc.id}
@@ -26,6 +26,6 @@ export default function CCListMap({ ccList, selected }) {
           <Popup>{`${cc.name} - ${cc.village}`}</Popup>
         </Marker>
       ))}
-    </Map>
+    </MapContainer>
   );
 }

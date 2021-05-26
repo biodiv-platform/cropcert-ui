@@ -1,10 +1,10 @@
 import "../styles/global.scss";
 
-import { CSSReset, ThemeProvider } from "@chakra-ui/core";
+import { ChakraProvider } from "@chakra-ui/react";
 import AppContainer from "@components/@core/container";
 import { axListPages } from "@services/page.service";
 import { SITE_TITLE } from "@static/constants";
-import customTheme from "@static/theme";
+import { customTheme } from "@static/theme";
 import { parseNookies } from "next-nookies-persist";
 import App from "next/app";
 import Head from "next/head";
@@ -31,13 +31,12 @@ export default class MyApp extends App {
   render() {
     return (
       <BusProvider>
-        <ThemeProvider theme={customTheme}>
-          <CSSReset />
+        <ChakraProvider theme={customTheme}>
           <Head>
             <title>{SITE_TITLE}</title>
           </Head>
           <AppContainer extras={this.props} />
-        </ThemeProvider>
+        </ChakraProvider>
       </BusProvider>
     );
   }

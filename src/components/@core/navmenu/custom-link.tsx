@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/core";
+import { Link } from "@chakra-ui/react";
 import { PAGE_TYPE_OPTIONS } from "@static/constants";
 import NextLink from "next/link";
 import React from "react";

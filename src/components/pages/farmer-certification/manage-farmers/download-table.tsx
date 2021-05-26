@@ -1,4 +1,5 @@
-import { Badge, Box, Icon, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/core";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Badge, Box, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
@@ -30,7 +31,7 @@ export default function DownloadTable() {
         <Accesser toRole={ROLES.COOPERATIVE} onChange={onCoCodeChange} />
         <div></div>
         <InputGroup mt={6}>
-          <InputLeftElement children={<Icon name="search" color="gray.300" />} />
+          <InputLeftElement children={<SearchIcon color="gray.300" />} />
           <Input
             type="text"
             placeholder="Find Collection Center"
@@ -46,7 +47,7 @@ export default function DownloadTable() {
               {code}. {name}
             </Text>
             {syncStatus && pendingReports.length > 0 && (
-              <Badge variantColor="green" variant="outline">
+              <Badge colorScheme="green" variant="outline">
                 {pendingReports.length} Report Completed
               </Badge>
             )}

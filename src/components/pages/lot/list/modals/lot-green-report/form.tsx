@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axCreateGreenReport } from "@services/report.service";
@@ -19,6 +19,7 @@ import { isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.
 import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React from "react";
+import SaveIcon from "src/icons/save";
 import { FactoryReport, Lot, QualityReport } from "types/traceability";
 import * as Yup from "yup";
 
@@ -309,7 +310,7 @@ export default function GreenReportForm({
                   name="finalizeGreenStatus"
                   label={
                     <span>
-                      Dispatch to Factory <Badge variantColor="red">irreversible</Badge>
+                      Dispatch to Factory <Badge colorScheme="red">irreversible</Badge>
                     </span>
                   }
                   isDisabled={isFinalizeEnabled}
@@ -319,7 +320,10 @@ export default function GreenReportForm({
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="save" isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}>
+                <Submit
+                  leftIcon={<SaveIcon />}
+                  isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}
+                >
                   Save
                 </Submit>
               </ModalFooter>

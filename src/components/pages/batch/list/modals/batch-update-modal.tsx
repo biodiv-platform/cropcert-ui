@@ -9,7 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axUpdateBatch } from "@services/batch.service";
 import { BATCH_UPDATE } from "@static/events";
@@ -18,6 +18,7 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import SaveIcon from "src/icons/save";
 import { Batch } from "types/traceability";
 import * as Yup from "yup";
 
@@ -115,7 +116,7 @@ function BatchUpdateModal({ update }) {
                   name="finalizeBatch"
                   label={
                     <span>
-                      Ready for Lot <Badge variantColor="red">irreversible</Badge>
+                      Ready for Lot <Badge colorScheme="red">irreversible</Badge>
                     </span>
                   }
                   isDisabled={batch.isReadyForLot || !props.values.perchmentQuantity}
@@ -125,7 +126,7 @@ function BatchUpdateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="save" isDisabled={batch.isReadyForLot}>
+                <Submit leftIcon={<SaveIcon />} isDisabled={batch.isReadyForLot}>
                   Save
                 </Submit>
               </ModalFooter>

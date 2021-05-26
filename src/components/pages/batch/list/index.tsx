@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, useDisclosure } from "@chakra-ui/core";
+import { Box, Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -10,6 +10,7 @@ import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
+import Add2Icon from "src/icons/add2";
 import { Batch } from "types/traceability";
 
 import { batchColumns } from "./data";
@@ -71,20 +72,20 @@ function BatchListPageComponent() {
   const ActionButtons = () => (
     <ButtonGroup spacing={4}>
       <Button
-        variantColor="green"
+        colorScheme="green"
         variant="solid"
         hidden={!hasAccess(hierarchicalRoles(ROLES.COOPERATIVE))}
         isDisabled={showTypeError || selectedBatches.length === 0}
         onClick={handleOnCreateLot}
-        leftIcon={"add2" as any}
+        leftIcon={<Add2Icon />}
       >
         Create Lot
       </Button>
       <Button
-        variantColor="blue"
+        colorScheme="blue"
         variant="solid"
         onClick={handleOnCreateBatch}
-        leftIcon={"add2" as any}
+        leftIcon={<Add2Icon />}
       >
         Create Batch
       </Button>
@@ -121,7 +122,7 @@ function BatchListPageComponent() {
             {
               when: (row) => row.lotId,
               style: {
-                background: "var(--gray-100)!important",
+                background: "var(--chakra-colors-gray-100)!important",
                 opacity: "0.6",
               },
             },

@@ -1,6 +1,6 @@
 import {
   Accordion,
-  AccordionHeader,
+  AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
@@ -8,7 +8,7 @@ import {
   Flex,
   SimpleGrid,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic.util";
 import React from "react";
@@ -21,12 +21,12 @@ const AnimalsList = ({ data = [] }) =>
     <Accordion allowToggle={true} allowMultiple={true}>
       {data.map((animal: any) => (
         <AccordionItem key={animal.id}>
-          <AccordionHeader _expanded={{ bg: "gray.100" }}>
+          <AccordionButton _expanded={{ bg: "gray.100" }}>
             <Box flex="1" textAlign="left">
               {animal.type}
             </Box>
             <AccordionIcon />
-          </AccordionHeader>
+          </AccordionButton>
           <AccordionPanel pb={4}>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacingY={2}>
               {Object.entries(ANIMALS_PANEL.keys.animals).map(([key, title]) => (

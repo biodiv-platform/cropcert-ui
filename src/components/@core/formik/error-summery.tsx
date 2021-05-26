@@ -1,4 +1,5 @@
-import { List, ListIcon, ListItem } from "@chakra-ui/core";
+import { WarningIcon } from "@chakra-ui/icons";
+import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import flat from "flat";
 import { useFormikContext } from "formik";
 import React from "react";
@@ -15,7 +16,7 @@ export default function ErrorSummery() {
     <List spacing={2} mb={4}>
       {Object.entries(flat(errors)).map(([key, error]) => (
         <ListItem className="fade" key={key}>
-          <ListIcon icon="warning" color="red.500" />
+          <ListIcon icon={<WarningIcon />} color="red.500" />
           <a href={`#${key.replace(/\.([0-9])\./g, "[$1].")}`}>{readableError(key, error)}</a>
         </ListItem>
       ))}

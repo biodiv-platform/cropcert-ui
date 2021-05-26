@@ -5,7 +5,7 @@
 .react-calendar {
   width: var(--rdp-width);
   max-width: 100%;
-  background: var(--white);
+  background: var(--chakra-colors-white);
   line-height: 1.125em;
 
   button {
@@ -35,7 +35,7 @@
     }
 
     &[disabled] {
-      background-color: var(--gray-200);
+      background-color: var(--chakra-colors-gray-200);
     }
   }
 }
@@ -85,14 +85,14 @@
   border-radius: 2px;
 
   &:disabled {
-    background-color: var(--gray-200);
+    background-color: var(--chakra-colors-gray-200);
   }
 
   &:enabled {
     &:hover,
     &:focus {
-      background-color: var(--gray-700);
-      color: var(--white);
+      background-color: var(--chakra-colors-gray-700);
+      color: var(--chakra-colors-white);
     }
   }
 }
@@ -186,18 +186,18 @@
 }
 
 .react-datetime-picker--disabled {
-  background-color: var(--gray-200);
+  background-color: var(--chakra-colors-gray-200);
   color: #6d6d6d;
   opacity: 0.5;
   .react-datetime-picker__wrapper {
-    background-color: var(--gray-200);
+    background-color: var(--chakra-colors-gray-200);
   }
 }
 
 .react-datetime-picker__wrapper {
   display: flex;
   width: 100%;
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--chakra-colors-gray-400);
   padding-left: 1rem;
   padding-right: 1rem;
   line-height: 2rem;
@@ -247,7 +247,7 @@
 }
 
 .react-datetime-picker__button__icon {
-  stroke: var(--gray-600);
+  stroke: var(--chakra-colors-gray-600);
 }
 
 .react-datetime-picker__calendar,

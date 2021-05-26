@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import { Select, Submit, TextBox } from "@components/@core/formik";
 import DropzoneInputField from "@components/@core/formik/dropzone";
 import Wysiwyg from "@components/@core/formik/wysiwyg";

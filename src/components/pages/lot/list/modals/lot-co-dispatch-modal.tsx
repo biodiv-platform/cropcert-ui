@@ -9,7 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axDispatchLotCoOperative } from "@services/lot.service";
 import { ROLES, LOT_FLAGS } from "@static/constants";
@@ -20,6 +20,7 @@ import { useStoreState } from "easy-peasy";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import SaveIcon from "src/icons/save";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -103,7 +104,7 @@ export default function LotCoDispatchModal({ update }) {
                     name="finalizeCoopStatus"
                     label={
                       <span>
-                        Dispatch to Factory <Badge variantColor="red">irreversible</Badge>
+                        Dispatch to Factory <Badge colorScheme="red">irreversible</Badge>
                       </span>
                     }
                     isDisabled={!isFinalizeEnabled}
@@ -113,7 +114,7 @@ export default function LotCoDispatchModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit leftIcon="save" isDisabled={isDone || !canEdit}>
+                  <Submit leftIcon={<SaveIcon />} isDisabled={isDone || !canEdit}>
                     Save
                   </Submit>
                 </ModalFooter>

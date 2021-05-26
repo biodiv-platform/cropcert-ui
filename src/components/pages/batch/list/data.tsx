@@ -1,4 +1,4 @@
-import { Badge, Button } from "@chakra-ui/core";
+import { Badge, Button } from "@chakra-ui/react";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -54,7 +54,7 @@ export const batchColumns = [
     cell: (row: Batch) =>
       row.type === BATCH_TYPE.WET ? (
         <Button
-          variantColor={VARIANT_MAPPING[row.batchStatus as any]}
+          colorScheme={VARIANT_MAPPING[row.batchStatus as any]}
           variant="outline"
           minWidth="50px"
           isDisabled={row.type === BATCH_TYPE.DRY}

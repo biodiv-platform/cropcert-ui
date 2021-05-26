@@ -1,7 +1,9 @@
-import { Button, Flex, Stack } from "@chakra-ui/core";
+import { ArrowForwardIcon, DownloadIcon } from "@chakra-ui/icons";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
 import React, { useState } from "react";
+import DeleteIcon from "src/icons/delete";
 
 export default function ActionButton({ ccCode, syncStatus, isOnline, pendingReports }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,17 +38,17 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
             href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}
             passHref={true}
           >
-            <Button as="a" variantColor="blue" size="sm" rightIcon="arrow-forward" mb={4}>
+            <Button as="a" colorScheme="blue" size="sm" rightIcon={<ArrowForwardIcon />} mb={4}>
               Farmers List ({syncStatus?.farmersCount})
             </Button>
           </NextLink>
           <Button
             className="download"
-            variantColor="red"
+            colorScheme="red"
             isLoading={isLoading}
             onClick={handleOnRemove}
             loadingText="Deleting"
-            leftIcon="delete"
+            leftIcon={<DeleteIcon />}
             size="sm"
           >
             Remove Farmers List
@@ -56,12 +58,12 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
         <Button
           size="sm"
           className="download"
-          variantColor="teal"
+          colorScheme="teal"
           onClick={handleOnDownload}
           isLoading={isLoading}
           isDisabled={!isOnline}
           loadingText="Downloading"
-          leftIcon="download"
+          leftIcon={<DownloadIcon />}
           w="11rem"
         >
           Download Farmers

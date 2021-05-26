@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, FormLabel, Radio, RadioGroup } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { FastField, useField } from "formik";
 import React, { useMemo } from "react";
 
@@ -35,7 +35,7 @@ const RadioGroupInputField = ({
     []
   );
 
-  const onValueChange = (_, value) => {
+  const onValueChange = (value) => {
     helpers.setValue(nOptions[value]?.value, true);
     setTimeout(() => {
       helpers.setTouched(true);
@@ -57,11 +57,13 @@ const RadioGroupInputField = ({
         alignItems="center"
         onChange={onValueChange}
       >
-        {nOptions.map(({ label }, index) => (
-          <Radio key={index} value={index.toString()}>
-            {label}
-          </Radio>
-        ))}
+        <Stack direction="row">
+          {nOptions.map(({ label }, index) => (
+            <Radio key={index} value={index.toString()}>
+              {label}
+            </Radio>
+          ))}
+        </Stack>
       </RadioGroup>
       <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}

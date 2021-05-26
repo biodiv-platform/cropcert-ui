@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FastField, useField } from "formik";
 import React, { useRef } from "react";
@@ -13,7 +13,7 @@ const SignatureWrapper = styled.div`
     margin-bottom: 0.5rem;
   }
   canvas {
-    border: 1px solid var(--gray-300);
+    border: 1px solid var(--chakra-colors-gray-300);
   }
   .declaration {
     opacity: 0.7;

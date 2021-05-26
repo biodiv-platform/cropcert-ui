@@ -1,10 +1,12 @@
-import { Box, Button, Icon, Text } from "@chakra-ui/core";
+import { ArrowForwardIcon, ArrowUpIcon, CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
+import { Box, Button, Text } from "@chakra-ui/react";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
 import useInspectionReport from "@hooks/use-inspection-report";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
 import NextLink from "next/link";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import DeleteIcon from "src/icons/delete";
 
 export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
   const { uploadInspectionReport, discardInspectionReport } = useInspectionReport();
@@ -38,7 +40,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
             {farmer.firstName}
           </Text>
           <Box hidden={!isConflict} className="fade">
-            <Icon name="warning" mr={2} color="orange.500" />
+            <WarningIcon mr={2} color="orange.500" />
             {isSubVersionConflict
               ? "Sub-version Mismatch, Please choose one of the action"
               : "New Major version available Please discard local report"}
@@ -53,8 +55,8 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  variantColor="orange"
-                  leftIcon="arrow-up"
+                  colorScheme="orange"
+                  leftIcon={<ArrowUpIcon />}
                   onClick={upload}
                   isLoading={isLoading}
                 >
@@ -65,23 +67,28 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  variantColor="purple"
-                  leftIcon="arrow-up"
+                  colorScheme="purple"
+                  leftIcon={<ArrowUpIcon />}
                   onClick={upload}
                   isLoading={isLoading}
                 >
                   Force Upload
                 </Button>
               )}
-              <Button variantColor="red" leftIcon="delete" onClick={discard} hidden={isLoading}>
+              <Button
+                colorScheme="red"
+                leftIcon={<DeleteIcon />}
+                onClick={discard}
+                hidden={isLoading}
+              >
                 Discard
               </Button>
             </>
           ) : (
             <Button
               variant="outline"
-              variantColor="green"
-              leftIcon="check-circle"
+              colorScheme="green"
+              leftIcon={<CheckCircleIcon />}
               isDisabled={true}
             >
               Report Ready
@@ -89,7 +96,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
           )
         ) : (
           <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true}>
-            <Button className="fade" as="a" variantColor="blue" rightIcon="arrow-forward">
+            <Button className="fade" as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
               Create Inspection Report
             </Button>
           </NextLink>

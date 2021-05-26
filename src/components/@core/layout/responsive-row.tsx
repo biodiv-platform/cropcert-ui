@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/core";
+import { Grid } from "@chakra-ui/react";
 import React from "react";
 
 interface ResponsiveRowProps {

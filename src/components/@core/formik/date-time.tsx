@@ -1,4 +1,5 @@
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel } from "@chakra-ui/core";
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel } from "@chakra-ui/react";
+import { RepeatClockIcon } from "@chakra-ui/icons";
 import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
 import { useField } from "formik";
 import React, { useEffect, useState } from "react";
@@ -92,7 +93,7 @@ const DateTimeInputField = ({
             ml={4}
             aria-label="Now"
             isDisabled={nowDisabled || props.disabled}
-            leftIcon="repeat-clock"
+            leftIcon={<RepeatClockIcon />}
             onClick={handleNow}
           >
             Now

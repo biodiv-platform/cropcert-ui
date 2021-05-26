@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/core";
+import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import { axOriginByLotId } from "@services/lot.service";
 import { ROLES } from "@static/constants";
 import { LOT_REPORT_CUPPING } from "@static/events";

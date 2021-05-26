@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/core";
+import { Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 
 interface PageHeadingProps {

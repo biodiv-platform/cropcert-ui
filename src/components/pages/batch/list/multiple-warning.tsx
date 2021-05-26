@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box } from "@chakra-ui/core";
+import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import { BATCH } from "@static/messages";
 import React from "react";
 

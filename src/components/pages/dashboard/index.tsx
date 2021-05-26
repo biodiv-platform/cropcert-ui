@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/core";
+import { Box, Heading } from "@chakra-ui/react";
 import CoreGrid from "@components/@core/layout/grid";
 import { hasAccess } from "@utils/auth.util";
 import { useStoreState } from "easy-peasy";

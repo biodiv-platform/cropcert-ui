@@ -1,4 +1,4 @@
-import { Alert, AlertIcon } from "@chakra-ui/core";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import useOnlineStatus from "@rehooks/online-status";
 import React from "react";
 

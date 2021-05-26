@@ -1,4 +1,4 @@
-import { Badge, Button, ButtonProps } from "@chakra-ui/core";
+import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
@@ -23,12 +23,12 @@ const buttonProps: Partial<ButtonProps> = {
 };
 
 const CoActionCell = (lot: Lot) => {
-  const { variantColor, show } = useActionProps(lot.coopStatus, ROLES.COOPERATIVE);
+  const { colorScheme, show } = useActionProps(lot.coopStatus, ROLES.COOPERATIVE);
 
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(LOT_DISPATCH_FACTORY, lot)}
     >
       {lot.coopStatus}
@@ -39,11 +39,11 @@ const CoActionCell = (lot: Lot) => {
 };
 
 const GRNActionCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.grnStatus, ROLES.UNION);
+  const { canWrite, colorScheme, show } = useActionProps(lot.grnStatus, ROLES.UNION);
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(LOT_GRN, { lot, canWrite })}
     >
       {lot.grnStatus}
@@ -54,12 +54,12 @@ const GRNActionCell = (lot: Lot) => {
 };
 
 const MillingActionCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.millingStatus, ROLES.COOPERATIVE);
+  const { canWrite, colorScheme, show } = useActionProps(lot.millingStatus, ROLES.COOPERATIVE);
 
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(LOT_FACTORY_PROCESS, { lot, canWrite })}
     >
       {lot.millingStatus}
@@ -70,12 +70,12 @@ const MillingActionCell = (lot: Lot) => {
 };
 
 const LotFactoryActionCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.factoryStatus, ROLES.UNION);
+  const { canWrite, colorScheme, show } = useActionProps(lot.factoryStatus, ROLES.UNION);
 
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(`${LOT_REPORT_FACTORY}_${lot.type}`, { lot, canWrite })}
     >
       {lot.factoryStatus}
@@ -86,12 +86,12 @@ const LotFactoryActionCell = (lot: Lot) => {
 };
 
 const GreenLabReportCell = (lot: Lot) => {
-  const { canWrite, variantColor, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
+  const { canWrite, colorScheme, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
 
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(LOT_REPORT_GREEN, { lot, canWrite })}
     >
       {lot.greenAnalysisStatus}
@@ -108,12 +108,12 @@ const CuppingLabReportCell = (lot: Required<Lot>) => {
     status:
       lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
   };
-  const { canWrite, variantColor, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
+  const { canWrite, colorScheme, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
 
   return show ? (
     <Button
       {...buttonProps}
-      variantColor={variantColor}
+      colorScheme={colorScheme}
       onClick={() => emit(LOT_REPORT_CUPPING, { lot, currentReport, canWrite })}
     >
       {withSkeletonReport.status}

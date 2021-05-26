@@ -1,4 +1,5 @@
-import { Icon, Link, Tooltip } from "@chakra-ui/core";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Link, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
@@ -10,7 +11,7 @@ export default function LotCell({ lotId, id, type }: { lotId?; id?; type }) {
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            L-{finalLotId} <Icon name="arrow-forward" />
+            L-{finalLotId} <ArrowForwardIcon />
           </span>
         </Tooltip>
       </Link>

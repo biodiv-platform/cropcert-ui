@@ -1,4 +1,4 @@
-import { Button, FormControl, FormHelperText, FormLabel, Spinner } from "@chakra-ui/core";
+import { Button, FormControl, FormHelperText, FormLabel, Spinner } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { axUploadImage } from "@services/page.service";
 import { FastField, useField } from "formik";
@@ -17,7 +17,7 @@ interface DropzoneInputFieldProps {
 
 const DropzoneWrapper = styled.div`
   background: white;
-  border: 1px dashed var(--gray-300);
+  border: 1px dashed var(--chakra-colors-gray-300);
   border-radius: 0.25rem;
   min-height: 11rem;
   display: flex;
@@ -67,7 +67,7 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
           <div>Drop Banner Image Here</div>
         )}
       </DropzoneWrapper>
-      <Button size="xs" isDisabled={!field.value} variantColor="red" onClick={handleOnClear} mt={2}>
+      <Button size="xs" isDisabled={!field.value} colorScheme="red" onClick={handleOnClear} mt={2}>
         Remove Banner Image
       </Button>
       <ErrorMessage error={meta.error} name={field.name} label={label} />

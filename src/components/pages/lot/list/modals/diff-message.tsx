@@ -1,4 +1,4 @@
-import { Alert, AlertIcon } from "@chakra-ui/core";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import { MREPORT } from "@static/messages";
 import React from "react";
 

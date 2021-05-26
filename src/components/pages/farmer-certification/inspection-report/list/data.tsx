@@ -1,4 +1,4 @@
-import { Button, Link } from "@chakra-ui/core";
+import { Button, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
@@ -31,7 +31,7 @@ export const inspectionReportColumns = [
           href={`/farmer-certification/inspection-report/show?pid=${lastApprovedReportId}`}
           passHref={true}
         >
-          <Button variant="outline" variantColor="blue" size="xs" as={Link}>
+          <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
             View Report
           </Button>
         </NextLink>
@@ -51,7 +51,7 @@ export const inspectionReportColumns = [
           href={`/farmer-certification/inspection-report/show?cid=${reportId}&pid=${lastApprovedReportId}`}
           passHref={true}
         >
-          <Button variant="outline" variantColor="blue" size="xs" as={Link}>
+          <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
             Manage Report
           </Button>
         </NextLink>

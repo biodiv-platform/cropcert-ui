@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/core";
+import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import { axGetFactoryReportById } from "@services/report.service";
 import { LOT_REPORT_FACTORY_DRY } from "@static/events";
 import React, { useState } from "react";

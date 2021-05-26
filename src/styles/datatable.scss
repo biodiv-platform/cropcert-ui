@@ -3,10 +3,10 @@
 }
 
 .rdt_TableHeadRow {
-  background: var(--gray-100);
+  background: var(--chakra-colors-gray-100);
   .rdt_TableCol div {
     font-weight: bold;
-    color: var(--gray-900);
+    color: var(--chakra-colors-gray-900);
   }
 }
 
@@ -15,6 +15,6 @@
     display: inline !important;
   }
   .rdt_TableRow:hover {
-    background: var(--gray-50);
+    background: var(--chakra-colors-gray-50);
   }
 }

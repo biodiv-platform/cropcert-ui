@@ -12,7 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axDispatchLotFactory } from "@services/lot.service";
@@ -23,6 +23,7 @@ import { useListener } from "react-gbus";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
 import { LOT_FLAGS } from "@static/constants";
+import SaveIcon from "src/icons/save";
 
 export default function LotFactoryDispatchModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -143,7 +144,7 @@ export default function LotFactoryDispatchModal({ update }) {
                     name="finalizeMillingStatus"
                     label={
                       <span>
-                        Dispatch to Union <Badge variantColor="red">irreversible</Badge>
+                        Dispatch to Union <Badge colorScheme="red">irreversible</Badge>
                       </span>
                     }
                     isDisabled={isFCheckbox}
@@ -153,7 +154,7 @@ export default function LotFactoryDispatchModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit leftIcon="save" isDisabled={!canWrite}>
+                  <Submit leftIcon={<SaveIcon />} isDisabled={!canWrite}>
                     Save
                   </Submit>
                 </ModalFooter>

@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/core";
+import { FormControl, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
 import { FastField, Field, useField } from "formik";
 import React from "react";
 

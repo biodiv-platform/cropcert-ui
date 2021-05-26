@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { DateTime, Submit } from "@components/@core/formik";
 import Table from "@components/@core/table";
 import { axCreateLot } from "@services/lot.service";
@@ -22,6 +22,7 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import Check2Icon from "src/icons/check2";
 import { Batch } from "types/traceability";
 import * as Yup from "yup";
 
@@ -109,7 +110,7 @@ function LotCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="check2" isDisabled={batches.length === 0}>
+                <Submit leftIcon={<Check2Icon />} isDisabled={batches.length === 0}>
                   Create Lot
                 </Submit>
               </ModalFooter>

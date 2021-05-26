@@ -8,7 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import { DateTime, Number, Select, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
@@ -22,6 +22,7 @@ import dayjs from "dayjs";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
+import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
 export default function BatchCreateModal({ update }) {
@@ -95,7 +96,7 @@ export default function BatchCreateModal({ update }) {
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="check2">Create Batch</Submit>
+                <Submit leftIcon={<Check2Icon />}>Create Batch</Submit>
               </ModalFooter>
             </ModalContent>
           </form>

@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, Submit, TextBox } from "@components/@core/formik";
 import { axUpdateGRN } from "@services/lot.service";
 import { LOT_FLAGS } from "@static/constants";
@@ -20,6 +20,7 @@ import { isEverythingFilledExcept } from "@utils/basic.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import SaveIcon from "src/icons/save";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -88,7 +89,7 @@ export default function LotGRNModal({ update }) {
                     name="finalizeGrnStatus"
                     label={
                       <span>
-                        Finalize GRN Number <Badge variantColor="red">irreversible</Badge>
+                        Finalize GRN Number <Badge colorScheme="red">irreversible</Badge>
                       </span>
                     }
                     isDisabled={!isFinalizeEnabled}
@@ -103,7 +104,7 @@ export default function LotGRNModal({ update }) {
                   <Button mr={3} onClick={onClose}>
                     Close
                   </Button>
-                  <Submit leftIcon="save" isDisabled={!canWrite}>
+                  <Submit leftIcon={<SaveIcon />} isDisabled={!canWrite}>
                     Save
                   </Submit>
                 </ModalFooter>

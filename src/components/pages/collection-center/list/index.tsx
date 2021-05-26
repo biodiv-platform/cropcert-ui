@@ -1,4 +1,4 @@
-import { Box, Spinner } from "@chakra-ui/core";
+import { Box, Spinner } from "@chakra-ui/react";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { axListCC } from "@services/cc.service";

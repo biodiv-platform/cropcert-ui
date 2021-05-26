@@ -1,13 +1,14 @@
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Accordion,
-  AccordionHeader,
+  AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
   Button,
   SimpleGrid,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { DateTime } from "@components/@core/formik";
 import NumberInputField from "@components/@core/formik/number";
 import RadioGroupInputField from "@components/@core/formik/radio-group";
@@ -18,6 +19,7 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import useDebouncedState from "@hooks/use-debounced-effect";
 import { FieldArray, useFormikContext } from "formik";
 import React, { useEffect } from "react";
+import DeleteIcon from "src/icons/delete";
 
 import GridRow from "../../../row";
 import { FIELD_SEPRATION_OPTIONS, GFP_OPTIONS } from "../options";
@@ -53,12 +55,12 @@ export default function Farm() {
             <Accordion defaultIndex={[...Array(values.farms.length).keys()]} allowMultiple={true}>
               {values.farms.map((_farm, index) => (
                 <AccordionItem key={index}>
-                  <AccordionHeader>
+                  <AccordionButton>
                     <Box flex="1" textAlign="left">
                       🚜 Plot #{index + 1}
                     </Box>
                     <AccordionIcon />
-                  </AccordionHeader>
+                  </AccordionButton>
                   <AccordionPanel pb={4}>
                     <SimpleGrid columns={2} spacing={2} mb={4}>
                       <CoreGrid
@@ -161,18 +163,18 @@ export default function Farm() {
                       </Box>
                     </SimpleGrid>
                     <Button
-                      variantColor="red"
+                      colorScheme="red"
                       type="button"
-                      leftIcon="delete"
+                      leftIcon={<DeleteIcon />}
                       mr={4}
                       onClick={() => arrayHelpers.remove(index)}
                     >
                       Remove this Plot
                     </Button>
                     <Button
-                      variantColor="blue"
+                      colorScheme="blue"
                       type="button"
-                      leftIcon="add"
+                      leftIcon={<AddIcon />}
                       onClick={() => arrayHelpers.insert(index + 1, {})}
                     >
                       Add Plot Below
@@ -182,12 +184,12 @@ export default function Farm() {
               ))}
             </Accordion>
             <Button
-              variantColor="blue"
+              colorScheme="blue"
               type="button"
               m={4}
               mb={0}
               onClick={() => arrayHelpers.push({})}
-              leftIcon="add"
+              leftIcon={<AddIcon />}
             >
               Add a Plot
             </Button>

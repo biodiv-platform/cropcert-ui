@@ -7,7 +7,7 @@ import {
   AlertDialogOverlay,
   Button,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { axDeletePageByPageId } from "@services/page.service";
 import { PAGE_DELETE } from "@static/events";
 import React, { useState } from "react";
@@ -50,7 +50,7 @@ export default function DeletePageModal({ update }) {
 
           <AlertDialogFooter>
             <Button onClick={onClose}>Cancel</Button>
-            <Button variantColor="red" onClick={handleOnDelete} ml={3}>
+            <Button colorScheme="red" onClick={handleOnDelete} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

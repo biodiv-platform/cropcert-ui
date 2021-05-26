@@ -1,4 +1,4 @@
-import { Accordion } from "@chakra-ui/core";
+import { Accordion } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import React from "react";
 import { Activity, Cupping, Lot, QualityReport } from "types/traceability";

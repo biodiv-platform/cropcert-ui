@@ -7,7 +7,7 @@ import {
   InputGroup,
   InputRightElement,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { FastField, Field, useField } from "formik";
 import React from "react";
 

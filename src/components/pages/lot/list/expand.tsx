@@ -1,4 +1,4 @@
-import { Box, CircularProgress, useDisclosure } from "@chakra-ui/core";
+import { Box, CircularProgress, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { axListBatchByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@static/constants";

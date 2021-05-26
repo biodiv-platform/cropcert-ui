@@ -1,4 +1,4 @@
-import { Icon } from "@chakra-ui/core";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Submit, TextBox } from "@components/@core/formik";
 import PasswordInputField from "@components/@core/formik/password";
 import { axGetUser, axSignIn } from "@services/auth.service";
@@ -45,7 +45,7 @@ function SignInForm() {
           <TextBox name="userName" label="Username" />
           <PasswordInputField name="password" label="Password" />
           <Submit>
-            Sign In <Icon ml={2} name="arrow-forward" />
+            Sign In <ArrowForwardIcon ml={2} />
           </Submit>
         </form>
       )}

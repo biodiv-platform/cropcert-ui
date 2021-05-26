@@ -19,7 +19,7 @@
   line-height: 1.8rem;
   background: white;
   padding: 1.4rem 2.8rem;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--chakra-colors-gray-300);
   border-radius: 0.25rem;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -99,7 +99,7 @@
   table,
   th,
   td {
-    border: 1px solid var(--gray-700);
+    border: 1px solid var(--chakra-colors-gray-700);
   }
 
   @media (max-width: 425px) {
@@ -159,9 +159,9 @@
     display: block;
     margin-bottom: 0.5rem;
     line-height: 1.2em;
-    color: var(--blue-500);
+    color: var(--chakra-colors-blue-500);
     &:hover {
-      color: var(--blue-700);
+      color: var(--chakra-colors-blue-700);
     }
   }
 }

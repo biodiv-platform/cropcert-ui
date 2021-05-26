@@ -1,11 +1,11 @@
 import {
-  AccordionHeader,
+  AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
   Heading,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import React from "react";
 
 export default function LotShowPanel({
@@ -29,14 +29,14 @@ export default function LotShowPanel({
     >
       {({ isExpanded }) => (
         <>
-          <AccordionHeader p={4}>
+          <AccordionButton p={4}>
             <Box flex="1" textAlign="left">
               <Heading as="h2" size="lg">
                 {icon} {count > -1 && (count > 0 ? count : "No")} {title}
               </Heading>
             </Box>
             <AccordionIcon />
-          </AccordionHeader>
+          </AccordionButton>
           <AccordionPanel p={noPadding ? 0 : 4} bg="white">
             {isExpanded && children}
           </AccordionPanel>

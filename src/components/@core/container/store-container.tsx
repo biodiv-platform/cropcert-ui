@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import { TOKEN } from "@static/constants";
 import authStore from "@stores/auth.store";
 import pagesStore from "@stores/pages.store";

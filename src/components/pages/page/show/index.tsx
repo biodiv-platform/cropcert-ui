@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/core";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { generateToC, wrapResponsiveTable } from "@utils/pages.util";
 import React, { useEffect } from "react";
 import { Page } from "types/pages";

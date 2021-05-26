@@ -1,4 +1,4 @@
-import { Box, Checkbox, Input, Select, Stack } from "@chakra-ui/core";
+import { Box, Checkbox, Input, Select, Stack } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";

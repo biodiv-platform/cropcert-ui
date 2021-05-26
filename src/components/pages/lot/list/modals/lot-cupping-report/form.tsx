@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { CheckBox, DateTime, MultiSelect, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
 import { axCreateCuppingReport } from "@services/report.service";
@@ -18,6 +18,7 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Formik } from "formik";
 import React from "react";
+import SaveIcon from "src/icons/save";
 import { Cupping, Lot } from "types/traceability";
 import * as Yup from "yup";
 
@@ -190,7 +191,7 @@ export default function CuppingReportForm({
                   mt={4}
                   label={
                     <span>
-                      Finalize Cupping Report <Badge variantColor="red">irreversible</Badge>
+                      Finalize Cupping Report <Badge colorScheme="red">irreversible</Badge>
                     </span>
                   }
                   isDisabled={!canWrite || !isFinalizeEnabled}
@@ -200,7 +201,7 @@ export default function CuppingReportForm({
                 <Button mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Submit leftIcon="save">Save</Submit>
+                <Submit leftIcon={<SaveIcon />}>Save</Submit>
               </ModalFooter>
             </ModalContent>
           </form>

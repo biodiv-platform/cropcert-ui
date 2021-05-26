@@ -1,4 +1,5 @@
-import { Badge, Icon } from "@chakra-ui/core";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Badge } from "@chakra-ui/react";
 import { formattedTimeStamp } from "@utils/basic.util";
 import React from "react";
 
@@ -50,13 +51,13 @@ const getMessage = (type, value) => {
       return type.toLowerCase().includes("time") ? (
         <>
           🕓 Updated Time
-          <Badge ml={1}>{type}</Badge> <Icon name="arrow-forward" />
+          <Badge ml={1}>{type}</Badge> <ArrowForwardIcon />
           <Badge ml={1}>{formattedTimeStamp(value)}</Badge>
         </>
       ) : (
         <>
           ✏️ Updated
-          <Badge ml={1}>{type}</Badge> <Icon name="arrow-forward" />
+          <Badge ml={1}>{type}</Badge> <ArrowForwardIcon />
           <Badge ml={1}>{value}</Badge>
         </>
       );

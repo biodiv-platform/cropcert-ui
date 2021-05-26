@@ -3,7 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true
+    node: true,
   },
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
@@ -12,8 +12,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier",
   ],
   rules: {
     "no-useless-escape": "off",
@@ -32,6 +31,6 @@ module.exports = {
     "react/no-children-prop": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
 
-    "no-console": ["error", { allow: ["warn", "error", "debug"] }]
-  }
+    "no-console": ["error", { allow: ["warn", "error", "debug"] }],
+  },
 };

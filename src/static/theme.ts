@@ -1,15 +1,17 @@
-import { theme } from "@chakra-ui/core";
+import { extendTheme } from "@chakra-ui/react";
 
-import customIcons from "./custom-icons";
+const defaultFontFamily =
+  "-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
-const customTheme: any = {
-  ...theme,
+export const customTheme: any = extendTheme({
+  fonts: {
+    body: defaultFontFamily,
+    heading: defaultFontFamily,
+  },
   fontWeights: {
-    ...theme.fontWeights,
     bold: 600,
   },
   colors: {
-    ...theme.colors,
     gray: {
       "50": "#f8f9fa",
       "100": "#f1f3f5",
@@ -23,10 +25,4 @@ const customTheme: any = {
       "900": "#212529",
     },
   },
-  icons: {
-    ...theme.icons,
-    ...customIcons,
-  },
-};
-
-export default customTheme;
+});

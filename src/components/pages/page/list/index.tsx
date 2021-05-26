@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Icon, Link } from "@chakra-ui/core";
+import { Button, ButtonGroup, Link } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import styled from "@emotion/styled";
 import { axListPages, axUpdateTree } from "@services/page.service";
@@ -11,13 +11,16 @@ import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import SortableTree from "react-sortable-tree";
+import DeleteIcon from "src/icons/delete";
+import EditIcon from "src/icons/edit";
+import PageIcon from "src/icons/page";
 
 import DeletePageModal from "./delete-page-modal";
 
 const PageListContainer = styled.div`
   .rst__rowWrapper {
     .rst__moveHandle {
-      background-color: var(--gray-900);
+      background-color: var(--chakra-colors-gray-900);
       border: none;
       box-shadow: none;
       border-top-left-radius: 0.25rem;
@@ -63,16 +66,16 @@ export default function PageListComponent() {
     buttons: [
       <NextLink key={`edit_${row.node.id}`} href={`/page/edit/${row.node.id}`} passHref={true}>
         <Link>
-          <Icon name="edit" />
+          <EditIcon />
         </Link>
       </NextLink>,
       <NextLink key={`add_${row.node.id}`} href={`/page/add/${row.node.id}`} passHref={true}>
         <Link>
-          <Icon name="page" />
+          <PageIcon />
         </Link>
       </NextLink>,
       <Link key={`delete_${row.node.id}`} onClick={() => emit(PAGE_DELETE, row.node)}>
-        <Icon name="delete" color="red.500" />
+        <DeleteIcon color="red.500" />
       </Link>,
     ],
   });
@@ -80,7 +83,7 @@ export default function PageListComponent() {
   const ActionButtons = () => (
     <ButtonGroup spacing={4}>
       <Button
-        variantColor="green"
+        colorScheme="green"
         variant="solid"
         onClick={saveUpdatedTree}
         leftIcon={"save" as any}
@@ -88,7 +91,7 @@ export default function PageListComponent() {
         Save
       </Button>
       <NextLink href={`/page/add/-1`} passHref={true}>
-        <Button as={Link} variantColor="blue" variant="solid" leftIcon={"add2" as any}>
+        <Button as={Link} colorScheme="blue" variant="solid" leftIcon={"add2" as any}>
           Create Root Page
         </Button>
       </NextLink>

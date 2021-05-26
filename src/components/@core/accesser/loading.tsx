@@ -1,4 +1,4 @@
-import { FormControl, FormLabel } from "@chakra-ui/core";
+import { FormControl, FormLabel } from "@chakra-ui/react";
 import { KEYS_TO_ROLES } from "@static/constants";
 import React from "react";
 import Skeleton from "tiny-skeleton-loader-react";

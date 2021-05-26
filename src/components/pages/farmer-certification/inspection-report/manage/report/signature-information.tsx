@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/core";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { formattedDate } from "@utils/basic.util";
 import React from "react";

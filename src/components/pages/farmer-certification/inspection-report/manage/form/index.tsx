@@ -1,4 +1,4 @@
-import { Accordion } from "@chakra-ui/core";
+import { Accordion } from "@chakra-ui/react";
 import ErrorSummery from "@components/@core/formik/error-summery";
 import SubmitButton from "@components/@core/formik/submit-button";
 import { axSaveICSInspectionReport } from "@services/certification.service";
@@ -7,6 +7,7 @@ import notification, { NotificationType } from "@utils/notification.util";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
+import Check2Icon from "src/icons/check2";
 import * as yup from "yup";
 
 import ICSSignature from "./signature";
@@ -61,7 +62,7 @@ export default function InspectionReportApprovalForm({ report, version, subVersi
           <ICSSignature />
         </Accordion>
         <ErrorSummery />
-        <SubmitButton leftIcon="check2">Save</SubmitButton>
+        <SubmitButton leftIcon={<Check2Icon />}>Save</SubmitButton>
       </Form>
     </Formik>
   );

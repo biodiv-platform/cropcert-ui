@@ -12,7 +12,7 @@
 
 html,
 body {
-  background: var(--gray-50);
+  background: var(--chakra-colors-gray-50)!important;
   scroll-behavior: smooth;
 }
 
@@ -21,7 +21,7 @@ body {
 }
 
 input:disabled {
-  background: var(--gray-200);
+  background: var(--chakra-colors-gray-200);
 }
 
 .leaflet-container,
@@ -32,14 +32,14 @@ input:disabled {
 .grid-row {
   display: grid;
   align-items: center;
-  border: 1px dashed var(--gray-400);
+  border: 1px dashed var(--chakra-colors-gray-400);
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
   min-height: 4rem;
-  background: var(--white);
+  background: var(--chakra-colors-white);
   &[data-odd="true"] {
-    background: var(--gray-100);
+    background: var(--chakra-colors-gray-100);
   }
 }
 

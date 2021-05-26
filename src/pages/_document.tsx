@@ -1,5 +1,5 @@
 import { SITE_TITLE } from "@static/constants";
-import customTheme from "@static/theme";
+import { customTheme } from "@static/theme";
 import { jsontocss } from "@utils/style";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";

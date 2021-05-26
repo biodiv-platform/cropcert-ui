@@ -1,4 +1,5 @@
-import { Box, Button } from "@chakra-ui/core";
+import { AddIcon } from "@chakra-ui/icons";
+import { Box, Button } from "@chakra-ui/react";
 import NumberInputField from "@components/@core/formik/number";
 import RadioGroupInputField from "@components/@core/formik/radio-group";
 import SelectInputField from "@components/@core/formik/select";
@@ -6,6 +7,7 @@ import { CoreGrid } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { FieldArray, useFormikContext } from "formik";
 import React from "react";
+import DeleteIcon from "src/icons/delete";
 
 import GridRow from "../../../row";
 import { ANIMAL_HUSBANDARY_OPTIONS, ANIMAL_TYPE_OPTIONS } from "../options";
@@ -66,18 +68,18 @@ export default function Animals() {
                   </CoreGrid>
 
                   <Button
-                    variantColor="red"
+                    colorScheme="red"
                     type="button"
-                    leftIcon="delete"
+                    leftIcon={<DeleteIcon />}
                     mr={4}
                     onClick={() => arrayHelpers.remove(index)}
                   >
                     Remove Current
                   </Button>
                   <Button
-                    variantColor="blue"
+                    colorScheme="blue"
                     type="button"
-                    leftIcon="add"
+                    leftIcon={<AddIcon />}
                     onClick={() => arrayHelpers.insert(index + 1, {})}
                   >
                     Add Below
@@ -86,10 +88,10 @@ export default function Animals() {
               ))
             ) : (
               <Button
-                variantColor="blue"
+                colorScheme="blue"
                 type="button"
                 onClick={() => arrayHelpers.push({})}
-                leftIcon="add"
+                leftIcon={<AddIcon />}
               >
                 Add a animal
               </Button>

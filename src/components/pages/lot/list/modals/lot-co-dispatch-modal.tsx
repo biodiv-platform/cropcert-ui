@@ -30,7 +30,7 @@ export default function LotCoDispatchModal({ update }) {
   const [isDone, setIsDone] = useState(false);
 
   const user = useStoreState((state) => state.user);
-  const canEdit = hasAccess(hierarchicalRoles(ROLES.UNION), user);
+  const canEdit = hasAccess(hierarchicalRoles(ROLES.COOPERATIVE), user);
 
   useListener(
     (lot: Lot) => {

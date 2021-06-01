@@ -80,7 +80,7 @@ export default function LotCoDispatchModal({ update }) {
           return (
             <form onSubmit={props.handleSubmit}>
               <ModalContent>
-                <ModalHeader>🚚 Dispatch Lot to Factory</ModalHeader>
+                <ModalHeader>🚚 Dispatch Lot to Milling</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   <Number
@@ -95,7 +95,7 @@ export default function LotCoDispatchModal({ update }) {
                   />
                   <DateTime
                     name="timeToFactory"
-                    label="Time To Factory"
+                    label="Time To Milling"
                     defaultBlank={true}
                     isNow={true}
                     disabled={isFormReadOnly}
@@ -104,7 +104,7 @@ export default function LotCoDispatchModal({ update }) {
                     name="finalizeCoopStatus"
                     label={
                       <span>
-                        Dispatch to Factory <Badge colorScheme="red">irreversible</Badge>
+                        Dispatch to Milling <Badge colorScheme="red">irreversible</Badge>
                       </span>
                     }
                     isDisabled={!isFinalizeEnabled}

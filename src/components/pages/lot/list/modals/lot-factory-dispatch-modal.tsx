@@ -151,7 +151,7 @@ export default function LotFactoryDispatchModal({ update, unions }) {
                   <CoreGrid rows={2}>
                     <SelectInputField
                       name="unionCode"
-                      label="Union"
+                      label="Select Union"
                       options={unions}
                       isDisabled={isFDisabled}
                     />

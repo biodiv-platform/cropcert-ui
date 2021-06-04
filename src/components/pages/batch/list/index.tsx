@@ -6,7 +6,7 @@ import Table from "@components/@core/table";
 import { BATCH_TYPE, ROLES } from "@static/constants";
 import { BATCH_CREATE, LOT_CREATE } from "@static/events";
 import { useBatchStore } from "@stores/batch.store";
-import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
+import { hasAccess } from "@utils/auth.util";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
@@ -27,6 +27,7 @@ function BatchListPageComponent() {
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
+  const [hideAccessor, setHideAccessor] = useState<boolean>();
 
   useEffect(() => {
     ccCodes.length && actions.listBatch({ ccCodes, reset: true });
@@ -35,6 +36,11 @@ function BatchListPageComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
+
+  useEffect(() => {
+    setHideAccessor(hasAccess([ROLES.UNION]));
+    setCCs([0]); // dummy cc
+  }, []);
 
   const handleLoadMore = () => {
     actions.listBatch({ ccCodes });
@@ -74,8 +80,11 @@ function BatchListPageComponent() {
       <Button
         colorScheme="green"
         variant="solid"
-        hidden={!hasAccess(hierarchicalRoles(ROLES.COOPERATIVE))}
-        isDisabled={showTypeError || selectedBatches.length === 0}
+        isDisabled={
+          showTypeError ||
+          selectedBatches.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE])
+        }
         onClick={handleOnCreateLot}
         leftIcon={<Add2Icon />}
       >
@@ -85,6 +94,7 @@ function BatchListPageComponent() {
         colorScheme="blue"
         variant="solid"
         onClick={handleOnCreateBatch}
+        isDisabled={!hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER])}
         leftIcon={<Add2Icon />}
       >
         Create Batch
@@ -101,7 +111,7 @@ function BatchListPageComponent() {
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
 
-      <CoreGrid>
+      <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatches} />
         <Box>
           <CCMultiSelect coId={co?.value} onChange={setCCs} />

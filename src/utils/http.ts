@@ -4,6 +4,13 @@ import axios from "axios";
 
 import { getTokens, setTokens } from "./auth.util";
 
+const defaultHeaders = {
+  headers: {
+    post: { "Content-Type": "application/json" },
+    put: { "Content-Type": "application/json" },
+  },
+};
+
 /**
  * Renews `access_token` if expired
  *
@@ -29,12 +36,7 @@ export const getBearerToken = async (ctx?) => {
   return `Bearer ${finalToken}`;
 };
 
-const ax = axios.create({
-  headers: {
-    post: { "Content-Type": "application/json" },
-    put: { "Content-Type": "application/json" },
-  },
-});
+const ax = axios.create(defaultHeaders);
 
 /*
  * Custom interceptor that allows user to pass custom context (for SSR)
@@ -67,3 +69,5 @@ export const httpFormData = axios.create({
     "Content-Type": "application/x-www-form-urlencoded",
   },
 });
+
+export const plainHttp = axios.create(defaultHeaders);

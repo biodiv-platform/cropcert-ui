@@ -110,6 +110,7 @@ export interface Lot {
     greenAnalysisId?: number; // int64
     greenAnalysisStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     cuppings?: Cupping[];
+    unionCode?: number;
     lotStatus?: "AT_COLLECTION_CENTER" | "AT_CO_OPERATIVE" | "IN_TRANSPORT" | "AT_FACTORY" | "AT_UNION";
     deleted?: boolean;
 }

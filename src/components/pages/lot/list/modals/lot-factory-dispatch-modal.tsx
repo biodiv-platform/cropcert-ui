@@ -14,18 +14,20 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
+import SelectInputField from "@components/@core/formik/select";
 import { CoreGrid } from "@components/@core/layout";
 import { axDispatchLotFactory } from "@services/lot.service";
+import { LOT_FLAGS } from "@static/constants";
 import { LOT_FACTORY_PROCESS } from "@static/events";
+import notification from "@utils/notification.util";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import SaveIcon from "src/icons/save";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
-import { LOT_FLAGS } from "@static/constants";
-import SaveIcon from "src/icons/save";
 
-export default function LotFactoryDispatchModal({ update }) {
+export default function LotFactoryDispatchModal({ update, unions }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState({} as Lot);
   const [canWrite, setCanWrite] = useState(false);
@@ -49,6 +51,7 @@ export default function LotFactoryDispatchModal({ update }) {
 
       millingTime: Yup.number().nullable(),
       finalizeMillingStatus: Yup.boolean(),
+      unionCode: Yup.number().nullable(),
     }),
     initialValues: {
       weightArrivingFactory: lot.weightArrivingFactory,
@@ -59,10 +62,15 @@ export default function LotFactoryDispatchModal({ update }) {
 
       millingTime: lot.millingTime,
       finalizeMillingStatus: lot.millingStatus === LOT_FLAGS.DONE,
+      unionCode: lot.unionCode,
     },
   };
 
   const handleOnSubmit = async (values, actions) => {
+    if (values.finalizeMillingStatus && !values.unionCode) {
+      notification("Union Code is Required");
+      return;
+    }
     const { success, data } = await axDispatchLotFactory({
       id: lot.id,
       ...values,
@@ -138,6 +146,15 @@ export default function LotFactoryDispatchModal({ update }) {
                       <FormLabel>Out Turn</FormLabel>
                       <Input value={`${outTurn} %`} isDisabled={true} />
                     </FormControl>
+                  </CoreGrid>
+
+                  <CoreGrid rows={2}>
+                    <SelectInputField
+                      name="unionCode"
+                      label="Union"
+                      options={unions}
+                      isDisabled={isFDisabled}
+                    />
                   </CoreGrid>
 
                   <CheckBox

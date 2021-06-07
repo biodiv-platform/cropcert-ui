@@ -38,8 +38,10 @@ function BatchListPageComponent() {
   }, [ccs]);
 
   useEffect(() => {
-    setHideAccessor(hasAccess([ROLES.UNION]));
-    setCCs([0]); // dummy cc
+    if (hasAccess([ROLES.UNION])) {
+      setHideAccessor(true);
+      setCCs([0]); // dummy cc
+    }
   }, []);
 
   const handleLoadMore = () => {

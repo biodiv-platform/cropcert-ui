@@ -1,7 +1,7 @@
 export const isBrowser = typeof window !== `undefined`;
 
 export const SITE_TITLE = process.env.NEXT_PUBLIC_APP_TITLE;
-export const PAGINATION_LIMIT = 10;
+export const PAGINATION_LIMIT = 20;
 
 export const DATEFORMATS = {
   DAYJS_DATE: "DD-MM-YYYY",

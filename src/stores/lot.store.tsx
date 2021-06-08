@@ -1,4 +1,5 @@
 import { axListLot } from "@services/lot.service";
+import { PAGINATION_LIMIT } from "@static/constants";
 import { updateArrayByObjectKey } from "@utils/basic.util";
 import { Action, action, createComponentStore, Thunk, thunk } from "easy-peasy";
 import { Lot } from "types/traceability";
@@ -30,9 +31,11 @@ const lotStore: ILotStore = {
     state.lot = updateArrayByObjectKey(state.lot, payload);
   }),
   listLot: thunk(async (actions, { reset, ccCodes }, helpers) => {
-    const offset = reset ? 0 : helpers.getState().offset;
-    const response = await axListLot(ccCodes, offset);
-    actions.setLot(response);
+    if (helpers.getState().lot.length % PAGINATION_LIMIT === 0) {
+      const offset = reset ? 0 : helpers.getState().offset;
+      const response = await axListLot(ccCodes, offset);
+      actions.setLot(response);
+    }
   }),
   clearLot: action((state) => {
     state.lot = [];

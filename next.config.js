@@ -6,6 +6,7 @@ module.exports = withPWA({
   pwa: {
     dest: "public",
     disable: process.env.NODE_ENV !== "production",
+    register: false,
     ignoreURLParametersMatching: [/^feFarmerId/, /^feCCCode/],
     additionalManifestEntries: [
       { url: "/", revision: nanoid() },

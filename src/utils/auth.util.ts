@@ -1,4 +1,4 @@
-import { ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
+import { ROLE_HIERARCHY, ROLES, TOKEN, isBrowser } from "@static/constants";
 import dayjs from "dayjs";
 import { getNookie, setNookie } from "next-nookies-persist";
 
@@ -67,6 +67,16 @@ export const setUserKey = (key, value) => {
 export const hierarchicalRoles = (role: string): string[] => {
   const roleIndex = ROLE_HIERARCHY.findIndex((r) => r === role) + 1;
   return ROLE_HIERARCHY.slice(0, roleIndex);
+};
+
+export const registerSW = async () => {
+  if (!isBrowser) {
+    return;
+  }
+
+  console.debug("Registering SW");
+  const wb = (window as any).workbox;
+  wb.register();
 };
 
 /**

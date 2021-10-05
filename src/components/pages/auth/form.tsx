@@ -4,9 +4,9 @@ import PasswordInputField from "@components/@core/formik/password";
 import { axGetUser, axSignIn } from "@services/auth.service";
 import { TOKEN } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
+import { removeCache, unregisterSW } from "@utils/auth.util";
 import notification from "@utils/notification.util";
 import { Formik } from "formik";
-import Router from "next/router";
 import useNookies from "next-nookies-persist";
 import React from "react";
 import * as Yup from "yup";
@@ -27,11 +27,17 @@ function SignInForm() {
 
   const handleOnSubmit = async (values, actions) => {
     try {
+      // remove cache
+      await unregisterSW();
+      await removeCache();
+
       const token = await axSignIn(values);
       setNookie(TOKEN.AUTH, token);
       const user = await axGetUser();
       setNookie(TOKEN.USER, user);
-      Router.push("/dashboard");
+
+      // hard redirect to re-build cache
+      window.location.assign("/dashboard");
     } catch (e) {
       notification(SIGN_IN.ERROR);
     }

@@ -197,7 +197,7 @@ export default function Farm() {
         )}
       />
       <Box p={4}>
-        <PageHeading size="md">📑 Summery</PageHeading>
+        <PageHeading size="md">📑 Summary</PageHeading>
         <GridRow
           field={NumberInputField}
           name="numberOfCoffeeFields"

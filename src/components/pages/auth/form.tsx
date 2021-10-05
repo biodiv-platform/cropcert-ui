@@ -27,18 +27,19 @@ function SignInForm() {
 
   const handleOnSubmit = async (values, actions) => {
     try {
-      // remove cache
-      await unregisterSW();
-      await removeCache();
-
       const token = await axSignIn(values);
       setNookie(TOKEN.AUTH, token);
       const user = await axGetUser();
       setNookie(TOKEN.USER, user);
 
+      // remove cache
+      await unregisterSW();
+      await removeCache();
+
       // hard redirect to re-build cache
       window.location.assign("/dashboard");
     } catch (e) {
+      console.error(e);
       notification(SIGN_IN.ERROR);
     }
     actions.setSubmitting(false);
@@ -48,8 +49,8 @@ function SignInForm() {
     <Formik {...signInForm} onSubmit={handleOnSubmit}>
       {(props) => (
         <form onSubmit={props.handleSubmit}>
-          <TextBox name="userName" label="Username" />
-          <PasswordInputField name="password" label="Password" />
+          <TextBox name="userName" autocomplete="username" label="Username" />
+          <PasswordInputField name="password" autocomplete="current-password" label="Password" />
           <Submit>
             Sign In <ArrowForwardIcon ml={2} />
           </Submit>

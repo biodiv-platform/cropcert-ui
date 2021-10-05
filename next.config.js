@@ -27,7 +27,7 @@ module.exports = withPWA({
         },
       },
       {
-        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp|woff2)/i,
+        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp|woff2|manifest)/i,
         handler: "StaleWhileRevalidate",
         options: {
           cacheName: "v2-static-assets",

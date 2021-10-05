@@ -74,8 +74,9 @@ export const hierarchicalRoles = (role: string): string[] => {
  * After this do hard redirect so service worker can reregister itself and precache routes
  */
 export const unregisterSW = async () => {
-  const registrations = await navigator.serviceWorker.getRegistrations();
-  for (const registration of registrations) {
+  const registrations = await navigator?.serviceWorker?.getRegistrations();
+
+  for (const registration of registrations || []) {
     await registration.unregister();
   }
 };

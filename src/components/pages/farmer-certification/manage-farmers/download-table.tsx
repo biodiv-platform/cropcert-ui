@@ -22,7 +22,7 @@ export default function DownloadTable() {
   };
 
   useEffect(() => {
-    setCCListF(ccList);
+    setCCListF(ccList || []);
   }, [ccList]);
 
   return (

@@ -6,8 +6,8 @@ import { TOKEN } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
 import notification from "@utils/notification.util";
 import { Formik } from "formik";
-import useNookies from "next-nookies-persist";
 import Router from "next/router";
+import useNookies from "next-nookies-persist";
 import React from "react";
 import * as Yup from "yup";
 

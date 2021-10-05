@@ -3,7 +3,7 @@ import LotListPageComponent from "@components/pages/lot/list";
 import { axListUnion } from "@services/union.service";
 import React from "react";
 
-function LotListPage({unions}) {
+function LotListPage({ unions }) {
   return (
     <RestrictedAccess>
       <LotListPageComponent unions={unions} />

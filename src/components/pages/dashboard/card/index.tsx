@@ -32,7 +32,14 @@ function Card({ title, description, to, external = false }: IProps) {
 
   return (
     <XLink>
-      <Box w="100%" bg="white" border="1px solid var(--chakra-colors-gray-400)" rounded="md" px={5} py={2}>
+      <Box
+        w="100%"
+        bg="white"
+        border="1px solid var(--chakra-colors-gray-400)"
+        rounded="md"
+        px={5}
+        py={2}
+      >
         {getContent()}
       </Box>
     </XLink>

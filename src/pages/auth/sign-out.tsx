@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 import { TOKEN } from "@static/constants";
-import { removeNookie } from "next-nookies-persist";
 import { useRouter } from "next/router";
+import { removeNookie } from "next-nookies-persist";
 import React, { useEffect } from "react";
 
 const SignOutPage = () => {

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { axDispatchLotCoOperative } from "@services/lot.service";
-import { ROLES, LOT_FLAGS } from "@static/constants";
+import { LOT_FLAGS, ROLES } from "@static/constants";
 import { LOT_DISPATCH_FACTORY } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import { isEverythingFilledExcept } from "@utils/basic.util";

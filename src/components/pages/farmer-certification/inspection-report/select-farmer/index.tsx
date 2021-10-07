@@ -1,18 +1,31 @@
 import { InspectionReportProvider } from "@hooks/use-inspection-report";
 import { DB_CONFIG } from "@static/inspection-report";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import IndexedDBProvider from "use-indexeddb";
 
 import FarmerList from "./farmer-list";
 
-export default function SelectFarmerComponent({ feCCCode }) {
+export default function SelectFarmerComponent() {
+  const [feCCCode, setfeCCCode] = useState<any>();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router && router.query) {
+      console.debug(router.query);
+      setfeCCCode(router.query.feCCCode);
+    }
+  }, [router]);
+
   return (
     <div>
-      <IndexedDBProvider config={DB_CONFIG}>
-        <InspectionReportProvider>
-          <FarmerList feCCCode={feCCCode} />
-        </InspectionReportProvider>
-      </IndexedDBProvider>
+      {feCCCode && (
+        <IndexedDBProvider config={DB_CONFIG}>
+          <InspectionReportProvider>
+            <FarmerList feCCCode={feCCCode} />
+          </InspectionReportProvider>
+        </IndexedDBProvider>
+      )}
     </div>
   );
 }

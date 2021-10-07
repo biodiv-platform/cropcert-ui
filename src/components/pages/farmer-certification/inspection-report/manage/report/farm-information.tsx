@@ -54,7 +54,7 @@ const FarmInformation = ({ currentReport, previousReport, showCurrent }) => (
       showCurrent={showCurrent}
     />
     <Box p={4}>
-      <PageHeading size="md">📑 Summery</PageHeading>
+      <PageHeading size="md">📑 Summary</PageHeading>
       <SimpleGrid columns={{ base: 1, sm: showCurrent ? 3 : 2 }} spacingY={4}>
         {Object.entries(FARM_PANEL.keys.summery).map(([key, title]) => (
           <React.Fragment key={key}>

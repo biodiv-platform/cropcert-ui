@@ -4,10 +4,10 @@ import React from "react";
 
 export default function OfflineStatus() {
   const isOnline = useOnlineStatus();
-  return isOnline ? null : (
-    <Alert status="error" variant="solid" justifyContent="center">
+  return (
+    <Alert status="error" variant="solid" hidden={isOnline} justifyContent="center">
       <AlertIcon />
-      No Internet Connection
+      {isOnline ? "" : "No Internet Connection"}
     </Alert>
   );
 }

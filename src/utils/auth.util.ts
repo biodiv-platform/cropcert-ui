@@ -1,4 +1,4 @@
-import { ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
+import { ROLE_HIERARCHY, ROLES, TOKEN, isBrowser } from "@static/constants";
 import dayjs from "dayjs";
 import { getNookie, setNookie } from "next-nookies-persist";
 
@@ -67,4 +67,58 @@ export const setUserKey = (key, value) => {
 export const hierarchicalRoles = (role: string): string[] => {
   const roleIndex = ROLE_HIERARCHY.findIndex((r) => r === role) + 1;
   return ROLE_HIERARCHY.slice(0, roleIndex);
+};
+
+export const registerSW = async () => {
+  if (!isBrowser) {
+    return;
+  }
+
+  console.debug("Registering SW");
+  const wb = (window as any).workbox;
+  wb.register();
+};
+
+/**
+ * Manually unregisters running service worker(s)
+ * After this do hard redirect so service worker can reregister itself and precache routes
+ */
+export const unregisterSW = async () => {
+  const registrations = await navigator?.serviceWorker?.getRegistrations();
+
+  for (const registration of registrations || []) {
+    await registration.unregister();
+  }
+};
+
+/**
+ * Delete caches from browser `Cache`
+ */
+export const removeCache = async (whitelist = [] as string[]) => {
+  try {
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
+
+    await (window as any).workbox.register();
+    caches.keys().then(async (keyList) => {
+      await Promise.all(
+        keyList.map((key) => {
+          const cacheIndex = whitelist.findIndex((cache) => key.includes(cache));
+          if (cacheIndex === -1) {
+            console.debug("cache deleted", key);
+            return caches.delete(key);
+          } else {
+            console.debug("cache skipped", key);
+          }
+        })
+      );
+    });
+
+    if (!whitelist.length) {
+      await unregisterSW();
+    }
+  } catch (e) {
+    console.error(e);
+  }
 };

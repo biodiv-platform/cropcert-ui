@@ -14,7 +14,7 @@ export default function GreenReportModal({ update }) {
   const [canWrite, setCanWrite] = useState(false);
   const [report, setReport] = useState<QualityReport>();
   const [factoryReport, setFactoryReport] = useState<FactoryReport>();
-  const [origin, setOrigin] = useState();
+  const [origin, setOrigin] = useState<any>();
 
   useListener(
     ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {

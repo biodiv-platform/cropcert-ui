@@ -2,10 +2,10 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  AlertProps,
   AlertTitle,
   Button,
   Flex,
-  AlertProps,
 } from "@chakra-ui/react";
 import { GENERIC } from "@static/messages";
 import NextLink from "next/link";

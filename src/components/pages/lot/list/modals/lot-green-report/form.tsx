@@ -266,7 +266,7 @@ export default function GreenReportForm({
                       <Number label="Triage" name="gradeTriage" disabled={isFDisabled} />
                     </CoreGrid>
 
-                    <FormHeading>Quality Grading Summery</FormHeading>
+                    <FormHeading>Quality Grading Summary</FormHeading>
                     <GreenReportSummery values={props.values} />
                   </>
                 )}

@@ -3,17 +3,14 @@ const withPWA = require("next-pwa");
 const { nanoid } = require("nanoid");
 
 module.exports = withPWA({
-  future: {
-    webpack5: true,
-  },
   pwa: {
     dest: "public",
     disable: process.env.NODE_ENV !== "production",
+    register: false,
     ignoreURLParametersMatching: [/^feFarmerId/, /^feCCCode/],
     additionalManifestEntries: [
       { url: "/", revision: nanoid() },
       { url: "/dashboard", revision: nanoid() },
-      { url: "/farmer-certification/inspection-report/select-farmer", revision: nanoid() },
       { url: "/farmer-certification/manage-farmers", revision: nanoid() },
       { url: "/farmer-certification/inspection-report/create", revision: nanoid() },
     ],
@@ -30,7 +27,7 @@ module.exports = withPWA({
         },
       },
       {
-        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp|woff2)/i,
+        urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp|woff2|manifest)/i,
         handler: "StaleWhileRevalidate",
         options: {
           cacheName: "v2-static-assets",

@@ -16,7 +16,7 @@ export default function CuppingReportModal({ update }) {
   const [lot, setLot] = useState({} as Lot);
   const [canWrite, setCanWrite] = useState(true);
   const [report, setReport] = useState<QualityReport>({});
-  const [origin, setOrigin] = useState();
+  const [origin, setOrigin] = useState<any>();
 
   const user: User = useStoreState((state) => state.user);
   const isReadOnly = !hasAccess(hierarchicalRoles(ROLES.UNION), user);

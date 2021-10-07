@@ -12,7 +12,7 @@ const CCListMap = dynamic(() => import("./map"), { ssr: false });
 
 export default function CollectionCenterListComponent() {
   const [ccList, setCCList] = useState<CollectionCenter[]>([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState<any>();
 
   useEffect(() => {
     axListCC().then(({ data }) => setCCList(data));

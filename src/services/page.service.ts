@@ -9,7 +9,7 @@ export const axListPages = async () => {
     });
     return res.data.filter((p) => !p.isDeleted);
   } catch (e) {
-    notification(e.message);
+    console.error(e);
     return [];
   }
 };
@@ -31,7 +31,7 @@ export const axGetPageByPageId = async (id) => {
     });
     return { success: true, data: res.data };
   } catch (e) {
-    notification(e.message);
+    console.error(e.message);
     return { success: false, data: {} };
   }
 };

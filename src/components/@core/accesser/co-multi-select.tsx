@@ -1,10 +1,10 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { axCoByUnionId, axGetCoByCode } from "@services/co.service";
 import { ROLES } from "@static/constants";
+import { getUserKey } from "@utils/auth.util";
 import { useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
-import MultiSelect from "react-multi-select-component";
-import { getUserKey } from "@utils/auth.util";
+import { MultiSelect } from "react-multi-select-component";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
   const role = useStoreState((state) => state.user.role);

@@ -29,7 +29,7 @@ export default function LotGRNModal({ update }) {
   const [lot, setLot] = useState({} as Lot);
   const [isDone, setIsDone] = useState(false);
   const [canWrite, setCanWrite] = useState(false);
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState<any>();
 
   useListener(
     ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {

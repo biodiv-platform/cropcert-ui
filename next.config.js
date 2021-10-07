@@ -11,7 +11,6 @@ module.exports = withPWA({
     additionalManifestEntries: [
       { url: "/", revision: nanoid() },
       { url: "/dashboard", revision: nanoid() },
-      { url: "/farmer-certification/inspection-report/select-farmer", revision: nanoid() },
       { url: "/farmer-certification/manage-farmers", revision: nanoid() },
       { url: "/farmer-certification/inspection-report/create", revision: nanoid() },
     ],

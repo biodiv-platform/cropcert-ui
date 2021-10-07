@@ -43,7 +43,7 @@ export default function FarmerList({ feCCCode }) {
   });
 
   const refetchFarmers = (isOnline = false) => {
-    getCCFarmers(feCCCode, isOnline, true).then(setInitialFarmers);
+    getCCFarmers(Number(feCCCode), isOnline, true).then(setInitialFarmers);
   };
 
   useEffect(() => {

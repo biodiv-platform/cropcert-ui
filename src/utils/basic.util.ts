@@ -11,7 +11,7 @@ export const formattedTimeStamp = (d = new Date()) => {
 };
 
 export const formattedDate = (d, emptyOnUndefined = false) => {
-  if (emptyOnUndefined && d === undefined) {
+  if (emptyOnUndefined && (d === undefined || d === null || d === "null")) {
     return;
   }
   return dayjs(d || new Date().getTime()).format(DATEFORMATS.DAYJS_DATE);

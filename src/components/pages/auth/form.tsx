@@ -26,7 +26,7 @@ function SignInForm() {
     initialValues: {
       userName: "",
       password: "",
-      prepareOffline: false,
+      prepareOffline: true,
     },
   };
 

@@ -2144,10 +2144,10 @@
     ejs "^2.6.1"
     magic-string "^0.25.0"
 
-"@tinymce/tinymce-react@^3.12.7":
-  version "3.12.7"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.12.7.tgz#71bb72576499ca34b6fcd22e71f8079cd82570ca"
-  integrity sha512-fPjmM+XTfPpzR1aB/6jVzW9bdZjFCCrA+qYCao3FuQk6beoms1+WDhe8KiNFnaFqccYwRW4M6kMFP3C1JPKQlw==
+"@tinymce/tinymce-react@^3.13.0":
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.13.0.tgz#51ae6dbaa4076efde3389229d61c38e4533bc5ee"
+  integrity sha512-8+OHYIUP9W5D5z7gknausaG48ovQtEvjcK4c+zpha7QppRVVX0ltaINpo10V6Vb4qj9Jf7ZFfZpMRxxcFL2YvQ==
   dependencies:
     prop-types "^15.6.2"
     tinymce "^5.5.1"

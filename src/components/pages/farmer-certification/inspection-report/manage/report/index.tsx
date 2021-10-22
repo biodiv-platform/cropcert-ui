@@ -3,6 +3,7 @@ import React from "react";
 
 import AdvicesInformation from "./advices-information";
 import AnimalsInformation from "./animals-information";
+import CertificationInformation from "./certification-information";
 import FarmInformation from "./farm-information";
 import FarmerInformation from "./farmer-information";
 import GeneralInformation from "./general-information";
@@ -12,6 +13,11 @@ export default function InspectionReportPreview({ currentReport, previousReport,
   return (
     <Accordion allowMultiple={true}>
       <FarmerInformation farmerId={currentReport.farmerId || previousReport.farmerId} />
+      <CertificationInformation
+        currentReport={currentReport}
+        previousReport={previousReport}
+        showCurrent={showCurrent}
+      />
       <GeneralInformation
         currentReport={currentReport}
         previousReport={previousReport}

@@ -27,7 +27,19 @@ const SignatureBlock = ({ previous, current, showCurrent, title }) => (
 
 export default function SignatureInformation({ currentReport, previousReport, showCurrent }) {
   return (
-    <LotShowPanel title="Previous Signatures" icon="✍️" isOpen={true}>
+    <LotShowPanel title="Previous Signatures and Photos" icon="✍️" isOpen={true}>
+      {currentReport.geoLocation && (
+        <Box
+          as="iframe"
+          src={`https://maps.google.com/maps?q=${currentReport.geoLocation}&z=7&output=embed`}
+          width="100%"
+          height={300}
+          frameBorder="0"
+          border={0}
+          borderRadius="md"
+          mb={4}
+        ></Box>
+      )}
       <SignatureBlock
         current={currentReport?.farmer}
         previous={previousReport?.farmer}

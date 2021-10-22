@@ -42,3 +42,15 @@ export const YPN_OPTIONS = [
   { label: "Partial", value: "PARTIAL" },
   { label: "No", value: "NO" },
 ];
+
+export const CERT_STATUS_OPTIONS = [
+  { label: "C1", value: "C1" },
+  { label: "C2", value: "C2" },
+  { label: "C3", value: "C3" },
+];
+
+export const CERT_VERSION_OPTIONS = [
+  { label: "V1", value: "V1" },
+  { label: "V2", value: "V2" },
+  { label: "V3", value: "V3" },
+];

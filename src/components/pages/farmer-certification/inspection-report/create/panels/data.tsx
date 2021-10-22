@@ -84,3 +84,12 @@ export const ADVICES_PANEL = {
     hasFarmerImplementedPreviousAdvice: "Has Farmer Implemented Previous Advice",
   },
 };
+
+export const CERT_PANEL = {
+  title: "Certification Status",
+  icon: "🗃",
+  keys: {
+    certificationStatus: "Certification Status",
+    certificationVersion: "Certification Version",
+  },
+};

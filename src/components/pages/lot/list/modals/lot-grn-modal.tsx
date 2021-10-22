@@ -12,7 +12,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CheckBox, DateTime, Submit, TextBox } from "@components/@core/formik";
+import { CheckBox, DateTime, Number, Submit, TextBox } from "@components/@core/formik";
 import { axUpdateGRN } from "@services/lot.service";
 import { LOT_FLAGS } from "@static/constants";
 import { LOT_GRN } from "@static/events";
@@ -46,11 +46,15 @@ export default function LotGRNModal({ update }) {
     validationSchema: Yup.object().shape({
       grnNumber: Yup.string().nullable(),
       grnTimestamp: Yup.number().nullable(),
+      mcAtGrn: Yup.number().nullable(),
+      weightAtGrn: Yup.number().nullable(),
       finalizeGrnStatus: Yup.boolean().nullable(),
     }),
     initialValues: {
       grnNumber: lot.grnNumber,
       grnTimestamp: lot.grnTimestamp,
+      mcAtGrn: lot.mcAtGrn,
+      weightAtGrn: lot.weightAtGrn,
       finalizeGrnStatus: isDone,
     },
   };
@@ -85,6 +89,8 @@ export default function LotGRNModal({ update }) {
                 <ModalBody>
                   <TextBox name="grnNumber" label="GRN Number" disabled={isFormReadOnly} />
                   <DateTime name="grnTimestamp" label="Date" disabled={isFormReadOnly} />
+                  <Number label="Weight" name="weightAtGrn" disabled={isFormReadOnly} />
+                  <Number label="Moisture Content" name="mcAtGrn" disabled={isFormReadOnly} />
                   <CheckBox
                     name="finalizeGrnStatus"
                     label={

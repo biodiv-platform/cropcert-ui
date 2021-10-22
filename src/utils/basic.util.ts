@@ -112,3 +112,16 @@ export const getByPath = (obj, path) => {
 
   return obj;
 };
+
+export const getCoords = async () => {
+  try {
+    const pos: any = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    return [pos.coords.latitude, pos.coords.longitude].join(",");
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};

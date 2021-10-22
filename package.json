@@ -77,6 +77,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.4.1",
+    "sw2dts": "^2.6.3",
     "typescript": "^4.4.3"
   },
   "resolutions": {

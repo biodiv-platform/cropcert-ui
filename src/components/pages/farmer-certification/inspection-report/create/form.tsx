@@ -73,6 +73,10 @@ export default function InspectionForm({ farmer }) {
       isHHTakingFarmingAsFamilyBusiness: yup.boolean().required(),
       comments: yup.string(),
 
+      // certification status
+      certificationStatus: yup.string().required(),
+      certificationVersion: yup.string().required(),
+
       // Farms
       farms: yup.array().of(
         yup.object().shape({
@@ -150,6 +154,7 @@ export default function InspectionForm({ farmer }) {
       // Signatures
       farmer: yup.object().shape({ path: yup.string().required() }),
       fieldCoordinator: yup.object().shape({ path: yup.string().required() }),
+      geoLocation: yup.string().required(),
     }),
     initialValues: {
       farms,

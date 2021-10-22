@@ -1,3 +1,5 @@
+import DropzoneInputField from "@components/@core/formik/dropzone";
+import GeolocationInputField from "@components/@core/formik/geolocation";
 import SignatureInputField from "@components/@core/formik/signature";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
@@ -5,13 +7,8 @@ import React from "react";
 export default function Signature() {
   return (
     <LotShowPanel title="Signature" icon="✍️" isOpen={true}>
-      <SignatureInputField
-        name="farmer.path"
-        label="Farmer Signature"
-        declaration="I, The farmer, declare that this information is correct and that I have understood the conditions for organic production. I have also received a copy of the farmer’s organic contract and internal organic standard"
-        mb={8}
-        personName=""
-      />
+      <GeolocationInputField name="geoLocation" label="Geo Location" mb={8} />
+      <DropzoneInputField name="farmer.path" label="Farmer Photo" type="Farmer" mb={8} />
       <SignatureInputField
         name="fieldCoordinator.path"
         label="Inspector Signature"

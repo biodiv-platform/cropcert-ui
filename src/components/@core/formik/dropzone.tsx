@@ -10,6 +10,7 @@ import ErrorMessage from "./common/error-message";
 interface DropzoneInputFieldProps {
   name: string;
   label: string;
+  type?: string;
   hint?: boolean;
   hintText?: string;
   mb?: number;
@@ -31,7 +32,14 @@ const DropzoneWrapper = styled.div`
   }
 `;
 
-const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInputFieldProps) => {
+const DropzoneInputField = ({
+  name,
+  label,
+  hint,
+  hintText,
+  type = "Banner",
+  mb = 4,
+}: DropzoneInputFieldProps) => {
   const [field, meta, helpers] = useField({ name, as: FastField });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -64,11 +72,11 @@ const DropzoneInputField = ({ name, label, hint, hintText, mb = 4 }: DropzoneInp
         ) : field.value ? (
           <img src={field.value} />
         ) : (
-          <div>Drop Banner Image Here</div>
+          <div>Drop {type} Image Here</div>
         )}
       </DropzoneWrapper>
       <Button size="xs" isDisabled={!field.value} colorScheme="red" onClick={handleOnClear} mt={2}>
-        Remove Banner Image
+        Remove {type} Image
       </Button>
       <ErrorMessage error={meta.error} name={field.name} label={label} />
       {hint && <FormHelperText>{hintText}</FormHelperText>}

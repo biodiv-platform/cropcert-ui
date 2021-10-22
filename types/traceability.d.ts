@@ -27,6 +27,13 @@ export interface Batch {
     batchStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     isDeleted?: boolean;
 }
+export interface CoopActionData {
+    id?: number; // int64
+    weightLeavingCooperative?: number; // float
+    mcLeavingCooperative?: number; // float
+    timeToFactory?: string; // date-time
+    finalizeCoopStatus?: boolean;
+}
 export interface Cupping {
     id?: number; // int64
     lotName?: string;
@@ -84,10 +91,19 @@ export interface FactoryReport {
     otherLossSubTotal?: number; // float
     isDeleted?: boolean;
 }
+export interface GRNNumberData {
+    id?: number; // int64
+    grnNumber?: string;
+    grnTimestamp?: string; // date-time
+    weightAtGrn?: number; // float
+    mcAtGrn?: number; // float
+    finalizeGrnStatus?: boolean;
+}
 export interface Lot {
     id?: number; // int64
     lotName?: string;
     coCode?: number; // int64
+    unionCode?: number; // int64
     quantity?: number; // float
     type?: string;
     createdOn?: string; // date-time
@@ -104,15 +120,26 @@ export interface Lot {
     millingStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     grnNumber?: string;
     grnTimestamp?: string; // date-time
+    weightAtGrn?: number; // float
+    mcAtGrn?: number; // float
     grnStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     factoryReportId?: number; // int64
     factoryStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     greenAnalysisId?: number; // int64
     greenAnalysisStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
     cuppings?: Cupping[];
-    unionCode?: number;
     lotStatus?: "AT_COLLECTION_CENTER" | "AT_CO_OPERATIVE" | "IN_TRANSPORT" | "AT_FACTORY" | "AT_UNION";
     deleted?: boolean;
+}
+export interface MillingActionData {
+    id?: number; // int64
+    weightArrivingFactory?: number; // float
+    weightLeavingFactory?: number; // float
+    mcArrivingFactory?: number; // float
+    mcLeavingFactory?: number; // float
+    millingTime?: string; // date-time
+    finalizeMillingStatus?: boolean;
+    unionCode?: number; // int64
 }
 export interface QualityReport {
     id?: number; // int64

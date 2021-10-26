@@ -32,6 +32,7 @@ export const DB_CONFIG: IndexedDBConfig = {
         { name: "farmerCode", keyPath: "farmerCode" },
         { name: "ccCode", keyPath: "ccCode" },
         { name: "fieldCoOrdinator", keyPath: "fieldCoOrdinator" },
+        { name: "inspectorName", keyPath: "inspectorName" },
         { name: "inspection", keyPath: "inspection" },
       ],
     },

@@ -31,7 +31,7 @@ export default function FarmerInformation({ farmer }) {
     },
     {
       name: "Inspector",
-      selector: "fieldCoOrdinator",
+      selector: "inspectorName",
     },
     {
       name: "Last version",

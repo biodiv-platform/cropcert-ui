@@ -89,7 +89,7 @@ export const CERT_PANEL = {
   title: "Certification Status",
   icon: "🗃",
   keys: {
-    certificationStatus: "Certification Status",
-    certificationVersion: "Certification Version",
+    certificationStatus: "Conversion Status",
+    certificationVersion: "Violation Status",
   },
 };

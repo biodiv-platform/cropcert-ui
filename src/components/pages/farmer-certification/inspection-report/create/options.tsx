@@ -47,6 +47,7 @@ export const CERT_STATUS_OPTIONS = [
   { label: "C1", value: "C1" },
   { label: "C2", value: "C2" },
   { label: "C3", value: "C3" },
+  { label: "Certified", value: "CERTIFIED" },
 ];
 
 export const CERT_VERSION_OPTIONS = [

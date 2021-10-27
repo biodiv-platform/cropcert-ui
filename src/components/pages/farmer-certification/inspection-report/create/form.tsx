@@ -73,9 +73,8 @@ export default function InspectionForm({ farmer }) {
       isHHTakingFarmingAsFamilyBusiness: yup.boolean().required(),
       comments: yup.string(),
 
-      // certification status
-      certificationStatus: yup.string().required(),
-      certificationVersion: yup.string().required(),
+      certificationStatus: yup.string().required(), // conversion status
+      certificationVersion: yup.string().notRequired(), // violation status
 
       // Farms
       farms: yup.array().of(

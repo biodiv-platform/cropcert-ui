@@ -61,7 +61,7 @@
     "ts-debounce": "^3.0.0",
     "use-immer": "^0.6.0",
     "use-indexeddb": "^1.0.8",
-    "webpack": "^5.56.1",
+    "webpack": "^5.61.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import { ENDPOINT } from "@static/constants";
-import http from "@utils/http";
+import http, { plainHttp } from "@utils/http";
 import notification from "@utils/notification.util";
 
 export const axGetFarmersWithLastReportByCC = async (ccCode) => {
@@ -38,9 +38,7 @@ export const axGetInspectionReportsByCCIds = async (params) => {
 
 export const axGetInspectionReportById = async (reportId) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.CERTIFICATION}/inspection/${reportId}`, {
-      headers: { unauthorized: true },
-    });
+    const { data } = await plainHttp.get(`${ENDPOINT.CERTIFICATION}/inspection/${reportId}`);
     return { success: true, data };
   } catch (e) {
     // notification(e.message);

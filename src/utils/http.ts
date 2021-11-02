@@ -9,7 +9,7 @@ const defaultHeaders = {
     post: { "Content-Type": "application/json" },
     put: { "Content-Type": "application/json" },
   },
-};
+} as any;
 
 /**
  * Renews `access_token` if expired
@@ -42,11 +42,7 @@ const ax = axios.create(defaultHeaders);
  * Custom interceptor that allows user to pass custom context (for SSR)
  */
 ax.interceptors.request.use(
-  async (options) => {
-    if (options.headers["unauthorized"] && options.headers.unauthorized) {
-      return options;
-    }
-
+  async (options: any) => {
     const ctx = options?.params?.ctx;
     ctx && delete options.params.ctx;
     options.headers["Authorization"] = await getBearerToken(ctx);

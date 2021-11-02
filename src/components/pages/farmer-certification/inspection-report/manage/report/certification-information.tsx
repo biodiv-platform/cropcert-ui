@@ -7,7 +7,6 @@ import { CERT_PANEL } from "../../create/panels/data";
 
 const CertificationInformation = ({ currentReport, previousReport, showCurrent }) => (
   <LotShowPanel title={CERT_PANEL.title} icon={CERT_PANEL.icon} isOpen={true}>
-
     {Object.entries(CERT_PANEL.keys).map(([key, title], index) => (
       <SimpleGrid
         key={key}

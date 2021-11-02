@@ -1,6 +1,6 @@
 import { ENDPOINT } from "@static/constants";
 import { GENERIC } from "@static/messages";
-import http from "@utils/http";
+import http, { plainHttp } from "@utils/http";
 import notification from "@utils/notification.util";
 
 export const axListCCByCoId = async (coCode) => {
@@ -30,7 +30,7 @@ export const axGetCCByCode = async (id) => {
 
 export const axListCC = async () => {
   try {
-    const { data } = await http.get(`${ENDPOINT.USER}/cc/all`, { headers: { unauthorized: true } });
+    const { data } = await plainHttp.get(`${ENDPOINT.USER}/cc/all`);
     return { success: true, data };
   } catch (e) {
     notification(GENERIC.ERROR);

@@ -1,12 +1,10 @@
 import { ENDPOINT } from "@static/constants";
-import http from "@utils/http";
+import http, { plainHttp } from "@utils/http";
 import notification from "@utils/notification.util";
 
 export const axListPages = async () => {
   try {
-    const res = await http.get(`${ENDPOINT.PAGES}/page/all`, {
-      headers: { unauthorized: true },
-    });
+    const res = await plainHttp.get(`${ENDPOINT.PAGES}/page/all`);
     return res.data.filter((p) => !p.isDeleted);
   } catch (e) {
     console.error(e);
@@ -26,9 +24,7 @@ export const axDeletePageByPageId = async (id) => {
 
 export const axGetPageByPageId = async (id) => {
   try {
-    const res = await http.get(`${ENDPOINT.PAGES}/page/${id}`, {
-      headers: { unauthorized: true },
-    });
+    const res = await plainHttp.get(`${ENDPOINT.PAGES}/page/${id}`);
     return { success: true, data: res.data };
   } catch (e) {
     console.error(e.message);

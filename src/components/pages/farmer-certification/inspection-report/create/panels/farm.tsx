@@ -62,7 +62,7 @@ export default function Farm() {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={4}>
-                    <SimpleGrid columns={2} spacing={2} mb={4}>
+                    <SimpleGrid columns={{ md: 1, lg: 2 }} spacing={2} mb={4}>
                       <CoreGrid
                         rows={2}
                         alignItems="flex-end"

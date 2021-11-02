@@ -12,12 +12,18 @@ interface GridRowProps {
 }
 
 function GridRow({ field: Field, label, name, previous, mb, bgGray, ...props }: GridRowProps) {
-  const previousProcessed = typeof previous === "boolean" ? (previous ? "Yes" : "No") : previous;
+  const previousProcessed = props.options?.length
+    ? props.options?.find((o) => o.value === previous)?.label
+    : typeof previous === "boolean"
+    ? previous
+      ? "Yes"
+      : "No"
+    : previous;
 
   return (
     <Grid
       className="grid-row"
-      templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(7, 1fr)", `repeat(7, 1fr)`]}
+      templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(8, 1fr)", `repeat(8, 1fr)`]}
       mb={mb || 4}
       data-odd={bgGray}
     >
@@ -34,7 +40,7 @@ function GridRow({ field: Field, label, name, previous, mb, bgGray, ...props }: 
         <div />
       )}
 
-      <Box gridColumn={{ base: "1/1", md: "6/8" }}>
+      <Box gridColumn={{ base: "1/1", md: "6/9" }}>
         <Field {...props} name={name} placeholder={label} mb={0} />
       </Box>
     </Grid>

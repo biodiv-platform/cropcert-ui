@@ -61,8 +61,8 @@ function SignInForm() {
       <Formik {...signInForm} onSubmit={handleOnSubmit}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-            <TextBox name="userName" autocomplete="username" label="Username" />
-            <PasswordInputField name="password" autocomplete="current-password" label="Password" />
+            <TextBox name="userName" autoComplete="username" label="Username" />
+            <PasswordInputField name="password" autoComplete="current-password" label="Password" />
             <CheckBoxInputField name="prepareOffline" label="Offline Ready" />
             <Submit>
               Sign In <ArrowForwardIcon ml={2} />

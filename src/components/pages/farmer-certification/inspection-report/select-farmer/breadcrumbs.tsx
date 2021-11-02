@@ -1,4 +1,5 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React from "react";
 
 export default function Breadcrumbs({ ccName, coName, unionName }) {
@@ -19,9 +20,11 @@ export default function Breadcrumbs({ ccName, coName, unionName }) {
       </BreadcrumbItem>
 
       <BreadcrumbItem>
-        <BreadcrumbLink href="/farmer-certification/manage-farmers">
-          Cooperative: <b>{coName}</b>
-        </BreadcrumbLink>
+        <NextLink passHref={true} href="/farmer-certification/manage-farmers">
+          <BreadcrumbLink>
+            Cooperative: <b>{coName}</b>
+          </BreadcrumbLink>
+        </NextLink>
       </BreadcrumbItem>
 
       <BreadcrumbItem isCurrentPage>

@@ -2,12 +2,14 @@ import { ArrowForwardIcon, DownloadIcon } from "@chakra-ui/icons";
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DeleteIcon from "src/icons/delete";
 
 export default function ActionButton({ ccCode, syncStatus, isOnline, pendingReports }) {
   const [isLoading, setIsLoading] = useState(false);
   const { removeCCFarmers, downloadCCFarmers } = useInspectionReport();
+  const router = useRouter();
 
   const handleOnRemove = async () => {
     if (pendingReports) {
@@ -27,6 +29,7 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
   const handleOnDownload = async () => {
     setIsLoading(true);
     await downloadCCFarmers(ccCode);
+    router.push(`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`);
     setIsLoading(false);
   };
 

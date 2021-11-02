@@ -67,7 +67,7 @@ export default function FarmerList({ feCCCode }) {
       <Breadcrumbs {...initialFarmers[0]} />
       <Flex flexDirection={{ base: "column", md: "row" }} my={4} justifyContent="space-between">
         <Box mb={4}>
-          <Stack flexDirection={{ base: "column", md: "row" }} mb={1}>
+          <Stack flexDirection={{ base: "column", lg: "row" }} mb={1}>
             <InputGroup w="24rem" mr={4}>
               <InputLeftElement children={<SearchIcon color="gray.300" />} />
               <Input type="text" placeholder="Find Farmer" onChange={onFilterChange} />

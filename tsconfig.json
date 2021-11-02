@@ -25,7 +25,8 @@
       "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+    "incremental": true
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "types/*.d.ts", "**/*.ts", "**/*.tsx"],

@@ -58,7 +58,7 @@
     "timeago.js": "^4.0.2",
     "tiny-skeleton-loader-react": "^1.1.6",
     "tinymce": "^5.10.0",
-    "ts-debounce": "^3.0.0",
+    "ts-debounce": "^4.0.0",
     "use-immer": "^0.6.0",
     "use-indexeddb": "^1.0.8",
     "webpack": "^5.61.0",

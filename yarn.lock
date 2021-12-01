@@ -6346,10 +6346,10 @@ react-date-picker@^8.3.3:
     react-fit "^1.0.3"
     update-input-width "^1.2.2"
 
-react-datetime-picker@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/react-datetime-picker/-/react-datetime-picker-3.4.2.tgz#0a6620b82354a9096766394f0411d76655fb26b4"
-  integrity sha512-i/Iw7Qbz8Zl0Bo3rMbHQ1+dnWtImNexF8Nh+bsKxaK6wFTmpE1l8ugTGHDKT8gbZ2DRtzscjSMC/LVz/gIE8DA==
+react-datetime-picker@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/react-datetime-picker/-/react-datetime-picker-3.4.3.tgz#9163471f72b708185482b6b72cd259da03462f79"
+  integrity sha512-yuFmh3TJwDo3VnyQF6auRJoeYfFTUtyLsR292lWXieigp0ugKkQefUEzVybZQidiiUlCNK9UQgc37/igl7uBYA==
   dependencies:
     "@wojtekmaj/date-utils" "^1.0.3"
     get-user-locale "^1.2.0"

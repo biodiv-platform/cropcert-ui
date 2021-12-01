@@ -30,7 +30,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^5.0.1",
     "friendly-http-status": "^1.0.0",
-    "immer": "^9.0.6",
+    "immer": "^9.0.7",
     "leaflet": "^1.7.1",
     "nanoid": "^3.1.30",
     "next": "11",

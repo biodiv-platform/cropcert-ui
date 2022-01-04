@@ -8,6 +8,7 @@ export default function FarmerInformation({ farmer }) {
     {
       name: "Farmer Name",
       selector: "firstName",
+      cell: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     },
     {
       name: "Farmer Code",

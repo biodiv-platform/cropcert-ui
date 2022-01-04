@@ -57,8 +57,8 @@ export default function FarmerList({ feCCCode }) {
   useEffect(() => {
     setFarmers(
       initialFarmers
-        .filter(({ firstName, pendingReport }) => {
-          const match = firstName.toLowerCase().includes(query);
+        .filter(({ firstName, lastName, pendingReport }) => {
+          const match = (firstName + lastName).toLowerCase().includes(query);
           return pendingOnly ? pendingReport && match : match;
         })
         .slice(0, Number(limit))

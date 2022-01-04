@@ -12,6 +12,7 @@ const farmerMeta = [
   {
     name: "Name",
     selector: "firstName",
+    cell: ({ firstName, lastName }) => `${firstName} ${lastName}`,
   },
   {
     name: "Union",

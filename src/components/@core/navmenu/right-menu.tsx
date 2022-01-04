@@ -10,11 +10,6 @@ function NavbarRightMenu() {
 
   return (
     <ul className="main-menu right">
-      <li>
-        <Link href="/LICENSES.txt" title="Licenses">
-          Licenses
-        </Link>
-      </li>
       {isLoggedIn ? (
         <li>
           <NextLink href="/auth/sign-out" passHref={true}>

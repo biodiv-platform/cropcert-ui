@@ -28,8 +28,10 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
 
   const handleOnDownload = async () => {
     setIsLoading(true);
-    await downloadCCFarmers(ccCode);
-    router.push(`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`);
+    const success = await downloadCCFarmers(ccCode);
+    if (success) {
+      router.push(`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`);
+    }
     setIsLoading(false);
   };
 

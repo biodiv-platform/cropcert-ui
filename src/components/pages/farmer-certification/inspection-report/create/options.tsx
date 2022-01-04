@@ -51,6 +51,7 @@ export const CERT_STATUS_OPTIONS = [
 ];
 
 export const CERT_VERSION_OPTIONS = [
+  { label: "None", value: null },
   { label: "V1", value: "V1" },
   { label: "V2", value: "V2" },
   { label: "V3", value: "V3" },

@@ -115,12 +115,15 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
             _draft.l[index]["syncStatus"] = syncStatus;
           }
         });
+        return true;
       } else {
         notification("No Farmers Available", NotificationType.Info);
       }
     } catch (e) {
       console.error(e);
     }
+
+    return false;
   };
 
   const getCCFarmers = async (ccCode, isOnline, isUpdate) => {

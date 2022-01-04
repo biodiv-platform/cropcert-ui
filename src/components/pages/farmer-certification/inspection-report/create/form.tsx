@@ -74,7 +74,7 @@ export default function InspectionForm({ farmer }) {
       comments: yup.string(),
 
       certificationStatus: yup.string().required(), // conversion status
-      certificationVersion: yup.string().notRequired(), // violation status
+      certificationVersion: yup.string().nullable(), // violation status
 
       // Farms
       farms: yup.array().of(

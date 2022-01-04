@@ -43,7 +43,11 @@ export default function FarmerList({ feCCCode }) {
   });
 
   const refetchFarmers = (isOnline = false) => {
-    getCCFarmers(Number(feCCCode), isOnline, true).then(setInitialFarmers);
+    getCCFarmers(Number(feCCCode), isOnline, true).then((data) =>
+      setInitialFarmers(
+        data.sort((a, b) => (a.firstName + a.lastName).localeCompare(b.firstName + b.lastName))
+      )
+    );
   };
 
   useEffect(() => {
@@ -67,19 +71,24 @@ export default function FarmerList({ feCCCode }) {
       <Breadcrumbs {...initialFarmers[0]} />
       <Flex flexDirection={{ base: "column", md: "row" }} my={4} justifyContent="space-between">
         <Box mb={4}>
-          <Stack flexDirection={{ base: "column", lg: "row" }} mb={1}>
-            <InputGroup w="24rem" mr={4}>
+          <Flex flexDirection={{ base: "column", lg: "row" }} mb={4} gap={4}>
+            <InputGroup w="24rem">
               <InputLeftElement children={<SearchIcon color="gray.300" />} />
-              <Input type="text" placeholder="Find Farmer" onChange={onFilterChange} />
+              <Input bg="white" type="text" placeholder="Find Farmer" onChange={onFilterChange} />
             </InputGroup>
-            <Select w="10rem" defaultValue={limit} onChange={(e) => setLimit(e.target.value)}>
+            <Select
+              w="10rem"
+              bg="white"
+              defaultValue={limit}
+              onChange={(e) => setLimit(e.target.value)}
+            >
               {LIMITS.map((limit) => (
                 <option value={limit} key={limit}>
                   {limit} records
                 </option>
               ))}
             </Select>
-          </Stack>
+          </Flex>
           Showing {farmers.length} of {initialFarmers.length} Farmer(s)
         </Box>
         <Box>

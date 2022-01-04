@@ -1,4 +1,4 @@
-import { ROLE_HIERARCHY, ROLES, TOKEN, isBrowser } from "@static/constants";
+import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import dayjs from "dayjs";
 import { getNookie, setNookie } from "next-nookies-persist";
 
@@ -70,7 +70,7 @@ export const hierarchicalRoles = (role: string): string[] => {
 };
 
 export const registerSW = async () => {
-  if (!isBrowser) {
+  if (!isBrowser || process.env.NODE_ENV === "development") {
     return;
   }
 

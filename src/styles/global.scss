@@ -43,6 +43,6 @@ input:disabled {
   }
 }
 
-input[type="radio"] + div[type="radio"] {
+.chakra-radio__control:not([data-checked]) {
   background: white;
 }

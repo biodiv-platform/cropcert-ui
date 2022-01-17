@@ -1,11 +1,10 @@
 import { EmailIcon } from "@chakra-ui/icons";
 import { Badge, Box, Button, Spinner } from "@chakra-ui/react";
-import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
-import { ROLES } from "@static/constants";
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -79,7 +78,7 @@ export default function MarketingPageComponent() {
 
       <Box bg="white" p={4} border="1px solid" borderColor="gray.300" borderRadius="md" shadow="sm">
         <CoreGrid>
-          <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={() => null} />
+          <PlainUnionSelect onChange={setUnion} />
           <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
         </CoreGrid>
 
@@ -92,7 +91,7 @@ export default function MarketingPageComponent() {
             loader={<Spinner key="loader" />}
             hasMore={list.hasMore}
           >
-            <Table data={list.l} columns={columns} />
+            {list.l.length ? <Table data={list.l} columns={columns} /> : "No Lots Available"}
           </InfiniteScroll>
         )}
       </Box>

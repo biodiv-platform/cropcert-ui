@@ -1,5 +1,5 @@
 import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
-import http from "@utils/http";
+import http, { plainHttp } from "@utils/http";
 import notification from "@utils/notification.util";
 
 export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
@@ -22,7 +22,7 @@ export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) =
 
 export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/marketing`, {
+    const res = await plainHttp.get(`${ENDPOINT.TRACEABILITY}/lot/all/marketing`, {
       params: { coCodes: coCodes.toString(), offset, limit },
     });
     return {

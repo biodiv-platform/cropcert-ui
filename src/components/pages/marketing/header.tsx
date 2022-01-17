@@ -16,8 +16,9 @@ export default function MarketingHeader() {
           Lots for Sale
         </Heading>
         <Text fontStyle="italic" fontSize="lg">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua.
+          Organic certified coffee Rwenzori Mountain Coffee lots for sale are listed below. Please
+          click on the Inquire button on the lot and send a mail with your mail and contact details
+          and we will get back to you.
         </Text>
       </div>
     </ArticleImageBox>

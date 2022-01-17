@@ -1,3 +1,4 @@
+import { DownloadIcon } from "@chakra-ui/icons";
 import { Box, Button, Checkbox, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
@@ -8,7 +9,7 @@ import { ROLES } from "@static/constants";
 import { formattedTimeStamp, utc2local } from "@utils/basic.util";
 import flat from "flat";
 import j2x from "json-as-xlsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { columns } from "./data";
 
@@ -20,9 +21,11 @@ export default function FullReportComponent() {
   const [isFiltered, setIsFiltered] = useState(true);
   const [filtered, setFiltered] = useState([]);
 
+  const dataList = useMemo(() => (isFiltered ? filtered : list), [list]);
+
   const downloadXLS = () => {
-    j2x([{ columns, content: isFiltered ? filtered : list }], {
-      fileName: `${new Date().getTime()}`,
+    j2x([{ columns, content: dataList }], {
+      fileName: `${formattedTimeStamp()}`,
     });
   };
 
@@ -71,7 +74,13 @@ export default function FullReportComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<Button onClick={downloadXLS}>Download XLS</Button>}>
+      <PageHeading
+        actions={
+          <Button colorScheme="blue" leftIcon={<DownloadIcon />} onClick={downloadXLS}>
+            Download XLS
+          </Button>
+        }
+      >
         📑 Report Generation
       </PageHeading>
 
@@ -84,7 +93,13 @@ export default function FullReportComponent() {
         </Checkbox>
       </CoreGrid>
 
-      {isLoading ? <Spinner /> : <Table data={isFiltered ? filtered : list} columns={columns} />}
+      {isLoading ? (
+        <Spinner />
+      ) : dataList.length ? (
+        <Table data={dataList} columns={columns} />
+      ) : (
+        "No lots available"
+      )}
     </Box>
   );
 }

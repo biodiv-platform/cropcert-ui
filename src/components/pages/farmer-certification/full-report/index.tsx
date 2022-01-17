@@ -98,7 +98,7 @@ export default function FullReportComponent() {
       ) : dataList.length ? (
         <Table data={dataList} columns={columns} />
       ) : (
-        "No lots available"
+        "No farmers available"
       )}
     </Box>
   );

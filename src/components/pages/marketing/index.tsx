@@ -67,7 +67,7 @@ export const columns = [
 ];
 
 export default function MarketingPageComponent() {
-  const { list, setCoCodes, loadMore } = useMarketing();
+  const { list, setCoCodes, loadMore, isLoading } = useMarketing();
   const [union, setUnion] = useState<any>();
 
   return (
@@ -83,14 +83,18 @@ export default function MarketingPageComponent() {
           <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
         </CoreGrid>
 
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={() => loadMore()}
-          loader={<Spinner key="loader" />}
-          hasMore={list.hasMore}
-        >
-          <Table data={list.l} columns={columns} />
-        </InfiniteScroll>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => loadMore()}
+            loader={<Spinner key="loader" />}
+            hasMore={list.hasMore}
+          >
+            <Table data={list.l} columns={columns} />
+          </InfiniteScroll>
+        )}
       </Box>
     </Box>
   );

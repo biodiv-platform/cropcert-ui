@@ -7,6 +7,8 @@ interface MarketingContextProps {
   loadMore;
   coCodes;
   setCoCodes;
+
+  isLoading;
 }
 
 interface MarketingProviderProps {
@@ -18,8 +20,10 @@ const MarketingContext = createContext<MarketingContextProps>({} as MarketingCon
 export const MarketingProvider = ({ children }: MarketingProviderProps) => {
   const [list, setList] = useImmer<any>({ l: [], offset: 0, hasMore: false });
   const [coCodes, setCoCodes] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const loadMore = async (reset?) => {
+    setIsLoading(true);
     const marketingData = await axListMarketingLot(coCodes, reset ? 0 : list.offset);
 
     if (marketingData.success) {
@@ -32,6 +36,8 @@ export const MarketingProvider = ({ children }: MarketingProviderProps) => {
         _draft.hasMore = marketingData.hasMore;
       });
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -47,6 +53,8 @@ export const MarketingProvider = ({ children }: MarketingProviderProps) => {
         loadMore,
         coCodes,
         setCoCodes,
+
+        isLoading,
       }}
     >
       {children}

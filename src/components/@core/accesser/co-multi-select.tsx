@@ -37,7 +37,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
     <>
       {!isCoCC && (
         <FormControl mb={4} maxW="308px">
-          <FormLabel fontWeight="bold" htmlFor={role}>{label}</FormLabel>
+          <FormLabel htmlFor={role}>{label}</FormLabel>
           <MultiSelect
             options={co}
             value={coSelected}

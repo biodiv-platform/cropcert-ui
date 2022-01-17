@@ -4,7 +4,7 @@ import { formattedDate, utc2local } from "@utils/basic.util";
 import React from "react";
 import { Page } from "types/pages";
 
-const ArticleImageBox = styled.div`
+export const ArticleImageBox = styled.div`
   min-height: 360px;
   border-radius: 0.5rem;
   display: flex;

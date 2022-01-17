@@ -20,6 +20,23 @@ export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) =
   }
 };
 
+export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+  try {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/marketing`, {
+      params: { coCodes: coCodes.toString(), offset, limit },
+    });
+    return {
+      success: true,
+      data: res.data,
+      offset: offset + res.data.length,
+      hasMore: res.data.length === limit,
+    };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: [] };
+  }
+};
+
 export const axCreateLot = async (payload) => {
   try {
     const { data } = await http.post(`${ENDPOINT.TRACEABILITY}/lot`, payload);
@@ -100,5 +117,17 @@ export const axGetLotById = async (lotId, ctx?) => {
   } catch (e) {
     notification(e);
     return { success: false, data: {} };
+  }
+};
+
+export const axListAllReports = async (coCodes) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.CERTIFICATION}/inspection/all/coCode`, {
+      params: { coCode: coCodes.toString() },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: [] };
   }
 };

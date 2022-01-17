@@ -34,6 +34,12 @@ const links = [
         to: "/farmer-certification/inspection-report/list",
         access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
       },
+      {
+        title: "📑 Report Generation",
+        description: "Download Report",
+        to: "/farmer-certification/full-report",
+        access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
+      },
     ],
   },
   {

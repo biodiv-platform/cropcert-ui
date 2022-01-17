@@ -77,7 +77,9 @@ export default function AccesserForm({
   const RoleDropdown = (role, index) =>
     role !== currentRole && (
       <FormControl key={index} mb={4}>
-        <FormLabel htmlFor={role}>Select {KEYS_TO_ROLES[role]}</FormLabel>
+        <FormLabel fontWeight="bold" htmlFor={role}>
+          Select {KEYS_TO_ROLES[role]}
+        </FormLabel>
         <Select
           id={role}
           options={rolesOptions[role]}

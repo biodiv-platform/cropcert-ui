@@ -10,16 +10,6 @@
   --page-height: calc(100vh - 126px);
 }
 
-html,
-body {
-  background: var(--chakra-colors-gray-50) !important;
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-y: scroll;
-}
-
 input:disabled {
   background: var(--chakra-colors-gray-200);
 }

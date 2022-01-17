@@ -21,7 +21,7 @@ export default function FullReportComponent() {
   const [isFiltered, setIsFiltered] = useState(true);
   const [filtered, setFiltered] = useState([]);
 
-  const dataList = useMemo(() => (isFiltered ? filtered : list), [list]);
+  const dataList = useMemo(() => (isFiltered ? filtered : list), [filtered, list]);
 
   const downloadXLS = () => {
     j2x([{ columns, content: dataList }], {
@@ -98,7 +98,7 @@ export default function FullReportComponent() {
       ) : dataList.length ? (
         <Table data={dataList} columns={columns} />
       ) : (
-        "No lots available"
+        "No farmers available"
       )}
     </Box>
   );

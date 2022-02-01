@@ -56,7 +56,7 @@
     "sparkles": "^1.0.1",
     "styled-components": "^5.3.3",
     "timeago.js": "^4.0.2",
-    "tiny-skeleton-loader-react": "^1.1.7",
+    "tiny-skeleton-loader-react": "^1.1.8",
     "tinymce": "^5.10.2",
     "ts-debounce": "^4.0.0",
     "use-immer": "^0.6.0",

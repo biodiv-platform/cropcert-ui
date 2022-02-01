@@ -7587,10 +7587,10 @@ tiny-invariant@^1.0.6:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.2.0.tgz#a1141f86b672a9148c72e978a19a73b9b94a15a9"
   integrity sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==
 
-tiny-skeleton-loader-react@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/tiny-skeleton-loader-react/-/tiny-skeleton-loader-react-1.1.7.tgz#33493871f875fdd702527d4343a20428f1bc593d"
-  integrity sha512-kxeYTiR3nsxyl0teZeTs5Wvq+optz9XQzyYOSk4lt9JRqZQdqI9uaWILfbsmgMijU8o+Vpf+SxVUV8Q5+DPWkw==
+tiny-skeleton-loader-react@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/tiny-skeleton-loader-react/-/tiny-skeleton-loader-react-1.1.8.tgz#fef5e122ff9e72814ae99fc9ccc1cee6fae354ab"
+  integrity sha512-Abm7zg/xBOddCrJQOp3YZbKXJSBq5NGA3+zwsclyZstfWliG+Autg4Idv2m2k/5fbF8GYpVQZRSYjYpa8y0Sxg==
 
 tiny-warning@^1.0.2:
   version "1.0.3"

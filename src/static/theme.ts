@@ -4,6 +4,17 @@ const defaultFontFamily =
   "-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
 export const customTheme: any = extendTheme({
+  styles: {
+    global: {
+      "html, body": {
+        background: "gray.50",
+        scrollBehavior: "smooth",
+      },
+      body: {
+        overflowY: "scroll",
+      },
+    },
+  },
   fonts: {
     body: defaultFontFamily,
     heading: defaultFontFamily,

@@ -1,6 +1,4 @@
 import { SITE_TITLE } from "@static/constants";
-import { customTheme } from "@static/theme";
-import { jsontocss } from "@utils/style";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
 
@@ -22,7 +20,6 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css"
           />
-          <style>{jsontocss(customTheme)}</style>
         </Head>
         <body>
           <Main />

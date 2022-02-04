@@ -7309,6 +7309,11 @@ sparkles@^1.0.1:
   resolved "https://registry.yarnpkg.com/sparkles/-/sparkles-1.0.1.tgz#008db65edce6c50eec0c5e228e1945061dd0437c"
   integrity sha512-dSO0DDYUahUt/0/pD/Is3VIm5TGJjludZ0HVymmhYF6eNA53PVLhnUk0znSYbH8IYBuJdCE+1luR22jNLMaQdw==
 
+sparkles@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sparkles/-/sparkles-2.0.0.tgz#1fcfb7ad687710bbcdd5c655d6ae523952345346"
+  integrity sha512-rqUsosNTLY8KIT6qhuJlXzIUjYJNHTDoHmPnJwfnD7bEvSSvhUOMKuPMCsmLR3vDhyTGi0oAqAbLjgiIXnL2wQ==
+
 split-on-first@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"

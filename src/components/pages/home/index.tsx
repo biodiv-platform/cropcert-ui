@@ -28,8 +28,8 @@ export default function HomePageComponent() {
           clearTimeout(timeout);
           if (mouseOver) return;
           timeout = setTimeout(() => {
-            slider.next();
-          }, 2000);
+            slider.moveToIdx(slider.track.details.abs + (slider as any).options.slides.perView);
+          }, 8000);
         }
         slider.on("created", () => {
           slider.container.addEventListener("mouseover", () => {

@@ -6,6 +6,8 @@
 @import "./navmenu.scss";
 @import "./timeline.scss";
 
+@import "~keen-slider/keen-slider.min.css";
+
 :root {
   --page-height: calc(100vh - 126px);
 }

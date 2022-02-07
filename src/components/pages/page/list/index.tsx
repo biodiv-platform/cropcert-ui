@@ -1,3 +1,4 @@
+import { AddIcon } from "@chakra-ui/icons";
 import { Button, ButtonGroup, Link } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import styled from "@emotion/styled";
@@ -14,6 +15,7 @@ import SortableTree from "react-sortable-tree";
 import DeleteIcon from "src/icons/delete";
 import EditIcon from "src/icons/edit";
 import PageIcon from "src/icons/page";
+import SaveIcon from "src/icons/save";
 
 import DeletePageModal from "./delete-page-modal";
 
@@ -82,16 +84,11 @@ export default function PageListComponent() {
 
   const ActionButtons = () => (
     <ButtonGroup spacing={4}>
-      <Button
-        colorScheme="green"
-        variant="solid"
-        onClick={saveUpdatedTree}
-        leftIcon={"save" as any}
-      >
+      <Button colorScheme="green" variant="solid" onClick={saveUpdatedTree} leftIcon={<SaveIcon />}>
         Save
       </Button>
       <NextLink href={`/page/add/-1`} passHref={true}>
-        <Button as={Link} colorScheme="blue" variant="solid" leftIcon={"add2" as any}>
+        <Button as={Link} colorScheme="blue" variant="solid" leftIcon={<AddIcon />}>
           Create Root Page
         </Button>
       </NextLink>

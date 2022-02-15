@@ -5,7 +5,6 @@ import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
-import { CC_EMAIL } from "@static/constants";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -60,7 +59,7 @@ export const columns = [
     sortable: true,
     width: "120px",
     cell: (r) => {
-      const to = r.contact || CC_EMAIL;
+      const to = r.contact || process.env.NEXT_PUBLIC_CC;
 
       return (
         <Button
@@ -68,7 +67,7 @@ export const columns = [
           colorScheme="blue"
           leftIcon={<EmailIcon />}
           as="a"
-          href={`mailto:${to}?subject=Inquiry on Lot ${r.lotName}&body=Hi ${r.manager},%0A%0A<your message>%0A%0APlease, provide the following detail:%0ACompany name:%0AAddress:%0AContact person:%0ATelephone:%0Aemail:%0A%0A------------------------------------%0A%0ALot Information%0ALot Name: ${r.lotName} (L-${r.id})%0ACooperative: ${r.cooperativeFullName} (${r.cooperativeName})%0AWeight: ${r.highGradeWeight}%0AStatus: ${r.lotStatus}`}
+          href={`mailto:${to}?cc=${process.env.NEXT_PUBLIC_CC}&subject=Inquiry on Lot ${r.lotName}&body=Hi ${r.manager},%0A%0A<your message>%0A%0APlease, provide the following detail:%0ACompany name:%0AAddress:%0AContact person:%0ATelephone:%0Aemail:%0A%0A------------------------------------%0A%0ALot Information%0ALot Name: ${r.lotName} (L-${r.id})%0ACooperative: ${r.cooperativeFullName} (${r.cooperativeName})%0AWeight: ${r.highGradeWeight}%0AStatus: ${r.lotStatus}`}
         >
           Inquire
         </Button>

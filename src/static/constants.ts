@@ -136,4 +136,3 @@ export const MAP: { MAP_CENTER: any; [key: string]: any } = {
   },
 };
 
-export const CC_EMAIL = "sales@rwenzorimountaincoffee.org";

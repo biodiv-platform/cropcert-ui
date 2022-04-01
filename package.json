@@ -19,7 +19,7 @@
     "@rehooks/online-status": "^1.1.2",
     "@tinymce/tinymce-react": "^3.13.0",
     "auto-toc": "^0.0.6",
-    "axios": "^0.24.0",
+    "axios": "^0.26.1",
     "coffee-flavor-wheel": "^1.1.0",
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.10.7",

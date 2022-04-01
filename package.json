@@ -54,7 +54,7 @@
     "react-select": "^5.2.2",
     "react-signature-canvas": "^1.0.3",
     "react-sortable-tree": "^2.8.0",
-    "sass": "^1.48.0",
+    "sass": "^1.49.11",
     "sparkles": "^1.0.1",
     "styled-components": "^5.3.3",
     "timeago.js": "^4.0.2",

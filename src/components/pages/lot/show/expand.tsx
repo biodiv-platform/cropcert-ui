@@ -13,7 +13,7 @@ export const ExpandedSection = (data) => (
           <Flex wrap="wrap" key={i.key} py={1}>
             <Text flexGrow={1}>{i.name}</Text>
             <Text alignSelf="right" width="auto">
-              {data.data[i.key]}
+              {data.data?.[i.key]}
             </Text>
           </Flex>
         ))}

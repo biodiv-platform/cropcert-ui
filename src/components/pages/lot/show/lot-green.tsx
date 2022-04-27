@@ -14,7 +14,9 @@ export default function LotGreenReport({ reports }) {
         noHeader={true}
         data={reports}
         expandableRows={true}
-        expandableRowsComponent={() => <ExpandedSection modal={GreenReportExpand} />}
+        expandableRowsComponent={({ data }) => (
+          <ExpandedSection modal={GreenReportExpand} data={data} />
+        )}
       />
     </LotShowPanel>
   );

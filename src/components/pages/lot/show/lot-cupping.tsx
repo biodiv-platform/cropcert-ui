@@ -14,7 +14,9 @@ export default function LotCuppingReport({ reports }) {
         noHeader={true}
         data={reports}
         expandableRows={true}
-        expandableRowsComponent={() => <ExpandedSection modal={CuppingReportExpand} />}
+        expandableRowsComponent={({ data }) => (
+          <ExpandedSection modal={CuppingReportExpand} data={data} />
+        )}
       />
     </LotShowPanel>
   );

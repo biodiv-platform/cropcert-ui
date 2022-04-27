@@ -12,7 +12,7 @@ export default function HomePageComponent() {
           slides: { perView: 2, spacing: 10 },
         },
         "(min-width: 1000px)": {
-          slides: { perView: 4, spacing: 20 },
+          slides: { perView: 6, spacing: 20 },
         },
       },
       slides: { perView: 1 },
@@ -50,7 +50,7 @@ export default function HomePageComponent() {
   );
 
   return (
-    <Box ref={sliderRef} className="keen-slider" mt={10} mb={4}>
+    <Box ref={sliderRef} className="keen-slider" my={6}>
       {new Array(39).fill(0).map((_, i) => (
         <Box className="keen-slider__slide" key={i} overflow="visible">
           <Image

@@ -6,8 +6,9 @@ import HomePageComponent from "../components/pages/home";
 
 const HomePage = ({ pageContent }) => (
   <>
-    {pageContent.success && <ShowPageComponent page={pageContent.data} />}
-    <HomePageComponent />
+    {pageContent.success && (
+      <ShowPageComponent page={pageContent.data} preContent={<HomePageComponent />} />
+    )}
   </>
 );
 

@@ -7,9 +7,10 @@ import ArticleImage from "./article-image";
 
 interface IHomePageProps {
   page: Page;
+  preContent?;
 }
 
-function HomePageComponent({ page }: IHomePageProps) {
+function HomePageComponent({ page, preContent }: IHomePageProps) {
   useEffect(() => {
     generateToC(".article", ".toc");
   }, [page.id]);
@@ -17,6 +18,7 @@ function HomePageComponent({ page }: IHomePageProps) {
   return (
     <Box>
       <ArticleImage page={page} />
+      {preContent}
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} maxW="full">
         <div>
           <div className="toc-container">

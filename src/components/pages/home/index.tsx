@@ -1,10 +1,11 @@
-import { Box, Image } from "@chakra-ui/react";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { Box, Button, ButtonGroup, Image } from "@chakra-ui/react";
 import { ENDPOINT } from "@static/constants";
 import { useKeenSlider } from "keen-slider/react";
 import React from "react";
 
 export default function HomePageComponent() {
-  const [sliderRef] = useKeenSlider(
+  const [sliderRef, slider] = useKeenSlider(
     {
       loop: true,
       breakpoints: {
@@ -18,7 +19,7 @@ export default function HomePageComponent() {
       slides: { perView: 1 },
     },
     [
-      (slider) => {
+      (_slider) => {
         let timeout;
         let mouseOver = false;
         function clearNextTimeout() {
@@ -28,41 +29,53 @@ export default function HomePageComponent() {
           clearTimeout(timeout);
           if (mouseOver) return;
           timeout = setTimeout(() => {
-            slider.moveToIdx(slider.track.details.abs + (slider as any).options.slides.perView);
-          }, 8000);
+            _slider.moveToIdx(_slider.track.details.abs + 1);
+          }, 5000);
         }
-        slider.on("created", () => {
-          slider.container.addEventListener("mouseover", () => {
+        _slider.on("created", () => {
+          _slider.container.addEventListener("mouseover", () => {
             mouseOver = true;
             clearNextTimeout();
           });
-          slider.container.addEventListener("mouseout", () => {
+          _slider.container.addEventListener("mouseout", () => {
             mouseOver = false;
             nextTimeout();
           });
           nextTimeout();
         });
-        slider.on("dragStarted", clearNextTimeout);
-        slider.on("animationEnded", nextTimeout);
-        slider.on("updated", nextTimeout);
+        _slider.on("dragStarted", clearNextTimeout);
+        _slider.on("animationEnded", nextTimeout);
+        _slider.on("updated", nextTimeout);
       },
     ]
   );
 
   return (
-    <Box ref={sliderRef} className="keen-slider" my={6}>
-      {new Array(39).fill(0).map((_, i) => (
-        <Box className="keen-slider__slide" key={i} overflow="visible">
-          <Image
-            width="100%"
-            borderRadius="lg"
-            boxShadow="lg"
-            loading="lazy"
-            background="gray.300"
-            src={`${ENDPOINT.PAGES}/image/h-slider-${i + 1}.jpg`}
-          />
-        </Box>
-      ))}
-    </Box>
+    <>
+      <Box ref={sliderRef} className="keen-slider" my={6}>
+        {new Array(39).fill(0).map((_, i) => (
+          <Box className="keen-slider__slide" key={i} overflow="visible">
+            <Image
+              width="100%"
+              borderRadius="lg"
+              boxShadow="lg"
+              loading="lazy"
+              background="gray.300"
+              src={`${ENDPOINT.PAGES}/image/h-slider-${i + 1}.jpg`}
+            />
+          </Box>
+        ))}
+      </Box>
+      <Box textAlign="right" mb={6}>
+        <ButtonGroup spacing={4} variant="outline" colorScheme="blue">
+          <Button leftIcon={<ArrowBackIcon />} onClick={() => slider?.current?.prev()}>
+            Previous
+          </Button>
+          <Button rightIcon={<ArrowForwardIcon />} onClick={() => slider?.current?.next()}>
+            Next
+          </Button>
+        </ButtonGroup>
+      </Box>
+    </>
   );
 }

@@ -11,6 +11,7 @@ const MultiSelectInputField = ({
   hint = false,
   hintText = "",
   mb = 4,
+  disabled = false,
   options = [] as any[],
   ...props
 }) => {
@@ -46,6 +47,7 @@ const MultiSelectInputField = ({
         value={value}
         isSearchable={true}
         isMulti={true}
+        isDisabled={disabled}
         onBlur={field.onBlur}
         styles={{
           valueContainer: (provided) => ({

@@ -17,7 +17,7 @@ import { flatten, isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@uti
 import notification, { NotificationType } from "@utils/notification.util";
 import { CoffeeFlavors } from "coffee-flavor-wheel";
 import { Formik } from "formik";
-import React from "react";
+import React, { useMemo } from "react";
 import SaveIcon from "src/icons/save";
 import { Cupping, Lot } from "types/traceability";
 import * as Yup from "yup";
@@ -130,6 +130,23 @@ export default function CuppingReportForm({
         const isFinalizeEnabled =
           canWrite && isEverythingFilledExcept("finalizeCuppingStatus", props.values);
 
+        const [qualitiesTotal, problemsTotal] = useMemo(() => {
+          return [
+            props.values.fragranceAroma +
+              props.values.flavour +
+              props.values.acidity +
+              props.values.body +
+              props.values.afterTaste +
+              props.values.balance +
+              props.values.sweetness +
+              props.values.uniformity +
+              props.values.cleanCup +
+              props.values.overAll,
+
+            props.values.taint + props.values.fault,
+          ];
+        }, [props.values]);
+
         return (
           <form onSubmit={props.handleSubmit}>
             <ModalContent>
@@ -152,7 +169,7 @@ export default function CuppingReportForm({
                   <DateTime label="Report Time" name="timestamp" disabled={!canWrite} />
                 </CoreGrid>
 
-                <FormHeading>Qualities</FormHeading>
+                <FormHeading>Qualities ({qualitiesTotal || 0})</FormHeading>
                 <CoreGrid rows={5}>
                   <Number label="Fragrance Aroma" name="fragranceAroma" disabled={!canWrite} />
                   <Number label="Flavour" name="flavour" disabled={!canWrite} />
@@ -170,7 +187,7 @@ export default function CuppingReportForm({
 
                 <CoreGrid rows={2}>
                   <Box>
-                    <FormHeading>Problems</FormHeading>
+                    <FormHeading>Problems ({problemsTotal || 0})</FormHeading>
                     <CoreGrid rows={2}>
                       <Number label="Taint" name="taint" disabled={!canWrite} />
                       <Number label="Fault" name="fault" disabled={!canWrite} />
@@ -186,6 +203,10 @@ export default function CuppingReportForm({
                     />
                   </Box>
                 </CoreGrid>
+
+                <Box fontWeight="bold" fontSize="xl">
+                  Quality Score &rarr; {qualitiesTotal - problemsTotal}
+                </Box>
                 <CheckBox
                   name="finalizeCuppingStatus"
                   mt={4}

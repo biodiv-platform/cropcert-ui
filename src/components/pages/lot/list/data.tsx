@@ -56,7 +56,7 @@ const GRNActionCell = (lot: Lot) => {
 const MillingActionCell = (lot: Lot) => {
   const { canWrite, colorScheme, show } = useActionProps(lot.millingStatus, ROLES.COOPERATIVE);
 
-  return show ? (
+  return show && (canWrite || lot.millingStatus === LOT_FLAGS.DONE) ? (
     <Button
       {...buttonProps}
       colorScheme={colorScheme}
@@ -71,8 +71,9 @@ const MillingActionCell = (lot: Lot) => {
 
 const LotFactoryActionCell = (lot: Lot) => {
   const { canWrite, colorScheme, show } = useActionProps(lot.factoryStatus, ROLES.UNION);
+  const isDone = lot.factoryStatus === LOT_FLAGS.DONE;
 
-  return show ? (
+  return show && (canWrite || isDone) ? (
     <Button
       {...buttonProps}
       colorScheme={colorScheme}
@@ -87,8 +88,9 @@ const LotFactoryActionCell = (lot: Lot) => {
 
 const GreenLabReportCell = (lot: Lot) => {
   const { canWrite, colorScheme, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
+  const isDone = lot.greenAnalysisStatus === LOT_FLAGS.DONE;
 
-  return show && (canWrite || lot.greenAnalysisStatus === LOT_FLAGS.DONE) ? (
+  return show && (canWrite || isDone) ? (
     <Button
       {...buttonProps}
       colorScheme={colorScheme}

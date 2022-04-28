@@ -61,7 +61,7 @@ export default function HomePageComponent() {
               boxShadow="lg"
               loading="lazy"
               background="gray.300"
-              src={`${ENDPOINT.PAGES}/image/h-slider-${i + 1}.jpg`}
+              src={`${ENDPOINT.PAGES}/image/crop-img-${i + 1}.jpg`}
             />
           </Box>
         ))}

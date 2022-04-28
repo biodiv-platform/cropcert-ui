@@ -135,64 +135,64 @@ const CuppingLabReportCell = (lot: Required<Lot>) => {
 export const lotColumns = [
   {
     name: "#",
-    selector: "id",
+    selector: (row) => row.id,
     sortable: true,
-    width: "90px",
+    width: "80px",
     cell: (row) => <LotCell {...row} type="l" />,
   },
   {
     name: "Name",
-    selector: "lotName",
-    width: "250px",
+    selector: (row) => row.lotName,
+    width: "220px",
   },
   {
     name: "Initial Quantity",
-    selector: "quantity",
+    selector: (row) => row.quantity,
     center: true,
     sortable: true,
     width: "70px",
   },
   {
     name: "Lot Status",
-    selector: "lotStatus",
+    selector: (row) => row.lotStatus,
     center: true,
     sortable: true,
-    width: "160px",
+    width: "150px",
     cell: ({ lotStatus }) => <Badge>{lotStatus.split("_").join(" ")}</Badge>,
   },
   {
     center: true,
     name: "Cooperative",
-    selector: "id",
+    selector: (row) => row.id,
     cell: CoActionCell,
   },
   {
     name: "Milling",
-    selector: "id",
+    selector: (row) => row.id,
     center: true,
     cell: MillingActionCell,
   },
   {
     name: "GRN",
-    selector: "id",
+    selector: (row) => row.id,
     center: true,
     cell: GRNActionCell,
   },
   {
     name: "Factory Report",
-    selector: "id",
+    selector: (row) => row.id,
     center: true,
     cell: LotFactoryActionCell,
   },
   {
     name: "Green Lab Report",
-    selector: "id",
+    selector: (row) => row.id,
     center: true,
     cell: GreenLabReportCell,
   },
   {
     name: "Cupping Lab Report",
-    selector: "id",
+    selector: (row) => row.id,
     center: true,
     cell: CuppingLabReportCell,
   },
@@ -201,17 +201,17 @@ export const lotColumns = [
 export const batchColumns = [
   {
     name: "#",
-    selector: "id",
+    selector: (row) => row.id,
     sortable: true,
     cell: (row) => `B-${row.id}`,
   },
   {
     name: "Name",
-    selector: "batchName",
+    selector: (row) => row.batchName,
   },
   {
     name: "Quantity",
-    selector: "quantity",
+    selector: (row) => row.quantity,
     sortable: true,
   },
 ];
@@ -219,7 +219,7 @@ export const batchColumns = [
 export const batchColumnsWet = [
   {
     name: "Perchment Quantity",
-    selector: "perchmentQuantity",
+    selector: (row) => row.perchmentQuantity,
     sortable: true,
   },
 ];

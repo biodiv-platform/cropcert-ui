@@ -44,6 +44,14 @@ function LotListPageComponent({ unions }) {
             data={state.lot}
             columns={lotColumns}
             expandableRows={true}
+            customStyles={{
+              cells: {
+                style: {
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                },
+              },
+            }}
             expandableRowsComponent={LotExpand}
           />
         </InfiniteScroll>

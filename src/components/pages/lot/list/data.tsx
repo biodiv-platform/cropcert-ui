@@ -88,7 +88,7 @@ const LotFactoryActionCell = (lot: Lot) => {
 const GreenLabReportCell = (lot: Lot) => {
   const { canWrite, colorScheme, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
 
-  return show ? (
+  return show && (canWrite || lot.greenAnalysisStatus === LOT_FLAGS.DONE) ? (
     <Button
       {...buttonProps}
       colorScheme={colorScheme}
@@ -109,14 +109,15 @@ const CuppingLabReportCell = (lot: Required<Lot>) => {
       lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
   };
   const { canWrite, colorScheme, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
+  const atLeastOneDoneReport = lot.cuppings.filter((o) => o.status === LOT_FLAGS.DONE).length > 0;
 
-  return show ? (
+  return show && (canWrite || atLeastOneDoneReport) ? (
     <Button
       {...buttonProps}
-      colorScheme={colorScheme}
+      colorScheme={canWrite ? colorScheme : "green"}
       onClick={() => emit(LOT_REPORT_CUPPING, { lot, currentReport, canWrite })}
     >
-      {withSkeletonReport.status}
+      {canWrite ? withSkeletonReport.status : LOT_FLAGS.DONE}
     </Button>
   ) : (
     <NotApplicable />

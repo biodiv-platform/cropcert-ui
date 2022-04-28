@@ -111,13 +111,19 @@ const CuppingLabReportCell = (lot: Required<Lot>) => {
       lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
   };
   const { canWrite, colorScheme, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
-  const atLeastOneDoneReport = lot.cuppings.filter((o) => o.status === LOT_FLAGS.DONE).length > 0;
+  const atLeastOneDoneReport = lot.cuppings.find((o) => o.status === LOT_FLAGS.DONE);
 
   return show && (canWrite || atLeastOneDoneReport) ? (
     <Button
       {...buttonProps}
       colorScheme={canWrite ? colorScheme : "green"}
-      onClick={() => emit(LOT_REPORT_CUPPING, { lot, currentReport, canWrite })}
+      onClick={() =>
+        emit(LOT_REPORT_CUPPING, {
+          lot,
+          currentReport: canWrite ? currentReport : atLeastOneDoneReport,
+          canWrite,
+        })
+      }
     >
       {canWrite ? withSkeletonReport.status : LOT_FLAGS.DONE}
     </Button>

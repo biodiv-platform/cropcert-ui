@@ -3,7 +3,7 @@ import React from "react";
 
 import { ArticleImageBox } from "../page/show/article-image";
 
-export default function MarketingHeader() {
+export default function MarketingHeader({ isGIAdmin }) {
   return (
     <ArticleImageBox
       style={{
@@ -13,7 +13,7 @@ export default function MarketingHeader() {
     >
       <div className="main-title">
         <Heading as="h1" mb={1}>
-          Lots for Sale
+          {isGIAdmin ? "Lot Details" : "Lots for Sale"}
         </Heading>
         <Text fontStyle="italic" fontSize="lg">
           Organic certified coffee Rwenzori Mountain Coffee lots for sale are listed below. Please

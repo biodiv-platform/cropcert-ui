@@ -85,7 +85,8 @@ export default function MarketingPageComponent() {
   const { list, setCoCodes, loadMore, isLoading } = useMarketing();
   const [union, setUnion] = useState<any>();
 
-  const [isFiltered, setIsFiltered] = useState(true);
+  const isGIAdmin = hasAccess(["gi_admin"]);
+  const [isFiltered, setIsFiltered] = useState(!isGIAdmin);
 
   const dataList = useMemo(
     () => (isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l),
@@ -94,7 +95,7 @@ export default function MarketingPageComponent() {
 
   return (
     <Box>
-      <MarketingHeader />
+      <MarketingHeader isGIAdmin={isGIAdmin} />
       <style
         children={`body{ background-image:url(/assets/pattern-coffee.png); background-size: 150px}`}
       />
@@ -105,7 +106,7 @@ export default function MarketingPageComponent() {
           <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
           <Checkbox
-            defaultIsChecked={true}
+            defaultIsChecked={isFiltered}
             onChange={(e) => setIsFiltered(e.target.checked)}
             mt={4}
           >

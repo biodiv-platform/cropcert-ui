@@ -6,6 +6,12 @@ const links = [
     title: "Traceability",
     children: [
       {
+        title: "📦 Lot(s) for Sale",
+        description: "Information on Lots",
+        to: "/marketing",
+        access: ["gi_admin"],
+      },
+      {
         title: "🧺 Batch(s)",
         description: "Create, View or Manage Batches",
         to: "/batch/list",

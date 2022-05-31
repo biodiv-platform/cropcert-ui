@@ -4,7 +4,9 @@ import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import LotCell from "@components/@core/table/lot-cell";
 import timeCell from "@components/@core/table/time-cell";
+import { hasAccess } from "@utils/auth.util";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -12,6 +14,15 @@ import MarketingHeader from "./header";
 import useMarketing from "./use-marketing";
 
 export const columns = [
+  {
+    name: "Lot Id",
+    selector: (row) => row.id,
+    width: "100px",
+    cell: (row) => {
+      const isGIAdmin = hasAccess(["gi_admin"]);
+      return isGIAdmin ? <LotCell {...row} type="l" /> : `L-${row.id}`;
+    },
+  },
   {
     name: "Cooperative Name",
     selector: (row) => row.cooperativeName,
@@ -31,12 +42,6 @@ export const columns = [
     name: "Lot Name",
     selector: (row) => row.lotName,
     width: "240px",
-  },
-  {
-    name: "Lot Id",
-    selector: (row) => row.id,
-    width: "100px",
-    cell: (row) => `L-${row.id}`,
   },
   {
     name: "GRN",

@@ -7,7 +7,7 @@ export default function GreenReportSummery({ values }) {
 
   const qualityGradingSummeryHeader = GRADE_KEYS.map((k) => ({
     name: k.replace("grade", "Grade "),
-    selector: k,
+    selector: (row) => row[k],
   }));
 
   useEffect(() => {

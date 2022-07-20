@@ -1,4 +1,4 @@
-import SignatureInputField from "@components/@core/formik/signature";
+import { SignatureInputField } from "@components/form/signature";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 

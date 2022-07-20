@@ -1,5 +1,5 @@
-import { DateTime } from "@components/@core/formik";
-import RadioGroupInputField from "@components/@core/formik/radio-group";
+import { DateTimeInputField } from "@components/form/datepicker";
+import { RadioInputField } from "@components/form/radio";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 
@@ -10,7 +10,7 @@ export default function Recommendation() {
     <LotShowPanel title="Recommendation" icon="🎖️" isOpen={true}>
       <GridRow
         label="If Farmer has made serious Violation, date when Violation report was sent to project Supervisor"
-        field={DateTime}
+        field={DateTimeInputField}
         name="violationDate"
         format="dd-MM-yyyy"
         defaultBlank={true}
@@ -19,7 +19,7 @@ export default function Recommendation() {
       <GridRow
         label="Recommended Organic certification"
         mb={0}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isRecommendedOrganicCertificatation"
       />
     </LotShowPanel>

@@ -9,8 +9,8 @@ import FactoryReportDryModal from "./modal";
 
 export default function FactoryReportDry({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [lot, setLot] = useState({} as Lot);
-  const [report, setReport] = useState<FactoryReport>({});
+  const [lot, setLot] = useState<Lot | undefined>();
+  const [report, setReport] = useState<FactoryReport | undefined>();
   const [canWrite, setCanWrite] = useState(false);
 
   useListener(
@@ -23,16 +23,24 @@ export default function FactoryReportDry({ update }) {
     [LOT_REPORT_FACTORY_DRY]
   );
 
+  const handleOnClose = () => {
+    onClose();
+    setLot(undefined);
+    setReport(undefined);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">
+    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size="6xl">
       <ModalOverlay />
-      <FactoryReportDryModal
-        report={report}
-        lot={lot}
-        onClose={onClose}
-        canWrite={canWrite}
-        update={update}
-      />
+      {lot && report && (
+        <FactoryReportDryModal
+          report={report}
+          lot={lot}
+          onClose={handleOnClose}
+          canWrite={canWrite}
+          update={update}
+        />
+      )}
     </Modal>
   );
 }

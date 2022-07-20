@@ -1,36 +1,41 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Submit, TextBox } from "@components/@core/formik";
-import CheckBoxInputField from "@components/@core/formik/checkbox";
-import PasswordInputField from "@components/@core/formik/password";
 import { PageHeading } from "@components/@core/layout";
+import { CheckBoxField } from "@components/form/checkbox";
+import { PasswordInputField } from "@components/form/password";
+import { SubmitButton } from "@components/form/submit-button";
+import { TextBoxField } from "@components/form/text";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { axGetUser, axSignIn } from "@services/auth.service";
 import { TOKEN } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
 import { registerSW, removeCache, unregisterSW } from "@utils/auth.util";
 import notification from "@utils/notification.util";
-import { Formik } from "formik";
 import useNookies from "next-nookies-persist";
 import React, { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
 function SignInForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { setNookie } = useNookies();
 
-  const signInForm = {
-    validationSchema: Yup.object().shape({
-      userName: Yup.string().email().required(),
-      password: Yup.string().required(),
-      prepareOffline: Yup.boolean().notRequired(),
-    }),
-    initialValues: {
+  const hForm = useForm<any>({
+    mode: "onChange",
+    resolver: yupResolver(
+      Yup.object().shape({
+        userName: Yup.string().email().required(),
+        password: Yup.string().required(),
+        prepareOffline: Yup.boolean().notRequired(),
+      })
+    ),
+    defaultValues: {
       userName: "",
       password: "",
       prepareOffline: true,
     },
-  };
+  });
 
-  const handleOnSubmit = async ({ prepareOffline, ...values }, actions) => {
+  const handleOnSubmit = async ({ prepareOffline, ...values }) => {
     try {
       const token = await axSignIn(values);
       setNookie(TOKEN.AUTH, token);
@@ -52,24 +57,21 @@ function SignInForm() {
       console.error(e);
       notification(SIGN_IN.ERROR);
     }
-    actions.setSubmitting(false);
   };
 
   return (
     <>
       <PageHeading>{isLoggedIn ? "Redirecting..." : "Sign in to your account"}</PageHeading>
-      <Formik {...signInForm} onSubmit={handleOnSubmit}>
-        {(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <TextBox name="userName" autoComplete="username" label="Username" />
-            <PasswordInputField name="password" autoComplete="current-password" label="Password" />
-            <CheckBoxInputField name="prepareOffline" label="Offline Ready" />
-            <Submit>
-              Sign In <ArrowForwardIcon ml={2} />
-            </Submit>
-          </form>
-        )}
-      </Formik>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
+          <TextBoxField name="userName" autoComplete="username" label="Username" />
+          <PasswordInputField name="password" autoComplete="current-password" label="Password" />
+          <CheckBoxField name="prepareOffline" label="Offline Ready" />
+          <SubmitButton>
+            Sign In <ArrowForwardIcon ml={2} />
+          </SubmitButton>
+        </form>
+      </FormProvider>
     </>
   );
 }

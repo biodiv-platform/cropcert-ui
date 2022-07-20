@@ -10,15 +10,20 @@ import {
   ModalHeader,
   Text,
 } from "@chakra-ui/react";
-import { CheckBox, DateTime, Number, Submit, TextBox } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
+import { CheckBoxField } from "@components/form/checkbox";
+import { DateTimeInputField } from "@components/form/datepicker";
+import { NumberInputField } from "@components/form/number";
+import { SubmitButton } from "@components/form/submit-button";
+import { TextBoxField } from "@components/form/text";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateGreenReport } from "@services/report.service";
 import { LOT_FLAGS } from "@static/constants";
 import { MLOT } from "@static/messages";
 import { isEverythingFilledExcept, local2utc, nonZeroFalsy } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
-import { Formik } from "formik";
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import { FactoryReport, Lot, QualityReport } from "types/traceability";
 import * as Yup from "yup";
@@ -52,54 +57,57 @@ export default function GreenReportForm({
     lot.weightLeavingFactory
   ).toFixed(2);
 
-  const greenForm = {
-    validationSchema: Yup.object().shape({
-      lotName: Yup.string().required(),
-      lotId: Yup.string().required(),
-      date: Yup.number().required(),
-      cfa: Yup.string().required(),
-      ccName: Yup.string().required(),
+  const hForm = useForm<any>({
+    mode: "onBlur",
+    resolver: yupResolver(
+      Yup.object().shape({
+        lotName: Yup.string().required(),
+        lotId: Yup.string().required(),
+        date: Yup.number().required(),
+        cfa: Yup.string().required(),
+        ccName: Yup.string().required(),
 
-      coffeeType: Yup.string().required(),
-      overTurnPercentage: Yup.number().required(),
-      mc: Yup.number().required(),
-      grnNumber: Yup.string().required(),
+        coffeeType: Yup.string().required(),
+        overTurnPercentage: Yup.number().required(),
+        mc: Yup.number().required(),
+        grnNumber: Yup.string().required(),
 
-      // Grades
-      ...(lot.type === "WET"
-        ? {
-            gradeAA: Yup.number().required(),
-            gradeA: Yup.number().required(),
-            gradeB: Yup.number().required(),
-            gradeAB: Yup.number().required(),
-            gradeC: Yup.number().required(),
-            gradePB: Yup.number().required(),
-            gradeTriage: Yup.number().required(),
-          }
-        : {}),
+        // Grades
+        ...(lot.type === "WET"
+          ? {
+              gradeAA: Yup.number().required(),
+              gradeA: Yup.number().required(),
+              gradeB: Yup.number().required(),
+              gradeAB: Yup.number().required(),
+              gradeC: Yup.number().required(),
+              gradePB: Yup.number().required(),
+              gradeTriage: Yup.number().required(),
+            }
+          : {}),
 
-      // Severe defects
-      fullBlack: Yup.number().required(),
-      fullSour: Yup.number().required(),
-      pods: Yup.number().required(),
-      fungasDamaged: Yup.number().required(),
-      em: Yup.number().required(),
-      severeInsect: Yup.number().required(),
+        // Severe defects
+        fullBlack: Yup.number().required(),
+        fullSour: Yup.number().required(),
+        pods: Yup.number().required(),
+        fungasDamaged: Yup.number().required(),
+        em: Yup.number().required(),
+        severeInsect: Yup.number().required(),
 
-      // Less Severe defects
-      partialBlack: Yup.number().required(),
-      partialSour: Yup.number().required(),
-      patchment: Yup.number().required(),
-      floatersChalky: Yup.number().required(),
-      immature: Yup.number().required(),
-      withered: Yup.number().required(),
-      shells: Yup.number().required(),
-      brokenChipped: Yup.number().required(),
-      husks: Yup.number().required(),
-      pinHole: Yup.number().required(),
-      finalizeGreenStatus: Yup.boolean().required(),
-    }),
-    initialValues: {
+        // Less Severe defects
+        partialBlack: Yup.number().required(),
+        partialSour: Yup.number().required(),
+        patchment: Yup.number().required(),
+        floatersChalky: Yup.number().required(),
+        immature: Yup.number().required(),
+        withered: Yup.number().required(),
+        shells: Yup.number().required(),
+        brokenChipped: Yup.number().required(),
+        husks: Yup.number().required(),
+        pinHole: Yup.number().required(),
+        finalizeGreenStatus: Yup.boolean().required(),
+      })
+    ),
+    defaultValues: {
       lotName: lot.lotName,
       lotId: lot.id,
       date: lot.grnTimestamp,
@@ -142,7 +150,7 @@ export default function GreenReportForm({
       pinHole: report.pinHole || 0,
       finalizeGreenStatus: lot.greenAnalysisStatus === LOT_FLAGS.DONE,
     },
-  };
+  });
 
   const qualityGrading = (v) => {
     const t = v.gradeAA + v.gradeA + v.gradeB + v.gradeAB + v.gradeC + v.gradePB + v.gradeTriage;
@@ -206,7 +214,7 @@ export default function GreenReportForm({
     }
   };
 
-  const handleGreenReportSubmit = async (values, actions) => {
+  const handleGreenReportSubmit = async (values) => {
     const { grnNumber, ...v } = values;
     const { success, data } = await axCreateGreenReport({
       ...v,
@@ -218,119 +226,123 @@ export default function GreenReportForm({
       notification(MLOT.GREEN_REPORT_CREATED, NotificationType.Success, data?.qualityReport);
       onClose();
     }
-    actions.setSubmitting(false);
   };
 
+  const values = hForm.watch();
+
+  const isFDisabled = !canWrite;
+  const isFinalizeEnabled = canWrite && isEverythingFilledExcept("finalizeGreenStatus", values);
+
   return (
-    <Formik {...greenForm} enableReinitialize={true} onSubmit={handleGreenReportSubmit}>
-      {(props) => {
-        const isFDisabled = !canWrite;
-        const isFinalizeEnabled =
-          canWrite && isEverythingFilledExcept("finalizeGreenStatus", props.values);
-        return (
-          <form onSubmit={props.handleSubmit}>
-            <ModalContent>
-              <ModalHeader>🧪 Quality/Green Lab Report</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
+    <FormProvider {...hForm}>
+      <form onSubmit={hForm.handleSubmit(handleGreenReportSubmit)}>
+        <ModalContent>
+          <ModalHeader>🧪 Quality/Green Lab Report</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <CoreGrid>
+              <TextBoxField name="grnNumber" label="GRN Number" disabled={true} />
+              <TextBoxField label="Lot Name" name="lotName" disabled={true} />
+              <DateTimeInputField label="Lot Reception Date" name="date" disabled={true} />
+              <TextBoxField label="Cooperative Name" name="cfa" disabled={true} />
+            </CoreGrid>
+            <CoreGrid>
+              <TextBoxField label="Collection Center Name(s)" name="ccName" disabled={true} />
+              <TextBoxField label="Coffee Type" name="coffeeType" disabled={true} />
+              <TextBoxField label="Outturn Percentage" name="overTurnPercentage" disabled={true} />
+            </CoreGrid>
+
+            <FormHeading>Report</FormHeading>
+            <CoreGrid>
+              <DateTimeInputField label="Report Time" name="timestamp" disabled={isFDisabled} />
+              <NumberInputField label="Moisture Content" name="mc" disabled={isFDisabled} />
+            </CoreGrid>
+
+            {lot.type === "WET" && (
+              <>
+                <FormHeading>Quality Grading - {qualityGrading(values)}g</FormHeading>
                 <CoreGrid>
-                  <TextBox name="grnNumber" label="GRN Number" disabled={true} />
-                  <TextBox label="Lot Name" name="lotName" disabled={true} />
-                  <DateTime label="Lot Reception Date" name="date" disabled={true} />
-                  <TextBox label="Cooperative Name" name="cfa" disabled={true} />
+                  <NumberInputField label="AA" name="gradeAA" disabled={isFDisabled} />
+                  <NumberInputField label="A" name="gradeA" disabled={isFDisabled} />
+                  <NumberInputField label="B" name="gradeB" disabled={isFDisabled} />
+                  <NumberInputField label="AB" name="gradeAB" disabled={isFDisabled} />
                 </CoreGrid>
                 <CoreGrid>
-                  <TextBox label="Collection Center Name(s)" name="ccName" disabled={true} />
-                  <TextBox label="Coffee Type" name="coffeeType" disabled={true} />
-                  <TextBox label="Outturn Percentage" name="overTurnPercentage" disabled={true} />
+                  <NumberInputField label="C" name="gradeC" disabled={isFDisabled} />
+                  <NumberInputField label="PB" name="gradePB" disabled={isFDisabled} />
+                  <NumberInputField label="Triage" name="gradeTriage" disabled={isFDisabled} />
                 </CoreGrid>
 
-                <FormHeading>Report</FormHeading>
-                <CoreGrid>
-                  <DateTime label="Report Time" name="timestamp" disabled={isFDisabled} />
-                  <Number label="Moisture Content" name="mc" disabled={isFDisabled} />
-                </CoreGrid>
+                <FormHeading>Quality Grading Summary</FormHeading>
+                <GreenReportSummery values={values} />
+              </>
+            )}
 
-                {lot.type === "WET" && (
-                  <>
-                    <FormHeading>Quality Grading - {qualityGrading(props.values)}g</FormHeading>
-                    <CoreGrid>
-                      <Number label="AA" name="gradeAA" disabled={isFDisabled} />
-                      <Number label="A" name="gradeA" disabled={isFDisabled} />
-                      <Number label="B" name="gradeB" disabled={isFDisabled} />
-                      <Number label="AB" name="gradeAB" disabled={isFDisabled} />
-                    </CoreGrid>
-                    <CoreGrid>
-                      <Number label="C" name="gradeC" disabled={isFDisabled} />
-                      <Number label="PB" name="gradePB" disabled={isFDisabled} />
-                      <Number label="Triage" name="gradeTriage" disabled={isFDisabled} />
-                    </CoreGrid>
+            <FormHeading>Severe Defects - {severeDefectsTotal(values)}</FormHeading>
+            {defectsTotalError(values)}
+            <CoreGrid rows={6}>
+              <NumberInputField label="Full Black" name="fullBlack" disabled={isFDisabled} />
+              <NumberInputField label="Full Sour" name="fullSour" disabled={isFDisabled} />
+              <NumberInputField label="Pods" name="pods" disabled={isFDisabled} />
+              <NumberInputField
+                label="Fungas Damaged"
+                name="fungasDamaged"
+                disabled={isFDisabled}
+              />
+              <NumberInputField label="E M" name="em" disabled={isFDisabled} />
+              <NumberInputField label="Severe Insect" name="severeInsect" disabled={isFDisabled} />
+            </CoreGrid>
 
-                    <FormHeading>Quality Grading Summary</FormHeading>
-                    <GreenReportSummery values={props.values} />
-                  </>
-                )}
+            <FormHeading>Less Severe Defects - {lessSevereDefectsTotal(values)}</FormHeading>
+            {defectsTotalError(values)}
+            <CoreGrid rows={6}>
+              <NumberInputField label="Partial Black" name="partialBlack" disabled={isFDisabled} />
+              <NumberInputField label="Partial Sour" name="partialSour" disabled={isFDisabled} />
+              <NumberInputField label="Patchment" name="patchment" disabled={isFDisabled} />
+              <NumberInputField
+                label="Floaters/Chalky"
+                name="floatersChalky"
+                disabled={isFDisabled}
+              />
+              <NumberInputField label="Immature" name="immature" disabled={isFDisabled} />
+              <NumberInputField label="Withered" name="withered" disabled={isFDisabled} />
+            </CoreGrid>
+            <CoreGrid rows={6}>
+              <NumberInputField label="Shells" name="shells" disabled={isFDisabled} />
+              <NumberInputField
+                label="Broken/Chipped"
+                name="brokenChipped"
+                disabled={isFDisabled}
+              />
+              <NumberInputField label="Husks" name="husks" disabled={isFDisabled} />
+              <NumberInputField label="Pin Hole" name="pinHole" disabled={isFDisabled} />
+            </CoreGrid>
 
-                <FormHeading>Severe Defects - {severeDefectsTotal(props.values)}</FormHeading>
-                {defectsTotalError(props.values)}
-                <CoreGrid rows={6}>
-                  <Number label="Full Black" name="fullBlack" disabled={isFDisabled} />
-                  <Number label="Full Sour" name="fullSour" disabled={isFDisabled} />
-                  <Number label="Pods" name="pods" disabled={isFDisabled} />
-                  <Number label="Fungas Damaged" name="fungasDamaged" disabled={isFDisabled} />
-                  <Number label="E M" name="em" disabled={isFDisabled} />
-                  <Number label="Severe Insect" name="severeInsect" disabled={isFDisabled} />
-                </CoreGrid>
+            <Text>
+              {lot.type === "DRY" ? "Out turn FAQ " : "Out turn "} &rarr;
+              {outTurnFAQ(values)}%
+            </Text>
 
-                <FormHeading>
-                  Less Severe Defects - {lessSevereDefectsTotal(props.values)}
-                </FormHeading>
-                {defectsTotalError(props.values)}
-                <CoreGrid rows={6}>
-                  <Number label="Partial Black" name="partialBlack" disabled={isFDisabled} />
-                  <Number label="Partial Sour" name="partialSour" disabled={isFDisabled} />
-                  <Number label="Patchment" name="patchment" disabled={isFDisabled} />
-                  <Number label="Floaters/Chalky" name="floatersChalky" disabled={isFDisabled} />
-                  <Number label="Immature" name="immature" disabled={isFDisabled} />
-                  <Number label="Withered" name="withered" disabled={isFDisabled} />
-                </CoreGrid>
-                <CoreGrid rows={6}>
-                  <Number label="Shells" name="shells" disabled={isFDisabled} />
-                  <Number label="Broken/Chipped" name="brokenChipped" disabled={isFDisabled} />
-                  <Number label="Husks" name="husks" disabled={isFDisabled} />
-                  <Number label="Pin Hole" name="pinHole" disabled={isFDisabled} />
-                </CoreGrid>
-
-                <Text>
-                  {lot.type === "DRY" ? "Out turn FAQ " : "Out turn "} &rarr;
-                  {outTurnFAQ(props.values)}%
-                </Text>
-
-                <CheckBox
-                  name="finalizeGreenStatus"
-                  label={
-                    <span>
-                      Dispatch to Milling <Badge colorScheme="red">irreversible</Badge>
-                    </span>
-                  }
-                  isDisabled={isFinalizeEnabled}
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Submit
-                  leftIcon={<SaveIcon />}
-                  isDisabled={outTurnFAQ(props.values) <= 0 || !canWrite}
-                >
-                  Save
-                </Submit>
-              </ModalFooter>
-            </ModalContent>
-          </form>
-        );
-      }}
-    </Formik>
+            <CheckBoxField
+              name="finalizeGreenStatus"
+              label={
+                <span>
+                  Dispatch to Milling <Badge colorScheme="red">irreversible</Badge>
+                </span>
+              }
+              isDisabled={isFinalizeEnabled}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <SubmitButton leftIcon={<SaveIcon />} isDisabled={outTurnFAQ(values) <= 0 || !canWrite}>
+              Save
+            </SubmitButton>
+          </ModalFooter>
+        </ModalContent>
+      </form>
+    </FormProvider>
   );
 }

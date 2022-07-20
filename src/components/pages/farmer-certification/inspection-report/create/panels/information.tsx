@@ -7,41 +7,41 @@ export default function FarmerInformation({ farmer }) {
   const basicInfoHeader = [
     {
       name: "Farmer Name",
-      selector: "firstName",
+      selector: (row) => row.firstName,
       cell: ({ firstName, lastName }) => `${firstName} ${lastName}`,
     },
     {
       name: "Farmer Code",
-      selector: "farmerCode",
+      selector: (row) => row.farmerCode,
     },
     {
       name: "No of Coffee Fields",
-      selector: "numCoffeePlots",
+      selector: (row) => row.numCoffeePlots,
     },
     {
       name: "Collection Center Code",
-      selector: "ccCode",
+      selector: (row) => row.ccCode,
     },
     {
       name: "Sub Country",
-      selector: "subCountry",
+      selector: (row) => row.subCountry,
     },
     {
       name: "Village",
-      selector: "village",
+      selector: (row) => row.village,
     },
     {
       name: "Inspector",
-      selector: "inspectorName",
+      selector: (row) => row.inspectorName,
     },
     {
       name: "Last version",
-      selector: "version",
+      selector: (row) => row.version,
       cell: ({ version, subVersion }) => `${version || 0}.${subVersion || 0}`,
     },
     {
       name: "Last Report Date",
-      selector: "inspection.date",
+      selector: (row) => row.inspection.date,
       cell: ({ inspection }) => (inspection?.date ? formattedDate(inspection?.date) : "NA"),
     },
   ];

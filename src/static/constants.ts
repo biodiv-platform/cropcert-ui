@@ -135,4 +135,3 @@ export const MAP: { MAP_CENTER: any; [key: string]: any } = {
     ATTRIBUTION: `&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
   },
 };
-

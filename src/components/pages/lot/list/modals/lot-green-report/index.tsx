@@ -28,13 +28,20 @@ export default function GreenReportModal({ update }) {
     [LOT_REPORT_GREEN]
   );
 
+  const handleOnClose = () => {
+    onClose();
+    setReport(undefined);
+    setFactoryReport(undefined);
+    setOrigin(undefined);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">
+    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size="6xl">
       <ModalOverlay />
       {origin && report && factoryReport && (
         <GreenReportForm
           report={report}
-          onClose={onClose}
+          onClose={handleOnClose}
           canWrite={canWrite}
           update={update}
           lot={lot}

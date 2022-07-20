@@ -8,15 +8,19 @@ import {
   ModalHeader,
   Text,
 } from "@chakra-ui/react";
-import { CheckBox, DateTime, Number, Submit } from "@components/@core/formik";
 import { CoreGrid } from "@components/@core/layout";
+import { CheckBoxField } from "@components/form/checkbox";
+import { DateTimeInputField } from "@components/form/datepicker";
+import { NumberInputField } from "@components/form/number";
+import { SubmitButton } from "@components/form/submit-button";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateFactoryReport } from "@services/report.service";
 import { LOT_FLAGS } from "@static/constants";
 import { GENERIC, MLOT } from "@static/messages";
 import { nonZeroFalsy } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
-import { Formik } from "formik";
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import { Lot } from "types/traceability";
 import * as Yup from "yup";
@@ -41,34 +45,37 @@ export default function FactoryReportDryModal({
   canWrite,
   update,
 }: IFactoryReportProps) {
-  const factoryReportForm = {
-    validationSchema: Yup.object().shape({
-      date: Yup.number().required(),
+  const hForm = useForm<any>({
+    mode: "onBlur",
+    resolver: yupResolver(
+      Yup.object().shape({
+        date: Yup.number().required(),
 
-      mcIn: Yup.number().required().max(100),
-      mcOut: Yup.number().required().max(100),
+        mcIn: Yup.number().required().max(100),
+        mcOut: Yup.number().required().max(100),
 
-      inputWeight: Yup.number().required(),
-      spillPrivBatch: Yup.number().required(),
-      spillCF: Yup.number().required(),
+        inputWeight: Yup.number().required(),
+        spillPrivBatch: Yup.number().required(),
+        spillCF: Yup.number().required(),
 
-      highGradeWeight: Yup.number().required(),
+        highGradeWeight: Yup.number().required(),
 
-      triage: Yup.number().required(),
-      pods: Yup.number().required(),
-      sweeppingsOrSpillages: Yup.number().required(),
+        triage: Yup.number().required(),
+        pods: Yup.number().required(),
+        sweeppingsOrSpillages: Yup.number().required(),
 
-      totalBlackBeans: Yup.number().required(),
+        totalBlackBeans: Yup.number().required(),
 
-      stone: Yup.number().required(),
-      preCleaner: Yup.number().required(),
-      graderHusks: Yup.number().required(),
+        stone: Yup.number().required(),
+        preCleaner: Yup.number().required(),
+        graderHusks: Yup.number().required(),
 
-      handlingLoss: Yup.number().required(),
-      dryingLoss: Yup.number().required(),
-      finalizeFactoryStatus: Yup.boolean().required(),
-    }),
-    initialValues: {
+        handlingLoss: Yup.number().required(),
+        dryingLoss: Yup.number().required(),
+        finalizeFactoryStatus: Yup.boolean().required(),
+      })
+    ),
+    defaultValues: {
       date: report.date,
 
       mcIn: nonZeroFalsy(report.mcIn),
@@ -94,9 +101,9 @@ export default function FactoryReportDryModal({
       dryingLoss: report.dryingLoss || 0,
       finalizeFactoryStatus: lot.factoryStatus === LOT_FLAGS.DONE,
     },
-  };
+  });
 
-  const handleFactoryReportSubmit = async (v, actions) => {
+  const handleFactoryReportSubmit = async (v) => {
     const { success, data } = await axCreateFactoryReport({
       ...v,
       id: report.id || -1,
@@ -117,170 +124,151 @@ export default function FactoryReportDryModal({
     } else {
       notification(GENERIC.ERROR);
     }
-    actions.setSubmitting(false);
   };
 
+  const values = hForm.watch();
+
+  const cv = calculateFormValues(values);
+
+  const calcPersentage = (num) => `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
+
+  const totalDiff =
+    cv.highGradeWeight +
+    cv.lowGradeWeight +
+    cv.totalBlackBeans +
+    cv.wasteSubTotal +
+    cv.otherLossSubTotal -
+    cv.netInputWeight;
+
   return (
-    <Formik {...factoryReportForm} enableReinitialize={true} onSubmit={handleFactoryReportSubmit}>
-      {(props) => {
-        const cv = calculateFormValues(props.values);
+    <FormProvider {...hForm}>
+      <form onSubmit={hForm.handleSubmit(handleFactoryReportSubmit)}>
+        <ModalContent>
+          <ModalHeader>🏭 Factory Report</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <CoreGrid>
+              <DateTimeInputField name="date" label="Date" disabled={!canWrite} />
+              <NumberInputField name="mcIn" label="MC In (%)" disabled={!canWrite} />
+              <NumberInputField name="mcOut" label="MC Out (%)" disabled={!canWrite} />
+            </CoreGrid>
 
-        const calcPersentage = (num) => `${((num * 100) / cv.netInputWeight).toFixed(2) || 0}%`;
+            <FormHeading>Input</FormHeading>
+            <CoreGrid>
+              <NumberInputField name="inputWeight" label="+ Input Weight" disabled={!canWrite} />
+              <NumberInputField
+                name="spillPrivBatch"
+                label="- Add Spill. Priv. Batch"
+                disabled={!canWrite}
+              />
+              <NumberInputField name="spillCF" label="- Less Spill C/F" disabled={!canWrite} />
+            </CoreGrid>
+            <Text mb={4}>Net Input: {cv.netInputWeight} KG(s)</Text>
 
-        const totalDiff =
-          cv.highGradeWeight +
-          cv.lowGradeWeight +
-          cv.totalBlackBeans +
-          cv.wasteSubTotal +
-          cv.otherLossSubTotal -
-          cv.netInputWeight;
-
-        return (
-          <form onSubmit={props.handleSubmit}>
-            <ModalContent>
-              <ModalHeader>🏭 Factory Report</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <CoreGrid>
-                  <DateTime name="date" label="Date" disabled={!canWrite} />
-                  <Number name="mcIn" label="MC In (%)" disabled={!canWrite} />
-                  <Number name="mcOut" label="MC Out (%)" disabled={!canWrite} />
-                </CoreGrid>
-
-                <FormHeading>Input</FormHeading>
-                <CoreGrid>
-                  <Number name="inputWeight" label="+ Input Weight" disabled={!canWrite} />
-                  <Number
-                    name="spillPrivBatch"
-                    label="- Add Spill. Priv. Batch"
-                    disabled={!canWrite}
-                  />
-                  <Number name="spillCF" label="- Less Spill C/F" disabled={!canWrite} />
-                </CoreGrid>
-                <Text mb={4}>Net Input: {cv.netInputWeight} KG(s)</Text>
-
-                <CoreGrid rows={5}>
-                  <ReportPanel
-                    heading="High Grades"
-                    footer={`Sub Total: ${cv.highGradeWeight} KG(s)`}
-                  >
-                    <Number
-                      label="Clean DRUGAR"
-                      name="highGradeWeight"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.highGradeWeight)}
-                    />
-                  </ReportPanel>
-
-                  <ReportPanel
-                    heading="Low Grades"
-                    footer={`Sub Total: ${cv.lowGradeWeight} KG(s)`}
-                  >
-                    <Number
-                      label="Triage"
-                      name="triage"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.triage)}
-                    />
-                    <Number
-                      label="Pods"
-                      name="pods"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.pods)}
-                    />
-                    <Number
-                      label="Sweeppings/Spillages"
-                      name="sweeppingsOrSpillages"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.sweeppingsOrSpillages)}
-                    />
-                  </ReportPanel>
-
-                  <ReportPanel
-                    heading="Colour Sorter Rejects"
-                    footer={`Sub Total: ${props.values.totalBlackBeans} KG(s)`}
-                  >
-                    <Number
-                      label="Black Beans"
-                      name="totalBlackBeans"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.totalBlackBeans)}
-                    />
-                  </ReportPanel>
-
-                  <ReportPanel heading="Wastes" footer={`Sub Total: ${cv.wasteSubTotal} KG(s)`}>
-                    <Number
-                      label="Stone"
-                      name="stone"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.stone)}
-                    />
-                    <Number
-                      label="Pre Cleaner"
-                      name="preCleaner"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.preCleaner)}
-                    />
-                    <Number
-                      label="Grader Husks"
-                      name="graderHusks"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.graderHusks)}
-                    />
-                  </ReportPanel>
-
-                  <ReportPanel
-                    heading="Other Loses"
-                    footer={`Sub Total: ${cv.otherLossSubTotal} KG(s)`}
-                  >
-                    <Number
-                      label="Handling Loss"
-                      name="handlingLoss"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.handlingLoss)}
-                    />
-                    <Number
-                      label="Drying Loss"
-                      name="dryingLoss"
-                      hint={true}
-                      disabled={!canWrite}
-                      hintText={calcPersentage(props.values.dryingLoss)}
-                    />
-                  </ReportPanel>
-                </CoreGrid>
-                <DiffMessage diff={totalDiff} />
-                <CheckBox
-                  name="finalizeFactoryStatus"
-                  mt={4}
-                  label={
-                    <span>
-                      Finalize Factory Report <Badge colorScheme="red">irreversible</Badge>
-                    </span>
-                  }
-                  isDisabled={!canWrite}
+            <CoreGrid rows={5}>
+              <ReportPanel heading="High Grades" footer={`Sub Total: ${cv.highGradeWeight} KG(s)`}>
+                <NumberInputField
+                  label="Clean DRUGAR"
+                  name="highGradeWeight"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.highGradeWeight)}
                 />
-              </ModalBody>
-              <ModalFooter>
-                <Button mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Submit leftIcon={<SaveIcon />} isDisabled={!(props.isValid && totalDiff === 0)}>
-                  Save
-                </Submit>
-              </ModalFooter>
-            </ModalContent>
-          </form>
-        );
-      }}
-    </Formik>
+              </ReportPanel>
+
+              <ReportPanel heading="Low Grades" footer={`Sub Total: ${cv.lowGradeWeight} KG(s)`}>
+                <NumberInputField
+                  label="Triage"
+                  name="triage"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.triage)}
+                />
+                <NumberInputField
+                  label="Pods"
+                  name="pods"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.pods)}
+                />
+                <NumberInputField
+                  label="Sweeppings/Spillages"
+                  name="sweeppingsOrSpillages"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.sweeppingsOrSpillages)}
+                />
+              </ReportPanel>
+
+              <ReportPanel
+                heading="Colour Sorter Rejects"
+                footer={`Sub Total: ${values.totalBlackBeans} KG(s)`}
+              >
+                <NumberInputField
+                  label="Black Beans"
+                  name="totalBlackBeans"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.totalBlackBeans)}
+                />
+              </ReportPanel>
+
+              <ReportPanel heading="Wastes" footer={`Sub Total: ${cv.wasteSubTotal} KG(s)`}>
+                <NumberInputField
+                  label="Stone"
+                  name="stone"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.stone)}
+                />
+                <NumberInputField
+                  label="Pre Cleaner"
+                  name="preCleaner"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.preCleaner)}
+                />
+                <NumberInputField
+                  label="Grader Husks"
+                  name="graderHusks"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.graderHusks)}
+                />
+              </ReportPanel>
+
+              <ReportPanel
+                heading="Other Loses"
+                footer={`Sub Total: ${cv.otherLossSubTotal} KG(s)`}
+              >
+                <NumberInputField
+                  label="Handling Loss"
+                  name="handlingLoss"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.handlingLoss)}
+                />
+                <NumberInputField
+                  label="Drying Loss"
+                  name="dryingLoss"
+                  disabled={!canWrite}
+                  helpText={calcPersentage(values.dryingLoss)}
+                />
+              </ReportPanel>
+            </CoreGrid>
+            <DiffMessage diff={totalDiff} />
+            <CheckBoxField
+              name="finalizeFactoryStatus"
+              mt={4}
+              label={
+                <span>
+                  Finalize Factory Report <Badge colorScheme="red">irreversible</Badge>
+                </span>
+              }
+              isDisabled={!canWrite}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <SubmitButton leftIcon={<SaveIcon />} isDisabled={totalDiff !== 0}>
+              Save
+            </SubmitButton>
+          </ModalFooter>
+        </ModalContent>
+      </form>
+    </FormProvider>
   );
 }

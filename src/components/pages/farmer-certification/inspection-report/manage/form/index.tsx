@@ -1,12 +1,13 @@
 import { Accordion } from "@chakra-ui/react";
-import ErrorSummery from "@components/@core/formik/error-summery";
-import SubmitButton from "@components/@core/formik/submit-button";
+import ErrorSummery from "@components/form/error-summery";
+import { SubmitButton } from "@components/form/submit-button";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { axSaveICSInspectionReport } from "@services/certification.service";
 import { axUploadSignature } from "@services/report.service";
 import notification, { NotificationType } from "@utils/notification.util";
-import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as yup from "yup";
 
@@ -15,24 +16,19 @@ import ICSSignature from "./signature";
 export default function InspectionReportApprovalForm({ report, version, subVersion }) {
   const router = useRouter();
 
-  const ICSInspectionForm = {
-    validationSchema: yup.object().shape({
-      ics: yup.object().shape({ path: yup.string().required() }),
-      /*
-      boardAGMMinutesKept: yup.boolean().required(),
-      membershipListsAndSharesUpdated: yup.boolean().required(),
-      isAnnualBudgetAndAuditedAccounts: yup.boolean().required(),
-      isFairTradePremiumBudgetAndWorkplan: yup.boolean().required(),
-      isEnvirnmentCommitteAndItsWorkplan: yup.boolean().required(),
-      isFTContractPersonAppointed: yup.boolean().required(),
-      */
-    }),
-    initialValues: {
+  const hForm = useForm<any>({
+    mode: "onBlur",
+    resolver: yupResolver(
+      yup.object().shape({
+        ics: yup.object().shape({ path: yup.string().required() }),
+      })
+    ),
+    defaultValues: {
       ics: {},
     },
-  };
+  });
 
-  const handleOnICSInspectionFormSubmit = async (values, actions) => {
+  const handleOnICSInspectionFormSubmit = async (values) => {
     const signatureURL = await axUploadSignature(values?.ics?.path);
 
     const payload = {
@@ -47,23 +43,17 @@ export default function InspectionReportApprovalForm({ report, version, subVersi
       notification("Inspection Report Approved", NotificationType.Success);
       router.push(`/farmer-certification/inspection-report/list`);
     }
-    actions.setSubmitting(false);
   };
 
   return (
-    <Formik
-      {...ICSInspectionForm}
-      onSubmit={handleOnICSInspectionFormSubmit}
-      validateOnChange={false}
-      validateOnBlur={true}
-    >
-      <Form>
+    <FormProvider {...hForm}>
+      <form onSubmit={hForm.handleSubmit(handleOnICSInspectionFormSubmit)}>
         <Accordion allowMultiple>
           <ICSSignature />
         </Accordion>
         <ErrorSummery />
         <SubmitButton leftIcon={<Check2Icon />}>Save</SubmitButton>
-      </Form>
-    </Formik>
+      </form>
+    </FormProvider>
   );
 }

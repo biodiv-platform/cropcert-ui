@@ -28,6 +28,7 @@ const lotStore: ILotStore = {
     }
   }),
   updateLot: action((state, payload: Lot) => {
+    console.log("got", payload);
     state.lot = updateArrayByObjectKey(state.lot, payload);
   }),
   listLot: thunk(async (actions, { reset, ccCodes }, helpers) => {

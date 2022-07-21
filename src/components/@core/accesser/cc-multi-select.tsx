@@ -1,13 +1,13 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-store";
 import { axGetCCByCode, axListCCByCoId } from "@services/cc.service";
 import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CCMultiSelect({ coId = -1, onChange }) {
-  const role = useStoreState((state) => state.user.role);
+  const { role } = useGlobalState();
   const [cc, setCC] = useState<any>([]);
   const [ccSelected, setCCSelected] = useState<any>([]);
   const isCC = role === ROLES.COLLECTION_CENTER;

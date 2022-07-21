@@ -12,17 +12,17 @@ import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useGlobalState from "@hooks/use-global-store";
 import { ROLES } from "@static/constants";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
 import { isEverythingFilledExcept } from "@utils/basic.util";
-import { useStoreState } from "easy-peasy";
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
 
 export default function LotCoDispatchForm({ onSubmit, onClose, isDone, lot }) {
-  const user = useStoreState((state) => state.user);
+  const { user } = useGlobalState();
   const canEdit = hasAccess(hierarchicalRoles(ROLES.COOPERATIVE), user);
 
   const hForm = useForm<any>({

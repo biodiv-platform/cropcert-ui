@@ -1,12 +1,14 @@
+import useGlobalState from "@hooks/use-global-store";
 import { flatToTree } from "@utils/pages.util";
-import { useStoreState } from "easy-peasy";
-import React from "react";
+import React, { useMemo } from "react";
 
 import ListItems from "./pages-list-items";
 
 const PagesNavmenu = ({ staticLinks }) => {
-  const pages = useStoreState((state) => state.pages).filter((o) => o.id !== 1);
-  return <ListItems children={[...staticLinks, ...flatToTree(pages)]} />;
+  const { pages } = useGlobalState();
+  const finalPages = useMemo(() => pages.filter((o) => o.id !== 1), [pages]);
+
+  return <ListItems children={[...staticLinks, ...flatToTree(finalPages)]} />;
 };
 
 export default PagesNavmenu;

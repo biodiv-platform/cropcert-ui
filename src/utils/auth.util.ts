@@ -1,6 +1,7 @@
 import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
-import dayjs from "dayjs";
-import { getNookie, setNookie } from "next-nookies-persist";
+// import dayjs from "dayjs";
+import JWTDecode from "jwt-decode";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 
 interface Session {
   accessToken: string;
@@ -9,21 +10,22 @@ interface Session {
   isExpired?: boolean;
 }
 
+export const cookieOpts = {
+  maxAge: 60 * 60 * 24 * 7, // 1 Week
+  path: "/",
+};
+
 /**
  * Role based access validation
  *
  * @param {string[]} [roles=[ROLES.UNAUTHORIZED]]
  * @returns {boolean}
  */
-export const hasAccess = (
-  roles: string[] = [ROLES.UNAUTHORIZED],
-  nookies = getNookie(TOKEN.USER)
-): boolean => {
+export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED], user): boolean => {
   if (roles.includes(ROLES.UNAUTHORIZED)) {
     return true;
   }
 
-  const user = nookies || {};
   if (user["role"]) {
     if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
       return true;
@@ -33,29 +35,40 @@ export const hasAccess = (
   return false;
 };
 
-export const setTokens = (token) => {
-  setNookie(TOKEN.AUTH, token);
+// sets/re-sets cookies on development mode
+export const setCookies = ({ tokens, user }: { tokens?; user? }, ctx?) => {
+  if (tokens) {
+    setCookie(ctx, TOKEN.ACCESS, tokens.access_token, cookieOpts);
+    setCookie(ctx, TOKEN.REFRESH, tokens.refresh_token, cookieOpts);
+  }
+
+  if (user) {
+    setCookie(ctx, TOKEN.USER, JSON.stringify(user), cookieOpts);
+  }
 };
 
-export const getTokens = (ctx = {}): Session => {
-  const store = getNookie(TOKEN.AUTH, ctx) || {};
-  const accessToken = store[TOKEN.ACCESS];
-  const refreshToken = store[TOKEN.REFRESH];
-  const timeout = store[TOKEN.TIMEOUT] || 0;
-  const isExpired = dayjs(timeout).isBefore(dayjs());
-  return {
-    accessToken,
-    refreshToken,
-    timeout,
-    isExpired,
-  };
+export const getAuthState = (ctx?) => {
+  const pk = parseCookies(ctx);
+
+  const accessToken = pk[TOKEN.ACCESS];
+  const refreshToken = pk[TOKEN.REFRESH];
+
+  const tokenUser: any = JWTDecode(accessToken);
+  const isExpired = isTokenExpired(tokenUser.exp);
+
+  return { accessToken, refreshToken, isExpired };
 };
 
-export const getUserKey = (key, ctx = {}) => getNookie(TOKEN.USER, ctx)[key];
+export const isTokenExpired = (exp) => {
+  const currentTime = Date.now() / 1000;
+  return exp ? exp < currentTime : true;
+};
+
+export const getUserKey = (key, ctx = {}) => getParsedUser(ctx)?.[key];
 
 export const setUserKey = (key, value) => {
-  const u = getNookie(TOKEN.USER);
-  setNookie(TOKEN.USER, { ...u, [key]: value });
+  const u = getParsedUser();
+  setCookie({}, TOKEN.USER, JSON.stringify({ ...u, [key]: value }), cookieOpts);
 };
 
 /**
@@ -121,4 +134,17 @@ export const removeCache = async (whitelist = [] as string[]) => {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const getParsedUser = (ctx?): any => {
+  const cookies = parseCookies(ctx);
+  return JSON.parse(cookies?.[TOKEN.USER] || "{}");
+};
+
+export const removeCookies = () => {
+  const cookieOpts = { path: "/" };
+
+  destroyCookie(null, TOKEN.ACCESS, cookieOpts);
+  destroyCookie(null, TOKEN.REFRESH, cookieOpts);
+  destroyCookie(null, TOKEN.USER, cookieOpts);
 };

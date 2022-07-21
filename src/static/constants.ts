@@ -22,7 +22,6 @@ export const ENDPOINT = {
 };
 
 export const TOKEN = {
-  AUTH: "token",
   USER: "user",
   ACCESS: "access_token",
   REFRESH: "refresh_token",

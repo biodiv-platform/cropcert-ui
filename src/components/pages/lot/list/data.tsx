@@ -2,6 +2,7 @@ import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
+import useGlobalState from "@hooks/use-global-store";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import {
   LOT_DISPATCH_FACTORY,
@@ -11,7 +12,6 @@ import {
   LOT_REPORT_FACTORY,
   LOT_REPORT_GREEN,
 } from "@static/events";
-import { useStoreState } from "easy-peasy";
 import React from "react";
 import { emit } from "react-gbus";
 import { Lot } from "types/traceability";
@@ -104,7 +104,8 @@ const GreenLabReportCell = (lot: Lot) => {
 };
 
 const CuppingLabReportCell = (lot: Required<Lot>) => {
-  const currentCupper = useStoreState((state) => state.user.email);
+  const { user } = useGlobalState();
+  const currentCupper = user.email;
   const currentReport = lot.cuppings.find((r) => r.cupper === currentCupper);
   const withSkeletonReport = currentReport || {
     status:

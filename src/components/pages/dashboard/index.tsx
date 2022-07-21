@@ -1,14 +1,14 @@
 import { Box, Heading } from "@chakra-ui/react";
 import CoreGrid from "@components/@core/layout/grid";
+import useGlobalState from "@hooks/use-global-store";
 import { hasAccess } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React from "react";
 
 import Card from "./card";
 import links from "./links";
 
 export default function DashboardPageComponent() {
-  const user = useStoreState((state) => state.user);
+  const { user } = useGlobalState();
 
   const getLinks = (children): Record<string, unknown>[] => {
     return children.reduce(

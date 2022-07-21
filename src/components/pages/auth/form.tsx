@@ -6,18 +6,15 @@ import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axGetUser, axSignIn } from "@services/auth.service";
-import { TOKEN } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
-import { registerSW, removeCache, unregisterSW } from "@utils/auth.util";
+import { registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth.util";
 import notification from "@utils/notification.util";
-import useNookies from "next-nookies-persist";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
 function SignInForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { setNookie } = useNookies();
 
   const hForm = useForm<any>({
     mode: "onChange",
@@ -37,10 +34,10 @@ function SignInForm() {
 
   const handleOnSubmit = async ({ prepareOffline, ...values }) => {
     try {
-      const token = await axSignIn(values);
-      setNookie(TOKEN.AUTH, token);
+      const tokens = await axSignIn(values);
+      setCookies({ tokens });
       const user = await axGetUser();
-      setNookie(TOKEN.USER, user);
+      setCookies({ user });
       setIsLoggedIn(true);
 
       // remove cache

@@ -17,38 +17,38 @@ const VARIANT_MAPPING = {
 export const batchColumns = [
   {
     name: "#",
-    selector: "id",
+    selector: (row) => row["id"],
     maxWidth: "100px",
     sortable: true,
     cell: (row) => `B-${row.id}`,
   },
   {
     name: "Name",
-    selector: "batchName",
+    selector: (row) => row["batchName"],
     width: "280px",
   },
   {
     name: "Type",
-    selector: "type",
+    selector: (row) => row["type"],
     maxWidth: "100px",
     sortable: true,
   },
   {
     name: "Quantity",
-    selector: "quantity",
+    selector: (row) => row["quantity"],
     maxWidth: "100px",
     sortable: true,
   },
   {
     name: "Last Updated",
-    selector: "date",
+    selector: (row) => row["date"],
     maxWidth: "150px",
     cell: (row) => timeCell(row.date),
     sortable: true,
   },
   {
     name: "Batch Status",
-    selector: "batchStatus",
+    selector: (row) => row["batchStatus"],
     center: true,
     maxWidth: "100px",
     cell: (row: Batch) =>
@@ -69,19 +69,19 @@ export const batchColumns = [
   },
   {
     name: "Perchment Quantity",
-    selector: "perchmentQuantity",
+    selector: (row) => row["perchmentQuantity"],
     maxWidth: "100px",
     sortable: true,
   },
   {
     name: "Lot",
-    selector: "lotId",
+    selector: (row) => row["lotId"],
     maxWidth: "100px",
     cell: (row) => <LotCell {...row} type="b" />,
   },
   {
     name: "Lot Status",
-    selector: "lotStatus",
+    selector: (row) => row["lotStatus"],
     cell: (row) => <Badge>{row.lotStatus}</Badge>,
   },
 ];
@@ -89,12 +89,12 @@ export const batchColumns = [
 export const lotCreateModalCols = [
   {
     name: "Name",
-    selector: "batchName",
+    selector: (row) => row["batchName"],
     width: "280px",
   },
   {
     name: "Quantity",
-    selector: "quantity",
+    selector: (row) => row["quantity"],
     sortable: true,
     right: true,
   },
@@ -103,7 +103,7 @@ export const lotCreateModalCols = [
 export const lotCreateModalColsExtra = [
   {
     name: "Perchment Quantity",
-    selector: "perchmentQuantity",
+    selector: (row) => row["perchmentQuantity"],
     sortable: true,
     right: true,
   },

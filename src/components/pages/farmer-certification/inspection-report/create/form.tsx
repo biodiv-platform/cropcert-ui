@@ -2,11 +2,11 @@ import { Accordion } from "@chakra-ui/react";
 import ErrorSummery from "@components/form/error-summery";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useGlobalState from "@hooks/use-global-store";
 import Check2Icon from "@icons/check2";
 import { STORE } from "@static/inspection-report";
 import { local2utc } from "@utils/basic.util";
 import notification, { NotificationType } from "@utils/notification.util";
-import { useStoreState } from "easy-peasy";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ import Signature from "./panels/signature";
 
 export default function InspectionForm({ farmer }) {
   const { add } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
-  const inspectorId = useStoreState((state) => state.user.id);
+  const { user } = useGlobalState();
   const router = useRouter();
 
   const farms = useMemo(() => {
@@ -171,7 +171,7 @@ export default function InspectionForm({ farmer }) {
   const handleOnInspectionFormSubmit = async (values) => {
     const farmerId = farmer.id;
     add({
-      data: { ...values, farmerId, inspectorId, date: local2utc().getTime() },
+      data: { ...values, farmerId, inspectorId: user.id, date: local2utc().getTime() },
       version: farmer?.version || null,
       subversion: farmer?.subversion || null,
       farmerId,

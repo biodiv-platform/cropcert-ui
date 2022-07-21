@@ -5,26 +5,26 @@ import React from "react";
 export const inspectionReportColumns = [
   {
     name: "Farmer ID",
-    selector: "farmerId",
+    selector: (row) => row["farmerId"],
     sortable: true,
     width: "100px",
   },
   {
     name: "Name",
-    selector: "farmerFirstName",
+    selector: (row) => row["farmerFirstName"],
     cell: ({ farmerFirstName, farmerLastName }) => `${farmerFirstName} ${farmerLastName}`,
   },
   {
     name: "Cooperative",
-    selector: "cooperativeName",
+    selector: (row) => row["cooperativeName"],
   },
   {
     name: "CC Name",
-    selector: "collectionCenterName",
+    selector: (row) => row["collectionCenterName"],
   },
   {
     name: "Last Approved Certification",
-    selector: "version",
+    selector: (row) => row["version"],
     cell: ({ lastApprovedReportId }) =>
       lastApprovedReportId ? (
         <NextLink
@@ -41,7 +41,7 @@ export const inspectionReportColumns = [
   },
   {
     name: "Pending Reports",
-    selector: "isReportFinalized",
+    selector: (row) => row["isReportFinalized"],
     width: "160px",
     cell: ({ isReportFinalized, reportId, lastApprovedReportId }) =>
       isReportFinalized ? (

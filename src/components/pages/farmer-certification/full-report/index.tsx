@@ -88,7 +88,7 @@ export default function FullReportComponent() {
         <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={() => null} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
-        <Checkbox defaultIsChecked={true} onChange={(e) => setIsFiltered(e.target.checked)} mt={4}>
+        <Checkbox defaultChecked={true} onChange={(e) => setIsFiltered(e.target.checked)} mt={4}>
           with reports only
         </Checkbox>
       </CoreGrid>

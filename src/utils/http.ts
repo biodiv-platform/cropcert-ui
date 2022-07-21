@@ -2,7 +2,7 @@ import { ENDPOINT } from "@static/constants";
 import notification from "@utils/notification.util";
 import axios from "axios";
 
-import { getTokens, setTokens } from "./auth.util";
+import { getAuthState, setCookies } from "./auth.util";
 
 const defaultHeaders = {
   headers: {
@@ -18,10 +18,10 @@ const defaultHeaders = {
  * @returns {string}
  */
 const axRenewToken = async (refreshToken: string) => {
-  const res = await axios.post(`${ENDPOINT.USER}/auth/renew`, null, {
+  const res = await axios.post(`${ENDPOINT.USER}/v1/authenticate/refresh-tokens`, null, {
     params: { refreshToken },
   });
-  setTokens(res.data);
+  setCookies({ tokens: res.data });
   return res.data.accessToken;
 };
 
@@ -31,9 +31,17 @@ const axRenewToken = async (refreshToken: string) => {
  * @returns {string}
  */
 export const getBearerToken = async (ctx?) => {
-  const { accessToken, refreshToken, isExpired } = getTokens(ctx);
-  const finalToken = !isExpired ? accessToken : await axRenewToken(refreshToken);
-  return `Bearer ${finalToken}`;
+  try {
+    const authState = getAuthState(ctx);
+
+    const finalToken = authState.isExpired
+      ? await axRenewToken(authState.refreshToken)
+      : authState.accessToken;
+
+    return `Bearer ${finalToken}`;
+  } catch (e) {
+    return false;
+  }
 };
 
 const ax = axios.create(defaultHeaders);

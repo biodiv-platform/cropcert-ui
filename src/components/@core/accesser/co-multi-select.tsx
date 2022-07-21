@@ -1,13 +1,13 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-store";
 import { axCoByUnionId, axGetCoByCode } from "@services/co.service";
 import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
-  const role = useStoreState((state) => state.user.role);
+  const { role } = useGlobalState();
   const [co, setCo] = useState<any[]>([]);
   const [coSelected, setCoSelected] = useState<any>([]);
   const isCoCC = [ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER].includes(role);

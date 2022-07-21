@@ -7,24 +7,24 @@ import SkeletonLoader from "tiny-skeleton-loader-react";
 const farmerMeta = [
   {
     name: "#",
-    selector: "id",
+    selector: (row) => row["id"],
   },
   {
     name: "Name",
-    selector: "firstName",
+    selector: (row) => row["firstName"],
     cell: ({ firstName, lastName }) => `${firstName} ${lastName}`,
   },
   {
     name: "Union",
-    selector: "unionName",
+    selector: (row) => row["unionName"],
   },
   {
     name: "Cooperative",
-    selector: "coName",
+    selector: (row) => row["coName"],
   },
   {
     name: "Collection Center",
-    selector: "ccName",
+    selector: (row) => row["ccName"],
   },
 ];
 

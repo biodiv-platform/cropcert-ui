@@ -1,13 +1,12 @@
 import { ROLES } from "@static/constants";
 import React, { createContext, useContext, useMemo, useState } from "react";
-import { User } from "types/user";
 
 interface GlobalStateContextProps {
   pages;
-  user: User;
+  user;
   setUser;
   isLoggedIn;
-  role;
+  authorizedRoles;
 }
 
 interface GlobalStateProviderProps {
@@ -22,7 +21,11 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
-  const role = useMemo(() => user?.role || ROLES.UNAUTHORIZED, [user]);
+
+  const authorizedRoles = useMemo(() => {
+    const allRoles = user?.roles?.map((_role) => _role.authority);
+    return allRoles?.length ? allRoles : [ROLES.UNAUTHORIZED];
+  }, [user]);
 
   return (
     <GlobalStateContext.Provider
@@ -30,7 +33,7 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
         user,
         setUser,
         isLoggedIn,
-        role,
+        authorizedRoles,
 
         pages: props.pages,
       }}

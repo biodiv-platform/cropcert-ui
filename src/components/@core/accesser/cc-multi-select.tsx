@@ -7,10 +7,10 @@ import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CCMultiSelect({ coId = -1, onChange }) {
-  const { role } = useGlobalState();
+  const { authorizedRoles } = useGlobalState();
   const [cc, setCC] = useState<any>([]);
   const [ccSelected, setCCSelected] = useState<any>([]);
-  const isCC = role === ROLES.COLLECTION_CENTER;
+  const isCC = authorizedRoles.includes(ROLES.COLLECTION_CENTER);
   const label = "Select Collection Center";
 
   const setBoth = (r) => {
@@ -38,7 +38,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
     <>
       {!isCC && (
         <FormControl mb={4} maxW="308px">
-          <FormLabel htmlFor={role}>{label}</FormLabel>
+          <FormLabel htmlFor={ROLES.COLLECTION_CENTER}>{label}</FormLabel>
           <MultiSelect
             options={cc}
             value={ccSelected}

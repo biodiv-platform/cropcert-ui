@@ -84,7 +84,7 @@ export const axOriginByLotId = async (id) => {
     const res1 = await http.get(`${ENDPOINT.TRACEABILITY}/lot/origin`, {
       params: { lotId: id },
     });
-    const res2 = await http.get(`${ENDPOINT.USER}/cc/origin`, {
+    const res2 = await http.get(`${ENDPOINT.ENTITIES}/cc/origin`, {
       params: {
         ccCodes: res1.data.toString(),
       },

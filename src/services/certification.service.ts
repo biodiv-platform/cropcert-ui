@@ -58,7 +58,7 @@ export const axSaveICSInspectionReport = async (body) => {
 
 export const axGetFarmerInfoByFarmerId = async (farmerId) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.USER}/farmer/${farmerId}`);
+    const { data } = await http.get(`${ENDPOINT.ENTITIES}/farmer/${farmerId}`);
     return { success: true, data };
   } catch (e) {
     notification(e.message);

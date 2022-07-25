@@ -6,6 +6,7 @@ import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axGetUser, axSignIn } from "@services/auth.service";
+import { VERIFICATION_MODE } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
 import { registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth.util";
 import notification from "@utils/notification.util";
@@ -20,13 +21,13 @@ function SignInForm() {
     mode: "onChange",
     resolver: yupResolver(
       Yup.object().shape({
-        userName: Yup.string().email().required(),
+        username: Yup.string().email().required(),
         password: Yup.string().required(),
         prepareOffline: Yup.boolean().notRequired(),
       })
     ),
     defaultValues: {
-      userName: "",
+      username: "",
       password: "",
       prepareOffline: true,
     },
@@ -34,8 +35,12 @@ function SignInForm() {
 
   const handleOnSubmit = async ({ prepareOffline, ...values }) => {
     try {
-      const tokens = await axSignIn(values);
+      const tokens = await axSignIn({
+        ...values,
+        mode: VERIFICATION_MODE.MANUAL,
+      });
       setCookies({ tokens });
+
       const user = await axGetUser();
       setCookies({ user });
       setIsLoggedIn(true);
@@ -61,7 +66,7 @@ function SignInForm() {
       <PageHeading>{isLoggedIn ? "Redirecting..." : "Sign in to your account"}</PageHeading>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-          <TextBoxField name="userName" autoComplete="username" label="Username" />
+          <TextBoxField name="username" autoComplete="username" label="Username" />
           <PasswordInputField name="password" autoComplete="current-password" label="Password" />
           <CheckBoxField name="prepareOffline" label="Offline Ready" />
           <SubmitButton>

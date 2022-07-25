@@ -13,18 +13,18 @@ export const DATEFORMATS = {
 
 export const ENDPOINT = {
   ROOT: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}`,
-  CAS: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CAS}`,
-  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_USER}`,
-  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_PAGES}`,
-  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_TRACEABILITY}`,
-  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CERTIFICATION}`,
-  API: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_API}`,
+  ENTITIES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}entities-api/api`,
+  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}user-api/api`,
+  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}pages-api/api`,
+  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}traceability/api`,
+  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}certification/api`,
+  API: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}cropcert/api`,
 };
 
 export const TOKEN = {
   USER: "user",
-  ACCESS: "access_token",
-  REFRESH: "refresh_token",
+  ACCESS: "BAToken",
+  REFRESH: "BRToken",
   TIMEOUT: "timeout",
   TYPE: "Bearer ",
 };
@@ -35,6 +35,7 @@ export const PAGE_TYPE_OPTIONS = {
 };
 
 export const ROLES = {
+  GI_ADMIN: "gi_admin",
   INSPECTOR: "inspector",
   ICS_MANAGER: "ics_manager",
   UNAUTHORIZED: "role_unauthorized",
@@ -44,7 +45,7 @@ export const ROLES = {
   COOPERATIVE: "co",
   FACTORY: "factory",
   UNION: "union",
-  ADMIN: "admin",
+  ADMIN: "ROLE_ADMIN",
 };
 
 export const KEYS_TO_ROLES = {
@@ -55,7 +56,7 @@ export const KEYS_TO_ROLES = {
   co: "Cooperative",
   factory: "Factory",
   union: "Union",
-  admin: "Admin",
+  ROLE_ADMIN: "Admin",
 };
 
 export const ROLE_HIERARCHY = [
@@ -133,4 +134,9 @@ export const MAP: { MAP_CENTER: any; [key: string]: any } = {
     URL: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     ATTRIBUTION: `&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
   },
+};
+
+export const VERIFICATION_MODE = {
+  MANUAL: "manual",
+  OAUTH_GOOGLE: "oauth-google",
 };

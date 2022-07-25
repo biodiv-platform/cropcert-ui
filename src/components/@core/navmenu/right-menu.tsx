@@ -13,7 +13,7 @@ function NavbarRightMenu() {
         <li>
           <NextLink href="/auth/sign-out" passHref={true}>
             <Link>
-              {user["firstName"]} {user["lastName"]} <LogoutIcon ml={1} />
+              {user.name} <LogoutIcon ml={1} />
             </Link>
           </NextLink>
         </li>

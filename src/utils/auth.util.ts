@@ -3,13 +3,6 @@ import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import JWTDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 
-interface Session {
-  accessToken: string;
-  refreshToken: string;
-  timeout: string;
-  isExpired?: boolean;
-}
-
 export const cookieOpts = {
   maxAge: 60 * 60 * 24 * 7, // 1 Week
   path: "/",
@@ -26,10 +19,11 @@ export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED], user): boolean
     return true;
   }
 
-  if (user["role"]) {
-    if (roles.includes(ROLES.AUTHORIZED) || roles.includes(user.role)) {
-      return true;
-    }
+  if (user?.roles) {
+    if (roles.includes(ROLES.AUTHORIZED)) return true;
+
+    const currentRoles = user.roles.map((role) => role.authority);
+    if (roles.some((role) => currentRoles.includes(role))) return true;
   }
 
   return false;

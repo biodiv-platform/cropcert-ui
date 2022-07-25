@@ -29,8 +29,8 @@ const parsedAccessorRole = (role) => {
  * @returns
  */
 export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
-  const { user } = useGlobalState();
-  const parsedRole = useMemo(() => parsedAccessorRole(user.role), [user.role]);
+  const { authorizedRoles } = useGlobalState();
+  const parsedRole = useMemo(() => parsedAccessorRole(authorizedRoles[0]), [authorizedRoles]);
   const roles = getDropdownArray(parsedRole, toRole);
 
   const [initialState, setInitialState] = useState<any>();

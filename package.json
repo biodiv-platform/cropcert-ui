@@ -50,7 +50,7 @@
     "react-gbus": "^1.1.2",
     "react-infinite-scroller": "^1.2.4",
     "react-leaflet": "^3.2.5",
-    "react-multi-select-component": "^4.1.15",
+    "react-multi-select-component": "^4.3.0",
     "react-select": "^5.2.2",
     "react-signature-canvas": "^1.0.3",
     "react-sortable-tree": "^2.8.0",

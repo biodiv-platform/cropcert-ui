@@ -6499,10 +6499,10 @@ react-colorful@^5.1.2:
   resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.5.0.tgz#8359f218984a927095477a190ab9927eaf865c0c"
   integrity sha512-BuzrlrM0ylg7coPkXOrRqlf2BgHLw5L44sybbr9Lg4xy7w9e5N7fGYbojOO0s8J0nvrM3PERN2rVFkvSa24lnQ==
 
-react-data-table-component@^7.4.6:
-  version "7.4.6"
-  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-7.4.6.tgz#c0219b591de828f1f1acf4b265545d2d62a4b0b9"
-  integrity sha512-3ES2Qq07x0IWBuYyzfl1qCq2WX4X/AqVhZwKDhOH6tuEU5kbxzpRfQOD5naKdFk6L4rtNDm8FBL0tfk0DLdMpA==
+react-data-table-component@^7.5.2:
+  version "7.5.2"
+  resolved "https://registry.yarnpkg.com/react-data-table-component/-/react-data-table-component-7.5.2.tgz#42d0af2a923e05887baadf8f4718bbb133c6db83"
+  integrity sha512-sOmeEEZiORJcnzf8fwcwA5+JbhIChjf+tQV/dLYvlhU8UT8rJZ33aBSOJNjNYq/5+t3lj/xCJXtSa2kgoZTDVQ==
   dependencies:
     deepmerge "^4.2.2"
 

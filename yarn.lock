@@ -5299,10 +5299,10 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
-json-as-xlsx@^2.3.10:
-  version "2.3.10"
-  resolved "https://registry.yarnpkg.com/json-as-xlsx/-/json-as-xlsx-2.3.10.tgz#1032202521276399e8bc5d52df4a515a9b776e5c"
-  integrity sha512-mX7cbwjKvpBlelSP9CZHeBnEsvhHl0lYs8GXH2K5FISU29Ox9vCUgPRIQTXqqQAYdlbmACaHYYUBZFtv4+7FWA==
+json-as-xlsx@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/json-as-xlsx/-/json-as-xlsx-2.4.2.tgz#ad7f939b30d5394fa77932c04f05d2631ed28d0c"
+  integrity sha512-fP5Tfl40nnKvbkIVofLXho1amOnuGVNbnKelOLtVqMwV8ZzCjnyhcSysT46fKRAZE5lolzdovLvToSZ1ydLsWg==
   dependencies:
     xlsx "^0.17.2"
 

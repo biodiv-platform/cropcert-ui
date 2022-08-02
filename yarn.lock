@@ -3356,10 +3356,10 @@ codepage@~1.15.0:
   resolved "https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
   integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
 
-coffee-flavor-wheel@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/coffee-flavor-wheel/-/coffee-flavor-wheel-1.1.0.tgz#2cadaca648fa66aebc2d149b9df6fe6936429613"
-  integrity sha512-QFwZn5IsuurwidK9lvoSqsRn1jCUQQMXGYV+LnzTrw3/z6hq8cAAAduei/hviDSZ5HMYj05RYS3fwtphqBy8SA==
+coffee-flavor-wheel@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/coffee-flavor-wheel/-/coffee-flavor-wheel-1.1.2.tgz#fbfd671a2c51a67ca44d0729a13cba0a909c3e1a"
+  integrity sha512-aB1GC34N9asCollBZ/w3pbE9YV823nay5S34el4D6Sb2v4Kqyy/NmrYNlvMp49siKcdNmDxWEn2L77rbuF1BTg==
 
 cogo-toast@^4.2.3:
   version "4.2.3"

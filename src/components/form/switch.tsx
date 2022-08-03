@@ -24,7 +24,7 @@ export const SwitchField = ({
   name,
   label,
   mb = 4,
-  color = "primary",
+  color = "blue",
   hint,
   disabled,
   ...props

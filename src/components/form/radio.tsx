@@ -54,7 +54,7 @@ export const RadioInputField = ({
     <FormControl isInvalid={!!fieldState.error} mb={mb} {...props}>
       {label && <FormLabel htmlFor={name} children={label} />}
       <RadioGroup
-        colorScheme="primary"
+        colorScheme="blue"
         id={name}
         {...field}
         value={String(field.value)}

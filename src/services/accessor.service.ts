@@ -25,7 +25,7 @@ export const getByRole = async (role: string, code = -1) => {
       break;
 
     case ROLES.COOPERATIVE:
-      const unionCode = code > 0 ? code : getUserKey(`unionCode`);
+      const unionCode = code > 0 ? code : getUserKey(`${ROLES.UNION}Code`);
       const co = await axCoByUnionId(unionCode);
       res = co.data.map((o) => ({
         label: o.name,
@@ -34,7 +34,7 @@ export const getByRole = async (role: string, code = -1) => {
       break;
 
     case ROLES.COLLECTION_CENTER:
-      const coCode = code > 0 ? code : getUserKey(`coCode`);
+      const coCode = code > 0 ? code : getUserKey(`${ROLES.COOPERATIVE}Code`);
       const cc = await axListCCByCoId(coCode);
       res = cc.data.map((o) => ({
         label: o.name,

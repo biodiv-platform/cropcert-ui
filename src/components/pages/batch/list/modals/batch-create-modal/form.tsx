@@ -40,7 +40,7 @@ export default function BatchCreateForm({ update, onClose }) {
       })
     ),
     defaultValues: {
-      ccCode: cc ? cc.value : null,
+      ccCode: cc?.value || null,
       quantity: 0,
       date: local2utc().getTime(),
       note: "",
@@ -49,8 +49,8 @@ export default function BatchCreateForm({ update, onClose }) {
   });
 
   useEffect(() => {
-    setBatchType(cc ? typeList(cc.type) : []);
-    hForm.setValue("ccCode", cc.value);
+    setBatchType(cc ? typeList(cc?.type) : []);
+    hForm.setValue(`${ROLES.COLLECTION_CENTER}Code`, cc?.value);
   }, [cc]);
 
   const handleSubmit = async (values) => {

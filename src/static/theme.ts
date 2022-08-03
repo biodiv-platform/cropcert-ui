@@ -23,18 +23,6 @@ export const customTheme: any = extendTheme({
     bold: 600,
   },
   colors: {
-    primary: {
-      50: "#fbfbf8",
-      100: "#f9f2e9",
-      200: "#efd9cb",
-      300: "#dab39e",
-      400: "#c4876e",
-      500: "#a86449",
-      600: "#8b4932",
-      700: "#693626",
-      800: "#47251c",
-      900: "#2b1711",
-    },
     gray: {
       "50": "#f8f9fa",
       "100": "#f1f3f5",

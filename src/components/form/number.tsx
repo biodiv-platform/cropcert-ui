@@ -60,7 +60,7 @@ export const NumberInputField = ({
         id={name}
         placeholder={placeholder}
         type="number"
-        colorScheme="primary"
+        colorScheme="blue"
         isDisabled={disabled}
         bg="white"
         {...field}

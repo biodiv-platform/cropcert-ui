@@ -12,7 +12,7 @@ export function useLotStore() {
 
     setState((_draft) => {
       if (reset) {
-        _draft.lot = [];
+        _draft.lot = data;
       } else {
         _draft.lot.push(...data);
       }

@@ -1,4 +1,4 @@
-import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
+import { isBrowser, ROLE_HIERARCHY, ROLES, TOKEN, COMPAT_USERKEY_MAP } from "@static/constants";
 // import dayjs from "dayjs";
 import JWTDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
@@ -58,11 +58,20 @@ export const isTokenExpired = (exp) => {
   return exp ? exp < currentTime : true;
 };
 
-export const getUserKey = (key, ctx = {}) => getParsedUser(ctx)?.[key];
+/**
+ * Returns compat key that converts Role to /me key
+ *
+ * @param {*} key
+ */
+const getCompatKey = (key) => (COMPAT_USERKEY_MAP[key] ? COMPAT_USERKEY_MAP[key] : key);
+
+export const getUserKey = (key, ctx = {}) => getParsedUser(ctx)?.[getCompatKey(key)];
 
 export const setUserKey = (key, value) => {
   const u = getParsedUser();
-  setCookie({}, TOKEN.USER, JSON.stringify({ ...u, [key]: value }), cookieOpts);
+  const cKey = getCompatKey(key);
+
+  setCookie({}, TOKEN.USER, JSON.stringify({ ...u, [cKey]: value }), cookieOpts);
 };
 
 /**

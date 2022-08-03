@@ -16,7 +16,7 @@ export const reactSelectProps = {
       neutral50: "var(--chakra-colors-gray-500)",
       neutral20: "var(--chakra-colors-gray-300)",
       primary25: "var(--chakra-colors-gray-100)",
-      primary: "var(--chakra-colors-primary-500)",
+      primary: "var(--chakra-colors-blue-500)",
     },
   }),
 };

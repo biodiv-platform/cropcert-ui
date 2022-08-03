@@ -35,16 +35,16 @@ export const PAGE_TYPE_OPTIONS = {
 };
 
 export const ROLES = {
-  GI_ADMIN: "gi_admin",
-  INSPECTOR: "inspector",
-  ICS_MANAGER: "ics_manager",
-  UNAUTHORIZED: "role_unauthorized",
-  AUTHORIZED: "authorized",
-  FARMER: "farmer",
-  COLLECTION_CENTER: "cc",
-  COOPERATIVE: "co",
-  FACTORY: "factory",
-  UNION: "union",
+  GI_ADMIN: "GI_ADMIN",
+  INSPECTOR: "INSPECTOR",
+  ICS_MANAGER: "ICS_MANAGER",
+  UNAUTHORIZED: "ROLE_UNAUTHORIZED",
+  AUTHORIZED: "AUTHORIZED",
+  FARMER: "FARMER",
+  COLLECTION_CENTER: "COLLECTION_CENTER_PERSON",
+  COOPERATIVE: "COOPERATIVE_PERSON",
+  FACTORY: "FACTORY_PERSON",
+  UNION: "UNION_PERSON",
   ADMIN: "ROLE_ADMIN",
 };
 
@@ -57,6 +57,13 @@ export const KEYS_TO_ROLES = {
   factory: "Factory",
   union: "Union",
   ROLE_ADMIN: "Admin",
+};
+
+export const COMPAT_USERKEY_MAP = {
+  [`${ROLES.COLLECTION_CENTER}Code`]: "ccCode",
+  [`${ROLES.COOPERATIVE}Code`]: "coCode",
+  [`${ROLES.UNION}Code`]: "unionCode",
+  [`${ROLES.ADMIN}Code`]: "adminCode",
 };
 
 export const ROLE_HIERARCHY = [
@@ -83,11 +90,13 @@ export const MESSAGE = {
   ERROR_FACTORY_REPORT: "Input quantity does not match with graded quantities",
 };
 
+/*
 export const LOT_AT = {
   COOPERATIVE: "AtCoOperative",
   FACTORY: "AtFactory",
   UNION: "AtUnion",
 };
+*/
 
 export const LOT_FLAGS = {
   ADD: "ADD",

@@ -16,7 +16,7 @@ interface ISubmitButtonProps {
 export const SubmitButton = ({
   children,
   isDisabled,
-  colorScheme = "primary",
+  colorScheme = "blue",
   mb = 0,
   ...rest
 }: ISubmitButtonProps) => {

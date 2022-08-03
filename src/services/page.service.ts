@@ -7,7 +7,7 @@ export const axListPages = async () => {
     const res = await plainHttp.get(`${ENDPOINT.PAGES}/page/all`);
     return res.data.filter((p) => !p.isDeleted);
   } catch (e) {
-    console.error(e);
+    console.error("Unable to list pages");
     return [];
   }
 };

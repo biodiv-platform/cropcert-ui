@@ -3,18 +3,17 @@ import { axGetFactoryReportById } from "@services/report.service";
 import { LOT_REPORT_FACTORY_WET } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { FactoryReport, Lot } from "types/traceability";
 
 import FactoryReportWetModal from "./modal";
 
 export default function FactoryReportWet({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [lot, setLot] = useState({} as Lot);
-  const [report, setReport] = useState<FactoryReport>({});
+  const [lot, setLot] = useState<any>();
+  const [report, setReport] = useState<any>();
   const [canWrite, setCanWrite] = useState(false);
 
   useListener(
-    ({ lot, canWrite }: { lot: Lot; canWrite: boolean }) => {
+    ({ lot, canWrite }) => {
       onOpen();
       setLot(lot);
       setCanWrite(canWrite);
@@ -23,16 +22,24 @@ export default function FactoryReportWet({ update }) {
     [LOT_REPORT_FACTORY_WET]
   );
 
+  const handleOnClose = () => {
+    onClose();
+    setLot(undefined);
+    setReport(undefined);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">
+    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size="6xl">
       <ModalOverlay />
-      <FactoryReportWetModal
-        report={report}
-        lot={lot}
-        onClose={onClose}
-        canWrite={canWrite}
-        update={update}
-      />
+      {lot && report && (
+        <FactoryReportWetModal
+          report={report}
+          lot={lot}
+          onClose={handleOnClose}
+          canWrite={canWrite}
+          update={update}
+        />
+      )}
     </Modal>
   );
 }

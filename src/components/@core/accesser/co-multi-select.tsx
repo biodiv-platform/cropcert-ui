@@ -1,21 +1,24 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import { reactSelectProps } from "@components/form/configs";
+import useGlobalState from "@hooks/use-global-store";
 import { axCoByUnionId, axGetCoByCode } from "@services/co.service";
 import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
-  const role = useStoreState((state) => state.user.role);
+  const { authorizedRoles } = useGlobalState();
   const [co, setCo] = useState<any[]>([]);
   const [coSelected, setCoSelected] = useState<any>([]);
-  const isCoCC = [ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER].includes(role);
+  const isCoCC =
+    authorizedRoles.includes(ROLES.COOPERATIVE) ||
+    authorizedRoles.includes(ROLES.COLLECTION_CENTER);
   const label = "Select Cooperatives";
 
   useEffect(() => {
     isCoCC
-      ? axGetCoByCode(getUserKey(`coCode`)).then(
+      ? axGetCoByCode(getUserKey(`${ROLES.COOPERATIVE}Code`)).then(
           (d) => d.success && setCo([{ label: d.data.name, value: d.data.code }])
         )
       : unionId > 0
@@ -37,13 +40,14 @@ function CoMultiSelect({ unionId = -1, onChange }) {
     <>
       {!isCoCC && (
         <FormControl mb={4} maxW="308px">
-          <FormLabel htmlFor={role}>{label}</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <MultiSelect
             options={co}
             value={coSelected}
             onChange={setCoSelected}
             disabled={co.length === 0}
             labelledBy={label}
+            {...reactSelectProps}
           />
         </FormControl>
       )}

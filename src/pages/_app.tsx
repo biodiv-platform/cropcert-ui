@@ -1,14 +1,15 @@
 import "../styles/global.scss";
 
-import { ChakraProvider } from "@chakra-ui/react";
-import AppContainer from "@components/@core/container";
-import { axListPages } from "@services/page.service";
+import { Box, ChakraProvider } from "@chakra-ui/react";
+import Footer from "@components/@core/container/footer";
+import Navbar from "@components/@core/navmenu";
+import { GlobalStateProvider } from "@hooks/use-global-store";
 import { SITE_TITLE } from "@static/constants";
 import { customTheme } from "@static/theme";
-import App from "next/app";
+import { getParsedUser } from "@utils/auth.util";
+import App, { AppContext } from "next/app";
 import Head from "next/head";
 import Router from "next/router";
-import { parseNookies } from "next-nookies-persist";
 import NProgress from "nprogress";
 import React from "react";
 import BusProvider from "react-gbus";
@@ -17,27 +18,35 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    return {
-      pageProps: {
-        nookies: parseNookies(ctx),
-        pages: (await axListPages()) || [],
-        ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
-      },
-    };
-  }
-
-  render() {
-    return (
+function MainApp({ Component, pageProps, user, pages }) {
+  return (
+    <GlobalStateProvider user={user} pages={pages}>
       <BusProvider>
         <ChakraProvider theme={customTheme}>
           <Head>
             <title>{SITE_TITLE}</title>
           </Head>
-          <AppContainer extras={this.props} />
+          <Navbar />
+          <Box width="full" maxWidth="1280px" mx="auto" p={6} minHeight="var(--page-height)">
+            <Component {...pageProps} />
+          </Box>
+          <Footer />
         </ChakraProvider>
       </BusProvider>
-    );
-  }
+    </GlobalStateProvider>
+  );
 }
+
+MainApp.getInitialProps = async (appContext: AppContext) => {
+  const { pageProps } = await App.getInitialProps(appContext);
+  // const pages = await axListPages();
+  const user = getParsedUser(appContext.ctx);
+
+  return {
+    pageProps,
+    user,
+    pages: [],
+  };
+};
+
+export default MainApp;

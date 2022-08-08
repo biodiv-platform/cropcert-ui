@@ -1,12 +1,12 @@
+import useGlobalState from "@hooks/use-global-store";
 import { hasAccess } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React from "react";
 
 import Arrow from "./arrow";
 import CustomLink from "./custom-link";
 
 export default function ListItems({ children, level = 0 }) {
-  const user = useStoreState((state) => state.user);
+  const { user } = useGlobalState();
 
   const listItem = (item) =>
     item["children"] ? (

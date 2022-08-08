@@ -1,6 +1,6 @@
+import useGlobalState from "@hooks/use-global-store";
 import { LOT_FLAGS } from "@static/constants";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import { useEffect, useState } from "react";
 
 const VARIANT_MAPPING = {
@@ -17,7 +17,7 @@ const WRITE_PERMISSIONS = {
 };
 
 export default function useActionProps(lotStatus, role) {
-  const user = useStoreState((state) => state.user);
+  const { user } = useGlobalState();
   const [canWrite, setCanWrite] = useState(false);
   const [colorScheme, setcolorScheme] = useState();
   const [show, setShow] = useState(false);

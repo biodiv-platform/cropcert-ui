@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/layout";
-import RadioGroupInputField from "@components/@core/formik/radio-group";
 import Table from "@components/@core/table";
+import { RadioInputField } from "@components/form/radio";
 import GridRow from "@components/pages/farmer-certification/row";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
@@ -17,11 +17,11 @@ export default function CertificationStatus({ farmer }) {
   const basicInfoHeader = [
     {
       name: "Verification",
-      selector: "verification",
+      selector: (row) => row["verification"],
     },
     {
       name: "Farmer Contract",
-      selector: "contract",
+      selector: (row) => row["contract"],
     },
   ];
   console.debug(farmer);
@@ -35,7 +35,7 @@ export default function CertificationStatus({ farmer }) {
       <GridRow
         label={CERT_PANEL.keys.certificationStatus}
         previous={farmer?.inspection?.certificationStatus}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="certificationStatus"
         options={CERT_STATUS_OPTIONS}
       />
@@ -44,7 +44,7 @@ export default function CertificationStatus({ farmer }) {
         mb={0}
         label={CERT_PANEL.keys.certificationVersion}
         previous={farmer?.inspection?.certificationVersion}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="certificationVersion"
         options={CERT_VERSION_OPTIONS}
       />

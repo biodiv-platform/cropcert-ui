@@ -1,12 +1,11 @@
 import { Link } from "@chakra-ui/react";
-import { useStoreState } from "easy-peasy";
+import useGlobalState from "@hooks/use-global-store";
 import NextLink from "next/link";
 import React from "react";
 import LogoutIcon from "src/icons/logout";
 
 function NavbarRightMenu() {
-  const isLoggedIn = useStoreState((state) => state.isLoggedIn);
-  const user = useStoreState((state) => state.user);
+  const { user, isLoggedIn } = useGlobalState();
 
   return (
     <ul className="main-menu right">
@@ -14,7 +13,7 @@ function NavbarRightMenu() {
         <li>
           <NextLink href="/auth/sign-out" passHref={true}>
             <Link>
-              {user["firstName"]} {user["lastName"]} <LogoutIcon ml={1} />
+              {user.name} <LogoutIcon ml={1} />
             </Link>
           </NextLink>
         </li>

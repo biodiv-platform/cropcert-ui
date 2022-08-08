@@ -13,19 +13,17 @@ export const DATEFORMATS = {
 
 export const ENDPOINT = {
   ROOT: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}`,
-  CAS: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CAS}`,
-  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_USER}`,
-  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_PAGES}`,
-  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_TRACEABILITY}`,
-  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_CERTIFICATION}`,
-  API: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}${process.env.NEXT_PUBLIC_ENDPOINT_API}`,
+  ENTITIES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}entities-api/api`,
+  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}user-api/api`,
+  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}pages/api`,
+  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}traceability-api/api`,
+  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}certification-api/api`,
 };
 
 export const TOKEN = {
-  AUTH: "token",
   USER: "user",
-  ACCESS: "access_token",
-  REFRESH: "refresh_token",
+  ACCESS: "BAToken",
+  REFRESH: "BRToken",
   TIMEOUT: "timeout",
   TYPE: "Bearer ",
 };
@@ -36,16 +34,17 @@ export const PAGE_TYPE_OPTIONS = {
 };
 
 export const ROLES = {
-  INSPECTOR: "inspector",
-  ICS_MANAGER: "ics_manager",
-  UNAUTHORIZED: "role_unauthorized",
-  AUTHORIZED: "authorized",
-  FARMER: "farmer",
-  COLLECTION_CENTER: "cc",
-  COOPERATIVE: "co",
-  FACTORY: "factory",
-  UNION: "union",
-  ADMIN: "admin",
+  GI_ADMIN: "GI_ADMIN",
+  INSPECTOR: "INSPECTOR",
+  ICS_MANAGER: "ICS_MANAGER",
+  UNAUTHORIZED: "ROLE_UNAUTHORIZED",
+  AUTHORIZED: "AUTHORIZED",
+  FARMER: "FARMER",
+  COLLECTION_CENTER: "COLLECTION_CENTER_PERSON",
+  COOPERATIVE: "COOPERATIVE_PERSON",
+  FACTORY: "FACTORY_PERSON",
+  UNION: "UNION_PERSON",
+  ADMIN: "ROLE_ADMIN",
 };
 
 export const KEYS_TO_ROLES = {
@@ -56,7 +55,14 @@ export const KEYS_TO_ROLES = {
   co: "Cooperative",
   factory: "Factory",
   union: "Union",
-  admin: "Admin",
+  ROLE_ADMIN: "Admin",
+};
+
+export const COMPAT_USERKEY_MAP = {
+  [`${ROLES.COLLECTION_CENTER}Code`]: "ccCode",
+  [`${ROLES.COOPERATIVE}Code`]: "coCode",
+  [`${ROLES.UNION}Code`]: "unionCode",
+  [`${ROLES.ADMIN}Code`]: "adminCode",
 };
 
 export const ROLE_HIERARCHY = [
@@ -83,11 +89,13 @@ export const MESSAGE = {
   ERROR_FACTORY_REPORT: "Input quantity does not match with graded quantities",
 };
 
+/*
 export const LOT_AT = {
   COOPERATIVE: "AtCoOperative",
   FACTORY: "AtFactory",
   UNION: "AtUnion",
 };
+*/
 
 export const LOT_FLAGS = {
   ADD: "ADD",
@@ -136,3 +144,7 @@ export const MAP: { MAP_CENTER: any; [key: string]: any } = {
   },
 };
 
+export const VERIFICATION_MODE = {
+  MANUAL: "manual",
+  OAUTH_GOOGLE: "oauth-google",
+};

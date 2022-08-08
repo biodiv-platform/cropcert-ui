@@ -6,6 +6,7 @@ import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import timeCell from "@components/@core/table/time-cell";
+import useGlobalState from "@hooks/use-global-store";
 import { hasAccess } from "@utils/auth.util";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
@@ -19,7 +20,8 @@ export const columns = [
     selector: (row) => row.id,
     width: "100px",
     cell: (row) => {
-      const isGIAdmin = hasAccess(["gi_admin"]);
+      const { user } = useGlobalState();
+      const isGIAdmin = hasAccess(["gi_admin"], user);
       return isGIAdmin ? <LotCell {...row} type="l" /> : `L-${row.id}`;
     },
   },
@@ -84,8 +86,9 @@ export const columns = [
 export default function MarketingPageComponent() {
   const { list, setCoCodes, loadMore, isLoading } = useMarketing();
   const [union, setUnion] = useState<any>();
+  const { user } = useGlobalState();
 
-  const isGIAdmin = hasAccess(["gi_admin"]);
+  const isGIAdmin = hasAccess(["gi_admin"], user);
   const [isFiltered, setIsFiltered] = useState(!isGIAdmin);
 
   const dataList = useMemo(
@@ -106,7 +109,7 @@ export default function MarketingPageComponent() {
           <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
           <Checkbox
-            defaultIsChecked={isFiltered}
+            defaultChecked={isFiltered}
             onChange={(e) => setIsFiltered(e.target.checked)}
             mt={4}
           >

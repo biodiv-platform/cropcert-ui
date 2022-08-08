@@ -125,3 +125,7 @@ export const getCoords = async () => {
     return null;
   }
 };
+
+export function wait(ms = 2000) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

@@ -1,8 +1,8 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import { reactSelectProps } from "@components/form/configs";
 import { getByRole } from "@services/accessor.service";
-import { KEYS_TO_ROLES } from "@static/constants";
 import { setUserKey } from "@utils/auth.util";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 
 interface IProps {
@@ -74,10 +74,16 @@ export default function AccesserForm({
     });
   };
 
-  const RoleDropdown = (role, index) =>
-    role !== currentRole && (
+  const RoleDropdown = (role, index) => {
+    if (role === currentRole) return null;
+
+    const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
+
+    return (
       <FormControl key={index} mb={4}>
-        <FormLabel htmlFor={role}>Select {KEYS_TO_ROLES[role]}</FormLabel>
+        <FormLabel textTransform="lowercase" htmlFor={role}>
+          Select {roleName}
+        </FormLabel>
         <Select
           id={role}
           options={rolesOptions[role]}
@@ -86,15 +92,11 @@ export default function AccesserForm({
             onOptionChange(role, index, e);
           }}
           value={rolesValues[role]}
-          styles={{
-            valueContainer: (provided) => ({
-              ...provided,
-              height: "38px",
-            }),
-          }}
+          {...reactSelectProps}
         />
       </FormControl>
     );
+  };
 
   return <>{roles.length > 1 && roles.map(RoleDropdown)}</>;
 }

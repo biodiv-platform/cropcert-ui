@@ -1,24 +1,23 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-store";
 import { axOriginByLotId } from "@services/lot.service";
 import { ROLES } from "@static/constants";
 import { LOT_REPORT_CUPPING } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { Cupping, Lot, QualityReport } from "types/traceability";
-import { User } from "types/user";
+import { Cupping, Lot } from "types/traceability";
 
 import CuppingReportForm from "./form";
 
 export default function CuppingReportModal({ update }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [lot, setLot] = useState({} as Lot);
+  const [lot, setLot] = useState<any>();
   const [canWrite, setCanWrite] = useState(true);
-  const [report, setReport] = useState<QualityReport>({});
+  const [report, setReport] = useState<any>();
   const [origin, setOrigin] = useState<any>();
 
-  const user: User = useStoreState((state) => state.user);
+  const { user } = useGlobalState();
   const isReadOnly = !hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   useListener(
@@ -32,13 +31,20 @@ export default function CuppingReportModal({ update }) {
     [LOT_REPORT_CUPPING]
   );
 
+  const handleOnClose = () => {
+    onClose();
+    setLot(undefined);
+    setOrigin(undefined);
+    setReport(undefined);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="6xl">
+    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size="6xl">
       <ModalOverlay />
-      {origin && report && (
+      {origin && report && lot && (
         <CuppingReportForm
           report={report}
-          onClose={onClose}
+          onClose={handleOnClose}
           canWrite={canWrite}
           isReadOnly={isReadOnly}
           update={update}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const withPWA = require("next-pwa");
-const { nanoid } = require("nanoid");
+const packageJSON = require("./package.json");
 
 module.exports = withPWA({
   pwa: {
@@ -9,10 +9,10 @@ module.exports = withPWA({
     register: false,
     ignoreURLParametersMatching: [/^feFarmerId/, /^feCCCode/],
     additionalManifestEntries: [
-      { url: "/", revision: nanoid() },
-      { url: "/dashboard", revision: nanoid() },
-      { url: "/farmer-certification/manage-farmers", revision: nanoid() },
-      { url: "/farmer-certification/inspection-report/create", revision: nanoid() },
+      { url: "/", revision: packageJSON.version },
+      { url: "/dashboard", revision: packageJSON.version },
+      { url: "/farmer-certification/manage-farmers", revision: packageJSON.version },
+      { url: "/farmer-certification/inspection-report/create", revision: packageJSON.version },
     ],
     runtimeCaching: [
       {

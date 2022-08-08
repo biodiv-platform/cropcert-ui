@@ -1,10 +1,10 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Button } from "@chakra-ui/react";
-import RadioGroupInputField from "@components/@core/formik/radio-group";
-import TextInputField from "@components/@core/formik/text";
+import { RadioInputField } from "@components/form/radio";
+import { TextBoxField } from "@components/form/text";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { FieldArray, useFormikContext } from "formik";
 import React from "react";
+import { useFieldArray } from "react-hook-form";
 import DeleteIcon from "src/icons/delete";
 
 import GridRow from "../../../row";
@@ -12,57 +12,52 @@ import { YPN_OPTIONS } from "../options";
 import { ADVICES_PANEL } from "./data";
 
 export default function Advices({ previousAdvices }) {
-  const { values }: any = useFormikContext();
   console.debug(previousAdvices);
+  const advices = useFieldArray({ name: "advices" });
 
   return (
     <LotShowPanel title={ADVICES_PANEL.title} icon={ADVICES_PANEL.icon} isOpen={true}>
       <GridRow
         label={ADVICES_PANEL.keys.hasFarmerImplementedPreviousAdvice}
         name="hasFarmerImplementedPreviousAdvice"
-        field={RadioGroupInputField}
+        field={RadioInputField}
         options={YPN_OPTIONS}
       />
-      <FieldArray
-        name="advices"
-        render={(arrayHelpers) => (
-          <div>
-            {values.advices && values.advices.length > 0 ? (
-              values.advices.map((_farm, index) => (
-                <Box key={index} mt={index !== 0 ? 6 : 0}>
-                  <TextInputField name={`advices[${index}].advice`} label="Advice" fast={true} />
-                  <Button
-                    colorScheme="red"
-                    type="button"
-                    leftIcon={<DeleteIcon />}
-                    mr={4}
-                    onClick={() => arrayHelpers.remove(index)}
-                  >
-                    Remove Current
-                  </Button>
-                  <Button
-                    colorScheme="blue"
-                    type="button"
-                    leftIcon={<AddIcon />}
-                    onClick={() => arrayHelpers.insert(index + 1, "")}
-                  >
-                    Add Below
-                  </Button>
-                </Box>
-              ))
-            ) : (
+      <div>
+        {advices.fields?.length ? (
+          advices.fields.map((field, index) => (
+            <Box key={field.id} mt={index !== 0 ? 6 : 0}>
+              <TextBoxField name={`advices.${index}.advice`} label="Advice" />
+              <Button
+                colorScheme="red"
+                type="button"
+                leftIcon={<DeleteIcon />}
+                mr={4}
+                onClick={() => advices.remove(index)}
+              >
+                Remove Current
+              </Button>
               <Button
                 colorScheme="blue"
                 type="button"
-                onClick={() => arrayHelpers.push("")}
                 leftIcon={<AddIcon />}
+                onClick={() => advices.insert(index + 1, "")}
               >
-                Add a advice
+                Add Below
               </Button>
-            )}
-          </div>
+            </Box>
+          ))
+        ) : (
+          <Button
+            colorScheme="blue"
+            type="button"
+            onClick={() => advices.append("")}
+            leftIcon={<AddIcon />}
+          >
+            Add a advice
+          </Button>
         )}
-      />
+      </div>
     </LotShowPanel>
   );
 }

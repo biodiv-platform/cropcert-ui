@@ -1,6 +1,6 @@
-import { DateTime } from "@components/@core/formik";
-import RadioGroupInputField from "@components/@core/formik/radio-group";
-import TextInputField from "@components/@core/formik/text";
+import { DateTimeInputField } from "@components/form/datepicker";
+import { RadioInputField } from "@components/form/radio";
+import { TextBoxField } from "@components/form/text";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { formattedDate } from "@utils/basic.util";
 import React from "react";
@@ -15,7 +15,7 @@ function GeneralInformation({ i }) {
       <GridRow
         label={GI_PANEL.keys.chemicalsOnIntercrop}
         previous={i?.chemicalsOnIntercrop}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="chemicalsOnIntercrop"
       />
 
@@ -23,14 +23,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.chemicalsOnNonCoffeeField}
         previous={i?.chemicalsOnNonCoffeeField}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="chemicalsOnNonCoffeeField"
       />
 
       <GridRow
         label={GI_PANEL.keys.lastUsedChemicals}
         previous={formattedDate(i?.lastUsedChemicals, true)}
-        field={DateTime}
+        field={DateTimeInputField}
         name="lastUsedChemicals"
         format="dd-MM-yyyy"
         defaultBlank={true}
@@ -40,14 +40,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.cutivatationNotConductedWithin5mWaterSource}
         previous={i?.cutivatationNotConductedWithin5mWaterSource}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="cutivatationNotConductedWithin5mWaterSource"
       />
 
       <GridRow
         label={GI_PANEL.keys.manure90DaysOrLossBeforeHarvest}
         previous={i?.manure90DaysOrLossBeforeHarvest}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="manure90DaysOrLossBeforeHarvest"
       />
 
@@ -55,7 +55,7 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.understandingOfOrganicFTStandards}
         previous={i?.understandingOfOrganicFTStandards}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="understandingOfOrganicFTStandards"
         options={GP_OPTIONS}
       />
@@ -63,7 +63,7 @@ function GeneralInformation({ i }) {
       <GridRow
         label={GI_PANEL.keys.weedControlAdequate}
         previous={i?.weedControlAdequate}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="weedControlAdequate"
       />
 
@@ -71,7 +71,7 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.nonCoffeeTreesPlanted}
         previous={i?.nonCoffeeTreesPlanted}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="nonCoffeeTreesPlanted"
         options={MFN_OPTIONS}
       />
@@ -79,7 +79,7 @@ function GeneralInformation({ i }) {
       <GridRow
         label={GI_PANEL.keys.signsOfErosion}
         previous={i?.signsOfErosion}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="signsOfErosion"
       />
 
@@ -87,14 +87,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.erosionControlAdequate}
         previous={i?.erosionControlAdequate}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="erosionControlAdequate"
       />
 
       <GridRow
         label={GI_PANEL.keys.burningOfCropWaste}
         previous={i?.burningOfCropWaste}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="burningOfCropWaste"
       />
 
@@ -102,14 +102,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.farmerHireLabour}
         previous={i?.farmerHireLabour}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="farmerHireLabour"
       />
 
       <GridRow
         label={GI_PANEL.keys.isLabourFairlyTreated}
         previous={i?.isLabourFairlyTreated}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isLabourFairlyTreated"
       />
 
@@ -117,14 +117,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.isChildLabourImployed}
         previous={i?.isChildLabourImployed}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isChildLabourImployed"
       />
 
       <GridRow
         label={GI_PANEL.keys.plasticDisposal}
         previous={i?.plasticDisposal}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="plasticDisposal"
         options={MFN_OPTIONS}
       />
@@ -133,14 +133,14 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.isOtherWasteDisposalAdequate}
         previous={i?.isOtherWasteDisposalAdequate}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isOtherWasteDisposalAdequate"
       />
 
       <GridRow
         label={GI_PANEL.keys.isHHMakingJointDecision}
         previous={i?.isHHMakingJointDecision}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isHHMakingJointDecision"
       />
 
@@ -148,7 +148,7 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.isHHTakingFarmingAsFamilyBusiness}
         previous={i?.isHHTakingFarmingAsFamilyBusiness}
         bgGray={true}
-        field={RadioGroupInputField}
+        field={RadioInputField}
         name="isHHTakingFarmingAsFamilyBusiness"
       />
 
@@ -156,9 +156,8 @@ function GeneralInformation({ i }) {
         label={GI_PANEL.keys.comments}
         previous={i?.comments}
         mb={0}
-        field={TextInputField}
+        field={TextBoxField}
         name="comments"
-        fast={true}
       />
     </LotShowPanel>
   );

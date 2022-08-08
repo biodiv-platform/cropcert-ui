@@ -1,5 +1,5 @@
-import GeolocationInputField from "@components/@core/formik/geolocation";
-import SignatureInputField from "@components/@core/formik/signature";
+import { GeolocationInputField } from "@components/form/geolocation";
+import { SignatureInputField } from "@components/form/signature";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 

@@ -18,7 +18,7 @@ export default function LotShowPanel({
 }) {
   return (
     <AccordionItem
-      defaultIsOpen={isOpen}
+      defaultChecked={isOpen}
       isDisabled={count === 0}
       boxShadow="md"
       bg="gray.200"

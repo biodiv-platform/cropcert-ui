@@ -1,24 +1,24 @@
 export const ccListColumns = [
   {
     name: "#",
-    selector: "code",
+    selector: (row) => row["code"],
     sortable: true,
     width: "70px",
   },
   {
     name: "Name",
-    selector: "name",
+    selector: (row) => row["name"],
   },
   {
     name: "Village",
-    selector: "village",
+    selector: (row) => row["village"],
   },
   {
     name: "Type",
-    selector: "type",
+    selector: (row) => row["type"],
   },
   {
     name: "CO Code",
-    selector: "coCode",
+    selector: (row) => row["coCode"],
   },
 ];

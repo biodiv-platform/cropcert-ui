@@ -1,7 +1,6 @@
+import useGlobalState from "@hooks/use-global-store";
 import { ROLES } from "@static/constants";
-import { useStoreState } from "easy-peasy";
 import React, { useEffect, useMemo, useState } from "react";
-import { User } from "types/user";
 
 import AccesserForm from "./form";
 import { getDropdownArray, getInitialOptionsAndValues } from "./helpers";
@@ -30,8 +29,8 @@ const parsedAccessorRole = (role) => {
  * @returns
  */
 export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
-  const user: User = useStoreState((state) => state.user);
-  const parsedRole = useMemo(() => parsedAccessorRole(user.role), [user.role]);
+  const { authorizedRoles } = useGlobalState();
+  const parsedRole = useMemo(() => parsedAccessorRole(authorizedRoles[0]), [authorizedRoles]);
   const roles = getDropdownArray(parsedRole, toRole);
 
   const [initialState, setInitialState] = useState<any>();

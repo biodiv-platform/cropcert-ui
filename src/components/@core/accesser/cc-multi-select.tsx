@@ -1,16 +1,17 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import { reactSelectProps } from "@components/form/configs";
+import useGlobalState from "@hooks/use-global-store";
 import { axGetCCByCode, axListCCByCoId } from "@services/cc.service";
 import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth.util";
-import { useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CCMultiSelect({ coId = -1, onChange }) {
-  const role = useStoreState((state) => state.user.role);
+  const { authorizedRoles } = useGlobalState();
   const [cc, setCC] = useState<any>([]);
   const [ccSelected, setCCSelected] = useState<any>([]);
-  const isCC = role === ROLES.COLLECTION_CENTER;
+  const isCC = authorizedRoles.includes(ROLES.COLLECTION_CENTER);
   const label = "Select Collection Center";
 
   const setBoth = (r) => {
@@ -20,7 +21,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
 
   useEffect(() => {
     isCC
-      ? axGetCCByCode(getUserKey(`ccCode`)).then(
+      ? axGetCCByCode(getUserKey(`${ROLES.COLLECTION_CENTER}Code`)).then(
           (d) => d.success && setBoth([{ label: d.data.name, value: d.data.code }])
         )
       : coId > 0
@@ -38,13 +39,16 @@ function CCMultiSelect({ coId = -1, onChange }) {
     <>
       {!isCC && (
         <FormControl mb={4} maxW="308px">
-          <FormLabel htmlFor={role}>{label}</FormLabel>
+          <FormLabel textTransform="lowercase" htmlFor={ROLES.COLLECTION_CENTER}>
+            {label}
+          </FormLabel>
           <MultiSelect
             options={cc}
             value={ccSelected}
             onChange={setCCSelected}
             disabled={cc.length === 0}
             labelledBy={label}
+            {...reactSelectProps}
           />
         </FormControl>
       )}

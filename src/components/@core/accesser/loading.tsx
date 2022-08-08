@@ -6,7 +6,9 @@ import Skeleton from "tiny-skeleton-loader-react";
 const AccesserLoading = ({ roles }) =>
   roles.slice(1).map((role) => (
     <FormControl key={`${role}-s`} mb={4}>
-      <FormLabel htmlFor={role}>Select {KEYS_TO_ROLES[role]}</FormLabel>
+      <FormLabel textTransform="lowercase" htmlFor={role}>
+        Select {KEYS_TO_ROLES?.[role]}
+      </FormLabel>
       <Skeleton height="38px" />
     </FormControl>
   ));

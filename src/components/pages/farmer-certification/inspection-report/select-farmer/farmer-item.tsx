@@ -37,7 +37,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
         <small>{farmer.farmerCode}</small>
         <div>
           <Text as="span" fontSize="lg">
-            {farmer.firstName} {farmer.lastName}
+            {farmer.name}
           </Text>
           <Box hidden={!isConflict} className="fade">
             <WarningIcon mr={2} color="orange.500" />

@@ -71,7 +71,7 @@ export default function InspectionReportListComponent() {
           </option>
           <option value={100}>100 Records</option>
         </Select>
-        <Checkbox defaultIsChecked={true} onChange={(e) => setPendingReportOnly(e.target.checked)}>
+        <Checkbox defaultChecked={true} onChange={(e) => setPendingReportOnly(e.target.checked)}>
           Pending Reports Only
         </Checkbox>
       </Stack>

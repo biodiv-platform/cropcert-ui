@@ -9,7 +9,7 @@ export const axListCCByCoId = async (coCode) => {
   }
 
   try {
-    const res = await http.get(`${ENDPOINT.USER}/cc/coCode/${coCode}`);
+    const res = await http.get(`${ENDPOINT.ENTITIES}/cc/coCode/${coCode}`);
     const data: any[] = res.data;
     return { success: true, data };
   } catch (e) {
@@ -20,7 +20,7 @@ export const axListCCByCoId = async (coCode) => {
 
 export const axGetCCByCode = async (id) => {
   try {
-    const res = await http.get(`${ENDPOINT.USER}/cc/code/${id}`);
+    const res = await http.get(`${ENDPOINT.ENTITIES}/cc/code/${id}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(GENERIC.ERROR);
@@ -30,7 +30,7 @@ export const axGetCCByCode = async (id) => {
 
 export const axListCC = async () => {
   try {
-    const { data } = await plainHttp.get(`${ENDPOINT.USER}/cc/all`);
+    const { data } = await plainHttp.get(`${ENDPOINT.ENTITIES}/cc/all`);
     return { success: true, data };
   } catch (e) {
     notification(GENERIC.ERROR);

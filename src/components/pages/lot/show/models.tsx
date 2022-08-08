@@ -75,33 +75,33 @@ export const GreenReportExpand = [
 export const CuppingReportHeader = [
   {
     name: "Report ID",
-    selector: "id",
+    selector: (row) => row["id"],
   },
   {
     name: "cupper",
-    selector: "cupper",
+    selector: (row) => row["cupper"],
   },
   {
     name: "Timestamp",
-    selector: "id",
+    selector: (row) => row["id"],
   },
   {
     name: "Note",
-    selector: "notes",
+    selector: (row) => row["notes"],
   },
 ];
 
 export const GreenReportHeader = [
   {
     name: "Report ID",
-    selector: "id",
+    selector: (row) => row["id"],
   },
   {
     name: "Over Turn Percentage",
-    selector: "overTurnPercentage",
+    selector: (row) => row["overTurnPercentage"],
   },
   {
     name: "Moisture Content",
-    selector: "mc",
+    selector: (row) => row["mc"],
   },
 ];

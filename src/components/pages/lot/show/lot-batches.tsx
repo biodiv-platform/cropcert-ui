@@ -9,48 +9,48 @@ export default function LotBatches({ lotId }) {
   const batchColumns = [
     {
       name: "#",
-      selector: "id",
+      selector: (row) => row["id"],
       maxWidth: "100px",
       sortable: true,
       cell: (row) => `B-${row.id}`,
     },
     {
       name: "Name",
-      selector: "batchName",
+      selector: (row) => row["batchName"],
       width: "280px",
     },
     {
       name: "Type",
-      selector: "type",
+      selector: (row) => row["type"],
       maxWidth: "100px",
       sortable: true,
     },
     {
       name: "Quantity",
-      selector: "quantity",
+      selector: (row) => row["quantity"],
       maxWidth: "100px",
       sortable: true,
     },
     {
       name: "Last Updated",
-      selector: "date",
+      selector: (row) => row["date"],
       maxWidth: "150px",
       cell: (row) => timeCell(row.date),
       sortable: true,
     },
     {
       name: "Perchment Quantity",
-      selector: "perchmentQuantity",
+      selector: (row) => row["perchmentQuantity"],
       maxWidth: "100px",
       sortable: true,
     },
     {
       name: "Lot Name",
-      selector: "lotId",
+      selector: (row) => row["lotId"],
     },
     {
       name: "Lot Status",
-      selector: "lotId",
+      selector: (row) => row["lotId"],
     },
   ];
 

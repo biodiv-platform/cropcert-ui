@@ -84,7 +84,7 @@ export const axOriginByLotId = async (id) => {
     const res1 = await http.get(`${ENDPOINT.TRACEABILITY}/lot/origin`, {
       params: { lotId: id },
     });
-    const res2 = await http.get(`${ENDPOINT.USER}/cc/origin`, {
+    const res2 = await http.get(`${ENDPOINT.ENTITIES}/cc/origin`, {
       params: {
         ccCodes: res1.data.toString(),
       },
@@ -107,11 +107,8 @@ export const axUpdateGRN = async (payload) => {
 
 export const axGetLotById = async (lotId, ctx?) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.API}/traceability/show`, {
-      params: {
-        ctx,
-        lotId,
-      },
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/show`, {
+      params: { ctx, lotId },
     });
     return { success: true, data };
   } catch (e) {

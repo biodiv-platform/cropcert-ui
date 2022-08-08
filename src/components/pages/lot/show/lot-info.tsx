@@ -9,25 +9,25 @@ export default function LotInfo({ lot }) {
   const basicInfoHeader = [
     {
       name: "Type",
-      selector: "type",
+      selector: (row) => row["type"],
     },
     {
       name: "Quantity",
-      selector: "quantity",
+      selector: (row) => row["quantity"],
     },
     {
       name: "Created On",
-      selector: "createdOn",
+      selector: (row) => row["createdOn"],
       cell: (row) => timeCell(row.createdOn),
     },
     {
       name: "GRN",
-      selector: "grnNumber",
+      selector: (row) => row["grnNumber"],
       cell: (row) => tooltipCell(row.grnNumber),
     },
     {
       name: "Note",
-      selector: "note",
+      selector: (row) => row["note"],
       cell: (row) => tooltipCell(row.note),
     },
   ];

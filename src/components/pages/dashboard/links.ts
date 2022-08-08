@@ -9,7 +9,7 @@ const links = [
         title: "📦 Lot Details",
         description: "Information on Lots",
         to: "/marketing",
-        access: ["gi_admin"],
+        access: [ROLES.GI_ADMIN],
       },
       {
         title: "🧺 Batch(s)",

@@ -4,7 +4,6 @@ import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { ROLES } from "@static/constants";
-import { useLotStore } from "@stores/lot.store";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -17,31 +16,34 @@ import FactoryReportDry from "./modals/lot-factory-report/factory-report-dry";
 import FactoryReportWet from "./modals/lot-factory-report/factory-report-wet";
 import GreenReportModal from "./modals/lot-green-report";
 import LotGRNModal from "./modals/lot-grn-modal";
+import { useLotStore } from "./use-lot-store";
 
 function LotListPageComponent({ unions }) {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
-  const [state, actions] = useLotStore();
+  const lotStore = useLotStore();
 
-  const handleLoadMore = () => {
-    actions.listLot({ ccCodes: coCodes });
-  };
+  const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
   useEffect(() => {
-    coCodes.length && actions.listLot({ ccCodes: coCodes, reset: true });
+    coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
   }, [coCodes]);
 
   return (
     <Box>
       <PageHeading>📦 Lot(s)</PageHeading>
       <CoreGrid>
-        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={actions.clearLot} />
+        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={lotStore.clearLot} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
       </CoreGrid>
-      {coCodes.length > 0 && state.lot.length > 0 && (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
+      {coCodes.length > 0 && lotStore.state.lot.length > 0 && (
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={handleLoadMore}
+          hasMore={lotStore.state.hasMore}
+        >
           <Table
-            data={state.lot}
+            data={lotStore.state.lot}
             columns={lotColumns}
             expandableRows={true}
             customStyles={{
@@ -57,13 +59,13 @@ function LotListPageComponent({ unions }) {
         </InfiniteScroll>
       )}
 
-      <LotCoDispatchModal update={actions.updateLot} />
-      <LotFactoryDispatchModal unions={unions} update={actions.updateLot} />
-      <FactoryReportDry update={actions.updateLot} />
-      <FactoryReportWet update={actions.updateLot} />
-      <GreenReportModal update={actions.updateLot} />
-      <CuppingReportModal update={actions.updateLot} />
-      <LotGRNModal update={actions.updateLot} />
+      <LotCoDispatchModal update={lotStore.updateLot} />
+      <LotFactoryDispatchModal unions={unions} update={lotStore.updateLot} />
+      <FactoryReportDry update={lotStore.updateLot} />
+      <FactoryReportWet update={lotStore.updateLot} />
+      <GreenReportModal update={lotStore.updateLot} />
+      <CuppingReportModal update={lotStore.updateLot} />
+      <LotGRNModal update={lotStore.updateLot} />
     </Box>
   );
 }

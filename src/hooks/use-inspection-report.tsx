@@ -46,6 +46,8 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
   } = useIndexedDBStore(STORE.FARMERS);
 
   const {
+    update: updateSyncStatus,
+    getOneByIndex: getSyncStatus,
     add: addSyncStatus,
     getAll: getAllSyncStatus,
     deleteByID: removeSyncStatus,
@@ -107,7 +109,13 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
           lastSynced: new Date(),
           farmersCount: data.length,
         };
-        await addSyncStatus(syncStatus);
+
+        if (isUpdate) {
+          const { index }: any = await getSyncStatus("ccCode", ccCode);
+          await updateSyncStatus({ ...syncStatus, index });
+        } else {
+          await addSyncStatus(syncStatus);
+        }
 
         updateCCList((_draft) => {
           const index = ccList.l.findIndex((cc) => ccCode === cc.code);

@@ -7,8 +7,7 @@ export default function FarmerInformation({ farmer }) {
   const basicInfoHeader = [
     {
       name: "Farmer Name",
-      selector: (row) => row.firstName,
-      cell: ({ firstName, lastName }) => `${firstName} ${lastName}`,
+      selector: (row) => row.name,
     },
     {
       name: "Farmer Code",
@@ -21,14 +20,6 @@ export default function FarmerInformation({ farmer }) {
     {
       name: "Collection Center Code",
       selector: (row) => row.ccCode,
-    },
-    {
-      name: "Sub Country",
-      selector: (row) => row.subCountry,
-    },
-    {
-      name: "Village",
-      selector: (row) => row.village,
     },
     {
       name: "Inspector",

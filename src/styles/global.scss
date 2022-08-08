@@ -35,6 +35,8 @@ input:disabled {
   }
 }
 
-.chakra-radio__control:not([data-checked]) {
-  background: white;
+.chakra-radio__control:not([data-checked]),
+.chakra-input,
+.chakra-select {
+  background: white !important;
 }

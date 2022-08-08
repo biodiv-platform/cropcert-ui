@@ -8,22 +8,16 @@ export const STORE = {
 
 export const DB_CONFIG: IndexedDBConfig = {
   databaseName: "cropcert",
-  version: 1,
+  version: 2,
   stores: [
     {
       name: STORE.FARMERS,
       id: { keyPath: "index", autoIncrement: true },
       indices: [
         { name: "id", keyPath: "id" },
+        { name: "name", keyPath: "name" },
         { name: "userName", keyPath: "userName" },
-        { name: "firstName", keyPath: "firstName" },
-        { name: "lastName", keyPath: "lastName" },
-        { name: "dateOfBirth", keyPath: "dateOfBirth" },
-        { name: "gender", keyPath: "gender" },
-        { name: "cellNumber", keyPath: "cellNumber" },
         { name: "email", keyPath: "email" },
-        { name: "village", keyPath: "village" },
-        { name: "subCountry", keyPath: "subCountry" },
         { name: "membershipId", keyPath: "membershipId" },
         { name: "numCoffeePlots", keyPath: "numCoffeePlots" },
         { name: "numCoffeeTrees", keyPath: "numCoffeeTrees" },
@@ -31,6 +25,9 @@ export const DB_CONFIG: IndexedDBConfig = {
         { name: "coffeeArea", keyPath: "coffeeArea" },
         { name: "farmerCode", keyPath: "farmerCode" },
         { name: "ccCode", keyPath: "ccCode" },
+        { name: "ccName", keyPath: "ccName" },
+        { name: "coName", keyPath: "coName" },
+        { name: "unionName", keyPath: "unionName" },
         { name: "fieldCoOrdinator", keyPath: "fieldCoOrdinator" },
         { name: "inspectorName", keyPath: "inspectorName" },
         { name: "inspection", keyPath: "inspection" },

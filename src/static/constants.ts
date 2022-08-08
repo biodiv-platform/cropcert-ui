@@ -15,7 +15,7 @@ export const ENDPOINT = {
   ROOT: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}`,
   ENTITIES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}entities-api/api`,
   USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}user-api/api`,
-  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}pages-api/api`,
+  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}pages/api`,
   TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}traceability/api`,
   CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}certification/api`,
   API: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}cropcert/api`,

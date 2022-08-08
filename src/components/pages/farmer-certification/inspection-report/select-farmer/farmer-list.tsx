@@ -44,9 +44,7 @@ export default function FarmerList({ feCCCode }) {
 
   const refetchFarmers = (isOnline = false) => {
     getCCFarmers(Number(feCCCode), isOnline, true).then((data) =>
-      setInitialFarmers(
-        data.sort((a, b) => (a.firstName + a.lastName).localeCompare(b.firstName + b.lastName))
-      )
+      setInitialFarmers(data.sort((a, b) => a.name.localeCompare(b.name)))
     );
   };
 
@@ -57,8 +55,8 @@ export default function FarmerList({ feCCCode }) {
   useEffect(() => {
     setFarmers(
       initialFarmers
-        .filter(({ firstName, lastName, pendingReport }) => {
-          const match = (firstName + lastName).toLowerCase().includes(query);
+        .filter(({ name, pendingReport }) => {
+          const match = name.toLowerCase().includes(query);
           return pendingOnly ? pendingReport && match : match;
         })
         .slice(0, Number(limit))

@@ -50,7 +50,7 @@ export default function BatchCreateForm({ update, onClose }) {
 
   useEffect(() => {
     setBatchType(cc ? typeList(cc?.type) : []);
-    hForm.setValue(`${ROLES.COLLECTION_CENTER}Code`, cc?.value);
+    hForm.setValue(`ccCode`, cc?.value);
   }, [cc]);
 
   const handleSubmit = async (values) => {

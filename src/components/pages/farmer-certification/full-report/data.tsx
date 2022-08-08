@@ -1,8 +1,6 @@
 const columnsRaw = {
   id: "Id",
-  userName: "User Name",
-  firstName: "First Name",
-  lastName: "Last Name",
+  name: "Name",
   dateOfBirth: "BirthDate",
   gender: "Gender",
   cellNumber: "Cell Number",

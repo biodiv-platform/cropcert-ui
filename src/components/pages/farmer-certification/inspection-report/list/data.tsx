@@ -11,8 +11,7 @@ export const inspectionReportColumns = [
   },
   {
     name: "Name",
-    selector: (row) => row["farmerFirstName"],
-    cell: ({ farmerFirstName, farmerLastName }) => `${farmerFirstName} ${farmerLastName}`,
+    selector: (row) => row["name"],
   },
   {
     name: "Cooperative",

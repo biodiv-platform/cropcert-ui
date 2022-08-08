@@ -72,7 +72,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-leaflet": "^2.8.2",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
     "eslint-config-next": "^12.2.2",

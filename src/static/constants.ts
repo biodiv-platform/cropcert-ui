@@ -1,6 +1,8 @@
+import SITE_CONFIG from "@configs/site-config";
+
 export const isBrowser = typeof window !== `undefined`;
 
-export const SITE_TITLE = process.env.NEXT_PUBLIC_APP_TITLE;
+export const SITE_TITLE = SITE_CONFIG.SITE.TITLE_LOCAL;
 export const PAGINATION_LIMIT = 20;
 
 export const DATEFORMATS = {
@@ -12,12 +14,12 @@ export const DATEFORMATS = {
 };
 
 export const ENDPOINT = {
-  ROOT: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}`,
-  ENTITIES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}entities-api/api`,
-  USER: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}user-api/api`,
-  PAGES: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}pages/api`,
-  TRACEABILITY: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}traceability-api/api`,
-  CERTIFICATION: `${process.env.NEXT_PUBLIC_APP_ENDPOINT}certification-api/api`,
+  ROOT: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}`,
+  ENTITIES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}entities-api/api`,
+  USER: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}user-api/api`,
+  PAGES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}pages/api`,
+  TRACEABILITY: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}traceability-api/api`,
+  CERTIFICATION: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}certification-api/api`,
 };
 
 export const TOKEN = {
@@ -89,14 +91,6 @@ export const MESSAGE = {
   ERROR_FACTORY_REPORT: "Input quantity does not match with graded quantities",
 };
 
-/*
-export const LOT_AT = {
-  COOPERATIVE: "AtCoOperative",
-  FACTORY: "AtFactory",
-  UNION: "AtUnion",
-};
-*/
-
 export const LOT_FLAGS = {
   ADD: "ADD",
   EDIT: "EDIT",
@@ -119,30 +113,6 @@ export const LOT_STATUS_HIERARCHY = [
   "AT_FACTORY",
   "AT_UNION",
 ];
-
-export const MAP: { MAP_CENTER: any; [key: string]: any } = {
-  MAP_CENTER: [0.4363, 30.1675],
-  MARKER_MERGEOPTIONS: {
-    iconRetinaUrl: "/assets/marker-default@2x.png",
-    iconUrl: "/assets/marker-default.png",
-    iconSize: [30, 70],
-    shadowSize: [0, 0],
-    shadowAnchor: [0, 0],
-    popupAnchor: [3, -40],
-  },
-  MARKER_SELECTED: {
-    iconRetinaUrl: "/assets/marker-selected@2x.png",
-    iconUrl: "/assets/marker-selected.png",
-    iconSize: [30, 70],
-    shadowSize: [0, 0],
-    shadowAnchor: [0, 0],
-    popupAnchor: [3, -40],
-  },
-  TILE: {
-    URL: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    ATTRIBUTION: `&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
-  },
-};
 
 export const VERIFICATION_MODE = {
   MANUAL: "manual",

@@ -18,15 +18,16 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@configs/*": ["./src/configs/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@pages/*": ["./src/pages/*"],
       "@icons/*": ["./src/icons/*"],
+      "@pages/*": ["./src/pages/*"],
       "@services/*": ["./src/services/*"],
       "@static/*": ["./src/static/*"],
       "@stores/*": ["./src/stores/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "incremental": true
   },

@@ -1,4 +1,4 @@
-import { MAP } from "@static/constants";
+import { MAP } from "@static/map";
 import L from "leaflet";
 import React, { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";

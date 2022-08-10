@@ -18,6 +18,8 @@
 # misc
 .DS_Store
 .directory
+.env*
+src/configs/site-config.js*
 
 # debug
 npm-debug.log*

@@ -1,6 +1,7 @@
 import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification.util";
+import { nanoid } from "nanoid";
 
 export const axGetFactoryReportById = async (factoryReportId = -1) => {
   if (factoryReportId > 0) {
@@ -119,19 +120,19 @@ export const axUploadInspectionReport = async (body) => {
  * @returns
  */
 export const axUploadSignature = async (base64: string) => {
-  if (!base64) {
-    return;
-  }
+  if (!base64) return;
 
   const r = await fetch(base64);
   const image = await r.blob();
   const imageName = `sig-${new Date().getTime()}.png`;
   const formData = new FormData();
   formData.append("upload", image, imageName);
+  formData.append("hash", nanoid());
+  formData.append("directory", "signature");
 
-  const { data } = await http.post(`${ENDPOINT.PAGES}/image`, formData, {
+  const { data } = await http.post(`${ENDPOINT.FILES}/upload/resource-upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-  return data.url;
+  return data.uri;
 };

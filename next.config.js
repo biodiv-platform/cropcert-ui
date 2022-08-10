@@ -2,10 +2,9 @@
 const withPWA = require("next-pwa");
 const packageJSON = require("./package.json");
 
-module.exports = withPWA({
+const NextConfig = {
   pwa: {
     dest: "public",
-    disable: process.env.NODE_ENV !== "production",
     register: false,
     ignoreURLParametersMatching: [/^feFarmerId/, /^feCCCode/],
     additionalManifestEntries: [
@@ -57,4 +56,6 @@ module.exports = withPWA({
       },
     ],
   },
-});
+};
+
+module.exports = process.env.NODE_ENV === "production" ? withPWA(NextConfig) : {};

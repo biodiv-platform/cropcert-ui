@@ -1,7 +1,10 @@
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
+import { ENDPOINT } from "@static/constants";
 import { formattedDate } from "@utils/basic.util";
 import React from "react";
+
+const SIGNATURE_URL_PREFIX = `${ENDPOINT.FILES}/get/raw/signature`;
 
 const SignatureBlock = ({ previous, current, showCurrent, title }) => (
   <SimpleGrid columns={{ base: 1, md: 3 }} mb={4} spacingX={2}>
@@ -10,7 +13,7 @@ const SignatureBlock = ({ previous, current, showCurrent, title }) => (
       <Text color="gray.600" fontSize="0.8em">
         Previous
       </Text>
-      <img src={previous?.path} />
+      <img src={SIGNATURE_URL_PREFIX + previous?.path} />
       {formattedDate(previous?.date)}
     </Box>
     {showCurrent && (
@@ -18,7 +21,7 @@ const SignatureBlock = ({ previous, current, showCurrent, title }) => (
         <Text color="gray.600" fontSize="0.8em">
           New
         </Text>
-        <img src={current?.path} />
+        <img src={SIGNATURE_URL_PREFIX + current?.path} />
         {formattedDate(current?.date)}
       </Box>
     )}

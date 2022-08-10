@@ -1,3 +1,4 @@
+import SITE_CONFIG from "@configs/site-config";
 import { ROLES } from "@static/constants";
 import { hierarchicalRoles } from "@utils/auth.util";
 
@@ -60,7 +61,7 @@ const links = [
       {
         title: "🌾 ODK Aggregate",
         description: "View aggregated data on ODK",
-        to: "/ODKAggregate/Aggregate.html",
+        to: SITE_CONFIG.ODK.URL,
         access: [ROLES.ADMIN],
       },
     ],

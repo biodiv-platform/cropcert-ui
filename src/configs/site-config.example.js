@@ -6,6 +6,9 @@ const SITE_CONFIG_EXAMPLE = {
     TITLE_LOCAL: "ROBUST",
     URL: "http://localhost:3000",
   },
+  ODK: {
+    URL: "https://odk.site.tld/",
+  },
 };
 
 module.exports = SITE_CONFIG_EXAMPLE;

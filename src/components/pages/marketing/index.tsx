@@ -2,6 +2,7 @@ import { EmailIcon } from "@chakra-ui/icons";
 import { Badge, Box, Button, Checkbox, Spinner } from "@chakra-ui/react";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
+import Container from "@components/@core/container";
 import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
@@ -97,39 +98,44 @@ export default function MarketingPageComponent() {
   );
 
   return (
-    <Box>
+    <>
       <MarketingHeader isGIAdmin={isGIAdmin} />
-      <style
-        children={`body{ background-image:url(/assets/pattern-coffee.png); background-size: 150px}`}
-      />
+      <Container pt={6}>
+        <Box
+          bg="white"
+          p={4}
+          border="1px solid"
+          borderColor="gray.300"
+          borderRadius="md"
+          shadow="sm"
+        >
+          <CoreGrid>
+            <PlainUnionSelect onChange={setUnion} />
+            <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
-      <Box bg="white" p={4} border="1px solid" borderColor="gray.300" borderRadius="md" shadow="sm">
-        <CoreGrid>
-          <PlainUnionSelect onChange={setUnion} />
-          <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+            <Checkbox
+              defaultChecked={isFiltered}
+              onChange={(e) => setIsFiltered(e.target.checked)}
+              mt={4}
+            >
+              with quality scores only
+            </Checkbox>
+          </CoreGrid>
 
-          <Checkbox
-            defaultChecked={isFiltered}
-            onChange={(e) => setIsFiltered(e.target.checked)}
-            mt={4}
-          >
-            with quality scores only
-          </Checkbox>
-        </CoreGrid>
-
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={() => loadMore()}
-            loader={<Spinner key="loader" />}
-            hasMore={list.hasMore}
-          >
-            {dataList.length ? <Table data={dataList} columns={columns} /> : "No Lots Available"}
-          </InfiniteScroll>
-        )}
-      </Box>
-    </Box>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={() => loadMore()}
+              loader={<Spinner key="loader" />}
+              hasMore={list.hasMore}
+            >
+              {dataList.length ? <Table data={dataList} columns={columns} /> : "No Lots Available"}
+            </InfiniteScroll>
+          )}
+        </Box>
+      </Container>
+    </>
   );
 }

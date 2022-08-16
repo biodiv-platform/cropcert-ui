@@ -17,9 +17,12 @@ export default function ListItems({ children, level = 0 }) {
             <Arrow direction={level === 0 ? "b" : "r"} />
           </span>
         </CustomLink>
-        <label title="Toggle Drop-down" className="drop-icon" htmlFor={item.id}>
-          <Arrow />
-        </label>
+        <label
+          title="Toggle Drop-down"
+          className="drop-icon"
+          htmlFor={item.id}
+          children={<Arrow />}
+        />
         <input type="checkbox" id={item.id} />
         {ListItems({ ...item, level: level + 1 })}
       </li>

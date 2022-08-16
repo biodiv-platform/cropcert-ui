@@ -1,4 +1,5 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
+import Container from "@components/@core/container";
 import { generateToC, wrapResponsiveTable } from "@utils/pages.util";
 import React, { useEffect } from "react";
 import { Page } from "types/pages";
@@ -16,7 +17,7 @@ function HomePageComponent({ page, preContent }: IHomePageProps) {
   }, [page.id]);
 
   return (
-    <Box>
+    <Container>
       <ArticleImage page={page} />
       {preContent}
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} maxW="full">
@@ -32,7 +33,7 @@ function HomePageComponent({ page, preContent }: IHomePageProps) {
           />
         </Box>
       </SimpleGrid>
-    </Box>
+    </Container>
   );
 }
 

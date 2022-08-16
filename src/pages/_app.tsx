@@ -1,9 +1,10 @@
 import "../styles/global.scss";
 
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import Footer from "@components/@core/container/footer";
 import Navbar from "@components/@core/navmenu";
 import { GlobalStateProvider } from "@hooks/use-global-store";
+import { axListPages } from "@services/page.service";
 import { SITE_TITLE } from "@static/constants";
 import { customTheme } from "@static/theme";
 import { getParsedUser } from "@utils/auth.util";
@@ -27,9 +28,9 @@ function MainApp({ Component, pageProps, user, pages }) {
             <title>{SITE_TITLE}</title>
           </Head>
           <Navbar />
-          <Box width="full" maxWidth="1280px" mx="auto" p={6} minHeight="var(--page-height)">
+          <main>
             <Component {...pageProps} />
-          </Box>
+          </main>
           <Footer />
         </ChakraProvider>
       </BusProvider>
@@ -39,13 +40,13 @@ function MainApp({ Component, pageProps, user, pages }) {
 
 MainApp.getInitialProps = async (appContext: AppContext) => {
   const { pageProps } = await App.getInitialProps(appContext);
-  // const pages = await axListPages();
+  const pages = await axListPages();
   const user = getParsedUser(appContext.ctx);
 
   return {
     pageProps,
     user,
-    pages: [],
+    pages: pages,
   };
 };
 

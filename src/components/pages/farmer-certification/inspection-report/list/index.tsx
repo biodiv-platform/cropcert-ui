@@ -1,6 +1,7 @@
 import { Box, Checkbox, Input, Select, Stack } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
+import Container from "@components/@core/container";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { axGetInspectionReportsByCCIds } from "@services/certification.service";
@@ -44,7 +45,7 @@ export default function InspectionReportListComponent() {
   }, [ccs]);
 
   return (
-    <div>
+    <Container>
       <PageHeading>📝 ICS Reports</PageHeading>
       <CoreGrid>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={() => setReports([])} />
@@ -59,12 +60,12 @@ export default function InspectionReportListComponent() {
           placeholder="Search"
           onChange={(e) => setQuery(e.target.value)}
           maxW="18rem"
-          borderColor="gray.400"
+          borderColor="gray.300"
         />
         <Select
           onChange={(e) => setLimit(Number(e.target.value))}
           maxW="10rem"
-          borderColor="gray.400"
+          borderColor="gray.300"
         >
           <option value={50} selected>
             50 Records
@@ -77,6 +78,6 @@ export default function InspectionReportListComponent() {
       </Stack>
 
       <Table data={reports} columns={inspectionReportColumns} />
-    </div>
+    </Container>
   );
 }

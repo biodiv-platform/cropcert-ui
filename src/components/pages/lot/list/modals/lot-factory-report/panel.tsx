@@ -9,7 +9,7 @@ export default function ReportPanel({ children, heading, footer }) {
       style={{ flexFlow: "column nowrap" }}
       px={3}
       borderRadius="md"
-      border="1px dashed var(--chakra-colors-gray-400)"
+      border="1px dashed var(--chakra-colors-gray-300)"
     >
       <FormHeading>{heading}</FormHeading>
       {children}

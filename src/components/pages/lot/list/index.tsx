@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import Container from "@components/@core/container";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { ROLES } from "@static/constants";
@@ -30,18 +30,14 @@ function LotListPageComponent({ unions }) {
   }, [coCodes]);
 
   return (
-    <Box>
+    <Container>
       <PageHeading>📦 Lot(s)</PageHeading>
       <CoreGrid>
         <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={lotStore.clearLot} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
       </CoreGrid>
       {coCodes.length > 0 && lotStore.state.lot.length > 0 && (
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={handleLoadMore}
-          hasMore={lotStore.state.hasMore}
-        >
+        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
           <Table
             data={lotStore.state.lot}
             columns={lotColumns}
@@ -66,7 +62,7 @@ function LotListPageComponent({ unions }) {
       <GreenReportModal update={lotStore.updateLot} />
       <CuppingReportModal update={lotStore.updateLot} />
       <LotGRNModal update={lotStore.updateLot} />
-    </Box>
+    </Container>
   );
 }
 

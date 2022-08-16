@@ -1,3 +1,4 @@
+import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { InspectionReportProvider } from "@hooks/use-inspection-report";
 import { DB_CONFIG } from "@static/inspection-report";
@@ -8,13 +9,13 @@ import DownloadTable from "./download-table";
 
 export default function ManageFarmersComponent() {
   return (
-    <div>
+    <Container>
       <PageHeading>🚚 Select Collection Center</PageHeading>
       <IndexedDBProvider config={DB_CONFIG}>
         <InspectionReportProvider>
           <DownloadTable />
         </InspectionReportProvider>
       </IndexedDBProvider>
-    </div>
+    </Container>
   );
 }

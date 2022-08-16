@@ -1,4 +1,5 @@
 import { Box, Spinner } from "@chakra-ui/react";
+import Container from "@components/@core/container";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { axListCC } from "@services/cc.service";
@@ -19,7 +20,7 @@ export default function CollectionCenterListComponent() {
   }, []);
 
   return (
-    <div>
+    <Container>
       <PageHeading>🗺️ Collection Centers</PageHeading>
       {ccList.length ? (
         <CoreGrid rows={2}>
@@ -31,6 +32,6 @@ export default function CollectionCenterListComponent() {
       ) : (
         <Spinner />
       )}
-    </div>
+    </Container>
   );
 }

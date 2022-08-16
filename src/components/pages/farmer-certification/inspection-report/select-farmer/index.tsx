@@ -1,3 +1,4 @@
+import Container from "@components/@core/container";
 import { InspectionReportProvider } from "@hooks/use-inspection-report";
 import { DB_CONFIG } from "@static/inspection-report";
 import { useRouter } from "next/router";
@@ -18,7 +19,7 @@ export default function SelectFarmerComponent() {
   }, [router]);
 
   return (
-    <div>
+    <Container>
       {feCCCode && (
         <IndexedDBProvider config={DB_CONFIG}>
           <InspectionReportProvider>
@@ -26,6 +27,6 @@ export default function SelectFarmerComponent() {
           </InspectionReportProvider>
         </IndexedDBProvider>
       )}
-    </div>
+    </Container>
   );
 }

@@ -9,7 +9,7 @@
 @import "~keen-slider/keen-slider.min.css";
 
 :root {
-  --page-height: calc(100vh - 126px);
+  --page-height: calc(100vh - 68px - 73px);
 }
 
 input:disabled {
@@ -24,7 +24,7 @@ input:disabled {
 .grid-row {
   display: grid;
   align-items: center;
-  border: 1px dashed var(--chakra-colors-gray-400);
+  border: 1px dashed var(--chakra-colors-gray-300);
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -39,4 +39,16 @@ input:disabled {
 .chakra-input,
 .chakra-select {
   background: white !important;
+}
+
+.rmsc {
+  --rmsc-main: var(--chakra-colors-blue-500) !important;
+  --rmsc-border: var(--chakra-colors-gray-300) !important;
+  --rmsc-gray: var(--chakra-colors-gray-500) !important;
+  --rmsc-hover: var(--chakra-colors-gray-100) !important;
+  --rmsc-selected: var(--chakra-colors-gray-200) !important;
+}
+
+#__next > main {
+  min-height: var(--page-height);
 }

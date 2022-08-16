@@ -6,7 +6,6 @@ import { Page } from "types/pages";
 
 export const ArticleImageBox = styled.div`
   min-height: 360px;
-  border-radius: 0.5rem;
   display: flex;
   align-items: flex-end;
   overflow: hidden;

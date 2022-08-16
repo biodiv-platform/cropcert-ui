@@ -1,3 +1,4 @@
+import Container from "@components/@core/container";
 import useGlobalState from "@hooks/use-global-store";
 import React from "react";
 import { Page } from "types/pages";
@@ -14,5 +15,9 @@ export default function AddPageComponent({ parentId }) {
     authorId: user.id,
   };
 
-  return <PageEditorComponent page={page} isEdit={false} />;
+  return (
+    <Container>
+      <PageEditorComponent page={page} isEdit={false} />
+    </Container>
+  );
 }

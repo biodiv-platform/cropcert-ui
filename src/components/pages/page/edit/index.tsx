@@ -1,3 +1,4 @@
+import Container from "@components/@core/container";
 import { axGetPageByPageId } from "@services/page.service";
 import React, { useEffect, useState } from "react";
 import { Page } from "types/pages";
@@ -11,5 +12,5 @@ export default function EditPageComponent({ pageId }) {
     axGetPageByPageId(pageId).then(({ data }) => setPage(data));
   }, [pageId]);
 
-  return <div>{page && <PageEditorComponent page={page} isEdit={true} />}</div>;
+  return <Container>{page && <PageEditorComponent page={page} isEdit={true} />}</Container>;
 }

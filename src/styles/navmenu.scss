@@ -3,9 +3,8 @@
 }
 
 #menu {
-  background: var(--chakra-colors-gray-900);
-  color: var(--chakra-colors-gray-400);
-  line-height: 1.4em;
+  min-height: 68px;
+  line-height: 1.4rem;
   .title {
     display: none;
   }
@@ -26,15 +25,17 @@
   a {
     position: relative;
     display: inline-block;
-    color: var(--chakra-colors-gray-400);
+    // color: var(--chakra-colors-gray-400);
     padding: 1.4rem 1rem;
     &:focus-within,
     &:hover {
-      background-color: var(--chakra-colors-gray-800);
+      background-color: var(--chakra-colors-gray-200);
     }
   }
   a.logo {
     padding: 0;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
     background-color: transparent!important;
   }
   svg {
@@ -42,7 +43,7 @@
   }
   .sub-menu {
     display: none;
-    background-color: var(--chakra-colors-gray-900);
+    background-color: var(--chakra-colors-white);
     padding-left: 1rem;
     li {
       position: relative;
@@ -57,11 +58,8 @@
     position: absolute;
     right: 0;
     top: 0;
-    padding: 1em;
+    padding: 1.4rem 1rem;
     text-align: center;
-  }
-  #toggle-menu .drop-icon {
-    background-color: var(--chakra-colors-gray-800);
   }
 }
 
@@ -70,6 +68,7 @@
     position: relative;
     display: inline-block;
     width: 100%;
+    min-height: auto;
     #toggle-menu {
       display: none;
     }
@@ -99,7 +98,7 @@
       }
     }
     .sub-menu {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0px 2px 0 var(--chakra-colors-gray-300);
       padding: 0;
       position: absolute;
       top: 100%;

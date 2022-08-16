@@ -1,4 +1,5 @@
-import { Link } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
+import SITE_CONFIG from "@configs/site-config";
 import { SITE_TITLE } from "@static/constants";
 import { navmenu } from "@static/navmenu";
 import NextLink from "next/link";
@@ -14,9 +15,9 @@ export default function Navbar() {
     <>
       <nav id="menu">
         <NextLink href="/" passHref={true}>
-          <Link p={1} fontWeight="bold">
-            {SITE_TITLE}
-          </Link>
+          <a className="logo">
+            <Image src={SITE_CONFIG.SITE.ICON} px={4} mt={2} alt={SITE_TITLE} />
+          </a>
         </NextLink>
         <input type="checkbox" id="tm" />
         <label htmlFor="tm" id="toggle-menu">

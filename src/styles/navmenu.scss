@@ -27,11 +27,15 @@
     position: relative;
     display: inline-block;
     color: var(--chakra-colors-gray-400);
-    padding: 1rem;
+    padding: 1.4rem 1rem;
     &:focus-within,
     &:hover {
       background-color: var(--chakra-colors-gray-800);
     }
+  }
+  a.logo {
+    padding: 0;
+    background-color: transparent!important;
   }
   svg {
     display: initial;

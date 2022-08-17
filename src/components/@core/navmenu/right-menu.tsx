@@ -15,13 +15,22 @@ function NavbarRightMenu() {
   return (
     <ul className="main-menu right">
       {isLoggedIn ? (
-        <li>
-          <NextLink href="/auth/sign-out" passHref={true}>
-            <Link>
-              {user.name} ({visualRole}) <LogoutIcon ml={1} />
-            </Link>
-          </NextLink>
-        </li>
+        <>
+          <li>
+            <NextLink href={`/user/show/${user.id}`} passHref={true}>
+              <Link>
+                {user.name} ({visualRole})
+              </Link>
+            </NextLink>
+          </li>
+          <li>
+            <NextLink href="/auth/sign-out" passHref={true}>
+              <Link>
+                <LogoutIcon ml={1} />
+              </Link>
+            </NextLink>
+          </li>
+        </>
       ) : (
         <li>
           <NextLink href="/auth/sign-in" passHref={true}>

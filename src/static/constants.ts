@@ -21,6 +21,7 @@ export const ENDPOINT = {
   PAGES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}pages/api`,
   TRACEABILITY: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}traceability-api/api`,
   CERTIFICATION: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}certification-api/api`,
+  ODK: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}odk-api/api`,
 };
 
 export const TOKEN = {

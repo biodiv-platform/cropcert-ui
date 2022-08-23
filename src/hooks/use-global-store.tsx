@@ -3,14 +3,20 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface GlobalStateContextProps {
   pages;
+  setPages;
+
   user;
   setUser;
+
   isLoggedIn;
   authorizedRoles;
+
+  languageId;
 }
 
 interface GlobalStateProviderProps {
   user;
+  languageId;
   pages;
   children;
 }
@@ -19,6 +25,7 @@ const GlobalStateContext = createContext<GlobalStateContextProps>({} as GlobalSt
 
 export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
+  const [pages, setPages] = useState(props.pages);
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
 
@@ -35,7 +42,10 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
         isLoggedIn,
         authorizedRoles,
 
-        pages: props.pages,
+        pages,
+        setPages,
+
+        languageId: props.languageId,
       }}
     >
       {props.children}

@@ -1,4 +1,3 @@
-@import "./article.scss";
 @import "./progress.scss";
 @import "./datatable.scss";
 @import "./transitions.scss";
@@ -51,4 +50,31 @@ input:disabled {
 
 #__next > main {
   min-height: var(--page-height);
+}
+
+/* For pages */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.article a {
+  scroll-margin-top: 5rem;
+}
+
+.splide__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+  body {
+    color: inherit;
+    background: unset;
+  }
 }

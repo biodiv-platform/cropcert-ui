@@ -4,6 +4,8 @@ import axios from "axios";
 
 import { getAuthState, setCookies } from "./auth.util";
 
+export const formDataHeaders: any = { "Content-Type": "multipart/form-data" };
+
 const defaultHeaders = {
   headers: {
     post: { "Content-Type": "application/json" },
@@ -68,10 +70,6 @@ export default ax;
  * *axios* instance for `x-www-form-urlencoded` request
  *
  */
-export const httpFormData = axios.create({
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-});
+export const httpFormData = axios.create({ headers: formDataHeaders });
 
 export const plainHttp = axios.create(defaultHeaders);

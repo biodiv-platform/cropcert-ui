@@ -1,4 +1,4 @@
-import { COMPAT_USERKEY_MAP,isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
+import { COMPAT_USERKEY_MAP, isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import JWTDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 

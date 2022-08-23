@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "dsznajder.es7-react-js-snippets",
+    "esbenp.prettier-vscode",
+    "styled-components.vscode-styled-components",
+    "lokalise.i18n-ally",
+    "meganrogge.template-string-converter",
+    "paragdiwan.gitpatch",
+    "rbbit.typescript-hero",
+    "shardulm94.trailing-spaces",
+    "wix.vscode-import-cost",
+    "formulahendry.auto-rename-tag"
+  ]
+}

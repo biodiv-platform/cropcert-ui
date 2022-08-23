@@ -3,7 +3,9 @@ import "../styles/global.scss";
 import { ChakraProvider } from "@chakra-ui/react";
 import Footer from "@components/@core/container/footer";
 import Navbar from "@components/@core/navmenu";
+import SITE_CONFIG from "@configs/site-config";
 import { GlobalStateProvider } from "@hooks/use-global-store";
+import { axGetTree } from "@services/pages.service";
 import { SITE_TITLE } from "@static/constants";
 import { customTheme } from "@static/theme";
 import { getParsedUser } from "@utils/auth.util";
@@ -18,9 +20,9 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-function MainApp({ Component, pageProps, user, pages }) {
+function MainApp({ Component, pageProps, user, pages, languageId }) {
   return (
-    <GlobalStateProvider user={user} pages={pages}>
+    <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
       <BusProvider>
         <ChakraProvider theme={customTheme}>
           <Head>
@@ -38,14 +40,16 @@ function MainApp({ Component, pageProps, user, pages }) {
 }
 
 MainApp.getInitialProps = async (appContext: AppContext) => {
+  const languageId = SITE_CONFIG.LANG.LIST[appContext.ctx.locale]?.ID;
   const { pageProps } = await App.getInitialProps(appContext);
-  // const pages = await axListPages();
+  const pages = await axGetTree({ languageId });
   const user = getParsedUser(appContext.ctx);
 
   return {
     pageProps,
     user,
-    pages: [],
+    pages: pages.data,
+    languageId,
   };
 };
 

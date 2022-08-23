@@ -8,7 +8,14 @@ import { PageSlider } from "./page-slider";
 
 export const PageHeader = ({ page }) => (
   <>
-    <NextSeo openGraph={{ title: page.title, description: page.description }} title={page.title} />
+    <NextSeo
+      openGraph={{
+        title: page.title,
+        images: page.galleryData,
+        description: page.description,
+      }}
+      title={page.title}
+    />
     <Box bg="gray.800" color="white" h="300px" position="relative">
       <PageSlider images={page.galleryData} description={page.description} />
       <PageHeading description={page.description}>{page.title}</PageHeading>

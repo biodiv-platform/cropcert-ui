@@ -19,7 +19,8 @@ export default function PageShowPageComponent(props: PageShowPageComponentProps)
       ...props.page,
       galleryData: props.page.galleryData.map((image) => ({
         ...image,
-        url: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.PAGE),
+        url: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.TWITTER),
+        pageUrl: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.PAGE),
       })),
     }),
     [props.page.id]

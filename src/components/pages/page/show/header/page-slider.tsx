@@ -21,8 +21,8 @@ export function PageSlider({ images, description }) {
           }}
         >
           {images.map((image) => (
-            <SplideSlide key={image.url}>
-              <img src={image.url} alt={image.url} />
+            <SplideSlide key={image.id}>
+              <img src={image.pageUrl} alt={image.id} />
               {description}
             </SplideSlide>
           ))}

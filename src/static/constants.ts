@@ -122,5 +122,6 @@ export const VERIFICATION_MODE = {
 };
 
 export const RESOURCE_SIZE = {
+  TWITTER: "?w=600&h=330&fit=center&preserve=true",
   PAGE: "?w=1440&h=300&fit=center",
 };

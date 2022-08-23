@@ -2,15 +2,14 @@ import "../styles/global.scss";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import Footer from "@components/@core/container/footer";
+import Metadata from "@components/@core/container/metadata";
 import Navbar from "@components/@core/navmenu";
 import SITE_CONFIG from "@configs/site-config";
 import { GlobalStateProvider } from "@hooks/use-global-store";
 import { axGetTree } from "@services/pages.service";
-import { SITE_TITLE } from "@static/constants";
 import { customTheme } from "@static/theme";
 import { getParsedUser } from "@utils/auth.util";
 import App, { AppContext } from "next/app";
-import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
 import React from "react";
@@ -25,9 +24,7 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
     <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
       <BusProvider>
         <ChakraProvider theme={customTheme}>
-          <Head>
-            <title>{SITE_TITLE}</title>
-          </Head>
+          <Metadata />
           <Navbar />
           <main>
             <Component {...pageProps} />

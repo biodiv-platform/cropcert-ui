@@ -1,1 +1,9 @@
-{}
+{
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "loading": "Loading",
+  "next": "Next",
+  "prev": "Previous",
+  "save": "Save"
+}

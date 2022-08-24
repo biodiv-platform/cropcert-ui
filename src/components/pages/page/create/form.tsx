@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-import { PAGE_TYPE_OPTIONS, transformPagePayload } from "../common/data";
+import { PAGE_TYPES, transformPagePayload } from "../common/data";
 import PageForm from "../common/form";
 
 const defaultValues = {
   content: "",
   description: null,
   url: null,
-  pageType: PAGE_TYPE_OPTIONS[0].value,
+  pageType: PAGE_TYPES.CONTENT,
 };
 
 export default function PageCreateForm(): JSX.Element {

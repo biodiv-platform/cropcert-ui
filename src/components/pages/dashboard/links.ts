@@ -55,7 +55,7 @@ const links = [
       {
         title: "📄 Pages",
         description: "Manage Static Pages",
-        to: "/page/list",
+        to: "/page/show/1",
         access: [ROLES.ADMIN],
       },
       {

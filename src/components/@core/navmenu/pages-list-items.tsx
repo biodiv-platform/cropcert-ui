@@ -9,7 +9,7 @@ export default function ListItems({ children, level = 0 }) {
   const { user } = useGlobalState();
 
   const listItem = (item) =>
-    item["children"] ? (
+    item["children"]?.length > 0 ? (
       <li key={item.id}>
         <CustomLink item={item}>
           {item.title}

@@ -55,7 +55,7 @@ export const customTheme: any = extendTheme(
   withProse({
     baseStyle: {
       "h2, h3, h4, h5": {
-        marginTop: 0
+        marginTop: 0,
       },
       a: {
         color: "blue.500",

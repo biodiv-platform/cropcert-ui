@@ -10,6 +10,9 @@
   }
   .main-menu {
     display: none;
+    &.right {
+      float: right;
+    }
   }
   input[type="checkbox"],
   ul span.drop-icon {
@@ -25,12 +28,16 @@
   a {
     position: relative;
     display: inline-block;
-    // color: var(--chakra-colors-gray-400);
     padding: 1.4rem 1rem;
     &:focus-within,
     &:hover {
       background-color: var(--chakra-colors-gray-200);
     }
+  }
+  a.user {
+    background: none !important;
+    padding: 1.1rem 0;
+    text-decoration: none;
   }
   a.logo {
     padding: 0;
@@ -68,16 +75,12 @@
     position: relative;
     display: inline-block;
     width: 100%;
-    min-height: auto;
     #toggle-menu {
       display: none;
     }
     .main-menu {
       display: inline-block;
       vertical-align: top;
-      &.right {
-        float: right;
-      }
     }
     ul span.drop-icon {
       display: inline-block;
@@ -121,16 +124,24 @@
         display: flex;
       }
       label.drop-icon {
-        display: none;
+        display: none !important;
       }
     }
   }
 }
 
-@media only screen and (min-width: 426px) and (max-width: 1024px) {
+@media only screen and (max-width: 767px) {
   #menu {
-    display: flex;
     flex-flow: column;
-    align-items: center;
+    ul {
+      width: 100%;
+    }
+    .sub-menu a,
+    a {
+      display: block;
+    }
+    .main-menu.right {
+      float: none;
+    }
   }
 }

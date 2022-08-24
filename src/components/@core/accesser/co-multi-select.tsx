@@ -1,9 +1,9 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { axCoByUnionId, axGetCoByCode } from "@services/co.service";
 import { ROLES } from "@static/constants";
-import { getUserKey } from "@utils/auth.util";
+import { getUserKey } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 

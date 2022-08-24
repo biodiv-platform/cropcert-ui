@@ -1,4 +1,4 @@
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { ROLES } from "@static/constants";
 import React, { useEffect, useMemo, useState } from "react";
 

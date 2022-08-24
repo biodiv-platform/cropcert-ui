@@ -1,9 +1,9 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Button, Center, Text } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { ROLES } from "@static/constants";
-import { hasAccess } from "@utils/auth.util";
+import { hasAccess } from "@utils/auth";
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";

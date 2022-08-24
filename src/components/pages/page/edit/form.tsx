@@ -1,5 +1,5 @@
 import { axUpdatePage } from "@services/pages.service";
-import notification, { NotificationType } from "@utils/notification.util";
+import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";

@@ -1,6 +1,6 @@
 import { ENDPOINT } from "@static/constants";
 import http, { plainHttp } from "@utils/http";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 
 export const axGetFarmersWithLastReportByCC = async (ccCode) => {
   try {

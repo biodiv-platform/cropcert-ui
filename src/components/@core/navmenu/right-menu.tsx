@@ -1,5 +1,5 @@
 import { Avatar, Link } from "@chakra-ui/react";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import NextLink from "next/link";
 import React, { useMemo } from "react";
 import LogoutIcon from "src/icons/logout";

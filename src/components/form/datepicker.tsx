@@ -8,7 +8,7 @@ import {
   FormHelperText,
   FormLabel,
 } from "@chakra-ui/react";
-import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic.util";
+import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic";
 import { namedFormErrorMessage } from "@utils/field";
 import React, { useEffect, useMemo, useState } from "react";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";

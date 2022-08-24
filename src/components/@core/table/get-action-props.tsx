@@ -1,6 +1,6 @@
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { LOT_FLAGS } from "@static/constants";
-import { hasAccess, hierarchicalRoles } from "@utils/auth.util";
+import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import { useEffect, useState } from "react";
 
 const VARIANT_MAPPING = {

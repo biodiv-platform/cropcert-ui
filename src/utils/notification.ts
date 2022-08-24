@@ -1,7 +1,7 @@
 import { isBrowser } from "@static/constants";
 import cogoToast from "cogo-toast";
 
-import { compiledMessage } from "./basic.util";
+import { compiledMessage } from "./basic";
 
 export enum NotificationType {
   Success = "success",

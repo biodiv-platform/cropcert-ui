@@ -7,8 +7,8 @@ import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import timeCell from "@components/@core/table/time-cell";
-import useGlobalState from "@hooks/use-global-store";
-import { hasAccess } from "@utils/auth.util";
+import useGlobalState from "@hooks/use-global-state";
+import { hasAccess } from "@utils/auth";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 

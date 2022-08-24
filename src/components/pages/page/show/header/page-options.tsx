@@ -3,7 +3,7 @@ import DeleteActionButton from "@components/@core/action-buttons/delete";
 import ShareActionButton from "@components/@core/action-buttons/share";
 import SimpleActionButton from "@components/@core/action-buttons/simple";
 import Container from "@components/@core/container";
-import AddIcon from "@icons/add2";
+import AddIcon from "@icons/add";
 import EditIcon from "@icons/edit";
 import { axDeletePageByID } from "@services/pages.service";
 import { useRouter } from "next/router";

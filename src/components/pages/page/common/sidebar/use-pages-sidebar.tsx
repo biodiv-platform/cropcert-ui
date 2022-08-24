@@ -1,8 +1,8 @@
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { axUpdateTree } from "@services/pages.service";
 import { ROLES } from "@static/constants";
-import { hasAccess } from "@utils/auth.util";
-import notification, { NotificationType } from "@utils/notification.util";
+import { hasAccess } from "@utils/auth";
+import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toggleExpandedForAll } from "react-sortable-tree";

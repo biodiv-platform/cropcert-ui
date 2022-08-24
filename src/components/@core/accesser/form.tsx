@@ -1,7 +1,7 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import { getByRole } from "@services/accessor.service";
-import { setUserKey } from "@utils/auth.util";
+import { setUserKey } from "@utils/auth";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 

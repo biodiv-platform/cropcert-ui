@@ -1,6 +1,6 @@
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { booleanOrText } from "@utils/basic.util";
+import { booleanOrText } from "@utils/basic";
 import React from "react";
 
 import { GI_PANEL } from "../../create/panels/data";

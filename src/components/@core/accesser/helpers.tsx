@@ -1,6 +1,6 @@
 import { getByRole } from "@services/accessor.service";
 import { ROLE_HIERARCHY } from "@static/constants";
-import { getUserKey } from "@utils/auth.util";
+import { getUserKey } from "@utils/auth";
 
 /**
  * Returns index of given role name

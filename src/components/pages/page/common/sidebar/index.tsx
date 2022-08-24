@@ -1,5 +1,5 @@
 import { Button, Collapse, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import MenuIcon from "@icons/menu";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";

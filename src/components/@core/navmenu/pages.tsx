@@ -1,5 +1,5 @@
-import useGlobalState from "@hooks/use-global-store";
-import { flatToTree } from "@utils/pages.util";
+import useGlobalState from "@hooks/use-global-state";
+import { flatToTree } from "@utils/pages";
 import React, { useMemo } from "react";
 
 import ListItems from "./pages-list-items";

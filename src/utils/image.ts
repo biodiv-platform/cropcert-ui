@@ -1,6 +1,6 @@
 import loadImage from "blueimp-load-image";
 
-import notification from "./notification.util";
+import notification from "./notification";
 
 export function resizeImage(file: File, max = 3000): Promise<any> {
   return new Promise((resolve) => {

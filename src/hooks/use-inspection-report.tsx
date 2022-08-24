@@ -5,7 +5,7 @@ import {
 } from "@services/certification.service";
 import { axUploadInspectionReport, axUploadSignature } from "@services/report.service";
 import { STORE } from "@static/inspection-report";
-import notification, { NotificationType } from "@utils/notification.util";
+import notification, { NotificationType } from "@utils/notification";
 import React, { createContext, useContext, useReducer } from "react";
 import { useImmer } from "use-immer";
 import { useIndexedDBStore } from "use-indexeddb";

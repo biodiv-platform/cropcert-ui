@@ -1,5 +1,5 @@
 import { ROLES } from "@static/constants";
-import { getParsedUser, hasAccess } from "@utils/auth.util";
+import { getParsedUser, hasAccess } from "@utils/auth";
 import { encode } from "base64-url";
 
 export const throwUnauthorized = (ctx) => {

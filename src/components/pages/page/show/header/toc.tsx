@@ -1,7 +1,7 @@
 import { Button, Popover, PopoverBody, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MenuIcon from "@icons/menu";
-import { generateToC } from "@utils/pages.util";
+import { generateToC } from "@utils/pages";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useMemo } from "react";
 

@@ -1,6 +1,6 @@
 import { Heading, Image } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { ENDPOINT } from "@static/constants";
 import React from "react";
 

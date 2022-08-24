@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import { removeCookies } from "@utils/auth.util";
+import { removeCookies } from "@utils/auth";
 import React, { useEffect } from "react";
 
 const SignOutPage = () => {

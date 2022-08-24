@@ -15,7 +15,7 @@ import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { isEverythingFilledExcept } from "@utils/basic.util";
+import { isEverythingFilledExcept } from "@utils/basic";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";

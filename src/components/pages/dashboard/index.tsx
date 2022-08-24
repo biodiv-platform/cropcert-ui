@@ -1,8 +1,8 @@
 import { Heading } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import CoreGrid from "@components/@core/layout/grid";
-import useGlobalState from "@hooks/use-global-store";
-import { hasAccess } from "@utils/auth.util";
+import useGlobalState from "@hooks/use-global-state";
+import { hasAccess } from "@utils/auth";
 import React from "react";
 
 import Card from "./card";

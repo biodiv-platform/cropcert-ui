@@ -16,7 +16,7 @@ import styled from "@emotion/styled";
 import { axUploadResource } from "@services/files.service";
 import { resizeImage } from "@utils/image";
 import { getResourceRAW, RESOURCE_CTX } from "@utils/media";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";

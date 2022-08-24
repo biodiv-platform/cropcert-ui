@@ -3,14 +3,14 @@ import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
+import AddIcon from "@icons/add";
 import { BATCH_TYPE, ROLES } from "@static/constants";
 import { BATCH_CREATE, LOT_CREATE } from "@static/events";
-import { hasAccess } from "@utils/auth.util";
+import { hasAccess } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
-import Add2Icon from "src/icons/add2";
 import { Batch } from "types/traceability";
 
 import { batchColumns } from "./data";
@@ -90,7 +90,7 @@ function BatchListPageComponent() {
           !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE], user)
         }
         onClick={handleOnCreateLot}
-        leftIcon={<Add2Icon />}
+        leftIcon={<AddIcon />}
       >
         Create Lot
       </Button>
@@ -99,7 +99,7 @@ function BatchListPageComponent() {
         variant="solid"
         onClick={handleOnCreateBatch}
         isDisabled={!hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)}
-        leftIcon={<Add2Icon />}
+        leftIcon={<AddIcon />}
       >
         Create Batch
       </Button>

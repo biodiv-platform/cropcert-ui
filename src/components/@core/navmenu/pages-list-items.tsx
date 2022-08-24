@@ -1,5 +1,5 @@
-import useGlobalState from "@hooks/use-global-store";
-import { hasAccess } from "@utils/auth.util";
+import useGlobalState from "@hooks/use-global-state";
+import { hasAccess } from "@utils/auth";
 import React from "react";
 
 import Arrow from "./arrow";

@@ -1,8 +1,8 @@
 import { ENDPOINT } from "@static/constants";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 import axios from "axios";
 
-import { getAuthState, setCookies } from "./auth.util";
+import { getAuthState, setCookies } from "./auth";
 
 export const formDataHeaders: any = { "Content-Type": "multipart/form-data" };
 

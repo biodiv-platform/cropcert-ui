@@ -2,7 +2,7 @@ import { DateTimeInputField } from "@components/form/datepicker";
 import { RadioInputField } from "@components/form/radio";
 import { TextBoxField } from "@components/form/text";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { formattedDate } from "@utils/basic.util";
+import { formattedDate } from "@utils/basic";
 import React from "react";
 
 import GridRow from "../../../row";

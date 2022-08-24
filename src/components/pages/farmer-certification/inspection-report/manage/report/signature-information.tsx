@@ -1,7 +1,7 @@
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { ENDPOINT } from "@static/constants";
-import { formattedDate } from "@utils/basic.util";
+import { formattedDate } from "@utils/basic";
 import React from "react";
 
 const SIGNATURE_URL_PREFIX = `${ENDPOINT.FILES}/get/raw/signature`;

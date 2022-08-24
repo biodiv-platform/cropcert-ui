@@ -14,7 +14,7 @@ import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axUpdateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
-import notification, { NotificationType } from "@utils/notification.util";
+import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";

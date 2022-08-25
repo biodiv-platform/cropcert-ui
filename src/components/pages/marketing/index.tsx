@@ -12,7 +12,7 @@ import { hasAccess } from "@utils/auth";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import MarketingHeader from "./header";
+import { PageHeader } from "../page/show/header";
 import useMarketing from "./use-marketing";
 
 export const columns = [
@@ -92,15 +92,23 @@ export default function MarketingPageComponent() {
   const isGIAdmin = hasAccess(["gi_admin"], user);
   const [isFiltered, setIsFiltered] = useState(!isGIAdmin);
 
-  const dataList = useMemo(
-    () => (isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l),
+  const [dataList, headerData] = useMemo(
+    () => [
+      isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l,
+      {
+        title: isGIAdmin ? "Lot Details" : "Lots for Sale",
+        description: `Organic certified coffee Rwenzori Mountain Coffee lots for sale are listed below. Please
+      click on the Inquire button on the lot and send a mail with your mail and contact details
+      and we will get back to you.`,
+      },
+    ],
     [isFiltered, list]
   );
 
   return (
     <>
-      <MarketingHeader isGIAdmin={isGIAdmin} />
-      <Container pt={6}>
+      <PageHeader page={headerData} hideOptions={true} />
+      <Container py={16}>
         <Box
           bg="white"
           p={4}

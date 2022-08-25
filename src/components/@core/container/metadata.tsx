@@ -34,7 +34,7 @@ export default function Metadata() {
       />
       <Head>
         <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       {SITE_CONFIG.TRACKING.ENABLED && (
         <>

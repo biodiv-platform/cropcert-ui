@@ -30,7 +30,7 @@ const ToCContainer = styled.div`
 export function TableOfContents() {
   const { currentPage } = usePages();
   const { t } = useTranslation();
-  const showToC = useMemo(() => currentPage.content.includes("<h"), [currentPage.content]);
+  const showToC = useMemo(() => currentPage?.content?.includes("<h"), [currentPage?.content]);
 
   useEffect(() => {
     showToC && generateToC(".article", ".toc");

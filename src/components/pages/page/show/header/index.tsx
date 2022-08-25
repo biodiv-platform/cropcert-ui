@@ -6,7 +6,12 @@ import { PageHeading } from "./page-heading";
 import { PageOptions } from "./page-options";
 import { PageSlider } from "./page-slider";
 
-export const PageHeader = ({ page }) => (
+interface PageHeaderProps {
+  page;
+  hideOptions?;
+}
+
+export const PageHeader = ({ page, hideOptions }: PageHeaderProps) => (
   <>
     <NextSeo
       openGraph={{
@@ -25,9 +30,11 @@ export const PageHeader = ({ page }) => (
       h="300px"
       position="relative"
     >
-      <PageSlider images={page.galleryData} description={page.description} />
+      {page.galleryData?.length ? (
+        <PageSlider images={page.galleryData} description={page.description} />
+      ) : null}
       <PageHeading description={page.description}>{page.title}</PageHeading>
     </Box>
-    <PageOptions title={page.title} pageId={page.id} />
+    {!hideOptions && <PageOptions title={page.title} pageId={page.id} />}
   </>
 );

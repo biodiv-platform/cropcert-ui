@@ -7,6 +7,7 @@ module.exports = {
   pages: {
     "*": ["common", "header", "auth", "form"],
     "/": ["page"],
+    "/marketing": ["page"],
     "rgx:/page/": ["page"],
   },
 };

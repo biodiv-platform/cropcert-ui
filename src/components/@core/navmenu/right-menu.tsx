@@ -20,11 +20,11 @@ function NavbarRightMenu() {
         <>
           <li>
             <NextLink href={`/user/show/${user.id}`} passHref={true}>
-              <Tooltip title={`${user.name} (${visualRole})`}>
-                <Link className="user">
+              <Link className="user">
+                <Tooltip title={`${user.name} (${visualRole})`}>
                   <Avatar size="sm" name={user.name} />
-                </Link>
-              </Tooltip>
+                </Tooltip>
+              </Link>
             </NextLink>
           </li>
           <li>

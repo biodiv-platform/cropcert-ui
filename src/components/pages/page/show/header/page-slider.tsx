@@ -4,9 +4,12 @@ import { Box } from "@chakra-ui/react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import React from "react";
 
-export function PageSlider({ images, description }) {
-  if (images?.length === 0) return null;
+interface PageSliderProps {
+  images?;
+  description;
+}
 
+export function PageSlider({ images, description }: PageSliderProps) {
   return (
     <>
       <Box position="absolute" top={0} left={0} bottom={0} right={0}>

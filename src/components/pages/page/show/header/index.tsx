@@ -16,7 +16,15 @@ export const PageHeader = ({ page }) => (
       }}
       title={page.title}
     />
-    <Box bg="gray.800" color="white" h="300px" position="relative">
+    <Box
+      bg="gray.800"
+      bgImage="url('/assets/page-cover.svg')"
+      backgroundSize="cover"
+      backgroundPosition="bottom"
+      color="white"
+      h="300px"
+      position="relative"
+    >
       <PageSlider images={page.galleryData} description={page.description} />
       <PageHeading description={page.description}>{page.title}</PageHeading>
     </Box>

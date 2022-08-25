@@ -1,9 +1,11 @@
+import { axGetTree } from "@services/pages.service";
 import { ROLES } from "@static/constants";
 import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface GlobalStateContextProps {
   pages;
   setPages;
+  getPageTree;
 
   user;
   setUser;
@@ -34,6 +36,15 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
     return allRoles?.length ? allRoles : [ROLES.UNAUTHORIZED];
   }, [user]);
 
+  const getPageTree = async () => {
+    try {
+      const { data } = await axGetTree({ userGroupId: null, languageId: props.languageId });
+      setPages(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <GlobalStateContext.Provider
       value={{
@@ -44,6 +55,7 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
 
         pages,
         setPages,
+        getPageTree,
 
         languageId: props.languageId,
       }}

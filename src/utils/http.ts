@@ -66,10 +66,4 @@ ax.interceptors.request.use(
 
 export default ax;
 
-/**
- * *axios* instance for `x-www-form-urlencoded` request
- *
- */
-export const httpFormData = axios.create({ headers: formDataHeaders });
-
 export const plainHttp = axios.create(defaultHeaders);

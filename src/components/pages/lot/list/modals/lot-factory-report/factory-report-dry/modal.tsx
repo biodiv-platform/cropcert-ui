@@ -14,6 +14,7 @@ import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Lot } from "@interfaces/traceability";
 import { axCreateFactoryReport } from "@services/report.service";
 import { LOT_FLAGS } from "@static/constants";
 import { GENERIC, MLOT } from "@static/messages";
@@ -22,7 +23,6 @@ import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
-import { Lot } from "types/traceability";
 import * as Yup from "yup";
 
 import DiffMessage from "../../diff-message";

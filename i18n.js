@@ -9,5 +9,6 @@ module.exports = {
     "/": ["page"],
     "/marketing": ["page"],
     "rgx:/page/": ["page"],
+    "rgx:/document/": ["document", "observation", "filters", "activity"],
   },
 };

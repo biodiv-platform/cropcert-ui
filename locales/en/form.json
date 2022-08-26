@@ -1,1 +1,37 @@
-{}
+{
+  "comments": {
+    "add_comment": "Add a new comment",
+    "post": "Post Comment",
+    "title": "Comment(s)"
+  },
+  "coverage": {
+    "hint": "once selected from any input press save button below the map to finalize",
+    "place": "Place Name",
+    "spatial": "Spatial Coverage",
+    "title": "Coverage",
+    "wkt": "WKT"
+  },
+  "created_on": "Created On",
+  "geoentities": "Landscapes",
+  "gmaps": "Draw Polygon",
+  "language": "Language",
+  "license": "License",
+  "search_point": "Search Point",
+  "tags": "Tags",
+  "tags_hint": "Start typing to search tags",
+  "tags_update_error": "There was an error while updating tags",
+  "tags_update_success": "Tags Updated Successfully",
+  "title": "Title",
+  "uploader": {
+    "browse": "Browse",
+    "description": "(Only JPG, JPEG, PNG, MP3 ,MP4 files will be accepted)",
+    "device": "From Device",
+    "draft": "From Draft Media",
+    "label": "Drop file(s) here",
+    "label_release": "Ready to upload",
+    "old_form": "Upload Form (Classic)",
+    "processing": "Processing",
+    "upload": "Upload",
+    "uploading": "Uploading..."
+  }
+}

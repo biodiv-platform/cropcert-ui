@@ -1,9 +1,9 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { FactoryReport, Lot } from "@interfaces/traceability";
 import { axGetFactoryReportById } from "@services/report.service";
 import { LOT_REPORT_FACTORY_DRY } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { FactoryReport, Lot } from "types/traceability";
 
 import FactoryReportDryModal from "./modal";
 

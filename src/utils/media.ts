@@ -19,3 +19,57 @@ export const getResourceRAW = (resourceType, resourceUrl) => {
     ? `${ENDPOINT.FILES}/get/raw/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}`
     : undefined;
 };
+
+export const getUserImage = (resourceUrl, name, w = 50) => {
+  return resourceUrl
+    ? resourceUrl.startsWith("http")
+      ? resourceUrl
+      : `${ENDPOINT.FILES}/get/crop/users${resourceUrl}?w=${w}`
+    : `/api/avatar?t=${name}&s=${w}`;
+};
+
+export const getLocalIcon = (icon, type = "species") =>
+  `/next-assets/${type}/${icon || "Unknown"}.svg`;
+
+export const getTraitIcon = (resourceUrl, w = 40) => {
+  return resourceUrl.startsWith("/next-assets/")
+    ? resourceUrl
+    : `${ENDPOINT.FILES}/get/crop/traits${resourceUrl}?w=${w}`;
+};
+
+/**
+ * Uses Google Docs viewer to avoid CORS issue
+ *
+ * @param {string} resourceUrl
+ * @return {*}  {string}
+ */
+export const getDocumentPath = (resourceUrl: string): string => {
+  return `/pdf-viewer/?file=${getDocumentFilePath(resourceUrl)}`;
+};
+
+export const getDocumentFilePath = (resourceUrl: string): string => {
+  return resourceUrl.startsWith("http")
+    ? resourceUrl
+    : `${ENDPOINT.RAW}/content/documents${resourceUrl}`;
+};
+
+/**
+ * Parses YouTube video id from given Url
+ * @param url
+ * @returns YouTube video Id or blank
+ */
+export const getYouTubeId = (url) => {
+  let ID = "";
+  try {
+    url = url.replace(/(>|<)/gi, "").split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if (url[2] !== undefined) {
+      ID = url[2].split(/[^0-9a-z_\-]/i);
+      ID = ID[0];
+    } else {
+      return;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return ID;
+};

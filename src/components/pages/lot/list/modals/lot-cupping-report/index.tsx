@@ -1,12 +1,12 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
+import { Cupping, Lot } from "@interfaces/traceability";
 import { axOriginByLotId } from "@services/lot.service";
 import { ROLES } from "@static/constants";
 import { LOT_REPORT_CUPPING } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { Cupping, Lot } from "types/traceability";
 
 import CuppingReportForm from "./form";
 

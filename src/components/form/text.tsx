@@ -4,10 +4,11 @@ import React from "react";
 import { useController } from "react-hook-form";
 
 interface ITextBoxProps {
+  id?;
   name: string;
   placeholder?: string;
   title?: string;
-  label: string;
+  label?: string;
   helpText?: string;
   type?: string;
   mb?: number;

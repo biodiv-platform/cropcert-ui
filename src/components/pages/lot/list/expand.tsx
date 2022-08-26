@@ -1,9 +1,9 @@
 import { Box, CircularProgress, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
+import { Batch } from "@interfaces/traceability";
 import { axListBatchByLotId } from "@services/lot.service";
 import { BATCH_TYPE } from "@static/constants";
 import React, { useEffect, useState } from "react";
-import { Batch } from "types/traceability";
 
 import { batchColumns, batchColumnsWet } from "./data";
 

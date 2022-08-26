@@ -2,11 +2,11 @@ import { Badge, Button } from "@chakra-ui/react";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
+import { Batch } from "@interfaces/traceability";
 import { BATCH_TYPE } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
 import React from "react";
 import { emit } from "react-gbus";
-import { Batch } from "types/traceability";
 
 const VARIANT_MAPPING = {
   ADD: "blue",

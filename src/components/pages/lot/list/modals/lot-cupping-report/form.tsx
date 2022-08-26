@@ -16,6 +16,7 @@ import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Cupping, Lot } from "@interfaces/traceability";
 import { axCreateCuppingReport } from "@services/report.service";
 import { LOT_FLAGS } from "@static/constants";
 import { MREPORT } from "@static/messages";
@@ -25,7 +26,6 @@ import { CoffeeFlavors } from "coffee-flavor-wheel";
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
-import { Cupping, Lot } from "types/traceability";
 import * as Yup from "yup";
 
 import FormHeading from "../typography";

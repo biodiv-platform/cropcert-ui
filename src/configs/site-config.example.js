@@ -48,6 +48,9 @@ const SITE_CONFIG_EXAMPLE = {
       },
     },
   },
+  LANDSCAPE: {
+    ACTIVE: false,
+  },
 };
 
 module.exports = SITE_CONFIG_EXAMPLE;

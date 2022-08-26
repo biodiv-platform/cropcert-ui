@@ -1,8 +1,8 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Batch } from "@interfaces/traceability";
 import { BATCH_UPDATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { Batch } from "types/traceability";
 
 import BatchUpdateForm from "./form";
 

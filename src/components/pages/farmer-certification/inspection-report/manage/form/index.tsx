@@ -4,7 +4,7 @@ import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axSaveICSInspectionReport } from "@services/certification.service";
 import { axUploadSignature } from "@services/report.service";
-import notification, { NotificationType } from "@utils/notification.util";
+import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";

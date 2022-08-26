@@ -1,12 +1,13 @@
 import { DownloadIcon } from "@chakra-ui/icons";
-import { Box, Button, Checkbox, Spinner } from "@chakra-ui/react";
+import { Button, Checkbox, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import Container from "@components/@core/container";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { axListAllReports } from "@services/lot.service";
 import { ROLES } from "@static/constants";
-import { formattedTimeStamp, utc2local } from "@utils/basic.util";
+import { formattedTimeStamp, utc2local } from "@utils/basic";
 import flat from "flat";
 import j2x from "json-as-xlsx";
 import React, { useEffect, useMemo, useState } from "react";
@@ -73,7 +74,7 @@ export default function FullReportComponent() {
   }, [coCodes]);
 
   return (
-    <Box>
+    <Container>
       <PageHeading
         actions={
           <Button colorScheme="blue" leftIcon={<DownloadIcon />} onClick={downloadXLS}>
@@ -100,6 +101,6 @@ export default function FullReportComponent() {
       ) : (
         "No farmers available"
       )}
-    </Box>
+    </Container>
   );
 }

@@ -1,6 +1,6 @@
 import SITE_CONFIG from "@configs/site-config";
 import { ROLES } from "@static/constants";
-import { hierarchicalRoles } from "@utils/auth.util";
+import { hierarchicalRoles } from "@utils/auth";
 
 const links = [
   {
@@ -55,7 +55,7 @@ const links = [
       {
         title: "📄 Pages",
         description: "Manage Static Pages",
-        to: "/page/list",
+        to: "/page/show/1",
         access: [ROLES.ADMIN],
       },
       {

@@ -45,7 +45,7 @@ export function useBatchStore() {
   };
 
   const listBatch = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
-    if (state.batch.length % PAGINATION_LIMIT === 0) {
+    if (state.batch.length % PAGINATION_LIMIT === 0 || reset) {
       const offset = reset ? 0 : state.offset;
       const response = await axListBatch(ccCodes, offset);
       setBatches(response);

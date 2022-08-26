@@ -1,6 +1,6 @@
 import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 import { nanoid } from "nanoid";
 
 export const axGetFactoryReportById = async (factoryReportId = -1) => {

@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
-import { booleanOrText } from "@utils/basic.util";
+import { booleanOrText } from "@utils/basic";
 import React from "react";
 
 import { FARM_PANEL } from "../../create/panels/data";

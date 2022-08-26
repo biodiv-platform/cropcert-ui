@@ -1,3 +1,4 @@
+import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import React from "react";
 
@@ -12,7 +13,7 @@ export default function ManageInspectionReport({
   subVersion,
 }) {
   return (
-    <div>
+    <Container>
       <PageHeading>📄 Inspection Report #{currentReport.id}</PageHeading>
       <InspectionReportPreview
         currentReport={currentReport}
@@ -26,6 +27,6 @@ export default function ManageInspectionReport({
           subVersion={subVersion}
         />
       )}
-    </div>
+    </Container>
   );
 }

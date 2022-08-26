@@ -1,6 +1,6 @@
 import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
 import http from "@utils/http";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 
 export const axCreateBatch = async (body) => {
   try {

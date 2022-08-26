@@ -1,17 +1,11 @@
-import { Link } from "@chakra-ui/react";
-import { PAGE_TYPE_OPTIONS } from "@static/constants";
+import { chakra } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
 export default function CustomLink({ children, item }) {
-  const link =
-    item["pageType"] && item.pageType === PAGE_TYPE_OPTIONS.CONTENT.value
-      ? `/page/show/${item.id}`
-      : item.url;
-
   return (
-    <NextLink href={link} passHref={true}>
-      <Link>{children}</Link>
+    <NextLink href={item?.url ? item.url : `/page/show/${item.id}`} passHref={true}>
+      <chakra.a>{children}</chakra.a>
     </NextLink>
   );
 }

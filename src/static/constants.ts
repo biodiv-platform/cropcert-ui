@@ -18,9 +18,10 @@ export const ENDPOINT = {
   ENTITIES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}entities-api/api`,
   FILES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}files-api/api`,
   USER: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}user-api/api`,
-  PAGES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}pages/api`,
+  PAGES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}pages-api/api`,
   TRACEABILITY: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}traceability-api/api`,
   CERTIFICATION: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}certification-api/api`,
+  ODK: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}odk-api/api`,
 };
 
 export const TOKEN = {
@@ -118,4 +119,9 @@ export const LOT_STATUS_HIERARCHY = [
 export const VERIFICATION_MODE = {
   MANUAL: "manual",
   OAUTH_GOOGLE: "oauth-google",
+};
+
+export const RESOURCE_SIZE = {
+  TWITTER: "?w=600&h=330&fit=center&preserve=true",
+  PAGE: "?w=1440&h=300&fit=center",
 };

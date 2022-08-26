@@ -1,15 +1,8 @@
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Spinner,
-} from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { axUploadImage } from "@services/page.service";
+import { axUploadEditorPageResource } from "@services/pages.service";
 import { namedFormErrorMessage } from "@utils/field";
-import React, { useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 import { useController } from "react-hook-form";
 
@@ -47,35 +40,19 @@ export const DropzoneInputField = ({
   mb = 4,
 }: DropzoneInputFieldProps) => {
   const { field, fieldState } = useController({ name });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onDrop = async (acceptedFiles) => {
-    setIsLoading(true);
-
-    const { success, data } = await axUploadImage(acceptedFiles[0]);
-    if (success) field.onChange(data.url);
-
-    setIsLoading(false);
-  };
 
   const handleOnClear = () => {
     field.onChange(null);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop: axUploadEditorPageResource });
 
   return (
     <FormControl isInvalid={!!fieldState.error} mb={mb}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
       <DropzoneWrapper {...getRootProps()}>
         <input {...getInputProps()} />
-        {isLoading ? (
-          <Spinner />
-        ) : field.value ? (
-          <img src={field.value} />
-        ) : (
-          <div>Drop {type} Image Here</div>
-        )}
+        {field.value ? <img src={field.value} /> : <div>Drop {type} Image Here</div>}
       </DropzoneWrapper>
       <Button size="xs" isDisabled={!field.value} colorScheme="red" onClick={handleOnClear} mt={2}>
         Remove {type} Image

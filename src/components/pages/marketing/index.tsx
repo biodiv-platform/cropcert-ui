@@ -2,16 +2,17 @@ import { EmailIcon } from "@chakra-ui/icons";
 import { Badge, Box, Button, Checkbox, Spinner } from "@chakra-ui/react";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
+import Container from "@components/@core/container";
 import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import timeCell from "@components/@core/table/time-cell";
-import useGlobalState from "@hooks/use-global-store";
-import { hasAccess } from "@utils/auth.util";
+import useGlobalState from "@hooks/use-global-state";
+import { hasAccess } from "@utils/auth";
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import MarketingHeader from "./header";
+import { PageHeader } from "../page/show/header";
 import useMarketing from "./use-marketing";
 
 export const columns = [
@@ -91,45 +92,58 @@ export default function MarketingPageComponent() {
   const isGIAdmin = hasAccess(["gi_admin"], user);
   const [isFiltered, setIsFiltered] = useState(!isGIAdmin);
 
-  const dataList = useMemo(
-    () => (isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l),
+  const [dataList, headerData] = useMemo(
+    () => [
+      isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l,
+      {
+        title: isGIAdmin ? "Lot Details" : "Lots for Sale",
+        description: `Organic certified coffee Rwenzori Mountain Coffee lots for sale are listed below. Please
+      click on the Inquire button on the lot and send a mail with your mail and contact details
+      and we will get back to you.`,
+      },
+    ],
     [isFiltered, list]
   );
 
   return (
-    <Box>
-      <MarketingHeader isGIAdmin={isGIAdmin} />
-      <style
-        children={`body{ background-image:url(/assets/pattern-coffee.png); background-size: 150px}`}
-      />
+    <>
+      <PageHeader page={headerData} hideOptions={true} />
+      <Container py={16}>
+        <Box
+          bg="white"
+          p={4}
+          border="1px solid"
+          borderColor="gray.300"
+          borderRadius="md"
+          shadow="sm"
+        >
+          <CoreGrid>
+            <PlainUnionSelect onChange={setUnion} />
+            <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
-      <Box bg="white" p={4} border="1px solid" borderColor="gray.300" borderRadius="md" shadow="sm">
-        <CoreGrid>
-          <PlainUnionSelect onChange={setUnion} />
-          <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+            <Checkbox
+              defaultChecked={isFiltered}
+              onChange={(e) => setIsFiltered(e.target.checked)}
+              mt={4}
+            >
+              with quality scores only
+            </Checkbox>
+          </CoreGrid>
 
-          <Checkbox
-            defaultChecked={isFiltered}
-            onChange={(e) => setIsFiltered(e.target.checked)}
-            mt={4}
-          >
-            with quality scores only
-          </Checkbox>
-        </CoreGrid>
-
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={() => loadMore()}
-            loader={<Spinner key="loader" />}
-            hasMore={list.hasMore}
-          >
-            {dataList.length ? <Table data={dataList} columns={columns} /> : "No Lots Available"}
-          </InfiniteScroll>
-        )}
-      </Box>
-    </Box>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={() => loadMore()}
+              loader={<Spinner key="loader" />}
+              hasMore={list.hasMore}
+            >
+              {dataList.length ? <Table data={dataList} columns={columns} /> : "No Lots Available"}
+            </InfiniteScroll>
+          )}
+        </Box>
+      </Container>
+    </>
   );
 }

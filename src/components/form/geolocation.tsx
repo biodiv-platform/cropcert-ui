@@ -1,5 +1,5 @@
 import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
-import { getCoords } from "@utils/basic.util";
+import { getCoords } from "@utils/basic";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";

@@ -40,7 +40,7 @@ export default function DownloadTable() {
           <Input
             type="text"
             placeholder="Find Collection Center"
-            borderColor="gray.400"
+            borderColor="gray.300"
             onChange={onFilterChange}
           />
         </InputGroup>

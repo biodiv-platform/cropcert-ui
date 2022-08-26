@@ -1,5 +1,6 @@
 import { Heading } from "@chakra-ui/react";
-import { removeCookies } from "@utils/auth.util";
+import Container from "@components/@core/container";
+import { removeCookies } from "@utils/auth";
 import React, { useEffect } from "react";
 
 const SignOutPage = () => {
@@ -8,7 +9,11 @@ const SignOutPage = () => {
     window.location.assign("/");
   }, []);
 
-  return <Heading fontStyle="italic">Logging you out...</Heading>;
+  return (
+    <Container>
+      <Heading fontStyle="italic">Logging you out...</Heading>
+    </Container>
+  );
 };
 
 export default SignOutPage;

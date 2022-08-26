@@ -1,19 +1,19 @@
 import ShowPageComponent from "@components/pages/page/show";
-import { axGetPageByPageId } from "@services/page.service";
+import { axGetPageByID } from "@services/pages.service";
 import React from "react";
 
-import HomePageComponent from "../components/pages/home";
+// import HomePageComponent from "../components/pages/home";
 
 const HomePage = ({ pageContent }) => (
   <>
     {pageContent.success && (
-      <ShowPageComponent page={pageContent.data} preContent={<HomePageComponent />} />
+      <ShowPageComponent page={pageContent.data} /*preContent={<HomePageComponent />}*/ />
     )}
   </>
 );
 
 HomePage.getInitialProps = async () => {
-  return { pageContent: await axGetPageByPageId(1) };
+  return { pageContent: await axGetPageByID(1) };
 };
 
 export default HomePage;

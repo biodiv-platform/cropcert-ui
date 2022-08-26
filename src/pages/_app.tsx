@@ -1,14 +1,15 @@
 import "../styles/global.scss";
 
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import Footer from "@components/@core/container/footer";
+import Metadata from "@components/@core/container/metadata";
 import Navbar from "@components/@core/navmenu";
-import { GlobalStateProvider } from "@hooks/use-global-store";
-import { SITE_TITLE } from "@static/constants";
+import SITE_CONFIG from "@configs/site-config";
+import { GlobalStateProvider } from "@hooks/use-global-state";
+import { axGetTree } from "@services/pages.service";
 import { customTheme } from "@static/theme";
-import { getParsedUser } from "@utils/auth.util";
+import { getParsedUser } from "@utils/auth";
 import App, { AppContext } from "next/app";
-import Head from "next/head";
 import Router from "next/router";
 import NProgress from "nprogress";
 import React from "react";
@@ -18,18 +19,16 @@ Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-function MainApp({ Component, pageProps, user, pages }) {
+function MainApp({ Component, pageProps, user, pages, languageId }) {
   return (
-    <GlobalStateProvider user={user} pages={pages}>
+    <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
       <BusProvider>
         <ChakraProvider theme={customTheme}>
-          <Head>
-            <title>{SITE_TITLE}</title>
-          </Head>
+          <Metadata />
           <Navbar />
-          <Box width="full" maxWidth="1280px" mx="auto" p={6} minHeight="var(--page-height)">
+          <main>
             <Component {...pageProps} />
-          </Box>
+          </main>
           <Footer />
         </ChakraProvider>
       </BusProvider>
@@ -38,14 +37,16 @@ function MainApp({ Component, pageProps, user, pages }) {
 }
 
 MainApp.getInitialProps = async (appContext: AppContext) => {
+  const languageId = SITE_CONFIG.LANG.LIST[appContext.ctx.locale]?.ID;
   const { pageProps } = await App.getInitialProps(appContext);
-  // const pages = await axListPages();
+  const pages = await axGetTree({ languageId });
   const user = getParsedUser(appContext.ctx);
 
   return {
     pageProps,
     user,
-    pages: [],
+    pages: pages.data,
+    languageId,
   };
 };
 

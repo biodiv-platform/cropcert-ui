@@ -1,8 +1,10 @@
 import { ENDPOINT } from "@static/constants";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 import axios from "axios";
 
-import { getAuthState, setCookies } from "./auth.util";
+import { getAuthState, setCookies } from "./auth";
+
+export const formDataHeaders: any = { "Content-Type": "multipart/form-data" };
 
 const defaultHeaders = {
   headers: {
@@ -68,10 +70,6 @@ export default ax;
  * *axios* instance for `x-www-form-urlencoded` request
  *
  */
-export const httpFormData = axios.create({
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-});
+export const httpFormData = axios.create({ headers: formDataHeaders });
 
 export const plainHttp = axios.create(defaultHeaders);

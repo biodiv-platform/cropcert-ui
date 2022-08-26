@@ -1,6 +1,7 @@
 import { ENDPOINT } from "@static/constants";
-import http, { httpFormData } from "@utils/http";
-import queryString from "query-string";
+import http from "@utils/http";
+import { stringify } from "@utils/query-string";
+import axios from "axios";
 
 /**
  * Acquires initial tokens against provided credentials
@@ -9,10 +10,7 @@ import queryString from "query-string";
  * @returns {*}
  */
 export const axSignIn = async (body) => {
-  const res = await httpFormData.post(
-    `${ENDPOINT.USER}/v1/authenticate/login`,
-    queryString.stringify(body)
-  );
+  const res = await axios.post(`${ENDPOINT.USER}/v1/authenticate/login`, stringify(body));
   return res.data;
 };
 

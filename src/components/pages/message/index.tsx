@@ -7,6 +7,7 @@ import {
   Button,
   Flex,
 } from "@chakra-ui/react";
+import Container from "@components/@core/container";
 import { GENERIC } from "@static/messages";
 import NextLink from "next/link";
 import React from "react";
@@ -15,7 +16,7 @@ export default function Message({ success, message, backLink, backLinkTitle }: a
   const prop: Partial<AlertProps> = { status: success ? "success" : "error" };
 
   return (
-    <>
+    <Container>
       <Alert {...prop} variant="subtle" bg="transparent" flexDirection="column" textAlign="center">
         <AlertIcon boxSize="3.2rem" mr={0} />
         <AlertTitle mt={4} mb={2} fontSize="2xl">
@@ -35,6 +36,6 @@ export default function Message({ success, message, backLink, backLinkTitle }: a
           </NextLink>
         </Flex>
       </Alert>
-    </>
+    </Container>
   );
 }

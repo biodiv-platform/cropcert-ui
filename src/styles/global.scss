@@ -1,4 +1,3 @@
-@import "./article.scss";
 @import "./progress.scss";
 @import "./datatable.scss";
 @import "./transitions.scss";
@@ -9,7 +8,7 @@
 @import "~keen-slider/keen-slider.min.css";
 
 :root {
-  --page-height: calc(100vh - 126px);
+  --page-height: calc(100vh - 69px - 214px);
 }
 
 input:disabled {
@@ -24,7 +23,7 @@ input:disabled {
 .grid-row {
   display: grid;
   align-items: center;
-  border: 1px dashed var(--chakra-colors-gray-400);
+  border: 1px dashed var(--chakra-colors-gray-300);
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -39,4 +38,43 @@ input:disabled {
 .chakra-input,
 .chakra-select {
   background: white !important;
+}
+
+.rmsc {
+  --rmsc-main: var(--chakra-colors-blue-500) !important;
+  --rmsc-border: var(--chakra-colors-gray-300) !important;
+  --rmsc-gray: var(--chakra-colors-gray-500) !important;
+  --rmsc-hover: var(--chakra-colors-gray-100) !important;
+  --rmsc-selected: var(--chakra-colors-gray-200) !important;
+}
+
+#__next > main {
+  min-height: var(--page-height);
+}
+
+/* For pages */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.article a {
+  scroll-margin-top: 5rem;
+}
+
+.splide__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+  body {
+    color: inherit;
+    background: unset;
+  }
 }

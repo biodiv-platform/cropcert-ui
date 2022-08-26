@@ -1,7 +1,7 @@
 import { ENDPOINT } from "@static/constants";
 import { GENERIC } from "@static/messages";
 import http, { plainHttp } from "@utils/http";
-import notification from "@utils/notification.util";
+import notification from "@utils/notification";
 
 export const axListCCByCoId = async (coCode) => {
   if (!coCode) {

@@ -4,17 +4,9 @@ import DataTable from "react-data-table-component";
 
 import useActionProps from "./get-action-props";
 
-/*
-const theme = {
-  title: {
-    height: 0,
-  },
-};
-*/
-
 const Table = (props) =>
   props.data.length ? (
-    <Box bg="white" border="1px solid" borderColor="gray.400" borderRadius="md">
+    <Box bg="white" border="1px solid" borderColor="gray.300" borderRadius="md">
       {props.data.length > 0 && <DataTable striped={true} {...props} />}
     </Box>
   ) : null;

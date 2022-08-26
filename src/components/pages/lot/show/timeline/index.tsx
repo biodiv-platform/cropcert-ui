@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Badge } from "@chakra-ui/react";
-import { formattedTimeStamp } from "@utils/basic.util";
+import { formattedTimeStamp } from "@utils/basic";
 import React from "react";
 
 import LotShowPanel from "../panel";

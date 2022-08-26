@@ -1,23 +1,25 @@
-# Rwenzori Mountain Coffee (Cropcert)
+# Cropcert UI
 
 ## 🔧 Prerequisites
 
-1. Install [Node.js](https://nodejs.org/)
+1. Install [Node.js LTS](https://nodejs.org/)
 2. Install [Yarn 🧶](https://yarnpkg.com/)
 
-## 🚀 Quick start
+### 📦 Getting Started
 
 ```sh
-git clone https://github.com/strandls/cropcert-ui  # Clone Repository
-npm install -g yarn                                # Install yarn if not installed
-yarn install                                       # Install Dependencies
-yarn start                                         # Start development environment
-```
-
-## 🚢 Deploying
-
-```sh
-rm -rf .next
 yarn install
-yarn production
+cp src/configs/site-config.example.js src/configs/site-config.js  # setup with appropriate properties
+yarn dev # will start development server on port 3000
 ```
+
+### 👷 Production Build
+
+```sh
+yarn build
+yarn serve           # will start production server
+```
+
+### 📄 License
+
+Apache-2.0 &copy; [Strand Life Sciences](https://strandls.com)

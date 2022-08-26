@@ -1,5 +1,5 @@
 import { ROLES } from "@static/constants";
-import { getUserKey } from "@utils/auth.util";
+import { getUserKey } from "@utils/auth";
 
 import { axListCCByCoId } from "./cc.service";
 import { axCoByUnionId } from "./co.service";

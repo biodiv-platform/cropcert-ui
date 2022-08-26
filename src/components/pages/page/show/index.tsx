@@ -1,39 +1,45 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import { generateToC, wrapResponsiveTable } from "@utils/pages.util";
-import React, { useEffect } from "react";
-import { Page } from "types/pages";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
+import Container from "@components/@core/container";
+import { RESOURCE_SIZE } from "@static/constants";
+import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
+import React, { useMemo } from "react";
 
-import ArticleImage from "./article-image";
+import PagesSidebar from "../common/sidebar";
+import { UsePagesProvider } from "../common/sidebar/use-pages-sidebar";
+import { Content } from "./content.server";
+import { PageHeader } from "./header";
 
-interface IHomePageProps {
-  page: Page;
-  preContent?;
+interface PageShowPageComponentProps {
+  page;
 }
 
-function HomePageComponent({ page, preContent }: IHomePageProps) {
-  useEffect(() => {
-    generateToC(".article", ".toc");
-  }, [page.id]);
+export default function PageShowPageComponent(props: PageShowPageComponentProps) {
+  const page = useMemo(
+    () => ({
+      ...props.page,
+      galleryData: props.page.galleryData.map((image) => ({
+        ...image,
+        url: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.TWITTER),
+        pageUrl: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.PAGE),
+      })),
+    }),
+    [props.page.id]
+  );
 
   return (
-    <Box>
-      <ArticleImage page={page} />
-      {preContent}
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} maxW="full">
-        <div>
-          <div className="toc-container">
-            <div className="toc"></div>
-          </div>
-        </div>
-        <Box gridColumn={{ md: "2/5" }} borderRadius="md">
-          <div
-            className="article"
-            dangerouslySetInnerHTML={{ __html: wrapResponsiveTable(page.content) }}
-          />
-        </Box>
-      </SimpleGrid>
-    </Box>
+    <UsePagesProvider currentPage={page} linkType="show">
+      <PageHeader page={page} />
+
+      <Container mb={6} pt={6}>
+        <SimpleGrid columns={{ md: 7 }} spacing={{ base: 0, md: 8 }}>
+          <GridItem colSpan={{ md: 5 }}>
+            <Content html={page.content} />
+          </GridItem>
+          <GridItem colSpan={{ md: 2 }} pt={6}>
+            <PagesSidebar />
+          </GridItem>
+        </SimpleGrid>
+      </Container>
+    </UsePagesProvider>
   );
 }
-
-export default HomePageComponent;

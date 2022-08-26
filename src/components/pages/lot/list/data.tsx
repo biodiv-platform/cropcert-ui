@@ -2,7 +2,7 @@ import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
-import useGlobalState from "@hooks/use-global-store";
+import useGlobalState from "@hooks/use-global-state";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import {
   LOT_DISPATCH_FACTORY,

@@ -1,7 +1,7 @@
 {
-  "name": "Rwenzori Mountain Coffee",
-  "short_name": "cropcert",
-  "version": "1.0.0",
+  "name": "ROBUST",
+  "short_name": "robust",
+  "version": "2.0.0",
   "manifest_version": 2,
   "theme_color": "#212529",
   "background_color": "#F8F9FA",

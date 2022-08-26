@@ -1,4 +1,4 @@
-import { formattedTimeStamp, utc2local } from "@utils/basic.util";
+import { formattedTimeStamp, utc2local } from "@utils/basic";
 import React from "react";
 
 function timeCell(value) {

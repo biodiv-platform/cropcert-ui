@@ -1,5 +1,6 @@
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Button, ButtonGroup, Image } from "@chakra-ui/react";
+import Container from "@components/@core/container";
 import { ENDPOINT } from "@static/constants";
 import { useKeenSlider } from "keen-slider/react";
 import React from "react";
@@ -51,7 +52,7 @@ export default function HomePageComponent() {
   );
 
   return (
-    <>
+    <Container>
       <Box ref={sliderRef} className="keen-slider" my={6}>
         {new Array(39).fill(0).map((_, i) => (
           <Box className="keen-slider__slide" key={i} overflow="visible">
@@ -76,6 +77,6 @@ export default function HomePageComponent() {
           </Button>
         </ButtonGroup>
       </Box>
-    </>
+    </Container>
   );
 }

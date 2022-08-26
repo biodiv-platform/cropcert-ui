@@ -10,7 +10,7 @@ interface PageHeadingProps {
 
 export default function PageHeading({ children, mb = 4, actions, ...props }: PageHeadingProps) {
   return (
-    <Flex justifyContent="space-between" alignItems="center" mb={mb}>
+    <Flex justifyContent="space-between" alignItems="center" mb={mb} mt={6}>
       <Heading as="h1" display="inline-block" {...props}>
         {children}
       </Heading>

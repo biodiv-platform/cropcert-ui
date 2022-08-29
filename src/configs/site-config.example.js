@@ -51,6 +51,10 @@ const SITE_CONFIG_EXAMPLE = {
   LANDSCAPE: {
     ACTIVE: false,
   },
+  GEOSERVER: {
+    STORE: "naksha",
+    WORKSPACE: "biodiv",
+  },
 };
 
 module.exports = SITE_CONFIG_EXAMPLE;

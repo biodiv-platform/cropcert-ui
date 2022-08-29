@@ -8,7 +8,8 @@ module.exports = {
     "*": ["common", "header", "auth", "form"],
     "/": ["page"],
     "/marketing": ["page"],
-    "rgx:/page/": ["page"],
     "rgx:/document/": ["document", "observation", "filters", "activity"],
+    "rgx:/map": ["page", "map"],
+    "rgx:/page/": ["page"],
   },
 };

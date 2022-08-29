@@ -77,10 +77,6 @@ export const DateTimeInputField = ({
 
   useEffect(() => {
     field.onChange(dateTimeValue ? local2utc(dateTimeValue).getTime() : null);
-    // setTimeout(() => {
-    //   helpers.setTouched(true);
-    //   field.onBlur(name);
-    // }, 500);
   }, [dateTimeValue]);
 
   return (

@@ -1,9 +1,8 @@
 import { Accordion } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
+import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability";
 import React from "react";
-import { Activity, Cupping, Lot, QualityReport } from "types/traceability";
-import { User } from "types/user";
 
 import LotBatches from "./lot-batches";
 import LotCuppingReport from "./lot-cupping";
@@ -16,7 +15,7 @@ interface ILotShowProps {
   activities: Activity[];
   cupping_report: Cupping[];
   quality_report: QualityReport[];
-  users: User[];
+  users: any[];
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {

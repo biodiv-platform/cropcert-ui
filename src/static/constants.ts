@@ -13,15 +13,28 @@ export const DATEFORMATS = {
   DATETIME: "dd-MM-yyyy HH:mm",
 };
 
+const API_ENDPOINT = SITE_CONFIG.SITE.API_ENDPOINT_SSR;
+
 export const ENDPOINT = {
-  ROOT: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}`,
-  ENTITIES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}entities-api/api`,
-  FILES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}files-api/api`,
-  USER: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}user-api/api`,
-  PAGES: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}pages-api/api`,
-  TRACEABILITY: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}traceability-api/api`,
-  CERTIFICATION: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}certification-api/api`,
-  ODK: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR}odk-api/api`,
+  ROOT: `${API_ENDPOINT}`,
+  ACTIVITY: `${API_ENDPOINT}activity-api/api`,
+  CERTIFICATION: `${API_ENDPOINT}certification-api/api`,
+  DOCUMENT: `${API_ENDPOINT}document-api/api`,
+  ENTITIES: `${API_ENDPOINT}entities-api/api`,
+  ESMODULE: `${API_ENDPOINT}esmodule-api/api`,
+  FILES: `${API_ENDPOINT}files-api/api`,
+  GEOENTITIES: `${API_ENDPOINT}geoentities-api/api`,
+  GEOSERVER: `${API_ENDPOINT}geoserver`,
+  INTEGRATOR: `${API_ENDPOINT}integrator-api/api`,
+  LANDSCAPE: `${API_ENDPOINT}landscape-api/api`,
+  NAKSHA: `${API_ENDPOINT}naksha-api/api`,
+  ODK: `${API_ENDPOINT}odk-api/api`,
+  PAGES: `${API_ENDPOINT}pages-api/api`,
+  RAW: `${API_ENDPOINT}biodiv`,
+  RESOURCES: `${API_ENDPOINT}resources-api/api`,
+  TRACEABILITY: `${API_ENDPOINT}traceability-api/api`,
+  USER: `${API_ENDPOINT}user-api/api`,
+  UTILITY: `${API_ENDPOINT}utility-api/api`,
 };
 
 export const TOKEN = {
@@ -32,10 +45,11 @@ export const TOKEN = {
   TYPE: "Bearer ",
 };
 
-export const PAGE_TYPE_OPTIONS = {
-  CONTENT: { label: "Content", value: "CONTENT" },
-  REDIRECT: { label: "Redirect", value: "REDIRECT" },
-};
+export const FLAG_OPTIONS = [
+  "DETAILS_INAPPROPRIATE",
+  "LOCATION_INAPPROPRIATE",
+  "DATE_INAPPROPRIATE",
+];
 
 export const ROLES = {
   GI_ADMIN: "GI_ADMIN",
@@ -86,35 +100,12 @@ export const TYPE_OPTIONS = {
   WET: { label: "Wet", value: BATCH_TYPE.WET },
 };
 
-export const MESSAGE = {
-  INVALID_CREDENTIALS: "Invalid credentials",
-  TREE_UPDATE_SUCCESS: "xxx",
-  ALL_CC_SELECTED: "All Collection Centers selected",
-  ERROR_FACTORY_REPORT: "Input quantity does not match with graded quantities",
-};
-
 export const LOT_FLAGS = {
   ADD: "ADD",
   EDIT: "EDIT",
   DONE: "DONE",
   NOTAPPLICABLE: "NOTAPPLICABLE",
 };
-
-export const LOT_STATUS = {
-  AT_COLLECTION_CENTER: "AT_COLLECTION_CENTER",
-  AT_CO_OPERATIVE: "AT_CO_OPERATIVE",
-  IN_TRANSPORT: "IN_TRANSPORT",
-  AT_FACTORY: "AT_FACTORY",
-  AT_UNION: "AT_UNION",
-};
-
-export const LOT_STATUS_HIERARCHY = [
-  "AT_COLLECTION_CENTER",
-  "AT_CO_OPERATIVE",
-  "IN_TRANSPORT",
-  "AT_FACTORY",
-  "AT_UNION",
-];
 
 export const VERIFICATION_MODE = {
   MANUAL: "manual",
@@ -125,3 +116,13 @@ export const RESOURCE_SIZE = {
   TWITTER: "?w=600&h=330&fit=center&preserve=true",
   PAGE: "?w=1440&h=300&fit=center",
 };
+
+export const RESOURCE_TYPE = {
+  DATATABLE: "datatable",
+  DOCUMENT: "document",
+  OBSERVATION: "observation",
+  SPECIES: "species",
+  TAXONOMY: "taxonomy",
+};
+
+export const MENU_PORTAL_TARGET = isBrowser ? document.body : undefined;

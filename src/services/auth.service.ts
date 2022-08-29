@@ -1,5 +1,6 @@
 import { ENDPOINT } from "@static/constants";
-import http from "@utils/http";
+import http, { plainHttp } from "@utils/http";
+import notification from "@utils/notification";
 import { stringify } from "@utils/query-string";
 import axios from "axios";
 
@@ -22,5 +23,41 @@ export const axGetUser = async () => {
   } catch (e) {
     console.error(e);
     return {};
+  }
+};
+
+export const axUserSearch = async (name) => {
+  try {
+    const { data } = await plainHttp.get(`${ENDPOINT.USER}/v1/user/autocomplete`, {
+      params: { name },
+    });
+    return { success: true, data: data.map((o) => ({ ...o, display: o.name })) };
+  } catch (e) {
+    console.error(e);
+    notification(e?.response?.data?.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axRegenerateOTP = async (payload) => {
+  try {
+    const { data } = await axios.post(
+      `${ENDPOINT.USER}/v1/authenticate/regenerate-otp`,
+      stringify(payload)
+    );
+    return { success: data.status, data: `otp.messages.${data.message}` };
+  } catch (e) {
+    console.error(e);
+    return { success: false, data: "otp.messages.could_not_send_mail_sms" };
+  }
+};
+
+export const axValidateUser = async (payload) => {
+  try {
+    const { data } = await axios.post(`${ENDPOINT.USER}/v1/group/verify-user`, stringify(payload));
+    return { success: data.status, data, message: `otp.messages.${data.message}` };
+  } catch (e) {
+    console.error(e);
+    return { success: false, data: {}, message: "otp.messages.error" };
   }
 };

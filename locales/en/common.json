@@ -1,10 +1,41 @@
 {
+  "activity": "Activity",
+  "add": "Add",
+  "and": "And",
   "cancel": "Cancel",
+  "clear": "Clear",
+  "close": "Close",
+  "copy": "Copy to Clipboard",
   "delete": "Delete",
   "edit": "Edit",
+  "success": "Success",
+  "footer": {
+    "email": "Email",
+    "facebook": "Facebook",
+    "github": "GitHub",
+    "powered_by": "Powered by",
+    "technology_partner": "Technology Partner",
+    "twitter": "Twitter"
+  },
+  "information": "Information",
   "license": "© Project ROBUST 2022, All Rights Reserved.",
+  "list": {
+    "sort_by": "Sort By",
+    "sort_options": {
+      "last_logged_in": "Last Logged In",
+      "last_updated": "Last Updated",
+      "latest": "Last Created",
+      "most_viewed": "Most Viewed"
+    },
+    "view_type": {
+      "grid": "Grid",
+      "list": "List"
+    }
+  },
   "loading": "Loading",
   "next": "Next",
+  "or": "or",
   "prev": "Previous",
-  "save": "Save"
+  "save": "Save",
+  "uploader": "Uploader"
 }

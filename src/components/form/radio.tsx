@@ -8,10 +8,10 @@ import {
   RadioGroup,
   Stack,
 } from "@chakra-ui/react";
+import { CastType } from "@interfaces/custom";
 import { namedFormErrorMessage, typeCastSingle } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
-import { CastType } from "types/custom";
 
 interface IRadioProps {
   helpText?: string;

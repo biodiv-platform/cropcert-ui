@@ -5,14 +5,13 @@ import Table from "@components/@core/table";
 import { axListCC } from "@services/cc.service";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import { CollectionCenter } from "types/user";
 
 import { ccListColumns } from "./data";
 
 const CCListMap = dynamic(() => import("./map"), { ssr: false });
 
 export default function CollectionCenterListComponent() {
-  const [ccList, setCCList] = useState<CollectionCenter[]>([]);
+  const [ccList, setCCList] = useState<any[]>([]);
   const [selected, setSelected] = useState<any>();
 
   useEffect(() => {

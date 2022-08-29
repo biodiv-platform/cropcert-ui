@@ -1,10 +1,5 @@
 import { DATEFORMATS, TYPE_OPTIONS } from "@static/constants";
 import dayjs from "dayjs";
-import queryString from "query-string";
-
-export const getToday = () => {
-  return dayjs().format(DATEFORMATS.DAYJS_DATE);
-};
 
 export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
@@ -34,10 +29,6 @@ export const utc2local = (utcTimeStamp?) => {
   return new Date(dateInUtc.getTime() - dateInUtc.getTimezoneOffset() * 60 * 1000);
 };
 
-export const redirect = (data, router) => {
-  data.success && router.push(`/message?${queryString.stringify(data)}`);
-};
-
 export const typeList = (type) => {
   if (type === "D") {
     return [TYPE_OPTIONS.DRY];
@@ -45,20 +36,6 @@ export const typeList = (type) => {
     return [TYPE_OPTIONS.WET];
   }
   return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET];
-};
-
-/**
- * Mutably updates object by key does immutably with `easy-peasy` because it uses "immer" internally
- *
- * @param {any[]} a
- * @param {*} o
- * @param {string} [k="id"]
- * @returns {any[]}
- */
-export const updateArrayByObjectKey = (a: any[], o: any, k = "id"): any[] => {
-  const i = a.findIndex((ao) => ao[k] === o[k]);
-  a[i] = o;
-  return a;
 };
 
 export const compiledMessage = (templateString: string, templateVariables) =>
@@ -126,6 +103,4 @@ export const getCoords = async () => {
   }
 };
 
-export function wait(ms = 2000) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();

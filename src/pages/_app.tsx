@@ -1,6 +1,6 @@
 import "../styles/global.scss";
 
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, createStandaloneToast } from "@chakra-ui/react";
 import Footer from "@components/@core/container/footer";
 import Metadata from "@components/@core/container/metadata";
 import Navbar from "@components/@core/navmenu";
@@ -20,9 +20,12 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MainApp({ Component, pageProps, user, pages, languageId }) {
+  const { ToastContainer } = createStandaloneToast({ theme: customTheme });
+
   return (
     <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
       <BusProvider>
+        <ToastContainer />
         <ChakraProvider theme={customTheme}>
           <Metadata />
           <Navbar />

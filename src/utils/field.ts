@@ -1,4 +1,4 @@
-import { CastType } from "types/custom";
+import { CastType } from "@interfaces/custom";
 
 export const namedFormErrorMessage = (message, name, title) =>
   title ? message?.replace("[", ".").replace("]", "")?.replace(name, title) : message;
@@ -16,24 +16,6 @@ export const typeCastSingle = (value, type?: CastType) => {
     }
   } catch (e) {
     // console.error(e);
-    return value;
-  }
-};
-
-/**
- * chakra-ui converts all radio and checkbox group values to string type so to restore this needs to be done
- *
- * @param {*} value
- * @param {*} type
- * @return {*}
- */
-export const typeCastMulti = (value, type?: CastType) => {
-  if (!value) return value;
-
-  try {
-    return value.map((_value) => typeCastSingle(_value, type));
-  } catch (e) {
-    console.error(e);
     return value;
   }
 };

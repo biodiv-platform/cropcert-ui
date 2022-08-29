@@ -1,6 +1,8 @@
 import { COMPAT_USERKEY_MAP, isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
+import { AUTHWALL } from "@static/events";
 import JWTDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { emit } from "react-gbus";
 
 export const cookieOpts = {
   maxAge: 60 * 60 * 24 * 7, // 1 Week
@@ -26,6 +28,11 @@ export const hasAccess = (roles: string[] = [ROLES.UNAUTHORIZED], user): boolean
   }
 
   return false;
+};
+
+export const adminOrAuthor = (authorId, ctx?) => {
+  const u = getParsedUser(ctx);
+  return u?.id === authorId || hasAccess([ROLES.ADMIN], u);
 };
 
 // sets/re-sets cookies on development mode
@@ -149,4 +156,16 @@ export const removeCookies = () => {
   destroyCookie(null, TOKEN.ACCESS, cookieOpts);
   destroyCookie(null, TOKEN.REFRESH, cookieOpts);
   destroyCookie(null, TOKEN.USER, cookieOpts);
+};
+
+/**
+ * 🌈 On the spot authorization wrapped in a one magical promise
+ *
+ * @returns {Promise<Record<string, unknown>>}
+ */
+export const waitForAuth = (): Promise<Record<string, unknown>> => {
+  return new Promise((resolve: any, reject) => {
+    const u = getParsedUser();
+    u?.id ? resolve() : emit(AUTHWALL.INIT, { resolve, reject });
+  });
 };

@@ -1,10 +1,10 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Lot } from "@interfaces/traceability";
 import { axUpdateGRN } from "@services/lot.service";
 import { LOT_FLAGS } from "@static/constants";
 import { LOT_GRN } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { Lot } from "types/traceability";
 
 import LotGRNForm from "./form";
 

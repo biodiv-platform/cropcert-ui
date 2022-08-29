@@ -1,10 +1,10 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { FactoryReport, Lot, QualityReport } from "@interfaces/traceability";
 import { axOriginByLotId } from "@services/lot.service";
 import { axGetFactoryReportByLotId, axGetGreenReportById } from "@services/report.service";
 import { LOT_REPORT_GREEN } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
-import { FactoryReport, Lot, QualityReport } from "types/traceability";
 
 import GreenReportForm from "./form";
 

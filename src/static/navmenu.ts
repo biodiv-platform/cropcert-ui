@@ -9,6 +9,18 @@ export const navmenu = [
   },
   {
     id: 10001,
+    title: "Documents",
+    url: "/document/list",
+    access: [ROLES.UNAUTHORIZED],
+  },
+  {
+    id: 10001,
+    title: "Maps",
+    url: "/map",
+    access: [ROLES.UNAUTHORIZED],
+  },
+  {
+    id: 10002,
     title: "Lots for Sale",
     url: "/marketing",
     access: [ROLES.UNAUTHORIZED],

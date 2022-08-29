@@ -6,9 +6,12 @@
 @import "./timeline.scss";
 
 @import "~keen-slider/keen-slider.min.css";
+@import "~mapbox-gl/dist/mapbox-gl.css";
+@import "~@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 :root {
-  --page-height: calc(100vh - 69px - 214px);
+  --heading-height: 69px;
+  --page-height: calc(100vh - var(--heading-height) - 214px);
 }
 
 input:disabled {
@@ -77,4 +80,50 @@ h6,
     color: inherit;
     background: unset;
   }
+}
+
+.textarea {
+  min-height: 6rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--chakra-colors-gray-300);
+}
+.textarea .textarea__highlighter,
+.textarea .textarea__input {
+  padding: 8px 1rem;
+}
+.textarea .textarea__suggestions {
+  position: absolute;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--chakra-colors-gray-300);
+}
+
+[aria-invalid="true"] > div > div {
+  border-color: var(--chakra-colors-red-500) !important;
+  box-shadow: 0 0 0 1px var(--chakra-colors-red-500) !important;
+}
+
+.gray-box,
+.white-box,
+.hover-box {
+  background: var(--chakra-colors-white);
+  border: 1px solid var(--chakra-colors-gray-300);
+  border-radius: 0.5rem;
+  display: inline-block;
+  width: 100%;
+}
+
+.gray-box {
+  border: 0;
+  background: var(--chakra-colors-gray-100);
+}
+
+.hover-box {
+  transition: all 0.3s ease-out;
+  top: 0px;
+  position: relative;
+}
+.hover-box:hover {
+  transition: all 0.2s ease-out;
+  box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
 }

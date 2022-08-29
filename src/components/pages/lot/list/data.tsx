@@ -3,6 +3,7 @@ import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import useGlobalState from "@hooks/use-global-state";
+import { Lot } from "@interfaces/traceability";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import {
   LOT_DISPATCH_FACTORY,
@@ -14,7 +15,6 @@ import {
 } from "@static/events";
 import React from "react";
 import { emit } from "react-gbus";
-import { Lot } from "types/traceability";
 
 const buttonProps: Partial<ButtonProps> = {
   variant: "outline",

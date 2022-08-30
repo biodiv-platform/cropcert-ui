@@ -7,17 +7,12 @@ import SubAccordion from "../shared/sub-accordion";
 import MapAreaFilter from "./map-area";
 
 export default function LocationFilter() {
-  const {
-    protectedAreas,
-    documentData: {
-      ag: { groupState },
-    },
-  } = useDocumentFilter();
+  const { protectedAreas, documentData } = useDocumentFilter();
 
   const STATE_OPTIONS = protectedAreas?.map((state) => ({
     label: state.shortName,
     value: state.shortName,
-    stat: groupState?.[state?.shortName],
+    stat: documentData?.ag?.groupState?.[state?.shortName],
   }));
 
   return (

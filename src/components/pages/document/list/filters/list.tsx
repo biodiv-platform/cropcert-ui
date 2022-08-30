@@ -6,18 +6,20 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 import AuthorFilter from "./author";
 import DataQuality from "./data-quality";
 import ItemTypeFilter from "./itemType";
-import Location from "./location";
 import PublisherFilter from "./publisher";
 import TagsFilter from "./tags";
 import TimeFilter from "./time";
 import TitleFilter from "./title";
 import UserFilter from "./user";
+
+const Location = dynamic(() => import("./location"), { ssr: false });
 
 export default function FiltersList() {
   const { t } = useTranslation();

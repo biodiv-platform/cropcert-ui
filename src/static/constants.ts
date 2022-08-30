@@ -34,6 +34,7 @@ export const ENDPOINT = {
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
   TRACEABILITY: `${API_ENDPOINT}traceability-api/api`,
   USER: `${API_ENDPOINT}user-api/api`,
+  USERGROUP: `${API_ENDPOINT}userGroup-api/api`,
   UTILITY: `${API_ENDPOINT}utility-api/api`,
 };
 

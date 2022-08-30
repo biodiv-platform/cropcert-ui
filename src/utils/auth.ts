@@ -1,5 +1,6 @@
 import { COMPAT_USERKEY_MAP, isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import { AUTHWALL } from "@static/events";
+import B64URL from "base64-url";
 import JWTDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { emit } from "react-gbus";
@@ -168,4 +169,12 @@ export const waitForAuth = (): Promise<Record<string, unknown>> => {
     const u = getParsedUser();
     u?.id ? resolve() : emit(AUTHWALL.INIT, { resolve, reject });
   });
+};
+
+export const forwardRedirect = async (forward?) => {
+  // remove cache
+  await removeCache();
+
+  // redirect
+  window.location.assign(B64URL.decode(forward || "Lw"));
 };

@@ -3,7 +3,7 @@ import Container from "@components/@core/container";
 import { removeCookies } from "@utils/auth";
 import React, { useEffect } from "react";
 
-const SignOutPage = () => {
+const LogoutPage = () => {
   useEffect(() => {
     removeCookies();
     window.location.assign("/");
@@ -16,4 +16,4 @@ const SignOutPage = () => {
   );
 };
 
-export default SignOutPage;
+export default LogoutPage;

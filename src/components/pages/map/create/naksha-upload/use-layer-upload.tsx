@@ -33,7 +33,7 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
   const [shapeFiles, setShapeFiles] = useImmer({
     dbf: { file: null, meta: {} },
     shp: { file: null, meta: {} },
-    shx: { file: null, meta: {} }
+    shx: { file: null, meta: {} },
   });
 
   useEffect(() => {
@@ -59,14 +59,14 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
         "metadata",
         new File([JSON.stringify(metadata)], "metadata.json", {
           type: "application/json",
-          lastModified: new Date().getTime()
+          lastModified: new Date().getTime(),
         })
       );
 
       const response = await fetch(props.nakshaEndpoint, {
         method: "POST",
         body: formData,
-        headers: { Authorization: props.bearerToken }
+        headers: { Authorization: props.bearerToken },
       });
       const data = await response.json();
 
@@ -94,7 +94,7 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
         updateShapeFile,
 
         uploadStatus,
-        uploadLayer
+        uploadLayer,
       }}
     >
       {props.children}

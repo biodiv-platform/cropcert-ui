@@ -5,7 +5,7 @@ import { PasswordInputField } from "@components/form/password";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { axGetUser, axSignIn } from "@services/auth.service";
+import { axGetUser, axLogin } from "@services/auth.service";
 import { VERIFICATION_MODE } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
 import { registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth";
@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-function SignInForm() {
+function LoginForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const hForm = useForm<any>({
@@ -35,7 +35,7 @@ function SignInForm() {
 
   const handleOnSubmit = async ({ prepareOffline, ...values }) => {
     try {
-      const tokens = await axSignIn({
+      const tokens = await axLogin({
         ...values,
         mode: VERIFICATION_MODE.MANUAL,
       });
@@ -78,4 +78,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default LoginForm;

@@ -2,18 +2,18 @@ import { Box, Flex } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import React from "react";
 
-import SignInForm from "./form";
+import LoginForm from "./form";
 
-function SignInComponent() {
+function LoginComponent() {
   return (
     <Container>
       <Flex align="center" justify="center">
         <Box maxW="sm" width="full" p={4}>
-          <SignInForm />
+          <LoginForm />
         </Box>
       </Flex>
     </Container>
   );
 }
 
-export default SignInComponent;
+export default LoginComponent;

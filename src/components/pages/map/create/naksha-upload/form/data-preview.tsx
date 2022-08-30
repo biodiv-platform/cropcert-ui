@@ -13,7 +13,7 @@ export default function DataPreview() {
     () =>
       shapeFiles.dbf.meta.keys.map((key) => ({
         name: key,
-        selector: key
+        selector: key,
       })),
     [shapeFiles.dbf]
   );

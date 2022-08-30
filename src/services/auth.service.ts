@@ -10,9 +10,20 @@ import axios from "axios";
  * @param {userName: string, password: string} body
  * @returns {*}
  */
-export const axSignIn = async (body) => {
+export const axLogin = async (body) => {
   const res = await axios.post(`${ENDPOINT.USER}/v1/authenticate/login`, stringify(body));
   return res.data;
+};
+
+export const axCreateUser = async (payload) => {
+  try {
+    const { data } = await axios.post(`${ENDPOINT.USERGROUP}/v1/group/register`, payload);
+    return { success: true, data };
+  } catch (e) {
+    console.error(e);
+    notification(e?.response?.data?.message);
+    return { success: false, data: {} };
+  }
 };
 
 export const axGetUser = async () => {
@@ -59,5 +70,32 @@ export const axValidateUser = async (payload) => {
   } catch (e) {
     console.error(e);
     return { success: false, data: {}, message: "otp.messages.error" };
+  }
+};
+
+export const axForgotPassword = async (payload) => {
+  try {
+    const { data } = await axios.post(
+      `${ENDPOINT.USER}/v1/authenticate/forgot-password`,
+      stringify(payload)
+    );
+    return { success: data.status, data: `otp.messages.${data.message}`, user: data.user || {} };
+  } catch (e) {
+    console.error(e);
+    return { success: false, data: "otp.messages.could_not_send_mail_sms", user: {} };
+  }
+};
+
+export const axResetPassword = async (payload) => {
+  try {
+    const { data } = await axios.post(
+      `${ENDPOINT.USER}/v1/authenticate/reset-password`,
+      stringify(payload)
+    );
+    return { success: true, data };
+  } catch (e) {
+    console.error(e);
+    notification(e?.response?.data?.message);
+    return { success: false, data: {} };
   }
 };

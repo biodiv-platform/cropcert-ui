@@ -10,6 +10,7 @@ interface ITextBoxProps {
   mb?: number;
   isDisabled?;
   hint?: string;
+  children?;
 }
 
 export const CheckBoxField = ({
@@ -18,6 +19,7 @@ export const CheckBoxField = ({
   mb = 4,
   hint,
   isDisabled,
+  children,
   ...props
 }: ITextBoxProps) => {
   const {
@@ -36,7 +38,7 @@ export const CheckBoxField = ({
         isDisabled={isDisabled}
         id={name}
       >
-        {label}
+        {children || label}
       </Checkbox>
 
       <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />

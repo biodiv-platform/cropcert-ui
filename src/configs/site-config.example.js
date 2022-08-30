@@ -1,28 +1,4 @@
 const SITE_CONFIG_EXAMPLE = {
-  SITE: {
-    API_ENDPOINT: "/",
-    API_ENDPOINT_SSR: "http://localhost:8010/proxy/",
-    ICON: "/logo.png",
-    TITLE_LOCAL: "ROBUST",
-    URL: "http://localhost:3000",
-  },
-  ODK: {
-    URL: "https://odk.site.tld/",
-  },
-  LANG: {
-    DEFAULT: "en",
-    DEFAULT_ID: 205,
-    SWITCHER: false,
-    LIST: {
-      en: { NAME: "English", I: "english", ID: 205 },
-      fr: { NAME: "Français", I: "french", ID: 137 },
-      sw: { NAME: "Kiswahili", I: "swahili", ID: 203 },
-    },
-  },
-  TRACKING: {
-    ENABLED: false,
-    GA_ID: "GA-X",
-  },
   FOOTER: {
     SOCIAL: {
       FACEBOOK: {
@@ -48,12 +24,60 @@ const SITE_CONFIG_EXAMPLE = {
       },
     },
   },
+  GEOSERVER: {
+    STORE: "naksha",
+    WORKSPACE: "robust",
+  },
   LANDSCAPE: {
     ACTIVE: false,
   },
-  GEOSERVER: {
-    STORE: "naksha",
-    WORKSPACE: "biodiv",
+  LANG: {
+    DEFAULT: "en",
+    DEFAULT_ID: 205,
+    LIST: {
+      en: { NAME: "English", I: "english", ID: 205 },
+      fr: { NAME: "Français", I: "french", ID: 137 },
+      sw: { NAME: "Kiswahili", I: "swahili", ID: 203 },
+    },
+    SWITCHER: false,
+  },
+  MAP: {
+    ACTIVE: true,
+    CENTER: {
+      latitude: 3.46,
+      longitude: 37.33,
+      zoom: 0.2,
+    },
+    DEFAULT_LAYERS: true,
+  },
+  ODK: {
+    URL: "https://odk.example.com/",
+  },
+  PAGES: {
+    ACTIVE: true,
+    PRIVACY: "/page/show/3",
+    TERMS: "/page/show/2",
+  },
+  REGISTER: {
+    MOBILE: false,
+  },
+  SITE: {
+    API_ENDPOINT: "/",
+    API_ENDPOINT_SSR: "http://localhost:8010/proxy/",
+    ICON: "/logo.png",
+    TITLE_LOCAL: "ROBUST",
+    URL: "http://localhost:3000",
+  },
+  TOKENS: {
+    GMAP: "x",
+    MAPBOX: "pk.x",
+    OAUTH_GOOGLE: "x.apps.googleusercontent.com",
+    RECAPTCHA: "x",
+    SENTRY_DSN: false,
+  },
+  TRACKING: {
+    ENABLED: false,
+    GA_ID: "GA-X",
   },
 };
 

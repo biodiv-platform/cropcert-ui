@@ -14,39 +14,39 @@ export const FILE_TYPES = {
   ATX: ".atx",
   XML: ".xml",
   CPG: ".cpg",
-  QIX: ".qix"
+  QIX: ".qix",
 };
 
 export const LAYER_TYPES = [
   {
     label: "Multi Polygon",
-    value: "MULTIPOLYGON"
+    value: "MULTIPOLYGON",
   },
   {
     label: "Point",
-    value: "POINT"
+    value: "POINT",
   },
   {
     label: "Multi LineString",
-    value: "MULTILINESTRING"
+    value: "MULTILINESTRING",
   },
   {
     label: "Multi Point",
-    value: "MULTIPOINT"
-  }
+    value: "MULTIPOINT",
+  },
 ];
 
 export const ACCESS = [
   {
     label: "All",
-    value: "ALL"
+    value: "ALL",
   },
   {
     label: "Group",
-    value: "GROUP"
+    value: "GROUP",
   },
   {
     label: "Private",
-    value: "PRIVATE"
-  }
+    value: "PRIVATE",
+  },
 ];

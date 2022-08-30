@@ -16,6 +16,10 @@
   "gmaps": "Draw Polygon",
   "language": "Language",
   "license": "License",
+  "map": {
+    "hide": "Simplified Edit",
+    "show": "Advanced Edit"
+  },
   "search_point": "Search Point",
   "tags": "Tags",
   "tags_hint": "Start typing to search tags",

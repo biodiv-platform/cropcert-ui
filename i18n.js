@@ -11,5 +11,7 @@ module.exports = {
     "rgx:/document/": ["document", "observation", "filters", "activity"],
     "rgx:/map": ["page", "map"],
     "rgx:/page/": ["page"],
+    "rgx:/register": ["user"],
+    "rgx:/user/": ["user", "group", "filters"],
   },
 };

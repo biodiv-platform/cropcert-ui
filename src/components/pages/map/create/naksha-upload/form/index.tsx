@@ -18,7 +18,7 @@ import DataPreview from "./data-preview";
 export default function LayerUploadForm() {
   const {
     shapeFiles: { dbf, shp },
-    uploadLayer
+    uploadLayer,
   } = useLayerUpload();
   const { t } = useTranslation();
 
@@ -49,14 +49,14 @@ export default function LayerUploadForm() {
         layerColumnDescription: yup
           .object()
           .shape(Object.fromEntries(dbf.meta.keys.map((k) => [k, yup.string().required()])))
-          .required()
+          .required(),
       })
     ),
     defaultValues: {
       layerType: shp.meta?.type?.toUpperCase(),
       layerColumnDescription: Object.fromEntries(dbf.meta.keys.map((k) => [k, k])),
-      summaryColumns: []
-    }
+      summaryColumns: [],
+    },
   });
 
   const handleOnSubmit = (values) => {
@@ -65,10 +65,10 @@ export default function LayerUploadForm() {
       createdDate: formatDate(values.createdDate),
       layerFileDescription: {
         fileType: "shp",
-        encoding: "UTF-8"
+        encoding: "UTF-8",
       },
       editAccess: "ALL",
-      summaryColumns: values.summaryColumns.toString().toLowerCase()
+      summaryColumns: values.summaryColumns.toString().toLowerCase(),
     });
   };
 

@@ -29,7 +29,7 @@ export default function useLastLocation() {
     has,
     value: lastLocation,
     set,
-    use
+    use,
   };
 }
 

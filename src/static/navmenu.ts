@@ -14,13 +14,13 @@ export const navmenu = [
     access: [ROLES.UNAUTHORIZED],
   },
   {
-    id: 10001,
+    id: 10002,
     title: "Maps",
     url: "/map",
     access: [ROLES.UNAUTHORIZED],
   },
   {
-    id: 10002,
+    id: 10003,
     title: "Lots for Sale",
     url: "/marketing",
     access: [ROLES.UNAUTHORIZED],

@@ -61,7 +61,7 @@ export const TagsInput = ({ name, placeHolder, onChange, onBlur }: TagsInputProp
       bg="white"
       _focusWithin={{
         borderColor: "blue.500",
-        boxShadow: "0 0 0 1px #3182ce"
+        boxShadow: "0 0 0 1px #3182ce",
       }}
     >
       {tags.map((tag) => (

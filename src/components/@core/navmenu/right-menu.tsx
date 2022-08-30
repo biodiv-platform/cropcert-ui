@@ -28,7 +28,7 @@ function NavbarRightMenu() {
             </NextLink>
           </li>
           <li>
-            <NextLink href="/auth/sign-out" passHref={true}>
+            <NextLink href="/logout" passHref={true}>
               <Link px={0}>
                 <LogoutIcon ml={1} />
               </Link>
@@ -37,7 +37,7 @@ function NavbarRightMenu() {
         </>
       ) : (
         <li>
-          <NextLink href="/auth/sign-in" passHref={true}>
+          <NextLink href="/login" passHref={true}>
             <Link>Sign In</Link>
           </NextLink>
         </li>

@@ -4323,6 +4323,11 @@ blueimp-load-image@^5.16.0:
   resolved "https://registry.yarnpkg.com/blueimp-load-image/-/blueimp-load-image-5.16.0.tgz#16b763f57e6725f8865517bca8eb7c3dc7d41e09"
   integrity sha512-3DUSVdOtlfNRk7moRZuTwDmA3NnG8KIJuLcq3c0J7/BIr6X3Vb/EpX3kUH1joxUhmoVF4uCpDfz7wHkz8pQajA==
 
+boring-avatars@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/boring-avatars/-/boring-avatars-1.7.0.tgz#70ac7146bbf37d8e69a35544b24f1d75558f868a"
+  integrity sha512-ZNHd8J7C/V0IjQMGQowLJ5rScEFU23WxePigH6rqKcT2Esf0qhYvYxw8s9i3srmlfCnCV00ddBjaoGey1eNOfA==
+
 boundingbox@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/boundingbox/-/boundingbox-1.4.0.tgz#f2e87b5bc52b171689f17fce05d332805e0ee5c2"

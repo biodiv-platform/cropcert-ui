@@ -50,10 +50,16 @@ const links = [
     ],
   },
   {
-    title: "Admin Actions",
+    title: "General",
     children: [
       {
-        title: "📄 Pages",
+        title: "📄 Document",
+        description: "Create Document",
+        to: "/document/create",
+        access: [ROLES.AUTHORIZED],
+      },
+      {
+        title: "📜 Pages",
         description: "Manage Static Pages",
         to: "/page/show/1",
         access: [ROLES.ADMIN],

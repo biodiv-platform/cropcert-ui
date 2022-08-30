@@ -8,7 +8,7 @@ import PageEditForm from "./form";
 
 export default function PageEditPageComponent({ page }) {
   return (
-    <Container mt={6} mb={6}>
+    <Container py={6}>
       <UsePagesProvider currentPage={page} linkType="edit">
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 4 }}>
           <PagesSidebar />

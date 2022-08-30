@@ -3,7 +3,6 @@ import SITE_CONFIG from "@configs/site-config";
 import FacebookIcon from "@icons/facebook";
 import GithubIcon from "@icons/github";
 import MailIcon from "@icons/mail";
-import YouTubeIcon from "@icons/youtube";
 import { SITE_TITLE } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
@@ -44,20 +43,19 @@ export default function Footer() {
               <Image filter="grayscale(100%)" alt={SITE_TITLE} src="/logo.png" />
             </Box>
             <ButtonGroup variant="ghost" spacing={4}>
-              <SocialButton label="Mail" href={SITE_CONFIG.FOOTER.MAIL} children={<MailIcon />} />
               <SocialButton
-                label="YouTube"
-                href={SITE_CONFIG.FOOTER.YOUTUBE}
-                children={<YouTubeIcon />}
+                label="Mail"
+                href={SITE_CONFIG.FOOTER.SOCIAL.MAIL.URL}
+                children={<MailIcon />}
               />
               <SocialButton
                 label="Facebook"
-                href={SITE_CONFIG.FOOTER.FACEBOOK}
+                href={SITE_CONFIG.FOOTER.SOCIAL.FACEBOOK.URL}
                 children={<FacebookIcon />}
               />
               <SocialButton
                 label="GitHub"
-                href={SITE_CONFIG.FOOTER.GITHUB}
+                href={SITE_CONFIG.FOOTER.SOCIAL.GITHUB.URL}
                 children={<GithubIcon />}
               />
             </ButtonGroup>

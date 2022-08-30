@@ -27,6 +27,7 @@
     "axios": "^0.27.2",
     "base64-url": "^2.3.3",
     "blueimp-load-image": "^5.16.0",
+    "boring-avatars": "^1.7.0",
     "coffee-flavor-wheel": "^1.1.2",
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.11.5",

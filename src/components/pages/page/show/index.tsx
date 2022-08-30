@@ -30,7 +30,7 @@ export default function PageShowPageComponent(props: PageShowPageComponentProps)
     <UsePagesProvider currentPage={page} linkType="show">
       <PageHeader page={page} />
 
-      <Container mb={6} pt={6}>
+      <Container py={6}>
         <SimpleGrid columns={{ md: 7 }} spacing={{ base: 0, md: 8 }}>
           <GridItem colSpan={{ md: 5 }}>
             <Content html={page.content} />

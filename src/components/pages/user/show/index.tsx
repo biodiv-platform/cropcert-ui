@@ -1,16 +1,22 @@
-import { Heading, Image } from "@chakra-ui/react";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import useGlobalState from "@hooks/use-global-state";
-import { ENDPOINT } from "@static/constants";
 import React from "react";
 
-export default function UserShowPageComponent() {
-  const { user } = useGlobalState();
+import UserInfoSidebar from "./sidebar";
+import UserAbout from "./user-info-tabs/about/user-about";
+import UserLocationMap from "./user-info-tabs/about/user-location-map";
 
+export default function UserShowPageComponent({ user }) {
   return (
-    <Container pt={6}>
-      <Heading>{user.name}</Heading>
-      <Image src={`${ENDPOINT.ODK}/v1/app-user/qr-code?xmlFormId=pd_form_v2&projectId=2`} />
+    <Container py={6}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 6 }}>
+        <UserInfoSidebar user={user} />
+
+        <GridItem colSpan={3}>
+          <UserLocationMap coordinates={[user.longitude, user.latitude]} />
+          <UserAbout user={user} />
+        </GridItem>
+      </SimpleGrid>
     </Container>
   );
 }

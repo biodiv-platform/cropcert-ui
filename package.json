@@ -98,7 +98,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.7.11",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-leaflet": "^2.8.2",

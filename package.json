@@ -32,7 +32,7 @@
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.11.5",
     "debounce-promise": "^3.1.2",
-    "dompurify": "^2.3.11",
+    "dompurify": "^2.4.0",
     "dotenv-load": "^2.0.1",
     "flat": "^5.0.2",
     "formik": "^2.2.9",

@@ -2,6 +2,8 @@ import "@splidejs/react-splide/css";
 
 import { Box } from "@chakra-ui/react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { RESOURCE_SIZE } from "@static/constants";
+import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
 import React from "react";
 
 interface PageSliderProps {
@@ -25,7 +27,10 @@ export function PageSlider({ images, description }: PageSliderProps) {
         >
           {images.map((image) => (
             <SplideSlide key={image.id}>
-              <img src={image.pageUrl} alt={image.id} />
+              <img
+                src={getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.PAGE)}
+                alt={image.id}
+              />
               {description}
             </SplideSlide>
           ))}

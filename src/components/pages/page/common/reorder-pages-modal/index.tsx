@@ -31,7 +31,7 @@ export default function ReOrderPagesModal() {
         {t("page:sidebar.reorder")}
       </Button>
 
-      <Modal isOpen={p.isEditing} onClose={p.toggleEditing}>
+      <Modal isOpen={p.isEditing} size="3xl" onClose={p.toggleEditing}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{t("page:sidebar.reorder")}</ModalHeader>

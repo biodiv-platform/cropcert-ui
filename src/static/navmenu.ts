@@ -19,10 +19,4 @@ export const navmenu = [
     url: "/map",
     access: [ROLES.UNAUTHORIZED],
   },
-  {
-    id: 10003,
-    title: "Lots for Sale",
-    url: "/marketing",
-    access: [ROLES.UNAUTHORIZED],
-  },
 ];

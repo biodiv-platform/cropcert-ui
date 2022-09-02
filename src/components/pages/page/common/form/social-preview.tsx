@@ -21,14 +21,10 @@ export const SocialPreviewField = ({
   helpText,
   label,
   name,
-  placeholder,
-  title,
   mb = 4,
-  disabled,
   hint,
   isRequired,
   hidden,
-  onRemoveCallback,
   ...props
 }: ITPageGalleryFieldProps) => {
   const { t } = useTranslation();
@@ -86,6 +82,7 @@ export const SocialPreviewField = ({
               <Image
                 src={getResourceRAW(RESOURCE_CTX.PAGES, field.value)}
                 alt={field.value}
+                maxH="120px"
                 objectFit="cover"
                 borderRadius="md"
               />

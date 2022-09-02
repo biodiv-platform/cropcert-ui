@@ -42,8 +42,9 @@ export const PageHeader = ({ page, hideOptions }: PageHeaderProps) => {
       <Box
         bg="gray.800"
         bgImage="url('/assets/page-cover.svg')"
-        backgroundSize="cover"
-        backgroundPosition="bottom"
+        backgroundRepeat="repeat"
+        // backgroundSize="cover"
+        // backgroundPosition="bottom"
         color="white"
         h="300px"
         position="relative"

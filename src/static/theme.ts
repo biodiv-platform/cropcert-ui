@@ -54,6 +54,11 @@ export const customTheme: any = extendTheme(
   },
   withProse({
     baseStyle: {
+      fontSize: "lg",
+      p: {
+        fontSize: "inherit",
+        lineHeight: "1.6em",
+      },
       "h2, h3, h4, h5": {
         marginTop: 0,
       },

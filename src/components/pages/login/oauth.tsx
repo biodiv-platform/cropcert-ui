@@ -1,6 +1,5 @@
 import { Button } from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
-import notification from "@utils/notification";
 import React from "react";
 import GoogleLoginI from "react-google-login";
 
@@ -8,7 +7,7 @@ const GoogleLogin: any = GoogleLoginI;
 
 export default function Oauth({ onSuccess, text, mb = 4 }) {
   const onFailure = ({ error }) => {
-    notification(error);
+    console.error(error);
   };
 
   return (

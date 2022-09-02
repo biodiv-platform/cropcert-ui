@@ -33,10 +33,11 @@
     &:hover {
       background-color: var(--chakra-colors-gray-200);
     }
+    max-width: 18rem;
   }
   a.user {
     background: none !important;
-    padding: 1.1rem 0;
+    padding: 1rem 0;
     text-decoration: none;
   }
   a.logo {
@@ -59,6 +60,9 @@
     a {
       display: inline-block;
       flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   .drop-icon {
@@ -106,7 +110,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      min-width: 12em;
+      min-width: 18em;
       z-index: 3000;
       display: none;
       .sub-menu {

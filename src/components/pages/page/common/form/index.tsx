@@ -3,6 +3,7 @@ import { SelectInputField } from "@components/form/select";
 import { SubmitButton } from "@components/form/submit-button";
 import { SwitchField } from "@components/form/switch";
 import { TextBoxField } from "@components/form/text";
+import { TextAreaField } from "@components/form/textarea";
 import { WYSIWYGField } from "@components/form/wysiwyg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axRemovePageGalleryImage, axUploadEditorPageResource } from "@services/pages.service";
@@ -15,6 +16,7 @@ import * as Yup from "yup";
 import { PAGE_TYPE_OPTIONS, PAGE_TYPES } from "../data";
 import usePages from "../sidebar/use-pages-sidebar";
 import { PageGalleryField } from "./gallery-field";
+import { SocialPreviewField } from "./social-preview";
 
 interface PageFormProps {
   defaultValues;
@@ -93,7 +95,14 @@ export default function PageForm({
           </GridItem>
         </SimpleGrid>
 
-        <TextBoxField name="description" label={t("page:form.description")} />
+        <SimpleGrid columns={{ md: 6 }} spacing={4}>
+          <GridItem colSpan={4}>
+            <TextAreaField name="description" label={t("page:form.description")} />
+          </GridItem>
+          <GridItem colSpan={2}>
+            <SocialPreviewField name="socialPreview" label={t("page:form.social_preview")} />
+          </GridItem>
+        </SimpleGrid>
 
         <Box hidden={isPageTypeRedirect}>
           <WYSIWYGField

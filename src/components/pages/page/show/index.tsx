@@ -1,8 +1,6 @@
 import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import { RESOURCE_SIZE } from "@static/constants";
-import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
-import React, { useMemo } from "react";
+import React from "react";
 
 import PagesSidebar from "../common/sidebar";
 import { UsePagesProvider } from "../common/sidebar/use-pages-sidebar";
@@ -13,19 +11,7 @@ interface PageShowPageComponentProps {
   page;
 }
 
-export default function PageShowPageComponent(props: PageShowPageComponentProps) {
-  const page = useMemo(
-    () => ({
-      ...props.page,
-      galleryData: props.page.galleryData.map((image) => ({
-        ...image,
-        url: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.TWITTER),
-        pageUrl: getResourceThumbnail(RESOURCE_CTX.PAGES, image.fileName, RESOURCE_SIZE.PAGE),
-      })),
-    }),
-    [props.page.id]
-  );
-
+export default function PageShowPageComponent({ page }: PageShowPageComponentProps) {
   return (
     <UsePagesProvider currentPage={page} linkType="show">
       <PageHeader page={page} />

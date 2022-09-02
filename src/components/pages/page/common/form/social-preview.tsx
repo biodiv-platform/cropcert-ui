@@ -86,6 +86,7 @@ export const SocialPreviewField = ({
               <Image
                 src={getResourceRAW(RESOURCE_CTX.PAGES, field.value)}
                 alt={field.value}
+                maxH="120px"
                 objectFit="cover"
                 borderRadius="md"
               />

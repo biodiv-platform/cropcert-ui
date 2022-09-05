@@ -114,7 +114,7 @@ export const VERIFICATION_MODE = {
 };
 
 export const RESOURCE_SIZE = {
-  TWITTER: "?w=600&h=330&fit=center&preserve=true",
+  TWITTER: "?w=640&h=320&crop=fit&preserve=true",
   PAGE: "?w=1440&h=300&fit=center",
 };
 

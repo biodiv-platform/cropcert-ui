@@ -34,6 +34,7 @@
     "debounce-promise": "^3.1.2",
     "dompurify": "^2.4.0",
     "dotenv-load": "^2.0.1",
+    "fetch-opengraph": "^1.0.35",
     "flat": "^5.0.2",
     "formik": "^2.2.9",
     "framer-motion": "^7.2.1",

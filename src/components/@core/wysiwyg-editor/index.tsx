@@ -35,6 +35,10 @@ export default function WYSIWYGEditor({ uploadHandler, ...props }: WYSIWYGEditor
           "undo redo | bold italic numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
         images_upload_handler: uploadHandler,
         images_upload_base_path: "/",
+        link_class_list: [
+          { title: "None", value: "" },
+          { title: "Card", value: "preview-card" },
+        ],
       }}
     />
   );

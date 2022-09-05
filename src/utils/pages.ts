@@ -95,7 +95,56 @@ export const flatToTree = (rows, options?) => {
   return nodes.sort((a, b) => a.pageIndex - b.pageIndex);
 };
 
-export const preProcessContent = (content) =>
-  content
+export const getLinkCard = ({ href, image, title, description }: any, id) => {
+  const emptyImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E";
+
+  return `
+  <a href="${href}" class="epc" id="${id}">
+    <img alt="${title}" src="${image || emptyImage}"/>
+    <div>
+      <div class="label" title="${title}">${title || href}</div>
+      <p title="${description}">${description || ""}</p>
+    </div>
+  </a>`;
+};
+
+export const preProcessContent = (content) => {
+  let c1 = content;
+
+  [...c1.matchAll(/<a.+preview-card.+<\/a>/gm)].forEach(([v], index) => {
+    const href = /<a[\s\S]*?href=["']([^"]+)["'][\s\S]*?>/g.exec(v)?.[1];
+
+    const previewTag = getLinkCard({ href }, `epc-${index}`);
+
+    c1 = c1.replace(v, previewTag);
+  });
+
+  return c1
     .replace(/\<table/g, '<div class="table-responsive"><table')
     .replace(/\<\/table\>/g, "</table></div>");
+};
+
+/**
+ * This removes wrapper `<p/>` elements from card type links to prevent stacking layout issues
+ *
+ * @param {*} html
+ * @return {*}
+ */
+export const removeCardWrapperParagraphs = (html) => {
+  try {
+    const parser = new DOMParser();
+
+    const _dom = parser.parseFromString(html, "text/html");
+
+    _dom.querySelectorAll("p > .preview-card").forEach((e: any) => {
+      if (e.parentElement.tagName === "P") {
+        e.parentElement.replaceWith(...e.parentElement.childNodes);
+      }
+    });
+
+    return _dom.body.innerHTML.split("</a>").join("</a>\n");
+  } catch (e) {
+    console.error(e);
+    return html;
+  }
+};

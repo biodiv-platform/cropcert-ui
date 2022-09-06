@@ -99,7 +99,7 @@ export const getLinkCard = ({ href, image, title, description }: any, id) => {
   const emptyImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E";
 
   return `
-  <a href="${href}" class="epc" id="${id}">
+  <a href="${href}" rel="noopener noreferrer" class="epc" id="${id}">
     <img alt="${title}" src="${image || emptyImage}"/>
     <div>
       <div class="label" title="${title}">${title || href}</div>

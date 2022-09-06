@@ -10,9 +10,10 @@ import { PageHeader } from "./header";
 
 interface PageShowPageComponentProps {
   page;
+  hideOgImage?;
 }
 
-export default function PageShowPageComponent({ page }: PageShowPageComponentProps) {
+export default function PageShowPageComponent({ page, hideOgImage }: PageShowPageComponentProps) {
   const ogImage = getResourceThumbnail(
     RESOURCE_CTX.PAGES,
     page.socialPreview || page.galleryData?.[0]?.fileName,
@@ -24,9 +25,11 @@ export default function PageShowPageComponent({ page }: PageShowPageComponentPro
       <PageHeader page={page} ogImage={ogImage} />
 
       <Container maxW="48rem" py={6}>
-        <Box mb={6}>
-          <Image h="150px" src={ogImage} alt={page.title} />
-        </Box>
+        {!hideOgImage && ogImage && (
+          <Box mb={6}>
+            <Image h="150px" src={ogImage} alt={page.title} />
+          </Box>
+        )}
         <Content html={page.content} />
       </Container>
     </UsePagesProvider>

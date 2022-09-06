@@ -9,11 +9,14 @@ import {
   FormLabel,
   IconButton,
   Image,
+  Input,
+  Select,
   SimpleGrid,
   Stack,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { axUploadResource } from "@services/files.service";
+import { LICENSES } from "@static/constants";
 import { resizeImage } from "@utils/image";
 import { getResourceRAW, RESOURCE_CTX } from "@utils/media";
 import notification from "@utils/notification";
@@ -82,7 +85,7 @@ export const PageGalleryField = ({
 }: ITPageGalleryFieldProps) => {
   const { t } = useTranslation();
   const [isProcessing, setIsProcessing] = useState(false);
-  const { formState } = useFormContext();
+  const { formState, register } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({ name, keyName: "hId" });
 
   const onDrop = async (files) => {
@@ -174,6 +177,18 @@ export const PageGalleryField = ({
                     borderRadius="md"
                   />
                 </AspectRatio>
+                <Input {...register(`${name}.${index}.caption`)} placeholder={t("form:caption")} />
+                <Input
+                  {...register(`${name}.${index}.attribution`)}
+                  placeholder={t("form:attribution")}
+                />
+                <Select {...register(`${name}.${index}.license`)} defaultValue={LICENSES[0]}>
+                  {LICENSES.map((l) => (
+                    <option value={l} key={l}>
+                      {l}
+                    </option>
+                  ))}
+                </Select>
                 <SimpleGrid columns={2} spacing={2}>
                   <IconButton
                     onClick={() => move(index, index - 1)}

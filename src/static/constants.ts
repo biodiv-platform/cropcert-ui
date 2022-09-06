@@ -124,6 +124,18 @@ export const RESOURCE_TYPE = {
   OBSERVATION: "observation",
   SPECIES: "species",
   TAXONOMY: "taxonomy",
+  PAGE: "page",
 };
 
 export const MENU_PORTAL_TARGET = isBrowser ? document.body : undefined;
+
+export const LICENSES = [
+  "UNSPECIFIED",
+  "CC-BY",
+  "CC-BY-SA",
+  "CC-BY-NC",
+  "CC-BY-NC-SA",
+  "CC-BY-NC-ND",
+  "CC-BY-ND",
+  "CC-PUBLIC-DOMAIN",
+];

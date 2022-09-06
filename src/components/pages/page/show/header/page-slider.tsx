@@ -32,6 +32,11 @@ export function PageSlider({ images, description }: PageSliderProps) {
                 alt={image.id}
               />
               {description}
+              {image.attribution && (
+                <Box position="absolute" left={0} bottom={0} p={4}>
+                  {image.caption} by {image.attribution} ({image.licenseId})
+                </Box>
+              )}
             </SplideSlide>
           ))}
         </Splide>

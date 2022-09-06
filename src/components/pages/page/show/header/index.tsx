@@ -11,7 +11,7 @@ import { PageSlider } from "./page-slider";
 
 interface PageHeaderProps {
   page;
-  ogImage;
+  ogImage?;
   hideOptions?;
 }
 

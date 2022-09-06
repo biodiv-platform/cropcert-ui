@@ -26,7 +26,7 @@ export default function PermissionsTab({ user }: UserEditPageComponentProps) {
     setRoleOptionList(
       rolesList.map(({ authority, id }) => ({
         label: authority,
-        value: id
+        value: id,
       }))
     );
   }, [rolesList]);
@@ -39,7 +39,7 @@ export default function PermissionsTab({ user }: UserEditPageComponentProps) {
         accountExpired: Yup.boolean().required(),
         accountLocked: Yup.boolean().required(),
         passwordExpired: Yup.boolean().required(),
-        roles: Yup.array().required()
+        roles: Yup.array().required(),
       })
     ),
     defaultValues: {
@@ -47,15 +47,15 @@ export default function PermissionsTab({ user }: UserEditPageComponentProps) {
       accountExpired: user.accountExpired,
       accountLocked: user.accountLocked,
       passwordExpired: user.passwordExpired,
-      roles: user.roles?.map(({ id }) => id)
-    }
+      roles: user.roles?.map(({ id }) => id),
+    },
   });
 
   const handleOnUpdate = async ({ roles, ...payload }) => {
     const { success } = await axUpdateUserPermissions({
       id: user.id,
       roles: rolesList.filter(({ id }) => roles.includes(id)),
-      ...payload
+      ...payload,
     });
     if (success) {
       notification(t("user:updated"), NotificationType.Success);

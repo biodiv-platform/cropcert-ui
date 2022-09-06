@@ -7,7 +7,10 @@ import React from "react";
 const HomePage = ({ pageContent }) => (
   <>
     {pageContent.success && (
-      <ShowPageComponent page={pageContent.data} /*preContent={<HomePageComponent />}*/ />
+      <ShowPageComponent
+        page={pageContent.data}
+        hideOgImage={true} /*preContent={<HomePageComponent />}*/
+      />
     )}
   </>
 );

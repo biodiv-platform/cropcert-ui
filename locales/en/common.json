@@ -1,4 +1,17 @@
 {
+  "actions": {
+    "flag": {
+      "category": "Category",
+      "flags": {
+        "date_inappropriate": "Inappropriate Date",
+        "details_inappropriate": "Inappropriate Details",
+        "location_inappropriate": "Inappropriate Location"
+      },
+      "notes": "Notes",
+      "others_flagged": "Others who flagged",
+      "title": "Flag"
+    }
+  },
   "activity": "Activity",
   "add": "Add",
   "and": "And",

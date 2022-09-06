@@ -65,7 +65,10 @@ export const axRegenerateOTP = async (payload) => {
 
 export const axValidateUser = async (payload) => {
   try {
-    const { data } = await axios.post(`${ENDPOINT.USERGROUP}/v1/group/verify-user`, stringify(payload));
+    const { data } = await axios.post(
+      `${ENDPOINT.USERGROUP}/v1/group/verify-user`,
+      stringify(payload)
+    );
     return { success: data.status, data, message: `otp.messages.${data.message}` };
   } catch (e) {
     console.error(e);

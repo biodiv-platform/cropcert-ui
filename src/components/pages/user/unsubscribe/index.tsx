@@ -9,7 +9,7 @@ import UnsubscribeScreen from "./screen";
 export const UNSUB_SCREENS = {
   LANDING: 1,
   SUCCESS: 2,
-  ERROR: 3
+  ERROR: 3,
 };
 
 export default function UserUnsubscribePageComponent() {

@@ -3,7 +3,7 @@
 }
 
 #menu {
-  min-height: 68px;
+  min-height: 55px;
   line-height: 1.4rem;
   .title {
     display: none;
@@ -28,7 +28,7 @@
   a {
     position: relative;
     display: inline-block;
-    padding: 1.4rem 1rem;
+    padding: 1rem;
     &:focus-within,
     &:hover {
       background-color: var(--chakra-colors-gray-200);
@@ -37,12 +37,13 @@
   }
   a.user {
     background: none !important;
-    padding: 1rem 0;
+    padding: 0.7rem 0;
     text-decoration: none;
   }
   a.logo {
     padding: 0;
-    padding-top: 0.5rem;
+    height: 45px;
+    padding-top: 0.2rem;
     padding-right: 0.5rem;
     background-color: transparent !important;
   }
@@ -69,7 +70,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    padding: 1.4rem 1rem;
+    padding: 1rem;
     text-align: center;
   }
 }

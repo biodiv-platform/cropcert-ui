@@ -21,15 +21,15 @@ export default function NotificationsTab({ user }: UserEditPageComponentProps) {
         sendNotification: Yup.boolean().required(), // Email
         sendPushNotification: Yup.boolean().required(),
         hideEmial: Yup.boolean().required(),
-        identificationMail: Yup.boolean().required()
+        identificationMail: Yup.boolean().required(),
       })
     ),
     defaultValues: {
       sendNotification: user.sendNotification,
       sendPushNotification: user.sendPushNotification,
       hideEmial: user.hideEmial,
-      identificationMail: user.identificationMail
-    }
+      identificationMail: user.identificationMail,
+    },
   });
 
   const handleOnUpdate = async (payload) => {

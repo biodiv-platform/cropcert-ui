@@ -7,5 +7,5 @@ export default function UserUnsubscribePage() {
 
 UserUnsubscribePage.config = {
   header: false,
-  footer: false
+  footer: false,
 };

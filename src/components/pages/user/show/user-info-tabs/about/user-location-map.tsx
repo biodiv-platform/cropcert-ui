@@ -7,7 +7,7 @@ export default function UserLocationMap({ coordinates }) {
       h="12rem"
       data={{
         type: "Point",
-        coordinates
+        coordinates,
       }}
       maxZoom={8}
       mb={4}

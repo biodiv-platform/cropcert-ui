@@ -16,12 +16,12 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { axUploadResource } from "@services/files.service";
-import { LICENSES } from "@static/constants";
+import { axGetLicenseList } from "@services/resources.service";
 import { resizeImage } from "@utils/image";
 import { getResourceRAW, RESOURCE_CTX } from "@utils/media";
 import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
@@ -87,6 +87,7 @@ export const PageGalleryField = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const { formState, register } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({ name, keyName: "hId" });
+  const [licenses, setLicenses] = useState<any[]>();
 
   const onDrop = async (files) => {
     if (!files?.length) return;
@@ -119,6 +120,12 @@ export const PageGalleryField = ({
       onRemoveCallback(item.pageId, item.id);
     }
   };
+
+  useEffect(() => {
+    axGetLicenseList().then(({ data }) => {
+      setLicenses(data);
+    });
+  }, []);
 
   return (
     <FormControl
@@ -182,13 +189,18 @@ export const PageGalleryField = ({
                   {...register(`${name}.${index}.attribution`)}
                   placeholder={t("form:attribution")}
                 />
-                <Select {...register(`${name}.${index}.license`)} defaultValue={LICENSES[0]}>
-                  {LICENSES.map((l) => (
-                    <option value={l} key={l}>
-                      {l}
-                    </option>
-                  ))}
-                </Select>
+                {licenses && (
+                  <Select
+                    {...register(`${name}.${index}.licenseId`)}
+                    defaultValue={licenses[0].value}
+                  >
+                    {licenses.map((l) => (
+                      <option value={l.value} key={l.value}>
+                        {l.label}
+                      </option>
+                    ))}
+                  </Select>
+                )}
                 <SimpleGrid columns={2} spacing={2}>
                   <IconButton
                     onClick={() => move(index, index - 1)}

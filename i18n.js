@@ -6,11 +6,11 @@ module.exports = {
   locales: Object.keys(LANG.LIST),
   pages: {
     "*": ["common", "header", "auth", "form"],
-    "/": ["page"],
+    "/": ["page", "activity"],
     "/marketing": ["page"],
     "rgx:/document/": ["document", "observation", "filters", "activity"],
     "rgx:/map": ["page", "map"],
-    "rgx:/page/": ["page"],
+    "rgx:/page/": ["page", "activity"],
     "rgx:/register": ["user"],
     "rgx:/user/": ["user", "group", "filters"],
   },

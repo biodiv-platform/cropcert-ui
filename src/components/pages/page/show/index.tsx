@@ -1,6 +1,8 @@
 import { Box, Image } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import { RESOURCE_SIZE } from "@static/constants";
+import Activity from "@components/pages/observation/show/activity";
+import { axAddPageComment } from "@services/pages.service";
+import { RESOURCE_SIZE, RESOURCE_TYPE } from "@static/constants";
 import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
 import React from "react";
 
@@ -11,9 +13,14 @@ import { PageHeader } from "./header";
 interface PageShowPageComponentProps {
   page;
   hideOgImage?;
+  hideActivity?;
 }
 
-export default function PageShowPageComponent({ page, hideOgImage }: PageShowPageComponentProps) {
+export default function PageShowPageComponent({
+  page,
+  hideOgImage,
+  hideActivity,
+}: PageShowPageComponentProps) {
   const ogImage = getResourceThumbnail(
     RESOURCE_CTX.PAGES,
     page.socialPreview || page.galleryData?.[0]?.fileName,
@@ -31,6 +38,14 @@ export default function PageShowPageComponent({ page, hideOgImage }: PageShowPag
           </Box>
         )}
         <Content html={page.content} />
+
+        {!hideActivity && (
+          <Activity
+            resourceId={page.id}
+            resourceType={RESOURCE_TYPE.PAGE}
+            commentFunc={axAddPageComment}
+          />
+        )}
       </Container>
     </UsePagesProvider>
   );

@@ -1,7 +1,8 @@
 import { ArrowForwardIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import { PageHeading } from "@components/@core/layout";
+import OTPModal from "@components/auth/otp-modal";
 import { CheckBoxField } from "@components/form/checkbox";
 import { PasswordInputField } from "@components/form/password";
 import { SubmitButton } from "@components/form/submit-button";
@@ -24,6 +25,8 @@ import Oauth from "./oauth";
 function LoginForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { t } = useTranslation();
+  const [user, setUser] = useState();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const hForm = useForm<any>({
     mode: "onChange",
@@ -47,6 +50,13 @@ function LoginForm() {
         ...values,
         mode: VERIFICATION_MODE.MANUAL,
       });
+
+      if (tokens?.verificationRequired) {
+        setUser(tokens.user);
+        onOpen();
+        return;
+      }
+
       setCookies({ tokens });
 
       const user = await axGetUser();
@@ -89,9 +99,14 @@ function LoginForm() {
           {SITE_CONFIG.SITE.OFFLINE && (
             <CheckBoxField name="prepareOffline" label="Offline Ready" />
           )}
-          <SubmitButton>
-            Sign In <ArrowForwardIcon ml={2} />
-          </SubmitButton>
+          <Flex justifyContent="space-between" alignItems="center">
+            <SubmitButton>
+              Sign In <ArrowForwardIcon ml={2} />
+            </SubmitButton>
+            <NextLink href="/register/forgotPassword">
+              <BlueLink display="block">{t("auth:forgot_password_link")}</BlueLink>
+            </NextLink>
+          </Flex>
         </form>
       </FormProvider>
 
@@ -108,6 +123,8 @@ function LoginForm() {
           <ChevronRightIcon />
         </BlueLink>
       </NextLink>
+
+      <OTPModal isOpen={isOpen} onClose={onClose} user={user} />
     </>
   );
 }

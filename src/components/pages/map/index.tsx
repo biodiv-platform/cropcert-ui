@@ -2,13 +2,14 @@ import { Box, useToast } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
-import { ENDPOINT, isBrowser, ROLES } from "@static/constants";
+import { ENDPOINT, isBrowser, ROLES, TOKEN } from "@static/constants";
 import { hasAccess } from "@utils/auth";
 import { getMapCenter } from "@utils/location";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
+import { parseCookies } from "nookies";
 import { stringify } from "querystring";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const NakshaMapboxList: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxList),
@@ -26,6 +27,10 @@ export default function MapPageComponent({ defaultLayers }) {
   const toast = useToast();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
+  const accessToken = useMemo(() => {
+    const pk = parseCookies();
+    return pk[TOKEN.ACCESS];
+  }, [user]);
 
   const handleOnDownload = async (layerId) => {
     console.debug(`Layer download requested ${layerId}`);
@@ -61,7 +66,7 @@ export default function MapPageComponent({ defaultLayers }) {
         showToC={false}
         selectedLayers={defaultLayers}
         onSelectedLayersChange={setSelectedLayers}
-        nakshaEndpointToken={`Bearer ${user.accessToken}`}
+        nakshaEndpointToken={`Bearer ${accessToken}`}
         mapboxAccessToken={SITE_CONFIG.TOKENS.MAPBOX}
         nakshaApiEndpoint={ENDPOINT.NAKSHA}
         onLayerDownload={handleOnDownload}

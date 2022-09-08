@@ -10,6 +10,10 @@ const PhoneFormControl = styled.div`
     input {
       padding-left: 3rem;
     }
+    .PhoneInputCountryIconImg {
+      height: 1em;
+      margin-top: 0.6rem;
+    }
     .PhoneInputCountryIconUnicode,
     .PhoneInputCountryIcon {
       line-height: 2.5rem;

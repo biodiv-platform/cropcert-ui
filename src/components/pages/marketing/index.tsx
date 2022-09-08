@@ -97,7 +97,7 @@ export default function MarketingPageComponent() {
       isFiltered ? list.l.filter((r) => r.qualityScores?.[0] > 0) : list.l,
       {
         title: isGIAdmin ? "Lot Details" : "Lots for Sale",
-        description: `Organic certified coffee Rwenzori Mountain Coffee lots for sale are listed below. Please
+        description: `Organic certified coffee lots for sale are listed below. Please
       click on the Inquire button on the lot and send a mail with your mail and contact details
       and we will get back to you.`,
       },

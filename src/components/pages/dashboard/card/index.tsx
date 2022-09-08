@@ -11,11 +11,13 @@ interface IProps {
 
 function Card({ title, description, to, external = false }: IProps) {
   const getContent = () => (
-    <Stat my={2}>
-      <StatNumber lineHeight="1em" mb={3} fontSize="2xl">
+    <Stat>
+      <StatNumber lineHeight="1em" mb={4} fontSize="2xl">
         {title}
       </StatNumber>
-      <StatHelpText mb={0}>{description} &rarr;</StatHelpText>
+      <StatHelpText fontSize="md" mb={0}>
+        {description} &rarr;
+      </StatHelpText>
     </Stat>
   );
 
@@ -34,15 +36,13 @@ function Card({ title, description, to, external = false }: IProps) {
     <XLink>
       <Box
         w="100%"
-        border="0px solid var(--chakra-colors-gray-300)"
-        rounded="md"
+        rounded="lg"
         bg="gray.100"
         _hover={{
           bg: "blue.100",
-          borderColor: "gray.500",
         }}
-        px={5}
-        py={2}
+        px={6}
+        py={5}
       >
         {getContent()}
       </Box>

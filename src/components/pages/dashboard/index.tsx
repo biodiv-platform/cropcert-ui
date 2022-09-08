@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import CoreGrid from "@components/@core/layout/grid";
 import useGlobalState from "@hooks/use-global-state";
@@ -31,5 +31,9 @@ export default function DashboardPageComponent() {
     ) : null;
   };
 
-  return <Container pt={6}>{links.map(renderCardGroup)}</Container>;
+  return (
+    <Container pt={6}>
+      <Box maxWidth="60rem">{links.map(renderCardGroup)}</Box>
+    </Container>
+  );
 }

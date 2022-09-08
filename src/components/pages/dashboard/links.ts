@@ -7,12 +7,6 @@ const links = [
     title: "Traceability",
     children: [
       {
-        title: "📦 Lots for Sale",
-        description: "Information on Lots",
-        to: "/marketing",
-        access: [ROLES.GI_ADMIN, ROLES.ADMIN],
-      },
-      {
         title: "🧺 Batch(s)",
         description: "Create, View or Manage Batches",
         to: "/batch/list",
@@ -23,6 +17,12 @@ const links = [
         description: "Create, View or Manage Lots",
         to: "/lot/list",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
+      },
+      {
+        title: "📦 Lots for Sale",
+        description: "Information on Lots",
+        to: "/marketing",
+        access: [ROLES.GI_ADMIN, ROLES.ADMIN],
       },
     ],
   },

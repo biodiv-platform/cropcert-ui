@@ -27,9 +27,11 @@ export default function MapPageComponent({ defaultLayers }) {
   const toast = useToast();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
+
   const accessToken = useMemo(() => {
     const pk = parseCookies();
-    return pk[TOKEN.ACCESS];
+    const token = pk[TOKEN.ACCESS];
+    return token ? `Bearer ${token}` : "";
   }, [user]);
 
   const handleOnDownload = async (layerId) => {
@@ -66,7 +68,7 @@ export default function MapPageComponent({ defaultLayers }) {
         showToC={false}
         selectedLayers={defaultLayers}
         onSelectedLayersChange={setSelectedLayers}
-        nakshaEndpointToken={`Bearer ${accessToken}`}
+        nakshaEndpointToken={accessToken}
         mapboxAccessToken={SITE_CONFIG.TOKENS.MAPBOX}
         nakshaApiEndpoint={ENDPOINT.NAKSHA}
         onLayerDownload={handleOnDownload}

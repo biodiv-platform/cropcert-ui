@@ -126,7 +126,7 @@ function SignUpForm() {
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={4}>
-            <GridItem colSpan={{ md: 2 }} hidden={isOAuth}>
+            <GridItem colSpan={{ md: 2 }} hidden={isOAuth || !SITE_CONFIG.TOKENS.OAUTH_GOOGLE}>
               <Oauth text={t("user:autofill_with_google")} onSuccess={onOAuthSuccess} />
             </GridItem>
             <TextBoxField name="username" label={t("user:name")} />

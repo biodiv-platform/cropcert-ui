@@ -110,11 +110,17 @@ function LoginForm() {
         </form>
       </FormProvider>
 
-      <Box textAlign="center" color="gray.500" my={4}>
-        {t("common:or")}
-      </Box>
+      {SITE_CONFIG.TOKENS.OAUTH_GOOGLE ? (
+        <>
+          <Box textAlign="center" color="gray.500" my={4}>
+            {t("common:or")}
+          </Box>
 
-      <Oauth text={t("auth:with_google")} onSuccess={onOAuthSuccess} />
+          <Oauth text={t("auth:with_google")} onSuccess={onOAuthSuccess} />
+        </>
+      ) : (
+        <Box py={4} />
+      )}
 
       {t("auth:sign_up")}
       <NextLink href="/register">

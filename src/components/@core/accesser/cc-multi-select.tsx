@@ -12,7 +12,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
   const [cc, setCC] = useState<any>([]);
   const [ccSelected, setCCSelected] = useState<any>([]);
   const isCC = authorizedRoles.includes(ROLES.COLLECTION_CENTER);
-  const label = "Select Collection Center";
+  const label = "Select collection center";
 
   const setBoth = (r) => {
     setCC(r);
@@ -39,9 +39,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
     <>
       {!isCC && (
         <FormControl mb={4} maxW="308px">
-          <FormLabel textTransform="lowercase" htmlFor={ROLES.COLLECTION_CENTER}>
-            {label}
-          </FormLabel>
+          <FormLabel htmlFor={ROLES.COLLECTION_CENTER}>{label}</FormLabel>
           <MultiSelect
             options={cc}
             value={ccSelected}

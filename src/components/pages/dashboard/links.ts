@@ -65,7 +65,7 @@ const links = [
         access: [ROLES.ADMIN],
       },
       {
-        title: "🌾 ODK Aggregate",
+        title: "💼 ODK Central",
         description: "View aggregated data on ODK",
         to: SITE_CONFIG.ODK.URL,
         access: [ROLES.ADMIN],

@@ -20,7 +20,7 @@ const MarketingContext = createContext<MarketingContextProps>({} as MarketingCon
 export const MarketingProvider = ({ children }: MarketingProviderProps) => {
   const [list, setList] = useImmer<any>({ l: [], offset: 0, hasMore: false });
   const [coCodes, setCoCodes] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadMore = async (reset?) => {
     setIsLoading(true);

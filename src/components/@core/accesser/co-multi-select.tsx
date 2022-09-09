@@ -14,7 +14,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
   const isCoCC =
     authorizedRoles.includes(ROLES.COOPERATIVE) ||
     authorizedRoles.includes(ROLES.COLLECTION_CENTER);
-  const label = "Select Cooperatives";
+  const label = "Select cooperatives";
 
   useEffect(() => {
     isCoCC

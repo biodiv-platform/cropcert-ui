@@ -1,4 +1,4 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
+import { FormControl, FormLabel, Skeleton } from "@chakra-ui/react";
 import { axListUnion } from "@services/union.service";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
@@ -11,7 +11,7 @@ import Select from "react-select";
  * @return {*}
  */
 export default function PlainUnionSelect({ onChange }) {
-  const [unions, setUnions] = useState([] as any);
+  const [unions, setUnions] = useState<any>();
 
   const getAllUnions = async () => {
     const { success, data } = await axListUnion();
@@ -29,14 +29,15 @@ export default function PlainUnionSelect({ onChange }) {
   return (
     <div>
       <FormControl mb={4} maxW="308px">
-        <FormLabel htmlFor="union">Select Union</FormLabel>
-        {unions.length > 0 && (
+        <FormLabel htmlFor="union">Select union</FormLabel>
+        {unions ? (
           <Select
             id="union"
             options={unions}
             isSearchable={true}
             onChange={onChange}
             defaultValue={unions[0]}
+            components={{ IndicatorSeparator: () => null }}
             styles={{
               valueContainer: (provided) => ({
                 ...provided,
@@ -44,6 +45,8 @@ export default function PlainUnionSelect({ onChange }) {
               }),
             }}
           />
+        ) : (
+          <Skeleton height="38px" />
         )}
       </FormControl>
     </div>

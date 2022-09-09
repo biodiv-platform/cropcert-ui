@@ -81,9 +81,7 @@ export default function AccesserForm({
 
     return (
       <FormControl key={index} mb={4}>
-        <FormLabel textTransform="lowercase" htmlFor={role}>
-          Select {roleName}
-        </FormLabel>
+        <FormLabel htmlFor={role}>Select {roleName?.toLowerCase()}</FormLabel>
         <Select
           id={role}
           options={rolesOptions[role]}
@@ -91,6 +89,7 @@ export default function AccesserForm({
           onChange={(e) => {
             onOptionChange(role, index, e);
           }}
+          components={{ IndicatorSeparator: () => null }}
           value={rolesValues[role]}
           {...reactSelectProps}
         />

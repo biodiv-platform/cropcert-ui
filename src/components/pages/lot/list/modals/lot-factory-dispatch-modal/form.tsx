@@ -119,7 +119,7 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
             <CoreGrid rows={2}>
               <SelectInputField
                 name="unionCode"
-                label="Select Union"
+                label="Select union"
                 options={unions}
                 disabled={isFDisabled}
               />

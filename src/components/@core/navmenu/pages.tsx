@@ -1,4 +1,5 @@
 import useGlobalState from "@hooks/use-global-state";
+import { navmenuPre } from "@static/navmenu";
 import { flatToTree } from "@utils/pages";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
@@ -10,7 +11,12 @@ const PagesNavmenu = ({ staticLinks }) => {
   const router = useRouter();
   const finalPages = useMemo(() => pages.filter((o) => o.id !== 1), [pages]);
 
-  return <ListItems key={router.asPath} children={[...staticLinks, ...flatToTree(finalPages)]} />;
+  return (
+    <ListItems
+      key={router.asPath}
+      children={[navmenuPre, ...flatToTree(finalPages), ...staticLinks]}
+    />
+  );
 };
 
 export default PagesNavmenu;

@@ -1,12 +1,13 @@
 import { ROLES } from "./constants";
 
+export const navmenuPre = {
+  id: 10000,
+  title: "Dashboard",
+  url: "/dashboard",
+  access: [ROLES.AUTHORIZED],
+};
+
 export const navmenu = [
-  {
-    id: 10000,
-    title: "Dashboard",
-    url: "/dashboard",
-    access: [ROLES.AUTHORIZED],
-  },
   {
     id: 10001,
     title: "Documents",

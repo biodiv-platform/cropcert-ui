@@ -27,7 +27,7 @@ interface MetaBlockProps {
 
 const MetaBlock = ({ icon, children, isHtml, tooltip }: MetaBlockProps) =>
   children ? (
-    <HStack alignItems="center" spacing={2} title={tooltip}>
+    <HStack w="full" alignItems="center" spacing={2} title={tooltip}>
       {icon}
       {isHtml ? (
         <div

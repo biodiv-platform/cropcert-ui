@@ -41,7 +41,7 @@ export const PageHeader = ({ page, hideOptions, ogImage }: PageHeaderProps) => {
         position="relative"
       >
         {page.galleryData?.length ? (
-          <PageSlider images={page.galleryData} description={page.description} />
+          <PageSlider images={page.galleryData} description={page.description} pageId={page.id} />
         ) : null}
         <PageHeading description={page.description}>{page.title}</PageHeading>
       </Box>

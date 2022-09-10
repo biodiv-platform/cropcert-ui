@@ -10,9 +10,10 @@ import React, { useEffect, useState } from "react";
 interface PageSliderProps {
   images?;
   description;
+  pageId;
 }
 
-export function PageSlider({ images, description }: PageSliderProps) {
+export function PageSlider({ images, description, pageId }: PageSliderProps) {
   const [licenses, setLicenses] = useState({});
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export function PageSlider({ images, description }: PageSliderProps) {
             autoplay: true,
             rewind: true,
           }}
+          key={pageId}
         >
           {images.map((image) => (
             <SplideSlide key={image.id}>

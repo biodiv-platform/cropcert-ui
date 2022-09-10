@@ -32,7 +32,7 @@ export default function PageShowPageComponent({
       <PageHeader page={page} ogImage={ogImage} />
 
       <Container maxW="48rem" py={6}>
-        {!hideOgImage && ogImage && (
+        {!hideOgImage && page.socialPreview && ogImage && (
           <Box mb={6}>
             <Image h="150px" src={ogImage} alt={page.title} />
           </Box>

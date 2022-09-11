@@ -74,7 +74,7 @@ function LoginForm() {
       }
 
       // hard redirect to re-build cache
-      window.location.assign("/dashboard");
+      window.location.assign("/");
     } catch (e) {
       console.error(e);
       notification(SIGN_IN.ERROR);

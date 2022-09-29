@@ -1,4 +1,13 @@
-import { Box, ButtonGroup, chakra, Image, Stack, Text, VisuallyHidden } from "@chakra-ui/react";
+import {
+  Box,
+  ButtonGroup,
+  chakra,
+  Flex,
+  Image,
+  Stack,
+  Text,
+  VisuallyHidden,
+} from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
 import FacebookIcon from "@icons/facebook";
 import GithubIcon from "@icons/github";
@@ -39,9 +48,10 @@ export default function Footer() {
       <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
         <Stack spacing={{ base: "4", md: "5" }}>
           <Stack justify="space-between" direction="row" align="center">
-            <Box>
-              <Image filter="grayscale(100%)" alt={SITE_TITLE} src="/logo.png" />
-            </Box>
+            <Flex gap={6}>
+              <Image alt={SITE_TITLE} src={SITE_CONFIG.SITE.ICON} />
+              <Image src="/eu.svg" />
+            </Flex>
             <ButtonGroup variant="ghost" spacing={4}>
               <SocialButton
                 label="Mail"

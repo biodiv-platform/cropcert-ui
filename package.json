@@ -111,6 +111,6 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "prettier": "^2.7.1",
     "sw2dts": "^2.6.3",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.4"
   }
 }

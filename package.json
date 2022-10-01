@@ -19,7 +19,7 @@
     "@nikolovlazar/chakra-ui-prose": "^1.2.1",
     "@react-google-maps/api": "^2.12.2",
     "@rehooks/online-status": "^1.1.2",
-    "@splidejs/react-splide": "^0.7.10",
+    "@splidejs/react-splide": "^0.7.12",
     "@tinymce/tinymce-react": "^4.2.0",
     "@turf/turf": "^6.5.0",
     "auto-toc": "^0.0.6",

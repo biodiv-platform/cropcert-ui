@@ -91,7 +91,7 @@
     "tinymce": "^6.2.0",
     "ts-debounce": "^4.0.0",
     "use-immer": "^0.7.0",
-    "use-indexeddb": "^1.0.9",
+    "use-indexeddb": "^2.0.1",
     "wkt": "^0.1.1",
     "xss": "^1.0.14",
     "yup": "^0.32.11"

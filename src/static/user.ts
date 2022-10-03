@@ -16,3 +16,25 @@ export const sortByOptions = [
     key: "user.dateCreated",
   },
 ];
+
+export const USER_FILTER_KEY = {
+  index: "eu",
+  name: {
+    filterKey: "name",
+    searchKey: "user.name",
+  },
+  email: {
+    filterKey: "email",
+    searchKey: "user.email",
+  },
+
+  phoneNumber: {
+    filterKey: "phoneNumber",
+    searchKey: "user.mobileNumber",
+  },
+
+  userName: {
+    filterKey: "userName",
+    searchKey: "user.userName",
+  },
+};

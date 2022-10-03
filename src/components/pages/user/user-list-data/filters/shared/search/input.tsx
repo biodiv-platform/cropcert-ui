@@ -39,7 +39,7 @@ export default function TextFilterInput({ filterKey, label, mb = 0 }) {
   return (
     <FormProvider {...hForm}>
       <TextFilterForm onSubmit={hForm.handleSubmit(handleOnChange)}>
-        <TextBoxField name="query" id={filterKey} label={label} showLabel={false} mb={mb} />
+        <TextBoxField name="query" id={filterKey} label={label} mb={mb} />
         <IconButton
           variant="solid"
           colorScheme="blue"

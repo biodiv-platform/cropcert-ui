@@ -21,6 +21,7 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 function MainApp({ Component, pageProps, user, pages, languageId }) {
   const { ToastContainer } = createStandaloneToast({ theme: customTheme });
+  const config = { footer: true, ...Component?.config };
 
   return (
     <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
@@ -32,7 +33,7 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
           <main>
             <Component {...pageProps} />
           </main>
-          <Footer />
+          {config?.footer && <Footer />}
         </ChakraProvider>
       </BusProvider>
     </GlobalStateProvider>

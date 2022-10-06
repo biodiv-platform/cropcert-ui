@@ -1,11 +1,6 @@
 const SITE_CONFIG_EXAMPLE = {
   FOOTER: {
     SOCIAL: {
-      FACEBOOK: {
-        ICON: "ibpfacebook",
-        LABEL: "common:footer.facebook",
-        URL: "https://www.facebook.com/x",
-      },
       GITHUB: {
         ICON: "ibpgithub",
         LABEL: "common:footer.github",

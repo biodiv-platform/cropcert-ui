@@ -9,9 +9,9 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
-import FacebookIcon from "@icons/facebook";
 import GithubIcon from "@icons/github";
 import MailIcon from "@icons/mail";
+import TwitterIcon from "@icons/twitter";
 import { SITE_TITLE } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
@@ -59,9 +59,9 @@ export default function Footer() {
                 children={<MailIcon />}
               />
               <SocialButton
-                label="Facebook"
-                href={SITE_CONFIG.FOOTER.SOCIAL.FACEBOOK.URL}
-                children={<FacebookIcon />}
+                label="Twitter"
+                href={SITE_CONFIG.FOOTER.SOCIAL.TWITTER.URL}
+                children={<TwitterIcon />}
               />
               <SocialButton
                 label="GitHub"

@@ -1,21 +1,22 @@
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { InspectionReportProvider } from "@hooks/use-inspection-report";
-import { DB_CONFIG } from "@static/inspection-report";
-import React from "react";
-import IndexedDBProvider from "use-indexeddb";
+import { setupDB } from "@utils/db";
+import React, { useEffect } from "react";
 
 import DownloadTable from "./download-table";
 
 export default function ManageFarmersComponent() {
+  useEffect(() => {
+    setupDB();
+  }, []);
+
   return (
     <Container>
       <PageHeading>🚚 Select Collection Center</PageHeading>
-      <IndexedDBProvider config={DB_CONFIG}>
-        <InspectionReportProvider>
-          <DownloadTable />
-        </InspectionReportProvider>
-      </IndexedDBProvider>
+      <InspectionReportProvider>
+        <DownloadTable />
+      </InspectionReportProvider>
     </Container>
   );
 }

@@ -20,3 +20,10 @@ export const reactSelectProps = {
     },
   }),
 };
+
+/**
+ *
+ * @deprecated using `reactSelectProps` instead
+ * @type {*}
+ * */
+export const selectStyles = reactSelectProps.styles;

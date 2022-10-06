@@ -8,15 +8,15 @@ const UserShowPage = ({ user }) => <UserShowPageComponent user={user} />;
 
 export const getServerSideProps = async (ctx) => {
   const { success, data: user } = await axGetUserById(ctx.query.userId, ctx);
+  const parsedUser = getParsedUser(ctx);
 
   if (!success) return { notFound: true };
 
+  const isAdmin = parsedUser.id === user.id && hasAccess([ROLES.ADMIN], parsedUser);
+
   return {
     props: {
-      user: {
-        ...user,
-        isAdmin: hasAccess([ROLES.ADMIN], getParsedUser(ctx)),
-      },
+      user: { ...user, isAdmin },
     },
   };
 };

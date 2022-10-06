@@ -39,15 +39,15 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
 
   const {
     add: addFarmer,
-    getManyByIndex: getFarmers,
-    getOneByIndex: getFarmer,
+    getManyByKey: getFarmers,
+    getOneByKey: getFarmer,
     deleteByID: removeFarmer,
     update: addOrUpdateFarmer,
   } = useIndexedDBStore(STORE.FARMERS);
 
   const {
     update: updateSyncStatus,
-    getOneByIndex: getSyncStatus,
+    getOneByKey: getSyncStatus,
     add: addSyncStatus,
     getAll: getAllSyncStatus,
     deleteByID: removeSyncStatus,
@@ -55,8 +55,8 @@ export const InspectionReportProvider = ({ children }: InspectionReportProviderP
 
   const {
     getAll: getAllPendingInspectionReports,
-    getManyByIndex: getPendingReports,
-    getOneByIndex: getPendingReport,
+    getManyByKey: getPendingReports,
+    getOneByKey: getPendingReport,
     deleteByID: removeInspectionReport,
   } = useIndexedDBStore(STORE.PENDING_INSPECTION_REPORT);
 

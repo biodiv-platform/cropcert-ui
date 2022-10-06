@@ -20,4 +20,10 @@ export const navmenu = [
     url: "/map",
     access: [ROLES.UNAUTHORIZED],
   },
+  {
+    id: 10003,
+    title: "Users",
+    url: "/user/list",
+    access: [ROLES.UNAUTHORIZED],
+  },
 ];

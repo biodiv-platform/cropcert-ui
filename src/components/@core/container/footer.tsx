@@ -34,6 +34,8 @@ const SocialButton = ({ children, label, href }) => (
     transition="background 0.3s ease"
     _hover={{ bg: "gray.300" }}
     fontSize="xl"
+    target="_blank"
+    rel="noopener noreferrer"
   >
     <VisuallyHidden>{label}</VisuallyHidden>
     {children}

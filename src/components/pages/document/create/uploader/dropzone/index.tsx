@@ -9,7 +9,7 @@ import UploadDragging from "./upload-dragging";
 import UploadInfo from "./upload-info";
 import UploadProcessing from "./upload-processing";
 
-const DropTargetBox = styled.div`
+export const DropTargetBox = styled.div`
   border: 2px dashed var(--chakra-colors-gray-300);
   border-radius: 0.5rem;
   padding: 1rem;

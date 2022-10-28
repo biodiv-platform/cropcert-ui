@@ -6,25 +6,17 @@ import CheckIcon from "@icons/check";
 import { axCreateDocument } from "@services/document.service";
 import { DEFAULT_BIB_FIELDS, DEFAULT_BIB_FIELDS_SCHEMA } from "@static/document";
 import notification, { NotificationType } from "@utils/notification";
-import { cleanTags } from "@utils/tags";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
+import { transformDocumentCreatePayload } from "../common/create-util";
 import BasicInfo from "./basic-info";
 import Coverage from "./coverage";
 import Metadata from "./metadata";
 import DocumentUploader from "./uploader";
-
-const DEFAULT_VALUES = {
-  userGroupId: [],
-  geoentitiesId: [],
-  mimeType: "application/pdf",
-  size: 0,
-  rating: 0,
-};
 
 export default function DocumentCreatePageComponent({ documentTypes, licensesList }) {
   const { t } = useTranslation();
@@ -78,21 +70,7 @@ export default function DocumentCreatePageComponent({ documentTypes, licensesLis
   });
 
   const handleOnSubmit = async (values) => {
-    const { resource, bibFieldData, itemTypeId, fromDate, tags, ...rest } = values;
-
-    const payload = {
-      ...DEFAULT_VALUES,
-      ...rest,
-      resourceURL: resource?.resourceURL,
-      fromDate: fromDate,
-      tags: cleanTags(tags),
-      size: resource?.size,
-      bibFieldData: {
-        ...bibFieldData,
-        "item type": documentTypes.find((o) => o.value === itemTypeId)?.label,
-      },
-    };
-
+    const payload = transformDocumentCreatePayload(values, documentTypes);
     const { success, data } = await axCreateDocument(payload);
 
     if (success) {

@@ -7,14 +7,14 @@ import CheckboxFilterPanel from "../shared/checkbox";
 export default function ProfessionFilter() {
   const {
     userListData: {
-      ag: { profession }
-    }
+      ag: { profession },
+    },
   } = useUserFilter();
 
   const OPTIONS = Object.keys(profession)?.map((val) => ({
     label: stripSpecialCharacters(val),
     value: val,
-    stat: profession[val]
+    stat: profession[val],
   }));
 
   return (

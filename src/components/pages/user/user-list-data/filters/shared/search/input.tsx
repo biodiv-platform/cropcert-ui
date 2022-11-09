@@ -26,10 +26,10 @@ export default function TextFilterInput({ filterKey, label, mb = 0 }) {
   const hForm = useForm<any>({
     resolver: yupResolver(
       Yup.object().shape({
-        query: Yup.string()
+        query: Yup.string(),
       })
     ),
-    defaultValues: { query: defaultValue }
+    defaultValues: { query: defaultValue },
   });
 
   const handleOnChange = (v) => {

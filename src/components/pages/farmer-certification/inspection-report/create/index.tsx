@@ -13,7 +13,7 @@ export default function CreateInspectionReportComponent() {
   return (
     <Container>
       <PageHeading>📝 Create Inspection Report</PageHeading>
-        <InspectionFormWrapper />
+      <InspectionFormWrapper />
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 import "../styles/global.scss";
 
 import { ChakraProvider, createStandaloneToast } from "@chakra-ui/react";
+import AuthWall from "@components/@core/container/authwall";
 import Footer from "@components/@core/container/footer";
 import Metadata from "@components/@core/container/metadata";
 import Navbar from "@components/@core/navmenu";
@@ -34,6 +35,7 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
             <Component {...pageProps} />
           </main>
           {config?.footer && <Footer />}
+          <AuthWall />
         </ChakraProvider>
       </BusProvider>
     </GlobalStateProvider>

@@ -114,7 +114,7 @@ export function UserListContextProvider(props: UserListContextProps) {
         setFilter,
         removeFilter,
         nextPage,
-        resetFilter
+        resetFilter,
       }}
     >
       {props.children}

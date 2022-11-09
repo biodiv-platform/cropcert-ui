@@ -6,7 +6,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Stack
+  Stack,
 } from "@chakra-ui/react";
 import useUserListFilter from "@components/pages/user/common/use-user-filter";
 import { getTraitIcon } from "@utils/media";
@@ -35,7 +35,7 @@ export default function FilterCheckboxes({
   options,
   showStat = true,
   skipOptionsTranslation,
-  showSearch
+  showSearch,
 }: FilterCheckboxesProps) {
   const { filter, addFilter, removeFilter } = useUserListFilter();
   const defaultValue = filter?.[filterKey] ? filter?.[filterKey]?.split(",") : [];

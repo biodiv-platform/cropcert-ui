@@ -33,7 +33,7 @@ export default function UserFilterInput({ filterKey }) {
       inputId={filterKey}
       components={{
         DropdownIndicator: () => null,
-        IndicatorSeparator: () => null
+        IndicatorSeparator: () => null,
       }}
       noOptionsMessage={() => null}
       defaultValue={defaultValue}

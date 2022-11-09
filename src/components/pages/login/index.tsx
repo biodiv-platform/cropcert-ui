@@ -9,7 +9,7 @@ function LoginComponent() {
     <Container>
       <Flex align="center" justify="center">
         <Box maxW="sm" width="full" p={4}>
-          <LoginForm />
+          <LoginForm redirect={false} />
         </Box>
       </Flex>
     </Container>

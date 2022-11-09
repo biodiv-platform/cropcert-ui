@@ -11,7 +11,7 @@ const NakshaMapboxDraw: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxDraw),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>
+    loading: () => <p>Loading...</p>,
   }
 );
 

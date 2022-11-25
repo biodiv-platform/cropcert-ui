@@ -6,7 +6,7 @@ import React from "react";
 
 export default function FilterStat({ statKey, subStatKey }) {
   const {
-    userListData: { ag }
+    userListData: { ag },
   } = useUserListFilter();
 
   const path = statKey ? [statKey, subStatKey].join(".") : subStatKey;

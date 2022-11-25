@@ -7,14 +7,14 @@ import CheckboxFilterPanel from "../shared/checkbox";
 export default function SexTypeFilter() {
   const {
     userListData: {
-      ag: { sex }
-    }
+      ag: { sex },
+    },
   } = useUserFilter();
 
   const OPTIONS = Object.keys(sex)?.map((val) => ({
     label: covertToSentenceCase(val),
     value: val,
-    stat: sex[val]
+    stat: sex[val],
   }));
 
   return (

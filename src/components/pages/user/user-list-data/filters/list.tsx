@@ -4,7 +4,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import useUserListFilter from "@components/pages/user/common/use-user-filter";
 import useTranslation from "next-translate/useTranslation";

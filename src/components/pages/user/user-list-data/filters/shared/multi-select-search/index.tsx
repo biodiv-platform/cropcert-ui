@@ -3,7 +3,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box
+  Box,
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
@@ -15,7 +15,7 @@ export default function FilterMultiSelectPanel({
   translateKey = "",
   filterKeyList,
   useIndexFilter,
-  options = null
+  options = null,
 }: FilterMultiSelectProps) {
   const { t } = useTranslation();
   const label = t(translateKey);

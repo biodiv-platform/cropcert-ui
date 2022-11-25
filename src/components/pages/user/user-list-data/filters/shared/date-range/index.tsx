@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Input
+  Input,
 } from "@chakra-ui/react";
 import useUserListFilter from "@components/pages/user/common/use-user-filter";
 import dayjs from "@utils/date";
@@ -31,7 +31,7 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
     if (filter[filterKey.min]) {
       return [
         dayjs(filter[filterKey.min]).toDate(),
-        filter[filterKey.max] ? dayjs(filter[filterKey.max]).toDate() : "today"
+        filter[filterKey.max] ? dayjs(filter[filterKey.max]).toDate() : "today",
       ];
     }
   }, []);
@@ -41,7 +41,7 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
     allowInput: true,
     maxDate: "today",
     dateFormat: "d-m-Y",
-    mode: "range"
+    mode: "range",
   };
 
   const handleOnDateChange = (dates = []) => {

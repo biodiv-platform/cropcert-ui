@@ -12,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { axGetUser, axLogin } from "@services/auth.service";
 import { VERIFICATION_MODE } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
-import { registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth";
+import { forwardRedirect, registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth";
 import notification from "@utils/notification";
 import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
@@ -22,7 +22,12 @@ import * as Yup from "yup";
 
 import Oauth from "./oauth";
 
-function LoginForm() {
+interface ISignInFormProps {
+  onSuccess?;
+  redirect?: boolean;
+  forward?;
+}
+function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { t } = useTranslation();
   const [user, setUser] = useState();
@@ -55,6 +60,8 @@ function LoginForm() {
         setUser(tokens.user);
         onOpen();
         return;
+      } else {
+        authSuccessForward(tokens);
       }
 
       setCookies({ tokens });
@@ -87,6 +94,12 @@ function LoginForm() {
       password: r.tokenId,
       mode: VERIFICATION_MODE.OAUTH_GOOGLE,
     });
+  };
+
+  const authSuccessForward = async (tokens) => {
+    setCookies(tokens);
+    redirect && forwardRedirect(forward);
+    onSuccess && onSuccess();
   };
 
   return (

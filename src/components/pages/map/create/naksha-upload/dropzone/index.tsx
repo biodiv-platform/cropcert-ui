@@ -8,7 +8,7 @@ import {
   TabPanels,
   Tabs,
   Text,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { Mq } from "mq-styled-components";
@@ -114,9 +114,9 @@ export default function LayerUploadDropzone() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "*/*": Object.values(mapFileType === MapFileType.raster ? RASTER_FILE_TYPES : FILE_TYPES)
+      "*/*": Object.values(mapFileType === MapFileType.raster ? RASTER_FILE_TYPES : FILE_TYPES),
     },
-    multiple: true
+    multiple: true,
   });
 
   return (

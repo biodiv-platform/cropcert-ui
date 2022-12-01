@@ -3,17 +3,17 @@ import { useImmer } from "use-immer";
 
 import { RASTER_FILE_TYPES } from "./data";
 
+export enum MapFileType {
+  raster = "RASTER",
+  vector = "VECTOR",
+}
+
 export interface LayerUploadProps {
   nakshaEndpoint: string;
   bearerToken: string;
   callback?;
   children?;
   lang?;
-}
-
-export enum MapFileType {
-  raster = "RASTER",
-  vector = "VECTOR",
 }
 
 interface LayerUploadContextProps extends LayerUploadProps {
@@ -57,7 +57,7 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
       setCanContinue(true);
     }
 
-    if (rasterFiles.tif.file && rasterFiles.sld.file) {
+    if (rasterFiles.tif.file) {
       setCanContinue(true);
     }
   }, [shapeFiles, rasterFiles]);
@@ -74,7 +74,6 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
     });
     setMapFileType(val);
   };
-
   const updateMapFile = (fileType, file, meta = {}) => {
     if (RASTER_FILE_TYPES.TIF.includes(fileType) || RASTER_FILE_TYPES.SLD.includes(fileType)) {
       setRasterFiles((_draft) => {
@@ -103,7 +102,9 @@ export const LayerUploadProvider = (props: LayerUploadProps) => {
       Object.keys(mapFiles)
         .sort()
         .map((type) => {
-          formData.append(type, mapFiles?.[type]?.file);
+          if (mapFiles?.[type]?.file) {
+            formData.append(type, mapFiles?.[type]?.file);
+          }
         });
 
       const response = await fetch(props.nakshaEndpoint, {

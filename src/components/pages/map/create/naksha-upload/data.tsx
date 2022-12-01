@@ -19,30 +19,30 @@ export const FILE_TYPES = {
 
 export const RASTER_FILE_TYPES = {
   TIF: ".tif",
-  SLD: ".sld"
+  SLD: ".sld",
 };
 
 export const LAYER_TYPES = [
   {
     label: "Multi Polygon",
-    value: "MULTIPOLYGON"
+    value: "MULTIPOLYGON",
   },
   {
     label: "Point",
-    value: "POINT"
+    value: "POINT",
   },
   {
     label: "Multi LineString",
-    value: "MULTILINESTRING"
+    value: "MULTILINESTRING",
   },
   {
     label: "Multi Point",
-    value: "MULTIPOINT"
+    value: "MULTIPOINT",
   },
   {
     label: "Raster",
-    value: "RASTER"
-  }
+    value: "RASTER",
+  },
 ];
 
 export const ACCESS = [

@@ -12,7 +12,7 @@ export default function LayerUploadForm() {
   const {
     shapeFiles: { dbf, shp },
     uploadLayer,
-    mapFileType
+    mapFileType,
   } = useLayerUpload();
 
   const hForm = useForm<any>({
@@ -23,18 +23,18 @@ export default function LayerUploadForm() {
         layerType: yup.string().required(),
         titleColumn: yup.string().when("layerType", {
           is: (v) => v !== MapFileType.raster,
-          then: yup.string().required("title column is required")
+          then: yup.string().required("title column is required"),
         }),
         colorBy: yup.string().when("layerType", {
           is: (v) => v !== MapFileType.raster,
-          then: yup.string().required("title column is required")
+          then: yup.string().required("title column is required"),
         }),
         summaryColumns: yup
           .array()
           .of(yup.mixed())
           .when("layerType", {
             is: (v) => v !== MapFileType.raster,
-            then: yup.array().of(yup.mixed()).required("title column is required")
+            then: yup.array().of(yup.mixed()).required("title column is required"),
           }),
         createdBy: yup.string().required(),
 
@@ -45,7 +45,7 @@ export default function LayerUploadForm() {
         license: yup.string().required(),
         createdDate: yup.date().required(),
         downloadAccess: yup.string().required(),
-        layerColumnDescription: yup.object().required()
+        layerColumnDescription: yup.object().required(),
       })
     ),
     defaultValues: {
@@ -53,8 +53,8 @@ export default function LayerUploadForm() {
       layerColumnDescription: dbf?.meta?.keys
         ? Object.fromEntries(dbf.meta.keys.map((k) => [k, k]))
         : {},
-      summaryColumns: []
-    }
+      summaryColumns: [],
+    },
   });
 
   const handleOnSubmit = (values) => {
@@ -63,10 +63,10 @@ export default function LayerUploadForm() {
       createdDate: formatDate(values.createdDate),
       layerFileDescription: {
         fileType: mapFileType === MapFileType.raster ? "tif" : "shp",
-        encoding: "UTF-8"
+        encoding: "UTF-8",
       },
       editAccess: "ALL",
-      summaryColumns: values.summaryColumns.toString().toLowerCase()
+      summaryColumns: values.summaryColumns.toString().toLowerCase(),
     });
   };
 

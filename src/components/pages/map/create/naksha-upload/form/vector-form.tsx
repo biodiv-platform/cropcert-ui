@@ -14,7 +14,7 @@ import DataPreview from "./data-preview";
 
 export default function VectorUploadForm() {
   const {
-    shapeFiles: { dbf }
+    shapeFiles: { dbf },
   } = useLayerUpload();
   const { t } = useTranslation();
 

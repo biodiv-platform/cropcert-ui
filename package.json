@@ -106,7 +106,7 @@
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-leaflet": "^2.8.2",
     "@typescript-eslint/eslint-plugin": "5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
+    "@typescript-eslint/parser": "^5.47.1",
     "eslint": "^8.25.0",
     "eslint-config-next": "^12.3.1",
     "eslint-config-prettier": "^8.5.0",

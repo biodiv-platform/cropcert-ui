@@ -102,7 +102,7 @@
   "devDependencies": {
     "@types/node": "18.11.10",
     "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@types/react-dom": "^18.0.10",
     "@types/react-infinite-scroller": "^1.2.3",
     "@types/react-leaflet": "^2.8.2",
     "@typescript-eslint/eslint-plugin": "5.39.0",

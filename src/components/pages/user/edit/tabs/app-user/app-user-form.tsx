@@ -37,7 +37,7 @@ export default function AppAppUser({
     const payload = {
       sUserId: user.id,
       email: user.email,
-      username: user.email,
+      username: user.userName,
       projectId: projectForm.getValues("projectId"),
     };
     const { success, data }: any = await axCreateOdkUser(payload);

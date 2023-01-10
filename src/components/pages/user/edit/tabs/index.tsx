@@ -1,6 +1,7 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { axIsOdkWebUser } from "@services/odk.service";
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import NotificationsTab from "./notifications";
 import ChangePasswordTab from "./password";
@@ -9,6 +10,11 @@ import UserAboutTab from "./user-about";
 
 export default function UserEditTabs({ user, isAdmin }) {
   const { t } = useTranslation();
+  const [isWebUser, setIsWebUser] = useState<boolean>();
+
+  useEffect(() => {
+    axIsOdkWebUser(user.id).then((item) => setIsWebUser(item.data));
+  }, []);
 
   return (
     <Box gridColumn={{ md: "2/5" }} mb={4}>
@@ -32,7 +38,7 @@ export default function UserEditTabs({ user, isAdmin }) {
             </TabPanel>
             {isAdmin && (
               <TabPanel>
-                <PermissionsTab user={user} />
+                <PermissionsTab user={user} isWebUser={isWebUser} />
               </TabPanel>
             )}
           </TabPanels>

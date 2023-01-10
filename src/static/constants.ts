@@ -28,7 +28,7 @@ export const ENDPOINT = {
   INTEGRATOR: `${API_ENDPOINT}integrator-api/api`,
   LANDSCAPE: `${API_ENDPOINT}landscape-api/api`,
   NAKSHA: `${API_ENDPOINT}naksha-api/api`,
-  ODK: `${API_ENDPOINT}odk-api/api`,
+  ODK: `${API_ENDPOINT}odk-api/api/v1`,
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,

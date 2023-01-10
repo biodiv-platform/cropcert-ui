@@ -7,6 +7,7 @@ import UserEditTabs from "./tabs";
 
 export interface UserEditPageComponentProps {
   user;
+  isWebUser?: boolean;
   isAdmin?: boolean;
 }
 

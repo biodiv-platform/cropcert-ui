@@ -16,7 +16,7 @@ export default function UserEditPageComponent({ user, isAdmin }: UserEditPageCom
     <Container py={6}>
       <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 6 }}>
         <SideBar user={user} />
-        <UserEditTabs isAdmin={isAdmin} user={user} />
+        <UserEditTabs isAdmin={isAdmin} />
       </SimpleGrid>
     </Container>
   );

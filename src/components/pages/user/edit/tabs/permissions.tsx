@@ -22,7 +22,6 @@ import { UserEditPageComponentProps } from "..";
 import AppUser from "./app-user";
 
 export default function PermissionsTab({ user, isWebUser }: UserEditPageComponentProps) {
- 
   const { t } = useTranslation();
   const [rolesList, setRolesList] = useState([]);
   const [projectList, setProjectList] = useState<any[]>([]);

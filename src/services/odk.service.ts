@@ -63,7 +63,9 @@ export const axDeleteWebUser = async ({ sUserId, userName }) => {
 
 export const axDeleteAppUser = async ({ userName, projectId }) => {
   try {
-    const { status } = await http.delete(`${ENDPOINT.ODK}/remove/app-user/${userName}/${projectId}`);
+    const { status } = await http.delete(
+      `${ENDPOINT.ODK}/remove/app-user/${userName}/${projectId}`
+    );
     return { success: status === 200 };
   } catch (e) {
     console.error(e);

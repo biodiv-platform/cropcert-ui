@@ -1,5 +1,4 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import useGlobalState from "@hooks/use-global-state";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
@@ -8,9 +7,8 @@ import ChangePasswordTab from "./password";
 import PermissionsTab from "./permissions";
 import UserAboutTab from "./user-about";
 
-export default function UserEditTabs({ isAdmin }) {
+export default function UserEditTabs({ isAdmin, isOdkWebUser, user }) {
   const { t } = useTranslation();
-  const { user, isOdkWebUser } = useGlobalState();
 
   return (
     <Box gridColumn={{ md: "2/5" }} mb={4}>

@@ -72,7 +72,7 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
                         </Button>
                       </td>
                       <AppUserQrModal
-                        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-${user.sUserId}/${item.id}`}
+                        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-${user.id}/${item.id}`}
                         isQrOpen={isQrOpen}
                         onQrClose={onQrClose}
                       />

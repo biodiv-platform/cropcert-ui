@@ -22,9 +22,36 @@ import React from "react";
 
 import AppUserQrModal from "./qr-modal";
 
+function SeeQrModal({ index, item, user }) {
+  const { t } = useTranslation();
+
+  const { isOpen: isQrOpen, onOpen: onQrOpen, onClose: onQrClose } = useDisclosure();
+
+  return (
+    <tr key={index}>
+      <td>
+        <Box userSelect="all" fontSize="sm" className="elipsis">
+          {item.name}
+        </Box>
+      </td>
+      <td>
+        <Button variant="link" onClick={onQrOpen} leftIcon={<WarningIcon />}>
+          {t("See code")}
+        </Button>
+      </td>
+      <AppUserQrModal
+        key={index}
+        projectName={item.name}
+        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-${user.id}/${item.id}`}
+        isQrOpen={isQrOpen}
+        onQrClose={onQrClose}
+      />
+    </tr>
+  );
+}
+
 export default function OdkModal({ isOpen, onClose, odkLink }) {
   const { t } = useTranslation();
-  const { isOpen: isQrOpen, onOpen: onQrOpen, onClose: onQrClose } = useDisclosure();
 
   const { user, isOdkWebUser, userAppProjectList } = useGlobalState();
 
@@ -60,23 +87,7 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
                 </thead>
                 <tbody>
                   {userAppProjectList?.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        <Box userSelect="all" fontSize="sm" className="elipsis">
-                          {item.name}
-                        </Box>
-                      </td>
-                      <td>
-                        <Button variant="link" onClick={onQrOpen} leftIcon={<WarningIcon />}>
-                          {t("See code")}
-                        </Button>
-                      </td>
-                      <AppUserQrModal
-                        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-${user.id}/${item.id}`}
-                        isQrOpen={isQrOpen}
-                        onQrClose={onQrClose}
-                      />
-                    </tr>
+                    <SeeQrModal item={item} index={index} user={user} />
                   ))}
                 </tbody>
               </table>

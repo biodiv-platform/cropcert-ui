@@ -11,18 +11,15 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-export default function AppUserQrModal({ qrUrl, isQrOpen, onQrClose }) {
-  const { t } = useTranslation();
-
+export default function AppUserQrModal({ qrUrl, projectName, isQrOpen, onQrClose }) {
   return (
     <>
       <Modal size="md" isOpen={isQrOpen} onClose={onQrClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{t("Client Configuration Code")}</ModalHeader>
+          <ModalHeader>{`${projectName} QR Code for ODK Collect app`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex justifyContent="center">

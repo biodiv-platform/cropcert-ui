@@ -64,6 +64,8 @@ export const ROLES = {
   FACTORY: "FACTORY_PERSON",
   UNION: "UNION_PERSON",
   ADMIN: "ROLE_ADMIN",
+  ODK_APP_USER: "ODK_APP_USER",
+  ODK_WEB_USER: "ODK_WEB_USER",
 };
 
 export const KEYS_TO_ROLES = {

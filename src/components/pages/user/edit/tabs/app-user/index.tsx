@@ -33,13 +33,13 @@ export default function AppUser({ user, projectList, userProjectList, setUserPro
       >
         <AccordionButton _expanded={{ bg: "gray.100" }}>
           <Box flex={1} textAlign="left" fontSize="lg">
-            🛂 {t("ODK User Permission")}
+            🛂 {t("common:action.odk_permission")}
           </Box>
           <AccordionIcon />
         </AccordionButton>
 
         <AccordionPanel p={4}>
-          <SwitchField mt={4} name="odkWebUserEnabled" label={t("Enable Web User")} />
+          <SwitchField mt={4} name="odkWebUserEnabled" label={t("common:action.enable_web_user")} />
           {isCreate ? (
             <AddAppUserForm
               user={user}

@@ -27,8 +27,8 @@ const GroupRulesTable = ({ user, project, handleProjectChange, setIsCreate }) =>
       <table style={{ minWidth: "750px" }} className="table table-bordered">
         <thead>
           <tr>
-            <th align="left">{t("Project Name")}</th>
-            <th align="left">{t("Action")}</th>
+            <th align="left">{t("common:action.project_title")}</th>
+            <th align="left">{t("common:actions.title")}</th>
           </tr>
         </thead>
         <tbody style={{ marginTop: "40px" }}>
@@ -59,8 +59,8 @@ const GroupRulesTable = ({ user, project, handleProjectChange, setIsCreate }) =>
           size="sm"
           onClick={() => setIsCreate(true)}
           leftIcon={<AddIcon />}
-        >
-          {t("Create App User")}
+        >-
+          {t("common:action.create_app_user")}
         </Button>
       </ButtonGroup>
     </Box>

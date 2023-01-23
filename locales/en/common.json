@@ -1,4 +1,13 @@
 {
+  "action": {
+    "create_app_user": "Create App User",
+    "enable_web_user": "Enable Web User",
+    "odk_permission": "ODK User Permission",
+    "project_select": "Please select a project to create App user",
+    "project_title": "Project Title",
+    "project_unable": "Unable to create App user",
+    "see_code": "See Code"
+  },
   "actions": {
     "flag": {
       "category": "Category",
@@ -10,7 +19,11 @@
       "notes": "Notes",
       "others_flagged": "Others who flagged",
       "title": "Flag"
-    }
+    },
+    "odk": {
+      "title": "Odk Web Platform"
+    },
+    "title": "Activity"
   },
   "activity": "Activity",
   "add": "Add",
@@ -19,6 +32,7 @@
   "clear": "Clear",
   "close": "Close",
   "copy": "Copy to Clipboard",
+  "create": "Create",
   "delete": "Delete",
   "edit": "Edit",
   "footer": {
@@ -49,6 +63,7 @@
   "or": "or",
   "prev": "Previous",
   "save": "Save",
+  "select_project": "Select Project",
   "success": "Success",
   "uploader": "Uploader"
 }

@@ -31,7 +31,7 @@ export default function AppAppUser({
 
   const handleFormSubmit = async () => {
     if (!projectForm.getValues("projectId")) {
-      notification(t("Please select a project to create App user"));
+      notification(t("common:action.project_select"));
       return;
     }
     const payload = {
@@ -48,7 +48,7 @@ export default function AppAppUser({
       handleProjectChange([...project, { name: projectData.name, id: projectData.id }]);
       setIsCreate(false);
     } else {
-      notification(t("Unable to create App user"));
+      notification(t("common:action.project_unable"));
     }
   };
 
@@ -62,13 +62,13 @@ export default function AppAppUser({
           onClick={() => setIsCreate(false)}
           leftIcon={<ArrowBackIcon />}
         >
-          {t("back")}
+          {t("common:prev")}
         </Button>
         <SelectInputField
           isRequired={true}
           name="projectId"
           options={projectList.map((item) => ({ label: item.name, value: item.id }))}
-          label={t("Select Project")}
+          label={t("common:select_project")}
           shouldPortal={true}
         />
         <Button
@@ -78,7 +78,7 @@ export default function AppAppUser({
           mb={0}
           leftIcon={<CheckIcon />}
         >
-          {t("Create")}
+          {t("common:create")}
         </Button>{" "}
       </form>
     </FormProvider>

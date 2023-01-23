@@ -43,6 +43,7 @@
     "immer": "^9.0.15",
     "indian-number-format": "^1.0.5",
     "json-as-xlsx": "^2.4.6",
+    "jwt-encode":"1.0.0",
     "jwt-decode": "^3.1.2",
     "keen-slider": "^6.8.2",
     "leaflet": "^1.9.2",

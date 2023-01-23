@@ -47,6 +47,7 @@ const SITE_CONFIG_EXAMPLE = {
   },
   ODK: {
     URL: "https://odk.example.com/",
+    DEFAULT_ODK_PASSWORD: "xxxx",
   },
   PAGES: {
     ACTIVE: true,

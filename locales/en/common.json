@@ -1,6 +1,7 @@
 {
   "action": {
     "create_app_user": "Create App User",
+    "create_web_user": "Create Web User",
     "enable_web_user": "Enable Web User",
     "odk_permission": "ODK User Permission",
     "project_select": "Please select a project to create App user",

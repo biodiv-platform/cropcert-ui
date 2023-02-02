@@ -29,6 +29,8 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
 
   const [rolesOptionList, setRoleOptionList] = useState<any[]>([]);
 
+  const [password, setPassword] = useState("");
+
   useEffect(() => {
     axGetOdkProjectList().then(setProjectList);
     axGetUserRoles().then(setRolesList);
@@ -66,24 +68,30 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
     },
   });
 
+  const getRoleValueByLabel = (arr, label) => {
+    for (const obj of arr) {
+      if (obj.label === label) {
+        return obj.value;
+      }
+    }
+  };
+
   const handleOnUpdate = async ({ roles, odkWebUserEnabled, ...payload }) => {
-    if (odkWebUserEnabled && !isWebUser) {
+    if (!isWebUser && password) {
       const payload = {
         sUserId: user.id,
         email: user.email,
         username: user.userName,
+        password: password,
       };
       await axCreateOdkUser(payload);
-    } else if (!odkWebUserEnabled && isWebUser) {
-      await axDeleteWebUser({ userName: `${user.userName}-${user.id}`, sUserId: user.id });
+      roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
     }
 
-    if (odkWebUserEnabled) {
-      roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
-    } else {
-      roles = roles.filter(
-        (item) => item !== rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value
-      );
+    const odk = getRoleValueByLabel(rolesOptionList, "ODK_WEB_USER");
+
+    if (isWebUser && !roles.includes(odk)) {
+      await axDeleteWebUser({ userName: `${user.userName}-${user.id}`, sUserId: user.id });
     }
 
     if (userProjectList && userProjectList.length > 0) {
@@ -123,6 +131,8 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
           userProjectList={userProjectList}
           setUserProjectList={setUserProjectList}
           projectList={projectList}
+          isWebUser={isWebUser}
+          setPassword={setPassword}
         />
         <SelectMultipleInputField name="roles" label={t("user:roles")} options={rolesOptionList} />
         <SubmitButton leftIcon={<CheckIcon />}>{t("common:save")}</SubmitButton>

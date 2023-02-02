@@ -18,7 +18,7 @@ import {
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
 import { ENDPOINT } from "@static/constants";
-import  sign  from 'jwt-encode';
+import sign from "jwt-encode";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
@@ -57,7 +57,7 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
 
   const { user, isOdkWebUser, userAppProjectList } = useGlobalState();
 
-  const userToken = sign({email:user.email,password:SITE_CONFIG.ODK.DEFAULT_ODK_PASSWORD},'')
+  const userToken = sign({ email: user.email, password: SITE_CONFIG.ODK.DEFAULT_ODK_PASSWORD }, "");
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -70,7 +70,9 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
               <Heading size="sm" mb={3}>
                 <Stat>
                   <StatHelpText fontSize="md" mb={0}>
-                    <Link href={`${odkLink}?token=${userToken}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
+                    <Link href={`${odkLink}?token=${userToken}#/login`}>
+                      {t("common:actions.odk.title")} &rarr;
+                    </Link>
                   </StatHelpText>
                 </Stat>
               </Heading>

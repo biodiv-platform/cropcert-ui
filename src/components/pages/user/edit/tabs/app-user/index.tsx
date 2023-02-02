@@ -6,18 +6,27 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
-import { SwitchField } from "@components/form/switch";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
 import AddAppUserForm from "./app-user-form";
 import ProjectTable from "./app-user-list";
+import WebUser from "./web-user-form";
 
-export default function AppUser({ user, projectList, userProjectList, setUserProjectList }) {
+export default function AppUser({
+  user,
+  projectList,
+  userProjectList,
+  setUserProjectList,
+  isWebUser,
+  setPassword,
+}) {
   const { t } = useTranslation();
   const [project, setProject] = useState(userProjectList);
 
   const [isCreate, setIsCreate] = useState(false);
+
+  const [isCreateWebUser, setIsCreateWebUser] = useState(false);
 
   const handleProjectUpdate = (value) => {
     setProject(value);
@@ -39,7 +48,6 @@ export default function AppUser({ user, projectList, userProjectList, setUserPro
         </AccordionButton>
 
         <AccordionPanel p={4}>
-          <SwitchField mt={4} name="odkWebUserEnabled" label={t("common:action.enable_web_user")} />
           {isCreate ? (
             <AddAppUserForm
               user={user}
@@ -48,12 +56,20 @@ export default function AppUser({ user, projectList, userProjectList, setUserPro
               projectList={projectList}
               handleProjectChange={handleProjectUpdate}
             />
+          ) : isCreateWebUser ? (
+            <WebUser
+              user={user}
+              setIsCreateWebUser={setIsCreateWebUser}
+              setPassword={setPassword}
+            />
           ) : (
             <ProjectTable
               project={project}
               user={user}
               handleProjectChange={handleProjectUpdate}
               setIsCreate={setIsCreate}
+              setIsCreateWebUser={setIsCreateWebUser}
+              isWebUser={isWebUser}
             />
           )}
         </AccordionPanel>

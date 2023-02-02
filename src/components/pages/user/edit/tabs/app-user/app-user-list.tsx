@@ -6,7 +6,14 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-const GroupRulesTable = ({ user, project, handleProjectChange, setIsCreate }) => {
+const GroupRulesTable = ({
+  user,
+  project,
+  handleProjectChange,
+  setIsCreate,
+  setIsCreateWebUser,
+  isWebUser,
+}) => {
   const { t } = useTranslation();
 
   const removeGroupRules = async (projectId) => {
@@ -59,9 +66,19 @@ const GroupRulesTable = ({ user, project, handleProjectChange, setIsCreate }) =>
           size="sm"
           onClick={() => setIsCreate(true)}
           leftIcon={<AddIcon />}
-        >-
+        >
           {t("common:action.create_app_user")}
         </Button>
+        {!isWebUser && (
+          <Button
+            colorScheme="blue"
+            size="sm"
+            onClick={() => setIsCreateWebUser(true)}
+            leftIcon={<AddIcon />}
+          >
+            {t("common:action.create_web_user")}
+          </Button>
+        )}
       </ButtonGroup>
     </Box>
   );

@@ -31,44 +31,39 @@ const GroupRulesTable = ({
 
   return (
     <Box fontSize="lg" w="full" overflowX="auto" className="fade">
-      <table style={{ minWidth: "750px" }} className="table table-bordered">
-        <thead>
-          <tr>
-            <th align="left">{t("common:action.project_title")}</th>
-            <th align="left">{t("common:actions.title")}</th>
-          </tr>
-        </thead>
-        <tbody style={{ marginTop: "40px" }}>
-          {project.map((item, index) => (
-            <tr key={index}>
-              <td>
-                <Box userSelect="all" fontSize="sm" className="elipsis">
-                  {item.name}
-                </Box>
-              </td>
-              <td>
-                <Button
-                  onClick={() => removeGroupRules(item.id)}
-                  variant="link"
-                  colorScheme="red"
-                  leftIcon={<DeleteIcon />}
-                >
-                  {t("common:delete")}
-                </Button>
-              </td>
+      {project.length > 0 && (
+        <table style={{ minWidth: "750px" }} className="table table-bordered">
+          <thead>
+            <tr>
+              <th align="left">{t("common:action.project_title")}</th>
+              <th align="left">{t("common:actions.title")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody style={{ marginTop: "40px" }}>
+            {project.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <Box userSelect="all" fontSize="sm" className="elipsis">
+                    {item.name}
+                  </Box>
+                </td>
+                <td>
+                  <Button
+                    onClick={() => removeGroupRules(item.id)}
+                    variant="link"
+                    colorScheme="red"
+                    leftIcon={<DeleteIcon />}
+                  >
+                    {t("common:delete")}
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
       <ButtonGroup spacing={4} mt={4}>
-        <Button
-          colorScheme="blue"
-          size="sm"
-          onClick={() => setIsCreate(true)}
-          leftIcon={<AddIcon />}
-        >
-          {t("common:action.create_app_user")}
-        </Button>
         {!isWebUser && (
           <Button
             colorScheme="blue"
@@ -79,6 +74,14 @@ const GroupRulesTable = ({
             {t("common:action.create_web_user")}
           </Button>
         )}
+        <Button
+          colorScheme="blue"
+          size="sm"
+          onClick={() => setIsCreate(true)}
+          leftIcon={<AddIcon />}
+        >
+          {t("common:action.create_app_user")}
+        </Button>
       </ButtonGroup>
     </Box>
   );

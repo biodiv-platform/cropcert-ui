@@ -12,7 +12,7 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
 
   const defaultValues = {
     // for show purpose concatination of user id is done in backend
-    userName: user.userName + "-" + user.id,
+    userName: user.userName + "suser-" + user.id,
     email: user.email,
     sUserId: user.id,
   };
@@ -43,13 +43,13 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
         >
           {t("common:prev")}
         </Button>
-        <TextBoxField name="sUserId" label={t("User Id")} disabled={true} hidden={true} />
-        <TextBoxField name="userName" label={t("User name")} disabled={true} />
-        <TextBoxField name="email" label={t("Email address")} disabled={true} />
+        <TextBoxField name="sUserId" label={t("user:id")} disabled={true} hidden={true} />
+        <TextBoxField name="userName" label={t("user:name")} disabled={true} />
+        <TextBoxField name="email" label={t("user:email")} disabled={true} />
         <TextBoxField
           name="password"
           label={t("user:password")}
-          type="password"
+          type="text"
           autoComplete="new-password"
         />
       </form>

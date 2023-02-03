@@ -84,14 +84,16 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
         username: user.userName,
         password: password,
       };
-      await axCreateOdkUser(payload);
-      roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
+      const sucess = await axCreateOdkUser(payload);
+      if (sucess) {
+        roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
+      }
     }
 
     const odk = getRoleValueByLabel(rolesOptionList, "ODK_WEB_USER");
 
     if (isWebUser && !roles.includes(odk)) {
-      await axDeleteWebUser({ userName: `${user.userName}-${user.id}`, sUserId: user.id });
+      await axDeleteWebUser({ userName: `${user.userName}-suser${user.id}`, sUserId: user.id });
     }
 
     if (userProjectList && userProjectList.length > 0) {

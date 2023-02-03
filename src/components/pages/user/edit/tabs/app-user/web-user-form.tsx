@@ -12,7 +12,7 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
 
   const defaultValues = {
     // for show purpose concatination of user id is done in backend
-    userName: user.userName + "suser-" + user.id,
+    userName: user.userName + "-suser" + user.id,
     email: user.email,
     sUserId: user.id,
   };

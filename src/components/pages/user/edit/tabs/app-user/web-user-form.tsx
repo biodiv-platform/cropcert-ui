@@ -21,7 +21,7 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
     mode: "onBlur",
     resolver: yupResolver(
       Yup.object().shape({
-        password: Yup.string().min(8).required(),
+        password: Yup.string().min(10).required(),
       })
     ),
     defaultValues,

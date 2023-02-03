@@ -84,10 +84,8 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
         username: user.userName,
         password: password,
       };
-      const sucess = await axCreateOdkUser(payload);
-      if (sucess) {
-        roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
-      }
+      await axCreateOdkUser(payload);
+      roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
     }
 
     const odk = getRoleValueByLabel(rolesOptionList, "ODK_WEB_USER");

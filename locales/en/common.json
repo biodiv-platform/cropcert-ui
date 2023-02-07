@@ -7,7 +7,9 @@
     "project_select": "Please select a project to create App user",
     "project_title": "Project Title",
     "project_unable": "Unable to create App user",
-    "see_code": "See Code"
+    "see_code": "See Code",
+    "project_delete_sucess":"Project Deleted Successfully",
+    "project_delete_fail":"Unable to Delete the Project"
   },
   "actions": {
     "flag": {

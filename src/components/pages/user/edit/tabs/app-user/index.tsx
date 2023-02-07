@@ -20,6 +20,7 @@ export default function AppUser({
   setUserProjectList,
   isWebUser,
   setPassword,
+  setProjectId,
 }) {
   const { t } = useTranslation();
   const [project, setProject] = useState(userProjectList);
@@ -50,11 +51,9 @@ export default function AppUser({
         <AccordionPanel p={4}>
           {isCreate ? (
             <AddAppUserForm
-              user={user}
-              project={project}
               setIsCreate={setIsCreate}
               projectList={projectList}
-              handleProjectChange={handleProjectUpdate}
+              setProjectId={setProjectId}
             />
           ) : isCreateWebUser ? (
             <WebUser

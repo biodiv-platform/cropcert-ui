@@ -29,7 +29,11 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
 
   const [rolesOptionList, setRoleOptionList] = useState<any[]>([]);
 
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState<string>();
+
+  const [projectId, setProjectId] = useState<string>();
+
+  let flag = true;
 
   useEffect(() => {
     axGetOdkProjectList().then(setProjectList);
@@ -82,39 +86,54 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
         sUserId: user.id,
         email: user.email,
         username: user.userName,
-        password: password,
       };
       await axCreateOdkUser(payload);
       roles.push(rolesOptionList.find((item) => item.label === "ODK_WEB_USER").value);
     }
 
-    const odk = getRoleValueByLabel(rolesOptionList, "ODK_WEB_USER");
+    const odkWebUser = getRoleValueByLabel(rolesOptionList, "ODK_WEB_USER");
 
-    if (isWebUser && !roles.includes(odk)) {
+    const odkAppUser = getRoleValueByLabel(rolesOptionList, "ODK_APP_USER");
+
+    if (isWebUser && !roles.includes(odkWebUser)) {
       await axDeleteWebUser({ userName: `${user.userName}-suser${user.id}`, sUserId: user.id });
     }
 
-    if (userProjectList && userProjectList.length > 0) {
+    if (userProjectList && projectId) {
+      const payload = {
+        sUserId: user.id,
+        email: user.email,
+        username: user.userName,
+        projectId: projectId,
+      };
+      roles.push(rolesOptionList.find((item) => item.label === "ODK_APP_USER").value);
+
+      await axCreateOdkUser(payload);
+    } else if (userProjectList?.length && !roles.includes(odkAppUser)) {
+      notification(t("user:app_user_update_error"));
+      roles.push(rolesOptionList.find((item) => item.label === "ODK_APP_USER").value);
+      flag = false;
+    } else if (userProjectList?.length) {
       roles.push(rolesOptionList.find((item) => item.label === "ODK_APP_USER").value);
     } else {
       roles = roles.filter(
         (item) => item !== rolesOptionList.find((item) => item.label === "ODK_APP_USER").value
       );
     }
-
     const { success } = await axUpdateUserPermissions({
       id: user.id,
       roles: rolesList.filter(({ id }) => roles.includes(id)),
       ...payload,
     });
-    if (success) {
-      notification(t("user:updated"), NotificationType.Success);
-    } else {
-      notification(t("user:update_error"));
+    if (flag) {
+      if (success) {
+        notification(t("user:updated"), NotificationType.Success);
+      } else {
+        notification(t("user:update_error"));
+      }
     }
     Router.reload();
   };
-
   return userProjectList && rolesOptionList.length && projectList.length ? (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnUpdate)}>
@@ -133,6 +152,7 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
           projectList={projectList}
           isWebUser={isWebUser}
           setPassword={setPassword}
+          setProjectId={setProjectId}
         />
         <SelectMultipleInputField name="roles" label={t("user:roles")} options={rolesOptionList} />
         <SubmitButton leftIcon={<CheckIcon />}>{t("common:save")}</SubmitButton>

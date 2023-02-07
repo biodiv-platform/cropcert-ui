@@ -18,19 +18,39 @@ const GroupRulesTable = ({
 
   const removeGroupRules = async (projectId) => {
     const { success } = await axDeleteAppUser({
-      userName: `${user.userName}-${user.id}`,
+      userName: `${user.userName}-suser${user.id}`,
       projectId,
     });
     if (success) {
       handleProjectChange(project.filter((item) => item.id !== projectId));
-      notification(t("group:rules.remove.success"), NotificationType.Success);
+      notification(t("common:action.project_delete_sucess"), NotificationType.Success);
     } else {
-      notification(t("group:rules.remove.failure"), NotificationType.Error);
+      notification(t("common:action.project_delete_fail"), NotificationType.Error);
     }
   };
 
   return (
     <Box fontSize="lg" w="full" overflowX="auto" className="fade">
+      <ButtonGroup spacing={4} mt={4} mb={4}>
+        {!isWebUser && (
+          <Button
+            colorScheme="blue"
+            size="sm"
+            onClick={() => setIsCreateWebUser(true)}
+            leftIcon={<AddIcon />}
+          >
+            {t("common:action.create_web_user")}
+          </Button>
+        )}
+        <Button
+          colorScheme="blue"
+          size="sm"
+          onClick={() => setIsCreate(true)}
+          leftIcon={<AddIcon />}
+        >
+          {t("common:action.create_app_user")}
+        </Button>
+      </ButtonGroup>
       {project.length > 0 && (
         <table style={{ minWidth: "750px" }} className="table table-bordered">
           <thead>
@@ -62,27 +82,6 @@ const GroupRulesTable = ({
           </tbody>
         </table>
       )}
-
-      <ButtonGroup spacing={4} mt={4}>
-        {!isWebUser && (
-          <Button
-            colorScheme="blue"
-            size="sm"
-            onClick={() => setIsCreateWebUser(true)}
-            leftIcon={<AddIcon />}
-          >
-            {t("common:action.create_web_user")}
-          </Button>
-        )}
-        <Button
-          colorScheme="blue"
-          size="sm"
-          onClick={() => setIsCreate(true)}
-          leftIcon={<AddIcon />}
-        >
-          {t("common:action.create_app_user")}
-        </Button>
-      </ButtonGroup>
     </Box>
   );
 };

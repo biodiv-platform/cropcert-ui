@@ -36,3 +36,14 @@ export const axAddDocumentComment = async (payload) => {
     return { success: false, data: [] };
   }
 };
+
+export const axOdkSendMail = async (payload) => {
+  try {
+    await waitForAuth();
+    const { data } = await http.post(`${ENDPOINT.ACTIVITY}/v1/service/odk/sendmail`, payload);
+    return { success: true, data };
+  } catch (e) {
+    console.error(e);
+    return { success: false, data: [] };
+  }
+};

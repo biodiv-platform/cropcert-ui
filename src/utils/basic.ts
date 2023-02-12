@@ -104,3 +104,14 @@ export const getCoords = async () => {
 };
 
 export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();
+
+export const generatePassword = (passwordLength) => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const passwordArray = Array.from(
+    { length: passwordLength },
+    () => characters[Math.floor(Math.random() * characters.length)]
+  );
+  const newPassword = passwordArray.join("");
+
+  return newPassword;
+};

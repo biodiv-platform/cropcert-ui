@@ -2,19 +2,27 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { generatePassword } from "@utils/basic";
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
 export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
   const { t } = useTranslation();
 
+  const [password] = useState(generatePassword(10));
+
+  useEffect(() => {
+    setPassword(password);
+  }, [password]);
+
   const defaultValues = {
     // for show purpose concatination of user id is done in backend
     userName: user.userName + "-suser" + user.id,
     email: user.email,
     sUserId: user.id,
+    password: password,
   };
 
   const projectForm = useForm<any>({
@@ -27,13 +35,9 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
     defaultValues,
   });
 
-  const handleChange = async (values) => {
-    setPassword(values.password);
-  };
-
   return (
     <FormProvider {...projectForm}>
-      <form onChange={projectForm.handleSubmit(handleChange)} className="fade">
+      <form className="fade">
         <Button
           mb={4}
           type="button"
@@ -51,6 +55,7 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
           label={t("user:password")}
           type="text"
           autoComplete="new-password"
+          hidden={true}
         />
       </form>
     </FormProvider>

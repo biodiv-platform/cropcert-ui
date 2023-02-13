@@ -65,6 +65,7 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
           <ModalBody>
             {isOdkWebUser && (
               <Heading size="sm" mb={3}>
+                <b>ODK webuser</b>
                 <Stat>
                   <StatHelpText fontSize="md" mb={0}>
                     <Link href={`${odkLink}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
@@ -75,22 +76,32 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
 
             <hr></hr>
             {userAppProjectList?.length > 0 && (
-              <table
-                style={{ minWidth: "550px", marginTop: "10px" }}
-                className="table table-bordered"
-              >
-                <thead>
-                  <tr>
-                    <th align="left">{t("common:action.project_title")}</th>
-                    <th align="left">{t("common:actions.title")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {userAppProjectList?.map((item, index) => (
-                    <SeeQrModal item={item} index={index} user={user} />
-                  ))}
-                </tbody>
-              </table>
+              <>
+                <p style={{ minWidth: "550px", marginTop: "10px" }}>
+                  <b>ODK appuser</b>
+                </p>
+                <p>
+                  This QR Code will help you set up the project in the ODK Collect app on your
+                  mobile.
+                </p>
+
+                <table
+                  style={{ minWidth: "550px", marginTop: "10px" }}
+                  className="table table-bordered"
+                >
+                  <thead>
+                    <tr>
+                      <th align="left">{t("common:action.project_title")}</th>
+                      <th align="left">{t("common:actions.odk.qrCode")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {userAppProjectList?.map((item, index) => (
+                      <SeeQrModal item={item} index={index} user={user} />
+                    ))}
+                  </tbody>
+                </table>
+              </>
             )}
           </ModalBody>
 

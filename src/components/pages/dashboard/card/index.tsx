@@ -38,7 +38,7 @@ function Card({ title, description, to, external = false }: IProps) {
 
   return (
     <>
-      {title.includes("Login to ODK") ? (
+      {title.includes("ROBUST ODK") ? (
         <>
           <Box
             w="100%"

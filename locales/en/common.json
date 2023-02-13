@@ -24,7 +24,8 @@
       "title": "Flag"
     },
     "odk": {
-      "title": "Login to ROBUST Web platform as webuser"
+      "title": "Login to ROBUST Web platform as webuser",
+      "qrCode": "QR Code"
     },
     "title": "Activity"
   },

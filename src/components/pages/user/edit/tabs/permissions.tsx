@@ -85,7 +85,6 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
         sUserId: user.id,
         email: user.email,
         username: user.userName,
-        userId: user.id,
         role: ROLES.ODK_WEB_USER,
         password: password,
       };

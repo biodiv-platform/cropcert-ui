@@ -42,7 +42,7 @@ function SeeQrModal({ index, item, user }) {
       <AppUserQrModal
         key={index}
         projectName={item.name}
-        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-${user.id}/${item.id}`}
+        qrUrl={`${ENDPOINT.ODK}/app-user/qr-code/${user.userName}-suser${user.id}/${item.id}`}
         isQrOpen={isQrOpen}
         onQrClose={onQrClose}
       />

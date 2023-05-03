@@ -15,7 +15,7 @@ export function useBatchStore() {
   };
 
   const setBatches = ({ success, data, reset, offset, hasMore }: any) => {
-    if (!success) return;
+    if (!success || !Array.isArray(data)) return;
 
     const dataN = data.map(([batch, lot]) => ({
       ...batch,

@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { batchColumns } from "./data";
+import { batchColumns, createBatchColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal";
 import LotCreateModal from "./modals/lot-create-modal";
@@ -30,8 +30,10 @@ function BatchListPageComponent() {
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const [hideAccessor, setHideAccessor] = useState<boolean>();
+  const [batchData, setBatchData] = useState<any>([]);
 
   useEffect(() => {
+    console.log("actions.listBatch:", actions.listBatch);
     ccCodes.length && actions.listBatch({ ccCodes, reset: true });
   }, [ccCodes]);
 
@@ -110,6 +112,8 @@ function BatchListPageComponent() {
     onToggle();
     actions.updateBatch(props);
   };
+
+  console.log("batchData", state.batch);
 
   return (
     <Box>

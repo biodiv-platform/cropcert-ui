@@ -159,7 +159,7 @@ export const lotColumns = [
     center: true,
     sortable: true,
     width: "150px",
-    cell: ({ lotStatus }) => <Badge>{lotStatus.split("_").join(" ")}</Badge>,
+    cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
   },
   {
     center: true,

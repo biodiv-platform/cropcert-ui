@@ -17,13 +17,19 @@ export function useBatchStore() {
   const setBatches = ({ success, data, reset, offset, hasMore }: any) => {
     if (!success) return;
 
-    const dataN = data.map(([batch, lot]) => ({
-      ...batch,
-      lotStatus: lot?.lotStatus,
-      lotId: lot?.id,
-    }));
+    const dataN = data.map((arr) => {
+      console.log("arr from batch: ", arr);
+
+      return {
+        ...arr,
+        lotStatus: "PENDING", // TODO: remove this
+        lotId: "123", // TODO: remove this
+      };
+    });
 
     setState((_draft) => {
+      console.log("old draft from batch: ", _draft);
+      console.log("reset: ", reset);
       if (reset) {
         _draft.batch = dataN;
       } else {
@@ -36,8 +42,10 @@ export function useBatchStore() {
   };
 
   const updateBatch = (lot) => {
+    console.log("lot from batch update: ", lot);
     setState((_draft) => {
-      const toUpdateIndex = _draft.batch.findIndex((o) => o.id === lot.id);
+      console.log("old draft from batch update: ", _draft);
+      const toUpdateIndex = _draft.batch.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
         _draft.batch[toUpdateIndex] = lot;
       }

@@ -21,13 +21,27 @@ import { useLotStore } from "./use-lot-store";
 function LotListPageComponent({ unions }) {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
+  const [lotData, setLotData] = useState<any>([]);
   const lotStore = useLotStore();
 
   const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
+  const fetchLotData = async () => {
+    const res = await fetch(`http://localhost:5500/${"645774053e1875e3bd793978"}/lotinfo`);
+    const json = await res.json();
+    setLotData(json);
+  };
+
   useEffect(() => {
+    fetchLotData();
+    console.log("cocodes", coCodes);
     coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
   }, [coCodes]);
+
+  console.log("lotData", lotData);
+
+  console.log("list of unions");
+  console.log(unions);
 
   return (
     <Container>

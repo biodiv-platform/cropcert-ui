@@ -30,6 +30,8 @@ const parsedAccessorRole = (role) => {
  */
 export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
   const { authorizedRoles } = useGlobalState();
+  console.log("authorizedRoles:");
+  console.log(authorizedRoles);
   const parsedRole = useMemo(() => parsedAccessorRole(authorizedRoles[0]), [authorizedRoles]);
   const roles = getDropdownArray(parsedRole, toRole);
 
@@ -42,6 +44,12 @@ export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
       setIsLoading(false);
     });
   }, []);
+
+  // console.log("toRole", toRole);
+  // console.log("initialState:");
+  // console.log(initialState);
+  // console.log("parsedRole:");
+  // console.log(parsedRole);
 
   return (
     <>

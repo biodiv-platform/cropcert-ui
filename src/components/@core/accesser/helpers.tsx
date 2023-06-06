@@ -33,9 +33,12 @@ export const getDropdownArray = (fromRole: string, toRole: string): string[] => 
 export const getInitialOptionsAndValues = async (roles: string[]): Promise<{ options; values }> => {
   let options = {};
   let values = {};
+  console.log("roles:");
+  console.log(roles);
   for (const role of roles) {
     const opts = await getByRole(role);
     const initialRoleCode = getUserKey(`${role}Code`);
+    console.log(`initialRoleCode: ${initialRoleCode}`);
     options = { ...options, [role]: opts };
     values = {
       ...values,

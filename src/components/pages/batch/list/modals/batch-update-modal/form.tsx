@@ -45,7 +45,12 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
 
   const handleOnSubmit = async (payload) => {
     try {
-      const { success, data } = await axUpdateBatch({ ...payload, id: batch.id });
+      const updatedPayload = {
+        ...payload,
+        columnName: "Batch Status",
+      };
+      console.log("updated payload: ", updatedPayload);
+      const { success, data } = await axUpdateBatch({ ...updatedPayload, id: batch.id });
       if (success) {
         update(data);
         onClose();

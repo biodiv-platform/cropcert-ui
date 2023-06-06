@@ -10,7 +10,7 @@ export interface Activity {
   isDeleted?: boolean;
 }
 export interface Batch {
-  id?: number; // int64
+  _id?: string; // int64
   batchName?: string;
   ccCode?: number; // int64
   type?: "DRY" | "WET";

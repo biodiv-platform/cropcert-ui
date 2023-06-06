@@ -4,6 +4,9 @@ import { axListUnion } from "@services/union.service";
 import React from "react";
 
 function LotListPage({ unions }) {
+  console.log("unions");
+  console.log(unions);
+
   return (
     <RestrictedAccess>
       <LotListPageComponent unions={unions} />

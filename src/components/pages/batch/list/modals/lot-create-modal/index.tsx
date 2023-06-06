@@ -26,6 +26,9 @@ export default function BatchUpdateModal({ update }) {
     onClose();
   };
 
+  console.log("ye konsa data h?:");
+  console.log(data);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
       <ModalOverlay />

@@ -4,9 +4,10 @@ import notification from "@utils/notification";
 
 export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes`, {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/all/coCodes`, {
       params: { coCodes: coCodes.toString(), offset, limit },
     });
+
     return {
       success: true,
       data: res.data,
@@ -39,7 +40,8 @@ export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION
 
 export const axCreateLot = async (payload) => {
   try {
-    const { data } = await http.post(`${ENDPOINT.TRACEABILITY}/lot`, payload);
+    const { data } = await http.post(`${ENDPOINT.TRACEABILITY_MERN}/lot/new`, payload);
+    // const { data } = await http.post(`http://localhost:5500/lotinfo`, payload);
     return { success: true, data };
   } catch (e) {
     notification(e.message);

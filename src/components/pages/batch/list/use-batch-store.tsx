@@ -44,7 +44,7 @@ export function useBatchStore() {
   const updateBatch = (lot) => {
     console.log("lot from batch update: ", lot);
     setState((_draft) => {
-      console.log("old draft from batch update: ", _draft);
+      console.log("old draft from batch update: ", _draft.batch);
       const toUpdateIndex = _draft.batch.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
         _draft.batch[toUpdateIndex] = lot;

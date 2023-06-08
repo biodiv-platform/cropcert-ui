@@ -26,6 +26,12 @@ export interface Batch {
   lotId?: number; // int64
   batchStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   isDeleted?: boolean;
+  modalFieldCombined?: {
+    columnName: string;
+    isOptional: boolean;
+    fields: any;
+    modalFieldId: string;
+  }[];
 }
 export interface CoopActionData {
   id?: number; // int64

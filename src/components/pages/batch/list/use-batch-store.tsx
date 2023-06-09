@@ -22,8 +22,8 @@ export function useBatchStore() {
 
       return {
         ...arr,
-        lotStatus: "PENDING", // TODO: remove this
-        lotId: "123", // TODO: remove this
+        lotStatus: arr?.lotStatus,
+        lotId: arr?.lotId,
       };
     });
 

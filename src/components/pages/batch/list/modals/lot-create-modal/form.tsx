@@ -47,7 +47,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
         coCode: lotConfig.coCode,
         quantity: lotConfig.quantity,
         createdOn: values.creationDate,
-        batchIds: batches.map((b) => b.id),
+        batchIds: batches.map((b) => b._id),
       });
       if (success) {
         data.batches.map((b) => update({ ...b, lotStatus: data.lot.lotStatus }));
@@ -75,13 +75,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
               format="dd-MM-yyyy"
               min={highestDate}
             />
-            <Table
-              data={batches}
-              columns={[
-                ...lotCreateModalCols,
-                ...(lotConfig.type === BATCH_TYPE.WET ? lotCreateModalColsExtra : []),
-              ]}
-            />
+            <Table data={batches} columns={[...lotCreateModalCols]} />
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
                 <strong>Total</strong> {lotConfig.quantity} KG(s)

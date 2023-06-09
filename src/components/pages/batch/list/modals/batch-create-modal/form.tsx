@@ -63,7 +63,8 @@ export default function BatchCreateForm({ update, onClose }) {
     };
     const { success, data } = await axCreateBatch(formData);
     if (success) {
-      update(data);
+      const receivedData = data.batch;
+      update(receivedData); //TODO: handle farmers data just like lot and batch data
       onClose();
       notification(BATCH.CREATED, NotificationType.Success, data);
     }

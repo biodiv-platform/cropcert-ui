@@ -35,60 +35,62 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
   };
 
   // reducer to generate defaultValues and yupSchema dynamically
-  const formValues = fieldsObj.fields.reduce(
-    (acc, currField) => {
-      if (currField.fieldType === "input") {
-        const defaultValues = {
-          ...acc.defaultValues,
-          [currField.name]: currField.value,
-        };
+  const formValues =
+    fieldsObj &&
+    fieldsObj.fields.reduce(
+      (acc, currField) => {
+        if (currField.fieldType === "input") {
+          const defaultValues = {
+            ...acc.defaultValues,
+            [currField.name]: currField.value,
+          };
 
-        let yupSchema = {};
+          let yupSchema = {};
 
-        // condition for number field with min and max
-        if (currField.yupSchema === "numberFunc") {
-          const [min, max] = currField.yupSchemaArgs;
+          // condition for number field with min and max
+          if (currField.yupSchema === "numberFunc") {
+            const [min, max] = currField.yupSchemaArgs;
 
-          if (currField.required) {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
-            };
-          } else {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
-            };
+            if (currField.required) {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+              };
+            } else {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+              };
+            }
           }
-        }
-        // condition for remaining fields
-        else {
-          if (currField.required) {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: yupSchemaMapping[currField.yupSchema].required(),
-            };
-          } else {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: yupSchemaMapping[currField.yupSchema],
-            };
+          // condition for remaining fields
+          else {
+            if (currField.required) {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema].required(),
+              };
+            } else {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema],
+              };
+            }
           }
+
+          return {
+            defaultValues,
+            yupSchema,
+          };
         }
 
-        return {
-          defaultValues,
-          yupSchema,
-        };
+        return acc;
+      },
+      {
+        defaultValues: {},
+        yupSchema: {},
       }
-
-      return acc;
-    },
-    {
-      defaultValues: {},
-      yupSchema: {},
-    }
-  );
+    );
 
   const hForm = useForm<any>({
     mode: "onBlur",
@@ -117,7 +119,6 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
         columnName: "Batch Status",
         modalFieldId: batch.showModalById,
       };
-      console.log("updated payload: ", updatedPayload);
       const { success, data } = await axUpdateBatch({ ...updatedPayload, id: batch._id });
       if (success) {
         update(data);
@@ -176,7 +177,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                   Ready for Lot <Badge colorScheme="red">irreversible</Badge>
                 </span>
               }
-              isDisabled={!hForm.formState.isValid || batch.isReadyForLot}
+              isDisabled={batch.isReadyForLot || !hForm.formState.isValid}
             />
           </ModalBody>
           <ModalFooter>

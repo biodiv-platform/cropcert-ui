@@ -16,11 +16,9 @@ const VARIANT_MAPPING = {
 };
 
 export const createBatchColumns = (batch: Batch) => {
-  console.log("batch inside createBatchColumns --------------------", batch);
   if (batch) {
     const batchExtraColumns = batch.modalFieldCombined.reduce((acc, curr) => {
       const printCurrRow = (row) => {
-        console.log("row inside printCurrRow: ", row);
         return row;
       };
       return [
@@ -30,29 +28,28 @@ export const createBatchColumns = (batch: Batch) => {
           selector: (row) => row[curr.columnName],
           center: true,
           maxWidth: "100px",
-          cell: (row: Batch) =>
-            row.type === BATCH_TYPE.WET ? (
-              <Button
-                colorScheme={VARIANT_MAPPING[row.batchStatus as any]}
-                variant="outline"
-                minWidth="50px"
-                isDisabled={row.type === BATCH_TYPE.DRY}
-                size="xs"
-                onClick={() =>
-                  emit(BATCH_UPDATE, printCurrRow({ ...row, showModalById: curr.modalFieldId }))
-                }
-              >
-                {row.batchStatus}
-                {/* //TODO: change it too milling status */}
-              </Button>
-            ) : (
-              <NotApplicable />
-            ),
+          cell: (row: Batch) => (
+            <Button
+              colorScheme={VARIANT_MAPPING[row.batchStatus as any]}
+              variant="outline"
+              minWidth="50px"
+              // isDisabled={row.type === BATCH_TYPE.DRY} //TODO: use this for button based on batch type implementation
+              size="xs"
+              onClick={
+                () => emit(BATCH_UPDATE, printCurrRow({ ...row, showModalById: curr.modalFieldId }))
+                /*
+                Explanation:
+                In this code snippet, we are emitting a BATCH_UPDATE event and passing a modified row as a parameter to the printCurrRow function. The modification involves adding a new property called showModalById, which is assigned the value of curr.modalFieldId. It should be noted that curr.modalFieldId represents the identifier of the modal field in the first row of the batch table in the user interface. Based on this assumption, we assume that all rows in the batch table with the same ccCode will have the same modalFieldId. However, it's important for future developers to review this assumption and ensure its validity.
+                */
+              }
+            >
+              {row.batchStatus}
+              {/* //TODO: change it too milling status */}
+            </Button>
+          ),
         },
       ];
     }, []);
-
-    console.log("batchExtraColumns: ", batchExtraColumns);
 
     const batchColumns = [
       {

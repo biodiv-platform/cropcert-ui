@@ -4,7 +4,7 @@ import notification from "@utils/notification";
 
 export const axCreateBatch = async (body) => {
   try {
-    const res = await http.post(`${ENDPOINT.TRACEABILITY}/batch`, body);
+    const res = await http.post(`${ENDPOINT.TRACEABILITY_MERN}/batch/new`, body);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

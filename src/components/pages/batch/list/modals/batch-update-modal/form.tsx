@@ -49,7 +49,6 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
         ...payload,
         columnName: "Batch Status",
       };
-      console.log("updated payload: ", updatedPayload);
       const { success, data } = await axUpdateBatch({ ...updatedPayload, id: batch.id });
       if (success) {
         update(data);

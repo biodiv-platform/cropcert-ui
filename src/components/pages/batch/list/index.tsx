@@ -59,12 +59,10 @@ function BatchListPageComponent() {
     const ccIds = [...new Set(selectedBatches.map((b) => b.ccCode))];
     const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
     const quantity = selectedBatches.reduce(
-      (acc, cv) =>
-        (selectedBatches.length && selectedBatches[0].type === BATCH_TYPE.DRY
-          ? cv.quantity
-          : cv.perchmentQuantity) + acc,
+      (acc, cv) => selectedBatches.length && cv.quantity + acc,
       0
     );
+
     const payload = {
       name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
       type: selectedBatches[0].type,
@@ -72,6 +70,7 @@ function BatchListPageComponent() {
       coCode: co.value,
       quantity,
     };
+
     emit(LOT_CREATE, payload);
   };
 
@@ -110,8 +109,6 @@ function BatchListPageComponent() {
     onToggle();
     actions.updateBatch(props);
   };
-
-  console.log("batchData", state.batch);
 
   // Generate dynamic batchColumns based on state.batch
   const batchColumns =

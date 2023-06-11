@@ -7,7 +7,7 @@ import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { lotColumns } from "./data";
+import { lotColumns, createLotColumns } from "./data";
 import LotExpand from "./expand";
 import LotCoDispatchModal from "./modals/lot-co-dispatch-modal";
 import CuppingReportModal from "./modals/lot-cupping-report";
@@ -16,32 +16,29 @@ import FactoryReportDry from "./modals/lot-factory-report/factory-report-dry";
 import FactoryReportWet from "./modals/lot-factory-report/factory-report-wet";
 import GreenReportModal from "./modals/lot-green-report";
 import LotGRNModal from "./modals/lot-grn-modal";
+import LotReportUpdate from "./modals/lot-report-update";
 import { useLotStore } from "./use-lot-store";
 
 function LotListPageComponent({ unions }) {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
-  const [lotData, setLotData] = useState<any>([]);
   const lotStore = useLotStore();
 
   const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
-  const fetchLotData = async () => {
-    const res = await fetch(`http://localhost:5500/${"645774053e1875e3bd793978"}/lotinfo`);
-    const json = await res.json();
-    setLotData(json);
-  };
-
   useEffect(() => {
-    fetchLotData();
     console.log("cocodes", coCodes);
     coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
-  }, [coCodes]);
 
-  console.log("lotData", lotData);
+    coCodes.length && console.log(Array.isArray(lotStore.state.lot));
+  }, [coCodes]);
 
   console.log("list of unions");
   console.log(unions);
+
+  console.log("list of lots");
+  // Generate dynamic batchColumns based on state.batch
+  const lotExtraColumns = createLotColumns(lotStore.state);
 
   return (
     <Container>
@@ -54,7 +51,7 @@ function LotListPageComponent({ unions }) {
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
           <Table
             data={lotStore.state.lot}
-            columns={lotColumns}
+            columns={[...lotColumns, ...lotExtraColumns]}
             expandableRows={true}
             customStyles={{
               cells: {
@@ -76,6 +73,7 @@ function LotListPageComponent({ unions }) {
       <GreenReportModal update={lotStore.updateLot} />
       <CuppingReportModal update={lotStore.updateLot} />
       <LotGRNModal update={lotStore.updateLot} />
+      <LotReportUpdate update={lotStore.updateLot} />
     </Container>
   );
 }

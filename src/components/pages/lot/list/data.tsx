@@ -9,9 +9,7 @@ import {
   LOT_DISPATCH_FACTORY,
   LOT_FACTORY_PROCESS,
   LOT_GRN,
-  LOT_REPORT_CUPPING,
-  LOT_REPORT_FACTORY,
-  LOT_REPORT_GREEN,
+  LOT_REPORT_UPDATE,
 } from "@static/events";
 import React from "react";
 import { emit } from "react-gbus";
@@ -69,68 +67,132 @@ const MillingActionCell = (lot: Lot) => {
   );
 };
 
-const LotFactoryActionCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.factoryStatus, ROLES.UNION);
-  const isDone = lot.factoryStatus === LOT_FLAGS.DONE;
-
-  return show && (canWrite || isDone) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(`${LOT_REPORT_FACTORY}_${lot.type}`, { lot, canWrite })}
-    >
-      {lot.factoryStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
-
-const GreenLabReportCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
-  const isDone = lot.greenAnalysisStatus === LOT_FLAGS.DONE;
-
-  return show && (canWrite || isDone) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(LOT_REPORT_GREEN, { lot, canWrite })}
-    >
-      {lot.greenAnalysisStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
-
-const CuppingLabReportCell = (lot: Required<Lot>) => {
-  const { user } = useGlobalState();
-  const currentCupper = user.email;
-  const currentReport = lot.cuppings.find((r) => r.cupper === currentCupper);
-  const withSkeletonReport = currentReport || {
-    status:
-      lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
+export const createLotColumns = (lot2) => {
+  const lot = {
+    _id: "6485c79993e32a012a24d1f1",
+    product: "645774053e1875e3bd793978",
+    lotName: "Busalya_W_28-05-2023_1f1",
+    type: "WET",
+    coCode: 6,
+    quantity: 6,
+    createdOn: "2023-06-11T13:09:45.608Z",
+    deleted: false,
+    lotStatus: "AT_CO_OPERATIVE",
+    modalFieldCombined: [
+      {
+        modalFieldId: "6457c8497b5610f0a0214fb7",
+        isOptional: false,
+        product: "645774053e1875e3bd793978",
+        columnName: "GRN",
+        fields: [
+          {
+            fieldType: "Title",
+            value: "GRN details",
+            width: "FULL",
+          },
+          {
+            fieldType: "input",
+            inputType: "Text",
+            value: "",
+            width: "FULL",
+            label: "GRN Name",
+            name: "GRN_Name",
+          },
+        ],
+        isSaved: false,
+        __v: 0,
+        fieldsOf: "LOT",
+        columnStatus: "ADD",
+      },
+      {
+        modalFieldId: "64587f48c117cd33cd18ed9a",
+        isOptional: false,
+        product: "645774053e1875e3bd793978",
+        columnName: "milling",
+        fields: [
+          {
+            fieldType: "Title",
+            value: "Milling details",
+            width: "FULL",
+          },
+          {
+            fieldType: "input",
+            inputType: "Text",
+            value: "",
+            width: "FULL",
+            label: "Add miiling details",
+            name: "milling_details",
+          },
+          {
+            fieldType: "input",
+            inputType: "Text",
+            value: "",
+            width: "FULL",
+            label: "Add corporative details",
+            name: "corporative_details",
+          },
+        ],
+        isSaved: false,
+        __v: 0,
+        fieldsOf: "LOT",
+        columnStatus: "ADD",
+      },
+    ],
+    lotId: "001",
+    __v: 0,
   };
-  const { canWrite, colorScheme, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
-  const atLeastOneDoneReport = lot.cuppings.find((o) => o.status === LOT_FLAGS.DONE);
 
-  return show && (canWrite || atLeastOneDoneReport) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={canWrite ? colorScheme : "green"}
-      onClick={() =>
-        emit(LOT_REPORT_CUPPING, {
-          lot,
-          currentReport: canWrite ? currentReport : atLeastOneDoneReport,
-          canWrite,
-        })
-      }
-    >
-      {canWrite ? withSkeletonReport.status : LOT_FLAGS.DONE}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
+  if (lot) {
+    const lotExtraColumns = lot.modalFieldCombined.reduce((acc, curr) => {
+      const printCurrRow = (updatedLot, canWrite) => {
+        console.log("updatedLot");
+        console.log(updatedLot);
+
+        console.log("canWrite");
+        console.log(canWrite);
+        return { updatedLot, canWrite };
+      };
+
+      const ButtonComponent = (row) => {
+        const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
+
+        const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+        const isDone = data?.columnStatus === LOT_FLAGS.DONE;
+
+        const updatedLot = {
+          ...row,
+          currentColumnStatus: data?.columnStatus,
+        };
+
+        return show && (canWrite || isDone) ? (
+          <Button
+            {...buttonProps}
+            colorScheme={colorScheme}
+            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite))}
+          >
+            {data?.columnStatus}
+          </Button>
+        ) : (
+          <NotApplicable />
+        );
+      };
+
+      return [
+        ...acc,
+        {
+          name: curr.columnName,
+          selector: (row) => row[curr.columnName],
+          center: true,
+          maxWidth: "100px",
+          cell: ButtonComponent,
+        },
+      ];
+    }, []);
+
+    console.log("lotExtraColumns");
+    console.log(lotExtraColumns);
+    return lotExtraColumns;
+  }
 };
 
 export const lotColumns = [
@@ -179,24 +241,12 @@ export const lotColumns = [
     center: true,
     cell: GRNActionCell,
   },
-  {
-    name: "Factory Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: LotFactoryActionCell,
-  },
-  {
-    name: "Green Lab Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: GreenLabReportCell,
-  },
-  {
-    name: "Cupping Lab Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: CuppingLabReportCell,
-  },
+  // {
+  //   name: "Cupping Lab Report",
+  //   selector: (row) => row.id,
+  //   center: true,
+  //   cell: CuppingLabReportCell,
+  // },
 ];
 
 export const batchColumns = [

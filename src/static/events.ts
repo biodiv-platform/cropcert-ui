@@ -9,6 +9,7 @@ export const LOT_REPORT_FACTORY_DRY = "LOT_REPORT_FACTORY_DRY";
 export const LOT_REPORT_FACTORY_WET = "LOT_REPORT_FACTORY_WET";
 export const LOT_REPORT_GREEN = "LOT_REPORT_GREEN";
 export const LOT_REPORT_CUPPING = "LOT_REPORT_CUPPING";
+export const LOT_REPORT_UPDATE = "LOT_REPORT_UPDATE";
 export const UPLOAD_ALL_INSPECTION = "UPLOAD_ALL_INSPECTION";
 export const ACTIVITY_UPDATED = "activity_updated";
 export const EXIF_GPS_FOUND = "exif_gps_found";

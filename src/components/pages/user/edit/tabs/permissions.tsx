@@ -71,10 +71,10 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
     },
   });
 
-  const getRoleValueByLabel = (arr, label) => {
-    for (const obj of arr) {
-      if (obj.label === label) {
-        return obj.value;
+  const getRoleValueByLabel = (rolesArray, userRole) => {
+    for (const role of rolesArray) {
+      if (role.userRole === userRole) {
+        return role.value;
       }
     }
   };

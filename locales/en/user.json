@@ -1,5 +1,6 @@
 {
   "about": "About",
+  "app_user_update_error": "Cannot delete app user without deleting projects",
   "autofill_with_google": "Autofill with Google",
   "change_password": "Change Password",
   "confirm_new_password": "Confirm New Password",
@@ -78,6 +79,5 @@
   "verify_through": "Since you have provided email and mobile number both how would you like to verify your account?",
   "view_all": "View All",
   "website": "Website",
-  "with_media": "With Media",
-  "app_user_update_error":"Cannot delete app user without deleting projects"
+  "with_media": "With Media"
 }

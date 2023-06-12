@@ -4,12 +4,12 @@
     "create_web_user": "Create Web User",
     "enable_web_user": "Enable Web User",
     "odk_permission": "ODK User Permission",
+    "project_delete_fail": "Unable to Delete the Project",
+    "project_delete_sucess": "Project Deleted Successfully",
     "project_select": "Please select a project to create App user",
     "project_title": "Project Title",
     "project_unable": "Unable to create App user",
-    "see_code": "See Code",
-    "project_delete_sucess":"Project Deleted Successfully",
-    "project_delete_fail":"Unable to Delete the Project"
+    "see_code": "See Code"
   },
   "actions": {
     "flag": {
@@ -24,8 +24,11 @@
       "title": "Flag"
     },
     "odk": {
-      "title": "Login to ROBUST Web platform as webuser",
-      "qrCode": "QR Code"
+      "odkAppuser": "ODK appuser",
+      "odkWebuser": "ODK webuser",
+      "qrCode": "QR Code",
+      "qrCodeHelpText": "This QR Code will help you set up the project in the ODK Collect app on your mobile.",
+      "title": "Login to ROBUST Web platform as webuser"
     },
     "title": "Activity"
   },

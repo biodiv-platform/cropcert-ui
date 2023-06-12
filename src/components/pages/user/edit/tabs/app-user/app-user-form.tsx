@@ -28,6 +28,9 @@ export default function AppAppUser({ setIsCreate, projectList, setProjectId }) {
     setProjectId(projectForm.getValues("projectId"));
   };
 
+  const mapProjectList = (projectList) =>
+    projectList.map((item) => ({ label: item.name, value: item.id }));
+
   return (
     <FormProvider {...projectForm}>
       <form className="fade">
@@ -43,7 +46,7 @@ export default function AppAppUser({ setIsCreate, projectList, setProjectId }) {
         <SelectInputField
           isRequired={true}
           name="projectId"
-          options={projectList.map((item) => ({ label: item.name, value: item.id }))}
+          options={mapProjectList(projectList)}
           label={t("common:select_project")}
           shouldPortal={true}
           onChangeCallback={projectForm.handleSubmit(handleFormSubmit)}

@@ -65,7 +65,7 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
           <ModalBody>
             {isOdkWebUser && (
               <Heading size="sm" mb={3}>
-                <b>ODK webuser</b>
+                {t("common:actions.odk.odkWebuser")}
                 <Stat>
                   <StatHelpText fontSize="md" mb={0}>
                     <Link href={`${odkLink}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
@@ -78,12 +78,9 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
             {userAppProjectList?.length > 0 && (
               <>
                 <p style={{ minWidth: "550px", marginTop: "10px" }}>
-                  <b>ODK appuser</b>
+                  <b>{t("common:actions.odk.odkAppuser")}</b>
                 </p>
-                <p>
-                  This QR Code will help you set up the project in the ODK Collect app on your
-                  mobile.
-                </p>
+                <p>{t("common:actions.odk.qrCodeHelpText")}</p>
 
                 <table
                   style={{ minWidth: "550px", marginTop: "10px" }}

@@ -2,6 +2,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { DEFAULT_PASSWORD_LENGTH } from "@static/constants";
 import { generatePassword } from "@utils/basic";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
@@ -11,7 +12,7 @@ import * as Yup from "yup";
 export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
   const { t } = useTranslation();
 
-  const [password] = useState(generatePassword(10));
+  const [password] = useState(generatePassword(DEFAULT_PASSWORD_LENGTH));
 
   useEffect(() => {
     setPassword(password);

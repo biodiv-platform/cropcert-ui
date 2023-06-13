@@ -41,7 +41,7 @@ function BatchListPageComponent() {
 
   useEffect(() => {
     if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(true);
+      setHideAccessor(false);
       setCCs([0]); // dummy cc
     }
   }, []);

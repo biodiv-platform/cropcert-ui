@@ -120,8 +120,8 @@ export const axUpdateGRN = async (payload) => {
 
 export const axGetLotById = async (lotId, ctx?) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/show`, {
-      params: { ctx, lotId },
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/${lotId}`, {
+      params: { ctx },
     });
     return { success: true, data };
   } catch (e) {

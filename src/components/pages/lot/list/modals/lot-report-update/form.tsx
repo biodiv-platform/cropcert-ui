@@ -9,21 +9,21 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@chakra-ui/react";
+import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
-import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { axUpdateLot } from "@services/lot.service";
+import { MLOT } from "@static/messages";
 import { isEverythingFilledExcept } from "@utils/basic";
+import { yupSchemaMapping } from "@utils/form";
+import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
-import { yupSchemaMapping } from "@utils/form";
-import { MLOT } from "@static/messages";
-import notification, { NotificationType } from "@utils/notification";
-import { axUpdateLot } from "@services/lot.service";
 
 export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDone, update }) {
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);
@@ -129,37 +129,50 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
         <ModalContent>
+          {fieldsObj.fields.map((field, index) => {
+            if (field.fieldType === "Title") {
+              return (
+                <ModalHeader key={index} px={5}>
+                  {field.value}
+                </ModalHeader>
+              );
+            } else if (field.fieldType === "SubTitle") {
+              return (
+                <div className="flex gap-2 justify-center text-black" key={index}>
+                  <h2 className="text-sm">{field.value}</h2>
+                </div>
+              );
+            }
+          })}
           <ModalCloseButton />
           <ModalBody>
             {/* dynamic Fields */}
-            {fieldsObj.fields.map((field, index) => {
-              if (field.fieldType === "input") {
-                return (
-                  <TextBoxField
-                    mb={2}
-                    name={field.name}
-                    id={field.name}
-                    label={field.label}
-                    placeholder={field.label}
-                    type={field.type}
-                    key={index}
-                    disabled={isFormReadOnly}
-                  />
-                );
-              } else if (field.fieldType === "Title") {
-                return (
-                  <ModalHeader key={index} px={0}>
-                    {field.value}
-                  </ModalHeader>
-                );
-              } else if (field.fieldType === "SubTitle") {
-                return (
-                  <div className="flex gap-2 justify-center text-black" key={index}>
-                    <h2 className="text-sm">{field.value}</h2>
-                  </div>
-                );
-              }
-            })}
+            <CoreGrid rows={2}>
+              {fieldsObj.fields.map((field, index) => {
+                if (field.fieldType === "input") {
+                  return (
+                    <TextBoxField
+                      mb={2}
+                      name={field.name}
+                      id={field.name}
+                      label={field.label}
+                      placeholder={field.label}
+                      type={field.type}
+                      key={index}
+                      disabled={isFormReadOnly}
+                    />
+                  );
+                }
+              })}
+            </CoreGrid>
+            <CoreGrid rows={2}>
+              <NumberInputField name="weightArrivingFactory" label="Weight Arriving Factory" />
+              <NumberInputField
+                name="mcArrivingFactory"
+                label="Moisture Content Arriving Factory"
+              />
+              <NumberInputField name="weightLeavingFactory" label="Weight Leaving Factory" />
+            </CoreGrid>
             <CheckBoxField
               name="finalizeLotColumn"
               label={

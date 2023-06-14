@@ -9,6 +9,7 @@ import LotCuppingReport from "./lot-cupping";
 import LotGreenReport from "./lot-green";
 import LotInfo from "./lot-info";
 import { Timeline } from "./timeline";
+import LotFarmerProduce from "./lot-farmeProduce";
 
 interface ILotShowProps {
   lot: Lot;
@@ -24,10 +25,11 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
       <PageHeading>📦 {show.lot.lotName}</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <LotInfo lot={show.lot} />
-        <LotBatches lotId={show.lot.id} />
-        <LotGreenReport reports={show.quality_report} />
-        <LotCuppingReport reports={show.cupping_report} />
-        <Timeline activities={show.activities} />
+        {show.batches && <LotBatches rows={show.batches} />}
+        {show.farmerProduceIds && <LotFarmerProduce rows={show.farmerProduceIds} />}
+        {/* <LotGreenReport reports={show.quality_report} />
+        <LotCuppingReport reports={show.cupping_report} /> */}
+        {/* <Timeline activities={show.activities} /> */}
       </Accordion>
     </Container>
   );

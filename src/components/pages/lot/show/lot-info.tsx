@@ -1,3 +1,5 @@
+import { Badge } from "@chakra-ui/react";
+
 import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
 import tooltipCell from "@components/@core/table/tooltip-cell";
@@ -21,9 +23,9 @@ export default function LotInfo({ lot }) {
       cell: (row) => timeCell(row.createdOn),
     },
     {
-      name: "GRN",
-      selector: (row) => row["grnNumber"],
-      cell: (row) => tooltipCell(row.grnNumber),
+      name: "Lot Status",
+      selector: (row) => row["lotStatus"],
+      cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
     },
     {
       name: "Note",
@@ -34,7 +36,7 @@ export default function LotInfo({ lot }) {
 
   return (
     <LotShowPanel icon="ℹ️" title="Information" isOpen={true}>
-      <DataTable keyField="id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
+      <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
     </LotShowPanel>
   );
 }

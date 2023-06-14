@@ -1,7 +1,7 @@
 import {
   Badge,
-  Button,
   ModalBody,
+  Button,
   ModalCloseButton,
   ModalContent,
   ModalFooter,

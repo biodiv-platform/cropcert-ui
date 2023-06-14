@@ -15,7 +15,7 @@ const VARIANT_MAPPING = {
   DONE: "green",
 };
 
-export const createBatchColumns = (batch: Batch) => {
+export const createBatchColumns = (batch: any) => {
   if (batch) {
     const batchExtraColumns = batch.modalFieldCombined.reduce((acc, curr) => {
       const printCurrRow = (row) => {

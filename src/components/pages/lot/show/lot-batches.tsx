@@ -1,18 +1,18 @@
+import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
-import { axListBatchByLotId } from "@services/lot.service";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import LotShowPanel from "./panel";
 
-export default function LotBatches({ lotId }) {
+export default function LotBatches({ rows }) {
   const batchColumns = [
     {
       name: "#",
-      selector: (row) => row["id"],
+      selector: (row) => row["batchId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `B-${row.id}`,
+      cell: (row) => `B-${row.batchId}`,
     },
     {
       name: "Name",
@@ -33,15 +33,9 @@ export default function LotBatches({ lotId }) {
     },
     {
       name: "Last Updated",
-      selector: (row) => row["date"],
-      maxWidth: "150px",
-      cell: (row) => timeCell(row.date),
-      sortable: true,
-    },
-    {
-      name: "Perchment Quantity",
-      selector: (row) => row["perchmentQuantity"],
-      maxWidth: "100px",
+      selector: (row) => row["lastUpdatedOn"],
+      maxWidth: "180px",
+      cell: (row) => timeCell(row.lastUpdatedOn),
       sortable: true,
     },
     {
@@ -50,17 +44,10 @@ export default function LotBatches({ lotId }) {
     },
     {
       name: "Lot Status",
-      selector: (row) => row["lotId"],
+      selector: (row) => row["lotStatus"],
+      cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
     },
   ];
-
-  const [rows, setRows] = useState([] as any);
-
-  useEffect(() => {
-    axListBatchByLotId(lotId).then((props) => {
-      setRows(props.data);
-    });
-  }, [lotId]);
 
   return (
     <LotShowPanel icon="🧺" title="Batch(s)" count={rows.length}>

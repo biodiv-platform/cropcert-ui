@@ -74,10 +74,6 @@ function BatchListPageComponent() {
     emit(LOT_CREATE, payload);
   };
 
-  const handleOnCreateBatch = () => {
-    emit(BATCH_CREATE, null);
-  };
-
   const ActionButtons = () => (
     <ButtonGroup spacing={4}>
       <Button
@@ -92,15 +88,6 @@ function BatchListPageComponent() {
         leftIcon={<AddIcon />}
       >
         Create Lot
-      </Button>
-      <Button
-        colorScheme="blue"
-        variant="solid"
-        onClick={handleOnCreateBatch}
-        isDisabled={!hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)}
-        leftIcon={<AddIcon />}
-      >
-        Create Batch
       </Button>
     </ButtonGroup>
   );

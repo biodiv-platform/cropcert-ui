@@ -54,10 +54,10 @@ export const createBatchColumns = (batch: Batch) => {
     const batchColumns = [
       {
         name: "#",
-        selector: (row) => row["_id"],
+        selector: (row) => row["batchId"],
         maxWidth: "100px",
         sortable: true,
-        cell: (row) => `B-${row._id.slice(-3)}`,
+        cell: (row) => `B-${row.batchId}`,
       },
       {
         name: "Name",

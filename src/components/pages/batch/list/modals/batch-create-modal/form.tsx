@@ -65,8 +65,8 @@ export default function BatchCreateForm({ update, onClose }) {
     if (success) {
       const receivedData = data.batch;
       update(receivedData); //TODO: handle farmers data just like lot and batch data
+      notification(BATCH.CREATED, NotificationType.Success, data.batch);
       onClose();
-      notification(BATCH.CREATED, NotificationType.Success, data);
     }
   };
 

@@ -30,7 +30,7 @@ export default function LotReportUpdate({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false}>
+    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size={"xl"}>
       <ModalOverlay />
       {lot && (
         <LotGRNForm

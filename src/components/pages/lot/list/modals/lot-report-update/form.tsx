@@ -164,14 +164,6 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                 }
               })}
             </CoreGrid>
-            <CoreGrid rows={2}>
-              <NumberInputField name="weightArrivingFactory" label="Weight Arriving Factory" />
-              <NumberInputField
-                name="mcArrivingFactory"
-                label="Moisture Content Arriving Factory"
-              />
-              <NumberInputField name="weightLeavingFactory" label="Weight Leaving Factory" />
-            </CoreGrid>
             <CheckBoxField
               name="finalizeLotColumn"
               label={

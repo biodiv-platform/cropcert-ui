@@ -1,12 +1,15 @@
 import {
   Badge,
+  Box,
   Button,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Text,
 } from "@chakra-ui/react";
+import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
@@ -119,35 +122,20 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
         <ModalContent>
-          <ModalHeader pb={0}>
-            Update Batch
-            <br />
-            {batch && batch.batchName}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {/* dynamic Fields */}
-            {fieldsObj.fields.map((field, index) => {
-              if (field.fieldType === "input") {
+          {fieldsObj &&
+            fieldsObj.fields.map((field, index) => {
+              if (field.fieldType === "Title") {
                 return (
-                  <TextBoxField
-                    mb={0}
-                    name={field.name}
-                    id={field.name}
-                    label={field.label}
-                    placeholder={field.label}
-                    type={field.type}
-                    key={index}
-                    disabled={batch.isReadyForLot}
-                  />
-                );
-              } else if (field.fieldType === "Title") {
-                return (
-                  <div className="flex gap-2 justify-center text-black" key={index}>
-                    <ModalHeader pb={0} px={0}>
-                      {field.value}
-                    </ModalHeader>
-                  </div>
+                  <ModalHeader key={index} px={5}>
+                    {field.value}
+                    <br />
+                    <Box>
+                      <Text fontSize="md">Batch Name: {batch && batch.batchName}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="sm">Batch Quantity: {batch && batch.quantity}(Kgs)</Text>
+                    </Box>
+                  </ModalHeader>
                 );
               } else if (field.fieldType === "SubTitle") {
                 return (
@@ -157,8 +145,43 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                 );
               }
             })}
+          <ModalCloseButton />
+          <ModalBody>
+            {/* dynamic Fields */}
+            <CoreGrid rows={2}>
+              {fieldsObj.fields.map((field, index) => {
+                if (field.fieldType === "input") {
+                  return (
+                    <TextBoxField
+                      mb={0}
+                      name={field.name}
+                      id={field.name}
+                      label={field.label}
+                      placeholder={field.label}
+                      type={field.type}
+                      key={index}
+                      disabled={batch.isReadyForLot}
+                    />
+                  );
+                } else if (field.fieldType === "auto") {
+                  return (
+                    <TextBoxField
+                      mb={0}
+                      name={field.name}
+                      id={field.name}
+                      label={field.label}
+                      placeholder={"40%"}
+                      type={field.type}
+                      key={index}
+                      disabled={true}
+                    />
+                  );
+                }
+              })}
+            </CoreGrid>
             <CheckBoxField
               name="finalizeBatch"
+              mt={2}
               label={
                 <span>
                   Ready for Lot <Badge colorScheme="red">irreversible</Badge>

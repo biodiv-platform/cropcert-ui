@@ -1,5 +1,4 @@
 import { Badge } from "@chakra-ui/react";
-
 import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
 import tooltipCell from "@components/@core/table/tooltip-cell";

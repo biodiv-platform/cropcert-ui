@@ -117,7 +117,7 @@ function FarmerListPageComponent() {
       <PageHeading actions={<ActionButtons />}>🚜 Farmer Collection(s)</PageHeading>
 
       <CoreGrid hidden={hideAccessor}>
-        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatch} />
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />
         <Box>
           <CCMultiSelect coId={co?.value} onChange={setCCs} />
         </Box>

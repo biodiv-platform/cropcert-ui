@@ -5,11 +5,8 @@ import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability"
 import React from "react";
 
 import LotBatches from "./lot-batches";
-import LotCuppingReport from "./lot-cupping";
-import LotGreenReport from "./lot-green";
-import LotInfo from "./lot-info";
-import { Timeline } from "./timeline";
 import LotFarmerProduce from "./lot-farmeProduce";
+import LotInfo from "./lot-info";
 
 interface ILotShowProps {
   lot: Lot;
@@ -17,6 +14,8 @@ interface ILotShowProps {
   cupping_report: Cupping[];
   quality_report: QualityReport[];
   users: any[];
+  batches: any[];
+  farmerProduceIds: any[];
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {

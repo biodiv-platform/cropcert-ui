@@ -24,7 +24,7 @@ export function useLotStore() {
 
   const updateLot = (lot) => {
     setState((_draft) => {
-      const toUpdateIndex = _draft.lot.findIndex((o) => o.id === lot.id);
+      const toUpdateIndex = _draft.lot.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
         _draft.lot[toUpdateIndex] = lot;
       }

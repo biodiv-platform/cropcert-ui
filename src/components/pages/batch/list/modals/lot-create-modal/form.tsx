@@ -29,7 +29,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
     mode: "onBlur",
     resolver: yupResolver(
       Yup.object().shape({
-        creationDate: Yup.number().nullable(),
+        creationDate: Yup.number().nullable().required(),
       })
     ),
     defaultValues: {
@@ -46,7 +46,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
         type: lotConfig.type,
         coCode: lotConfig.coCode,
         quantity: lotConfig.quantity,
-        createdOn: values.creationDate,
+        createdOn: payload.creationDate,
         batchIds: batches.map((b) => b._id),
       });
       if (success) {

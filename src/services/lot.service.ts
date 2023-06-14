@@ -21,6 +21,16 @@ export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) =
   }
 };
 
+export const axUpdateLot = async (payload) => {
+  try {
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY_MERN}/lot/${payload.id}`, payload);
+    return { success: true, data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};
+
 export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
     const res = await plainHttp.get(`${ENDPOINT.TRACEABILITY}/lot/all/marketing`, {
@@ -51,7 +61,8 @@ export const axCreateLot = async (payload) => {
 
 export const axListBatchByLotId = async (lotId) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/batches`, {
+    console.log("lotId from api call", lotId);
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/batches`, {
       params: { lotId },
     });
     return { success: true, data };

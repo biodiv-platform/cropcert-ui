@@ -10,11 +10,12 @@ export const SIGN_IN = {
 export const BATCH = {
   UPDATED: "Batch updated successfully",
   MULTIPLE_TYPE_SELECTED: "You have selected wet and dry both types of batches",
-  CREATED: "Batch ${shortId}. ${batchName} created successfully",
+  CREATED: "Batch ${batchId}. ${batchName} created successfully",
 };
 
 export const MLOT = {
-  CREATED: "Lot ${shortId}. ${lotName} created successfully",
+  CREATED: "Lot ${lotId}. ${lotName} created successfully",
+  UPDATED: "Lot updated successfully",
   FACTORY_REPORT_CREATED: "Factory Report ${id} created/updated successfully",
   GREEN_REPORT_CREATED: "Green Report ${id} created/updated successfully",
 };

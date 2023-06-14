@@ -13,7 +13,7 @@ function LotExpand(props) {
   const columns = [...batchColumns, ...(props.data.type === BATCH_TYPE.WET ? batchColumnsWet : [])];
 
   useEffect(() => {
-    axListBatchByLotId(props.data.id).then(({ data }) => {
+    axListBatchByLotId(props.data._id).then(({ data }) => {
       setBatchList(data);
       onOpen();
     });

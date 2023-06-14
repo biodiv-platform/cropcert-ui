@@ -18,10 +18,10 @@ const VARIANT_MAPPING = {
 export const batchColumns = [
   {
     name: "#",
-    selector: (row) => row["farmerId"],
+    selector: (row) => row["farmerProduceId"],
     maxWidth: "100px",
     sortable: true,
-    cell: (row) => `MIT-${row.farmerId}`,
+    cell: (row) => `FP-${row.farmerProduceId}`,
   },
   {
     name: "Name",
@@ -36,8 +36,8 @@ export const batchColumns = [
   //   sortable: true,
   // },
   {
-    name: "Region",
-    selector: (row) => row["region"],
+    name: "Collection Date",
+    selector: (row) => row["collectionDate"],
     maxWidth: "150px",
     sortable: true,
   },
@@ -53,13 +53,26 @@ export const batchColumns = [
     maxWidth: "250px",
     sortable: true,
   },
+  {
+    name: "Farmer ID",
+    selector: (row) => row["farmerId"],
+    maxWidth: "100px",
+    sortable: true,
+    cell: (row) => `${row.farmerId}`,
+  },
 ];
 
 export const lotCreateModalCols = [
   {
+    name: "#",
+    selector: (row) => row["farmerProduceId"],
+    width: "100px",
+    cell: (row) => `FP-${row.farmerProduceId}`,
+  },
+  {
     name: "Name",
-    selector: (row) => row["batchName"],
-    width: "280px",
+    selector: (row) => row["farmerName"],
+    width: "200px",
   },
   {
     name: "Quantity",

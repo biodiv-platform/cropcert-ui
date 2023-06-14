@@ -27,7 +27,7 @@ function FarmerListPageComponent() {
   const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
-  const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
+  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const [hideAccessor, setHideAccessor] = useState<boolean>();
 
@@ -51,22 +51,22 @@ function FarmerListPageComponent() {
   };
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
-    setSelectedBatches(selectedRows);
+    setSelectedFarmerProduce(selectedRows);
     setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
   };
 
   const handleOnCreateLot = () => {
-    const ccIds = [...new Set(selectedBatches.map((b) => b.ccCode))];
+    const ccIds = [...new Set(selectedFarmerProduce.map((b) => b.ccCode))];
     const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
-    const quantity = selectedBatches.reduce(
-      (acc, cv) => selectedBatches.length && cv.quantity + acc,
+    const quantity = selectedFarmerProduce.reduce(
+      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
       0
     );
 
     const payload = {
-      name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
-      type: selectedBatches[0].type,
-      selected: selectedBatches,
+      name: `${prefix}_${selectedFarmerProduce[0].type.charAt(0).toUpperCase()}_`,
+      type: selectedFarmerProduce[0].type,
+      selected: selectedFarmerProduce,
       coCode: co.value,
       quantity,
     };
@@ -75,22 +75,56 @@ function FarmerListPageComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    emit(BATCH_CREATE, null);
+    const prefix = "Busalya";
+    const quantity = selectedFarmerProduce.reduce(
+      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
+      0
+    );
+
+    const payload = {
+      name: `${prefix}_D_`,
+      type: "Dry",
+      selected: selectedFarmerProduce,
+      coCode: co.value,
+      quantity,
+    };
+    emit(BATCH_CREATE, payload);
   };
 
-  const ActionButtons = () => (
-    <ButtonGroup spacing={4}>
-      <Button
-        colorScheme="blue"
-        variant="solid"
-        onClick={handleOnCreateBatch}
-        isDisabled={!hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)}
-        leftIcon={<AddIcon />}
-      >
-        Create Batch
-      </Button>
-    </ButtonGroup>
-  );
+  const ActionButtons = () => {
+    const quantity = selectedFarmerProduce.reduce(
+      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
+      0
+    );
+    return (
+      <ButtonGroup spacing={4}>
+        <Box
+          display="flex"
+          alignItems="center"
+          hidden={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          Selected Quantity: {quantity}(Kgs)
+        </Box>
+        <Button
+          colorScheme="blue"
+          variant="solid"
+          onClick={handleOnCreateBatch}
+          isDisabled={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+          leftIcon={<AddIcon />}
+        >
+          Create Batch
+        </Button>
+      </ButtonGroup>
+    );
+  };
 
   const onFarmerUpdate = (props) => {
     onToggle();
@@ -101,7 +135,7 @@ function FarmerListPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🚜 Farmer(s)</PageHeading>
+      <PageHeading actions={<ActionButtons />}>🚜 Farmer Collection(s)</PageHeading>
 
       <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatch} />
@@ -114,10 +148,12 @@ function FarmerListPageComponent() {
 
       <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
         <Table
-          data={state.farmer}
+          data={state.farmer.filter(
+            (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+          )}
           columns={batchColumns}
           selectableRows={true}
-          selectableRowDisabled={(r) => !r.isReadyForLot || r.lotId}
+          selectableRowDisabled={(r) => r.batchId}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
           conditionalRowStyles={[
@@ -132,7 +168,7 @@ function FarmerListPageComponent() {
         />
       </InfiniteScroll>
 
-      <BatchCreateModal update={actions.addFarmer} />
+      <BatchCreateModal update={onFarmerUpdate} />
     </Box>
   );
 }

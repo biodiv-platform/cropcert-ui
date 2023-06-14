@@ -6,8 +6,6 @@ import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
-import { BATCH_TYPE, ROLES } from "@static/constants";
-import { BATCH_CREATE, LOT_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";

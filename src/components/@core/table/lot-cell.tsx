@@ -3,7 +3,7 @@ import { Link, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
-export default function LotCell({ lotId, id, type }: { lotId?; id?; type }) {
+export default function LotCell({ lotId }: { lotId?; id?; type }) {
   // const finalLotId = type === "b" ? lotId : id; //TODO: check lot type validation
   const finalLotId = lotId;
   const label = `View Lot #${finalLotId}`;

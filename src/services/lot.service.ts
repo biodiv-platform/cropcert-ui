@@ -61,7 +61,6 @@ export const axCreateLot = async (payload) => {
 
 export const axListBatchByLotId = async (lotId) => {
   try {
-    console.log("lotId from api call", lotId);
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/batches`, {
       params: { lotId },
     });

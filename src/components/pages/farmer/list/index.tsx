@@ -6,8 +6,8 @@ import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
-import { BATCH_TYPE, ROLES } from "@static/constants";
-import { BATCH_CREATE, LOT_CREATE } from "@static/events";
+import { ROLES } from "@static/constants";
+import { BATCH_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -15,8 +15,6 @@ import InfiniteScroll from "react-infinite-scroller";
 
 import { batchColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
-import BatchUpdateModal from "./modals/batch-update-modal-new";
-import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
 
@@ -53,25 +51,6 @@ function FarmerListPageComponent() {
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
     setSelectedFarmerProduce(selectedRows);
     setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
-  };
-
-  const handleOnCreateLot = () => {
-    const ccIds = [...new Set(selectedFarmerProduce.map((b) => b.ccCode))];
-    const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
-    const quantity = selectedFarmerProduce.reduce(
-      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
-      0
-    );
-
-    const payload = {
-      name: `${prefix}_${selectedFarmerProduce[0].type.charAt(0).toUpperCase()}_`,
-      type: selectedFarmerProduce[0].type,
-      selected: selectedFarmerProduce,
-      coCode: co.value,
-      quantity,
-    };
-
-    emit(LOT_CREATE, payload);
   };
 
   const handleOnCreateBatch = () => {

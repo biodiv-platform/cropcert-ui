@@ -8,19 +8,17 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
-import { DateTimeInputField } from "@components/form/datepicker";
-import { NumberInputField } from "@components/form/number";
-import { TextBoxField } from "@components/form/text";
 import { SubmitButton } from "@components/form/submit-button";
+import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axUpdateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
+import { yupSchemaMapping } from "@utils/form";
 import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
-import { yupSchemaMapping } from "@utils/form";
 
 export default function BatchUpdateForm({ batch, update, onClose }) {
   const fieldsObj = batch.modalFieldCombined.find((o) => o.modalFieldId === batch.showModalById);
@@ -57,8 +55,6 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
           // condition for remaining fields
           else {
             if (currField.required) {
-              console.log("currField.yupSchema");
-              console.log(currField.yupSchema);
               yupSchema = {
                 ...acc.yupSchema,
                 [currField.name]: yupSchemaMapping[currField.yupSchema].required(),
@@ -85,9 +81,6 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
       }
     );
 
-  console.log("formValues");
-  console.log(formValues);
-
   const hForm = useForm<any>({
     mode: "onBlur",
     resolver: yupResolver(
@@ -102,7 +95,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
     },
   });
 
-  const values = hForm.watch();
+  //const values = hForm.watch();
 
   const handleOnSubmit = async (payload) => {
     try {

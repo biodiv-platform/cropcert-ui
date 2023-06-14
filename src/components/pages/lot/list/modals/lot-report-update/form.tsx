@@ -10,20 +10,18 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
-import { DateTimeInputField } from "@components/form/datepicker";
-import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { axUpdateLot } from "@services/lot.service";
+import { MLOT } from "@static/messages";
 import { isEverythingFilledExcept } from "@utils/basic";
+import { yupSchemaMapping } from "@utils/form";
+import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
-import { yupSchemaMapping } from "@utils/form";
-import { MLOT } from "@static/messages";
-import notification, { NotificationType } from "@utils/notification";
-import { axUpdateLot } from "@services/lot.service";
 
 export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDone, update }) {
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);

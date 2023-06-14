@@ -1,36 +1,30 @@
 import {
+  Box,
   Button,
+  Flex,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  Box,
-  Flex,
 } from "@chakra-ui/react";
-import Table from "@components/@core/table";
-
-import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
+import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
-import { NumberInputField } from "@components/form/number";
 import { SelectInputField } from "@components/form/select";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateBatch } from "@services/batch.service";
-import { DATEFORMATS, ROLES } from "@static/constants";
 import { BATCH } from "@static/messages";
-import { local2utc, typeList, utc2local } from "@utils/basic";
+import { formattedDate, typeList } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
-import { formattedDate } from "@utils/basic";
 
-import { lotCreateModalCols, lotCreateModalColsExtra } from "../../data";
+import { lotCreateModalCols } from "../../data";
 
 export default function BatchCreateForm({
   update,
@@ -39,10 +33,7 @@ export default function BatchCreateForm({
   batchConfig,
   highestDate,
 }) {
-  console.log("farmerProduceArr", farmerProduceArr);
-  console.log("batchConfig", batchConfig);
-  console.log("highestDate", highestDate);
-  const [cc, setCc] = useState({} as any);
+  const [cc] = useState({} as any);
   const [batchType, setBatchType] = useState<any[]>([]);
 
   // const hForm = useForm<any>({
@@ -83,7 +74,6 @@ export default function BatchCreateForm({
 
   const handleSubmit = async (payload) => {
     try {
-      console.log("payload from batch create", payload);
       const updatedPayload = {
         batchName:
           "Busalya_" +
@@ -98,11 +88,9 @@ export default function BatchCreateForm({
         note: payload.note,
       };
 
-      console.log("updatedPayload from batch create", updatedPayload);
       const { success, data } = await axCreateBatch({ ...updatedPayload });
       if (success) {
         data.farmerProduceIds.map((b) => update({ ...b }));
-        console.log("data after batch update", data);
         notification(BATCH.CREATED, NotificationType.Success, data.batch);
         onClose();
       }

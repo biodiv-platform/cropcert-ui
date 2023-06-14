@@ -1,11 +1,12 @@
-import React from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Container from "@components/@core/container";
+import { RestrictedAccess } from "@components/@core/layout";
 import BatchListPageComponent from "@components/pages/batch/list";
 import FarmerListPageComponent from "@components/pages/farmer/list";
-import { RestrictedAccess } from "@components/@core/layout";
 import LotListPageComponent from "@components/pages/lot/list";
 import { axListUnion } from "@services/union.service";
+import React from "react";
+
 function ShowTabs({ unions }) {
   return (
     <RestrictedAccess>

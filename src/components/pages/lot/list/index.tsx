@@ -7,19 +7,14 @@ import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { lotColumns, createLotColumns } from "./data";
+import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
-import LotCoDispatchModal from "./modals/lot-co-dispatch-modal";
-import CuppingReportModal from "./modals/lot-cupping-report";
-import LotFactoryDispatchModal from "./modals/lot-factory-dispatch-modal";
-import FactoryReportDry from "./modals/lot-factory-report/factory-report-dry";
-import FactoryReportWet from "./modals/lot-factory-report/factory-report-wet";
-import GreenReportModal from "./modals/lot-green-report";
-import LotGRNModal from "./modals/lot-grn-modal";
 import LotReportUpdate from "./modals/lot-report-update";
 import { useLotStore } from "./use-lot-store";
 
-function LotListPageComponent({ unions }) {
+//TODO: function LotListPageComponent({ unions })
+
+function LotListPageComponent() {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
   const lotStore = useLotStore();

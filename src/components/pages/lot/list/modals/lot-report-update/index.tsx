@@ -1,5 +1,4 @@
 import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
-import { Lot } from "@interfaces/traceability";
 import { LOT_FLAGS } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
 import React, { useState } from "react";

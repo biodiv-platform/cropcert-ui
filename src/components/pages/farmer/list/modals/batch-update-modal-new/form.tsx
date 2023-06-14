@@ -8,10 +8,8 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
-import { DateTimeInputField } from "@components/form/datepicker";
-import { NumberInputField } from "@components/form/number";
-import { TextBoxField } from "@components/form/text";
 import { SubmitButton } from "@components/form/submit-button";
+import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axUpdateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
@@ -110,7 +108,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
     },
   });
 
-  const values = hForm.watch();
+  //const values = hForm.watch();
 
   const handleOnSubmit = async (payload) => {
     try {

@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
-import { NumberInputField } from "@components/form/number";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";

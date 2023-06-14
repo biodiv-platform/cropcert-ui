@@ -13,7 +13,6 @@ import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateLot } from "@services/lot.service";
-import { BATCH_TYPE } from "@static/constants";
 import { MLOT } from "@static/messages";
 import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
@@ -22,7 +21,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import { lotCreateModalCols, lotCreateModalColsExtra } from "../../data";
+import { lotCreateModalCols } from "../../data";
 
 export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose }) {
   const hForm = useForm<any>({

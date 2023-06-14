@@ -2,15 +2,8 @@ import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
-import useGlobalState from "@hooks/use-global-state";
-import { Lot } from "@interfaces/traceability";
 import { LOT_FLAGS, ROLES } from "@static/constants";
-import {
-  LOT_DISPATCH_FACTORY,
-  LOT_FACTORY_PROCESS,
-  LOT_GRN,
-  LOT_REPORT_UPDATE,
-} from "@static/events";
+import { LOT_REPORT_UPDATE } from "@static/events";
 import React from "react";
 import { emit } from "react-gbus";
 

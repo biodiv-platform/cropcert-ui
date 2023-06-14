@@ -18,8 +18,6 @@ export function useFarmerStore() {
     if (!success) return;
 
     const dataN = data.map((arr) => {
-      console.log("arr from farmer: ", arr);
-
       return {
         ...arr,
         lotStatus: arr?.lotStatus,
@@ -28,8 +26,6 @@ export function useFarmerStore() {
     });
 
     setState((_draft) => {
-      console.log("old draft from farmer: ", _draft);
-      console.log("reset: ", reset);
       if (reset) {
         _draft.farmer = dataN;
       } else {
@@ -42,9 +38,7 @@ export function useFarmerStore() {
   };
 
   const updateFarmer = (lot) => {
-    console.log("lot from farmer update: ", lot);
     setState((_draft) => {
-      console.log("old draft from farmer update: ", _draft.farmer);
       const toUpdateIndex = _draft.farmer.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
         _draft.farmer[toUpdateIndex] = lot;

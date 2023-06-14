@@ -27,18 +27,14 @@ function LotListPageComponent({ unions }) {
   const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
   useEffect(() => {
-    console.log("cocodes", coCodes);
     coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
-
-    coCodes.length && console.log(Array.isArray(lotStore.state.lot));
   }, [coCodes]);
 
-  console.log("list of unions");
-  console.log(unions);
-
-  console.log("list of lots");
   // Generate dynamic batchColumns based on state.batch
-  const lotExtraColumns = createLotColumns(lotStore.state);
+  const lotExtraColumns =
+    lotStore.state.lot && lotStore.state.lot.length > 0
+      ? createLotColumns(lotStore.state.lot[0])
+      : [];
 
   return (
     <Container>
@@ -65,14 +61,6 @@ function LotListPageComponent({ unions }) {
           />
         </InfiniteScroll>
       )}
-
-      <LotCoDispatchModal update={lotStore.updateLot} />
-      <LotFactoryDispatchModal unions={unions} update={lotStore.updateLot} />
-      <FactoryReportDry update={lotStore.updateLot} />
-      <FactoryReportWet update={lotStore.updateLot} />
-      <GreenReportModal update={lotStore.updateLot} />
-      <CuppingReportModal update={lotStore.updateLot} />
-      <LotGRNModal update={lotStore.updateLot} />
       <LotReportUpdate update={lotStore.updateLot} />
     </Container>
   );

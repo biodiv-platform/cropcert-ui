@@ -11,10 +11,6 @@ export enum NotificationType {
 }
 
 const notification = (message, type = NotificationType.Error, variables = {}) => {
-  console.log("notification variables", message, type, variables);
-
-  variables.shortId = variables?._id?.slice(-3);
-
   if (!message) {
     return;
   }

@@ -30,10 +30,11 @@ function BatchListPageComponent() {
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const [hideAccessor, setHideAccessor] = useState<boolean>();
+  const [triggerRender, setTriggerRender] = useState(false);
 
   useEffect(() => {
     ccCodes.length && actions.listBatch({ ccCodes, reset: true });
-  }, [ccCodes]);
+  }, [ccCodes, triggerRender]);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
@@ -72,6 +73,7 @@ function BatchListPageComponent() {
     };
 
     emit(LOT_CREATE, payload);
+    setTriggerRender(!triggerRender);
   };
 
   const ActionButtons = () => (
@@ -95,6 +97,7 @@ function BatchListPageComponent() {
   const onBatchUpdate = (props) => {
     onToggle();
     actions.updateBatch(props);
+    setTriggerRender(!triggerRender);
   };
 
   // Generate dynamic batchColumns based on state.batch

@@ -25,6 +25,10 @@ function LotListPageComponent() {
     coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
   }, [coCodes]);
 
+  useEffect(() => {
+    coCodes.length;
+  }, [lotStore.state.lot]);
+
   // Generate dynamic batchColumns based on state.batch
   const lotExtraColumns =
     lotStore.state.lot && lotStore.state.lot.length > 0

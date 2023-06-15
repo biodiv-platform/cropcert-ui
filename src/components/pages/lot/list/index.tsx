@@ -19,11 +19,11 @@ function LotListPageComponent() {
   const [coCodes, setCoCodes] = useState<any>([]);
   const lotStore = useLotStore();
 
-  const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
+  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8] });
 
   useEffect(() => {
-    coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
-  }, [coCodes]);
+    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8], reset: true });
+  }, []);
 
   useEffect(() => {
     coCodes.length;
@@ -38,11 +38,8 @@ function LotListPageComponent() {
   return (
     <Container>
       <PageHeading>📦 Lot(s)</PageHeading>
-      <CoreGrid>
-        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={lotStore.clearLot} />
-        <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
-      </CoreGrid>
-      {coCodes.length > 0 && lotStore.state.lot.length > 0 && (
+
+      {lotStore.state.lot.length > 0 && (
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
           <Table
             data={lotStore.state.lot}

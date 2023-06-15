@@ -33,8 +33,8 @@ function BatchListPageComponent() {
   const [triggerRender, setTriggerRender] = useState(false);
 
   useEffect(() => {
-    ccCodes.length && actions.listBatch({ ccCodes, reset: true });
-  }, [ccCodes, triggerRender]);
+    actions.listBatch({ ccCodes: [71, 70, 78, 77, 73, 76, 72, 74, 69, 75], reset: true });
+  }, [triggerRender]);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
@@ -108,12 +108,12 @@ function BatchListPageComponent() {
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
 
-      <CoreGrid hidden={hideAccessor}>
+      {/* <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatch} />
         <Box>
           <CCMultiSelect coId={co?.value} onChange={setCCs} />
         </Box>
-      </CoreGrid>
+      </CoreGrid> */}
 
       <MultipleTypeWarning show={showTypeError} />
 

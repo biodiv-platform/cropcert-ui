@@ -39,7 +39,7 @@ export default function LotBatches({ rows }) {
       sortable: true,
     },
     {
-      name: "Lot Name",
+      name: "Lot ID",
       selector: (row) => row["lotId"],
     },
     {

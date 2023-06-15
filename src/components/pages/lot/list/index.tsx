@@ -1,9 +1,6 @@
-import Accesser from "@components/@core/accesser";
-import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import Container from "@components/@core/container";
-import { CoreGrid, PageHeading } from "@components/@core/layout";
+import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
-import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -15,8 +12,7 @@ import { useLotStore } from "./use-lot-store";
 //TODO: function LotListPageComponent({ unions })
 
 function LotListPageComponent() {
-  const [union, setUnion] = useState({} as any);
-  const [coCodes, setCoCodes] = useState<any>([]);
+  const [coCodes] = useState<any>([]);
   const lotStore = useLotStore();
 
   const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8] });

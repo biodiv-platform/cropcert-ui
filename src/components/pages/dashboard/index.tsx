@@ -1,5 +1,4 @@
-import { Box, Link, Stat, StatHelpText, StatNumber, Heading } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Heading, Link, Stat, StatHelpText, StatNumber } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import CoreGrid from "@components/@core/layout/grid";
 import useGlobalState from "@hooks/use-global-state";

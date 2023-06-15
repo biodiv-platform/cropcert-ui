@@ -2,6 +2,9 @@ import {
   Badge,
   Box,
   Button,
+  FormControl,
+  FormLabel,
+  Input,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -98,7 +101,13 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
     },
   });
 
-  //const values = hForm.watch();
+  const values = hForm.watch();
+
+  const formulas = {
+    outTurn: (
+      (values?.weight_leaving_factory * 100) / values?.weight_arriving_factory || 0
+    ).toFixed(2),
+  };
 
   const handleOnSubmit = async (payload) => {
     try {
@@ -165,16 +174,19 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                   );
                 } else if (field.fieldType === "auto") {
                   return (
-                    <TextBoxField
-                      mb={0}
-                      name={field.name}
-                      id={field.name}
-                      label={field.label}
-                      placeholder={"40%"}
-                      type={field.type}
-                      key={index}
-                      disabled={true}
-                    />
+                    <FormControl mb={4}>
+                      <FormLabel>{field.label}</FormLabel>
+                      <Input
+                        mb={0}
+                        name={field.name}
+                        id={field.name}
+                        placeholder={"40%"}
+                        type={field.type}
+                        key={index}
+                        value={formulas[field?.formula]}
+                        disabled={true}
+                      />
+                    </FormControl>
                   );
                 }
               })}

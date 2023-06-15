@@ -45,6 +45,14 @@ function Card({ title, description, to, external = false }: IProps) {
         py={5}
       >
         {getContent()}
+        <Stat>
+          <StatNumber lineHeight="1em" mb={4} fontSize="2xl">
+            {title}
+          </StatNumber>
+          <StatHelpText fontSize="md" mb={0}>
+            {description} &rarr;
+          </StatHelpText>
+        </Stat>
       </Box>
     </XLink>
   );

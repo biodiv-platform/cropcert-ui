@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 export const yupSchemaMapping = {
   "Yup.number()": Yup.number().nullable(),
+  "Yup.number().min(1)": Yup.number().min(1).nullable(),
   "Yup.string()": Yup.string().nullable(),
   numberFunc: function (min, max) {
     return Yup.number().min(min).max(max).nullable();

@@ -1,7 +1,5 @@
 import { Box, Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
-import Accesser from "@components/@core/accesser";
-import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
-import { CoreGrid, PageHeading } from "@components/@core/layout";
+import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
@@ -19,15 +17,14 @@ import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
 
 function FarmerListPageComponent() {
-  const [co, setCo] = useState({} as any);
-  const [ccs, setCCs] = useState([] as any);
+  const [co] = useState({} as any);
+  const [ccs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
-  const [hideAccessor, setHideAccessor] = useState<boolean>();
 
   useEffect(() => {
     actions.listFarmer({ ccCodes: "71,70,78,77,73,76,72,74,69,75", reset: true });
@@ -36,13 +33,6 @@ function FarmerListPageComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(true);
-      setCCs([0]); // dummy cc
-    }
-  }, []);
 
   const handleLoadMore = () => {
     actions.listFarmer({ ccCodes });

@@ -1,7 +1,5 @@
 import { Box, Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
-import Accesser from "@components/@core/accesser";
-import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
-import { CoreGrid, PageHeading } from "@components/@core/layout";
+import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
@@ -21,15 +19,13 @@ import MultipleTypeWarning from "./multiple-warning";
 import { useBatchStore } from "./use-batch-store";
 
 function BatchListPageComponent() {
-  const [co, setCo] = useState({} as any);
-  const [ccs, setCCs] = useState([] as any);
+  const [ccs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useBatchStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
-  const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
 
   useEffect(() => {
@@ -39,13 +35,6 @@ function BatchListPageComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(true);
-      setCCs([0]); // dummy cc
-    }
-  }, []);
 
   const handleLoadMore = () => {
     actions.listBatch({ ccCodes });
@@ -57,8 +46,7 @@ function BatchListPageComponent() {
   };
 
   const handleOnCreateLot = () => {
-    const ccIds = [...new Set(selectedBatches.map((b) => b.ccCode))];
-    const prefix = ccIds.length > 1 ? co.label : ccs.find((c) => c.value === ccIds[0]).label;
+    const prefix = "Mityana";
     const quantity = selectedBatches.reduce(
       (acc, cv) => selectedBatches.length && cv.quantity + acc,
       0
@@ -68,7 +56,7 @@ function BatchListPageComponent() {
       name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
       type: selectedBatches[0].type,
       selected: selectedBatches,
-      coCode: co.value,
+      coCode: "71", //TODO: change it to co.value
       quantity,
     };
 

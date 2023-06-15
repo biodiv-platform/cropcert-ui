@@ -76,7 +76,7 @@ export default function BatchCreateForm({
     try {
       const updatedPayload = {
         batchName:
-          "Busalya_" +
+          "Mityana_" +
           payload.type.charAt(0).toUpperCase() +
           "_" +
           formattedDate(payload.creationDate),

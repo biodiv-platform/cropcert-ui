@@ -54,7 +54,7 @@ function FarmerListPageComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    const prefix = "Busalya";
+    const prefix = "Mityana";
     const quantity = selectedFarmerProduce.reduce(
       (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
       0

@@ -114,7 +114,7 @@ function FarmerMemberPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🧑‍🌾 Farmer Member(s)</PageHeading>
+      <PageHeading>🧑‍🌾 Farmer Member(s)</PageHeading>
 
       {/* <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />
@@ -143,8 +143,6 @@ function FarmerMemberPageComponent() {
           ]}
         />
       </InfiniteScroll>
-
-      <BatchCreateModal update={onFarmerUpdate} />
     </Box>
   );
 }

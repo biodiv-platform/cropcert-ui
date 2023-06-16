@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
@@ -34,7 +35,7 @@ function LotListPageComponent() {
   return (
     <Container>
       <PageHeading>📦 Lot(s)</PageHeading>
-
+      <Box my={2}>{`Total Records: ${lotStore.state.lot.length}`}</Box>
       {lotStore.state.lot.length > 0 && (
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
           <Table

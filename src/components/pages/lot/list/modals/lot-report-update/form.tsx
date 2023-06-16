@@ -120,6 +120,13 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
     }
   };
 
+  const formula = {
+    percent: (fieldName) => {
+      const output = ((values[fieldName] / values["input_FAQ_weight"]) * 100).toFixed(2);
+      return values["input_FAQ_weight"] != "" && values[fieldName] != "" ? `(${output} %)` : "";
+    },
+  };
+
   const isFormReadOnly = !canWrite || values.finalizeLotColumn;
   const isFinalizeEnabled =
     !isDone && canWrite && isEverythingFilledExcept("finalizeLotColumn", values);
@@ -154,7 +161,11 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                       mb={2}
                       name={field.name}
                       id={field.name}
-                      label={field.label}
+                      label={
+                        field?.showPercent
+                          ? `${field.label} ${formula.percent(field.name)}`
+                          : field.label
+                      }
                       placeholder={field.label}
                       type={field.type}
                       key={index}

@@ -29,6 +29,7 @@ function FarmerMemberPageComponent() {
   return (
     <Box>
       <PageHeading>🧑‍🌾 Farmer Member(s)</PageHeading>
+      <Box my={2}>{`Total Records: ${state.farmer.length}`}</Box>
 
       {/* <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />

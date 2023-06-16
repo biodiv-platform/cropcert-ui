@@ -104,7 +104,12 @@ function FarmerListPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🚜 Farmer Collection(s)</PageHeading>
+      <PageHeading actions={<ActionButtons />}>🚜 Farmer Produce </PageHeading>
+      <Box my={2}>{`Total Records: ${
+        state.farmer.filter(
+          (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+        ).length
+      }`}</Box>
 
       {/* <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />

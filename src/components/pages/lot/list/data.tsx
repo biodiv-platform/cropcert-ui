@@ -39,8 +39,7 @@ export const createLotColumns = (lot) => {
 
         const renderButton = show && (canWrite || isDone);
 
-        return (row.type === "FAQ" && isOptional && renderButton) ||
-          (row.type !== "FAQ" && renderButton) ? (
+        return (isOptional && renderButton) || renderButton ? (
           <Button
             {...buttonProps}
             colorScheme={colorScheme}

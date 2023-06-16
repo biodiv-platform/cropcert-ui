@@ -14,7 +14,7 @@ function ShowTabs({ unions }) {
       <Tabs isFitted variant="enclosed" p={4}>
         <TabList>
           <Tab>🧑‍🌾 Farmer Member(s)</Tab>
-          <Tab>🚜 Farmer Collection(s)</Tab>
+          <Tab>🚜 Farmer Produce</Tab>
           <Tab>🧺 Batch(s)</Tab>
           <Tab>📦 Lot(s)</Tab>
         </TabList>

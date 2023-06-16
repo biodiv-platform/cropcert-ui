@@ -95,7 +95,7 @@ function BatchListPageComponent() {
   return (
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
-
+      <Box my={2}>{`Total Records: ${state.batch.length}`}</Box>
       {/* <CoreGrid hidden={hideAccessor}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatch} />
         <Box>

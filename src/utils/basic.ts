@@ -34,8 +34,10 @@ export const typeList = (type) => {
     return [TYPE_OPTIONS.DRY];
   } else if (type === "P") {
     return [TYPE_OPTIONS.WET];
+  } else if (type === "F") {
+    return [TYPE_OPTIONS.FAQ];
   }
-  return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET];
+  return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET, TYPE_OPTIONS.FAQ];
 };
 
 export const compiledMessage = (templateString: string, templateVariables) =>

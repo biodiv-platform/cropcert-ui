@@ -13,10 +13,10 @@ function ShowTabs({ unions }) {
     <RestrictedAccess>
       <Tabs isFitted variant="enclosed" p={4}>
         <TabList>
-          <Tab>Farmer Member(s)</Tab>
-          <Tab>Farmer Collection(s)</Tab>
-          <Tab>Batch(s)</Tab>
-          <Tab>Lot(s)</Tab>
+          <Tab>🧑‍🌾 Farmer Member(s)</Tab>
+          <Tab>🚜 Farmer Collection(s)</Tab>
+          <Tab>🧺 Batch(s)</Tab>
+          <Tab>📦 Lot(s)</Tab>
         </TabList>
 
         <TabPanels>

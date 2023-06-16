@@ -54,7 +54,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
             } else {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
               };
             }
           }
@@ -183,7 +183,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                         placeholder={"40%"}
                         type={field.type}
                         key={index}
-                        value={formulas[field?.formula]}
+                        value={`${formulas[field?.formula]} %`}
                         disabled={true}
                       />
                     </FormControl>

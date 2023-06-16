@@ -21,22 +21,17 @@ export default function DashboardPageComponent() {
 
   const renderCardGroup = (cardGroup, index) => {
     const linkList = getLinks(cardGroup.children);
-    return (
-      cardGroup.title !== "Traceability" &&
-      (linkList.length > 0 ? (
+    return cardGroup.title !== "Traceability" ? (
+      linkList.length > 0 ? (
         <React.Fragment key={index}>
           <Heading mb={4} size="lg" style={{ fontSize: "1.8rem" }}>
             {cardGroup.title}
           </Heading>
           <CoreGrid mb={6}>{linkList}</CoreGrid>
         </React.Fragment>
-      ) : null)
-    );
-  };
-
-  return (
-    <Container pt={6}>
-      <Box>
+      ) : null
+    ) : (
+      <React.Fragment key={index}>
         <Heading mb={4} size="lg" style={{ fontSize: "1.8rem" }}>
           {"Traceability"}
         </Heading>
@@ -63,7 +58,12 @@ export default function DashboardPageComponent() {
             </Link>
           </Box>
         </CoreGrid>
-      </Box>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <Container pt={6}>
       <Box maxWidth="60rem">{links.map(renderCardGroup)}</Box>
     </Container>
   );

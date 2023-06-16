@@ -15,10 +15,10 @@ function LotListPageComponent() {
   const [coCodes] = useState<any>([]);
   const lotStore = useLotStore();
 
-  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8] });
+  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71] });
 
   useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8], reset: true });
+    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
   }, []);
 
   useEffect(() => {

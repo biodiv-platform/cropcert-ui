@@ -100,11 +100,13 @@ export const ROLE_HIERARCHY = [
 export const BATCH_TYPE = {
   DRY: "DRY",
   WET: "WET",
+  FAQ: "FAQ",
 };
 
 export const TYPE_OPTIONS = {
   DRY: { label: "Dry", value: BATCH_TYPE.DRY },
   WET: { label: "Wet", value: BATCH_TYPE.WET },
+  FAQ: { label: "FAQ", value: BATCH_TYPE.FAQ },
 };
 
 export const LOT_FLAGS = {

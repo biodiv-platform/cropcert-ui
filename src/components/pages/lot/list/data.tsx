@@ -58,7 +58,7 @@ export const createLotColumns = (lot) => {
           name: capitalizeFirstLetter(curr.columnName),
           selector: (row) => row[curr.columnName],
           center: true,
-          maxWidth: "100px",
+          maxWidth: "130px",
           cell: ButtonComponent,
         },
       ];

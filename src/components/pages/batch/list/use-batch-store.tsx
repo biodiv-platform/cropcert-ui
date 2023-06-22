@@ -2,7 +2,7 @@ import { axListBatch } from "@services/batch.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: false, batch: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: false, batch: [] as any[] };
 
 export function useBatchStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
@@ -34,6 +34,7 @@ export function useBatchStore() {
 
       _draft.offset = offset;
       _draft.hasMore = hasMore;
+      _draft.isLoading = false;
     });
   };
 
@@ -48,6 +49,9 @@ export function useBatchStore() {
 
   const listBatch = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
     if (state.batch.length % PAGINATION_LIMIT === 0 || reset) {
+      setState((_draft) => {
+        _draft.isLoading = true;
+      });
       const offset = reset ? 0 : state.offset;
       const response = await axListBatch(ccCodes, offset);
       setBatches(response);

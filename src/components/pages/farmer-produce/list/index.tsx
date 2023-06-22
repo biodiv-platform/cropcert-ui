@@ -1,4 +1,16 @@
-import { Box, Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Skeleton,
+  Table as ChakraTable,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
@@ -100,7 +112,21 @@ function FarmerListPageComponent() {
     actions.updateFarmer(props);
   };
 
-  // Generate dynamic batchColumns based on state.batch
+  const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
+    <Th key={index}>
+      <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
+    </Th>
+  ));
+
+  const loadingRows = Array.from({ length: 5 }).map((_, index) => (
+    <Tr key={index}>
+      {loadingColumns.map((cell, cellIndex) => (
+        <Td key={cellIndex}>
+          <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
+        </Td>
+      ))}
+    </Tr>
+  ));
 
   return (
     <Box>
@@ -119,6 +145,15 @@ function FarmerListPageComponent() {
       </CoreGrid> */}
 
       <MultipleTypeWarning show={showTypeError} />
+
+      {state.isLoading && (
+        <ChakraTable variant="simple">
+          <Thead>
+            <Tr>{loadingColumns}</Tr>
+          </Thead>
+          <Tbody>{loadingRows}</Tbody>
+        </ChakraTable>
+      )}
 
       <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
         <Table

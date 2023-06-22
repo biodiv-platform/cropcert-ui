@@ -2,7 +2,7 @@ import { axListFarmer } from "@services/farmer.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: false, farmer: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: false, farmer: [] as any[] };
 
 export function useFarmerStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
@@ -34,6 +34,7 @@ export function useFarmerStore() {
 
       _draft.offset = offset;
       _draft.hasMore = hasMore;
+      _draft.isLoading = false;
     });
   };
 
@@ -48,6 +49,9 @@ export function useFarmerStore() {
 
   const listFarmer = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
     if (state.farmer.length % PAGINATION_LIMIT === 0 || reset) {
+      setState((_draft) => {
+        _draft.isLoading = true;
+      });
       const offset = reset ? 0 : state.offset;
       const response = await axListFarmer(ccCodes, offset);
       setFarmers(response);

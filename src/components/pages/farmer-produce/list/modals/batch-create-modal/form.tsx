@@ -35,25 +35,8 @@ export default function BatchCreateForm({
 }) {
   const [cc] = useState({} as any);
   const [batchType, setBatchType] = useState<any[]>([]);
-
-  // const hForm = useForm<any>({
-  //   mode: "onBlur",
-  //   resolver: yupResolver(
-  //     Yup.object().shape({
-  //       ccCode: Yup.string().required(),
-  //       quantity: Yup.number().min(1).required(),
-  //       date: Yup.number().required(),
-  //       type: Yup.string().required(),
-  //     })
-  //   ),
-  //   defaultValues: {
-  //     ccCode: cc?.value || null,
-  //     quantity: 0,
-  //     date: local2utc().getTime(),
-  //     note: "",
-  //     type: null,
-  //   },
-  // });
+  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<any[]>([...farmerProduceArr]);
+  const [selectedRowsTest, setSelectedRowsTest] = useState<any[]>(farmerProduceArr);
 
   const hForm = useForm<any>({
     mode: "onBlur",
@@ -72,6 +55,15 @@ export default function BatchCreateForm({
 
   const values = hForm.watch();
 
+  const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<any>[] }) => {
+    console.log("selectedRows", selectedRows);
+    // setSelectedRowsTest(() => [...selectedRows]);
+    // hForm.setValue(
+    //   `farmerProduceIds`,
+    //   selectedRows.map((b) => b._id)
+    // );
+  };
+
   const handleSubmit = async (payload) => {
     try {
       const updatedPayload = {
@@ -84,7 +76,7 @@ export default function BatchCreateForm({
         ccCode: 71, //TODO: add dynamically
         quantity: batchConfig.quantity,
         createdOn: values.creationDate,
-        farmerProduceIds: farmerProduceArr.map((b) => b._id),
+        farmerProduceIds: selectedFarmerProduce.map((b) => b._id),
         note: payload.note,
       };
 
@@ -121,6 +113,10 @@ export default function BatchCreateForm({
   //   }
   // };
 
+  // console.log("selectedRows", selectedRows);
+
+  const rowSelectCritera = (r) => r.quantity > 10;
+
   return (
     <ModalContent>
       <FormProvider {...hForm}>
@@ -137,7 +133,14 @@ export default function BatchCreateForm({
               format="dd-MM-yyyy"
               min={highestDate}
             />
-            <Table data={farmerProduceArr} columns={[...lotCreateModalCols]} />
+            <Table
+              data={farmerProduceArr}
+              columns={[...lotCreateModalCols]}
+              selectableRows
+              selectableRowSelected={rowSelectCritera}
+              onSelectedRowsChange={handleOnSelectionChange}
+            />
+
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
                 <strong>Total</strong> {batchConfig.quantity} KG(s)

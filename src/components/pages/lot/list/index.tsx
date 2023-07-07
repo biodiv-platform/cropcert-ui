@@ -21,10 +21,6 @@ function LotListPageComponent() {
     lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
   }, []);
 
-  useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
-  }, [lotStore.state.lot]);
-
   // Generate dynamic batchColumns based on state.batch
   const lotExtraColumns =
     lotStore.state.lot && lotStore.state.lot.length > 0

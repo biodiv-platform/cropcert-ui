@@ -32,7 +32,7 @@ export function useLotStore() {
   };
 
   const listLot = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
-    if (state.lot.length % PAGINATION_LIMIT === 0) {
+    if (state.lot.length % PAGINATION_LIMIT === 0 || reset) {
       const offset = reset ? 0 : state.offset;
       const response = await axListLot(ccCodes, offset);
       setLot(response);

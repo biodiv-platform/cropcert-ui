@@ -4,6 +4,7 @@ export const isBrowser = typeof window !== `undefined`;
 
 export const SITE_TITLE = SITE_CONFIG.SITE.TITLE_LOCAL;
 export const PAGINATION_LIMIT = 20;
+export const DEFAULT_PASSWORD_LENGTH = 10;
 
 export const DATEFORMATS = {
   DAYJS_DATE: "DD-MM-YYYY",
@@ -28,7 +29,7 @@ export const ENDPOINT = {
   INTEGRATOR: `${API_ENDPOINT}integrator-api/api`,
   LANDSCAPE: `${API_ENDPOINT}landscape-api/api`,
   NAKSHA: `${API_ENDPOINT}naksha-api/api`,
-  ODK: `${API_ENDPOINT}odk-api/api`,
+  ODK: `${API_ENDPOINT}odk-api/api/v1`,
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
@@ -64,6 +65,8 @@ export const ROLES = {
   FACTORY: "FACTORY_PERSON",
   UNION: "UNION_PERSON",
   ADMIN: "ROLE_ADMIN",
+  ODK_APP_USER: "ODK_APP_USER",
+  ODK_WEB_USER: "ODK_WEB_USER",
 };
 
 export const KEYS_TO_ROLES = {

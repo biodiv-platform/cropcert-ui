@@ -1,4 +1,16 @@
 {
+  "action": {
+    "create_app_user": "Create App User",
+    "create_web_user": "Create Web User",
+    "enable_web_user": "Enable Web User",
+    "odk_permission": "ODK User Permission",
+    "project_delete_fail": "Unable to Delete the Project",
+    "project_delete_sucess": "Project Deleted Successfully",
+    "project_select": "Please select a project to create App user",
+    "project_title": "Project Title",
+    "project_unable": "Unable to create App user",
+    "see_code": "See Code"
+  },
   "actions": {
     "flag": {
       "category": "Category",
@@ -10,7 +22,15 @@
       "notes": "Notes",
       "others_flagged": "Others who flagged",
       "title": "Flag"
-    }
+    },
+    "odk": {
+      "odkAppuser": "ODK appuser",
+      "odkWebuser": "ODK webuser",
+      "qrCode": "QR Code",
+      "qrCodeHelpText": "This QR Code will help you set up the project in the ODK Collect app on your mobile.",
+      "title": "Login to ROBUST Web platform as webuser"
+    },
+    "title": "Activity"
   },
   "activity": "Activity",
   "add": "Add",
@@ -19,6 +39,7 @@
   "clear": "Clear",
   "close": "Close",
   "copy": "Copy to Clipboard",
+  "create": "Create",
   "delete": "Delete",
   "edit": "Edit",
   "footer": {
@@ -49,6 +70,7 @@
   "or": "or",
   "prev": "Previous",
   "save": "Save",
+  "select_project": "Select Project",
   "success": "Success",
   "uploader": "Uploader"
 }

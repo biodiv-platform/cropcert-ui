@@ -10,7 +10,12 @@ function NavbarRightMenu() {
   const { user, authorizedRoles, isLoggedIn } = useGlobalState();
 
   const visualRole = useMemo(
-    () => (isLoggedIn ? authorizedRoles?.[0].replace("_", " ").toLowerCase() : null),
+    () =>
+      isLoggedIn
+        ? authorizedRoles.includes("ROLE_ADMIN")
+          ? "ROLE_ADMIN".replace("_", " ").toLowerCase()
+          : authorizedRoles?.[0].replace("_", " ").toLowerCase()
+        : null,
     [isLoggedIn, authorizedRoles]
   );
 

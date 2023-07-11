@@ -1,6 +1,8 @@
-import { Box, Link, Stat, StatHelpText, StatNumber } from "@chakra-ui/react";
+import { Box, Link, Stat, StatHelpText, StatNumber, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+
+import OdkModal from "./odk-modal";
 
 interface IProps {
   title: string;
@@ -10,6 +12,8 @@ interface IProps {
 }
 
 function Card({ title, description, to, external = false }: IProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const getContent = () => (
     <Stat>
       <StatNumber lineHeight="1em" mb={4} fontSize="2xl">
@@ -33,20 +37,41 @@ function Card({ title, description, to, external = false }: IProps) {
     );
 
   return (
-    <XLink>
-      <Box
-        w="100%"
-        rounded="lg"
-        bg="gray.100"
-        _hover={{
-          bg: "blue.100",
-        }}
-        px={6}
-        py={5}
-      >
-        {getContent()}
-      </Box>
-    </XLink>
+    <>
+      {title.includes("ROBUST ODK") ? (
+        <>
+          <Box
+            w="100%"
+            rounded="lg"
+            bg="gray.100"
+            _hover={{
+              bg: "blue.100",
+            }}
+            onClick={onOpen}
+            px={6}
+            py={5}
+          >
+            {getContent()}
+          </Box>
+          <OdkModal isOpen={isOpen} odkLink={to} onClose={onClose} />
+        </>
+      ) : (
+        <XLink>
+          <Box
+            w="100%"
+            rounded="lg"
+            bg="gray.100"
+            _hover={{
+              bg: "blue.100",
+            }}
+            px={6}
+            py={5}
+          >
+            {getContent()}
+          </Box>
+        </XLink>
+      )}
+    </>
   );
 }
 

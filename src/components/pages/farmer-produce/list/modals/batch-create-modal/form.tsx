@@ -35,8 +35,7 @@ export default function BatchCreateForm({
 }) {
   const [cc] = useState({} as any);
   const [batchType, setBatchType] = useState<any[]>([]);
-  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<any[]>([...farmerProduceArr]);
-  const [selectedRowsTest, setSelectedRowsTest] = useState<any[]>(farmerProduceArr);
+  const [selectedFarmerProduce] = useState<any[]>([...farmerProduceArr]);
 
   const hForm = useForm<any>({
     mode: "onBlur",
@@ -54,15 +53,6 @@ export default function BatchCreateForm({
   });
 
   const values = hForm.watch();
-
-  const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<any>[] }) => {
-    console.log("selectedRows", selectedRows);
-    // setSelectedRowsTest(() => [...selectedRows]);
-    // hForm.setValue(
-    //   `farmerProduceIds`,
-    //   selectedRows.map((b) => b._id)
-    // );
-  };
 
   const handleSubmit = async (payload) => {
     try {
@@ -138,7 +128,7 @@ export default function BatchCreateForm({
               columns={[...lotCreateModalCols]}
               selectableRows
               selectableRowSelected={rowSelectCritera}
-              onSelectedRowsChange={handleOnSelectionChange}
+              // onSelectedRowsChange={handleOnSelectionChange}
             />
 
             <Flex justifyContent="flex-end" mt={4}>

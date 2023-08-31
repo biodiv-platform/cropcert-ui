@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Flex,
   Skeleton,
   Table as ChakraTable,
   Tbody,
@@ -11,8 +12,11 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import { PageHeading } from "@components/@core/layout";
+import Accesser from "@components/@core/accesser";
+import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
+import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import FilterComponent from "@components/@core/table/filter-component";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
@@ -29,14 +33,15 @@ import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
 
 function FarmerListPageComponent() {
-  const [co] = useState({} as any);
-  const [ccs] = useState([] as any);
+  const [co, setCo] = useState({} as any);
+  const [ccs, setCCs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
+  const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
     actions.listFarmer({ ccCodes: "71,70,78,77,73,76,72,74,69,75", reset: true });
@@ -128,47 +133,94 @@ function FarmerListPageComponent() {
     </Tr>
   ));
 
+  const filteredItems =
+    state.farmer &&
+    state.farmer.filter((item) => {
+      return (
+        item.farmerName.toLowerCase().includes(filterText.toLowerCase()) ||
+        item.collectionCenter.toLowerCase().includes(filterText.toLowerCase())
+      );
+    });
+
+  const subHeaderComponentMemo = React.useMemo(() => {
+    const handleClear = () => {
+      if (filterText) {
+        // setResetPaginationToggle(!resetPaginationToggle);
+        setFilterText("");
+      }
+    };
+
+    return (
+      <FilterComponent
+        onFilter={(e) => setFilterText(e.target.value)}
+        onClear={handleClear}
+        filterText={filterText}
+      />
+    );
+  }, [filterText]);
+
   return (
     <Box>
       <PageHeading actions={<ActionButtons />}>🚜 Farmer Produce </PageHeading>
       <Box my={2}>{`Total Records: ${
-        state.farmer.filter(
-          (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
-        ).length
+        state.isLoading
+          ? "Loading..."
+          : state.farmer.filter(
+              (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+            ).length
       }`}</Box>
+
+      <CoreGrid hidden={false}>
+        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />
+        <Box>
+          <CCMultiSelect coId={co?.value} onChange={setCCs} />
+        </Box>
+      </CoreGrid>
 
       <MultipleTypeWarning show={showTypeError} />
 
-      {state.isLoading && (
+      {state.isLoading ? (
         <ChakraTable variant="simple">
           <Thead>
             <Tr>{loadingColumns}</Tr>
           </Thead>
           <Tbody>{loadingRows}</Tbody>
         </ChakraTable>
-      )}
-
-      <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
-        <Table
-          data={state.farmer.filter(
-            (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+      ) : (
+        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
+          {filteredItems.length > 0 ? (
+            <Table
+              data={filteredItems || []}
+              columns={batchColumns}
+              selectableRows={true}
+              selectableRowDisabled={(r) => r.batchId}
+              onSelectedRowsChange={handleOnSelectionChange}
+              clearSelectedRows={clearRows}
+              subHeader
+              subHeaderComponent={subHeaderComponentMemo}
+              conditionalRowStyles={[
+                {
+                  when: (row) => row.lotId,
+                  style: {
+                    background: "var(--chakra-colors-gray-100)!important",
+                    opacity: "0.6",
+                  },
+                },
+              ]}
+              pagination
+              paginationPerPage={20}
+              paginationRowsPerPageOptions={[20, 50, 100]}
+            />
+          ) : (
+            <Flex alignItems="center" flexDirection="column" gap={2}>
+              <Box textAlign="center" mt={4}>
+                No matching records found.
+              </Box>
+              <Button onClick={() => setFilterText("")}>Clear Filter</Button>
+            </Flex>
           )}
-          columns={batchColumns}
-          selectableRows={true}
-          selectableRowDisabled={(r) => r.batchId}
-          onSelectedRowsChange={handleOnSelectionChange}
-          clearSelectedRows={clearRows}
-          conditionalRowStyles={[
-            {
-              when: (row) => row.lotId,
-              style: {
-                background: "var(--chakra-colors-gray-100)!important",
-                opacity: "0.6",
-              },
-            },
-          ]}
-        />
-      </InfiniteScroll>
+        </InfiniteScroll>
+      )}
 
       <BatchCreateModal update={onFarmerUpdate} />
     </Box>

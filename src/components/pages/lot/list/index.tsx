@@ -1,8 +1,11 @@
 import { Box, Skeleton, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import Accesser from "@components/@core/accesser";
+import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import Container from "@components/@core/container";
-import { PageHeading } from "@components/@core/layout";
+import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
-import React, { useEffect } from "react";
+import { ROLES } from "@static/constants";
+import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { createLotColumns, lotColumns } from "./data";
@@ -13,13 +16,15 @@ import { useLotStore } from "./use-lot-store";
 //TODO: function LotListPageComponent({ unions })
 
 function LotListPageComponent() {
+  const [union, setUnion] = useState({} as any);
+  const [coCodes, setCoCodes] = useState<any>([]);
   const lotStore = useLotStore();
 
-  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71] });
+  const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
   useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
-  }, []);
+    coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
+  }, [coCodes]);
 
   useEffect(() => {
     lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
@@ -49,7 +54,14 @@ function LotListPageComponent() {
   return (
     <Container>
       <PageHeading>📦 Lot(s)</PageHeading>
-      <Box my={2}>{`Total Records: ${lotStore.state.lot.length}`}</Box>
+      <Box my={2}>{`Total Records: ${
+        lotStore.state.isLoading ? "Loading..." : lotStore.state.lot.length
+      }`}</Box>
+
+      <CoreGrid>
+        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={lotStore.clearLot} />
+        <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+      </CoreGrid>
 
       {lotStore.state.isLoading && (
         <ChakraTable variant="simple">
@@ -66,6 +78,8 @@ function LotListPageComponent() {
             data={lotStore.state.lot}
             columns={[...lotColumns, ...lotExtraColumns]}
             expandableRows={true}
+            defaultSortFieldId={1}
+            defaultSortAsc={false}
             customStyles={{
               cells: {
                 style: {
@@ -75,6 +89,9 @@ function LotListPageComponent() {
               },
             }}
             expandableRowsComponent={LotExpand}
+            pagination
+            paginationPerPage={20}
+            paginationRowsPerPageOptions={[10, 20, 50, 100]}
           />
         </InfiniteScroll>
       )}

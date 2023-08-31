@@ -7,7 +7,7 @@ export const batchColumns = [
     cell: (row) => `${row.farmerId}`,
   },
   {
-    name: "Name",
+    name: "Farmer Name",
     selector: (row) => row["farmerName"],
     width: "280px",
   },

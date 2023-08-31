@@ -63,6 +63,7 @@ export function useBatchStore() {
       _draft.batch = DEFAULT_STATE.batch;
       _draft.hasMore = DEFAULT_STATE.hasMore;
       _draft.offset = DEFAULT_STATE.offset;
+      _draft.isLoading = DEFAULT_STATE.isLoading;
     });
   };
 

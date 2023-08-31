@@ -7,9 +7,9 @@ export const batchColumns = [
     cell: (row) => `FP-${row.farmerProduceId}`,
   },
   {
-    name: "Name",
+    name: "Farmer Name",
     selector: (row) => row["farmerName"],
-    width: "280px",
+    maxWidth: "280px",
   },
   // {
   //   //TODO: do we need this?
@@ -37,9 +37,15 @@ export const batchColumns = [
     sortable: true,
   },
   {
+    name: "Cooperative",
+    selector: (row) => row["cooperative"],
+    maxWidth: "250px",
+    sortable: true,
+  },
+  {
     name: "Farmer ID",
     selector: (row) => row["farmerId"],
-    maxWidth: "100px",
+    maxWidth: "120px",
     sortable: true,
     cell: (row) => `${row.farmerId}`,
   },

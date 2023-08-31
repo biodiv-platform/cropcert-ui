@@ -86,25 +86,6 @@ export default function BatchCreateForm({
     hForm.setValue(`ccCode`, cc?.value);
   }, [cc]);
 
-  // const handleSubmit = async (values) => {
-  //   const formData = {
-  //     ...values,
-  //     createdOn: local2utc().getTime(),
-  //     batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(utc2local(values.date)).format(
-  //       DATEFORMATS.DAYJS_DATE
-  //     )}`,
-  //   };
-  //   const { success, data } = await axCreateBatch(formData);
-  //   if (success) {
-  //     const receivedData = data.batch;
-  //     update(receivedData); //TODO: handle farmers data just like lot and batch data
-  //     onClose();
-  //     notification(BATCH.CREATED, NotificationType.Success, data);
-  //   }
-  // };
-
-  // console.log("selectedRows", selectedRows);
-
   const rowSelectCritera = (r) => r.quantity > 10;
 
   return (

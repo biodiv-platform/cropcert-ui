@@ -13,5 +13,7 @@ module.exports = {
     "rgx:/page/": ["page", "activity"],
     "rgx:/register": ["user"],
     "rgx:/user/": ["user", "group", "filters"],
+    "rgx:/media-gallery/": ["filters"],
+    "rgx:/resource/": ["filters"],
   },
 };

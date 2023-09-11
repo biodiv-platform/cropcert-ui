@@ -1,15 +1,11 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
-import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
 
 interface ITextBoxProps {
-  id?;
+  id?: string;
   name: string;
-  placeholder?: string;
-  title?: string;
-  label?: string;
-  helpText?: string;
+  label: string;
   type?: string;
   mb?: number;
   disabled?: boolean;
@@ -17,21 +13,21 @@ interface ITextBoxProps {
   style?;
   maxLength?;
   isRequired?: boolean;
+  showLabel?: boolean;
   hidden?;
   autoComplete?;
 }
 
 export const TextBoxField = ({
+  id,
   name,
-  title,
   label,
-  helpText,
-  placeholder,
   type = "text",
   mb = 4,
   disabled,
   hint,
   isRequired,
+  showLabel = true,
   maxLength,
   hidden,
   autoComplete,
@@ -39,7 +35,7 @@ export const TextBoxField = ({
 }: ITextBoxProps) => {
   const { field, fieldState } = useController({
     name,
-    defaultValue: type === "number" ? undefined : "", // to prevent uncontrolled to controlled error
+    defaultValue: "", // to prevent uncontrolled to controlled error
   });
 
   return (
@@ -50,21 +46,17 @@ export const TextBoxField = ({
       isRequired={isRequired}
       {...props}
     >
-      {label && <FormLabel htmlFor={name} children={label} />}
+      {showLabel && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <Input
-        id={name}
-        placeholder={placeholder}
+        id={id || name}
+        placeholder={label}
         type={type}
-        colorScheme="blue"
         maxLength={maxLength}
         isDisabled={disabled}
         autoComplete={autoComplete}
-        bg="white"
         {...field}
       />
-      <FormErrorMessage
-        children={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
-      />
+      <FormErrorMessage children={fieldState?.error?.message} />
       {maxLength && field.value && (
         <FormHelperText color="gray.600" children={`${field.value.length}/${maxLength}`} />
       )}

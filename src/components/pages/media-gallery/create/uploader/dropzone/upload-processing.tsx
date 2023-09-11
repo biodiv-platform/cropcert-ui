@@ -1,0 +1,15 @@
+import { TimeIcon } from "@chakra-ui/icons";
+import { Flex } from "@chakra-ui/react";
+import useTranslation from "next-translate/useTranslation";
+import React from "react";
+
+export default function UploadProcessing() {
+  const { t } = useTranslation();
+
+  return (
+    <Flex direction="column" alignItems="center" className="fade">
+      <TimeIcon mb={4} fontSize="3xl" />
+      <span>{t("form:uploader.processing")}</span>
+    </Flex>
+  );
+}

@@ -32,6 +32,12 @@
       "validated": "Validated"
     }
   },
+  "context": {
+    "resource": "Resource",
+    "observation": "Observation",
+    "species": "Species",
+    "title": "Context"
+  },
   "dataset_filter": {
     "dataset": {
       "title": "Dataset Name"

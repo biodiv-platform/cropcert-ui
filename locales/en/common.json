@@ -69,6 +69,18 @@
   "next": "Next",
   "or": "or",
   "prev": "Previous",
+  "resource": {
+    "caption": "Caption",
+    "contributor": "Contributor",
+    "license": "License",
+    "rating": "Rating",
+    "resource_info": "Resource Information",
+    "success": "Resource Updated sucessfully",
+    "tags": "Tags",
+    "upload_time": "Upload Time",
+    "url": "Url"
+  },
+
   "save": "Save",
   "select_project": "Select Project",
   "success": "Success",

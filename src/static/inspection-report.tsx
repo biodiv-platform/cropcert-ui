@@ -4,11 +4,13 @@ export const STORE = {
   FARMERS: "farmers",
   SYNC_STATUS: "sync-status",
   PENDING_INSPECTION_REPORT: "pending-inspection-report",
+  ASSETS: "assets",
+  PENDING_RESOURCES: "pending-resources",
 };
 
 export const DB_CONFIG: IndexedDBConfig = {
   databaseName: "cropcert",
-  version: 2,
+  version: 3,
   stores: [
     {
       name: STORE.FARMERS,
@@ -53,6 +55,29 @@ export const DB_CONFIG: IndexedDBConfig = {
         { name: "version", keyPath: "version" },
         { name: "subversion", keyPath: "subversion" },
       ],
+    },
+    {
+      name: STORE.ASSETS,
+      id: { keyPath: "id", autoIncrement: true },
+      indices: [
+        { name: "hashKey", keyPath: "hashKey", options: { unique: true } },
+        { name: "fileName", keyPath: "fileName" },
+        { name: "path", keyPath: "path" },
+        { name: "type", keyPath: "type" },
+        { name: "license", keyPath: "license" },
+        { name: "status", keyPath: "status" },
+        { name: "caption", keyPath: "caption" },
+        { name: "ratings", keyPath: "ratings" },
+        { name: "blob", keyPath: "blob" },
+        { name: "isUsed", keyPath: "isUsed" },
+        { name: "dateCreated", keyPath: "dateCreated" },
+        { name: "dateUploaded", keyPath: "dateUploaded" },
+      ],
+    },
+    {
+      name: STORE.PENDING_RESOURCES,
+      id: { keyPath: "id", autoIncrement: true },
+      indices: [{ name: "data", keyPath: "data" }],
     },
   ],
 };

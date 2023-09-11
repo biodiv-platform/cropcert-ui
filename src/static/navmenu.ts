@@ -26,4 +26,30 @@ export const navmenu = [
     url: "/user/list",
     access: [ROLES.UNAUTHORIZED],
   },
+  {
+    id: 3,
+    title: "Media gallery",
+    access: [ROLES.UNAUTHORIZED],
+    url: "/resource/list",
+    children: [
+      {
+        id: 4,
+        title: "All media",
+        url: "/resource/list",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 5,
+        title: "Media Gallery list",
+        url: "/media-gallery/list",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 5,
+        title: "Media Gallery Create",
+        url: "/media-gallery/create",
+        access: [ROLES.ADMIN],
+      },
+    ],
+  },
 ];

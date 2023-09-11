@@ -1,5 +1,6 @@
 import { DATEFORMATS, TYPE_OPTIONS } from "@static/constants";
 import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 
 export const formattedTimeStamp = (d = new Date()) => {
   return dayjs(d).format(DATEFORMATS.DAYJS_DATETIME);
@@ -92,6 +93,8 @@ export const getByPath = (obj, path) => {
   return obj;
 };
 
+export const normalizeFileName = (s) => `${nanoid()}_${s.replace(/([^a-z0-9\.\s]+)/gi, "-")}`;
+
 export const getCoords = async () => {
   try {
     const pos: any = await new Promise((resolve, reject) => {
@@ -106,3 +109,14 @@ export const getCoords = async () => {
 };
 
 export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();
+
+export const generatePassword = (passwordLength) => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const passwordArray = Array.from(
+    { length: passwordLength },
+    () => characters[Math.floor(Math.random() * characters.length)]
+  );
+  const newPassword = passwordArray.join("");
+
+  return newPassword;
+};

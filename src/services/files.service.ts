@@ -1,4 +1,5 @@
 import { MyUpload } from "@interfaces/files";
+import { ResourceMediaGallery } from "@interfaces/media";
 import { ENDPOINT, RESOURCE_TYPE } from "@static/constants";
 import { LOCAL_ASSET_PREFIX } from "@static/observation-create";
 import http, { formDataHeaders } from "@utils/http";
@@ -37,6 +38,26 @@ export const axUploadDocumentResource = async (document: File): Promise<MyUpload
   });
 
   return data;
+};
+
+export const axUploadMediaGalleryResource = async (
+  resource: ResourceMediaGallery,
+  module = "resource"
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("hash", resource.hashKey);
+    formData.append("module", module);
+    formData.append("upload", resource.blob, resource.fileName);
+
+    const { data } = await http.post(`${ENDPOINT.FILES}/upload/my-uploads`, formData, {
+      headers: formDataHeaders,
+    });
+    return { success: true, data };
+  } catch (e) {
+    console.error(e);
+    return { success: false };
+  }
 };
 
 /**

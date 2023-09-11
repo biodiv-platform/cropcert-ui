@@ -22,12 +22,22 @@
     "hide": "Simplified Edit",
     "show": "Advanced Edit"
   },
+  "my_uploads_sort": {
+    "taken_on": "Taken on",
+    "uploaded_on": "Uploaded on"
+  },
   "search_point": "Search Point",
   "tags": "Tags",
   "tags_hint": "Start typing to search tags",
   "tags_update_error": "There was an error while updating tags",
   "tags_update_success": "Tags Updated Successfully",
   "title": "Title",
+  "upload_status": {
+    "failed": "Failed",
+    "pending": "Pending",
+    "uploaded": "Uploaded to Draft Media",
+    "uploading": "Uploading"
+  },
   "uploader": {
     "browse": "Browse",
     "description": "(Only JPG, JPEG, PNG, MP3 ,MP4 files will be accepted)",

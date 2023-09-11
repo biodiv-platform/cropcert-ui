@@ -37,6 +37,7 @@ export function useLotStore() {
       setState((_draft) => {
         _draft.isLoading = true;
       });
+
       const offset = reset ? 0 : state.offset;
       const response = await axListLot(ccCodes, offset);
       setLot(response);

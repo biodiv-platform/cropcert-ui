@@ -10,6 +10,8 @@ export interface Activity {
   isDeleted?: boolean;
 }
 export interface Batch {
+  batchId: any;
+  lastUpdatedOn: any;
   _id?: string; // int64
   batchName?: string;
   ccCode?: number; // int64

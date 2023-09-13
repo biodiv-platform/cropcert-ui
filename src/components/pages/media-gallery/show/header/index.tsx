@@ -69,8 +69,6 @@ export default function ListHeader() {
   const { user } = useGlobalState();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
 
-  const { isLoggedIn } = useGlobalState();
-
   const is_single = !filter?.mId?.includes(",");
 
   const getFirstImageResource = (data) => {
@@ -129,14 +127,12 @@ export default function ListHeader() {
             {mediaGalleryData.name}
             {is_single && (
               <>
-                {isLoggedIn && (
-                  <SimpleActionButton
-                    icon={<Add2Icon />}
-                    title={t("Contribute to this Media Gallery")}
-                    onClick={handleOnAdd}
-                    colorScheme="green"
-                  />
-                )}
+                <SimpleActionButton
+                  icon={<Add2Icon />}
+                  title={t("Contribute to this Media Gallery")}
+                  onClick={handleOnAdd}
+                  colorScheme="green"
+                />
                 {isAdmin && (
                   <>
                     <SimpleActionButton

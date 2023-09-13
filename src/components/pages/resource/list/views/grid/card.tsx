@@ -8,13 +8,21 @@ import React, { useState } from "react";
 export interface ResourceMinList {
   o: ResourceListMinimalData;
   canEdit: boolean;
+  index?: number;
+  setSelectedImageIndex?: any;
 
   getCheckboxProps?: (props?: any | undefined) => {
     [x: string]: any;
   };
 }
 
-export default function GridViewCard({ o, getCheckboxProps, canEdit }: ResourceMinList) {
+export default function GridViewCard({
+  o,
+  getCheckboxProps,
+  canEdit,
+  setSelectedImageIndex,
+  index,
+}: ResourceMinList) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -32,7 +40,7 @@ export default function GridViewCard({ o, getCheckboxProps, canEdit }: ResourceM
             {...getCheckboxProps({ value: String(o.resource?.id) })}
           />
         )}
-        <Link>
+        <Link onClick={() => setSelectedImageIndex(index)}>
           <Image
             objectFit="cover"
             bg="gray.100"

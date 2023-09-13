@@ -50,10 +50,6 @@ export default function GridView() {
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
-  const openImageViewer = (index) => {
-    setSelectedImageIndex(index);
-  };
-
   const closeImageViewer = () => {
     setSelectedImageIndex(null);
   };
@@ -69,8 +65,14 @@ export default function GridView() {
       >
         <div className="grid-card">
           {resourceData.l.map((o, index) => (
-            <Link key={o.resourceId} onClick={() => openImageViewer(index)}>
-              <GridViewCard o={o} canEdit={isLoggedIn} getCheckboxProps={getCheckboxProps} />
+            <Link>
+              <GridViewCard
+                o={o}
+                canEdit={isLoggedIn}
+                getCheckboxProps={getCheckboxProps}
+                index={index}
+                setSelectedImageIndex={setSelectedImageIndex}
+              />
             </Link>
           ))}
         </div>

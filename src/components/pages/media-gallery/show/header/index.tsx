@@ -7,10 +7,10 @@ import useGlobalState from "@hooks/use-global-state";
 import Add2Icon from "@icons/add";
 import DeleteIcon from "@icons/delete";
 import { axDeleteMediaGalleryById } from "@services/media-gallery.service";
-import { RESOURCE_SIZE, ROLES } from "@static/constants";
+import { ROLES } from "@static/constants";
 import { viewTabs } from "@static/media-gallery-list";
 import { hasAccess } from "@utils/auth";
-import { getResourceThumbnail } from "@utils/media";
+import { getResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
 import { format } from "indian-number-format";
 import router from "next/router";
@@ -80,11 +80,7 @@ export default function ListHeader() {
 
   const resource = getFirstImageResource(mediaGalleryData);
 
-  const reprImage = getResourceThumbnail(
-    resource?.context,
-    resource?.fileName,
-    RESOURCE_SIZE.SOCIAL_DEFAULT
-  );
+  const reprImage = getResourceRAW(resource?.context, resource?.fileName);
   const { lang } = useTranslation();
 
   return (
@@ -99,6 +95,12 @@ export default function ListHeader() {
           description: mediaGalleryData.description,
         }}
         title={mediaGalleryData.name}
+        additionalLinkTags={[
+          {
+            rel: "icon",
+            href: reprImage ? reprImage : mediaGalleryData.name,
+          },
+        ]}
       />
 
       <Flex mt={4} direction={{ base: "column", md: "row" }} justify="space-between">

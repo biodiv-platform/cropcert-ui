@@ -9,7 +9,10 @@ export interface Activity {
   note?: string;
   isDeleted?: boolean;
 }
+
+//  TODO: review batch and lot interfaces
 export interface Batch {
+  lotStatus: any;
   batchId: any;
   lastUpdatedOn: any;
   _id?: string; // int64

@@ -1,19 +1,19 @@
-import { Badge, Button } from "@chakra-ui/react";
-
-import { BATCH_UPDATE } from "@static/events";
-import { Batch } from "@interfaces/traceability";
+import { Badge, Button, ButtonProps } from "@chakra-ui/react";
+import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
-import React from "react";
-import { axGetColumns } from "@services/traceability.service";
-import { emit } from "react-gbus";
-import { is } from "immer/dist/internal";
+import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
+import { Batch } from "@interfaces/traceability";
+import { BATCH_FLAGS, ROLES } from "@static/constants";
+import { BATCH_UPDATE } from "@static/events";
+import { is } from "immer/dist/internal";
+import React from "react";
+import { emit } from "react-gbus";
 
-const VARIANT_MAPPING = {
-  ADD: "blue",
-  EDIT: "orange",
-  DONE: "green",
-  NOT_APPLICABLE: "gray",
+const buttonProps: Partial<ButtonProps> = {
+  variant: "outline",
+  minWidth: "50px",
+  size: "xs",
 };
 
 export const createBatchColumns = (columns) => {
@@ -22,23 +22,6 @@ export const createBatchColumns = (columns) => {
 
     // sort columns by order
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
-
-    let isBtnActive = true;
-
-    const printCurrRow = (row) => {
-      return row;
-    };
-
-    const checkModalFieldExistForColumnName = (modalFieldCombined, currModalFieldId) => {
-      isBtnActive = false;
-      modalFieldCombined?.forEach((modalField) => {
-        if (modalField.modalFieldId === currModalFieldId) {
-          isBtnActive = true;
-        }
-      });
-
-      return isBtnActive;
-    };
 
     // helper function to create a column for the batch table
     const createBatchColumn = (
@@ -56,6 +39,38 @@ export const createBatchColumns = (columns) => {
 
     const batchModalColumns = columns.reduce(
       (acc, curr) => {
+        const batchUpdateWrapper = (batch, canWrite) => {
+          return { batch, canWrite };
+        };
+
+        const ButtonComponent = (row) => {
+          const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
+
+          const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+          const isDone = data?.columnStatus === BATCH_FLAGS.DONE;
+          const isOptional = data?.isOptional;
+
+          const updatedBatch = {
+            ...row,
+            currentColumnStatus: data?.columnStatus,
+            showModalById: data?.modalFieldId,
+          };
+
+          const renderButton = show && (canWrite || isDone);
+
+          return (isOptional && renderButton) || renderButton ? (
+            <Button
+              {...buttonProps}
+              colorScheme={colorScheme}
+              onClick={() => emit(BATCH_UPDATE, batchUpdateWrapper(updatedBatch, canWrite))}
+            >
+              {data?.columnStatus}
+            </Button>
+          ) : (
+            <NotApplicable />
+          );
+        };
+
         return [
           ...acc,
           {
@@ -63,31 +78,7 @@ export const createBatchColumns = (columns) => {
             selector: (row) => row[curr.columnName],
             center: true,
             maxWidth: "280px",
-            cell: (row: Batch) => (
-              <Button
-                colorScheme={
-                  checkModalFieldExistForColumnName(row.modalFieldCombined, curr.modalFieldId)
-                    ? VARIANT_MAPPING[row.batchStatus as any]
-                    : VARIANT_MAPPING["NOT_APPLICABLE"]
-                }
-                variant="outline"
-                minWidth="50px"
-                isDisabled={
-                  !checkModalFieldExistForColumnName(row.modalFieldCombined, curr.modalFieldId)
-                } //TODO: use this for button based on batch type implementation
-                size="xs"
-                onClick={
-                  () =>
-                    emit(BATCH_UPDATE, printCurrRow({ ...row, showModalById: curr.modalFieldId }))
-                  /* TODO: update below
-                    Explanation:
-                    In this code snippet, we are emitting a BATCH_UPDATE event and passing a modified row as a parameter to the printCurrRow function. The modification involves adding a new property called showModalById, which is assigned the value of curr.modalFieldId. It should be noted that curr.modalFieldId represents the identifier of the modal field in the first row of the batch table in the user interface. Based on this assumption, we assume that all rows in the batch table with the same ccCode will have the same modalFieldId. However, it's important for future developers to review this assumption and ensure its validity.
-                    */
-                }
-              >
-                {isBtnActive ? row.batchStatus : "NA"}
-              </Button>
-            ),
+            cell: ButtonComponent,
           },
         ];
       },
@@ -111,7 +102,7 @@ export const createBatchColumns = (columns) => {
         "Lot",
         (row) => row.lotId,
         "100px",
-        (row) => <LotCell {...row} type="b" />
+        (row) => <LotCell {...row} />
       ),
       createBatchColumn(
         "Lot Status",
@@ -121,7 +112,7 @@ export const createBatchColumns = (columns) => {
       ),
     ];
   } catch (e) {
-    console.log("error", e);
+    console.error("error", e);
   }
 };
 

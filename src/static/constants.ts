@@ -113,6 +113,13 @@ export const LOT_FLAGS = {
   NOTAPPLICABLE: "NOTAPPLICABLE",
 };
 
+export const BATCH_FLAGS = {
+  ADD: "ADD",
+  EDIT: "EDIT",
+  DONE: "DONE",
+  NOTAPPLICABLE: "NOTAPPLICABLE",
+};
+
 export const VERIFICATION_MODE = {
   MANUAL: "manual",
   OAUTH_GOOGLE: "oauth-google",

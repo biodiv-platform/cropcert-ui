@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Badge,
   Box,
   Button,
@@ -19,6 +21,7 @@ import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axUpdateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
+import { isEverythingFilledExcept } from "@utils/basic";
 import { yupSchemaMapping } from "@utils/form";
 import notification, { NotificationType } from "@utils/notification";
 import React from "react";
@@ -26,7 +29,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
 
-export default function BatchUpdateForm({ batch, update, onClose }) {
+export default function BatchUpdateForm({
+  batch,
+  update,
+  onClose,
+  canWrite,
+  errorMessage,
+  isDone,
+}) {
   const fieldsObj = batch.modalFieldCombined.find((o) => o.modalFieldId === batch.showModalById);
 
   // reducer to generate defaultValues and yupSchema dynamically
@@ -127,6 +137,10 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
     }
   };
 
+  const isFormReadOnly = !canWrite || values.finalizeBatch;
+  const isFinalizeEnabled =
+    !isDone && canWrite && isEverythingFilledExcept("finalizeBatch", values);
+
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
@@ -169,7 +183,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                       placeholder={field.label}
                       type={field.type}
                       key={index}
-                      disabled={batch.isReadyForLot}
+                      disabled={isFormReadOnly}
                     />
                   );
                 } else if (field.fieldType === "auto") {
@@ -199,14 +213,19 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
                   Ready for Lot <Badge colorScheme="red">irreversible</Badge>
                 </span>
               }
-              isDisabled={batch.isReadyForLot || !hForm.formState.isValid}
+              isDisabled={!isFinalizeEnabled}
             />
+            {errorMessage && (
+              <Alert status="error" borderRadius="md">
+                <AlertIcon /> {errorMessage}
+              </Alert>
+            )}
           </ModalBody>
           <ModalFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
-            <SubmitButton leftIcon={<SaveIcon />} isDisabled={batch.isReadyForLot}>
+            <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
               Save
             </SubmitButton>
           </ModalFooter>

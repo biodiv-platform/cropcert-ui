@@ -2,8 +2,8 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Table as ChakraTable,
   Skeleton,
+  Table as ChakraTable,
   Tbody,
   Td,
   Th,
@@ -11,28 +11,27 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CoreGrid, PageHeading } from "@components/@core/layout";
-import React, { useEffect, useState } from "react";
-
 import Accesser from "@components/@core/accesser";
+import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
+import { CoreGrid, PageHeading } from "@components/@core/layout";
+import Table from "@components/@core/table";
+import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
+import { axGetColumns } from "@services/traceability.service";
+import { ROLES } from "@static/constants";
+import { LOT_CREATE } from "@static/events";
+import { hasAccess } from "@utils/auth";
+import React, { useEffect, useState } from "react";
+import { emit } from "react-gbus";
+import InfiniteScroll from "react-infinite-scroller";
+
+import { createBatchColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal-new";
-import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
-import InfiniteScroll from "react-infinite-scroller";
-import { LOT_CREATE } from "@static/events";
 import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
-import { ROLES } from "@static/constants";
-import Table from "@components/@core/table";
-import ax from "@utils/http";
-import { axGetColumns } from "@services/traceability.service";
-import { createBatchColumns } from "./data";
-import { emit } from "react-gbus";
-import { hasAccess } from "@utils/auth";
 import { useBatchStore } from "./use-batch-store";
-import useGlobalState from "@hooks/use-global-state";
 
 function BatchListPageComponent() {
   const [co, setCo] = useState([] as any);

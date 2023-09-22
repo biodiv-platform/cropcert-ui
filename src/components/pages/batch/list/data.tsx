@@ -6,7 +6,6 @@ import timeCell from "@components/@core/table/time-cell";
 import { Batch } from "@interfaces/traceability";
 import { BATCH_FLAGS, ROLES } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
-import { is } from "immer/dist/internal";
 import React from "react";
 import { emit } from "react-gbus";
 

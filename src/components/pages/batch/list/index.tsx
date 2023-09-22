@@ -48,8 +48,7 @@ function BatchListPageComponent() {
   const [batchModalColumns, setBatchModalColumns] = useState<any>([]);
 
   useEffect(() => {
-    ccCodes.length &&
-      actions.listBatch({ ccCodes: [71, 70, 78, 77, 73, 76, 72, 74, 69, 75], reset: true });
+    ccCodes.length && actions.listBatch({ ccCodes, reset: true });
   }, [triggerRender, ccCodes]);
 
   useEffect(() => {
@@ -90,7 +89,7 @@ function BatchListPageComponent() {
       name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
       type: selectedBatches[0].type,
       selected: selectedBatches,
-      coCode: "71", //TODO: change it to co.value
+      coCode: co.value, //TODO: change it to co.value
       quantity,
     };
 

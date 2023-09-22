@@ -16,103 +16,100 @@ const buttonProps: Partial<ButtonProps> = {
   size: "xs",
 };
 
+// Helper function to create a column for the batch table
+const createBatchColumn = (
+  name: string,
+  selector: (row: Batch) => any,
+  maxWidth: string,
+  cell?: (row: Batch) => JSX.Element
+) => ({
+  name,
+  selector,
+  center: true,
+  maxWidth,
+  cell,
+});
+
+const defaultBatchModalColumns = [
+  createBatchColumn("#", (row) => `B-${row.batchId}`, "100px"), // You can add cell rendering function if needed
+  createBatchColumn("Name", (row) => row.batchName, "280px"),
+  createBatchColumn("Type", (row) => row.type, "100px"),
+  createBatchColumn("Quantity", (row) => row.quantity, "100px"),
+  createBatchColumn(
+    "Last Updated",
+    (row) => row.lastUpdatedOn,
+    "150px",
+    (row) => timeCell(row.lastUpdatedOn)
+  ),
+];
+
+const batchModalColumnsWithLotInfo = [
+  createBatchColumn(
+    "Lot",
+    (row) => row.lotId,
+    "100px",
+    (row) => <LotCell {...row} />
+  ),
+  createBatchColumn(
+    "Lot Status",
+    (row) => row?.lotStatus,
+    "100px",
+    (row) => <Badge>{row?.lotStatus}</Badge>
+  ),
+];
+
 export const createBatchColumns = (columns) => {
   try {
     if (!columns) return [];
 
-    // sort columns by order
+    // Sort columns by order
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
 
-    // helper function to create a column for the batch table
-    const createBatchColumn = (
-      name: string,
-      selector: (row: Batch) => any,
-      maxWidth: string,
-      cell?: (row: Batch) => JSX.Element
-    ) => ({
-      name,
-      selector,
-      center: true,
-      maxWidth,
-      cell,
-    });
+    const batchModalColumns = columns.reduce((acc, curr) => {
+      const batchUpdateWrapper = (batch, canWrite) => {
+        return { batch, canWrite };
+      };
 
-    const batchModalColumns = columns.reduce(
-      (acc, curr) => {
-        const batchUpdateWrapper = (batch, canWrite) => {
-          return { batch, canWrite };
+      const ButtonComponent = (row) => {
+        const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
+
+        const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+        const isDone = data?.columnStatus === BATCH_FLAGS.DONE;
+        const isOptional = data?.isOptional;
+
+        const updatedBatch = {
+          ...row,
+          currentColumnStatus: data?.columnStatus,
+          showModalById: data?.modalFieldId,
         };
 
-        const ButtonComponent = (row) => {
-          const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
+        const renderButton = show && (canWrite || isDone);
 
-          const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
-          const isDone = data?.columnStatus === BATCH_FLAGS.DONE;
-          const isOptional = data?.isOptional;
+        return (isOptional && renderButton) || renderButton ? (
+          <Button
+            {...buttonProps}
+            colorScheme={colorScheme}
+            onClick={() => emit(BATCH_UPDATE, batchUpdateWrapper(updatedBatch, canWrite))}
+          >
+            {data?.columnStatus}
+          </Button>
+        ) : (
+          <NotApplicable />
+        );
+      };
 
-          const updatedBatch = {
-            ...row,
-            currentColumnStatus: data?.columnStatus,
-            showModalById: data?.modalFieldId,
-          };
+      return [
+        ...acc,
+        createBatchColumn(curr.columnName, (row) => row[curr.columnName], "280px", ButtonComponent),
+      ];
+    }, []);
 
-          const renderButton = show && (canWrite || isDone);
-
-          return (isOptional && renderButton) || renderButton ? (
-            <Button
-              {...buttonProps}
-              colorScheme={colorScheme}
-              onClick={() => emit(BATCH_UPDATE, batchUpdateWrapper(updatedBatch, canWrite))}
-            >
-              {data?.columnStatus}
-            </Button>
-          ) : (
-            <NotApplicable />
-          );
-        };
-
-        return [
-          ...acc,
-          {
-            name: curr.columnName,
-            selector: (row) => row[curr.columnName],
-            center: true,
-            maxWidth: "280px",
-            cell: ButtonComponent,
-          },
-        ];
-      },
-
-      []
-    );
-
-    return [
-      createBatchColumn("#", (row) => `B-${row.batchId}`, "100px", undefined), // You can add cell rendering function if needed
-      createBatchColumn("Name", (row) => row.batchName, "280px"),
-      createBatchColumn("Type", (row) => row.type, "100px", undefined),
-      createBatchColumn("Quantity", (row) => row.quantity, "100px", undefined),
-      createBatchColumn(
-        "Last Updated",
-        (row) => row.lastUpdatedOn,
-        "150px",
-        (row) => timeCell(row.lastUpdatedOn)
-      ),
-      ...batchModalColumns,
-      createBatchColumn(
-        "Lot",
-        (row) => row.lotId,
-        "100px",
-        (row) => <LotCell {...row} />
-      ),
-      createBatchColumn(
-        "Lot Status",
-        (row) => row?.lotStatus,
-        "100px",
-        (row) => <Badge>{row?.lotStatus}</Badge>
-      ),
-    ];
+    return [...defaultBatchModalColumns, ...batchModalColumns, ...batchModalColumnsWithLotInfo];
   } catch (e) {
     console.error("error", e);
+
+    // returning default value
+    return [defaultBatchModalColumns, batchModalColumnsWithLotInfo];
   }
 };
 

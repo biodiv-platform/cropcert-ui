@@ -62,7 +62,7 @@ export default function BatchCreateForm({
           "_" +
           formattedDate(payload.creationDate),
         type: payload.type,
-        ccCode: 71, //TODO: add dynamically
+        ccCode: batchConfig.coCode, //TODO: add dynamically
         quantity: batchConfig.quantity,
         createdOn: values.creationDate,
         farmerProduceIds: farmerProduceArr.map((b) => b._id),

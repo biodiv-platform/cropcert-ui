@@ -4,6 +4,7 @@ import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import Container from "@components/@core/container";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
@@ -19,6 +20,7 @@ function LotListPageComponent() {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
   const lotStore = useLotStore();
+  const [lotModalColumns, setLotModalColumns] = useState<any>([]);
 
   const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
 
@@ -27,14 +29,14 @@ function LotListPageComponent() {
   }, [coCodes]);
 
   useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
-  }, [lotStore.state.lot]);
+    (async () => {
+      const columns = await axGetColumns("LOT");
+      setLotModalColumns(columns.data);
+    })();
+  }, []);
 
   // Generate dynamic batchColumns based on state.batch
-  const lotExtraColumns =
-    lotStore.state.lot && lotStore.state.lot.length > 0
-      ? createLotColumns(lotStore.state.lot[0])
-      : [];
+  const lotExtraColumns = lotModalColumns.length > 0 ? createLotColumns(lotModalColumns) : [];
 
   const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
     <Th key={index}>

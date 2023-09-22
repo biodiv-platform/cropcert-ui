@@ -187,7 +187,8 @@ function FarmerListPageComponent() {
           <Tbody>{loadingRows}</Tbody>
         </ChakraTable>
       ) : (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
+        // TODO: check the loadMore prop
+        <InfiniteScroll pageStart={0} loadMore={false} hasMore={false}>
           {filteredItems.length > 0 ? (
             <Table
               data={filteredItems || []}

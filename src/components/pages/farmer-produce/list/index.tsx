@@ -137,13 +137,6 @@ function FarmerListPageComponent() {
         ).length
       }`}</Box>
 
-      {/* <CoreGrid hidden={hideAccessor}>
-        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />
-        <Box>
-          <CCMultiSelect coId={co?.value} onChange={setCCs} />
-        </Box>
-      </CoreGrid> */}
-
       <MultipleTypeWarning show={showTypeError} />
 
       {state.isLoading && (

@@ -106,3 +106,8 @@ export const getCoords = async () => {
 };
 
 export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();
+
+// capitalize first letter of string
+export const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

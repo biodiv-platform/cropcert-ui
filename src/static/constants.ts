@@ -15,8 +15,6 @@ export const DATEFORMATS = {
 
 const API_ENDPOINT = SITE_CONFIG.SITE.API_ENDPOINT_SSR;
 
-// TODO: edit this later
-
 const API_ENDPOINT_TRACEABILITY = SITE_CONFIG.SITE.API_ENDPOINT_SSR + "v1/";
 
 export const ENDPOINT = {
@@ -36,7 +34,6 @@ export const ENDPOINT = {
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
-  // TRACEABILITY: `http://localhost:5500/${"645774053e1875e3bd793978"}`, //TODO: edit this later
   TRACEABILITY: `${API_ENDPOINT}traceability-api/api`,
   TRACEABILITY_MERN: `${API_ENDPOINT_TRACEABILITY}645774053e1875e3bd793978`,
   USER: `${API_ENDPOINT}user-api/api`,

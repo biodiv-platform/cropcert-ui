@@ -4,6 +4,7 @@ import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
+import { capitalizeFirstLetter } from "@utils/basic";
 import React from "react";
 import { emit } from "react-gbus";
 
@@ -18,10 +19,6 @@ export const createLotColumns = (lot) => {
     const lotExtraColumns = lot.modalFieldCombined.reduce((acc, curr) => {
       const printCurrRow = (lot, canWrite) => {
         return { lot, canWrite };
-      };
-
-      const capitalizeFirstLetter = (str) => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
       };
 
       const ButtonComponent = (row) => {

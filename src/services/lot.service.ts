@@ -51,7 +51,6 @@ export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION
 export const axCreateLot = async (payload) => {
   try {
     const { data } = await http.post(`${ENDPOINT.TRACEABILITY_MERN}/lot/new`, payload);
-    // const { data } = await http.post(`http://localhost:5500/lotinfo`, payload);
     return { success: true, data };
   } catch (e) {
     notification(e.message);

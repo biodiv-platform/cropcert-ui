@@ -30,7 +30,6 @@ export const createBatchColumns = (batch: any) => {
               colorScheme={VARIANT_MAPPING[row.batchStatus as any]}
               variant="outline"
               minWidth="50px"
-              // isDisabled={row.type === BATCH_TYPE.DRY} //TODO: use this for button based on batch type implementation
               size="xs"
               onClick={
                 () => emit(BATCH_UPDATE, printCurrRow({ ...row, showModalById: curr.modalFieldId }))
@@ -41,7 +40,6 @@ export const createBatchColumns = (batch: any) => {
               }
             >
               {row.batchStatus}
-              {/* //TODO: change it too milling status */}
             </Button>
           ),
         },
@@ -62,7 +60,6 @@ export const createBatchColumns = (batch: any) => {
         width: "280px",
       },
       {
-        //TODO: do we need this?
         name: "Type",
         selector: (row) => row["type"],
         maxWidth: "100px",

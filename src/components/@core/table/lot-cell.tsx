@@ -14,7 +14,6 @@ export default function LotCell({
   lotIdMongo?;
   batchStatus?;
 }) {
-  // const finalLotId = type === "b" ? lotId : id; //TODO: check lot type validation
   const finalLotId = lotId;
   const label = `View Lot #${finalLotId}`;
   const id = batchStatus === undefined ? _id : lotIdMongo;

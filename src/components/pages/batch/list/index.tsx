@@ -124,12 +124,6 @@ function BatchListPageComponent() {
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
       <Box my={2}>{`Total Records: ${state.batch.length}`}</Box>
-      {/* <CoreGrid hidden={hideAccessor}>
-        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions.clearBatch} />
-        <Box>
-          <CCMultiSelect coId={co?.value} onChange={setCCs} />
-        </Box>
-      </CoreGrid> */}
 
       <MultipleTypeWarning show={showTypeError} />
 

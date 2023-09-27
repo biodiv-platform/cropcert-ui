@@ -11,13 +11,6 @@ export const batchColumns = [
     selector: (row) => row["farmerName"],
     width: "280px",
   },
-  // {
-  //   //TODO: do we need this?
-  //   name: "Type",
-  //   selector: (row) => row["type"],
-  //   maxWidth: "100px",
-  //   sortable: true,
-  // },
   {
     name: "Collection Date",
     selector: (row) => row["collectionDate"],

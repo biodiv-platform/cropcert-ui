@@ -36,25 +36,6 @@ export default function BatchCreateForm({
   const [cc] = useState({} as any);
   const [batchType, setBatchType] = useState<any[]>([]);
 
-  // const hForm = useForm<any>({
-  //   mode: "onBlur",
-  //   resolver: yupResolver(
-  //     Yup.object().shape({
-  //       ccCode: Yup.string().required(),
-  //       quantity: Yup.number().min(1).required(),
-  //       date: Yup.number().required(),
-  //       type: Yup.string().required(),
-  //     })
-  //   ),
-  //   defaultValues: {
-  //     ccCode: cc?.value || null,
-  //     quantity: 0,
-  //     date: local2utc().getTime(),
-  //     note: "",
-  //     type: null,
-  //   },
-  // });
-
   const hForm = useForm<any>({
     mode: "onBlur",
     resolver: yupResolver(
@@ -104,23 +85,6 @@ export default function BatchCreateForm({
     hForm.setValue(`ccCode`, cc?.value);
   }, [cc]);
 
-  // const handleSubmit = async (values) => {
-  //   const formData = {
-  //     ...values,
-  //     createdOn: local2utc().getTime(),
-  //     batchName: `${cc.label}_${values.type.charAt(0)}_batch_${dayjs(utc2local(values.date)).format(
-  //       DATEFORMATS.DAYJS_DATE
-  //     )}`,
-  //   };
-  //   const { success, data } = await axCreateBatch(formData);
-  //   if (success) {
-  //     const receivedData = data.batch;
-  //     update(receivedData); //TODO: handle farmers data just like lot and batch data
-  //     onClose();
-  //     notification(BATCH.CREATED, NotificationType.Success, data);
-  //   }
-  // };
-
   return (
     <ModalContent>
       <FormProvider {...hForm}>
@@ -152,25 +116,6 @@ export default function BatchCreateForm({
             <SubmitButton leftIcon={<Check2Icon />}>Create Batch</SubmitButton>
           </ModalFooter>
         </form>
-
-        {/* <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <ModalContent>
-            <ModalHeader>
-              Finalize Lot: {lotConfig.name}
-              {formattedDate(values.creationDate)}
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody></ModalBody>
-            <ModalFooter>
-              <Button mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <SubmitButton leftIcon={<Check2Icon />} isDisabled={batches.length === 0}>
-                Create Lot
-              </SubmitButton>
-            </ModalFooter>
-          </ModalContent>
-        </form> */}
       </FormProvider>
     </ModalContent>
   );

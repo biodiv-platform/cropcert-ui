@@ -1,11 +1,14 @@
 import { ENDPOINT } from "@static/constants";
 
 export const RESOURCE_CTX = {
+  MY_UPLOADS: "MY_UPLOADS",
   PAGES: "PAGES",
 };
 
 const RESOURCE_CTX_MAP = {
+  MY_UPLOADS: "myUploads",
   PAGES: "pages",
+  RESOURCE: "resources",
 };
 
 export const getResourceThumbnail = (resourceType, resourceUrl, size) => {
@@ -72,4 +75,9 @@ export const getYouTubeId = (url) => {
     console.error(e);
   }
   return ID;
+};
+
+export const getYoutubeImage = (resourceUrl: string, size = "hqdefault") => {
+  const ytid = getYouTubeId(resourceUrl);
+  return ytid ? `https://i.ytimg.com/vi/${ytid}/${size}.jpg` : undefined;
 };

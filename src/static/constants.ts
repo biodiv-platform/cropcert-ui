@@ -119,6 +119,9 @@ export const VERIFICATION_MODE = {
 export const RESOURCE_SIZE = {
   TWITTER: "?w=640&h=320&crop=fit&preserve=true",
   PAGE: "?w=1440&h=300&fit=center",
+  DEFAULT: "?h=300",
+  RECENT_THUMBNAIL: "?h=230",
+  SOCIAL_DEFAULT: "?w=1200&h=630&fit=center&preserve=true",
 };
 
 export const RESOURCE_TYPE = {
@@ -128,6 +131,7 @@ export const RESOURCE_TYPE = {
   SPECIES: "species",
   TAXONOMY: "taxonomy",
   PAGE: "page",
+  RESOURCE: "resource",
 };
 
 export const MENU_PORTAL_TARGET = isBrowser ? document.body : undefined;

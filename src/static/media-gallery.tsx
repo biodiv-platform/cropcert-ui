@@ -1,6 +1,6 @@
 export const ACCEPTED_FILE_TYPES = {
-  "image/*": [".jpg", ".jpeg", ".png"],
-  "video/*": [".mp4"],
+  "image/*": [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"],
+  "video/*": [".mp4", ".MP4"],
   "audio/*": [".wav", ".mp3"],
 };
 

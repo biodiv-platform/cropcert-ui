@@ -38,14 +38,10 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
   }
 
   const { t } = useTranslation();
-
   const canEdit = adminOrAuthor(currentResource?.userIbp?.id);
   const [isOpen, setIsOpen] = useState(false);
-
   const [resource, setResource] = useState(currentResource);
-
   const [tags, setTags] = useState(currentResource?.tags);
-
   const [fetch, setFetch] = useState(false);
 
   useEffect(() => {

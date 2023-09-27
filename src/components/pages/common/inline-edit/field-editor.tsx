@@ -45,7 +45,7 @@ export default function FieldEditor({
     if (success) {
       setFetch(true);
       onClose();
-      notification(t("Resource Updated Sucessfully"), NotificationType.Success);
+      notification(t("common:resource.update_sucess"), NotificationType.Success);
     }
   };
 

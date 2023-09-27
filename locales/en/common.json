@@ -66,16 +66,31 @@
     }
   },
   "loading": "Loading",
+  "media_gallery": {
+    "contribute": "Contribute to this Media gallery ",
+    "delete": {
+      "failure": "Unable to delete this Media gallery",
+      "info": "Are you sure you want to delete this media gallery?",
+      "success": "Media gallery Deleted Sucessfully"
+    },
+    "total": "Total media"
+  },
   "next": "Next",
   "or": "or",
   "prev": "Previous",
   "resource": {
     "caption": "Caption",
     "contributor": "Contributor",
+    "delete": {
+      "failure": "Unable to delete this resource",
+      "info": "Are you sure you want to delete this resource?",
+      "success": "Resource Deleted Sucessfully"
+    },
     "license": "License",
     "rating": "Rating",
     "resource_info": "Resource Information",
-    "success": "Resource Updated sucessfully",
+    "selection": "Current resource on this page is selected",
+    "update_sucess": "Resource Updated sucessfully",
     "tags": "Tags",
     "upload_time": "Upload Time",
     "url": "Url"

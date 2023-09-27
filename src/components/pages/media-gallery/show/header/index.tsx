@@ -43,21 +43,21 @@ export default function ListHeader() {
   };
 
   const handleSelectAll = () => {
-    alert(` ${t("Current resource on this page is selected")}`);
+    alert(` ${t("common:resource.selection")}`);
 
     handleBulkCheckbox("selectAll");
   };
 
   const handleOnDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this media gallery?");
+    const confirmed = window.confirm(t("common:media_gallery.delete.info"));
 
     if (confirmed) {
       const { success } = await axDeleteMediaGalleryById(filter.mId);
       if (success) {
-        notification(t("Media Gallery Deleted Successfully"), NotificationType.Success);
+        notification(t("common:media_gallery.delete.success"), NotificationType.Success);
         router.push(`/media-gallery/list/`);
       } else {
-        notification(t("Unable to Delete Media Gallery"));
+        notification(t("common:media_gallery.delete.failure"));
       }
     }
   };
@@ -69,7 +69,7 @@ export default function ListHeader() {
   const { user } = useGlobalState();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
 
-  const is_single = !filter?.mId?.includes(",");
+  const isSingle = !filter?.mId?.includes(",");
 
   const getFirstImageResource = (data) => {
     const firstImageItem = data?.l?.find(
@@ -127,11 +127,11 @@ export default function ListHeader() {
         <Flex mb={4} direction="column" justifyContent="center" alignItems="center">
           <Heading textAlign="center" size="2xl">
             {mediaGalleryData.name}
-            {is_single && (
+            {isSingle && (
               <>
                 <SimpleActionButton
                   icon={<Add2Icon />}
-                  title={t("Contribute to this Media Gallery")}
+                  title={t("common:media_gallery.contribute")}
                   onClick={handleOnAdd}
                   colorScheme="green"
                 />
@@ -139,7 +139,7 @@ export default function ListHeader() {
                   <>
                     <SimpleActionButton
                       icon={<EditIcon />}
-                      title={t("Edit")}
+                      title={t("common:edit")}
                       onClick={handleOnEdit}
                       colorScheme="green"
                     />
@@ -156,7 +156,8 @@ export default function ListHeader() {
           </Heading>
 
           <Text fontSize="xl" color="gray.600">
-            {mediaGalleryData.description} ({format(mediaGalleryData.n)} {t("Total Media")})
+            {mediaGalleryData.description} ({format(mediaGalleryData.n)}{" "}
+            {t("common:media_gallery.total")})
           </Text>
           <BulkMapperHeader
             selectAll={selectAll}

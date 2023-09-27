@@ -7,6 +7,7 @@ import { axGetLicenseList } from "@services/resources.service";
 import { adminOrAuthor } from "@utils/auth";
 import { getResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
 import CarouselResourceInfo from "./resource-info";
@@ -32,6 +33,8 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   const [licensesList, setLicenseList] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchLicenses = async () => {
@@ -70,13 +73,13 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
   };
 
   const handleDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this resource?");
+    const confirmed = window.confirm(t("common:resource.delete.info"));
 
     if (confirmed) {
       const { success } = await axDeleteResource(currentResource.resource.id);
 
       if (success) {
-        notification(`${"Resource Deleted Sucessfully"}`, NotificationType.Success);
+        notification(`${t("common:resource.delete.success")}`, NotificationType.Success);
 
         if (currentIndex === resourceData.n - 1) {
           handlePrev();

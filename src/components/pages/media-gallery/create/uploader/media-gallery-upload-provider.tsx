@@ -145,9 +145,12 @@ export const ManageMediaGalleryProvider = (props: ManageMediaGalleryContextProps
 
   const tryResourceSync = async () => {
     const pendingResources = await getManyByKey("status", AssetStatus.Pending);
-    for (const pendingResource of pendingResources) {
-      await uploadPendingResource(pendingResource);
-    }
+
+    const uploadPromises = pendingResources.map((pendingResource) =>
+      uploadPendingResource(pendingResource)
+    );
+
+    await Promise.all(uploadPromises);
   };
 
   useEffect(() => {

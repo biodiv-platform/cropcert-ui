@@ -1,5 +1,6 @@
 {
   "about": "About",
+  "app_user_update_error": "Cannot delete app user without deleting projects",
   "autofill_with_google": "Autofill with Google",
   "change_password": "Change Password",
   "confirm_new_password": "Confirm New Password",

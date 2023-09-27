@@ -7,7 +7,7 @@ import ChangePasswordTab from "./password";
 import PermissionsTab from "./permissions";
 import UserAboutTab from "./user-about";
 
-export default function UserEditTabs({ user, isAdmin }) {
+export default function UserEditTabs({ isAdmin, isOdkWebUser, user }) {
   const { t } = useTranslation();
 
   return (
@@ -32,7 +32,7 @@ export default function UserEditTabs({ user, isAdmin }) {
             </TabPanel>
             {isAdmin && (
               <TabPanel>
-                <PermissionsTab user={user} />
+                <PermissionsTab user={user} isWebUser={isOdkWebUser} />
               </TabPanel>
             )}
           </TabPanels>

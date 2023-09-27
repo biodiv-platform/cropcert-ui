@@ -1,6 +1,7 @@
+import { axGetOdkProjectListBysUserIdForAppUser, axIsOdkWebUser } from "@services/odk.service";
 import { axGetTree } from "@services/pages.service";
 import { ROLES } from "@static/constants";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface GlobalStateContextProps {
   pages;
@@ -13,6 +14,8 @@ interface GlobalStateContextProps {
   isLoggedIn;
   authorizedRoles;
 
+  userAppProjectList;
+  isOdkWebUser;
   languageId;
 }
 
@@ -28,12 +31,19 @@ const GlobalStateContext = createContext<GlobalStateContextProps>({} as GlobalSt
 export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
   const [pages, setPages] = useState(props.pages);
+  const [isOdkWebUser, setIsOdkWebUser] = useState<any>();
+  const [userAppProjectList, setUserAppProjectList] = useState();
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
 
   const authorizedRoles = useMemo(() => {
     const allRoles = user?.roles?.map((_role) => _role.authority);
     return allRoles?.length ? allRoles : [ROLES.UNAUTHORIZED];
+  }, [user]);
+
+  useEffect(() => {
+    axGetOdkProjectListBysUserIdForAppUser(user.id).then(setUserAppProjectList);
+    axIsOdkWebUser(user.id).then(({ data }) => setIsOdkWebUser(data));
   }, [user]);
 
   const getPageTree = async () => {
@@ -52,6 +62,8 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
         setUser,
         isLoggedIn,
         authorizedRoles,
+        userAppProjectList,
+        isOdkWebUser,
 
         pages,
         setPages,

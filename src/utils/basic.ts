@@ -111,3 +111,13 @@ export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();
 export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+export const generatePassword = (passwordLength) => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const passwordArray = Array.from(
+    { length: passwordLength },
+    () => characters[Math.floor(Math.random() * characters.length)]
+  );
+  const newPassword = passwordArray.join("");
+
+  return newPassword;
+};

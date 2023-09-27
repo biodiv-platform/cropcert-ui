@@ -54,9 +54,9 @@ const links = [
       },
       {
         title: "💼 ROBUST ODK",
-        description: "View aggregated data on ODK",
+        description: "Login to ROBUST ODK",
         to: SITE_CONFIG.ODK.URL,
-        access: [ROLES.ADMIN],
+        access: [ROLES.ADMIN, ROLES.ODK_APP_USER, ROLES.ODK_WEB_USER],
       },
     ],
   },

@@ -16,6 +16,8 @@ export const DATEFORMATS = {
 
 const API_ENDPOINT = SITE_CONFIG.SITE.API_ENDPOINT_SSR;
 
+const API_ENDPOINT_TRACEABILITY = SITE_CONFIG.SITE.API_ENDPOINT_SSR + "v1/";
+
 export const ENDPOINT = {
   ROOT: `${API_ENDPOINT}`,
   ACTIVITY: `${API_ENDPOINT}activity-api/api`,
@@ -34,6 +36,7 @@ export const ENDPOINT = {
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
   TRACEABILITY: `${API_ENDPOINT}traceability-api/api`,
+  TRACEABILITY_MERN: `${API_ENDPOINT_TRACEABILITY}645774053e1875e3bd793978`,
   USER: `${API_ENDPOINT}user-api/api`,
   USERGROUP: `${API_ENDPOINT}userGroup-api/api`,
   UTILITY: `${API_ENDPOINT}utility-api/api`,
@@ -97,11 +100,13 @@ export const ROLE_HIERARCHY = [
 export const BATCH_TYPE = {
   DRY: "DRY",
   WET: "WET",
+  FAQ: "FAQ",
 };
 
 export const TYPE_OPTIONS = {
   DRY: { label: "Dry", value: BATCH_TYPE.DRY },
   WET: { label: "Wet", value: BATCH_TYPE.WET },
+  FAQ: { label: "FAQ", value: BATCH_TYPE.FAQ },
 };
 
 export const LOT_FLAGS = {

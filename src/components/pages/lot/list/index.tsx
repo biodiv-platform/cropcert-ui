@@ -1,46 +1,70 @@
-import Accesser from "@components/@core/accesser";
-import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import { Box, Skeleton, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import Container from "@components/@core/container";
-import { CoreGrid, PageHeading } from "@components/@core/layout";
+import { PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
-import { ROLES } from "@static/constants";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { lotColumns } from "./data";
+import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
-import LotCoDispatchModal from "./modals/lot-co-dispatch-modal";
-import CuppingReportModal from "./modals/lot-cupping-report";
-import LotFactoryDispatchModal from "./modals/lot-factory-dispatch-modal";
-import FactoryReportDry from "./modals/lot-factory-report/factory-report-dry";
-import FactoryReportWet from "./modals/lot-factory-report/factory-report-wet";
-import GreenReportModal from "./modals/lot-green-report";
-import LotGRNModal from "./modals/lot-grn-modal";
+import LotReportUpdate from "./modals/lot-report-update";
 import { useLotStore } from "./use-lot-store";
 
-function LotListPageComponent({ unions }) {
-  const [union, setUnion] = useState({} as any);
-  const [coCodes, setCoCodes] = useState<any>([]);
+//TODO: function LotListPageComponent({ unions })
+
+function LotListPageComponent() {
   const lotStore = useLotStore();
 
-  const handleLoadMore = () => lotStore.listLot({ ccCodes: coCodes });
+  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71] });
 
   useEffect(() => {
-    coCodes.length && lotStore.listLot({ ccCodes: coCodes, reset: true });
-  }, [coCodes]);
+    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
+  }, []);
 
+  useEffect(() => {
+    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
+  }, [lotStore.state.lot]);
+
+  // Generate dynamic batchColumns based on state.batch
+  const lotExtraColumns =
+    lotStore.state.lot && lotStore.state.lot.length > 0
+      ? createLotColumns(lotStore.state.lot[0])
+      : [];
+
+  const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
+    <Th key={index}>
+      <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
+    </Th>
+  ));
+
+  const loadingRows = Array.from({ length: 5 }).map((_, index) => (
+    <Tr key={index}>
+      {loadingColumns.map((cell, cellIndex) => (
+        <Td key={cellIndex}>
+          <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
+        </Td>
+      ))}
+    </Tr>
+  ));
   return (
     <Container>
       <PageHeading>📦 Lot(s)</PageHeading>
-      <CoreGrid>
-        <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={lotStore.clearLot} />
-        <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
-      </CoreGrid>
-      {coCodes.length > 0 && lotStore.state.lot.length > 0 && (
+      <Box my={2}>{`Total Records: ${lotStore.state.lot.length}`}</Box>
+
+      {lotStore.state.isLoading && (
+        <ChakraTable variant="simple">
+          <Thead>
+            <Tr>{loadingColumns}</Tr>
+          </Thead>
+          <Tbody>{loadingRows}</Tbody>
+        </ChakraTable>
+      )}
+
+      {lotStore.state.lot.length > 0 && (
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
           <Table
             data={lotStore.state.lot}
-            columns={lotColumns}
+            columns={[...lotColumns, ...lotExtraColumns]}
             expandableRows={true}
             customStyles={{
               cells: {
@@ -54,14 +78,7 @@ function LotListPageComponent({ unions }) {
           />
         </InfiniteScroll>
       )}
-
-      <LotCoDispatchModal update={lotStore.updateLot} />
-      <LotFactoryDispatchModal unions={unions} update={lotStore.updateLot} />
-      <FactoryReportDry update={lotStore.updateLot} />
-      <FactoryReportWet update={lotStore.updateLot} />
-      <GreenReportModal update={lotStore.updateLot} />
-      <CuppingReportModal update={lotStore.updateLot} />
-      <LotGRNModal update={lotStore.updateLot} />
+      <LotReportUpdate update={lotStore.updateLot} />
     </Container>
   );
 }

@@ -13,7 +13,6 @@ import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateLot } from "@services/lot.service";
-import { BATCH_TYPE } from "@static/constants";
 import { MLOT } from "@static/messages";
 import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
@@ -22,14 +21,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import { lotCreateModalCols, lotCreateModalColsExtra } from "../../data";
+import { lotCreateModalCols } from "../../data";
 
 export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose }) {
   const hForm = useForm<any>({
     mode: "onBlur",
     resolver: yupResolver(
       Yup.object().shape({
-        creationDate: Yup.number().nullable(),
+        creationDate: Yup.number().nullable().required(),
       })
     ),
     defaultValues: {
@@ -46,8 +45,8 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
         type: lotConfig.type,
         coCode: lotConfig.coCode,
         quantity: lotConfig.quantity,
-        createdOn: values.creationDate,
-        batchIds: batches.map((b) => b.id),
+        createdOn: payload.creationDate,
+        batchIds: batches.map((b) => b._id),
       });
       if (success) {
         data.batches.map((b) => update({ ...b, lotStatus: data.lot.lotStatus }));
@@ -75,13 +74,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
               format="dd-MM-yyyy"
               min={highestDate}
             />
-            <Table
-              data={batches}
-              columns={[
-                ...lotCreateModalCols,
-                ...(lotConfig.type === BATCH_TYPE.WET ? lotCreateModalColsExtra : []),
-              ]}
-            />
+            <Table data={batches} columns={[...lotCreateModalCols]} />
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
                 <strong>Total</strong> {lotConfig.quantity} KG(s)

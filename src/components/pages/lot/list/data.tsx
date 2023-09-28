@@ -2,17 +2,9 @@ import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
-import useGlobalState from "@hooks/use-global-state";
-import { Lot } from "@interfaces/traceability";
 import { LOT_FLAGS, ROLES } from "@static/constants";
-import {
-  LOT_DISPATCH_FACTORY,
-  LOT_FACTORY_PROCESS,
-  LOT_GRN,
-  LOT_REPORT_CUPPING,
-  LOT_REPORT_FACTORY,
-  LOT_REPORT_GREEN,
-} from "@static/events";
+import { LOT_REPORT_UPDATE } from "@static/events";
+import { capitalizeFirstLetter } from "@utils/basic";
 import React from "react";
 import { emit } from "react-gbus";
 
@@ -22,121 +14,61 @@ const buttonProps: Partial<ButtonProps> = {
   size: "xs",
 };
 
-const CoActionCell = (lot: Lot) => {
-  const { colorScheme, show } = useActionProps(lot.coopStatus, ROLES.COOPERATIVE);
+export const createLotColumns = (lot) => {
+  if (lot) {
+    const lotExtraColumns = lot.modalFieldCombined.reduce((acc, curr) => {
+      const printCurrRow = (lot, canWrite) => {
+        return { lot, canWrite };
+      };
 
-  return show ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(LOT_DISPATCH_FACTORY, lot)}
-    >
-      {lot.coopStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
+      const ButtonComponent = (row) => {
+        const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
 
-const GRNActionCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.grnStatus, ROLES.UNION);
-  return show ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(LOT_GRN, { lot, canWrite })}
-    >
-      {lot.grnStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
+        const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+        const isDone = data?.columnStatus === LOT_FLAGS.DONE;
+        const isOptional = data?.isOptional;
 
-const MillingActionCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.millingStatus, ROLES.COOPERATIVE);
+        const updatedLot = {
+          ...row,
+          currentColumnStatus: data?.columnStatus,
+          showModalById: data?.modalFieldId,
+        };
 
-  return show && (canWrite || lot.millingStatus === LOT_FLAGS.DONE) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(LOT_FACTORY_PROCESS, { lot, canWrite })}
-    >
-      {lot.millingStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
+        const renderButton = show && (canWrite || isDone);
 
-const LotFactoryActionCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.factoryStatus, ROLES.UNION);
-  const isDone = lot.factoryStatus === LOT_FLAGS.DONE;
+        return (isOptional && renderButton) || renderButton ? (
+          <Button
+            {...buttonProps}
+            colorScheme={colorScheme}
+            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite))}
+          >
+            {data?.columnStatus}
+          </Button>
+        ) : (
+          <NotApplicable />
+        );
+      };
 
-  return show && (canWrite || isDone) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(`${LOT_REPORT_FACTORY}_${lot.type}`, { lot, canWrite })}
-    >
-      {lot.factoryStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
+      return [
+        ...acc,
+        {
+          name: capitalizeFirstLetter(curr.columnName),
+          selector: (row) => row[curr.columnName],
+          center: true,
+          maxWidth: "130px",
+          cell: ButtonComponent,
+        },
+      ];
+    }, []);
 
-const GreenLabReportCell = (lot: Lot) => {
-  const { canWrite, colorScheme, show } = useActionProps(lot.greenAnalysisStatus, ROLES.UNION);
-  const isDone = lot.greenAnalysisStatus === LOT_FLAGS.DONE;
-
-  return show && (canWrite || isDone) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={colorScheme}
-      onClick={() => emit(LOT_REPORT_GREEN, { lot, canWrite })}
-    >
-      {lot.greenAnalysisStatus}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
-};
-
-const CuppingLabReportCell = (lot: Required<Lot>) => {
-  const { user } = useGlobalState();
-  const currentCupper = user.email;
-  const currentReport = lot.cuppings.find((r) => r.cupper === currentCupper);
-  const withSkeletonReport = currentReport || {
-    status:
-      lot.greenAnalysisStatus === LOT_FLAGS.NOTAPPLICABLE ? LOT_FLAGS.NOTAPPLICABLE : LOT_FLAGS.ADD,
-  };
-  const { canWrite, colorScheme, show } = useActionProps(withSkeletonReport.status, ROLES.UNION);
-  const atLeastOneDoneReport = lot.cuppings.find((o) => o.status === LOT_FLAGS.DONE);
-
-  return show && (canWrite || atLeastOneDoneReport) ? (
-    <Button
-      {...buttonProps}
-      colorScheme={canWrite ? colorScheme : "green"}
-      onClick={() =>
-        emit(LOT_REPORT_CUPPING, {
-          lot,
-          currentReport: canWrite ? currentReport : atLeastOneDoneReport,
-          canWrite,
-        })
-      }
-    >
-      {canWrite ? withSkeletonReport.status : LOT_FLAGS.DONE}
-    </Button>
-  ) : (
-    <NotApplicable />
-  );
+    return lotExtraColumns;
+  }
 };
 
 export const lotColumns = [
   {
     name: "#",
-    selector: (row) => row.id,
+    selector: (row) => row.lotId,
     sortable: true,
     width: "80px",
     cell: (row) => <LotCell {...row} type="l" />,
@@ -151,7 +83,7 @@ export const lotColumns = [
     selector: (row) => row.quantity,
     center: true,
     sortable: true,
-    width: "70px",
+    maxWidth: "140px",
   },
   {
     name: "Lot Status",
@@ -159,52 +91,16 @@ export const lotColumns = [
     center: true,
     sortable: true,
     width: "150px",
-    cell: ({ lotStatus }) => <Badge>{lotStatus.split("_").join(" ")}</Badge>,
-  },
-  {
-    center: true,
-    name: "Cooperative",
-    selector: (row) => row.id,
-    cell: CoActionCell,
-  },
-  {
-    name: "Milling",
-    selector: (row) => row.id,
-    center: true,
-    cell: MillingActionCell,
-  },
-  {
-    name: "GRN",
-    selector: (row) => row.id,
-    center: true,
-    cell: GRNActionCell,
-  },
-  {
-    name: "Factory Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: LotFactoryActionCell,
-  },
-  {
-    name: "Green Lab Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: GreenLabReportCell,
-  },
-  {
-    name: "Cupping Lab Report",
-    selector: (row) => row.id,
-    center: true,
-    cell: CuppingLabReportCell,
+    cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
   },
 ];
 
 export const batchColumns = [
   {
     name: "#",
-    selector: (row) => row.id,
+    selector: (row) => row.batchId,
     sortable: true,
-    cell: (row) => `B-${row.id}`,
+    cell: (row) => `B-${row.batchId}`,
   },
   {
     name: "Name",
@@ -217,10 +113,4 @@ export const batchColumns = [
   },
 ];
 
-export const batchColumnsWet = [
-  {
-    name: "Perchment Quantity",
-    selector: (row) => row.perchmentQuantity,
-    sortable: true,
-  },
-];
+export const batchColumnsWet = [];

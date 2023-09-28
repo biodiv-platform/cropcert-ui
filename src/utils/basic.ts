@@ -35,8 +35,10 @@ export const typeList = (type) => {
     return [TYPE_OPTIONS.DRY];
   } else if (type === "P") {
     return [TYPE_OPTIONS.WET];
+  } else if (type === "F") {
+    return [TYPE_OPTIONS.FAQ];
   }
-  return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET];
+  return [TYPE_OPTIONS.DRY, TYPE_OPTIONS.WET, TYPE_OPTIONS.FAQ];
 };
 
 export const compiledMessage = (templateString: string, templateVariables) =>
@@ -108,6 +110,10 @@ export const getCoords = async () => {
 
 export const toKey = (s = "") => s.split(" ").join("_").toUpperCase();
 
+// capitalize first letter of string
+export const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 export const generatePassword = (passwordLength) => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const passwordArray = Array.from(

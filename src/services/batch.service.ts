@@ -4,7 +4,7 @@ import notification from "@utils/notification";
 
 export const axCreateBatch = async (body) => {
   try {
-    const res = await http.post(`${ENDPOINT.TRACEABILITY}/batch`, body);
+    const res = await http.post(`${ENDPOINT.TRACEABILITY_MERN}/batch/new`, body);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);
@@ -14,7 +14,7 @@ export const axCreateBatch = async (body) => {
 
 export const axListBatch = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/batch/all/cc`, {
       params: { ccCodes: ccCodes.toString(), offset, limit },
     });
     return {
@@ -32,7 +32,7 @@ export const axListBatch = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT)
 
 export const axUpdateBatch = async (payload) => {
   try {
-    const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/batch/wetBatch`, payload);
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY_MERN}/batch/${payload.id}`, payload); //TODO:check if we want to keep this route
     return { success: true, data };
   } catch (e) {
     notification(e.message);

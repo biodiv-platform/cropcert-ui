@@ -17,92 +17,100 @@ import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
-import { LOT_CREATE } from "@static/events";
+import { BATCH_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { createBatchColumns } from "./data";
+import { batchColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
-import BatchUpdateModal from "./modals/batch-update-modal-new";
-import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
-import { useBatchStore } from "./use-batch-store";
+import { useFarmerStore } from "./use-farmer-store";
 
-function BatchListPageComponent() {
+function FarmerListPageComponent() {
+  const [co] = useState({} as any);
   const [ccs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
-  const { state, ...actions } = useBatchStore();
+  const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
-  const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
+  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
-  const [triggerRender, setTriggerRender] = useState(false);
 
   useEffect(() => {
-    actions.listBatch({ ccCodes: [71, 70, 78, 77, 73, 76, 72, 74, 69, 75], reset: true });
-  }, [triggerRender]);
+    actions.listFarmer({ ccCodes: "71,70,78,77,73,76,72,74,69,75", reset: true });
+  }, []);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
 
   const handleLoadMore = () => {
-    actions.listBatch({ ccCodes });
+    actions.listFarmer({ ccCodes });
   };
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
-    setSelectedBatches(selectedRows);
+    setSelectedFarmerProduce(selectedRows);
     setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
   };
 
-  const handleOnCreateLot = () => {
+  const handleOnCreateBatch = () => {
     const prefix = "Mityana";
-    const quantity = selectedBatches.reduce(
-      (acc, cv) => selectedBatches.length && cv.quantity + acc,
+    const quantity = selectedFarmerProduce.reduce(
+      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
       0
     );
 
     const payload = {
-      name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
-      type: selectedBatches[0].type,
-      selected: selectedBatches,
-      coCode: "71", //TODO: change it to co.value
+      name: `${prefix}_D_`,
+      type: "Dry",
+      selected: selectedFarmerProduce,
+      coCode: co.value,
       quantity,
     };
-
-    emit(LOT_CREATE, payload);
-    setTriggerRender(!triggerRender);
+    emit(BATCH_CREATE, payload);
   };
 
-  const ActionButtons = () => (
-    <ButtonGroup spacing={4}>
-      <Button
-        colorScheme="green"
-        variant="solid"
-        isDisabled={
-          showTypeError ||
-          selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnCreateLot}
-        leftIcon={<AddIcon />}
-      >
-        Create Lot
-      </Button>
-    </ButtonGroup>
-  );
+  const ActionButtons = () => {
+    const quantity = selectedFarmerProduce.reduce(
+      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
+      0
+    );
+    return (
+      <ButtonGroup spacing={4}>
+        <Box
+          display="flex"
+          alignItems="center"
+          hidden={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          Selected Quantity: {quantity}(Kgs)
+        </Box>
+        <Button
+          colorScheme="blue"
+          variant="solid"
+          onClick={handleOnCreateBatch}
+          isDisabled={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+          leftIcon={<AddIcon />}
+        >
+          Create Batch
+        </Button>
+      </ButtonGroup>
+    );
+  };
 
-  const onBatchUpdate = (props) => {
+  const onFarmerUpdate = (props) => {
     onToggle();
-    actions.updateBatch(props);
-    setTriggerRender(!triggerRender);
+    actions.updateFarmer(props);
   };
-
-  // Generate dynamic batchColumns based on state.batch
-  const batchColumns =
-    state.batch && state.batch.length > 0 ? createBatchColumns(state.batch[0]) : [];
 
   const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
     <Th key={index}>
@@ -122,8 +130,12 @@ function BatchListPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
-      <Box my={2}>{`Total Records: ${state.batch.length}`}</Box>
+      <PageHeading actions={<ActionButtons />}>🚜 Farmer Produce </PageHeading>
+      <Box my={2}>{`Total Records: ${
+        state.farmer.filter(
+          (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+        ).length
+      }`}</Box>
 
       <MultipleTypeWarning show={showTypeError} />
 
@@ -138,10 +150,12 @@ function BatchListPageComponent() {
 
       <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
         <Table
-          data={state.batch}
+          data={state.farmer.filter(
+            (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
+          )}
           columns={batchColumns}
           selectableRows={true}
-          selectableRowDisabled={(r) => !r.isReadyForLot || r.lotId}
+          selectableRowDisabled={(r) => r.batchId}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
           conditionalRowStyles={[
@@ -156,11 +170,9 @@ function BatchListPageComponent() {
         />
       </InfiniteScroll>
 
-      <BatchUpdateModal update={onBatchUpdate} />
-      <LotCreateModal update={onBatchUpdate} />
-      <BatchCreateModal update={actions.addBatch} />
+      <BatchCreateModal update={onFarmerUpdate} />
     </Box>
   );
 }
 
-export default BatchListPageComponent;
+export default FarmerListPageComponent;

@@ -2,7 +2,7 @@ import { axListBatch } from "@services/batch.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: false, batch: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: false, batch: [] as any[] };
 
 export function useBatchStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
@@ -17,11 +17,13 @@ export function useBatchStore() {
   const setBatches = ({ success, data, reset, offset, hasMore }: any) => {
     if (!success || !Array.isArray(data)) return;
 
-    const dataN = data.map(([batch, lot]) => ({
-      ...batch,
-      lotStatus: lot?.lotStatus,
-      lotId: lot?.id,
-    }));
+    const dataN = data.map((arr) => {
+      return {
+        ...arr,
+        lotStatus: arr?.lotStatus,
+        lotId: arr?.lotId,
+      };
+    });
 
     setState((_draft) => {
       if (reset) {
@@ -32,12 +34,13 @@ export function useBatchStore() {
 
       _draft.offset = offset;
       _draft.hasMore = hasMore;
+      _draft.isLoading = false;
     });
   };
 
   const updateBatch = (lot) => {
     setState((_draft) => {
-      const toUpdateIndex = _draft.batch.findIndex((o) => o.id === lot.id);
+      const toUpdateIndex = _draft.batch.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
         _draft.batch[toUpdateIndex] = lot;
       }
@@ -46,6 +49,9 @@ export function useBatchStore() {
 
   const listBatch = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
     if (state.batch.length % PAGINATION_LIMIT === 0 || reset) {
+      setState((_draft) => {
+        _draft.isLoading = true;
+      });
       const offset = reset ? 0 : state.offset;
       const response = await axListBatch(ccCodes, offset);
       setBatches(response);

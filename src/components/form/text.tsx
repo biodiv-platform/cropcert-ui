@@ -16,6 +16,7 @@ interface ITextBoxProps {
   showLabel?: boolean;
   hidden?;
   autoComplete?;
+  placeholder?;
 }
 
 export const TextBoxField = ({

@@ -34,7 +34,7 @@ export const ENDPOINT = {
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
   TRACEABILITY: `${API_ENDPOINT}traceability-api/api`,
-  TRACEABILITY_MERN: `${API_ENDPOINT}v1`,
+  TRACEABILITY_MERN: `${API_ENDPOINT}v1/645774053e1875e3bd793978/`,
   USER: `${API_ENDPOINT}user-api/api`,
   USERGROUP: `${API_ENDPOINT}userGroup-api/api`,
   UTILITY: `${API_ENDPOINT}utility-api/api`,

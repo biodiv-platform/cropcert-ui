@@ -7,10 +7,11 @@ const links = [
     title: "Traceability",
     children: [
       {
-        title: "📦 Traceability Workflow",
+        title: "📦 Traceability",
         description: "Tracing Coffee's Source",
         to: "/traceability/traceability-workflow",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
+        tag: "Beta",
       },
     ],
   },

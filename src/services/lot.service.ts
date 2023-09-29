@@ -4,7 +4,7 @@ import notification from "@utils/notification";
 
 export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/all/coCodes`, {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes`, {
       params: { coCodes: coCodes.toString(), offset, limit },
     });
 
@@ -23,7 +23,7 @@ export const axListLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) =
 
 export const axUpdateLot = async (payload) => {
   try {
-    const { data } = await http.put(`${ENDPOINT.TRACEABILITY_MERN}/lot/${payload.id}`, payload);
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/${payload.id}`, payload);
     return { success: true, data };
   } catch (e) {
     notification(e.message);
@@ -50,7 +50,7 @@ export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION
 
 export const axCreateLot = async (payload) => {
   try {
-    const { data } = await http.post(`${ENDPOINT.TRACEABILITY_MERN}/lot/new`, payload);
+    const { data } = await http.post(`${ENDPOINT.TRACEABILITY}/lot/new`, payload);
     return { success: true, data };
   } catch (e) {
     notification(e.message);
@@ -60,7 +60,7 @@ export const axCreateLot = async (payload) => {
 
 export const axListBatchByLotId = async (lotId) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/batches`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/batches`, {
       params: { lotId },
     });
     return { success: true, data };
@@ -118,7 +118,7 @@ export const axUpdateGRN = async (payload) => {
 
 export const axGetLotById = async (lotId, ctx?) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/lot/show/${lotId}`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/show/${lotId}`, {
       params: { ctx },
     });
     return { success: true, data };

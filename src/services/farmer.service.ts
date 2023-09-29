@@ -4,7 +4,7 @@ import notification from "@utils/notification";
 
 export const axListFarmer = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/farmerProduce/all`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmerProduce/all`, {
       params: { ccCodes: ccCodes.toString(), offset, limit },
     });
     return {
@@ -22,7 +22,7 @@ export const axListFarmer = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT
 
 export const axListFarmerMember = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/farmer/all`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/all`, {
       params: { ccCodes: ccCodes.toString(), offset, limit },
     });
     return {

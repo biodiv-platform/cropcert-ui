@@ -80,6 +80,7 @@
   "prev": "Previous",
   "resource": {
     "caption": "Caption",
+    "contribute": "Contribute Images",
     "contributor": "Contributor",
     "delete": {
       "failure": "Unable to delete this resource",
@@ -89,9 +90,14 @@
     "license": "License",
     "rating": "Rating",
     "resource_info": "Resource Information",
+    "save": {
+      "failure": "Unable to upload resource",
+      "success": "Resource uploaded Sucessfully"
+    },
     "selection": "Current resource on this page is selected",
     "update_sucess": "Resource Updated sucessfully",
     "tags": "Tags",
+    "total": "Total Resources",
     "upload_time": "Upload Time",
     "url": "Url"
   },

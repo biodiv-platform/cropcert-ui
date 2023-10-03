@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { RESOURCE_SIZE } from "@static/constants";
-import { timeAgoUTC } from "@utils/date";
+import { formatDateFromUTC, timeAgoUTC } from "@utils/date";
 import { getResourceThumbnail } from "@utils/media";
 import React from "react";
 
@@ -44,6 +44,9 @@ export default function Container({ o }) {
             </Text>
             <Text color="gray.400" mb={1}>
               Last Updated: {timeAgoUTC(o.lastUpdated)}
+            </Text>
+            <Text color="gray.400" mb={1}>
+              Created On: {formatDateFromUTC(o.createdOn)}
             </Text>
             <Text color="gray.400">Total Media: {o.totalMedia}</Text>
           </Box>

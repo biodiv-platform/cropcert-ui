@@ -1,4 +1,13 @@
-import { Box, Link, Stat, StatHelpText, StatNumber, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Link,
+  Stat,
+  StatHelpText,
+  StatNumber,
+  Tag,
+  useDisclosure,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
@@ -9,16 +18,24 @@ interface IProps {
   description: string;
   to: string;
   external: boolean;
+  tag?: string;
 }
 
-function Card({ title, description, to, external = false }: IProps) {
+function Card({ title, description, to, tag, external = false }: IProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getContent = () => (
     <Stat>
-      <StatNumber lineHeight="1em" mb={4} fontSize="2xl">
-        {title}
-      </StatNumber>
+      <Flex alignItems="center" mb={4}>
+        <StatNumber lineHeight="1em" fontSize="2xl">
+          {title}
+        </StatNumber>
+        {tag && (
+          <Tag colorScheme="red" color="red.500" ml={2}>
+            {tag}
+          </Tag>
+        )}
+      </Flex>
       <StatHelpText fontSize="md" mb={0}>
         {description} &rarr;
       </StatHelpText>

@@ -31,7 +31,7 @@ export default function ListHeader() {
   };
 
   const handleSelectAll = () => {
-    alert(` ${t("Current resource on this page is selected")}`);
+    alert(` ${resourceData.n}${t(" resources selected")}`);
 
     handleBulkCheckbox("selectAll");
   };

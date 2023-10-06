@@ -73,6 +73,7 @@
       "info": "Are you sure you want to delete this media gallery?",
       "success": "Media gallery Deleted Sucessfully"
     },
+    "title": "Mediagallery",
     "total": "Total media"
   },
   "next": "Next",

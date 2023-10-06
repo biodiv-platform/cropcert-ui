@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { SelectInputField } from "@components/form/select";
+import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import notification, { NotificationType } from "@utils/notification";
@@ -15,26 +16,31 @@ export default function FieldEditor({
   defaultValue,
   licensesList,
   setFetch,
+  defaultMediaGallery,
+  mediaGalleryList,
 }) {
   const { t } = useTranslation();
 
   const hForm = useForm<any>({
-    mode: "onChange",
+    mode: "onBlur",
     resolver: yupResolver(
       Yup.object().shape({
         caption: Yup.string(),
         contributor: Yup.string(),
+        mId: Yup.array().nullable(),
       })
     ),
     defaultValues: {
-      caption: defaultValue?.resource?.description,
-      id: defaultValue?.resource?.id,
-      url: defaultValue?.resource.url,
-      licenseId: defaultValue?.resource.licenseId?.toString(),
-      contributor: defaultValue?.resource?.contributor || defaultValue?.userIbp?.name,
-      rating: defaultValue?.resource?.rating,
+      caption: defaultValue?.resourceData?.resource?.description,
+      id: defaultValue?.resourceData?.resource?.id,
+      url: defaultValue?.resourceData?.resource.url,
+      licenseId: defaultValue?.resourceData?.resource.licenseId?.toString(),
+      contributor:
+        defaultValue?.resourceData?.resource?.contributor ||
+        defaultValue?.resourceData?.userIbp?.name,
+      rating: defaultValue?.resourceData?.resource?.rating,
 
-      tags: defaultValue?.tags,
+      mId: defaultMediaGallery.map(({ value }) => value),
     },
   });
 
@@ -59,6 +65,8 @@ export default function FieldEditor({
             options={licensesList}
             label={""}
           />
+        ) : fieldName == "mediaGallery" ? (
+          <SelectMultipleInputField name="mId" options={mediaGalleryList} label={""} />
         ) : (
           <TextBoxField name={fieldName} mb={2} label={""} />
         )}

@@ -30,9 +30,14 @@ import FieldShow from "./inline-edit";
 interface CarouselResourceInfoProps {
   currentResource;
   licensesList;
+  mediaGalleryList;
 }
 
-function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourceInfoProps) {
+function CarouselResourceInfo({
+  currentResource,
+  licensesList,
+  mediaGalleryList,
+}: CarouselResourceInfoProps) {
   if (!currentResource) {
     return null;
   }
@@ -50,7 +55,7 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
         try {
           const { data } = await axGetResourceById(currentResource.resource.id);
           setResource(data);
-          setTags(data.tags);
+          setTags(data.resourceData.tags);
         } catch (error) {
           console.error("Error fetching resource:", error);
         }
@@ -85,7 +90,7 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
             size={"lg"}
           />
         </PopoverTrigger>
-        <PopoverContent zIndex={4} maxWidth="600px" maxHeight="800px">
+        <PopoverContent zIndex={4} minWidth="400px" maxHeight="800px">
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverHeader>{t("common:resource.resource_info")}</PopoverHeader>
@@ -94,7 +99,7 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
               <Box>{t("common:resource.caption")}</Box>
               <FieldShow
                 field="caption"
-                fieldValue={resource?.resource?.description}
+                fieldValue={resource?.resourceData?.resource?.description}
                 updateFunc={axEditResource}
                 setFetch={setFetch}
                 defaultValue={resource}
@@ -104,7 +109,10 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
               <Box>{t("common:resource.contributor")}</Box>
               <FieldShow
                 field="contributor"
-                fieldValue={resource?.resource?.contributor || resource?.userIbp?.name}
+                fieldValue={
+                  resource?.resourceData?.resource?.contributor ||
+                  resource?.resourceData?.userIbp?.name
+                }
                 updateFunc={axEditResource}
                 setFetch={setFetch}
                 defaultValue={resource}
@@ -113,22 +121,22 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
 
               <Box>{t("common:uploader")}</Box>
               <Box>
-                <Link href={`/user/show/${resource?.userIbp?.id}`}>
-                  <ExternalBlueLink>{resource?.userIbp?.name}</ExternalBlueLink>
+                <Link href={`/user/show/${resource?.resourceData?.userIbp?.id}`}>
+                  <ExternalBlueLink>{resource?.resourceData?.userIbp?.name}</ExternalBlueLink>
                 </Link>
               </Box>
 
               {resource?.resource?.uploadTime && (
                 <>
                   <Box>{t("common:resource.upload_time")}</Box>
-                  <Box>{formatTimeStampFromUTC(resource?.resource?.uploadTime)}</Box>
+                  <Box>{formatTimeStampFromUTC(resource?.resourceData?.resource?.uploadTime)}</Box>
                 </>
               )}
 
               <Box>{t("common:resource.license")}</Box>
               <FieldShow
                 field="license"
-                fieldValue={resource?.license?.name}
+                fieldValue={resource?.resourceData?.license?.name}
                 updateFunc={axEditResource}
                 setFetch={setFetch}
                 defaultValue={resource}
@@ -136,11 +144,22 @@ function CarouselResourceInfo({ currentResource, licensesList }: CarouselResourc
                 canEdit={canEdit}
               />
 
+              <Box>{t("common:media_gallery.title")}</Box>
+              <FieldShow
+                field="mediaGallery"
+                updateFunc={axEditResource}
+                setFetch={setFetch}
+                defaultValue={resource}
+                canEdit={canEdit}
+                mediaGalleryList={mediaGalleryList}
+              />
+
               <Box>{t("common:resource.tags")}</Box>
               <Box>
                 <TagsShow
                   items={tags}
-                  objectId={resource?.resource?.id}
+                  objectId={resource?.resourceData?.resource?.id}
+                  href={"/resource/list"}
                   updateFunc={axUpdateMediaGalleryTags}
                   queryFunc={axQueryMediaGalleryTagsByText}
                 />

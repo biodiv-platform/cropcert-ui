@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Icon, Image } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import DeleteIcon from "@icons/delete";
-import { axDeleteResource } from "@services/media-gallery.service";
+import { axDeleteResource, axGetAllMediaGallery } from "@services/media-gallery.service";
 import { axGetLicenseList } from "@services/resources.service";
 import { adminOrAuthor } from "@utils/auth";
 import { getResourceRAW } from "@utils/media";
@@ -34,6 +34,8 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
 
   const [licensesList, setLicenseList] = useState([]);
 
+  const [mediaGalleryList, setMediaGalleryList] = useState([]);
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -47,6 +49,10 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
     };
 
     fetchLicenses();
+  }, []);
+
+  useEffect(() => {
+    axGetAllMediaGallery().then(setMediaGalleryList);
   }, []);
 
   const imageUrls = resourceData.l.map((o) => getResourceRAW("RESOURCE", o.resource?.fileName));
@@ -110,6 +116,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
         transform="translateY(-50%)"
         onClick={handlePrev}
         colorScheme="black"
+        disabled={currentIndex === 0}
         backgroundColor="#232323"
         _hover={{ backgroundColor: "gray" }}
         borderRadius="50%"
@@ -156,6 +163,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
         <CarouselResourceInfo
           currentResource={resourceData.l[currentIndex]}
           licensesList={licensesList}
+          mediaGalleryList={mediaGalleryList}
         />
       </Box>
 

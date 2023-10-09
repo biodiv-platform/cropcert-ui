@@ -73,6 +73,12 @@
       "info": "Are you sure you want to delete this media gallery?",
       "success": "Media gallery Deleted Sucessfully"
     },
+    "post": {
+      "failure": "Unable to post this resources",
+      "name": "Post to Media Gallery",
+      "success": "Posted resources Sucessfully"
+    },
+    "select": "Select a Media Gallery",
     "title": "Mediagallery",
     "total": "Total media"
   },

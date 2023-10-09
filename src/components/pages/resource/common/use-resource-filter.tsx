@@ -25,6 +25,7 @@ interface ResourceFilterContextProps {
   selectAll?: boolean;
   setSelectAll?;
   bulkResourceIds?: any[];
+  unselectedResourceIds?;
   handleBulkCheckbox: (arg: string) => void;
   isOpen?;
   onOpen?;
@@ -48,6 +49,12 @@ export const ResourceFilterProvider = (props) => {
 
   const { getCheckboxProps, value: bulkResourceIds, setValue } = useCheckboxGroup();
 
+  const allResourceIds = resourceData?.l?.map((item) => String(item.resource.id)) || [];
+
+  const unselectedResourceIds = allResourceIds
+    .filter((id) => !bulkResourceIds.includes(id))
+    .join(",");
+
   const handleBulkCheckbox = (actionType: string) => {
     switch (actionType) {
       case "selectAll":
@@ -58,6 +65,9 @@ export const ResourceFilterProvider = (props) => {
         setValue([]);
         setSelectAll(false);
         break;
+      case "nextPageSelect":
+        setSelectAll(true);
+        setValue(allResourceIds.filter((id) => unselectedResourceIds.includes(id)));
     }
   };
 
@@ -92,7 +102,7 @@ export const ResourceFilterProvider = (props) => {
 
   useDidUpdateEffect(() => {
     if (selectAll) {
-      handleBulkCheckbox("selectAll");
+      handleBulkCheckbox("nextPageSelect");
     }
   }, [resourceData.l]);
 
@@ -110,9 +120,7 @@ export const ResourceFilterProvider = (props) => {
   };
 
   const nextPage = (max = RESOURCE_LIST_PAGINATION_LIMIT) => {
-    if (selectAll) {
-      handleBulkCheckbox("selectAll");
-    }
+    handleBulkCheckbox("nextPageSelect");
     setFilter((_draft) => {
       _draft.f.offset = Number(_draft.f.offset) + max;
     });
@@ -146,6 +154,7 @@ export const ResourceFilterProvider = (props) => {
         selectAll,
         setSelectAll,
         bulkResourceIds,
+        unselectedResourceIds,
         handleBulkCheckbox,
         isOpen,
         onOpen,

@@ -156,11 +156,12 @@ export const axGetAllResources = async (params) => {
   }
 };
 
-export const axBulkResourceMapping = async (payload) => {
+export const axBulkResourceMapping = async (params, payload = {}) => {
   try {
     const { data } = await http.put(
       `${ENDPOINT.RESOURCES}/v1/resource/mediaGallery/bulkResourceMapping`,
-      payload
+      payload,
+      { params }
     );
     return { success: true, data };
   } catch (e) {

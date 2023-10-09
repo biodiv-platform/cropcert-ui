@@ -22,7 +22,8 @@ import useResourceFilter from "../../common/use-resource-filter";
 
 export default function BulkMapperModal() {
   const { t } = useTranslation();
-  const { onClose, isOpen, bulkResourceIds } = useResourceFilter();
+  const { onClose, isOpen, bulkResourceIds, selectAll, unselectedResourceIds } =
+    useResourceFilter();
 
   const [mediaGalleryList, setMediaGalleryList] = useState<any[]>([]);
   const [mediaIds, setMediaIds] = useState<any[]>([]);
@@ -40,13 +41,16 @@ export default function BulkMapperModal() {
       resourceIds: bulkResourceIds,
       mediaGalleryIds: mediaIds,
     };
-    const { success } = await axBulkResourceMapping(payload);
+    const params = {
+      selectAll: selectAll,
+      unSelected: unselectedResourceIds,
+    };
+    const { success } = await axBulkResourceMapping(params, payload);
     if (success) {
-      notification(t("Sucess"), NotificationType.Success);
+      notification(t("common:media_gallery.post.success"), NotificationType.Success);
     } else {
-      notification(t("Error"));
+      notification(t("common:media_gallery.post.failure"));
     }
-
     onClose();
   };
 
@@ -58,7 +62,7 @@ export default function BulkMapperModal() {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t("Select a Media Gallery")}</ModalHeader>
+        <ModalHeader>{t("common:media_gallery.select")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormProvider {...projectForm}>
@@ -74,7 +78,9 @@ export default function BulkMapperModal() {
                   </Stack>
                 </CheckboxGroup>
               </Box>
-              <SubmitButton leftIcon={<CheckIcon />}>{t("Post to Media Gallery")}</SubmitButton>
+              <SubmitButton leftIcon={<CheckIcon />}>
+                {t("common:media_gallery.post.name")}
+              </SubmitButton>
             </form>
           </FormProvider>
         </ModalBody>

@@ -37,7 +37,7 @@ const SITE_CONFIG_EXAMPLE = {
     SWITCHER: false,
   },
   LICENSE: {
-    DEFAULT: "822"
+    DEFAULT: "822",
   },
   MAP: {
     ACTIVE: true,

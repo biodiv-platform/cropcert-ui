@@ -66,8 +66,9 @@ export const ResourceFilterProvider = (props) => {
         setSelectAll(false);
         break;
       case "nextPageSelect":
-        setSelectAll(true);
-        setValue(allResourceIds.filter((id) => unselectedResourceIds.includes(id)));
+        if (selectAll) {
+          setValue(allResourceIds.filter((id) => unselectedResourceIds.includes(id)));
+        }
     }
   };
 

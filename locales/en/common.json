@@ -30,7 +30,10 @@
       "qrCodeHelpText": "This QR Code will help you set up the project in the ODK Collect app on your mobile.",
       "title": "Login to ROBUST Web platform as webuser"
     },
-    "title": "Activity"
+    "name": "Actions",
+    "select_all": "Select All",
+    "title": "Activity",
+    "unselect_all": "Unselect All"
   },
   "activity": "Activity",
   "add": "Add",

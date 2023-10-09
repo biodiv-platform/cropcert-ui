@@ -16,9 +16,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
+import { axGetOdkProjectListBysUserIdForAppUser, axIsOdkWebUser } from "@services/odk.service";
 import { ENDPOINT } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import AppUserQrModal from "./qr-modal";
 
@@ -53,7 +54,15 @@ function SeeQrModal({ index, item, user }) {
 export default function OdkModal({ isOpen, onClose, odkLink }) {
   const { t } = useTranslation();
 
-  const { user, isOdkWebUser, userAppProjectList } = useGlobalState();
+  const { user } = useGlobalState();
+
+  const [isOdkWebUser, setIsOdkWebUser] = useState<any>();
+  const [userAppProjectList, setUserAppProjectList] = useState([]);
+
+  useEffect(() => {
+    axGetOdkProjectListBysUserIdForAppUser(user.id).then(setUserAppProjectList);
+    axIsOdkWebUser(user.id).then(({ data }) => setIsOdkWebUser(data));
+  }, [user]);
 
   return (
     <>

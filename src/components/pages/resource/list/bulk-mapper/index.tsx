@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import CheckIcon from "@icons/check";
-import { axBulkResourceMapping, axGetAllMediaGallery } from "@services/media-gallery.service";
+import { axGetAllMediaGallery, axGetAllResources } from "@services/media-gallery.service";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ import useResourceFilter from "../../common/use-resource-filter";
 
 export default function BulkMapperModal() {
   const { t } = useTranslation();
-  const { onClose, isOpen, bulkResourceIds, selectAll, unselectedResourceIds } =
+  const { onClose, isOpen, bulkResourceIds, selectAll, unselectedResourceIds, filter } =
     useResourceFilter();
 
   const [mediaGalleryList, setMediaGalleryList] = useState<any[]>([]);
@@ -37,15 +37,17 @@ export default function BulkMapperModal() {
   const projectForm = useForm<any>({});
 
   const handleFormSubmit = async () => {
-    const payload = {
-      resourceIds: bulkResourceIds,
-      mediaGalleryIds: mediaIds,
-    };
     const params = {
+      ...filter,
       selectAll: selectAll,
-      unSelected: unselectedResourceIds,
+      unSelected: unselectedResourceIds?.toString(),
+      resourceIds: bulkResourceIds?.toString() || "",
+      mediaGalleryIds: mediaIds?.toString() || "",
+      isBulkPosting: true,
     };
-    const { success } = await axBulkResourceMapping(params, payload);
+
+    console.warn(params);
+    const { success } = await axGetAllResources(params);
     if (success) {
       notification(t("common:media_gallery.post.success"), NotificationType.Success);
     } else {

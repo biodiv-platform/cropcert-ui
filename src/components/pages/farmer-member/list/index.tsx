@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -23,7 +23,7 @@ function FarmerMemberPageComponent() {
   const { user } = useGlobalState();
 
   useEffect(() => {
-    ccCodes.length && actions.listFarmer({ ccCodes, reset: true });
+    ccCodes.length && actions.listFarmerMember({ ccCodes, reset: true });
   }, [ccCodes]);
 
   useEffect(() => {
@@ -38,16 +38,25 @@ function FarmerMemberPageComponent() {
   }, []);
 
   const handleLoadMore = () => {
-    actions.listFarmer({ ccCodes });
+    actions.listFarmerMember({ ccCodes });
   };
 
   return (
     <Box>
       <PageHeading>🧑‍🌾 Farmer Member(s)</PageHeading>
-      <Box my={2}>{`Total Records: ${state.farmer.length}`}</Box>
+      <Box my={2}>
+        Total Records: {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+      </Box>
 
       <CoreGrid hidden={hideAccessor}>
-        <Accesser toRole={ROLES.COOPERATIVE} onChange={setCo} onTouch={actions?.clearFarmer} />
+        <Accesser
+          toRole={ROLES.COOPERATIVE}
+          onChange={setCo}
+          onTouch={() => {
+            actions?.clearFarmerMember();
+            actions?.setLoading(true);
+          }}
+        />
         <Box>
           <CCMultiSelect coId={co?.value} onChange={setCCs} />
         </Box>
@@ -55,25 +64,31 @@ function FarmerMemberPageComponent() {
 
       <MultipleTypeWarning show={showTypeError} />
 
-      <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
-        <Table
-          data={state.farmer}
-          columns={batchColumns}
-          selectableRows={false}
-          conditionalRowStyles={[
-            {
-              when: (row) => row.lotId,
-              style: {
-                background: "var(--chakra-colors-gray-100)!important",
-                opacity: "0.6",
+      {state.isLoading ? (
+        <Spinner />
+      ) : state.farmer.length > 0 ? (
+        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
+          <Table
+            data={state.farmer}
+            columns={batchColumns}
+            selectableRows={false}
+            conditionalRowStyles={[
+              {
+                when: (row) => row.lotId,
+                style: {
+                  background: "var(--chakra-colors-gray-100)!important",
+                  opacity: "0.6",
+                },
               },
-            },
-          ]}
-          pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 50, 100]}
-        />
-      </InfiniteScroll>
+            ]}
+            pagination
+            paginationPerPage={15}
+            paginationRowsPerPageOptions={[15, 50, 100]}
+          />
+        </InfiniteScroll>
+      ) : (
+        <Box mt={2}>No records found</Box>
+      )}
     </Box>
   );
 }

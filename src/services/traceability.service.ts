@@ -5,7 +5,7 @@ import notification from "@utils/notification";
 // get  modal columns by Batch or Lot
 export const axGetColumns = async (fieldsOf) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY_MERN}/modalFields/all/${fieldsOf}`);
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/modalFields/all/${fieldsOf}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

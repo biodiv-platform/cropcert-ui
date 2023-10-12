@@ -23,8 +23,8 @@ function FarmerMemberPageComponent() {
   const { user } = useGlobalState();
 
   useEffect(() => {
-    actions.listFarmer({ ccCodes, reset: true });
-  }, []);
+    ccCodes.length && actions.listFarmer({ ccCodes, reset: true });
+  }, [ccCodes]);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));

@@ -44,8 +44,8 @@ function FarmerListPageComponent() {
   const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
-    actions.listFarmer({ ccCodes: "71,70,78,77,73,76,72,74,69,75", reset: true });
-  }, []);
+    ccCodes.length && actions.listFarmer({ ccCodes, reset: true });
+  }, [ccCodes]);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));

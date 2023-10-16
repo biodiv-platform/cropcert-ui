@@ -5,7 +5,7 @@ import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability"
 import React from "react";
 
 import LotBatches from "./lot-batches";
-import LotFarmerProduce from "./lot-farmeProduce";
+import LotFarmerProduce from "./lot-farmerProduce";
 import LotInfo from "./lot-info";
 
 interface ILotShowProps {

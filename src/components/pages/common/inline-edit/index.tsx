@@ -13,7 +13,7 @@ interface IFieldProps {
   defaultValue;
   licensesList?;
   canEdit;
-  setFetch?;
+  setFetchResource?;
   mediaGalleryList?;
 }
 
@@ -24,7 +24,7 @@ export default function FieldShow({
   defaultValue,
   licensesList,
   canEdit,
-  setFetch,
+  setFetchResource,
   mediaGalleryList,
 }: IFieldProps) {
   const [fieldName] = useState(field);
@@ -49,7 +49,7 @@ export default function FieldShow({
           updateFunc={updateFunc}
           defaultValue={defaultValue}
           licensesList={licensesList}
-          setFetch={setFetch}
+          setFetchResource={setFetchResource}
           defaultMediaGallery={convertToMediaList(defaultValue.mediaGallery)}
           mediaGalleryList={convertToMediaList(mediaGalleryList)}
         />

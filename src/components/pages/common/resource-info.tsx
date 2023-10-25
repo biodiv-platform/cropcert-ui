@@ -47,10 +47,10 @@ function CarouselResourceInfo({
   const [isOpen, setIsOpen] = useState(false);
   const [resource, setResource] = useState(currentResource);
   const [tags, setTags] = useState(currentResource?.tags);
-  const [fetch, setFetch] = useState(false);
+  const [fetchResource, setFetchResource] = useState(false);
 
   useEffect(() => {
-    if (isOpen || fetch) {
+    if (isOpen || fetchResource) {
       const fetchResource = async () => {
         try {
           const { data } = await axGetResourceById(currentResource.resource.id);
@@ -61,7 +61,7 @@ function CarouselResourceInfo({
         }
       };
       fetchResource();
-      setFetch(false);
+      setFetchResource(false);
     }
   }, [isOpen, fetch, currentResource?.tags]);
 
@@ -101,7 +101,7 @@ function CarouselResourceInfo({
                 field="caption"
                 fieldValue={resource?.resourceData?.resource?.description}
                 updateFunc={axEditResource}
-                setFetch={setFetch}
+                setFetchResource={setFetchResource}
                 defaultValue={resource}
                 canEdit={canEdit}
               />
@@ -114,7 +114,7 @@ function CarouselResourceInfo({
                   resource?.resourceData?.userIbp?.name
                 }
                 updateFunc={axEditResource}
-                setFetch={setFetch}
+                setFetchResource={setFetchResource}
                 defaultValue={resource}
                 canEdit={canEdit}
               />
@@ -138,7 +138,7 @@ function CarouselResourceInfo({
                 field="license"
                 fieldValue={resource?.resourceData?.license?.name}
                 updateFunc={axEditResource}
-                setFetch={setFetch}
+                setFetchResource={setFetchResource}
                 defaultValue={resource}
                 licensesList={licensesList}
                 canEdit={canEdit}
@@ -148,7 +148,7 @@ function CarouselResourceInfo({
               <FieldShow
                 field="mediaGallery"
                 updateFunc={axEditResource}
-                setFetch={setFetch}
+                setFetchResource={setFetchResource}
                 defaultValue={resource}
                 canEdit={canEdit}
                 mediaGalleryList={mediaGalleryList}

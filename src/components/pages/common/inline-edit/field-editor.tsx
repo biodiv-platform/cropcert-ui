@@ -15,7 +15,7 @@ export default function FieldEditor({
   onClose,
   defaultValue,
   licensesList,
-  setFetch,
+  setFetchResource,
   defaultMediaGallery,
   mediaGalleryList,
 }) {
@@ -49,7 +49,7 @@ export default function FieldEditor({
 
     const { success } = await updateFunc(payload);
     if (success) {
-      setFetch(true);
+      setFetchResource(true);
       onClose();
       notification(t("common:resource.update_sucess"), NotificationType.Success);
     }

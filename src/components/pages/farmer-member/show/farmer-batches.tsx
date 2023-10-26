@@ -5,7 +5,7 @@ import React from "react";
 
 import LotShowPanel from "./panel";
 
-export default function LotBatches({ rows }) {
+export default function FarmerBatches({ rows }) {
   const batchColumns = [
     {
       name: "#",

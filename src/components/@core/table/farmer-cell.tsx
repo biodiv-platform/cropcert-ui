@@ -3,26 +3,15 @@ import { Link, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
-export default function LotCell({
-  farmerId,
-  _id,
-  farmerIdMongo,
-  batchStatus,
-}: {
-  farmerId?;
-  _id?;
-  farmerIdMongo?;
-  batchStatus?;
-}) {
+export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
   const finalFarmerId = farmerId;
-  const label = `View Lot #${finalFarmerId}`;
-  const id = batchStatus === undefined ? _id : farmerIdMongo;
+  const label = `View Farmer #${finalFarmerId}`;
   return finalFarmerId ? (
-    <NextLink href={`/lot/show/${id}`} passHref={true}>
+    <NextLink href={`/farmer/show/${_id}`} passHref={true}>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            L-{finalFarmerId} <ArrowForwardIcon />
+            {finalFarmerId} <ArrowForwardIcon />
           </span>
         </Tooltip>
       </Link>

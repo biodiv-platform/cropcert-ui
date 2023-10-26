@@ -1,4 +1,4 @@
-import FarmerShowPageComponent from "@components/pages/lot/show";
+import FarmerShowPageComponent from "@components/pages/farmer-member/show";
 import { axGetFarmerById } from "@services/farmer.service";
 import React from "react";
 

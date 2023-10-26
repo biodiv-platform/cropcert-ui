@@ -4,7 +4,7 @@ import React from "react";
 
 import LotShowPanel from "./panel";
 
-export default function LotFarmerProduce({ rows }) {
+export default function FarmerProduce({ rows }) {
   const farmerProduceColumns = [
     {
       name: "#",
@@ -51,7 +51,7 @@ export default function LotFarmerProduce({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="🚜" title="Farmer Collection(s)" count={rows.length}>
+    <LotShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
       <DataTable keyField="batchId" columns={farmerProduceColumns} noHeader={true} data={rows} />
     </LotShowPanel>
   );

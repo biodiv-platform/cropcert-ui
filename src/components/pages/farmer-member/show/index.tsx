@@ -1,32 +1,29 @@
 import { Accordion } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
-import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability";
 import React from "react";
 
+import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
-import LotBatches from "./lot-batches";
-import LotFarmerProduce from "./lot-farmeProduce";
+import FarmerLots from "./farmer-lots";
+import FarmerProduce from "./farmer-produce";
 
-interface ILotShowProps {
-  lot: Lot;
-  activities: Activity[];
-  cupping_report: Cupping[];
-  quality_report: QualityReport[];
-  users: any[];
+interface IFarmerShowProps {
+  lots: any[];
   batches: any[];
-  farmerProduceIds: any[];
+  farmerProduces: any[];
   farmer: any; //TODO: add farmer interface
 }
 
-export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
+export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
   return (
     <Container>
-      <PageHeading>📦 {show.farmer.personalDetails.farmer_name}</PageHeading>
+      <PageHeading>🧑‍🌾 {show.farmer.personalDetails.farmer_name}</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <FarmerInfo farmer={show.farmer} />
-        {/* {show.batches && <LotBatches rows={show.batches} />}
-        {show.farmerProduceIds && <LotFarmerProduce rows={show.farmerProduceIds} />} */}
+        {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
+        {show.batches && <FarmerBatches rows={show.batches} />}
+        {show.lots && <FarmerLots rows={show.lots} />}
       </Accordion>
     </Container>
   );

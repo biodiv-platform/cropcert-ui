@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import CheckIcon from "@icons/check";
-import { axBulkResourceMapping, axGetAllMediaGallery } from "@services/media-gallery.service";
+import { axGetAllMediaGallery, axGetAllResources } from "@services/media-gallery.service";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
@@ -22,7 +22,8 @@ import useResourceFilter from "../../common/use-resource-filter";
 
 export default function BulkMapperModal() {
   const { t } = useTranslation();
-  const { onClose, isOpen, bulkResourceIds } = useResourceFilter();
+  const { onClose, isOpen, bulkResourceIds, selectAll, unselectedResourceIds, filter } =
+    useResourceFilter();
 
   const [mediaGalleryList, setMediaGalleryList] = useState<any[]>([]);
   const [mediaIds, setMediaIds] = useState<any[]>([]);
@@ -36,17 +37,22 @@ export default function BulkMapperModal() {
   const projectForm = useForm<any>({});
 
   const handleFormSubmit = async () => {
-    const payload = {
-      resourceIds: bulkResourceIds,
-      mediaGalleryIds: mediaIds,
+    const params = {
+      ...filter,
+      selectAll: selectAll,
+      unSelected: unselectedResourceIds?.toString(),
+      resourceIds: bulkResourceIds?.toString() || "",
+      mediaGalleryIds: mediaIds?.toString() || "",
+      isBulkPosting: true,
     };
-    const { success } = await axBulkResourceMapping(payload);
-    if (success) {
-      notification(t("Sucess"), NotificationType.Success);
-    } else {
-      notification(t("Error"));
-    }
 
+    console.warn(params);
+    const { success } = await axGetAllResources(params);
+    if (success) {
+      notification(t("common:media_gallery.post.success"), NotificationType.Success);
+    } else {
+      notification(t("common:media_gallery.post.failure"));
+    }
     onClose();
   };
 
@@ -58,7 +64,7 @@ export default function BulkMapperModal() {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{t("Select a Media Gallery")}</ModalHeader>
+        <ModalHeader>{t("common:media_gallery.select")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormProvider {...projectForm}>
@@ -74,7 +80,9 @@ export default function BulkMapperModal() {
                   </Stack>
                 </CheckboxGroup>
               </Box>
-              <SubmitButton leftIcon={<CheckIcon />}>{t("Post to Media Gallery")}</SubmitButton>
+              <SubmitButton leftIcon={<CheckIcon />}>
+                {t("common:media_gallery.post.name")}
+              </SubmitButton>
             </form>
           </FormProvider>
         </ModalBody>

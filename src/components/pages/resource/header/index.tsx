@@ -1,7 +1,10 @@
-import { Flex, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
+import { Flex, Heading, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
+import SimpleActionButton from "@components/@core/action-buttons/simple";
 import BulkMapperHeader from "@components/pages/common/bulk-mapper";
+import Add2Icon from "@icons/add";
 import { viewTabs } from "@static/resource-list";
 import { format } from "indian-number-format";
+import router from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
@@ -28,10 +31,12 @@ export default function ListHeader() {
   };
 
   const handleSelectAll = () => {
-    alert(` ${t("Current resource on this page is selected")}`);
+    alert(` ${resourceData.n}${t(" resources selected")}`);
 
     handleBulkCheckbox("selectAll");
   };
+
+  const handleOnAdd = () => router.push(`/resource/create`);
 
   return (
     <>
@@ -57,9 +62,18 @@ export default function ListHeader() {
         </Tabs>
       </Flex>
       {resourceData && resourceData.n > -1 && (
-        <Flex mb={4} justifyContent="space-between" minH="32px" alignItems="center">
-          <Text color="gray.600">
-            {format(resourceData.n)} {t("Total Resources")}
+        <Flex mb={4} justifyContent="center" minH="32px" alignItems="center" flexDirection="column">
+          <Heading textAlign="center" size="2xl">
+            All Media Gallery
+            <SimpleActionButton
+              icon={<Add2Icon />}
+              title={t("common:resource.contribute")}
+              onClick={handleOnAdd}
+              colorScheme="green"
+            />
+          </Heading>
+          <Text fontSize="xl" color="gray.600">
+            {format(resourceData.n)} {t("common:resource.total")}
           </Text>
           <BulkMapperHeader
             selectAll={selectAll}

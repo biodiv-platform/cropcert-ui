@@ -83,7 +83,12 @@
     },
     "select": "Select a Media Gallery",
     "title": "Mediagallery",
-    "total": "Total media"
+    "total": "Total media",
+    "upload": {
+      "failure": "Unable to upload Media",
+      "name": "Upload Media",
+      "success": "Media  Uploaded Sucessfully"
+    }
   },
   "next": "Next",
   "or": "or",
@@ -102,6 +107,7 @@
     "resource_info": "Resource Information",
     "save": {
       "failure": "Unable to upload resource",
+      "title": "Save",
       "success": "Resource uploaded Sucessfully"
     },
     "selection": "Current resource on this page is selected",

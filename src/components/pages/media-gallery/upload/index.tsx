@@ -55,10 +55,10 @@ export default function MediaGalleryUploadComponent(props) {
     const { success } = await axMediaGalleryResourceUpload(payload);
 
     if (success) {
-      notification(t("Media  Uploaded Sucessfully"), NotificationType.Success);
+      notification(t("common:media_gallery.upload.success"), NotificationType.Success);
       router.push(`/media-gallery/list`);
     } else {
-      notification(t("Unable to upload Media "));
+      notification(t("common:media_gallery.upload.failure"));
     }
   };
 
@@ -74,7 +74,7 @@ export default function MediaGalleryUploadComponent(props) {
             licensesList={props.licensesList}
           />
           <SubmitButton leftIcon={<CheckIcon />} isDisabled={isSubmitDisabled}>
-            {t("Save")}
+            {t("common:resource.save.title")}
           </SubmitButton>
         </form>
       </FormProvider>

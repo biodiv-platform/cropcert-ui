@@ -72,7 +72,7 @@ export default function ResourceCreatePageComponent(props) {
             licensesList={props.licensesList}
           />
           <SubmitButton leftIcon={<CheckIcon />} isDisabled={isSubmitDisabled}>
-            {t("common.save")}
+            {t("common:resource.save.title")}
           </SubmitButton>
         </form>
       </FormProvider>

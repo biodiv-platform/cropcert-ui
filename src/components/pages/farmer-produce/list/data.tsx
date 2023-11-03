@@ -1,3 +1,5 @@
+import timeCell from "@components/@core/table/time-cell";
+
 export const batchColumns = [
   {
     name: "#",
@@ -12,28 +14,30 @@ export const batchColumns = [
     maxWidth: "280px",
   },
   {
-    name: "Collection Date",
-    selector: (row) => row["collectionDate"],
-    maxWidth: "150px",
-    sortable: true,
-  },
-  {
     name: "Quantity",
     selector: (row) => row["quantity"],
     maxWidth: "100px",
     sortable: true,
+    right: true,
   },
   {
-    name: "Collection Center",
-    selector: (row) => row["collectionCenter"],
-    maxWidth: "250px",
+    name: "Type",
+    selector: (row) => row["type"].toUpperCase(),
+    maxWidth: "70px",
     sortable: true,
   },
   {
-    name: "Cooperative",
-    selector: (row) => row["cooperative"],
-    maxWidth: "250px",
+    name: "Collection Date",
+    selector: (row) => timeCell(row.createdAt),
+    maxWidth: "150px",
     sortable: true,
+  },
+  {
+    name: "GRN Number",
+    selector: (row) => row["grnNumber"],
+    maxWidth: "150px",
+    sortable: true,
+    right: true,
   },
   {
     name: "Farmer ID",

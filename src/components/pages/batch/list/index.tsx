@@ -66,7 +66,7 @@ function BatchListPageComponent() {
   };
 
   const handleOnCreateLot = () => {
-    const prefix = "Mityana"; // TODO: change based on odk data
+    const prefix = "Buzaaya"; // TODO: change based on odk data
     const quantity = selectedBatches.reduce(
       (acc, cv) => selectedBatches.length && cv.quantity + acc,
       0

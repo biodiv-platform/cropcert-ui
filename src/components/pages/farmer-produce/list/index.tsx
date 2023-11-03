@@ -46,7 +46,7 @@ function FarmerListPageComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    const prefix = "Mityana"; // TODO: get from odk data
+    const prefix = "Buzaaya"; // TODO: get from odk data
     const quantity = selectedFarmerProduce.reduce(
       (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
       0

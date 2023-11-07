@@ -1,10 +1,23 @@
-import { Flex, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import SITE_CONFIG from "@configs/site-config";
-import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
-import { GMAP_LIBRARIES } from "@static/location";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Stack,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import React from "react";
 
+import FARM_LAND_IMAGE from "../../../../../public/assets/farm-land-default.jpg";
 import FarmerShowPanel from "./panel";
+
+const FarmerMap = dynamic(() => import("./farmer-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
   const basicInfoHeader = [
@@ -82,14 +95,9 @@ export default function FarmerInfo({ farmer }) {
     },
   ];
 
-  const mapContainerStyle = {
-    height: "380px",
-    width: "100%",
-  };
-
-  const center = {
-    lat: farmer["location"]["coordinates"][0],
-    lng: farmer["location"]["coordinates"][1],
+  const coordinates = {
+    long: farmer["location"]["coordinates"][0],
+    lat: farmer["location"]["coordinates"][1],
   };
 
   return (
@@ -115,19 +123,33 @@ export default function FarmerInfo({ farmer }) {
             ))}
         </Tbody>
       </Table>
-      <Flex gap={2} mt={2}>
-        <img src="https://placehold.co/550x380" alt="farmers land picture" />
-
-        <LoadScriptNext
-          id="observation-create-map-script-loader"
-          googleMapsApiKey={SITE_CONFIG.TOKENS.GMAP}
-          region={SITE_CONFIG.MAP.COUNTRY}
-          libraries={GMAP_LIBRARIES}
-        >
-          <GoogleMap id="observation-create-map" mapContainerStyle={mapContainerStyle}>
-            <Marker position={center} />
-          </GoogleMap>
-        </LoadScriptNext>
+      <Flex gap={2} mt={2} p={2}>
+        <Stack direction={"column"} spacing={2}>
+          <Heading size="md">Farm Image :</Heading>
+          <Image
+            objectFit="cover"
+            boxSize={"400px"}
+            align="center"
+            src={FARM_LAND_IMAGE.src}
+            alt="farmers land picture"
+            rounded="md"
+            boxShadow="md"
+          />
+        </Stack>
+        <Stack direction={"column"} spacing={2} width={"100%"}>
+          <Heading size="md">Location :</Heading>
+          <Box
+            rounded="md"
+            border={4}
+            borderColor={"gray.400"}
+            width={"100%"}
+            height={"100%"}
+            overflow={"hidden"}
+            boxShadow="md"
+          >
+            <FarmerMap coordinates={coordinates} farmerName={basicInfoHeader[1]["selector"]} />
+          </Box>
+        </Stack>
       </Flex>
     </FarmerShowPanel>
   );

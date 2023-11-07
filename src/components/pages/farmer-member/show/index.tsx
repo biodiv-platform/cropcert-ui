@@ -17,14 +17,16 @@ interface IFarmerShowProps {
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
   return (
-    <Container>
-      <PageHeading>🧑‍🌾 {show.farmer.personalDetails.farmer_name}</PageHeading>
-      <Accordion defaultIndex={[0]} allowMultiple>
-        <FarmerInfo farmer={show.farmer} />
-        {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
-        {show.batches && <FarmerBatches rows={show.batches} />}
-        {show.lots && <FarmerLots rows={show.lots} />}
-      </Accordion>
-    </Container>
+    show?.farmer && (
+      <Container>
+        <PageHeading>🧑‍🌾 {show.farmer.personalDetails.farmer_name}</PageHeading>
+        <Accordion defaultIndex={[0]} allowMultiple>
+          <FarmerInfo farmer={show.farmer} />
+          {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
+          {show.batches && <FarmerBatches rows={show.batches} />}
+          {show.lots && <FarmerLots rows={show.lots} />}
+        </Accordion>
+      </Container>
+    )
   );
 }

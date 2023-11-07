@@ -1,15 +1,19 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Box, Button, ButtonGroup, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import { ROLES } from "@static/constants";
+import { DRAW_MAP } from "@static/events";
 import { hasAccess } from "@utils/auth";
 import React, { useEffect, useState } from "react";
+import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { batchColumns } from "./data";
+import MultiMarkerMapModal from "./modals/multi-marker-map";
 import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
 
@@ -18,9 +22,11 @@ function FarmerMemberPageComponent() {
   const [co, setCo] = useState<any>();
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useFarmerStore();
-  const [showTypeError] = useState(false);
+  const [showTypeError, setShowTypeError] = useState(false);
   const [hideAccessor, setHideAccessor] = useState<boolean>();
   const { user } = useGlobalState();
+  const { isOpen: clearRows } = useDisclosure();
+  const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
 
   useEffect(() => {
     ccCodes.length && actions.listFarmerMember({ ccCodes, reset: true });
@@ -41,9 +47,38 @@ function FarmerMemberPageComponent() {
     actions.listFarmerMember({ ccCodes });
   };
 
+  const handleOnSelectionChange = ({ selectedRows }) => {
+    setSelectedFarmerMember(selectedRows);
+    setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
+  };
+
+  const handleDrawMap = () => {
+    emit(DRAW_MAP, { selectedFarmerMember });
+  };
+
+  const ActionButtons = () => {
+    return (
+      <ButtonGroup spacing={4}>
+        <Button
+          colorScheme="green"
+          variant="solid"
+          onClick={handleDrawMap}
+          isDisabled={
+            showTypeError ||
+            selectedFarmerMember.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+          leftIcon={<AddIcon />}
+        >
+          Show On Map
+        </Button>
+      </ButtonGroup>
+    );
+  };
+
   return (
     <Box>
-      <PageHeading>🧑‍🌾 Farmer Member(s)</PageHeading>
+      <PageHeading actions={<ActionButtons />}>🧑‍🌾 Farmer Member(s)</PageHeading>
       <Box my={2}>
         Total Records: {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
       </Box>
@@ -71,7 +106,9 @@ function FarmerMemberPageComponent() {
           <Table
             data={state.farmer}
             columns={batchColumns}
-            selectableRows={false}
+            selectableRows={true}
+            onSelectedRowsChange={handleOnSelectionChange}
+            clearSelectedRows={clearRows}
             conditionalRowStyles={[
               {
                 when: (row) => row.lotId,
@@ -89,6 +126,8 @@ function FarmerMemberPageComponent() {
       ) : (
         <Box mt={2}>No records found</Box>
       )}
+
+      <MultiMarkerMapModal />
     </Box>
   );
 }

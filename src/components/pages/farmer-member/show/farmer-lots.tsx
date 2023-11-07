@@ -1,3 +1,4 @@
+import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
 import React from "react";
 
@@ -20,19 +21,21 @@ export default function FarmerLots({ rows }) {
     {
       name: "Initial Quantity",
       selector: (row) => row["quantity"],
-      maxWidth: "100px",
+      maxWidth: "150px",
       sortable: true,
+      right: true,
     },
     {
       name: "Lot Status",
       selector: (row) => row["lotStatus"],
-      maxWidth: "100px",
+      cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+      maxWidth: "180px",
       sortable: true,
     },
   ];
 
   return (
-    <LotShowPanel icon="🧺" title="Lot(s)" count={rows.length}>
+    <LotShowPanel icon="📦" title="Lot(s)" count={rows.length}>
       <DataTable keyField="LotId" columns={lotColumns} noHeader={true} data={rows} />
     </LotShowPanel>
   );

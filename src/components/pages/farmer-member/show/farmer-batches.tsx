@@ -30,6 +30,7 @@ export default function FarmerBatches({ rows }) {
       selector: (row) => row["quantity"],
       maxWidth: "100px",
       sortable: true,
+      right: true,
     },
     {
       name: "Last Updated",
@@ -41,6 +42,8 @@ export default function FarmerBatches({ rows }) {
     {
       name: "Lot ID",
       selector: (row) => row["lotId"],
+      cell: (row) => `L-${row.lotId}`,
+      maxWidth: "100px",
     },
     {
       name: "Lot Status",

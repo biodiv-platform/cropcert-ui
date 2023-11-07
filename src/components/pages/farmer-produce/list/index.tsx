@@ -54,7 +54,6 @@ function FarmerListPageComponent() {
 
     const payload = {
       name: `${prefix}_D_`,
-      type: "Dry",
       selected: selectedFarmerProduce,
       coCode: co.value,
       quantity,

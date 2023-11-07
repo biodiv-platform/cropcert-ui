@@ -16,37 +16,46 @@ export default function LotFarmerProduce({ rows }) {
     {
       name: "Farmer Name",
       selector: (row) => row["farmerName"],
-      width: "210px",
-    },
-    {
-      name: "Collection Date",
-      selector: (row) => row["collectionDate"],
-      maxWidth: "150px",
-      cell: (row) => timeCell(row.collectionDate),
-      sortable: true,
+      maxWidth: "280px",
     },
     {
       name: "Quantity",
       selector: (row) => row["quantity"],
       maxWidth: "100px",
       sortable: true,
+      right: true,
     },
-
     {
-      name: "Collection Center",
-      selector: (row) => row["collectionCenter"],
-      maxWidth: "250px",
+      name: "Type",
+      selector: (row) => row["type"].toUpperCase(),
+      maxWidth: "70px",
       sortable: true,
+    },
+    {
+      name: "Collection Date",
+      selector: (row) => timeCell(row.createdAt),
+      maxWidth: "150px",
+      sortable: true,
+    },
+    {
+      name: "GRN Number",
+      selector: (row) => row["grnNumber"],
+      maxWidth: "150px",
+      sortable: true,
+      right: true,
     },
     {
       name: "Farmer ID",
       selector: (row) => row["farmerId"],
-      maxWidth: "100px",
+      maxWidth: "120px",
+      sortable: true,
+      cell: (row) => `${row.farmerId}`,
     },
     {
       name: "Batch ID",
       selector: (row) => row["batchId"],
       maxWidth: "100px",
+      cell: (row) => row?.batchId && `B-${row.batchId}`,
     },
   ];
 

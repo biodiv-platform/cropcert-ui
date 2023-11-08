@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { DRAW_MAP } from "@static/events";
 import dynamic from "next/dynamic";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
@@ -18,6 +19,7 @@ const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false 
 const MultiMarkerMapModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [coordinatesArray, setCoordinatesArray] = useState([]);
+  const { t } = useTranslation();
 
   const getCoordinatesFromFarmerMember = (selected) => {
     setCoordinatesArray(
@@ -41,7 +43,7 @@ const MultiMarkerMapModal = () => {
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="full">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Farm Locations</ModalHeader>
+        <ModalHeader>{t("traceability:farmer_member_modal_heading")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {coordinatesArray && (

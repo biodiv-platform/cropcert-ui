@@ -5,7 +5,7 @@ module.exports = {
   defaultLocale: LANG.DEFAULT,
   locales: Object.keys(LANG.LIST),
   pages: {
-    "*": ["common", "header", "auth", "form"],
+    "*": ["common", "header", "auth", "form", "traceability"],
     "/": ["page", "activity"],
     "/marketing": ["page"],
     "rgx:/document/": ["document", "observation", "filters", "activity"],

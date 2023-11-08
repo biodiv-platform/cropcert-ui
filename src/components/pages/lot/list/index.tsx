@@ -6,6 +6,7 @@ import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -14,13 +15,12 @@ import LotExpand from "./expand";
 import LotReportUpdate from "./modals/lot-report-update";
 import { useLotStore } from "./use-lot-store";
 
-//TODO: function LotListPageComponent({ unions })
-
 function LotListPageComponent() {
   const [union, setUnion] = useState({} as any);
   const [coCodes, setCoCodes] = useState<any>([]);
   const { state, ...actions } = useLotStore();
   const [lotModalColumns, setLotModalColumns] = useState<any>([]);
+  const { t } = useTranslation();
 
   const handleLoadMore = () => actions.listLot({ ccCodes: coCodes });
 
@@ -40,8 +40,11 @@ function LotListPageComponent() {
 
   return (
     <Container>
-      <PageHeading>📦 Lot(s)</PageHeading>
-      <Box my={2}>Total Records: {state.isLoading ? <Spinner size="xs" /> : state.lot.length}</Box>
+      <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
+      <Box my={2}>
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.lot.length}
+      </Box>
 
       <CoreGrid>
         <Accesser

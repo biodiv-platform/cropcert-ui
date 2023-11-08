@@ -9,6 +9,7 @@ import { Batch } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
@@ -27,6 +28,7 @@ function FarmerListPageComponent() {
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
+  const { t } = useTranslation();
 
   useEffect(() => {
     ccCodes.length && actions.listFarmerProduce({ ccCodes, reset: true });
@@ -85,7 +87,7 @@ function FarmerListPageComponent() {
             !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
         >
-          Selected Quantity: {quantity}(Kgs)
+          {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
           colorScheme="blue"
@@ -111,9 +113,12 @@ function FarmerListPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🚜 Farmer Produce </PageHeading>
+      <PageHeading actions={<ActionButtons />}>
+        🚜 {t("traceability:tab_titles.farmer_produce")}
+      </PageHeading>
       <Box my={2}>
-        Total Records: {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
       </Box>
 
       <CoreGrid hidden={false}>

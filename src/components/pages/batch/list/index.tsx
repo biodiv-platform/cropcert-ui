@@ -10,6 +10,7 @@ import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { LOT_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
@@ -33,6 +34,7 @@ function BatchListPageComponent() {
   const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
   const [batchModalColumns, setBatchModalColumns] = useState<any>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     ccCodes.length && actions.listBatch({ ccCodes, reset: true });
@@ -113,9 +115,10 @@ function BatchListPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🧺 Batch(s)</PageHeading>
+      <PageHeading actions={<ActionButtons />}>🧺 {t("traceability:tab_titles.batch")}</PageHeading>
       <Box my={2}>
-        Total Records: {state.isLoading ? <Spinner size="xs" /> : state.batch.length}
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.batch.length}
       </Box>
       <CoreGrid hidden={hideAccessor}>
         <Accesser

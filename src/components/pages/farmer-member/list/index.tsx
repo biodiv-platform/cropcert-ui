@@ -8,6 +8,7 @@ import useGlobalState from "@hooks/use-global-state";
 import { ROLES } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
 import { hasAccess } from "@utils/auth";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
@@ -27,6 +28,7 @@ function FarmerMemberPageComponent() {
   const { user } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
+  const { t } = useTranslation();
 
   useEffect(() => {
     ccCodes.length && actions.listFarmerMember({ ccCodes, reset: true });
@@ -78,9 +80,12 @@ function FarmerMemberPageComponent() {
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🧑‍🌾 Farmer Member(s)</PageHeading>
+      <PageHeading actions={<ActionButtons />}>
+        🧑‍🌾 {t("traceability:tab_titles.farmer_member")}
+      </PageHeading>
       <Box my={2}>
-        Total Records: {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
       </Box>
 
       <CoreGrid hidden={hideAccessor}>

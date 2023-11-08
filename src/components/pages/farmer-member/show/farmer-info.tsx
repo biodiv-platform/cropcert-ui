@@ -1,3 +1,4 @@
+import FARM_LAND_IMAGE from "@assets/farm-land-default.jpg";
 import {
   Box,
   Flex,
@@ -14,7 +15,6 @@ import {
 import dynamic from "next/dynamic";
 import React from "react";
 
-import FARM_LAND_IMAGE from "../../../../../public/assets/farm-land-default.jpg";
 import FarmerShowPanel from "./panel";
 
 const FarmerMap = dynamic(() => import("./farmer-map"), { ssr: false });

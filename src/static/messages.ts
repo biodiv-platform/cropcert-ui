@@ -9,7 +9,7 @@ export const SIGN_IN = {
 
 export const BATCH = {
   UPDATED: "Batch updated successfully",
-  MULTIPLE_TYPE_SELECTED: "You have selected multiple types (wet/dry/faq) of batches",
+  MULTIPLE_TYPE_SELECTED: "Please choose only one type of record: wet, dry, or faq.",
   CREATED: "Batch ${batchId}. ${batchName} created successfully",
 };
 

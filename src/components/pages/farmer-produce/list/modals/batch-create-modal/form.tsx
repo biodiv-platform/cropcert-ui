@@ -8,16 +8,14 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@chakra-ui/react";
-import { CoreGrid } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
-import { SelectInputField } from "@components/form/select";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
-import { formattedDate, typeList } from "@utils/basic";
+import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -34,20 +32,17 @@ export default function BatchCreateForm({
   highestDate,
 }) {
   const [cc] = useState({} as any);
-  const [batchType, setBatchType] = useState<any[]>([]);
 
   const hForm = useForm<any>({
     mode: "onBlur",
     resolver: yupResolver(
       Yup.object().shape({
         creationDate: Yup.number().nullable(),
-        type: Yup.string().required(),
       })
     ),
     defaultValues: {
       creationDate: "",
       note: "",
-      type: null,
     },
   });
 
@@ -59,10 +54,10 @@ export default function BatchCreateForm({
       const updatedPayload = {
         batchName:
           "Buzaaya_" + // FIXME: get this name from odk api
-          payload.type.charAt(0).toUpperCase() +
+          batchConfig.type.charAt(0).toUpperCase() +
           "_" +
           formattedDate(payload.creationDate),
-        type: payload.type,
+        type: batchConfig.type,
         ccCode: uniqueCCs,
         quantity: batchConfig.quantity,
         createdOn: values.creationDate,
@@ -82,7 +77,6 @@ export default function BatchCreateForm({
   };
 
   useEffect(() => {
-    setBatchType(cc ? typeList(cc?.type) : []);
     hForm.setValue(`ccCode`, cc?.value);
   }, [cc]);
 
@@ -93,9 +87,6 @@ export default function BatchCreateForm({
           <ModalHeader>✨ Create Batch</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <CoreGrid rows={1}>
-              <SelectInputField name="type" label="Batch Type" options={batchType} />
-            </CoreGrid>
             <DateTimeInputField
               name="creationDate"
               label="Creation Date"

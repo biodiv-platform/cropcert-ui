@@ -145,7 +145,7 @@ function FarmerListPageComponent() {
             clearSelectedRows={clearRows}
             conditionalRowStyles={[
               {
-                when: (row) => row.lotId,
+                when: (row) => row.batchId,
                 style: {
                   background: "var(--chakra-colors-gray-100)!important",
                   opacity: "0.6",

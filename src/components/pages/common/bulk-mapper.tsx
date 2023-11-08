@@ -23,7 +23,7 @@ export default function BulkMapperHeader({
             leftIcon={<CheckCircleIcon />}
             onClick={handleSelectAll}
           >
-            {t("Select All")}
+            {t("common:actions.select_all")}
           </Button>
         )}
         <Button
@@ -32,7 +32,7 @@ export default function BulkMapperHeader({
           leftIcon={<RepeatIcon />}
           onClick={() => handleBulkCheckbox("UnsSelectAll")}
         >
-          {t("Unselect")}
+          {t("common:actions.unselect_all")}
         </Button>
         <Button
           variant="outline"
@@ -40,7 +40,7 @@ export default function BulkMapperHeader({
           leftIcon={<SettingsIcon />}
           onClick={openBulkMappingModal}
         >
-          {t("Actions")}
+          {t("common:actions.name")}
         </Button>
       </ButtonGroup>
     )

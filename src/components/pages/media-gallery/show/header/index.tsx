@@ -1,7 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Flex, Heading, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
 import SimpleActionButton from "@components/@core/action-buttons/simple";
-import BulkMapperHeader from "@components/pages/common/bulk-mapper";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
 import Add2Icon from "@icons/add";
@@ -22,15 +21,7 @@ import React from "react";
 import useMediaGalleryFilter from "../../common/use-media-gallery-filter";
 
 export default function ListHeader() {
-  const {
-    filter,
-    setFilter,
-    onOpen: openBulkMappingModal,
-    mediaGalleryData,
-    selectAll,
-    handleBulkCheckbox,
-    bulkMediaGalleryIds,
-  } = useMediaGalleryFilter();
+  const { filter, setFilter, mediaGalleryData } = useMediaGalleryFilter();
   const defaultIndex = viewTabs.findIndex((tab) => tab.key === filter?.view);
   const { t } = useTranslation();
   const currentRoute = useRouter();
@@ -40,12 +31,6 @@ export default function ListHeader() {
       _draft.f.offset = 0;
       _draft.f.view = viewTabs[index].key;
     });
-  };
-
-  const handleSelectAll = () => {
-    alert(` ${t("common:resource.selection")}`);
-
-    handleBulkCheckbox("selectAll");
   };
 
   const handleOnDelete = async () => {
@@ -159,13 +144,6 @@ export default function ListHeader() {
             {mediaGalleryData.description} ({format(mediaGalleryData.n)}{" "}
             {t("common:media_gallery.total")})
           </Text>
-          <BulkMapperHeader
-            selectAll={selectAll}
-            bulkIds={bulkMediaGalleryIds}
-            handleSelectAll={handleSelectAll}
-            handleBulkCheckbox={handleBulkCheckbox}
-            openBulkMappingModal={openBulkMappingModal}
-          />
         </Flex>
       )}
     </>

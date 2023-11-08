@@ -54,10 +54,10 @@ export default function MediaGalleryCreatePageComponent({ licensesList }) {
     const { success, data } = await axMediaGalleryResourceCreate(payload);
 
     if (success) {
-      notification(t("Media Gallery Created Sucessfully"), NotificationType.Success);
+      notification(t("common:media_gallery.upload.success"), NotificationType.Success);
       router.push(`/media-gallery/show/${data.mediaGallery.id}`);
     } else {
-      notification(t("Unable to create Media gallery"));
+      notification(t("common:media_gallery.upload.failure"));
     }
   };
 
@@ -68,11 +68,11 @@ export default function MediaGalleryCreatePageComponent({ licensesList }) {
           <Box hidden={!isAdmin}>
             <BasicInfo isEdit={false} />
           </Box>
-          <PageHeading>📷 {t("Upload Media")}</PageHeading>
+          <PageHeading>📷 {t("common:media_gallery.upload.name")}</PageHeading>
 
           <MediaGalleryUploader name="resources" licensesList={licensesList} />
 
-          <SubmitButton leftIcon={<CheckIcon />}>{t("common:save")}</SubmitButton>
+          <SubmitButton leftIcon={<CheckIcon />}>{t("common:resource.save.title")}</SubmitButton>
         </form>
       </FormProvider>
     </Container>

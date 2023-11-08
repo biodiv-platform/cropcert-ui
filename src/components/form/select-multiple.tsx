@@ -45,6 +45,14 @@ export const SelectMultipleInputField = ({
   const { field, fieldState } = useController({ name });
   const initialValue = options.filter((v) => (field.value || []).includes(v.value));
 
+  const customStyles = {
+    menu: (provided) => ({
+      ...provided,
+      maxHeight: "200px",
+      overflowY: "auto",
+    }),
+  };
+
   return (
     <FormControl
       isInvalid={!!fieldState.error}
@@ -72,6 +80,7 @@ export const SelectMultipleInputField = ({
         isDisabled={disabled}
         ref={selectRef}
         {...reactSelectProps}
+        styles={customStyles}
       />
 
       <FormErrorMessage

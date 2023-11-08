@@ -26,14 +26,16 @@ export default function TagsShow({
   return (
     <Box gridColumn="2/5" mb={2}>
       {isOpen ? (
-        <TagsEditor
-          objectId={objectId}
-          tags={tags}
-          setTags={setTags}
-          onClose={onClose}
-          queryFunc={queryFunc}
-          updateFunc={updateFunc}
-        />
+        <Box>
+          <TagsEditor
+            objectId={objectId}
+            tags={tags}
+            setTags={setTags}
+            onClose={onClose}
+            queryFunc={queryFunc}
+            updateFunc={updateFunc}
+          />
+        </Box>
       ) : (
         <Box>
           {tags?.map((tag) => (

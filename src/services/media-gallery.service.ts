@@ -146,22 +146,11 @@ export const axGetResourceById = async (rId) => {
   }
 };
 
-export const axGetAllResources = async (params) => {
+export const axGetAllResources = async (params, payload = {}) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.RESOURCES}/v1/resource/all`, { params });
-    return { success: true, data };
-  } catch (e) {
-    console.error(e);
-    return { success: false, data: {} };
-  }
-};
-
-export const axBulkResourceMapping = async (payload) => {
-  try {
-    const { data } = await http.put(
-      `${ENDPOINT.RESOURCES}/v1/resource/mediaGallery/bulkResourceMapping`,
-      payload
-    );
+    const { data } = await http.post(`${ENDPOINT.RESOURCES}/v1/resource/all`, payload, {
+      params,
+    });
     return { success: true, data };
   } catch (e) {
     console.error(e);

@@ -2,6 +2,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { SubmitButton } from "@components/form/submit-button";
+import MediaGalleryUploader from "@components/pages/media-gallery/create/uploader";
 import useGlobalState from "@hooks/use-global-state";
 import { axMediaGalleryResourceUpload } from "@services/media-gallery.service";
 import { RESOURCES_UPLOADING } from "@static/events";
@@ -12,9 +13,7 @@ import React, { useState } from "react";
 import { useListener } from "react-gbus";
 import { FormProvider, useForm } from "react-hook-form";
 
-import MediaGalleryUploader from "../create/uploader";
-
-export default function MediaGalleryUploadComponent(props) {
+export default function ResourceCreatePageComponent(props) {
   const { t } = useTranslation();
   const [isSubmitDisabled, setIsSubmitDisabled] = useState();
   const { user } = useGlobalState();
@@ -49,22 +48,21 @@ export default function MediaGalleryUploadComponent(props) {
             name: tag.label,
           }))
         : [],
-      mId: resource?.mId || [props.mediaGalleryData.id],
     }));
 
     const { success } = await axMediaGalleryResourceUpload(payload);
 
     if (success) {
-      notification(t("common:media_gallery.upload.success"), NotificationType.Success);
+      notification(t("common:resource.save.success"), NotificationType.Success);
       router.push(`/media-gallery/list`);
     } else {
-      notification(t("common:media_gallery.upload.failure"));
+      notification(t("common:resource.contribute"));
     }
   };
 
   return (
     <Container py={6}>
-      <PageHeading>📷 {`Upload to ${props.mediaGalleryData.name} Media Gallery`}</PageHeading>
+      <PageHeading>📷 {t("common:resource.contribute")}</PageHeading>
 
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>

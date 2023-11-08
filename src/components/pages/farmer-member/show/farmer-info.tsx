@@ -124,6 +124,7 @@ export default function FarmerInfo({ farmer }) {
         </Tbody>
       </Table>
       <Flex gap={2} mt={2} p={2}>
+        {/* TODO: Implement checks when no farm image exist */}
         <Stack direction={"column"} spacing={2}>
           <Heading size="md">Farm Image :</Heading>
           <Image

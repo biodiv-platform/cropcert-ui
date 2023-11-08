@@ -47,18 +47,24 @@ function FarmerListPageComponent() {
 
   const handleOnCreateBatch = () => {
     const prefix = "Buzaaya"; // TODO: get from odk data
-    const quantity = selectedFarmerProduce.reduce(
-      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
-      0
-    );
 
-    const payload = {
-      name: `${prefix}_D_`,
-      selected: selectedFarmerProduce,
-      coCode: co.value,
-      quantity,
-    };
-    emit(BATCH_CREATE, payload);
+    // checking if multiple types are selected
+    if ([...new Set(selectedFarmerProduce.map((r) => r.type))].length === 2)
+      return setShowTypeError(true);
+    else {
+      const quantity = selectedFarmerProduce.reduce(
+        (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
+        0
+      );
+
+      const payload = {
+        name: `${prefix}_D_`,
+        selected: selectedFarmerProduce,
+        coCode: co.value,
+        quantity,
+      };
+      emit(BATCH_CREATE, payload);
+    }
   };
 
   const ActionButtons = () => {

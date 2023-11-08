@@ -60,7 +60,7 @@ export default function LotFarmerProduce({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="🚜" title="Farmer Collection(s)" count={rows.length}>
+    <LotShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
       <DataTable keyField="batchId" columns={farmerProduceColumns} noHeader={true} data={rows} />
     </LotShowPanel>
   );

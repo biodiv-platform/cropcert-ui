@@ -2,19 +2,19 @@ import { axListFarmer } from "@services/farmer.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: false, farmer: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: true, farmer: [] as any[] };
 
 export function useFarmerStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
 
-  const addFarmer = (farmer) => {
+  const addFarmerProduce = (farmer) => {
     setState((_draft) => {
       _draft.farmer.push(farmer);
       _draft.offset = _draft.offset + 1;
     });
   };
 
-  const setFarmers = ({ success, data, reset, offset, hasMore }: any) => {
+  const setFarmerProduces = ({ success, data, reset, offset, hasMore }: any) => {
     if (!success) return;
 
     const dataN = data.map((arr) => {
@@ -38,7 +38,7 @@ export function useFarmerStore() {
     });
   };
 
-  const updateFarmer = (lot) => {
+  const updateFarmerProduce = (lot) => {
     setState((_draft) => {
       const toUpdateIndex = _draft.farmer.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex) {
@@ -47,18 +47,18 @@ export function useFarmerStore() {
     });
   };
 
-  const listFarmer = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
+  const listFarmerProduce = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
     if (state.farmer.length % PAGINATION_LIMIT === 0 || reset) {
       setState((_draft) => {
         _draft.isLoading = true;
       });
       const offset = reset ? 0 : state.offset;
       const response = await axListFarmer(ccCodes, offset);
-      setFarmers(response);
+      setFarmerProduces(response);
     }
   };
 
-  const clearFarmer = () => {
+  const clearFarmerProduce = () => {
     setState((_draft) => {
       _draft.farmer = DEFAULT_STATE.farmer;
       _draft.hasMore = DEFAULT_STATE.hasMore;
@@ -66,5 +66,19 @@ export function useFarmerStore() {
     });
   };
 
-  return { state, addFarmer, setFarmers, updateFarmer, listFarmer, clearFarmer };
+  const setLoading = (isLoading) => {
+    setState((_draft) => {
+      _draft.isLoading = isLoading;
+    });
+  };
+
+  return {
+    state,
+    addFarmerProduce,
+    setFarmerProduces,
+    updateFarmerProduce,
+    listFarmerProduce,
+    clearFarmerProduce,
+    setLoading,
+  };
 }

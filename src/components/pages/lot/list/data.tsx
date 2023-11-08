@@ -14,9 +14,13 @@ const buttonProps: Partial<ButtonProps> = {
   size: "xs",
 };
 
-export const createLotColumns = (lot) => {
-  if (lot) {
-    const lotExtraColumns = lot.modalFieldCombined.reduce((acc, curr) => {
+export const createLotColumns = (columns) => {
+  try {
+    if (!columns) return [];
+
+    columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
+
+    const lotExtraColumns = columns.reduce((acc, curr) => {
       const printCurrRow = (lot, canWrite) => {
         return { lot, canWrite };
       };
@@ -62,6 +66,10 @@ export const createLotColumns = (lot) => {
     }, []);
 
     return lotExtraColumns;
+  } catch (e) {
+    console.error("error", e);
+    // returning default value
+    return [];
   }
 };
 

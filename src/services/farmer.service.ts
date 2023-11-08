@@ -37,3 +37,15 @@ export const axListFarmerMember = async (ccCodes, offset = 0, limit = PAGINATION
     return { success: false, data: [] };
   }
 };
+
+export const axGetFarmerById = async (farmerId, ctx?) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/show/${farmerId}`, {
+      params: { ctx },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};

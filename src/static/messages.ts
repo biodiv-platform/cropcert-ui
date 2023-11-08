@@ -9,7 +9,7 @@ export const SIGN_IN = {
 
 export const BATCH = {
   UPDATED: "Batch updated successfully",
-  MULTIPLE_TYPE_SELECTED: "You have selected wet and dry both types of batches",
+  MULTIPLE_TYPE_SELECTED: "Please choose only one coffee type to create a batch: wet, dry, or faq.",
   CREATED: "Batch ${batchId}. ${batchName} created successfully",
 };
 

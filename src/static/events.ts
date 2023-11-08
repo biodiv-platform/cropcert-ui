@@ -14,6 +14,7 @@ export const UPLOAD_ALL_INSPECTION = "UPLOAD_ALL_INSPECTION";
 export const ACTIVITY_UPDATED = "activity_updated";
 export const EXIF_GPS_FOUND = "exif_gps_found";
 export const RESOURCES_UPLOADING = "resources_uploading";
+export const DRAW_MAP = "DRAW_MAP";
 
 export const FORM_DATEPICKER_CHANGE = "FORM_DATEPICKER_CHANGE_";
 

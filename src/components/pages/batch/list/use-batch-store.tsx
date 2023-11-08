@@ -2,7 +2,7 @@ import { axListBatch } from "@services/batch.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: false, batch: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: true, batch: [] as any[] };
 
 export function useBatchStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
@@ -63,8 +63,15 @@ export function useBatchStore() {
       _draft.batch = DEFAULT_STATE.batch;
       _draft.hasMore = DEFAULT_STATE.hasMore;
       _draft.offset = DEFAULT_STATE.offset;
+      _draft.isLoading = DEFAULT_STATE.isLoading;
     });
   };
 
-  return { state, addBatch, setBatches, updateBatch, listBatch, clearBatch };
+  const setLoading = (isLoading) => {
+    setState((_draft) => {
+      _draft.isLoading = isLoading;
+    });
+  };
+
+  return { state, addBatch, setBatches, updateBatch, listBatch, clearBatch, setLoading };
 }

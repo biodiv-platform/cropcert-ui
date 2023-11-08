@@ -1,8 +1,13 @@
-import { Box, Skeleton, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
+import Accesser from "@components/@core/accesser";
+import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import Container from "@components/@core/container";
-import { PageHeading } from "@components/@core/layout";
+import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
-import React, { useEffect } from "react";
+import { axGetColumns } from "@services/traceability.service";
+import { ROLES } from "@static/constants";
+import useTranslation from "next-translate/useTranslation";
+import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { createLotColumns, lotColumns } from "./data";
@@ -10,62 +15,59 @@ import LotExpand from "./expand";
 import LotReportUpdate from "./modals/lot-report-update";
 import { useLotStore } from "./use-lot-store";
 
-//TODO: function LotListPageComponent({ unions })
-
 function LotListPageComponent() {
-  const lotStore = useLotStore();
+  const [union, setUnion] = useState({} as any);
+  const [coCodes, setCoCodes] = useState<any>([]);
+  const { state, ...actions } = useLotStore();
+  const [lotModalColumns, setLotModalColumns] = useState<any>([]);
+  const { t } = useTranslation();
 
-  const handleLoadMore = () => lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71] });
+  const handleLoadMore = () => actions.listLot({ ccCodes: coCodes });
 
   useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
+    coCodes.length && actions.listLot({ ccCodes: coCodes, reset: true });
+  }, [coCodes]);
+
+  useEffect(() => {
+    (async () => {
+      const columns = await axGetColumns("LOT");
+      setLotModalColumns(columns.data);
+    })();
   }, []);
 
-  useEffect(() => {
-    lotStore.listLot({ ccCodes: [6, 7, 4, 2, 3, 8, 71], reset: true });
-  }, [lotStore.state.lot]);
-
   // Generate dynamic batchColumns based on state.batch
-  const lotExtraColumns =
-    lotStore.state.lot && lotStore.state.lot.length > 0
-      ? createLotColumns(lotStore.state.lot[0])
-      : [];
+  const lotExtraColumns = lotModalColumns.length > 0 ? createLotColumns(lotModalColumns) : [];
 
-  const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
-    <Th key={index}>
-      <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
-    </Th>
-  ));
-
-  const loadingRows = Array.from({ length: 5 }).map((_, index) => (
-    <Tr key={index}>
-      {loadingColumns.map((cell, cellIndex) => (
-        <Td key={cellIndex}>
-          <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
-        </Td>
-      ))}
-    </Tr>
-  ));
   return (
     <Container>
-      <PageHeading>📦 Lot(s)</PageHeading>
-      <Box my={2}>{`Total Records: ${lotStore.state.lot.length}`}</Box>
+      <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
+      <Box my={2}>
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.lot.length}
+      </Box>
 
-      {lotStore.state.isLoading && (
-        <ChakraTable variant="simple">
-          <Thead>
-            <Tr>{loadingColumns}</Tr>
-          </Thead>
-          <Tbody>{loadingRows}</Tbody>
-        </ChakraTable>
-      )}
+      <CoreGrid>
+        <Accesser
+          toRole={ROLES.UNION}
+          onChange={setUnion}
+          onTouch={() => {
+            actions.clearLot();
+            actions.setLoading(true);
+          }}
+        />
+        <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+      </CoreGrid>
 
-      {lotStore.state.lot.length > 0 && (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={lotStore.state.hasMore}>
+      {state.isLoading ? (
+        <Spinner />
+      ) : state.lot.length > 0 ? (
+        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
           <Table
-            data={lotStore.state.lot}
+            data={state.lot}
             columns={[...lotColumns, ...lotExtraColumns]}
             expandableRows={true}
+            defaultSortFieldId={1}
+            defaultSortAsc={false}
             customStyles={{
               cells: {
                 style: {
@@ -75,10 +77,15 @@ function LotListPageComponent() {
               },
             }}
             expandableRowsComponent={LotExpand}
+            pagination
+            paginationPerPage={20}
+            paginationRowsPerPageOptions={[10, 20, 50, 100]}
           />
         </InfiniteScroll>
+      ) : (
+        <Box mt={2}>No records found</Box>
       )}
-      <LotReportUpdate update={lotStore.updateLot} />
+      <LotReportUpdate update={actions.updateLot} />
     </Container>
   );
 }

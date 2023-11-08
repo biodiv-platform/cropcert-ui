@@ -1,39 +1,44 @@
+import FarmerCell from "@components/@core/table/farmer-cell";
+import React from "react";
+
 export const batchColumns = [
   {
     name: "#",
     selector: (row) => row["farmerId"],
-    maxWidth: "100px",
+    maxWidth: "150px",
     sortable: true,
-    cell: (row) => `${row.farmerId}`,
+    cell: (row) => <FarmerCell {...row} type="l" />,
   },
   {
     name: "Name",
-    selector: (row) => row["farmerName"],
+    selector: (row) => row["personalDetails"]["farmer_name"],
     width: "280px",
   },
   {
     name: "Village",
-    selector: (row) => row["village"],
-    maxWidth: "250px",
+    selector: (row) => row["personalDetails"]["village"],
+    maxWidth: "260px",
     sortable: true,
   },
   {
     name: "Collection Center",
-    selector: (row) => row["collectionCenter"],
+    selector: (row) => row["personalDetails"]["cc"],
     maxWidth: "250px",
     sortable: true,
   },
   {
-    name: "Cooperative",
-    selector: (row) => row["cooperative"],
-    maxWidth: "250px",
+    name: "No. of Coffee Trees",
+    selector: (row) => row["farmDetails"]["no_of_coffee_trees"],
+    maxWidth: "210px",
     sortable: true,
+    right: true,
   },
   {
-    name: "Region",
-    selector: (row) => row["region"],
-    maxWidth: "250px",
+    name: "Land Acreage",
+    selector: (row) => row["farmDetails"]["land_acreage"],
+    maxWidth: "210px",
     sortable: true,
+    right: true,
   },
 ];
 

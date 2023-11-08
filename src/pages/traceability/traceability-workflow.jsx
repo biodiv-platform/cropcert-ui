@@ -2,7 +2,6 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { RestrictedAccess } from "@components/@core/layout";
 import BatchListPageComponent from "@components/pages/batch/list";
-import FarmerMemberPageComponent from "@components/pages/farmer-member/list";
 import FarmerListPageComponent from "@components/pages/farmer-produce/list";
 import LotListPageComponent from "@components/pages/lot/list";
 import React, { useEffect, useState } from "react";
@@ -30,18 +29,12 @@ function ShowTabs() {
     <RestrictedAccess>
       <Tabs isFitted variant="enclosed" p={4} onChange={handleTabChange} index={selectedTab}>
         <TabList>
-          <Tab>🧑‍🌾 Farmer Member(s)</Tab>
           <Tab>🚜 Farmer Produce</Tab>
           <Tab>🧺 Batch(s)</Tab>
           <Tab>📦 Lot(s)</Tab>
         </TabList>
 
         <TabPanels>
-          <TabPanel>
-            <Container>
-              <FarmerMemberPageComponent />
-            </Container>
-          </TabPanel>
           <TabPanel>
             <Container>
               <FarmerListPageComponent key={selectedTab} />

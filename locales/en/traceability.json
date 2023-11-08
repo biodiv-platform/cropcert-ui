@@ -1,0 +1,12 @@
+{
+  "title": "Traceability",
+  "tab_titles": {
+    "farmer_member": "Farmer Member(s)",
+    "farmer_produce": "Farmer Produce",
+    "batch": "Batch(s)",
+    "lot": "Lot(s)"
+  },
+  "total_records": "Total Records",
+  "selected_quantity": "Selected Quantity",
+  "farmer_member_modal_heading": "Farm Locations"
+}

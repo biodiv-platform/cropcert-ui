@@ -2,7 +2,7 @@ import { axListLot } from "@services/lot.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
-const DEFAULT_STATE = { offset: 0, hasMore: true, isLoading: false, lot: [] as any[] };
+const DEFAULT_STATE = { offset: 0, hasMore: true, isLoading: true, lot: [] as any[] };
 
 export function useLotStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
@@ -51,5 +51,11 @@ export function useLotStore() {
     });
   };
 
-  return { state, setLot, updateLot, listLot, clearLot };
+  const setLoading = (isLoading) => {
+    setState((_draft) => {
+      _draft.isLoading = isLoading;
+    });
+  };
+
+  return { state, setLot, updateLot, listLot, clearLot, setLoading };
 }

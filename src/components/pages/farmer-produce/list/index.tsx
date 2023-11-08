@@ -1,17 +1,7 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Skeleton,
-  Table as ChakraTable,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { PageHeading } from "@components/@core/layout";
+import { Box, Button, ButtonGroup, Spinner, useDisclosure } from "@chakra-ui/react";
+import Accesser from "@components/@core/accesser";
+import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
+import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
@@ -19,6 +9,7 @@ import { Batch } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
@@ -29,25 +20,26 @@ import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
 
 function FarmerListPageComponent() {
-  const [co] = useState({} as any);
-  const [ccs] = useState([] as any);
+  const [co, setCo] = useState({} as any);
+  const [ccs, setCCs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    actions.listFarmer({ ccCodes: "71,70,78,77,73,76,72,74,69,75", reset: true });
-  }, []);
+    ccCodes.length && actions.listFarmerProduce({ ccCodes, reset: true });
+  }, [ccCodes]);
 
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
 
   const handleLoadMore = () => {
-    actions.listFarmer({ ccCodes });
+    actions.listFarmerProduce({ ccCodes });
   };
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
@@ -56,20 +48,27 @@ function FarmerListPageComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    const prefix = "Mityana";
-    const quantity = selectedFarmerProduce.reduce(
-      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
-      0
-    );
+    const prefix = "Buzaaya"; // TODO: get from odk data
 
-    const payload = {
-      name: `${prefix}_D_`,
-      type: "Dry",
-      selected: selectedFarmerProduce,
-      coCode: co.value,
-      quantity,
-    };
-    emit(BATCH_CREATE, payload);
+    const batchTypeArr = [...new Set(selectedFarmerProduce.map((r) => r.type))];
+
+    // checking if multiple types are selected
+    if (batchTypeArr.length === 2) return setShowTypeError(true);
+    else {
+      const quantity = selectedFarmerProduce.reduce(
+        (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
+        0
+      );
+
+      const payload = {
+        name: `${prefix}_D_`,
+        selected: selectedFarmerProduce,
+        coCode: co.value,
+        type: batchTypeArr[0],
+        quantity,
+      };
+      emit(BATCH_CREATE, payload);
+    }
   };
 
   const ActionButtons = () => {
@@ -88,7 +87,7 @@ function FarmerListPageComponent() {
             !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
         >
-          Selected Quantity: {quantity}(Kgs)
+          {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
           colorScheme="blue"
@@ -109,66 +108,63 @@ function FarmerListPageComponent() {
 
   const onFarmerUpdate = (props) => {
     onToggle();
-    actions.updateFarmer(props);
+    actions.updateFarmerProduce(props);
   };
-
-  const loadingColumns = Array.from({ length: 5 }).map((_, index) => (
-    <Th key={index}>
-      <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
-    </Th>
-  ));
-
-  const loadingRows = Array.from({ length: 5 }).map((_, index) => (
-    <Tr key={index}>
-      {loadingColumns.map((cell, cellIndex) => (
-        <Td key={cellIndex}>
-          <Skeleton height="20px" startColor="gray.200" endColor="gray.400" />
-        </Td>
-      ))}
-    </Tr>
-  ));
 
   return (
     <Box>
-      <PageHeading actions={<ActionButtons />}>🚜 Farmer Produce </PageHeading>
-      <Box my={2}>{`Total Records: ${
-        state.farmer.filter(
-          (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
-        ).length
-      }`}</Box>
+      <PageHeading actions={<ActionButtons />}>
+        🚜 {t("traceability:tab_titles.farmer_produce")}
+      </PageHeading>
+      <Box my={2}>
+        {t("traceability:total_records")}:{" "}
+        {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+      </Box>
+
+      <CoreGrid hidden={false}>
+        <Accesser
+          toRole={ROLES.COOPERATIVE}
+          onChange={setCo}
+          onTouch={() => {
+            actions?.clearFarmerProduce();
+            actions?.setLoading(true);
+          }}
+        />
+        <Box>
+          <CCMultiSelect coId={co?.value} onChange={setCCs} />
+        </Box>
+      </CoreGrid>
 
       <MultipleTypeWarning show={showTypeError} />
 
-      {state.isLoading && (
-        <ChakraTable variant="simple">
-          <Thead>
-            <Tr>{loadingColumns}</Tr>
-          </Thead>
-          <Tbody>{loadingRows}</Tbody>
-        </ChakraTable>
-      )}
-
-      <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
-        <Table
-          data={state.farmer.filter(
-            (row) => row.batchId === null || row.batchId === undefined || row.batchId === ""
-          )}
-          columns={batchColumns}
-          selectableRows={true}
-          selectableRowDisabled={(r) => r.batchId}
-          onSelectedRowsChange={handleOnSelectionChange}
-          clearSelectedRows={clearRows}
-          conditionalRowStyles={[
-            {
-              when: (row) => row.lotId,
-              style: {
-                background: "var(--chakra-colors-gray-100)!important",
-                opacity: "0.6",
+      {state.isLoading ? (
+        <Spinner />
+      ) : state.farmer.length > 0 ? (
+        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={false}>
+          <Table
+            data={state.farmer}
+            columns={batchColumns}
+            selectableRows={true}
+            selectableRowDisabled={(r) => r.batchId}
+            onSelectedRowsChange={handleOnSelectionChange}
+            clearSelectedRows={clearRows}
+            conditionalRowStyles={[
+              {
+                when: (row) => row.batchId,
+                style: {
+                  background: "var(--chakra-colors-gray-100)!important",
+                  opacity: "0.6",
+                },
               },
-            },
-          ]}
-        />
-      </InfiniteScroll>
+            ]}
+            pagination
+            paginationPerPage={15}
+            paginationRowsPerPageOptions={[15, 30, 50, 100]}
+          />
+        </InfiniteScroll>
+      ) : (
+        <Box mt={2}>No records found</Box>
+      )}
 
       <BatchCreateModal update={onFarmerUpdate} />
     </Box>

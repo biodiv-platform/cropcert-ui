@@ -33,7 +33,6 @@ export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
   const parsedRole = authorizedRoles.includes("ROLE_ADMIN")
     ? "ROLE_ADMIN"
     : useMemo(() => parsedAccessorRole(authorizedRoles[0]), [authorizedRoles]);
-
   const roles = getDropdownArray(parsedRole, toRole);
 
   const [initialState, setInitialState] = useState<any>();

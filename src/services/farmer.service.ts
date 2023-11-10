@@ -49,3 +49,15 @@ export const axGetFarmerById = async (farmerId, ctx?) => {
     return { success: false, data: {} };
   }
 };
+
+export const axGetAllFarmerByUnion = async (unionCode?) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/allByUnion`, {
+      params: { unionCode: unionCode.toString() },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};

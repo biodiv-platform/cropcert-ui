@@ -50,7 +50,7 @@ export const axGetFarmerById = async (farmerId, ctx?) => {
   }
 };
 
-export const axGetAllFarmerByUnion = async (unionCode?) => {
+export const axGetAllFarmerByUnion = async (unionCode) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/allByUnion`, {
       params: { unionCode: unionCode.toString() },

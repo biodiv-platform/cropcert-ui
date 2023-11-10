@@ -95,9 +95,12 @@ export default function FarmerInfo({ farmer }) {
     },
   ];
 
-  const coordinates = {
-    long: farmer["location"]["coordinates"][0],
-    lat: farmer["location"]["coordinates"][1],
+  const farmerInfo = {
+    lat: farmer.location.coordinates[1],
+    long: farmer.location.coordinates[0],
+    name: farmer.personalDetails.farmer_name,
+    farmerId: farmer.farmerId,
+    cc: farmer.personalDetails.cc,
   };
 
   return (
@@ -123,13 +126,18 @@ export default function FarmerInfo({ farmer }) {
             ))}
         </Tbody>
       </Table>
-      <Flex gap={2} mt={2} p={2}>
+      <Flex
+        gap={2}
+        mt={2}
+        p={2}
+        direction={{ base: "column", sm: "column", md: "row", lg: "row", xl: "row" }}
+      >
         {/* TODO: Implement checks when no farm image exist */}
         <Stack direction={"column"} spacing={2}>
           <Heading size="md">Farm Image :</Heading>
           <Image
             objectFit="cover"
-            boxSize={"400px"}
+            boxSize={{ base: "400px", sm: "full", md: "400px" }}
             align="center"
             src={FARM_LAND_IMAGE.src}
             alt="farmers land picture"
@@ -137,18 +145,18 @@ export default function FarmerInfo({ farmer }) {
             boxShadow="md"
           />
         </Stack>
-        <Stack direction={"column"} spacing={2} width={"100%"}>
+        <Stack direction={"column"} spacing={2} width={"full"}>
           <Heading size="md">Location :</Heading>
           <Box
             rounded="md"
             border={4}
             borderColor={"gray.400"}
-            width={"100%"}
-            height={"100%"}
+            width={{ base: "full" }}
+            height={{ base: "400", md: "full", lg: "full", xl: "full" }}
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap coordinates={coordinates} farmerName={basicInfoHeader[1]["selector"]} />
+            <FarmerMap farmerInfo={farmerInfo} />
           </Box>
         </Stack>
       </Flex>

@@ -155,3 +155,71 @@ export const LICENSES = [
   "CC-BY-ND",
   "CC-PUBLIC-DOMAIN",
 ];
+
+export const CC_COLOR_MAPPING = {
+  Magogo: {
+    borderColor: "#A63A5B",
+    insideColor: "#BF4A6D",
+    circleColor: "#CA6885",
+  },
+  Bupadhengo: {
+    borderColor: "#ED8936",
+    insideColor: "#F6AD55",
+    circleColor: "#FEEBC8",
+  },
+  Kiyunga: {
+    borderColor: "#D69E2E",
+    insideColor: "#ECC94B",
+    circleColor: "#FEFCBF",
+  },
+  Buteme: {
+    borderColor: "#38B2AC",
+    insideColor: "#4FD1C5",
+    circleColor: "#B2F5EA",
+  },
+  Kakira: {
+    borderColor: "#4299E1",
+    insideColor: "#63B3ED",
+    circleColor: "#BEE3F8",
+  },
+  Kakunyhu: {
+    borderColor: "#429E80",
+    insideColor: "#6FC3A7",
+    circleColor: "#B7E1D3",
+  },
+  Namaganda: {
+    borderColor: "#9F7AEA",
+    insideColor: "#805AD5",
+    circleColor: "#E9D8FD",
+  },
+  Nankandulo: {
+    borderColor: "#F687B3",
+    insideColor: "#FA9EBE",
+    circleColor: "#FED7E2",
+  },
+  Nawantumbi: {
+    borderColor: "#4F74E3",
+    insideColor: "#6082E6",
+    circleColor: "#839EEC",
+  },
+  Kisozi: {
+    borderColor: "#f97316",
+    insideColor: "#fb923c",
+    circleColor: "#fed7aa",
+  },
+  Nawanyago: {
+    borderColor: "#48BB78",
+    insideColor: "#38A169",
+    circleColor: "#C6F6D5",
+  },
+  Lwanyama: {
+    borderColor: "#F56565",
+    insideColor: "#E53E3E",
+    circleColor: "#FED7D7",
+  },
+  Others: {
+    borderColor: "#171717",
+    insideColor: "#262626",
+    circleColor: "#525252",
+  },
+};

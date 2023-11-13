@@ -67,6 +67,18 @@ export default function BatchUpdateForm({
                 [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
               };
             }
+          } else if (currField.yupSchema === "maxBatchQuantity") {
+            if (currField.required) {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema](batch.quantity).required(),
+              };
+            } else {
+              yupSchema = {
+                ...acc.yupSchema,
+                [currField.name]: yupSchemaMapping[currField.yupSchema](batch.quantity),
+              };
+            }
           }
           // condition for remaining fields
           else {

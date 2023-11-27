@@ -13,13 +13,13 @@ const RESOURCE_CTX_MAP = {
 
 export const getResourceThumbnail = (resourceType, resourceUrl, size) => {
   return resourceUrl
-    ? `${ENDPOINT.FILES}/get/crop/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}${size}`
+    ? `${ENDPOINT.RESOURCES}/v1/resource/image/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}${size}`
     : undefined;
 };
 
 export const getResourceRAW = (resourceType, resourceUrl) => {
   return resourceUrl
-    ? `${ENDPOINT.FILES}/get/raw/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}`
+    ? `${ENDPOINT.RESOURCES}/v1/resource/image/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}`
     : undefined;
 };
 

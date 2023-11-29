@@ -9,7 +9,7 @@ import { axDeleteMediaGalleryById } from "@services/media-gallery.service";
 import { ROLES } from "@static/constants";
 import { viewTabs } from "@static/media-gallery-list";
 import { hasAccess } from "@utils/auth";
-import { getResourceRAW } from "@utils/media";
+import { getNextResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
 import { format } from "indian-number-format";
 import router from "next/router";
@@ -65,7 +65,7 @@ export default function ListHeader() {
 
   const resource = getFirstImageResource(mediaGalleryData);
 
-  const reprImage = getResourceRAW(resource?.context, resource?.fileName);
+  const reprImage = getNextResourceRAW(resource?.id);
   const { lang } = useTranslation();
 
   return (

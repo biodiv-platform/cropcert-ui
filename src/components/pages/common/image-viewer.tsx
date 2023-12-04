@@ -1,33 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Icon, Image } from "@chakra-ui/react";
-import styled from "@emotion/styled";
 import DeleteIcon from "@icons/delete";
 import { axDeleteResource, axGetAllMediaGallery } from "@services/media-gallery.service";
 import { axGetLicenseList } from "@services/resources.service";
 import { adminOrAuthor } from "@utils/auth";
-import { getResourceRAW } from "@utils/media";
+import { getNextResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
 import CarouselResourceInfo from "./resource-info";
-
-const WatermarkBottomRight = styled.span`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 40px;
-  color: white;
-  opacity: 0.5;
-`;
-const WatermarkBottomLeft = styled.span`
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-size: 40px;
-  color: white;
-  opacity: 0.5;
-`;
 
 const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -55,11 +37,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
     axGetAllMediaGallery().then(setMediaGalleryList);
   }, []);
 
-  const imageUrls = resourceData.l.map((o) => getResourceRAW("RESOURCE", o.resource?.fileName));
-
-  const caption = resourceData.l.map((o) => o.resource?.description);
-
-  const resourceWaterMark = resourceData.l.map((o) => o.resource?.contributor || o.userIbp?.name);
+  const imageUrls = resourceData.l.map((o) => getNextResourceRAW(o.resource?.id));
 
   const currentResource = resourceData.l[currentIndex];
 
@@ -194,8 +172,6 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
           objectFit="contain"
           loading="lazy"
         />
-        <WatermarkBottomRight>{resourceWaterMark[currentIndex]}</WatermarkBottomRight>
-        <WatermarkBottomLeft>{caption[currentIndex]}</WatermarkBottomLeft>
       </Box>
     </Box>
   );

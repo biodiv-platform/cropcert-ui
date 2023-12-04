@@ -64,17 +64,19 @@ export default function GridView() {
         scrollableTarget="items-container"
       >
         <div className="grid-card">
-          {resourceData.l.map((o, index) => (
-            <Link>
-              <GridViewCard
-                o={o}
-                canEdit={isLoggedIn}
-                getCheckboxProps={getCheckboxProps}
-                index={index}
-                setSelectedImageIndex={setSelectedImageIndex}
-              />
-            </Link>
-          ))}
+          {resourceData.l
+            .filter((o) => o.resource.type === "IMAGE")
+            .map((o, index) => (
+              <Link>
+                <GridViewCard
+                  o={o}
+                  canEdit={isLoggedIn}
+                  getCheckboxProps={getCheckboxProps}
+                  index={index}
+                  setSelectedImageIndex={setSelectedImageIndex}
+                />
+              </Link>
+            ))}
         </div>
       </InfiniteScroll>
 

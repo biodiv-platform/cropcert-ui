@@ -68,11 +68,13 @@ export default function GridView() {
         scrollableTarget="items-container"
       >
         <div className="grid-card">
-          {mediaGalleryData.l.map((o, index) => (
-            <Link key={o.resourceId} onClick={() => openImageViewer(index)}>
-              <GridViewCard o={o} canEdit={canEdit} getCheckboxProps={getCheckboxProps} />
-            </Link>
-          ))}
+          {mediaGalleryData.l
+            .filter((o) => o.resource.type === "IMAGE")
+            .map((o, index) => (
+              <Link key={o.resourceId} onClick={() => openImageViewer(index)}>
+                <GridViewCard o={o} canEdit={canEdit} getCheckboxProps={getCheckboxProps} />
+              </Link>
+            ))}
         </div>
       </InfiniteScroll>
       {selectedImageIndex !== null && (

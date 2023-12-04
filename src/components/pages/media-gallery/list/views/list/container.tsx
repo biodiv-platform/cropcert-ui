@@ -1,11 +1,11 @@
 import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { RESOURCE_SIZE } from "@static/constants";
 import { formatDateFromUTC, timeAgoUTC } from "@utils/date";
-import { getResourceThumbnail } from "@utils/media";
+import { getNextResourceThumbnail } from "@utils/media";
 import React from "react";
 
 export default function Container({ o }) {
-  const imgURL = getResourceThumbnail("RESOURCE", o.reprImage, RESOURCE_SIZE.DEFAULT);
+  const imgURL = getNextResourceThumbnail(o.reprImage, RESOURCE_SIZE.DEFAULT);
 
   return (
     <>

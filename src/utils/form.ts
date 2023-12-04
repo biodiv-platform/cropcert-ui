@@ -21,6 +21,10 @@ export const yupSchemaMapping = {
   "Yup.string()": Yup.string().nullable(),
   numberFunc: (min, max) => Yup.number().min(min).max(max).nullable(),
   maxBatchQuantity: (quantity) =>
-    Yup.number().min(1).max(quantity, "Field cannot exceed Batch Quantity").nullable(),
+    Yup.number()
+      .min(1)
+      .max(quantity, "Field cannot exceed Batch Quantity")
+      .nullable()
+      .typeError("Field must be a number"),
   // Add more mappings for other Yup schema strings as needed
 };

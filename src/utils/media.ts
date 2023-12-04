@@ -23,6 +23,14 @@ export const getResourceRAW = (resourceType, resourceUrl) => {
     : undefined;
 };
 
+export const getNextResourceThumbnail = (resourceId, size) => {
+  return resourceId ? `${ENDPOINT.RESOURCES}/v1/resource/image/${resourceId}${size}` : undefined;
+};
+
+export const getNextResourceRAW = (resourceId) => {
+  return resourceId ? `${ENDPOINT.RESOURCES}/v1/resource/image/${resourceId}` : undefined;
+};
+
 export const getUserImage = (resourceUrl, name, w = 50) => {
   return resourceUrl
     ? resourceUrl.startsWith("http")

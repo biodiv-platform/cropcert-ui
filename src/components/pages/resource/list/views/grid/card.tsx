@@ -2,7 +2,7 @@ import { Box, Checkbox, Image, Link } from "@chakra-ui/react";
 import ShadowedUser from "@components/pages/common/shadowed-user";
 import { ResourceListMinimalData } from "@interfaces/media";
 import { RESOURCE_SIZE } from "@static/constants";
-import { getResourceThumbnail } from "@utils/media";
+import { getNextResourceThumbnail } from "@utils/media";
 import React, { useState } from "react";
 
 export interface ResourceMinList {
@@ -47,7 +47,7 @@ export default function GridViewCard({
             w="full"
             h="full"
             borderTopRadius="md"
-            src={getResourceThumbnail("RESOURCE", o.resource?.fileName, RESOURCE_SIZE.DEFAULT)}
+            src={getNextResourceThumbnail(o.resource?.id, RESOURCE_SIZE.DEFAULT)}
             alt={o.resourceId?.toString()}
           />
         </Link>

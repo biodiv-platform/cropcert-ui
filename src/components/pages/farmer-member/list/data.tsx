@@ -11,7 +11,7 @@ export const batchColumns = [
   },
   {
     name: "Name",
-    selector: (row) => row["personalDetails"]["farmer_name"],
+    selector: (row) => row["personalDetails"]["farmerName"],
     width: "280px",
   },
   {
@@ -28,14 +28,14 @@ export const batchColumns = [
   },
   {
     name: "No. of Coffee Trees",
-    selector: (row) => row["farmDetails"]["no_of_coffee_trees"],
+    selector: (row) => row["farmDetails"]["noOfCoffeeTrees"],
     maxWidth: "210px",
     sortable: true,
     right: true,
   },
   {
     name: "Land Acreage",
-    selector: (row) => row["farmDetails"]["land_acreage"],
+    selector: (row) => row["farmDetails"]["landAcreage"],
     maxWidth: "210px",
     sortable: true,
     right: true,

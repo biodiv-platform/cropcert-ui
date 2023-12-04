@@ -27,7 +27,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Farmer Name",
-      selector: farmer["personalDetails"]["farmer_name"],
+      selector: farmer["personalDetails"]["farmerName"],
     },
     {
       name: "Gender",
@@ -35,23 +35,19 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Date of Birth",
-      selector: farmer["personalDetails"]["date_of_birth"],
+      selector: farmer["personalDetails"]["dateOfBirth"],
     },
     {
       name: "Contact Number",
-      selector: farmer["personalDetails"]["contact_number"] || "N/A",
-    },
-    {
-      name: "Date of Birth",
-      selector: farmer["personalDetails"]["date_of_birth"],
+      selector: farmer["personalDetails"]["contactNumber"] || "N/A",
     },
     {
       name: "National Identity Number",
-      selector: farmer["personalDetails"]["national_identity_number"] || "N/A",
+      selector: farmer["personalDetails"]["nationalIdentityNumber"] || "N/A",
     },
     {
       name: "No of Dependents",
-      selector: farmer["personalDetails"]["no_of_dependents"],
+      selector: farmer["personalDetails"]["noOfDependents"],
     },
     {
       name: "Village",
@@ -63,19 +59,19 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Land Acreage",
-      selector: farmer["farmDetails"]["land_acreage"],
+      selector: farmer["farmDetails"]["landAcreage"],
     },
     {
       name: "Coffee Acreage",
-      selector: farmer["farmDetails"]["coffee_acrage"],
+      selector: farmer["farmDetails"]["coffeeAcreage"],
     },
     {
       name: "No. of Coffee Trees",
-      selector: farmer["farmDetails"]["no_of_coffee_trees"],
+      selector: farmer["farmDetails"]["noOfCoffeeTrees"],
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["farmDetails"]["other_farm_enterprises"].join(", ") || "N/A",
+      selector: farmer["farmDetails"]["otherFarmEnterprises"].join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
@@ -98,7 +94,7 @@ export default function FarmerInfo({ farmer }) {
   const farmerInfo = {
     lat: farmer.location.coordinates[1],
     long: farmer.location.coordinates[0],
-    name: farmer.personalDetails.farmer_name,
+    name: farmer.personalDetails.farmerName,
     farmerId: farmer.farmerId,
     cc: farmer.personalDetails.cc,
   };

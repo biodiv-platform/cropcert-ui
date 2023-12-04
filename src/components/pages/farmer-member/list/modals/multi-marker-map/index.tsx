@@ -32,7 +32,7 @@ const MultiMarkerMapModal = () => {
     return selected.map(({ location, personalDetails, farmerId }) => ({
       lat: location.coordinates[1],
       long: location.coordinates[0],
-      name: personalDetails.farmer_name,
+      name: personalDetails.farmerName,
       farmerId,
       color: CC_COLOR_MAPPING[personalDetails.cc],
       cc: personalDetails.cc,

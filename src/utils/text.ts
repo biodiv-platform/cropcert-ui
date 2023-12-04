@@ -67,3 +67,12 @@ export const stripSpecialCharacters = (text): string => {
 };
 
 export const stripTags = (html): string => (html ? html.replace(/<[^>]*>?/gm, "") : null);
+
+export const readFileContents = (file) => {
+  const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    reader.onload = (event: any) => resolve(event.target.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsText(file);
+  });
+};

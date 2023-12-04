@@ -25,6 +25,7 @@
     "auto-toc": "^0.0.6",
     "axios": "^1.1.2",
     "base64-url": "^2.3.3",
+    "bibtex-parse": "^2.1.0",
     "blueimp-load-image": "^5.16.0",
     "boring-avatars": "^1.7.0",
     "coffee-flavor-wheel": "^1.1.2",

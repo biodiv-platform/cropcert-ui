@@ -97,3 +97,23 @@ export const DOCUMNET_ITEM_TYPE = [
   "article",
   "misc",
 ];
+
+export const DOCUMENT_UPLOAD_STATUS = {
+  NEW: "New",
+  DUPLICATE: "Duplicate",
+  SKIPPED: "Skipped",
+  PENDING: "Pending",
+  CREATED: "Created",
+  FAILED: "Failed",
+};
+
+export const DOCUMENT_STATUS_BADGE = {
+  [DOCUMENT_UPLOAD_STATUS.NEW]: "green",
+  [DOCUMENT_UPLOAD_STATUS.DUPLICATE]: "Red",
+  [DOCUMENT_UPLOAD_STATUS.SKIPPED]: "orange",
+  [DOCUMENT_UPLOAD_STATUS.PENDING]: "orange",
+  [DOCUMENT_UPLOAD_STATUS.CREATED]: "green",
+  [DOCUMENT_UPLOAD_STATUS.FAILED]: "red",
+};
+
+export const BULK_TABLE_STATIC_COLUMNS = ["year", "title", "author", "journal", "type", "url"];

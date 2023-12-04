@@ -132,3 +132,7 @@ h6,
 .places-search > div:first-child {
   width: 100%;
 }
+
+.chakra-tabs.nospace [role="tabpanel"] {
+  padding: 0;
+}

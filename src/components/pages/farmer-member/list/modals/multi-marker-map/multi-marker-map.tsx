@@ -1,5 +1,7 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Link, Text } from "@chakra-ui/react";
+import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 import L from "leaflet";
+import NextLink from "next/link";
 import React from "react";
 import { LayerGroup, LayersControl, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
@@ -33,19 +35,29 @@ export default function FarmerMap({ coordinatesArray }) {
     coordinatesArray.map((coordinates) => L.latLng(coordinates.lat, coordinates.long))
   );
 
+  const paddedBounds = bounds.pad(0.1);
+
   return (
-    <MapContainer bounds={bounds} scrollWheelZoom={false} style={mapStyle}>
+    <MapContainer
+      bounds={paddedBounds}
+      scrollWheelZoom={true}
+      style={mapStyle}
+      className="markercluster-map"
+    >
       <LayersControl>
         <LayersControl.BaseLayer name="Open Street Map">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            maxZoom={20}
           />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer checked name="Google Map">
           <TileLayer
             attribution="Google Maps"
-            url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+            url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
+            maxZoom={20}
+            subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer name="Google Map Satellite">
@@ -53,33 +65,77 @@ export default function FarmerMap({ coordinatesArray }) {
             <TileLayer
               attribution="Google Maps Satellite"
               url="https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}"
+              maxZoom={21}
             />
-            <TileLayer url="https://www.google.cn/maps/vt?lyrs=y@189&gl=cn&x={x}&y={y}&z={z}" />
+            <TileLayer
+              url="https://www.google.cn/maps/vt?lyrs=y@189&gl=cn&x={x}&y={y}&z={z}"
+              maxZoom={21}
+            />
+          </LayerGroup>
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer name="Google Map Hybrid">
+          <LayerGroup>
+            <TileLayer
+              attribution="Google Maps Hybrid"
+              url="https://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}"
+              maxZoom={20}
+              subdomains={["mt0", "mt1", "mt2", "mt3"]}
+            />
+            <TileLayer
+              url="https://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}"
+              maxZoom={20}
+              subdomains={["mt0", "mt1", "mt2", "mt3"]}
+            />
+          </LayerGroup>
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer name="Google Map Terrain">
+          <LayerGroup>
+            <TileLayer
+              attribution="Google Maps Terrain"
+              url="http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}"
+              maxZoom={20}
+              subdomains={["mt0", "mt1", "mt2", "mt3"]}
+            />
+            <TileLayer
+              url="http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}"
+              maxZoom={20}
+              subdomains={["mt0", "mt1", "mt2", "mt3"]}
+            />
           </LayerGroup>
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      {coordinatesArray.map((coordinates, index) => (
-        <Marker
-          key={index}
-          position={[coordinates.lat, coordinates.long]}
-          icon={createColoredIcon(coordinates?.color)}
-        >
-          <Popup>
-            <Box>
-              <Heading as="h3" size="md">
-                {coordinates.name}
-              </Heading>
-              <Text>
-                <strong>Farmer ID:</strong> {coordinates.farmerId}
-              </Text>
-              <Text>
-                <strong>CC:</strong> {coordinates.cc}
-              </Text>
-            </Box>
-          </Popup>
-        </Marker>
-      ))}
+      <MarkerClusterGroup
+        maxClusterRadius={45}
+        maxZoom={14}
+        // disableClusteringAtZoom={19}
+      >
+        {coordinatesArray.map((coordinates, index) => (
+          <Marker
+            key={index}
+            position={[coordinates.lat, coordinates.long]}
+            icon={createColoredIcon(coordinates?.color)}
+          >
+            <Popup>
+              <Box display={"flex"} flexDirection={"column"} alignItems={"flex-start"}>
+                <NextLink href={`/farmer/show/${coordinates._id}`} passHref={true}>
+                  <Link>
+                    <Heading as="h3" size="md">
+                      {coordinates.name}
+                    </Heading>
+                  </Link>
+                </NextLink>
+                <Text>
+                  <strong>Farmer ID:</strong> {coordinates.farmerId}
+                </Text>
+                <Text>
+                  <strong>CC:</strong> {coordinates.cc}
+                </Text>
+              </Box>
+            </Popup>
+          </Marker>
+        ))}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 }

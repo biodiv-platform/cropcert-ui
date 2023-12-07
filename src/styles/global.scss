@@ -5,6 +5,7 @@
 @import "./navmenu.scss";
 @import "./timeline.scss";
 @import "./page.scss";
+@import "./map.scss";
 
 @import "~keen-slider/keen-slider.min.css";
 @import "~mapbox-gl/dist/mapbox-gl.css";
@@ -132,3 +133,5 @@ h6,
 .places-search > div:first-child {
   width: 100%;
 }
+
+

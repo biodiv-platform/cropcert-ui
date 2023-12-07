@@ -1,29 +1,69 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { LayerGroup, LayersControl, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  LayerGroup,
+  LayersControl,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 
-export default function FarmerMap({ farmerInfo }) {
+export default function FarmerMap({ farmerInfo, isDraggable }) {
+  const [position, setPosition] = useState([farmerInfo.lat, farmerInfo.long]);
+
   const mapStyle = {
     width: "100%", // Set the width of the map
     height: "100%", // Set the height of the map
   };
 
-  const markerRef = useRef(null);
-
-  const handleMouseOver = () => {
-    if (markerRef.current != null) {
-      (markerRef.current as any).openPopup();
-    }
-  };
-
-  const handleMouseOut = () => {
-    if (markerRef.current != null) {
-      (markerRef.current as any).closePopup();
-    }
+  const updateLatLng = (lat, lng) => {
+    // TODO: send API call to update lat lng
   };
 
   // Calculate padding for bounds
   const padding = 0.03; // Adjust as needed
+
+  function DraggableMarker() {
+    const map = useMap();
+
+    const eventHandlers = useMemo(
+      () => ({
+        dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            setPosition(marker.getLatLng());
+          }
+        },
+      }),
+      []
+    );
+
+    useEffect(() => {
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 250);
+    }, [map]);
+
+    return (
+      <Marker draggable={isDraggable} eventHandlers={eventHandlers} position={position}>
+        <Popup minWidth={90}>
+          <Box display={"flex"} flexDirection={"column"} alignItems={"flex-start"}>
+            <Heading as="h3" size="md">
+              {farmerInfo.name}
+            </Heading>
+            <Text>
+              <strong>Farmer ID:</strong> {farmerInfo.farmerId}
+            </Text>
+            <Text>
+              <strong>CC:</strong> {farmerInfo.cc}
+            </Text>
+          </Box>
+        </Popup>
+      </Marker>
+    );
+  }
 
   return (
     farmerInfo && (
@@ -35,6 +75,7 @@ export default function FarmerMap({ farmerInfo }) {
           [farmerInfo.lat + padding, farmerInfo.long + padding],
         ]}
         style={mapStyle}
+        zoom={12}
       >
         <LayersControl>
           <LayersControl.BaseLayer name="Open Street Map">
@@ -54,31 +95,14 @@ export default function FarmerMap({ farmerInfo }) {
               <TileLayer
                 attribution="Google Maps Satellite"
                 url="https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}"
+                maxZoom={21}
               />
               <TileLayer url="https://www.google.cn/maps/vt?lyrs=y@189&gl=cn&x={x}&y={y}&z={z}" />
             </LayerGroup>
           </LayersControl.BaseLayer>
         </LayersControl>
 
-        <Marker
-          position={[farmerInfo.lat, farmerInfo.long]}
-          eventHandlers={{ mouseover: handleMouseOver, mouseout: handleMouseOut }}
-          ref={markerRef}
-        >
-          <Popup>
-            <Box>
-              <Heading as="h3" size="md">
-                {farmerInfo.name}
-              </Heading>
-              <Text>
-                <strong>Farmer ID:</strong> {farmerInfo.farmerId}
-              </Text>
-              <Text>
-                <strong>CC:</strong> {farmerInfo.cc}
-              </Text>
-            </Box>
-          </Popup>
-        </Marker>
+        <DraggableMarker />
       </MapContainer>
     )
   );

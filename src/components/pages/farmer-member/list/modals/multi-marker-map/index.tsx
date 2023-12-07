@@ -29,13 +29,14 @@ const MultiMarkerMapModal = () => {
   const { t } = useTranslation();
 
   const getSelectedFarmerMemberData = (selected) => {
-    return selected.map(({ location, personalDetails, farmerId }) => ({
+    return selected.map(({ location, personalDetails, farmerId, _id }) => ({
       lat: location.coordinates[1],
       long: location.coordinates[0],
       name: personalDetails.farmerName,
       farmerId,
       color: CC_COLOR_MAPPING[personalDetails.cc],
       cc: personalDetails.cc,
+      _id,
     }));
   };
 

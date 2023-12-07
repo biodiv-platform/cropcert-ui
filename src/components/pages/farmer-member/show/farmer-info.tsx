@@ -1,6 +1,8 @@
 import FARM_LAND_IMAGE from "@assets/farm-land-default.jpg";
+import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Image,
@@ -13,13 +15,13 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 
 import FarmerShowPanel from "./panel";
 
 const FarmerMap = dynamic(() => import("./farmer-map"), { ssr: false });
 
-export default function FarmerInfo({ farmer }) {
+export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
   const basicInfoHeader = [
     {
       name: "ID",
@@ -99,6 +101,8 @@ export default function FarmerInfo({ farmer }) {
     cc: farmer.personalDetails.cc,
   };
 
+  const [isDraggable, setIsDraggable] = useState(false);
+
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
       <Table variant="simple" size="md">
@@ -142,7 +146,29 @@ export default function FarmerInfo({ farmer }) {
           />
         </Stack>
         <Stack direction={"column"} spacing={2} width={"full"}>
-          <Heading size="md">Location :</Heading>
+          <Flex justifyContent={"space-between"} alignItems={"center"}>
+            <Heading size="md">Location :</Heading>
+            {hasEditDeleteAccess &&
+              (isDraggable ? (
+                <Button
+                  size={"xs"}
+                  leftIcon={<CheckIcon />}
+                  colorScheme="green"
+                  onClick={() => setIsDraggable(false)}
+                >
+                  Save Location
+                </Button>
+              ) : (
+                <Button
+                  size={"xs"}
+                  leftIcon={<EditIcon />}
+                  colorScheme="yellow"
+                  onClick={() => setIsDraggable(true)}
+                >
+                  Edit Location
+                </Button>
+              ))}
+          </Flex>
           <Box
             rounded="md"
             border={4}
@@ -152,7 +178,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap farmerInfo={farmerInfo} />
+            <FarmerMap farmerInfo={farmerInfo} isDraggable={isDraggable} />
           </Box>
         </Stack>
       </Flex>

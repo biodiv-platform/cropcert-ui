@@ -1,4 +1,12 @@
-import { Box, Button, ButtonGroup, Spinner, useDisclosure } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  ButtonGroup,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -34,6 +42,7 @@ function BatchListPageComponent() {
   const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
   const [batchModalColumns, setBatchModalColumns] = useState<any>([]);
+  const [showAlert, setShowAlert] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -86,6 +95,16 @@ function BatchListPageComponent() {
     setTriggerRender(!triggerRender);
   };
 
+  const handleDisabledRows = (r) => {
+    if (r.isReadyForLot && !r.lotId) {
+      setShowAlert(true);
+    }
+    // setTimeout(() => {
+    //   setShowAlert(false);
+    // }, 3000);
+    r.isReadyForLot || r.lotId;
+  };
+
   const ActionButtons = () => (
     <ButtonGroup spacing={4}>
       <Button
@@ -136,6 +155,13 @@ function BatchListPageComponent() {
 
       <MultipleTypeWarning show={showTypeError} />
 
+      {showAlert && (
+        <Alert status="success" variant="subtle" marginY={2} rounded={"md"}>
+          <AlertIcon />
+          Batch is ready for lot creation. Select the batch and click on Create Lot button.
+        </Alert>
+      )}
+
       {state.isLoading ? (
         <Spinner />
       ) : state.batch.length > 0 ? (
@@ -144,7 +170,7 @@ function BatchListPageComponent() {
             data={state.batch}
             columns={batchColumns}
             selectableRows={true}
-            selectableRowDisabled={(r) => !r.isReadyForLot || r.lotId}
+            selectableRowDisabled={(r) => handleDisabledRows(r)}
             onSelectedRowsChange={handleOnSelectionChange}
             clearSelectedRows={clearRows}
             defaultSortFieldId={1}
@@ -154,7 +180,7 @@ function BatchListPageComponent() {
                 when: (row) => row.lotId,
                 style: {
                   background: "var(--chakra-colors-gray-100)!important",
-                  opacity: "0.6",
+                  opacity: "0.5",
                 },
               },
             ]}

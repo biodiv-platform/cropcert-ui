@@ -64,6 +64,7 @@ export interface ResourceMediaGallery {
   status?: AssetStatus;
   caption: string;
   contributor: string;
+  description?: string;
   rating?: number;
   blob?: any;
   isUsed?: number;

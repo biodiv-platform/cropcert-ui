@@ -73,6 +73,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
       }
     }
   };
+  const caption = resourceData.l.map((o) => o.resource?.description);
 
   return (
     <Box
@@ -132,6 +133,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
           _hover={{ backgroundColor: "gray" }}
           width="50px"
           height="50px"
+          zIndex={1000}
         >
           <Icon as={CloseIcon} />
         </Button>
@@ -172,6 +174,9 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
           objectFit="contain"
           loading="lazy"
         />
+      </Box>
+      <Box position="absolute" bottom={20} left={0} width="100%" color="white" textAlign="center">
+        <p>{caption[currentIndex]}</p>
       </Box>
     </Box>
   );

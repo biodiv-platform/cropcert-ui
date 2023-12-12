@@ -51,7 +51,7 @@ function CarouselResourceInfo({
 
   useEffect(() => {
     if (isOpen || fetchResource) {
-      const fetchResource = async () => {
+      const fetchResourceData = async () => {
         try {
           const { data } = await axGetResourceById(currentResource.resource.id);
           setResource(data);
@@ -60,10 +60,10 @@ function CarouselResourceInfo({
           console.error("Error fetching resource:", error);
         }
       };
-      fetchResource();
+      fetchResourceData();
       setFetchResource(false);
     }
-  }, [isOpen, fetch, currentResource?.tags]);
+  }, [isOpen, fetchResource, currentResource?.resource.id]);
 
   return (
     <Box position="absolute" top={4} right={20} display="flex">

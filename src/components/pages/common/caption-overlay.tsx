@@ -7,25 +7,26 @@ const UserBox = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-
   padding: 1rem;
-
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 `;
 
-export default function CaptionOverlay({ caption }) {
-  const truncatedCaption = caption?.length > 50 ? caption.slice(0, 45) + "..." : caption;
+const EllipsisText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
+export default function CaptionOverlay({ caption }) {
   return (
     <UserBox>
       <Text color="white">
         <Flex alignItems="center">
-          <div className="ellipsis-1">{truncatedCaption}</div>
+          <EllipsisText>{caption}</EllipsisText>
         </Flex>
       </Text>
     </UserBox>

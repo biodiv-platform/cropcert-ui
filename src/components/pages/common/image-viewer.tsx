@@ -180,7 +180,7 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
       </Box>
       <Box
         position="absolute"
-        bottom={20}
+        bottom={4}
         left={0}
         width="100%"
         color="white"

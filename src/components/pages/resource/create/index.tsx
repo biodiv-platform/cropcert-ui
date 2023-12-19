@@ -3,7 +3,6 @@ import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { SubmitButton } from "@components/form/submit-button";
 import MediaGalleryUploader from "@components/pages/media-gallery/create/uploader";
-import useGlobalState from "@hooks/use-global-state";
 import { axMediaGalleryResourceUpload } from "@services/media-gallery.service";
 import { RESOURCES_UPLOADING } from "@static/events";
 import notification, { NotificationType } from "@utils/notification";
@@ -16,7 +15,6 @@ import { FormProvider, useForm } from "react-hook-form";
 export default function ResourceCreatePageComponent(props) {
   const { t } = useTranslation();
   const [isSubmitDisabled, setIsSubmitDisabled] = useState();
-  const { user } = useGlobalState();
 
   useListener(
     (isUploading) => {
@@ -40,7 +38,7 @@ export default function ResourceCreatePageComponent(props) {
       licenseId: resource.licenseId,
       context: resource.context,
       languageId: resource.languageId,
-      contributor: user?.id,
+      contributor: resource?.contributor,
 
       tags: tags
         ? tags.map((tag) => ({

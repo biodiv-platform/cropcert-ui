@@ -2,7 +2,6 @@ import { CheckIcon } from "@chakra-ui/icons";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { SubmitButton } from "@components/form/submit-button";
-import useGlobalState from "@hooks/use-global-state";
 import { axMediaGalleryResourceUpload } from "@services/media-gallery.service";
 import { RESOURCES_UPLOADING } from "@static/events";
 import notification, { NotificationType } from "@utils/notification";
@@ -17,7 +16,6 @@ import MediaGalleryUploader from "../create/uploader";
 export default function MediaGalleryUploadComponent(props) {
   const { t } = useTranslation();
   const [isSubmitDisabled, setIsSubmitDisabled] = useState();
-  const { user } = useGlobalState();
 
   useListener(
     (isUploading) => {
@@ -41,7 +39,7 @@ export default function MediaGalleryUploadComponent(props) {
       licenseId: resource.licenseId,
       context: resource.context,
       languageId: resource.languageId,
-      contributor: user?.id,
+      contributor: resource.contributor,
 
       tags: tags
         ? tags.map((tag) => ({

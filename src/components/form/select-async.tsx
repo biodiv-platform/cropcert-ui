@@ -84,6 +84,7 @@ export const SelectAsyncInputField = ({
 
   const handleOnChange = (value, event) => {
     eventCallback ? eventCallback(value, event, setSelected) : setSelected(value);
+    field.onChange(value);
   };
 
   useEffect(() => {
@@ -114,7 +115,11 @@ export const SelectAsyncInputField = ({
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
         }}
-        value={selected}
+        value={() => {
+          console.log("field.value", field.value);
+          console.log("selected", selected);
+          return field.value;
+        }}
         isSearchable={true}
         isDisabled={disabled}
         isClearable={isClearable}

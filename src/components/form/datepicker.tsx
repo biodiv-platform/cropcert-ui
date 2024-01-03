@@ -39,6 +39,7 @@ interface DateTimeInputFieldProps {
   format?: string;
   min?;
   max?;
+  className?: string;
   [x: string]: any;
 }
 
@@ -54,6 +55,7 @@ export const DateTimeInputField = ({
   format = "dd-MM-yyyy H:mm",
   min,
   max,
+  className,
   ...props
 }: DateTimeInputFieldProps) => {
   const { field, fieldState } = useController({ name });
@@ -94,6 +96,7 @@ export const DateTimeInputField = ({
             onChange={setDateTimeValue}
             value={dateTimeValue}
             autoComplete={false}
+            className={className}
           />
         </Box>
         {isNow && (

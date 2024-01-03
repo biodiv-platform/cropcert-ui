@@ -135,3 +135,7 @@ h6,
 }
 
 
+/* For react-datetime-picker with dateTimePicker class passed as props */
+.dateTimePicker .react-datetime-picker__wrapper{
+  padding-left: 11px;
+}

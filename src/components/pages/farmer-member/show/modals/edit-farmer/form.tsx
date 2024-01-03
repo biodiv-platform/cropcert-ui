@@ -2,7 +2,10 @@ import {
   Alert,
   AlertIcon,
   Badge,
+  Box,
   Button,
+  FormErrorMessage,
+  FormLabel,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -13,6 +16,7 @@ import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { SelectInputField } from "@components/form/select";
+import { SelectAsyncInputField } from "@components/form/select-async";
 import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
@@ -20,12 +24,12 @@ import FormHeading from "@components/pages/lot/list/modals/typography";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@icons/save";
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import Select from "react-select";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
   farmerName: yup.string().required("Farmer Name is required"),
-  gender: yup.string().required("Gender is required"),
   // Add other fields and validations as needed
 });
 
@@ -35,25 +39,26 @@ export default function EditFarmerForm({ isOpen, onClose, initialData, onSubmit,
     resolver: yupResolver(schema),
     defaultValues: {
       farmerId: initialData?.farmerId,
-      farmerName: initialData?.personalDetails.farmerName,
-      gender: initialData?.personalDetails.gender,
-      dateOfBirth: initialData?.personalDetails.dateOfBirth,
-      contactNumber: initialData?.personalDetails.contactNumber,
-      nationalIdentityNumber: initialData?.personalDetails.nationalIdentityNumber,
-      levelOfEducation: initialData?.personalDetails.levelOfEducation,
-      noOfDependents: initialData?.personalDetails.noOfDependents,
-      village: initialData?.personalDetails.village,
-      cc: initialData?.personalDetails.cc,
-      landAcreage: initialData?.farmDetails.landAcreage,
-      coffeeAcreage: initialData?.farmDetails.coffeeAcreage,
-      noOfCoffeeTrees: initialData?.farmDetails.noOfCoffeeTrees,
-      agroforestry: initialData?.farmDetails.agroforestry,
-      instanceID: initialData?.metaData.instanceID,
-      instanceName: initialData?.metaData.instanceName,
-      submittedOnODK: initialData?.metaData.submittedOnODK,
-      submitterName: initialData?.metaData.submitterName,
-      formVersion: initialData?.metaData.formVersion,
-      edits: initialData?.metaData.edits,
+      farmerName: initialData?.farmerName,
+      gender: initialData?.gender,
+      dateOfBirth: initialData?.dateOfBirth,
+      contactNumber: initialData?.contactNumber,
+      nationalIdentityNumber: initialData?.nationalIdentityNumber,
+      levelOfEducation: initialData?.levelOfEducation,
+      noOfDependents: initialData?.noOfDependents,
+      village: initialData?.village,
+      cc: initialData?.cc,
+      landAcreage: initialData?.landAcreage,
+      coffeeAcreage: initialData?.coffeeAcreage,
+      noOfCoffeeTrees: initialData?.noOfCoffeeTrees,
+      otherFarmEnterprises: initialData?.otherFarmEnterprises,
+      agroforestry: initialData?.agroforestry,
+      instanceID: initialData?.instanceID,
+      instanceName: initialData?.instanceName,
+      submittedOnODK: initialData?.submittedOnODK,
+      submitterName: initialData?.submitterName,
+      formVersion: initialData?.formVersion,
+      edits: initialData?.edits,
       ccCode: initialData?.ccCode,
       coCode: initialData?.coCode,
       unionCode: initialData?.unionCode,
@@ -71,6 +76,25 @@ export default function EditFarmerForm({ isOpen, onClose, initialData, onSubmit,
     console.log("values", values);
   };
 
+  const genderList = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Non-Binary", value: "NON_BINARY" },
+  ];
+
+  const agroforestryList = [
+    { label: "Yes", value: "yes" },
+    { label: "No", value: "no" },
+  ];
+
+  const otherFarmEnterprisesList = [
+    { label: "cereals", value: "cereals" },
+    { label: "legumes", value: "legumes" },
+    { label: "trees", value: "trees" },
+    { label: "poultry", value: "poultry" },
+    { label: "livestock", value: "livestock" },
+  ];
+
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
@@ -80,18 +104,25 @@ export default function EditFarmerForm({ isOpen, onClose, initialData, onSubmit,
           <ModalBody>
             <FormHeading>Personal Details</FormHeading>
             <CoreGrid rows={5}>
-              <TextBoxField label="Famer ID" name="farmerId" disabled={true} />
-              <TextBoxField label="Famer Name" name="farmerName" />
-              <SelectInputField
+              <TextBoxField label="Farmer ID" name="farmerId" disabled={true} />
+              <TextBoxField label="Farmer Name" name="farmerName" />
+              <Controller
                 name="gender"
-                label="Gender"
-                options={[
-                  { label: "Male", value: "MALE" },
-                  { label: "Female", value: "FEMALE" },
-                  { label: "Non-Binary", value: "NON_BINARY" },
-                ]}
-                shouldPortal={true}
+                control={hForm.control}
+                render={({ field, fieldState }) => (
+                  <Box>
+                    <FormLabel htmlFor={"gender"}>Gender</FormLabel>
+                    <Select
+                      defaultValue={genderList.find((l) => l.value == field.value)}
+                      options={genderList}
+                      name={"gender"}
+                      onChange={(v: { label: string; value: string }) => field.onChange(v.value)}
+                    />
+                    <FormErrorMessage children={fieldState?.error?.message} />
+                  </Box>
+                )}
               />
+
               <DateTimeInputField label="Date of Birth" name="dateOfBirth" format="dd-MM-yyyy" />
               <TextBoxField label="Contact No." name="contactNumber" type="number" />
               <TextBoxField
@@ -113,21 +144,24 @@ export default function EditFarmerForm({ isOpen, onClose, initialData, onSubmit,
               <SelectMultipleInputField
                 name="otherFarmEnterprises"
                 label="Other Farm Enterprises"
-                options={[
-                  { label: "cereals", value: "cereals" },
-                  { label: "legumes", value: "legumes" },
-                  { label: "trees", value: "trees" },
-                  { label: "poultry", value: "poultry" },
-                ]}
+                options={otherFarmEnterprisesList}
               />
-              <SelectInputField
+
+              <Controller
                 name="agroforestry"
-                label="Agroforestry"
-                options={[
-                  { label: "Yes", value: "YES" },
-                  { label: "No", value: "NO" },
-                ]}
-                shouldPortal={true}
+                control={hForm.control}
+                render={({ field, fieldState }) => (
+                  <Box>
+                    <FormLabel htmlFor={"agroforestry"}>Agroforestry</FormLabel>
+                    <Select
+                      defaultValue={agroforestryList.find((l) => l.value == field.value)}
+                      options={agroforestryList}
+                      name={"agroforestry"}
+                      onChange={(v: { label: string; value: string }) => field.onChange(v.value)}
+                    />
+                    <FormErrorMessage children={fieldState?.error?.message} />
+                  </Box>
+                )}
               />
             </CoreGrid>
 

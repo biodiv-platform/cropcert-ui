@@ -9,17 +9,30 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
+import { axDeleteFarmerById } from "@services/farmer.service";
 import { FARMER_DELETE } from "@static/events";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
 const DeleteFarmerModal = () => {
+  const [farmerId, setFarmerId] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
-  const handleConfirmDelete = () => {
-    // Logic to delete the farmer
-    onClose();
-    // navigate to the previous page
+  const handleConfirmDelete = async () => {
+    try {
+      // delete farmer
+      const { success } = await axDeleteFarmerById(farmerId);
+
+      if (success) {
+        onClose();
+        // navigate to the previous page
+        router.back();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleCancel = () => {
@@ -29,6 +42,7 @@ const DeleteFarmerModal = () => {
   useListener(
     (f) => {
       console.log("FARMER_DELETE", f);
+      setFarmerId(f.farmerId);
       onOpen();
     },
     [FARMER_DELETE]

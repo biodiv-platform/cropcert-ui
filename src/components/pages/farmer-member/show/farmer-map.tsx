@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   LayerGroup,
   LayersControl,
@@ -28,10 +28,12 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
   function DraggableMarker() {
     const map = useMap();
 
+    const markerRef = useRef(null);
+
     const eventHandlers = useMemo(
       () => ({
         dragend() {
-          const marker = markerRef.current;
+          const marker: any = markerRef.current;
           if (marker != null) {
             setPosition(marker.getLatLng());
           }
@@ -47,7 +49,12 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
     }, [map]);
 
     return (
-      <Marker draggable={isDraggable} eventHandlers={eventHandlers} position={position}>
+      <Marker
+        draggable={isDraggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}
+      >
         <Popup minWidth={90}>
           <Box display={"flex"} flexDirection={"column"} alignItems={"flex-start"}>
             <Heading as="h3" size="md">
@@ -82,12 +89,14 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              maxZoom={21}
             />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer checked name="Google Map">
             <TileLayer
               attribution="Google Maps"
               url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+              maxZoom={21}
             />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Google Map Satellite">

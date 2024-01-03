@@ -1,11 +1,10 @@
-import FARM_LAND_IMAGE from "@assets/farm-land-default.jpg";
 import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
   Heading,
-  Image,
+  Image as ChakraImage,
   Stack,
   Table,
   Tbody,
@@ -14,6 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { ENDPOINT } from "@static/constants";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
@@ -29,59 +29,63 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
     },
     {
       name: "Farmer Name",
-      selector: farmer["personalDetails"]["farmerName"],
+      selector: farmer["farmerName"],
     },
     {
       name: "Gender",
-      selector: farmer["personalDetails"]["gender"],
+      selector: farmer["gender"],
     },
     {
       name: "Date of Birth",
-      selector: farmer["personalDetails"]["dateOfBirth"],
+      selector: farmer["dateOfBirth"],
     },
     {
       name: "Contact Number",
-      selector: farmer["personalDetails"]["contactNumber"] || "N/A",
+      selector: farmer["contactNumber"] || "N/A",
     },
     {
       name: "National Identity Number",
-      selector: farmer["personalDetails"]["nationalIdentityNumber"] || "N/A",
+      selector: farmer["nationalIdentityNumber"] || "N/A",
+    },
+    {
+      name: "Level of Education",
+      selector: farmer["levelOfEducation"],
     },
     {
       name: "No of Dependents",
-      selector: farmer["personalDetails"]["noOfDependents"],
+      selector: farmer["noOfDependents"],
     },
     {
       name: "Village",
-      selector: farmer["personalDetails"]["village"],
+      selector: farmer["village"],
     },
     {
       name: "Collection Center",
-      selector: farmer["personalDetails"]["cc"],
+      selector: farmer["cc"],
     },
     {
       name: "Land Acreage",
-      selector: farmer["farmDetails"]["landAcreage"],
+      selector: farmer["landAcreage"],
     },
     {
       name: "Coffee Acreage",
-      selector: farmer["farmDetails"]["coffeeAcreage"],
+      selector: farmer["coffeeAcreage"],
     },
     {
       name: "No. of Coffee Trees",
-      selector: farmer["farmDetails"]["noOfCoffeeTrees"],
+      selector: farmer["noOfCoffeeTrees"],
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["farmDetails"]["otherFarmEnterprises"].join(", ") || "N/A",
+      selector: farmer["otherFarmEnterprises"].join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
-      selector: farmer["farmDetails"]["agroforestry"] ? "Yes" : "No",
+      selector: farmer["agroforestry"] ? "Yes" : "No", //TODO: ask question related to this!!
     },
     {
       name: "ODK Instance ID",
-      selector: farmer["metaData"]["instanceID"].split(":")[1],
+      selector: farmer["instanceID"].split(":")[1],
     },
     {
       name: "Created At",
@@ -89,19 +93,23 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
     },
     {
       name: "Form Version",
-      selector: farmer["metaData"]["formVersion"],
+      selector: farmer["formVersion"],
     },
   ];
 
   const farmerInfo = {
     lat: farmer.location.coordinates[1],
     long: farmer.location.coordinates[0],
-    name: farmer.personalDetails.farmerName,
+    name: farmer.farmerName,
     farmerId: farmer.farmerId,
-    cc: farmer.personalDetails.cc,
+    cc: farmer.cc,
   };
 
   const [isDraggable, setIsDraggable] = useState(false);
+
+  // ODK image constants
+  const projectId = 2;
+  const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -131,44 +139,25 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
         mt={2}
         p={2}
         direction={{ base: "column", sm: "column", md: "row", lg: "row", xl: "row" }}
+        minHeight={"400px"}
       >
-        {/* TODO: Implement checks when no farm image exist */}
-        <Stack direction={"column"} spacing={2}>
-          <Heading size="md">Farm Image :</Heading>
-          <Image
-            objectFit="cover"
-            boxSize={{ base: "400px", sm: "full", md: "400px" }}
-            align="center"
-            src={FARM_LAND_IMAGE.src}
-            alt="farmers land picture"
-            rounded="md"
-            boxShadow="md"
-          />
-        </Stack>
+        {farmer.photoOfFarm && (
+          <Stack direction={"column"} spacing={2}>
+            <Heading size="md">Farm Image :</Heading>
+            <ChakraImage
+              objectFit="cover"
+              boxSize={{ base: "400px", sm: "full", md: "400px" }}
+              align="center"
+              src={`${ENDPOINT.ODK_IMAGES}v1/projects/${projectId}/forms/${xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`}
+              alt="farmers land picture"
+              rounded="md"
+              boxShadow="md"
+              loading="lazy"
+            />
+          </Stack>
+        )}
         <Stack direction={"column"} spacing={2} width={"full"}>
-          <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading size="md">Location :</Heading>
-            {hasEditDeleteAccess &&
-              (isDraggable ? (
-                <Button
-                  size={"xs"}
-                  leftIcon={<CheckIcon />}
-                  colorScheme="green"
-                  onClick={() => setIsDraggable(false)}
-                >
-                  Save Location
-                </Button>
-              ) : (
-                <Button
-                  size={"xs"}
-                  leftIcon={<EditIcon />}
-                  colorScheme="yellow"
-                  onClick={() => setIsDraggable(true)}
-                >
-                  Edit Location
-                </Button>
-              ))}
-          </Flex>
+          <Heading size="md">Location :</Heading>
           <Box
             rounded="md"
             border={4}

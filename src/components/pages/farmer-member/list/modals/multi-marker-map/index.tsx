@@ -15,9 +15,10 @@ import {
 import { axGetAllFarmerByUnion } from "@services/farmer.service";
 import { CC_COLOR_MAPPING } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
+import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
 
 const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false });
@@ -25,19 +26,44 @@ const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false 
 const MultiMarkerMapModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [coordinatesArray, setCoordinatesArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
+  const [fetchData, setFetchData] = useState(false);
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["AllFarmerByUnion"],
+    queryFn: () => axGetAllFarmerByUnion(5),
+    enabled: fetchData,
+    staleTime: 1000 * 60 * 60 * 24 * 10, // 10 days in milliseconds
+    gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
+  });
+
+  useEffect(() => {
+    if (data) {
+      setCoordinatesArray(getSelectedFarmerMemberData(data.data));
+    }
+  }, [data]);
+
+  const handleGetAllUnionFarmerData = () => {
+    setFetchData(true);
+    if (data) {
+      setCoordinatesArray(getSelectedFarmerMemberData(data.data));
+    }
+  };
+
   const getSelectedFarmerMemberData = (selected) => {
-    return selected.map(({ location, personalDetails, farmerId, _id }) => ({
-      lat: location.coordinates[1],
-      long: location.coordinates[0],
-      name: personalDetails.farmerName,
-      farmerId,
-      color: CC_COLOR_MAPPING[personalDetails.cc],
-      cc: personalDetails.cc,
-      _id,
-    }));
+    return (
+      selected &&
+      selected.map(({ location, farmerId, farmerName, cc, _id }) => ({
+        lat: location.coordinates[1],
+        long: location.coordinates[0],
+        name: farmerName,
+        farmerId,
+        color: CC_COLOR_MAPPING[cc],
+        cc: cc,
+        _id,
+      }))
+    );
   };
 
   const getCoordinatesFromFarmerMember = (selected) => {
@@ -51,13 +77,6 @@ const MultiMarkerMapModal = () => {
     },
     [DRAW_MAP]
   );
-
-  const handleGetAllUnionFarmerData = async () => {
-    setIsLoading(true);
-    const allFarmerData = await axGetAllFarmerByUnion(5); //TODO: remove hardcoding
-    setCoordinatesArray(getSelectedFarmerMemberData(allFarmerData.data));
-    setIsLoading(false);
-  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="full">
@@ -83,6 +102,8 @@ const MultiMarkerMapModal = () => {
           </Box>
         </Flex>
         <ModalBody>
+          {error && <Text>Error loading data ...</Text>}
+
           {coordinatesArray &&
             (isLoading ? (
               <Flex alignItems={"center"} gap={2}>

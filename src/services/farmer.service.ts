@@ -75,6 +75,16 @@ export const axGetAllFarmerByUnion = async (unionCode) => {
   }
 };
 
+export const axUpdateFarmerById = async (farmerId, payload) => {
+  try {
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`, payload);
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
 export const axDeleteFarmerById = async (farmerId) => {
   try {
     const { data } = await http.delete(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`);

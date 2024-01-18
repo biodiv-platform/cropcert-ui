@@ -116,8 +116,6 @@ export const SelectAsyncInputField = ({
           IndicatorSeparator: () => null,
         }}
         value={() => {
-          console.log("field.value", field.value);
-          console.log("selected", selected);
           return field.value;
         }}
         isSearchable={true}

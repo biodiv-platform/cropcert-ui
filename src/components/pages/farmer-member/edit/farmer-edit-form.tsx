@@ -1,51 +1,23 @@
-import {
-  Box,
-  FormErrorMessage,
-  FormLabel,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
-import { DateTimeInputField } from "@components/form/datepicker";
+import { Box, FormErrorMessage, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import {
+  agroforestryList,
+  genderList,
+  levelOfEducationList,
+  otherFarmEnterprisesList,
+} from "@static/constants";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import Select from "react-select";
-import * as yup from "yup";
+
 import FarmerShowPanel from "../show/panel";
+import DateTime from "./dateTime";
+import TableRow from "./tableRow";
+import schema from "./yupSchema";
 
-const schema = yup.object().shape({
-  farmerName: yup.string().required("Farmer Name is required"),
-  gender: yup.string().required("Gender is required"),
-  dateOfBirth: yup.date().required("DOB is required"),
-  contactNumber: yup.string(),
-  nationalIdentityNumber: yup.string(),
-  levelOfEducation: yup.string(),
-  noOfDependents: yup.number(),
-  village: yup.string(),
-  cc: yup.string().required("CC Name is required"),
-  landAcreage: yup.number(),
-  coffeeAcreage: yup.number(),
-  noOfCoffeeTrees: yup.number(),
-  otherFarmEnterprises: yup.string(),
-  agroforestry: yup.string(),
-  instanceID: yup.string(),
-  instanceName: yup.string(),
-  submittedOnODK: yup.date(),
-  submitterName: yup.string(),
-  formVersion: yup.string(),
-  edits: yup.string(),
-  ccCode: yup.string(),
-  coCode: yup.string(),
-  unionCode: yup.string(),
-});
-
-function FarmerEditForm({ initialData }) {
+const FarmerEditForm = forwardRef(({ initialData, handleSubmit }, ref) => {
   const hForm = useForm<any>({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -68,50 +40,34 @@ function FarmerEditForm({ initialData }) {
       instanceID: initialData?.instanceID,
       instanceName: initialData?.instanceName,
       submitterName: initialData?.submitterName,
+      submittedOnODK: initialData?.submittedOnODK,
       formVersion: initialData?.formVersion,
       edits: initialData?.edits,
       ccCode: initialData?.ccCode,
       coCode: initialData?.coCode,
       unionCode: initialData?.unionCode,
-      finalizeFarmerEdit: false,
     },
   });
 
   let errorMessage = hForm.formState.errors?.submit?.message;
 
-  const handleOnSubmit = async (values) => {
-    console.log("values", values);
-  };
-
-  const genderList = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-    { label: "Non-Binary", value: "NON_BINARY" },
-  ];
-
-  const levelOfEducationList = [
-    { label: "Primary School", value: "primary" },
-    { label: "Secondary School", value: "secondary" },
-    { label: "University and vocational training education", value: "tertiary" },
-  ];
-
-  const agroforestryList = [
-    { label: "Yes", value: "Yes" },
-    { label: "No", value: "No" },
-  ];
-
-  const otherFarmEnterprisesList = [
-    { label: "cereals", value: "cereals" },
-    { label: "legumes", value: "legumes" },
-    { label: "trees", value: "trees" },
-    { label: "poultry", value: "poultry" },
-    { label: "livestock", value: "livestock" },
-  ];
+  // to handle submit from outside of the component
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        submit: () => {
+          hForm.handleSubmit(handleSubmit)();
+        },
+      };
+    },
+    [hForm, handleSubmit]
+  );
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
       <FormProvider {...hForm}>
-        <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
+        <form onSubmit={hForm.handleSubmit(handleSubmit)}>
           <Table variant="simple" size="md" my={2}>
             <Thead>
               <Tr>
@@ -124,256 +80,184 @@ function FarmerEditForm({ initialData }) {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Farmer ID</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="farmerId" disabled={true} mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Farmer Name</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="farmerName" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Gender</Td>
-                <Td textAlign="left">
-                  <Controller
-                    name="gender"
-                    control={hForm.control}
-                    render={({ field, fieldState }) => (
-                      <Box>
-                        <Select
-                          defaultValue={genderList.find((l) => l.value == field.value)}
-                          options={genderList}
-                          name={"gender"}
-                          onChange={(v: { label: string; value: string }) =>
-                            field.onChange(v.value)
-                          }
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              paddingLeft: "7px",
-                            }),
-                          }}
-                        />
-                        <FormErrorMessage children={fieldState?.error?.message} />
-                      </Box>
-                    )}
-                  />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Date of Birth</Td>
-                <Td textAlign="left">
-                  <DateTimeInputField
-                    name="dateOfBirth"
-                    format="dd-MM-yyyy"
-                    className="dateTimePicker"
-                    mb={0}
-                  />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Contact No.</Td>
-                <Td textAlign="left">
-                  <TextBoxField
-                    name="contactNumber"
-                    type="number"
-                    placeholder={"078-123-4567"}
-                    mb={0}
-                  />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">National Identity Number</Td>
-                <Td textAlign="left">
-                  <TextBoxField
-                    name="nationalIdentityNumber"
-                    placeholder={"UGA-123-456-7890"}
-                    mb={0}
-                  />
-                </Td>
-              </Tr>
+              <TableRow name={"Farmer ID"} color="gray.100">
+                <TextBoxField mb={0} name="farmerId" disabled={true} />
+              </TableRow>
+              <TableRow name={"Farmer Name"} color="white">
+                <TextBoxField name="farmerName" mb={0} />
+              </TableRow>
 
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Level of Education</Td>
-                <Td textAlign="left">
-                  <Controller
-                    name="levelOfEducation"
-                    control={hForm.control}
-                    render={({ field, fieldState }) => (
-                      <Box>
-                        <Select
-                          defaultValue={levelOfEducationList.find((l) => l.value == field.value)}
-                          options={levelOfEducationList}
-                          name={"levelOfEducation"}
-                          onChange={(v: { label: string; value: string }) =>
-                            field.onChange(v.value)
-                          }
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              paddingLeft: "7px",
-                            }),
-                          }}
-                        />
-                        <FormErrorMessage children={fieldState?.error?.message} />
-                      </Box>
-                    )}
-                  />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">No of Dependents</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="noOfDependents" type="number" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Village</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="village" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Collection Center</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="cc" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Land Acreage</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="landAcreage" type="number" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Coffee Acreage</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="coffeeAcreage" type="number" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">No. of Coffee Trees</Td>
-                <Td textAlign="left">
-                  <TextBoxField name="noOfCoffeeTrees" type="number" mb={0} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Other Farm Enterprises</Td>
-                <Td textAlign="left">
-                  <SelectMultipleInputField
-                    name="otherFarmEnterprises"
-                    options={otherFarmEnterprisesList}
-                    mb={0}
-                  />
-                </Td>
-              </Tr>
-
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Agroforestry</Td>
-                <Td textAlign="left">
-                  <Controller
-                    name="agroforestry"
-                    control={hForm.control}
-                    render={({ field, fieldState }) => (
-                      <Box>
-                        <Select
-                          defaultValue={agroforestryList.find((l) => l.value == field.value)}
-                          options={agroforestryList}
-                          name={"agroforestry"}
-                          onChange={(v: { label: string; value: string }) =>
-                            field.onChange(v.value)
-                          }
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              paddingLeft: "7px",
-                            }),
-                          }}
-                        />
-                        <FormErrorMessage children={fieldState?.error?.message} />
-                      </Box>
-                    )}
-                  />
-                </Td>
-              </Tr>
-
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Instance ID</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="instanceID" disabled={true} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Instance Name</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="instanceName" disabled={true} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Submission Date</Td>
-                <Td textAlign="left">
-                  <Controller
-                    control={hForm.control} // control prop from useForm()
-                    name="submittedOnODK"
-                    render={({ field }) => (
-                      <DateTimeInputField
-                        mb={0}
-                        name="submittedOnODK"
-                        disabled={true}
-                        className="dateTimePicker"
-                        value={new Date(field.value)}
-                        onChange={(date) => field.onChange(date)}
+              <TableRow name={"Gender"} color="gray.100">
+                <Controller
+                  name="gender"
+                  control={hForm.control}
+                  render={({ field, fieldState }) => (
+                    <Box>
+                      <Select
+                        defaultValue={genderList.find((l) => l.value == field.value)}
+                        options={genderList}
+                        name={"gender"}
+                        onChange={(v: { label: string; value: string }) => field.onChange(v.value)}
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            paddingLeft: "7px",
+                          }),
+                        }}
                       />
-                    )}
-                  />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Submitted By</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="submitterName" disabled={true} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Form Version</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="formVersion" disabled={true} />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">Edits</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="edits" disabled={true} type="number" />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">CC Code</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="ccCode" disabled={true} type="number" />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"gray.100"}>
-                <Td textAlign="left">CO Code</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="coCode" disabled={true} type="number" />
-                </Td>
-              </Tr>
-              <Tr backgroundColor={"white"}>
-                <Td textAlign="left">Union Code</Td>
-                <Td textAlign="left">
-                  <TextBoxField mb={0} name="unionCode" disabled={true} type="number" />
-                </Td>
-              </Tr>
+                      <FormErrorMessage children={fieldState?.error?.message} />
+                    </Box>
+                  )}
+                />
+              </TableRow>
+
+              <TableRow name={"Date of Birth"} color="white">
+                <DateTime
+                  control={hForm.control}
+                  name="dateOfBirth"
+                  format="dd-MM-yyyy"
+                  maxDate={new Date()}
+                />
+              </TableRow>
+
+              <TableRow name={"Contact No."} color={"gray.100"}>
+                <TextBoxField
+                  name="contactNumber"
+                  type="number"
+                  placeholder={"078-123-4567"}
+                  mb={0}
+                />
+              </TableRow>
+
+              <TableRow name={"National Identity Number"} color={"white"}>
+                <TextBoxField
+                  name="nationalIdentityNumber"
+                  placeholder={"UGA-123-456-78910"}
+                  mb={0}
+                />
+              </TableRow>
+
+              <TableRow name={"Level of Education"} color={"gray.100"}>
+                <Controller
+                  name="levelOfEducation"
+                  control={hForm.control}
+                  render={({ field, fieldState }) => (
+                    <Box>
+                      <Select
+                        defaultValue={levelOfEducationList.find((l) => l.value == field.value)}
+                        options={levelOfEducationList}
+                        name={"levelOfEducation"}
+                        onChange={(v: { label: string; value: string }) => field.onChange(v.value)}
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            paddingLeft: "7px",
+                          }),
+                        }}
+                      />
+                      <FormErrorMessage children={fieldState?.error?.message} />
+                    </Box>
+                  )}
+                />
+              </TableRow>
+
+              <TableRow name={"No of Dependents"} color={"white"}>
+                <TextBoxField name="noOfDependents" type="number" mb={0} />
+              </TableRow>
+
+              <TableRow name={"Village"} color={"gray.100"}>
+                <TextBoxField name="village" mb={0} />
+              </TableRow>
+
+              <TableRow name={"Collection Center"} color={"white"}>
+                <TextBoxField name="cc" mb={0} />
+              </TableRow>
+
+              <TableRow name={"Land Acreage"} color={"gray.100"}>
+                <TextBoxField name="landAcreage" type="number" mb={0} />
+              </TableRow>
+
+              <TableRow name={"Coffee Acreage"} color={"white"}>
+                <TextBoxField name="coffeeAcreage" type="number" mb={0} />
+              </TableRow>
+
+              <TableRow name={"No. of Coffee Trees"} color={"gray.100"}>
+                <TextBoxField name="noOfCoffeeTrees" type="number" mb={0} />
+              </TableRow>
+
+              <TableRow name={"Other Farm Enterprises"} color={"white"}>
+                <SelectMultipleInputField
+                  name="otherFarmEnterprises"
+                  options={otherFarmEnterprisesList}
+                  mb={0}
+                />
+              </TableRow>
+
+              <TableRow name={"Agroforestry"} color={"gray.100"}>
+                <Controller
+                  name="agroforestry"
+                  control={hForm.control}
+                  render={({ field, fieldState }) => (
+                    <Box>
+                      <Select
+                        defaultValue={agroforestryList.find((l) => l.value == field.value)}
+                        options={agroforestryList}
+                        name={"agroforestry"}
+                        onChange={(v: { label: string; value: string }) => field.onChange(v.value)}
+                        styles={{
+                          control: (base) => ({
+                            ...base,
+                            paddingLeft: "7px",
+                          }),
+                        }}
+                      />
+                      <FormErrorMessage children={fieldState?.error?.message} />
+                    </Box>
+                  )}
+                />
+              </TableRow>
+
+              <TableRow name={"Instance ID"} color={"white"}>
+                <TextBoxField mb={0} name="instanceID" disabled={true} />
+              </TableRow>
+
+              <TableRow name={"Instance Name"} color={"gray.100"}>
+                <TextBoxField mb={0} name="instanceName" disabled={true} />
+              </TableRow>
+
+              <TableRow name={"Submission Date"} color={"white"}>
+                <DateTime control={hForm.control} name="submittedOnODK" disabled={true} />
+              </TableRow>
+
+              <TableRow name={"Submitted By"} color={"gray.100"}>
+                <TextBoxField mb={0} name="submitterName" disabled={true} />
+              </TableRow>
+
+              <TableRow name={"Form Version"} color={"white"}>
+                <TextBoxField mb={0} name="formVersion" disabled={true} />
+              </TableRow>
+
+              <TableRow name={"Edits"} color={"gray.100"}>
+                <TextBoxField mb={0} name="edits" disabled={true} type="number" />
+              </TableRow>
+
+              <TableRow name={"CC Code"} color={"white"}>
+                <TextBoxField mb={0} name="ccCode" disabled={true} type="number" />
+              </TableRow>
+
+              <TableRow name={"CO Code"} color={"gray.100"}>
+                <TextBoxField mb={0} name="coCode" disabled={true} type="number" />
+              </TableRow>
+
+              <TableRow name={"Union Code"} color={"white"}>
+                <TextBoxField mb={0} name="unionCode" disabled={true} type="number" />
+              </TableRow>
             </Tbody>
           </Table>
         </form>
       </FormProvider>
     </FarmerShowPanel>
   );
-}
+});
 
 export default FarmerEditForm;

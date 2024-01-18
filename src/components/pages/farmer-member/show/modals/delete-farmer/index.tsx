@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { axDeleteFarmerById } from "@services/farmer.service";
 import { FARMER_DELETE } from "@static/events";
+import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
@@ -27,11 +28,13 @@ const DeleteFarmerModal = () => {
 
       if (success) {
         onClose();
+        notification("Farmer Deleted", NotificationType.Success);
+
         // navigate to the previous page
-        router.back();
+        router.push("/farmer/list");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -41,7 +44,6 @@ const DeleteFarmerModal = () => {
 
   useListener(
     (f) => {
-      console.log("FARMER_DELETE", f);
       setFarmerId(f.farmerId);
       onOpen();
     },

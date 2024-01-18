@@ -1,11 +1,10 @@
 import { ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button, Tooltip } from "@chakra-ui/react";
-import DeleteActionButton from "@components/@core/action-buttons/delete";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import useGlobalState from "@hooks/use-global-state";
 import DeleteIcon from "@icons/delete";
-import { axDeleteFarmerById } from "@services/farmer.service";
+import { FarmerMember } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
@@ -23,7 +22,7 @@ interface IFarmerShowProps {
   lots: any[];
   batches: any[];
   farmerProduces: any[];
-  farmer: any; //TODO: add farmer interface
+  farmer: FarmerMember;
 }
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
@@ -34,7 +33,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
 
   // Function to go back to the previous page
   const goBack = () => {
-    router.back();
+    router.push("/farmer/list");
   };
 
   const ActionButtons = ({ hasEditDeleteAccess }) => {
@@ -51,15 +50,17 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
         </Button>
         <Tooltip label="Edit Farmer" hasArrow>
           <Box
-            padding={2}
+            paddingY={2}
+            paddingX={3}
             rounded="full"
-            _hover={{ bg: "yellow.200", cursor: "pointer" }}
+            color={"green.500"}
+            _hover={{ bg: "green.50", cursor: "pointer" }}
             onClick={() =>
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
             <NextLink href={`/farmer/edit/${show.farmer._id}`} passHref={true}>
-              <EditIcon boxSize={6} />
+              <EditIcon boxSize={5} />
             </NextLink>
           </Box>
         </Tooltip>
@@ -67,7 +68,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           <Box
             paddingY={2}
             paddingX={3}
-            color={"red.400"}
+            color={"red.500"}
             rounded="full"
             _hover={{ bg: "red.50", cursor: "pointer" }}
             onClick={() =>

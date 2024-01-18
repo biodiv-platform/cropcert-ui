@@ -10,16 +10,18 @@ import {
   useMap,
 } from "react-leaflet";
 
-export default function FarmerMap({ farmerInfo, isDraggable }) {
+export default function FarmerMap({
+  farmerInfo,
+  isDraggable,
+  setNewLatLng,
+  resetMarker,
+  setResetMarker,
+}) {
   const [position, setPosition] = useState([farmerInfo.lat, farmerInfo.long]);
 
   const mapStyle = {
     width: "100%", // Set the width of the map
     height: "100%", // Set the height of the map
-  };
-
-  const updateLatLng = (lat, lng) => {
-    // TODO: send API call to update lat lng
   };
 
   // Calculate padding for bounds
@@ -36,6 +38,7 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
           const marker: any = markerRef.current;
           if (marker != null) {
             setPosition(marker.getLatLng());
+            setNewLatLng([marker.getLatLng().lat, marker.getLatLng().lng]);
           }
         },
       }),
@@ -47,6 +50,13 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
         map.invalidateSize();
       }, 250);
     }, [map]);
+
+    useEffect(() => {
+      if (resetMarker) {
+        setPosition([farmerInfo.lat, farmerInfo.long]);
+        setResetMarker(false);
+      }
+    }, [resetMarker]);
 
     return (
       <Marker
@@ -95,18 +105,29 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
           <LayersControl.BaseLayer checked name="Google Map">
             <TileLayer
               attribution="Google Maps"
-              url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+              url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
               maxZoom={21}
+              subdomains={["mt0", "mt1", "mt2", "mt3"]}
             />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Google Map Satellite">
             <LayerGroup>
               <TileLayer
                 attribution="Google Maps Satellite"
-                url="https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}"
+                url="https://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}"
                 maxZoom={21}
+                subdomains={["mt0", "mt1", "mt2", "mt3"]}
               />
-              <TileLayer url="https://www.google.cn/maps/vt?lyrs=y@189&gl=cn&x={x}&y={y}&z={z}" />
+            </LayerGroup>
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Google Map Terrain">
+            <LayerGroup>
+              <TileLayer
+                attribution="Google Maps Terrain"
+                url="http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}"
+                maxZoom={21}
+                subdomains={["mt0", "mt1", "mt2", "mt3"]}
+              />
             </LayerGroup>
           </LayersControl.BaseLayer>
         </LayersControl>

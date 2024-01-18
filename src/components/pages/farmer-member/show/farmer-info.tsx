@@ -1,7 +1,5 @@
-import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Flex,
   Heading,
   Image as ChakraImage,
@@ -15,13 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { ENDPOINT } from "@static/constants";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React from "react";
 
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("./farmer-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
 
-export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
+export default function FarmerInfo({ farmer }) {
+  const farmer_dob = new Date(farmer["dateOfBirth"]);
+
   const basicInfoHeader = [
     {
       name: "ID",
@@ -37,7 +37,7 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
     },
     {
       name: "Date of Birth",
-      selector: farmer["dateOfBirth"],
+      selector: farmer_dob.toLocaleDateString(),
     },
     {
       name: "Contact Number",
@@ -105,8 +105,6 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
     cc: farmer.cc,
   };
 
-  const [isDraggable, setIsDraggable] = useState(false);
-
   // ODK image constants
   const projectId = 2;
   const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
@@ -167,7 +165,13 @@ export default function FarmerInfo({ farmer, hasEditDeleteAccess }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap farmerInfo={farmerInfo} isDraggable={isDraggable} />
+            <FarmerMap
+              farmerInfo={farmerInfo}
+              isDraggable={undefined}
+              setNewLatLng={undefined}
+              resetMarker={undefined}
+              setResetMarker={undefined}
+            />
           </Box>
         </Stack>
       </Flex>

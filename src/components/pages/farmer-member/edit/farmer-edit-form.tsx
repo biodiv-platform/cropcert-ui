@@ -1,4 +1,4 @@
-import { Box, FormErrorMessage, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, FormErrorMessage, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,7 +8,7 @@ import {
   levelOfEducationList,
   otherFarmEnterprisesList,
 } from "@static/constants";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import Select from "react-select";
 
@@ -17,7 +17,7 @@ import DateTime from "./dateTime";
 import TableRow from "./tableRow";
 import schema from "./yupSchema";
 
-const FarmerEditForm = forwardRef(({ initialData, handleSubmit }, ref) => {
+const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
   const hForm = useForm<any>({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -48,8 +48,6 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }, ref) => {
       unionCode: initialData?.unionCode,
     },
   });
-
-  let errorMessage = hForm.formState.errors?.submit?.message;
 
   // to handle submit from outside of the component
   useImperativeHandle(

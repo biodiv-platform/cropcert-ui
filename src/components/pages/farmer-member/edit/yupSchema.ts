@@ -17,7 +17,17 @@ const schema = yup.object().shape({
   village: yup.string(),
   cc: yup.string().required("CC Name is required"),
   landAcreage: yup.number().min(1, "Land acreage must be greater than zero"),
-  coffeeAcreage: yup.number().min(1, "Coffee acreage must be greater than zero"),
+  coffeeAcreage: yup
+    .number()
+    .min(1, "Coffee acreage must be greater than zero")
+    .test(
+      "lessThanLandAcreage",
+      "Coffee acreage must be less than land acreage",
+      function (value: number) {
+        const { landAcreage } = this.parent;
+        return value <= landAcreage;
+      }
+    ),
   noOfCoffeeTrees: yup.number(),
   agroforestry: yup.string(),
   instanceID: yup.string(),

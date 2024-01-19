@@ -221,6 +221,7 @@ export interface Location {
 }
 
 export interface FarmerMember {
+  _id?: string;
   product: string;
   farmerId: string;
   farmerName: string;

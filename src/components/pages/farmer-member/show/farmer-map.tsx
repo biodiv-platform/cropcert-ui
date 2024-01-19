@@ -18,10 +18,6 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
     height: "100%", // Set the height of the map
   };
 
-  const updateLatLng = (lat, lng) => {
-    // TODO: send API call to update lat lng
-  };
-
   // Calculate padding for bounds
   const padding = 0.03; // Adjust as needed
 
@@ -52,7 +48,7 @@ export default function FarmerMap({ farmerInfo, isDraggable }) {
       <Marker
         draggable={isDraggable}
         eventHandlers={eventHandlers}
-        position={position}
+        position={[position[0], position[1]]}
         ref={markerRef}
       >
         <Popup minWidth={90}>

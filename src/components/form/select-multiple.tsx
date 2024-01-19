@@ -33,7 +33,6 @@ export const SelectMultipleInputField = ({
   title,
   hint,
   mb = 4,
-  pl = 4,
   optionComponent = DefaultOptionComponent,
   options = [],
   disabled,

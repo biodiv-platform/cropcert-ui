@@ -62,7 +62,7 @@ export default function FarmerMap({
       <Marker
         draggable={isDraggable}
         eventHandlers={eventHandlers}
-        position={position}
+        position={[position[0], position[1]]}
         ref={markerRef}
       >
         <Popup minWidth={90}>

@@ -59,7 +59,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
-            <NextLink href={`/farmer/edit/${show.farmer._id}`} passHref={true}>
+            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true}>
               <EditIcon boxSize={5} />
             </NextLink>
           </Box>
@@ -93,7 +93,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           🧑‍🌾 {show.farmer.farmerName}
         </PageHeading>
         <Accordion defaultIndex={[0]} allowMultiple>
-          <FarmerInfo farmer={show.farmer} hasEditDeleteAccess={hasEditDeleteAccess} />
+          <FarmerInfo farmer={show.farmer} />
           {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
           {show.batches && <FarmerBatches rows={show.batches} />}
           {show.lots && <FarmerLots rows={show.lots} />}

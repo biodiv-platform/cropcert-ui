@@ -104,7 +104,7 @@ export default function FarmerEditPageComponent({ edit }) {
     }
   };
 
-  const ref = React.useRef(null);
+  const ref: any = React.useRef(null);
 
   return (
     <Container>

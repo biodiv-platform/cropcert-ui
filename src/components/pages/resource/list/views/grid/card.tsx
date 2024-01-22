@@ -1,5 +1,5 @@
 import { Box, Checkbox, Image, Link } from "@chakra-ui/react";
-import ShadowedUser from "@components/pages/common/shadowed-user";
+import CaptionOverlay from "@components/pages/common/caption-overlay";
 import { ResourceListMinimalData } from "@interfaces/media";
 import { RESOURCE_SIZE } from "@static/constants";
 import { getNextResourceThumbnail } from "@utils/media";
@@ -52,7 +52,7 @@ export default function GridViewCard({
           />
         </Link>
 
-        {isHovered && <ShadowedUser user={o?.userIbp} />}
+        {isHovered && <CaptionOverlay caption={o.resource?.description} />}
       </Box>
     </Box>
   );

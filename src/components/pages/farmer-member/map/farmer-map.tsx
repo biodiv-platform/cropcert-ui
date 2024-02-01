@@ -37,7 +37,7 @@ export default function FarmerMap({
         dragend() {
           const marker: any = markerRef.current;
           if (marker != null) {
-            setPosition(marker.getLatLng());
+            setPosition([marker.getLatLng().lat, marker.getLatLng().lng]);
             setNewLatLng([marker.getLatLng().lat, marker.getLatLng().lng]);
           }
         },
@@ -92,7 +92,7 @@ export default function FarmerMap({
           [farmerInfo.lat + padding, farmerInfo.long + padding],
         ]}
         style={mapStyle}
-        zoom={12}
+        zoom={18}
       >
         <LayersControl>
           <LayersControl.BaseLayer name="Open Street Map">
@@ -102,7 +102,7 @@ export default function FarmerMap({
               maxZoom={21}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer checked name="Google Map">
+          <LayersControl.BaseLayer name="Google Map">
             <TileLayer
               attribution="Google Maps"
               url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -110,7 +110,7 @@ export default function FarmerMap({
               subdomains={["mt0", "mt1", "mt2", "mt3"]}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Google Map Satellite">
+          <LayersControl.BaseLayer checked name="Google Map Satellite">
             <LayerGroup>
               <TileLayer
                 attribution="Google Maps Satellite"

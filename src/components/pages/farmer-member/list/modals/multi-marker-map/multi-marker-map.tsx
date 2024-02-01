@@ -13,7 +13,7 @@ import {
   useMap,
 } from "react-leaflet";
 
-// Define a function to create a colored marker icon with an SVG
+// function to create a colored marker icon with an SVG
 const createColoredIcon = (color) => {
   const insideColor = color.insideColor;
   const circleRadius = 22; // Set your desired radius
@@ -36,6 +36,7 @@ export default function FarmerMap({ coordinatesArray }) {
     width: "100%", // Set the width of the map
     height: "100%", // Set the height of the map
   };
+  const padding = 0.004;
 
   const bounds = latLngBounds(
     coordinatesArray.map((coordinates) => latLng(coordinates.lat, coordinates.long))
@@ -47,7 +48,9 @@ export default function FarmerMap({ coordinatesArray }) {
     const map = useMap();
 
     useEffect(() => {
-      map.fitBounds(paddedBounds);
+      if (coordinatesArray.length > 1) {
+        map.fitBounds(paddedBounds);
+      }
     }, [coordinatesArray]);
 
     // map.setView(map.getCenter(), map.getZoom() - 1);
@@ -56,7 +59,14 @@ export default function FarmerMap({ coordinatesArray }) {
 
   return (
     <MapContainer
-      bounds={paddedBounds}
+      bounds={
+        coordinatesArray.length > 1
+          ? bounds
+          : [
+              [coordinatesArray[0].lat - padding, coordinatesArray[0].long - padding],
+              [coordinatesArray[0].lat + padding, coordinatesArray[0].long + padding],
+            ]
+      }
       scrollWheelZoom={true}
       style={mapStyle}
       className="markercluster-map"
@@ -70,7 +80,7 @@ export default function FarmerMap({ coordinatesArray }) {
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name="Google Map">
+        <LayersControl.BaseLayer name="Google Map">
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -78,7 +88,7 @@ export default function FarmerMap({ coordinatesArray }) {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Google Map Satellite">
+        <LayersControl.BaseLayer checked name="Google Map Satellite">
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"

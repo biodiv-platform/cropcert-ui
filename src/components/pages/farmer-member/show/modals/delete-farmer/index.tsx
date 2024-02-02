@@ -13,6 +13,7 @@ import { axDeleteFarmerById } from "@services/farmer.service";
 import { FARMER_DELETE } from "@static/events";
 import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
@@ -20,6 +21,7 @@ const DeleteFarmerModal = () => {
   const [farmerId, setFarmerId] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleConfirmDelete = async () => {
     try {
@@ -28,13 +30,14 @@ const DeleteFarmerModal = () => {
 
       if (success) {
         onClose();
-        notification("Farmer Deleted", NotificationType.Success);
+        notification(t("traceability:farmer.delete_farmer_success"), NotificationType.Success);
 
         // navigate to the previous page
         router.push("/farmer/list");
       }
     } catch (err) {
       console.error(err);
+      notification(t("traceability:farmer.delete_farmer_error"), NotificationType.Error);
     }
   };
 
@@ -54,15 +57,15 @@ const DeleteFarmerModal = () => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Delete Farmer</ModalHeader>
+        <ModalHeader>{t("traceability:farmer.delete_farmer_heading")}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>Are you sure you want to delete this farmer?</ModalBody>
+        <ModalBody>{t("traceability:farmer.delete_farmer_message")}</ModalBody>
 
         <ModalFooter>
           <Button colorScheme="red" mr={3} onClick={handleConfirmDelete}>
-            Confirm Delete
+            {t("traceability:farmer.delete_farmer_confirm")}
           </Button>
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleCancel}>{t("traceability:farmer.delete_farmer_cancel")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -32,7 +32,7 @@ const MultiMarkerMapModal = () => {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["AllFarmerByUnion"],
-    queryFn: () => axGetAllFarmerByUnion(5),
+    queryFn: () => axGetAllFarmerByUnion(5), // unionId is hardcoded
     enabled: fetchData,
     staleTime: 1000 * 60 * 60 * 24 * 10, // 10 days in milliseconds
     gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
@@ -83,7 +83,7 @@ const MultiMarkerMapModal = () => {
       <ModalOverlay />
       <ModalContent>
         <Flex>
-          <ModalHeader flex={1}>{t("traceability:farmer_member_modal_heading")}</ModalHeader>
+          <ModalHeader flex={1}>{t("traceability:farmer.farmer_modal_heading")}</ModalHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>
               {!isLoading && (

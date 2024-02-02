@@ -6,6 +6,7 @@ import { axUpdateFarmerById } from "@services/farmer.service";
 import notification, { NotificationType } from "@utils/notification";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
@@ -17,6 +18,7 @@ export default function FarmerEditPageComponent({ edit }) {
   const [newLatLng, setNewLatLng] = useState([0, 0]);
   const [resetMarker, setResetMarker] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
 
   const farmer = edit;
 
@@ -31,20 +33,20 @@ export default function FarmerEditPageComponent({ edit }) {
   const hasEditDeleteAccess = true; //TODO: add access control
 
   // Function to go back to the previous page
-  const goBack = () => {
+  const handleGoBack = () => {
     router.back();
   };
 
   const ActionButtons = () => {
     return (
       <Button
-        onClick={goBack}
+        onClick={handleGoBack}
         leftIcon={<ArrowBackIcon />}
         variant="solid"
         rounded="md"
         colorScheme="gray"
       >
-        Go Back
+        {t("common:back")}
       </Button>
     );
   };
@@ -60,7 +62,6 @@ export default function FarmerEditPageComponent({ edit }) {
       }
 
       // get updated values.
-
       const updatedData = {};
 
       Object.keys(values).forEach((key) => {
@@ -91,16 +92,15 @@ export default function FarmerEditPageComponent({ edit }) {
         return;
       }
 
-      // update farmer
       const { success } = await axUpdateFarmerById(farmer._id, updatedData);
 
       if (success) {
-        notification("Farmer Updated", NotificationType.Success);
+        notification(t("traceability:farmer.update_farmer_success"), NotificationType.Success);
         router.push(`/farmer/show/${farmer._id}`);
       }
     } catch (error) {
-      // Error notification
       console.error(error);
+      notification(t("traceability:farmer.update_farmer_error"), NotificationType.Error);
     }
   };
 
@@ -113,7 +113,7 @@ export default function FarmerEditPageComponent({ edit }) {
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
         <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading size="md">Location :</Heading>
+            <Heading size="md">{t("traceability:location.location_heading")}</Heading>
             {hasEditDeleteAccess &&
               (isDraggable ? (
                 <Flex gap={2}>
@@ -126,7 +126,7 @@ export default function FarmerEditPageComponent({ edit }) {
                       setResetMarker(true);
                     }}
                   >
-                    Cancel
+                    {t("common:cancel")}
                   </Button>
                   <Button
                     size={"md"}
@@ -135,7 +135,7 @@ export default function FarmerEditPageComponent({ edit }) {
                     colorScheme="green"
                     onClick={() => setIsDraggable(false)}
                   >
-                    Save Marker Location
+                    {t("traceability:location.save_marker_location")}
                   </Button>
                 </Flex>
               ) : (
@@ -146,7 +146,7 @@ export default function FarmerEditPageComponent({ edit }) {
                   colorScheme="yellow"
                   onClick={() => setIsDraggable(true)}
                 >
-                  Edit Marker Location
+                  {t("traceability:location.edit_marker_location")}
                 </Button>
               ))}
           </Flex>
@@ -170,7 +170,7 @@ export default function FarmerEditPageComponent({ edit }) {
         </Stack>
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
           <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
-            Cancel
+            {t("common:cancel")}
           </Button>
           <Button
             onClick={() => {
@@ -180,7 +180,7 @@ export default function FarmerEditPageComponent({ edit }) {
             colorScheme="red"
             size={"lg"}
           >
-            Update Farmer
+            {t("traceability:farmer.update_farmer")}
           </Button>
         </Flex>
       </Accordion>

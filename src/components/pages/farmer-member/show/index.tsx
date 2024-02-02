@@ -32,7 +32,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
   const hasEditDeleteAccess = hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   // Function to go back to the previous page
-  const goBack = () => {
+  const handleGoBack = () => {
     router.push("/farmer/list");
   };
 
@@ -40,7 +40,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
     return (
       <Box display={"flex"}>
         <Button
-          onClick={goBack}
+          onClick={handleGoBack}
           leftIcon={<ArrowBackIcon />}
           variant="solid"
           rounded="md"

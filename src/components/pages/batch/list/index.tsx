@@ -99,9 +99,6 @@ function BatchListPageComponent() {
     if (r.isReadyForLot && !r.lotId) {
       setShowAlert(true);
     }
-    // setTimeout(() => {
-    //   setShowAlert(false);
-    // }, 3000);
     r.isReadyForLot || r.lotId;
   };
 
@@ -158,7 +155,7 @@ function BatchListPageComponent() {
       {showAlert && (
         <Alert status="success" variant="subtle" marginY={2} rounded={"md"}>
           <AlertIcon />
-          Batch is ready for lot creation. Select the batch and click on Create Lot button.
+          {t("traceability:batch.batch_ready_for_lot")}
         </Alert>
       )}
 

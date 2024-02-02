@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 
 interface PageHeadingProps {
@@ -8,13 +8,24 @@ interface PageHeadingProps {
   [x: string]: any;
 }
 
-export default function PageHeading({ children, mb = 4, actions, ...props }: PageHeadingProps) {
+export default function PageHeading({
+  children,
+  mb = 4,
+  actions,
+  PreviousPageButton,
+  ...props
+}: PageHeadingProps) {
   return (
-    <Flex justifyContent="space-between" alignItems="center" mb={mb} mt={6}>
-      <Heading as="h1" display="inline-block" {...props}>
-        {children}
-      </Heading>
-      {actions && actions}
+    <Flex alignItems={"center"} gap={2}>
+      <Box mb={mb} mt={6}>
+        {PreviousPageButton && PreviousPageButton}
+      </Box>
+      <Flex flex={1} justifyContent="space-between" alignItems="center" mb={mb} mt={6}>
+        <Heading as="h1" display="inline-block" {...props}>
+          {children}
+        </Heading>
+        {actions && actions}
+      </Flex>
     </Flex>
   );
 }

@@ -5,9 +5,11 @@ import { useController } from "react-hook-form";
 interface ITextBoxProps {
   id?: string;
   name: string;
-  label: string;
+  label?: string;
   type?: string;
   mb?: number;
+  mt?: number;
+  pl?: number;
   disabled?: boolean;
   hint?: string;
   style?;
@@ -25,6 +27,8 @@ export const TextBoxField = ({
   label,
   type = "text",
   mb = 4,
+  mt = 0,
+  pl = 4,
   disabled,
   hint,
   isRequired,
@@ -32,6 +36,7 @@ export const TextBoxField = ({
   maxLength,
   hidden,
   autoComplete,
+  placeholder,
   ...props
 }: ITextBoxProps) => {
   const { field, fieldState } = useController({
@@ -43,18 +48,20 @@ export const TextBoxField = ({
     <FormControl
       isInvalid={!!fieldState.error}
       mb={mb}
+      mt={mt}
       hidden={hidden}
       isRequired={isRequired}
       {...props}
     >
-      {showLabel && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      {label && showLabel && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <Input
         id={id || name}
-        placeholder={label}
+        placeholder={placeholder}
         type={type}
         maxLength={maxLength}
         isDisabled={disabled}
         autoComplete={autoComplete}
+        pl={pl}
         {...field}
       />
       <FormErrorMessage children={fieldState?.error?.message} />

@@ -8,7 +8,7 @@ import { reactSelectProps } from "./configs";
 
 interface SelectMultipleProps {
   helpText?: string;
-  label: string;
+  label?: string;
   name: string;
   placeholder?: string;
   title?: string;
@@ -50,6 +50,7 @@ export const SelectMultipleInputField = ({
       ...provided,
       maxHeight: "200px",
       overflowY: "auto",
+      paddingLeft: "10px",
     }),
   };
 

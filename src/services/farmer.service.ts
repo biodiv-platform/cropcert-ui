@@ -40,6 +40,19 @@ export const axListFarmerMember = async (ccCodes, offset = 0, limit = PAGINATION
 
 export const axGetFarmerById = async (farmerId, ctx?) => {
   try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`, {
+      params: { ctx },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
+// get farmer information for show page.
+export const axGetFarmerByIdWithBatchAndFarmerProduce = async (farmerId, ctx?) => {
+  try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/show/${farmerId}`, {
       params: { ctx },
     });
@@ -55,6 +68,26 @@ export const axGetAllFarmerByUnion = async (unionCode) => {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/allByUnion`, {
       params: { unionCode: unionCode.toString() },
     });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
+export const axUpdateFarmerById = async (farmerId, payload) => {
+  try {
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`, payload);
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
+export const axDeleteFarmerById = async (farmerId) => {
+  try {
+    const { data } = await http.delete(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`);
     return { success: true, data };
   } catch (e) {
     notification(e);

@@ -45,7 +45,7 @@ export const navmenu = [
         access: [ROLES.UNAUTHORIZED],
       },
       {
-        id: 5,
+        id: 6,
         title: "Media Gallery Create",
         url: "/media-gallery/create",
         access: [ROLES.ADMIN],

@@ -214,3 +214,48 @@ export interface QualityReport {
   percentageOutTurn?: number; // float
   isDeleted?: boolean;
 }
+
+export interface Location {
+  type: string;
+  coordinates: number[];
+}
+
+export interface FarmerMember {
+  _id?: string;
+  product: string;
+  farmerId: string;
+  farmerName: string;
+  gender: string;
+  dateOfBirth: Date;
+  formatDate?: string;
+  contactNumber?: string;
+  nationalIdentityNumber?: string;
+  levelOfEducation?: string;
+  noOfDependents?: number;
+  village: string;
+  cc: string;
+  landAcreage: number;
+  coffeeAcreage: number;
+  noOfCoffeeTrees: number;
+  otherFarmEnterprises?: string[];
+  agroforestry?: "YES" | "NO";
+  farmLocation?: any;
+  photoOfFarm?: string;
+  ccCode: number;
+  coCode: number;
+  unionCode: number;
+  instanceID: string;
+  instanceName?: string;
+  entity?: any;
+  submittedOnODK: Date;
+  submitterName: string;
+  formVersion: string;
+  reviewState?: string;
+  edits: string;
+  location: Location;
+  farmerProduceIds?: any[];
+  isFarmerDataValidated: boolean;
+  createdAt: Date;
+  lastUpdatedAt: Date;
+  isDeleted: boolean;
+}

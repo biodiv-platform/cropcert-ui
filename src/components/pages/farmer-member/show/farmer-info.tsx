@@ -1,9 +1,8 @@
-import FARM_LAND_IMAGE from "@assets/farm-land-default.jpg";
 import {
   Box,
   Flex,
   Heading,
-  Image,
+  Image as ChakraImage,
   Stack,
   Table,
   Tbody,
@@ -12,14 +11,17 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { ENDPOINT } from "@static/constants";
 import dynamic from "next/dynamic";
 import React from "react";
 
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("./farmer-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
+  const farmer_dob = new Date(farmer["dateOfBirth"]);
+
   const basicInfoHeader = [
     {
       name: "ID",
@@ -27,63 +29,63 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Farmer Name",
-      selector: farmer["personalDetails"]["farmer_name"],
+      selector: farmer["farmerName"],
     },
     {
       name: "Gender",
-      selector: farmer["personalDetails"]["gender"],
+      selector: farmer["gender"],
     },
     {
       name: "Date of Birth",
-      selector: farmer["personalDetails"]["date_of_birth"],
+      selector: farmer_dob.toLocaleDateString(),
     },
     {
       name: "Contact Number",
-      selector: farmer["personalDetails"]["contact_number"] || "N/A",
-    },
-    {
-      name: "Date of Birth",
-      selector: farmer["personalDetails"]["date_of_birth"],
+      selector: farmer["contactNumber"] || "N/A",
     },
     {
       name: "National Identity Number",
-      selector: farmer["personalDetails"]["national_identity_number"] || "N/A",
+      selector: farmer["nationalIdentityNumber"] || "N/A",
+    },
+    {
+      name: "Level of Education",
+      selector: farmer["levelOfEducation"],
     },
     {
       name: "No of Dependents",
-      selector: farmer["personalDetails"]["no_of_dependents"],
+      selector: farmer["noOfDependents"],
     },
     {
       name: "Village",
-      selector: farmer["personalDetails"]["village"],
+      selector: farmer["village"],
     },
     {
       name: "Collection Center",
-      selector: farmer["personalDetails"]["cc"],
+      selector: farmer["cc"],
     },
     {
       name: "Land Acreage",
-      selector: farmer["farmDetails"]["land_acreage"],
+      selector: farmer["landAcreage"],
     },
     {
       name: "Coffee Acreage",
-      selector: farmer["farmDetails"]["coffee_acrage"],
+      selector: farmer["coffeeAcreage"],
     },
     {
       name: "No. of Coffee Trees",
-      selector: farmer["farmDetails"]["no_of_coffee_trees"],
+      selector: farmer["noOfCoffeeTrees"],
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["farmDetails"]["other_farm_enterprises"].join(", ") || "N/A",
+      selector: farmer["otherFarmEnterprises"].join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
-      selector: farmer["farmDetails"]["agroforestry"] ? "Yes" : "No",
+      selector: farmer["agroforestry"] ? "Yes" : "No", //TODO: ask question related to this!!
     },
     {
       name: "ODK Instance ID",
-      selector: farmer["metaData"]["instanceID"].split(":")[1],
+      selector: farmer["instanceID"].split(":")[1],
     },
     {
       name: "Created At",
@@ -91,17 +93,21 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Form Version",
-      selector: farmer["metaData"]["formVersion"],
+      selector: farmer["formVersion"],
     },
   ];
 
   const farmerInfo = {
     lat: farmer.location.coordinates[1],
     long: farmer.location.coordinates[0],
-    name: farmer.personalDetails.farmer_name,
+    name: farmer.farmerName,
     farmerId: farmer.farmerId,
-    cc: farmer.personalDetails.cc,
+    cc: farmer.cc,
   };
+
+  // ODK image constants
+  const projectId = 2;
+  const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -131,20 +137,23 @@ export default function FarmerInfo({ farmer }) {
         mt={2}
         p={2}
         direction={{ base: "column", sm: "column", md: "row", lg: "row", xl: "row" }}
+        minHeight={"400px"}
       >
-        {/* TODO: Implement checks when no farm image exist */}
-        <Stack direction={"column"} spacing={2}>
-          <Heading size="md">Farm Image :</Heading>
-          <Image
-            objectFit="cover"
-            boxSize={{ base: "400px", sm: "full", md: "400px" }}
-            align="center"
-            src={FARM_LAND_IMAGE.src}
-            alt="farmers land picture"
-            rounded="md"
-            boxShadow="md"
-          />
-        </Stack>
+        {farmer.photoOfFarm && (
+          <Stack direction={"column"} spacing={2}>
+            <Heading size="md">Farm Image :</Heading>
+            <ChakraImage
+              objectFit="cover"
+              boxSize={{ base: "400px", sm: "full", md: "400px" }}
+              align="center"
+              src={`${ENDPOINT.ODK_IMAGES}v1/projects/${projectId}/forms/${xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`}
+              alt="farmers land picture"
+              rounded="md"
+              boxShadow="md"
+              loading="lazy"
+            />
+          </Stack>
+        )}
         <Stack direction={"column"} spacing={2} width={"full"}>
           <Heading size="md">Location :</Heading>
           <Box
@@ -156,7 +165,13 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap farmerInfo={farmerInfo} />
+            <FarmerMap
+              farmerInfo={farmerInfo}
+              isDraggable={undefined}
+              setNewLatLng={undefined}
+              resetMarker={undefined}
+              setResetMarker={undefined}
+            />
           </Box>
         </Stack>
       </Flex>

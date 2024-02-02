@@ -9,6 +9,7 @@ import SITE_CONFIG from "@configs/site-config";
 import { GlobalStateProvider } from "@hooks/use-global-state";
 import { axGetTree } from "@services/pages.service";
 import { customTheme } from "@static/theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getParsedUser } from "@utils/auth";
 import App, { AppContext } from "next/app";
 import Router from "next/router";
@@ -24,21 +25,25 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
   const { ToastContainer } = createStandaloneToast({ theme: customTheme });
   const config = { footer: true, ...Component?.config };
 
+  const queryClient = new QueryClient();
+
   return (
-    <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
-      <BusProvider>
-        <ToastContainer />
-        <ChakraProvider theme={customTheme}>
-          <Metadata />
-          <Navbar />
-          <main>
-            <Component {...pageProps} />
-          </main>
-          {config?.footer && <Footer />}
-          <AuthWall />
-        </ChakraProvider>
-      </BusProvider>
-    </GlobalStateProvider>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
+        <BusProvider>
+          <ToastContainer />
+          <ChakraProvider theme={customTheme}>
+            <Metadata />
+            <Navbar />
+            <main>
+              <Component {...pageProps} />
+            </main>
+            {config?.footer && <Footer />}
+            <AuthWall />
+          </ChakraProvider>
+        </BusProvider>
+      </GlobalStateProvider>
+    </QueryClientProvider>
   );
 }
 

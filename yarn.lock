@@ -1750,6 +1750,16 @@
   resolved "https://registry.yarnpkg.com/@chakra-ui/visually-hidden/-/visually-hidden-2.0.11.tgz#b2eb236e803451b39cdfcce3c5ab52e773c066a3"
   integrity sha512-e+5amYvnsmEQdiWH4XMyvrtGTdwz//+48vwj5CsNWWcselzkwqodmciy5rIrT71/SCQDOtmgnL7ZWAUOffxfsQ==
 
+"@changey/react-leaflet-markercluster@^4.0.0-rc1":
+  version "4.0.0-rc1"
+  resolved "https://registry.yarnpkg.com/@changey/react-leaflet-markercluster/-/react-leaflet-markercluster-4.0.0-rc1.tgz#88d76c74e9014ca2f669900dded8e2ccdd6dd545"
+  integrity sha512-gS1lEQiQwyeI6Y6Wuxuqqffwywm7giQw4tbcqtJP8zyT5bc3AzW2/EVJGwWORYo/PLDdDnvOrpI+lUJy2UA5MQ==
+  dependencies:
+    "@react-leaflet/core" "^2.0.0"
+    leaflet "^1.8.0"
+    leaflet.markercluster "^1.5.3"
+    react-leaflet "^4.0.0"
+
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz#75b4c27948c81e88ccd3a8902047bcd797f38d32"
@@ -2295,7 +2305,7 @@
   resolved "https://registry.yarnpkg.com/@react-google-maps/marker-clusterer/-/marker-clusterer-2.11.8.tgz#9b830b405cc203b305ac6f771da2e307ad30515e"
   integrity sha512-OEcdbTXEgPwdpGvVuSrhIhjcZPhlzPz2TvaKCBLraf1PKiDyLOPhlTVRlbIziLiu0xN89pJcill1w9UVIVFF+Q==
 
-"@react-leaflet/core@^2.1.0":
+"@react-leaflet/core@^2.0.0", "@react-leaflet/core@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-2.1.0.tgz#383acd31259d7c9ae8fb1b02d5e18fe613c2a13d"
   integrity sha512-Qk7Pfu8BSarKGqILj4x7bCSZ1pjuAPZ+qmRwH5S7mDS91VSbVVsJSrW4qA+GPrro8t69gFYVMWb1Zc4yFmPiVg==
@@ -2375,6 +2385,18 @@
   integrity sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw==
   dependencies:
     tslib "^2.4.0"
+
+"@tanstack/query-core@5.18.1":
+  version "5.18.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.18.1.tgz#b653ee354b7f4712d53565ccc5c6d8fb83ec866c"
+  integrity sha512-fYhrG7bHgSNbnkIJF2R4VUXb4lF7EBiQjKkDc5wOlB7usdQOIN4LxxHpDxyE3qjqIst1WBGvDtL48T0sHJGKCw==
+
+"@tanstack/react-query@^5.12.2":
+  version "5.18.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.18.1.tgz#fd4e7b87260e82c5277355ad64f0e431a9302e02"
+  integrity sha512-PdI07BbsahZ+04PxSuDQsQvBWe008eWFk/YYWzt8fvzt2sALUM0TpAJa/DFpqa7+SSo7j1EQR6Jx6znXNHyaXw==
+  dependencies:
+    "@tanstack/query-core" "5.18.1"
 
 "@tinymce/tinymce-react@^4.2.0":
   version "4.2.0"
@@ -3571,6 +3593,13 @@
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.11.tgz#48b33b7a15b015bbb1e8950399298a112c3220c8"
   integrity sha512-VwAYom2pfIAf/pLj1VR5aLltd4tOtHyvfaJlNYCoejzP2nu52PrMi1ehsLRMUS+bgafmIIKBV1cMfKeS+uJ0Vg==
+  dependencies:
+    "@types/geojson" "*"
+
+"@types/leaflet@^1.9.7":
+  version "1.9.8"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.9.8.tgz#32162a8eaf305c63267e99470b9603b5883e63e8"
+  integrity sha512-EXdsL4EhoUtGm2GC2ZYtXn+Fzc6pluVgagvo2VC1RHWToLGlTRwVYoDpqS/7QXa01rmDyBjJk3Catpf60VMkwg==
   dependencies:
     "@types/geojson" "*"
 
@@ -6048,7 +6077,12 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-leaflet@^1.9.4:
+leaflet.markercluster@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.5.3.tgz#9cdb52a4eab92671832e1ef9899669e80efc4056"
+  integrity sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA==
+
+leaflet@^1.8.0, leaflet@^1.9.4:
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.4.tgz#23fae724e282fa25745aff82ca4d394748db7d8d"
   integrity sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==
@@ -7036,10 +7070,10 @@ react-lazyload@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-3.2.0.tgz#497bd06a6dbd7015e3376e1137a67dc47d2dd021"
   integrity sha512-zJlrG8QyVZz4+xkYZH5v1w3YaP5wEFaYSUWC4CT9UXfK75IfRAIEdnyIUF+dXr3kX2MOtL1lUaZmaQZqrETwgw==
 
-react-leaflet@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.1.0.tgz#b53bce23af3bd932c189d7a80bcc7102db85edee"
-  integrity sha512-i+V9pX5lywJ48O2+K3USeeTdYLIhxnLMweH+YLd/UPqVIj3uKzE3Q29bzt83PBtViyZmxDlulzC6uoR3JLiE9A==
+react-leaflet@^4.0.0, react-leaflet@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.2.1.tgz#c300e9eccaf15cb40757552e181200aa10b94780"
+  integrity sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==
   dependencies:
     "@react-leaflet/core" "^2.1.0"
 

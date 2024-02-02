@@ -15,6 +15,8 @@ export const ACTIVITY_UPDATED = "activity_updated";
 export const EXIF_GPS_FOUND = "exif_gps_found";
 export const RESOURCES_UPLOADING = "resources_uploading";
 export const DRAW_MAP = "DRAW_MAP";
+export const FARMER_EDIT = "FARMER_EDIT";
+export const FARMER_DELETE = "FARMER_DELETE";
 
 export const FORM_DATEPICKER_CHANGE = "FORM_DATEPICKER_CHANGE_";
 

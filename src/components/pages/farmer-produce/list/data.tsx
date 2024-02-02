@@ -22,7 +22,7 @@ export const batchColumns = [
   },
   {
     name: "Type",
-    selector: (row) => row["type"].toUpperCase(),
+    selector: (row) => row["produceType"].toUpperCase(),
     maxWidth: "70px",
     sortable: true,
   },

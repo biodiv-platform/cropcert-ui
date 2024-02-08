@@ -22,8 +22,9 @@ export default function FarmerBatches({ rows }) {
     {
       name: "Type",
       selector: (row) => row["type"],
-      maxWidth: "100px",
+      maxWidth: "80px",
       sortable: true,
+      cell: (row) => row.type?.toUpperCase(),
     },
     {
       name: "Quantity",
@@ -34,9 +35,9 @@ export default function FarmerBatches({ rows }) {
     },
     {
       name: "Last Updated",
-      selector: (row) => row["lastUpdatedOn"],
+      selector: (row) => row["lastUpdatedAt"],
       maxWidth: "180px",
-      cell: (row) => timeCell(row.lastUpdatedOn),
+      cell: (row) => timeCell(row.lastUpdatedAt),
       sortable: true,
     },
     {

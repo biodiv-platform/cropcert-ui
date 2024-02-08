@@ -36,9 +36,9 @@ const defaultBatchModalColumns = [
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
   createBatchColumn(
     "Last Updated",
-    (row) => row.lastUpdatedOn,
+    (row) => row.lastUpdatedAt,
     "150px",
-    (row) => timeCell(row.lastUpdatedOn)
+    (row) => timeCell(row.lastUpdatedAt)
   ),
 ];
 

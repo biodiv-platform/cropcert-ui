@@ -33,16 +33,15 @@ export default function FarmerProduce({ rows }) {
     },
     {
       name: "Collection Date",
-      selector: (row) => timeCell(row.createdAt),
+      selector: (row) => timeCell(row.dateOfCollection),
       maxWidth: "150px",
       sortable: true,
     },
     {
       name: "GRN Number",
-      selector: (row) => row["grnNumber"],
+      selector: (row) => row["calculateGrn"],
       maxWidth: "150px",
       sortable: true,
-      right: true,
     },
     {
       name: "Farmer ID",
@@ -55,7 +54,7 @@ export default function FarmerProduce({ rows }) {
       name: "Batch ID",
       selector: (row) => row["batchId"],
       maxWidth: "100px",
-      cell: (row) => row?.batchId && `B-${row.batchId}`,
+      cell: (row) => (row?.batchId ? `B-${row.batchId}` : "N/A"),
     },
   ];
 

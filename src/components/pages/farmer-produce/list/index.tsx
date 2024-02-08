@@ -5,7 +5,7 @@ import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
-import { Batch } from "@interfaces/traceability";
+import { FarmerProduce } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
@@ -26,7 +26,7 @@ function FarmerListPageComponent() {
   const { state, ...actions } = useFarmerStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
-  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<Batch>[]>([]);
+  const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const { t } = useTranslation();
 
@@ -42,15 +42,21 @@ function FarmerListPageComponent() {
     actions.listFarmerProduce({ ccCodes });
   };
 
-  const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
+  const handleOnSelectionChange = ({
+    selectedRows,
+  }: {
+    selectedRows: Required<FarmerProduce>[];
+  }) => {
     setSelectedFarmerProduce(selectedRows);
-    setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
+    setShowTypeError(
+      [...new Set(selectedRows.map((r) => r.produceType))].length === 2 ? true : false
+    );
   };
 
   const handleOnCreateBatch = () => {
     const prefix = "Buzaaya"; // TODO: get from odk data
 
-    const batchTypeArr = [...new Set(selectedFarmerProduce.map((r) => r.type))];
+    const batchTypeArr = [...new Set(selectedFarmerProduce.map((r) => r.produceType))];
 
     // checking if multiple types are selected
     if (batchTypeArr.length === 2) return setShowTypeError(true);

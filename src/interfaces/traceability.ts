@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export interface Activity {
   id?: number; // int64
   objectType?: string;
@@ -224,7 +222,7 @@ export interface Location {
 
 export interface FarmerMember {
   _id?: string;
-  product: Types.ObjectId | string;
+  product: string;
   farmerId: string;
   farmerName: string;
   gender: string;
@@ -263,7 +261,7 @@ export interface FarmerMember {
 }
 
 export interface FarmerProduce {
-  product: Types.ObjectId | string;
+  product: string;
   farmerProduceId: string;
   farmerId?: string;
   farmerName: string;

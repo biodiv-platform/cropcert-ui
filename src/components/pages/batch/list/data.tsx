@@ -44,16 +44,10 @@ const defaultBatchModalColumns = [
 
 const batchModalColumnsWithLotInfo = [
   createBatchColumn(
-    "Lot",
+    "Lot ID",
     (row) => row.lotId,
     "100px",
     (row) => <LotCell {...row} />
-  ),
-  createBatchColumn(
-    "Lot Status",
-    (row) => row?.lotStatus,
-    "100px",
-    (row) => <Badge>{row?.lotStatus}</Badge>
   ),
 ];
 
@@ -99,7 +93,7 @@ export const createBatchColumns = (columns) => {
 
       return [
         ...acc,
-        createBatchColumn(curr.columnName, (row) => row[curr.columnName], "280px", ButtonComponent),
+        createBatchColumn(curr.columnName, (row) => row[curr.columnName], "180px", ButtonComponent),
       ];
     }, []);
 
@@ -111,6 +105,54 @@ export const createBatchColumns = (columns) => {
     return [defaultBatchModalColumns, batchModalColumnsWithLotInfo];
   }
 };
+
+export const farmerProduceColumns = [
+  {
+    name: "#",
+    selector: (row) => row["farmerProduceId"],
+    maxWidth: "100px",
+    sortable: true,
+    cell: (row) => `FP-${row.farmerProduceId}`,
+  },
+  {
+    name: "Farmer Name",
+    selector: (row) => row["farmerName"],
+    maxWidth: "280px",
+  },
+  {
+    name: "Quantity",
+    selector: (row) => row["quantity"],
+    maxWidth: "100px",
+    sortable: true,
+    right: true,
+  },
+  {
+    name: "Type",
+    selector: (row) => row["produceType"].toUpperCase(),
+    maxWidth: "70px",
+    sortable: true,
+  },
+  {
+    name: "Collection Date",
+    selector: (row) => row["dateOfCollection"],
+    maxWidth: "150px",
+    sortable: true,
+    cell: (row) => timeCell(row.dateOfCollection),
+  },
+  {
+    name: "GRN Number",
+    selector: (row) => row["calculateGrn"],
+    maxWidth: "150px",
+    sortable: true,
+  },
+  {
+    name: "Farmer ID",
+    selector: (row) => row["farmerId"],
+    maxWidth: "120px",
+    sortable: true,
+    cell: (row) => `${row.farmerId}`,
+  },
+];
 
 export const lotCreateModalCols = [
   {

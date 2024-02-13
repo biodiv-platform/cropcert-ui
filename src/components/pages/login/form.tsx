@@ -81,11 +81,7 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
       }
 
       // hard redirect to re-build cache
-      if (forward && redirect) {
-        forwardRedirect(forward);
-      } else {
-        window.location.assign("/");
-      }
+      window.location.assign("/");
     } catch (e) {
       console.error(e);
       notification(SIGN_IN.ERROR);

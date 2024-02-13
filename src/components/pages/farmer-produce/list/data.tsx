@@ -22,22 +22,21 @@ export const batchColumns = [
   },
   {
     name: "Type",
-    selector: (row) => row["produceType"].toUpperCase(),
+    selector: (row) => row["produceType"]?.toUpperCase(),
     maxWidth: "70px",
     sortable: true,
   },
   {
     name: "Collection Date",
-    selector: (row) => timeCell(row.createdAt),
+    selector: (row) => timeCell(row.dateOfCollection),
     maxWidth: "150px",
     sortable: true,
   },
   {
     name: "GRN Number",
-    selector: (row) => row["grnNumber"],
+    selector: (row) => row["calculateGrn"],
     maxWidth: "150px",
     sortable: true,
-    right: true,
   },
   {
     name: "Farmer ID",

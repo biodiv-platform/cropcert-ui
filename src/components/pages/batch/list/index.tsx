@@ -24,6 +24,7 @@ import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { createBatchColumns } from "./data";
+import BatchExpand from "./expand";
 import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal-new";
 import LotCreateModal from "./modals/lot-create-modal";
@@ -167,6 +168,7 @@ function BatchListPageComponent() {
             data={state.batch}
             columns={batchColumns}
             selectableRows={true}
+            expandableRows={true}
             selectableRowDisabled={(r) => handleDisabledRows(r)}
             onSelectedRowsChange={handleOnSelectionChange}
             clearSelectedRows={clearRows}
@@ -181,6 +183,7 @@ function BatchListPageComponent() {
                 },
               },
             ]}
+            expandableRowsComponent={BatchExpand}
             pagination
             paginationPerPage={20}
             paginationRowsPerPageOptions={[10, 20, 50, 100]}

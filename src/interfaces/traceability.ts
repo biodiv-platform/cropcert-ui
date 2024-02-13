@@ -14,11 +14,11 @@ export interface Activity {
 export interface Batch {
   lotStatus: any;
   batchId: any;
-  lastUpdatedOn: any;
+  lastUpdatedAt: any;
   _id?: string; // int64
   batchName?: string;
   ccCode?: number; // int64
-  type?: "DRY" | "WET";
+  type?: "DRY" | "WET" | "FAQ";
   quantity?: number; // float
   date?: string; // date-time
   createdOn?: string; // date-time
@@ -257,5 +257,45 @@ export interface FarmerMember {
   isFarmerDataValidated: boolean;
   createdAt: Date;
   lastUpdatedAt: Date;
+  isDeleted: boolean;
+}
+
+export interface FarmerProduce {
+  product: string;
+  farmerProduceId: string;
+  farmerId?: string;
+  farmerName: string;
+  contactNo?: string;
+  produceType: string;
+  quantity: number;
+  noOfBags?: number;
+  deduction?: number;
+  deductionReason?: string;
+  netCollection?: number;
+  pricePerKg?: number;
+  amountPaidCalculate?: number;
+  millingCharge?: number;
+  dateOfCollection?: Date;
+  collectorName?: string;
+  collectorSubstr?: string;
+  calculateGrn?: string;
+  location?: object; // You might want to define a more specific type for this object
+  grnReceipt?: string;
+  farmerEID: string;
+  instanceID?: string;
+  instanceName?: string;
+  submittedOnODK?: Date;
+  submitterName?: string;
+  formVersion?: string;
+  reviewState?: string;
+  edits?: number;
+  batchId?: string;
+  batchIdMongo?: string;
+  ccCode?: number;
+  coCode?: number;
+  unionCode?: number;
+  createdAt: Date;
+  lastUpdatedAt: Date;
+  needsReview: boolean;
   isDeleted: boolean;
 }

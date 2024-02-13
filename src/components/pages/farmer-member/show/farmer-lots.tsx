@@ -11,7 +11,7 @@ export default function FarmerLots({ rows }) {
       selector: (row) => row["lotId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `B-${row.lotId}`,
+      cell: (row) => `L-${row.lotId}`,
     },
     {
       name: "Name",

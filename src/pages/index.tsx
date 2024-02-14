@@ -10,7 +10,7 @@ const HomePage = ({ pageContent }) => (
       <ShowPageComponent
         page={pageContent.data}
         hideOgImage={true} /*preContent={<HomePageComponent />}*/
-        hideActivity={true}
+        showComments={false}
       />
     )}
   </>

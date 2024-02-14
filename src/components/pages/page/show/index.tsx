@@ -13,13 +13,13 @@ import { PageHeader } from "./header";
 interface PageShowPageComponentProps {
   page;
   hideOgImage?;
-  hideActivity?;
+  showComments?;
 }
 
 export default function PageShowPageComponent({
   page,
   hideOgImage,
-  hideActivity,
+  showComments,
 }: PageShowPageComponentProps) {
   const ogImage = getResourceThumbnail(
     RESOURCE_CTX.PAGES,
@@ -39,7 +39,7 @@ export default function PageShowPageComponent({
         )}
         <Content html={page.content} />
 
-        {!hideActivity && (
+        {showComments && (
           <Activity
             resourceId={page.id}
             resourceType={RESOURCE_TYPE.PAGE}

@@ -108,6 +108,20 @@ export const getLinkCard = ({ href, image, title, description }: any, id) => {
   </a>`;
 };
 
+export const addCustomStyle = (content) => {
+  let customStyle = "";
+
+  if (content.includes("img-wrap-left")) {
+    customStyle += "<style> .img-wrap-left { float: left; margin-right: 40px;} </style>";
+  }
+
+  if (content.includes("img-wrap-right")) {
+    customStyle += "<style> .img-wrap-right { float: right; margin-left: 40px; } </style>";
+  }
+
+  return content + customStyle;
+};
+
 export const preProcessContent = (content) => {
   let c1 = content;
 
@@ -118,6 +132,8 @@ export const preProcessContent = (content) => {
 
     c1 = c1.replace(v, previewTag);
   });
+
+  c1 = addCustomStyle(c1);
 
   return c1
     .replace(/\<table/g, '<div class="table-responsive"><table')

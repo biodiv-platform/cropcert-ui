@@ -1,7 +1,9 @@
-import { Accordion } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Accordion, Button } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability";
+import { useRouter } from "next/router";
 import React from "react";
 
 import LotBatches from "./lot-batches";
@@ -19,9 +21,30 @@ interface ILotShowProps {
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
+  const router = useRouter();
+
+  // Function to go back to the previous page
+  const handleGoBack = () => {
+    router.back();
+  };
+
+  const ActionButtons = () => {
+    return (
+      <Button
+        onClick={handleGoBack}
+        leftIcon={<ArrowBackIcon />}
+        variant="solid"
+        rounded="md"
+        colorScheme="gray"
+      >
+        Back to List
+      </Button>
+    );
+  };
+
   return (
     <Container>
-      <PageHeading>📦 {show.lot.lotName}</PageHeading>
+      <PageHeading actions={<ActionButtons />}>📦 {show.lot.lotName}</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <LotInfo lot={show.lot} />
         {show.batches && <LotBatches rows={show.batches} />}

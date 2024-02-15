@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Flex, Link, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
@@ -12,7 +12,7 @@ export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
         <Tooltip label={label} aria-label={label}>
           <span>
             <Flex gap={2} alignItems={"center"}>
-              {finalFarmerId} <ExternalLinkIcon />
+              {finalFarmerId} <ArrowForwardIcon />
             </Flex>
           </span>
         </Tooltip>

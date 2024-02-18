@@ -3,7 +3,7 @@ import { ROLES } from "@static/constants";
 import React, { useEffect, useMemo, useState } from "react";
 
 import AccesserForm from "./form";
-import { getDropdownArray, getInitialOptionsAndValues } from "./helpers";
+import { getDropdownArray, getHighestPriorityRole, getInitialOptionsAndValues } from "./helpers";
 import AccesserLoading from "./loading";
 
 interface AccesserProps {
@@ -18,7 +18,7 @@ const parsedAccessorRole = (role) => {
     return ROLES.UNION;
   }
 
-  return role;
+  return getHighestPriorityRole(role);
 };
 
 /**
@@ -32,7 +32,7 @@ export default function Accesser({ toRole, onChange, onTouch }: AccesserProps) {
   const { authorizedRoles } = useGlobalState();
   const parsedRole = authorizedRoles.includes("ROLE_ADMIN")
     ? "ROLE_ADMIN"
-    : useMemo(() => parsedAccessorRole(authorizedRoles[0]), [authorizedRoles]);
+    : useMemo(() => parsedAccessorRole(authorizedRoles), [authorizedRoles]);
   const roles = getDropdownArray(parsedRole, toRole);
 
   const [initialState, setInitialState] = useState<any>();

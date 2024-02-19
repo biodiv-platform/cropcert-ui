@@ -111,7 +111,7 @@ function BatchListPageComponent() {
         isDisabled={
           showTypeError ||
           selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE], user)
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
         }
         onClick={handleOnCreateLot}
         leftIcon={<AddIcon />}
@@ -153,12 +153,14 @@ function BatchListPageComponent() {
 
       <MultipleTypeWarning show={showTypeError} />
 
-      {showAlert && (
-        <Alert status="success" variant="subtle" marginY={2} rounded={"md"}>
-          <AlertIcon />
-          {t("traceability:batch.batch_ready_for_lot")}
-        </Alert>
-      )}
+      {state.batch.length
+        ? showAlert && (
+            <Alert status="success" variant="left-accent" marginY={2} rounded={"md"}>
+              <AlertIcon />
+              {t("traceability:batch.batch_ready_for_lot")}
+            </Alert>
+          )
+        : null}
 
       {state.isLoading ? (
         <Spinner />
@@ -180,6 +182,14 @@ function BatchListPageComponent() {
                 style: {
                   background: "var(--chakra-colors-gray-100)!important",
                   opacity: "0.5",
+                },
+              },
+              {
+                when: (row) => row.isReadyForLot && !row.lotId,
+                style: {
+                  borderLeft: "5px solid var(--chakra-colors-green-500)",
+                  borderRadius: "6px",
+                  backgroundColor: "var(--chakra-colors-green-50)",
                 },
               },
             ]}

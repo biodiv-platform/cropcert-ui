@@ -44,3 +44,12 @@ export const getInitialOptionsAndValues = async (roles: string[]): Promise<{ opt
   }
   return { options, values };
 };
+
+export const getHighestPriorityRole = (roles) => {
+  // Filter roles that exist in ROLE_HIERARCHY and find the one with the highest priority.
+  return (
+    roles
+      ?.filter((role) => ROLE_HIERARCHY.includes(role))
+      .sort((a, b) => ROLE_HIERARCHY.indexOf(a) - ROLE_HIERARCHY.indexOf(b))[0] || null
+  );
+};

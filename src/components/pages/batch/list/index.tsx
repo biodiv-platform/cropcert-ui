@@ -189,7 +189,7 @@ function BatchListPageComponent() {
                 style: {
                   borderLeft: "5px solid var(--chakra-colors-green-500)",
                   borderRadius: "6px",
-                  backgroundColor: "#F0FFF4",
+                  backgroundColor: "var(--chakra-colors-green-50)",
                 },
               },
             ]}

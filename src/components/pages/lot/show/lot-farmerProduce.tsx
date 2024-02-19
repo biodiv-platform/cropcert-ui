@@ -39,7 +39,7 @@ export default function LotFarmerProduce({ rows }) {
     },
     {
       name: "GRN Number",
-      selector: (row) => row["grnNumber"],
+      selector: (row) => row["calculateGrn"],
       maxWidth: "150px",
       sortable: true,
       right: true,

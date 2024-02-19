@@ -111,7 +111,7 @@ function BatchListPageComponent() {
         isDisabled={
           showTypeError ||
           selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE], user)
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
         }
         onClick={handleOnCreateLot}
         leftIcon={<AddIcon />}

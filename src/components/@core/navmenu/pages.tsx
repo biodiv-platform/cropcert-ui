@@ -9,7 +9,7 @@ import ListItems from "./pages-list-items";
 const PagesNavmenu = ({ staticLinks }) => {
   const { pages } = useGlobalState();
   const router = useRouter();
-  const finalPages = useMemo(() => pages.filter((o) => o.id !== 1 && o.showInPrimaryMenu), [pages]);
+  const finalPages = useMemo(() => pages.filter((o) => o.id !== 1 && o.showInMenu), [pages]);
 
   return (
     <ListItems

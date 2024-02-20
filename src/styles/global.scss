@@ -57,6 +57,38 @@ input:disabled {
   min-height: var(--page-height);
 }
 
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  .chakra-collapse,
+  .show-print {
+    overflow: unset !important;
+    display: unset !important;
+    opacity: unset !important;
+    height: unset !important;
+  }
+
+  html,
+  body {
+    background: none !important;
+  }
+
+  #menu {
+    position: absolute !important;
+  }
+
+  .pagebreak {
+    page-break-before: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+}
+
 /* For pages */
 h1,
 h2,

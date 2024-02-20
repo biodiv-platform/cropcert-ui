@@ -5,5 +5,9 @@
   "document_updated": "document updated",
   "flag_removed": "flag removed",
   "flagged": "flagged",
+  "load_more_activity": "Load more activity ↺",
+  "page_created": "page created",
+  "page_deleted": "page deleted",
+  "page_updated": "page updated",
   "unflagged": "flagged"
 }

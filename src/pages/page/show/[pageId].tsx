@@ -3,7 +3,7 @@ import { axGetPageByID } from "@services/pages.service";
 import React from "react";
 
 export default function PageShowPage({ data }) {
-  return <PageShowPageComponent page={data} />;
+  return <PageShowPageComponent page={data} showComments={data.allowComments} />;
 }
 
 export const getServerSideProps = async (ctx) => {

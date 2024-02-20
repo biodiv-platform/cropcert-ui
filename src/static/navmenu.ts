@@ -1,5 +1,7 @@
 import { ROLES } from "./constants";
 
+export const containerMaxW = { md: "6xl", lg: "7xl" };
+
 export const navmenuPre = {
   id: 10000,
   title: "Dashboard",

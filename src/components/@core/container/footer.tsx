@@ -14,7 +14,7 @@ import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
 import GithubIcon from "@icons/github";
 import MailIcon from "@icons/mail";
-import YouTubeIcon from "@icons/youtube";
+import TwitterIcon from "@icons/twitter";
 import { SITE_TITLE } from "@static/constants";
 import { containerMaxW } from "@static/navmenu";
 import NextLink from "next/link";
@@ -62,15 +62,19 @@ export default function Footer() {
               {t("common:license")} (v{packagejson.version})
             </Text>
             <Stack direction="row" spacing={6}>
-              <SocialButton label="Mail" href={SITE_CONFIG.FOOTER.MAIL} children={<MailIcon />} />
+              <SocialButton
+                label="Mail"
+                href={SITE_CONFIG.FOOTER.SOCIAL.MAIL.URL}
+                children={<MailIcon />}
+              />
               <SocialButton
                 label="YouTube"
-                href={SITE_CONFIG.FOOTER.YOUTUBE}
-                children={<YouTubeIcon />}
+                href={SITE_CONFIG.FOOTER.SOCIAL.TWITTER.URL}
+                children={<TwitterIcon />}
               />
               <SocialButton
                 label="GitHub"
-                href={SITE_CONFIG.FOOTER.GITHUB}
+                href={SITE_CONFIG.FOOTER.SOCIAL.GITHUB.URL}
                 children={<GithubIcon />}
               />
             </Stack>

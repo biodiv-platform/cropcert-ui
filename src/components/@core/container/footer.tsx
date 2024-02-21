@@ -68,7 +68,7 @@ export default function Footer() {
                 children={<MailIcon />}
               />
               <SocialButton
-                label="YouTube"
+                label="Twitter"
                 href={SITE_CONFIG.FOOTER.SOCIAL.TWITTER.URL}
                 children={<TwitterIcon />}
               />

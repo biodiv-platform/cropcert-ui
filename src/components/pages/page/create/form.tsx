@@ -15,6 +15,9 @@ const defaultValues = {
   parentId: 0,
   sticky: true,
   pageType: PAGE_TYPES.CONTENT,
+  allowComments: false,
+  showInFooter: false,
+  showInMenu: false,
 };
 
 export default function PageCreateForm(): JSX.Element {

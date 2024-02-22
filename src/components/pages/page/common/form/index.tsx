@@ -103,6 +103,7 @@ export default function PageForm({
               name="pageType"
               label={t("page:form.type.title")}
               options={contentTypeOptions}
+              shouldPortal={true}
             />
           </GridItem>
         </SimpleGrid>
@@ -118,15 +119,6 @@ export default function PageForm({
         <Box hidden={!isPageTypeRedirect}>
           <TextBoxField name="url" label={t("page:form.url")} />
         </Box>
-
-        {!hideParentId && (
-          <SelectInputField
-            name="parentId"
-            label={t("page:form.parent")}
-            options={parentOptions}
-            shouldPortal={true}
-          />
-        )}
 
         <Box hidden={isPageTypeRedirect}>
           <Accordion allowToggle>
@@ -170,7 +162,14 @@ export default function PageForm({
             </AccordionButton>
             <AccordionPanel>
               <TextAreaField name="description" label={t("page:form.description")} />
-
+              {!hideParentId && (
+                <SelectInputField
+                  name="parentId"
+                  label={t("page:form.parent")}
+                  options={parentOptions}
+                  shouldPortal={true}
+                />
+              )}
               <SwitchField name="sticky" mb={2} label={t("page:form.is_sidebar")} />
               <SwitchField name="showInMenu" mb={2} label={t("page:form.is_menu")} />
               <SwitchField name="showInFooter" mb={2} label={t("page:form.is_footer")} />

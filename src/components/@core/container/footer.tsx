@@ -1,30 +1,34 @@
 import {
   Box,
-  ButtonGroup,
   chakra,
+  Container,
   Flex,
   Image,
+  Link,
+  SimpleGrid,
   Stack,
   Text,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
+import useGlobalState from "@hooks/use-global-state";
 import GithubIcon from "@icons/github";
 import MailIcon from "@icons/mail";
 import TwitterIcon from "@icons/twitter";
 import { SITE_TITLE } from "@static/constants";
+import { containerMaxW } from "@static/navmenu";
+import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 import packagejson from "../../../../package.json";
-import Container from ".";
 
 const SocialButton = ({ children, label, href }) => (
   <chakra.button
-    bg="gray.200"
+    bg="blackAlpha.100"
     rounded="full"
-    w={10}
-    h={10}
+    w={8}
+    h={8}
     cursor="pointer"
     as="a"
     href={href}
@@ -32,10 +36,9 @@ const SocialButton = ({ children, label, href }) => (
     alignItems="center"
     justifyContent="center"
     transition="background 0.3s ease"
-    _hover={{ bg: "gray.300" }}
-    fontSize="xl"
+    _hover={{ bg: "blackAlpha.200" }}
     target="_blank"
-    rel="noopener noreferrer"
+    rel="noreferrer noopener"
   >
     <VisuallyHidden>{label}</VisuallyHidden>
     {children}
@@ -44,17 +47,21 @@ const SocialButton = ({ children, label, href }) => (
 
 export default function Footer() {
   const { t } = useTranslation();
+  const { pages } = useGlobalState();
 
   return (
-    <Box bg="gray.100">
-      <Container as="footer" role="contentinfo" py={{ base: "12", md: "16" }}>
-        <Stack spacing={{ base: "4", md: "5" }}>
-          <Stack justify="space-between" direction="row" align="center">
+    <Box bg="gray.100" color="gray.700" className="no-print">
+      <Container as={Stack} maxW={containerMaxW} py={20}>
+        <SimpleGrid templateColumns={{ md: "4fr 2fr" }} spacing={8}>
+          <Stack spacing={4}>
             <Flex gap={6}>
               <Image alt={SITE_TITLE} src={SITE_CONFIG.SITE.ICON} />
               <Image src="/eu.svg" />
             </Flex>
-            <ButtonGroup variant="ghost" spacing={4}>
+            <Text fontSize="sm" color="subtle">
+              {t("common:license")} (v{packagejson.version})
+            </Text>
+            <Stack direction="row" spacing={6}>
               <SocialButton
                 label="Mail"
                 href={SITE_CONFIG.FOOTER.SOCIAL.MAIL.URL}
@@ -70,12 +77,20 @@ export default function Footer() {
                 href={SITE_CONFIG.FOOTER.SOCIAL.GITHUB.URL}
                 children={<GithubIcon />}
               />
-            </ButtonGroup>
+            </Stack>
           </Stack>
-          <Text fontSize="sm" color="subtle">
-            {t("common:license")} (v{packagejson.version})
-          </Text>
-        </Stack>
+          <div>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+              {pages
+                .filter((page) => page.showInFooter !== false)
+                .map((page) => (
+                  <NextLink href={`/page/show/${page.id}`} key={page.id}>
+                    <Link>{page.title}</Link>
+                  </NextLink>
+                ))}
+            </SimpleGrid>
+          </div>
+        </SimpleGrid>
       </Container>
     </Box>
   );

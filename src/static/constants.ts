@@ -68,6 +68,7 @@ export const ROLES = {
   ADMIN: "ROLE_ADMIN",
   ODK_APP_USER: "ODK_APP_USER",
   ODK_WEB_USER: "ODK_WEB_USER",
+  PAGE_EDITOR: "ROLE_PAGE_EDITOR",
 };
 
 export const KEYS_TO_ROLES = {

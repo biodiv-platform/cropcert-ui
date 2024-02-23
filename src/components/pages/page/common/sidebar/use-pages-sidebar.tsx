@@ -47,7 +47,7 @@ export const UsePagesProvider = ({
   }, [pages]);
 
   useEffect(() => {
-    setCanEdit(hasAccess([ROLES.ADMIN], user));
+    setCanEdit(hasAccess([ROLES.ADMIN, ROLES.PAGE_EDITOR], user));
   }, []);
 
   const savePages = async () => {

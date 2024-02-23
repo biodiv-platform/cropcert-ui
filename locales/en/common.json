@@ -23,6 +23,7 @@
       "others_flagged": "Others who flagged",
       "title": "Flag"
     },
+    "name": "Actions",
     "odk": {
       "odkAppuser": "ODK appuser",
       "odkWebuser": "ODK webuser",
@@ -30,7 +31,6 @@
       "qrCodeHelpText": "This QR Code will help you set up the project in the ODK Collect app on your mobile.",
       "title": "Login to ROBUST Web platform as webuser"
     },
-    "name": "Actions",
     "select_all": "Select All",
     "title": "Activity",
     "unselect_all": "Unselect All"
@@ -108,17 +108,16 @@
     "resource_info": "Resource Information",
     "save": {
       "failure": "Unable to upload resource",
-      "title": "Save",
-      "success": "Resource uploaded Sucessfully"
+      "success": "Resource uploaded Sucessfully",
+      "title": "Save"
     },
     "selection": "Current resource on this page is selected",
-    "update_sucess": "Resource Updated sucessfully",
     "tags": "Tags",
     "total": "Total Resources",
+    "update_sucess": "Resource Updated sucessfully",
     "upload_time": "Upload Time",
     "url": "Url"
   },
-
   "save": "Save",
   "select_project": "Select Project",
   "success": "Success",

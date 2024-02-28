@@ -21,11 +21,17 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
 
-const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false });
+// const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false });
+const MultiMarkerMap = dynamic(() => import("./geojson-multi-marker-map"), { ssr: false });
 
 const MultiMarkerMapModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [coordinatesArray, setCoordinatesArray] = useState([]);
+  const [geojsonData, setGeojsonData] = useState([]);
+  const [recordCount, setRecordCount] = useState({
+    totalFarmer: 0,
+    totalPlots: 0,
+  });
+
   const { t } = useTranslation();
 
   const [fetchData, setFetchData] = useState(false);
@@ -34,20 +40,31 @@ const MultiMarkerMapModal = () => {
     queryKey: ["AllFarmerByUnion"],
     queryFn: () => axGetAllFarmerByUnion(5), // unionId is hardcoded
     enabled: fetchData,
-    staleTime: 1000 * 60 * 60 * 24 * 10, // 10 days in milliseconds
+    staleTime: 1000 * 60 * 60 * 24 * 2, // 2 days in milliseconds
     gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
   });
 
+  const getFarmerCountAndPlots = (selected) => {
+    const totalFarmer = selected.length;
+    let totalPlots = 0;
+    selected.forEach((farmer) => {
+      totalPlots += farmer.location.type === "Point" ? 1 : farmer.location.coordinates.length;
+    });
+    return { totalFarmer, totalPlots };
+  };
+
   useEffect(() => {
     if (data) {
-      setCoordinatesArray(getSelectedFarmerMemberData(data.data));
+      setGeojsonData(getSelectedFarmerMemberData(data.data));
+      setRecordCount(getFarmerCountAndPlots(data.data));
     }
   }, [data]);
 
   const handleGetAllUnionFarmerData = () => {
     setFetchData(true);
     if (data) {
-      setCoordinatesArray(getSelectedFarmerMemberData(data.data));
+      setGeojsonData(getSelectedFarmerMemberData(data.data));
+      setRecordCount(getFarmerCountAndPlots(data.data));
     }
   };
 
@@ -55,19 +72,26 @@ const MultiMarkerMapModal = () => {
     return (
       selected &&
       selected.map(({ location, farmerId, farmerName, cc, _id }) => ({
-        lat: location.coordinates[1],
-        long: location.coordinates[0],
-        name: farmerName,
-        farmerId,
-        color: CC_COLOR_MAPPING[cc],
-        cc: cc,
-        _id,
+        type: "Feature",
+        geometry: {
+          type: location.type,
+          coordinates: location.coordinates,
+        },
+        properties: {
+          name: farmerName,
+          _id: _id,
+          farmerId: farmerId,
+          cc: cc,
+          noOfFarms: location.type === "Point" ? 1 : location.coordinates.length,
+          color: CC_COLOR_MAPPING[cc],
+        },
       }))
     );
   };
 
   const getCoordinatesFromFarmerMember = (selected) => {
-    setCoordinatesArray(getSelectedFarmerMemberData(selected.selectedFarmerMember));
+    setGeojsonData(getSelectedFarmerMemberData(selected.selectedFarmerMember));
+    setRecordCount(getFarmerCountAndPlots(selected.selectedFarmerMember));
     onOpen();
   };
 
@@ -83,7 +107,9 @@ const MultiMarkerMapModal = () => {
       <ModalOverlay />
       <ModalContent>
         <Flex>
-          <ModalHeader flex={1}>{t("traceability:farmer.farmer_modal_heading")}</ModalHeader>
+          <ModalHeader flex={1} paddingBottom={1}>
+            {t("traceability:farmer.farmer_modal_heading")}
+          </ModalHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>
               {!isLoading && (
@@ -104,22 +130,28 @@ const MultiMarkerMapModal = () => {
         <ModalBody>
           {error && <Text>Error loading data ...</Text>}
 
-          {coordinatesArray &&
+          {geojsonData &&
             (isLoading ? (
               <Flex alignItems={"center"} gap={2}>
                 <Spinner size="xs" />
                 <Text>Loading...</Text>
               </Flex>
             ) : (
-              <Box
-                width={"100%"}
-                height={{ base: "400", md: "400", lg: "650", xl: "850" }}
-                boxShadow="md"
-                p={4}
-                rounded={"md"}
-              >
-                <MultiMarkerMap coordinatesArray={coordinatesArray} />
-              </Box>
+              <Flex direction={"column"}>
+                <Box>
+                  <Box>Total Farmer Selected: {recordCount.totalFarmer}</Box>
+                  <Box>Total Farm Plots: {recordCount.totalPlots}</Box>
+                </Box>
+                <Box
+                  width={"100%"}
+                  height={{ base: "400", md: "400", lg: "650", xl: "810" }}
+                  boxShadow="md"
+                  p={4}
+                  rounded={"md"}
+                >
+                  <MultiMarkerMap geojsonData={geojsonData} />
+                </Box>
+              </Flex>
             ))}
         </ModalBody>
       </ModalContent>

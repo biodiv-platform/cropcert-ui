@@ -1,3 +1,4 @@
+// TODO: DELETE THIS FILE AFTER TESTING
 import { Box, Heading, Link, Text } from "@chakra-ui/react";
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 import { divIcon, latLng, latLngBounds } from "leaflet";

@@ -17,7 +17,8 @@ import React from "react";
 
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
+// const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
   const farmer_dob = new Date(farmer["dateOfBirth"]);
@@ -97,12 +98,17 @@ export default function FarmerInfo({ farmer }) {
     },
   ];
 
-  const farmerInfo = {
-    lat: farmer.location.coordinates[1],
-    long: farmer.location.coordinates[0],
-    name: farmer.farmerName,
-    farmerId: farmer.farmerId,
-    cc: farmer.cc,
+  const geoJsonData = {
+    type: "Feature",
+    geometry: {
+      type: farmer.location.type,
+      coordinates: farmer.location.coordinates,
+    },
+    properties: {
+      name: farmer.farmerName,
+      farmerId: farmer.farmerId,
+      cc: farmer.cc,
+    },
   };
 
   // ODK image constants
@@ -165,13 +171,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap
-              farmerInfo={farmerInfo}
-              isDraggable={undefined}
-              setNewLatLng={undefined}
-              resetMarker={undefined}
-              setResetMarker={undefined}
-            />
+            <FarmerMap geoJsonData={geoJsonData} />
           </Box>
         </Stack>
       </Flex>

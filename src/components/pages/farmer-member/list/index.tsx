@@ -68,7 +68,7 @@ function FarmerMemberPageComponent() {
           isDisabled={
             showTypeError ||
             selectedFarmerMember.length === 0 ||
-            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
           leftIcon={<AddIcon />}
         >

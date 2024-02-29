@@ -10,6 +10,8 @@
     "delete_farmer_message": "Are you sure you want to delete this farmer?",
     "delete_farmer_success": "Farmer deleted successfully.",
     "farmer_modal_heading": "Farm Locations",
+    "farmer_modal_total_farmer_selected": "Total Farmer Selected",
+    "farmer_modal_total_farm_plots": "Total Farm Plots",
     "update_farmer": "Update Farmer",
     "update_farmer_error": "Error occurred while updating farmer.",
     "update_farmer_success": "Farmer updated successfully."

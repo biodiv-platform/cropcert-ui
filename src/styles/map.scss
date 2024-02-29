@@ -2,10 +2,16 @@
 .leaflet-popup-content p {
     margin: 0;
     padding: 0;
-  }
+}
 
 
-  .leaflet-container {
+.leaflet-container {
     width: 100wh; 
     height: 100vh;
-  }
+}
+
+.popup-heading{
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}

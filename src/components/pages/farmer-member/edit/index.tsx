@@ -111,7 +111,7 @@ export default function FarmerEditPageComponent({ edit }) {
       <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
-        <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
+        {/* <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
           <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Heading size="md">{t("traceability:location.location_heading")}</Heading>
             {hasEditDeleteAccess &&
@@ -167,7 +167,7 @@ export default function FarmerEditPageComponent({ edit }) {
               setResetMarker={setResetMarker}
             />
           </Box>
-        </Stack>
+        </Stack> */}
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
           <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}

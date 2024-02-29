@@ -1,4 +1,5 @@
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
+import { mapLayers } from "@static/constants";
 import L, { divIcon, latLngBounds } from "leaflet";
 import React, { useEffect } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -65,14 +66,14 @@ export default function FarmerMap({ geojsonData }) {
     <MapContainer scrollWheelZoom={true} style={mapStyle} className="markercluster-map">
       <ZoomOut />
       <LayersControl>
-        <LayersControl.BaseLayer name="Open Street Map">
+        <LayersControl.BaseLayer name={mapLayers.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Google Map">
+        <LayersControl.BaseLayer name={mapLayers.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -80,7 +81,7 @@ export default function FarmerMap({ geojsonData }) {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name="Google Map Satellite">
+        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -90,7 +91,7 @@ export default function FarmerMap({ geojsonData }) {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Google Map Terrain">
+        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"

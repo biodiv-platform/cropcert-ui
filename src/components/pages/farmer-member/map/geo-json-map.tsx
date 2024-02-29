@@ -1,3 +1,4 @@
+import { mapLayers } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect, useMemo } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -43,14 +44,14 @@ const GeoJsonMap = ({ geoJsonData }) => {
   return (
     <MapContainer center={center} zoom={13} style={{ height: "400px", width: "100%" }}>
       <LayersControl>
-        <LayersControl.BaseLayer name="Open Street Map">
+        <LayersControl.BaseLayer name={mapLayers.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Google Map">
+        <LayersControl.BaseLayer name={mapLayers.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -58,7 +59,7 @@ const GeoJsonMap = ({ geoJsonData }) => {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name="Google Map Satellite">
+        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -68,7 +69,7 @@ const GeoJsonMap = ({ geoJsonData }) => {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Google Map Terrain">
+        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"

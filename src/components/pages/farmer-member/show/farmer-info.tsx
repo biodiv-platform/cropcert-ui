@@ -17,7 +17,6 @@ import React from "react";
 
 import FarmerShowPanel from "./panel";
 
-// const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
 const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {

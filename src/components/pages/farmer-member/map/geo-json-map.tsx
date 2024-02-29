@@ -1,4 +1,4 @@
-import { mapLayers } from "@static/constants";
+import { locationType, mapLayers } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect, useMemo } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -6,13 +6,17 @@ import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } f
 const GeoJsonMap = ({ geoJsonData }) => {
   // Calculate center based on GeoJSON data
   const center = useMemo(() => {
-    if (geoJsonData && geoJsonData.type === "Feature" && geoJsonData.geometry.type === "Point") {
+    if (
+      geoJsonData &&
+      geoJsonData.type === "Feature" &&
+      geoJsonData.geometry.type === locationType.POINT
+    ) {
       // Directly return the coordinates for a single point
       return [geoJsonData.geometry.coordinates[1], geoJsonData.geometry.coordinates[0]];
     } else if (
       geoJsonData &&
       geoJsonData.type === "Feature" &&
-      geoJsonData.geometry.type === "MultiPoint"
+      geoJsonData.geometry.type === locationType.MULTI_POINT
     ) {
       // Calculate the average of coordinates for a MultiPoint
       const coords = geoJsonData.geometry.coordinates;
@@ -27,7 +31,10 @@ const GeoJsonMap = ({ geoJsonData }) => {
       return [average[1], average[0]]; // Convert [long, lat] to [lat, long] for Leaflet
     }
     // Default center if no data or unsupported type
-    return [42.35725, -71.060982];
+
+    const defaultUgandaCenter = [1.438082, 32.3232571]; // if no data, center on Uganda
+
+    return defaultUgandaCenter;
   }, [geoJsonData]);
 
   function InvalidateCache() {

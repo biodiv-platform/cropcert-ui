@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { axGetAllFarmerByUnion } from "@services/farmer.service";
-import { CC_COLOR_MAPPING } from "@static/constants";
+import { CC_COLOR_MAPPING, locationType } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
@@ -21,7 +21,6 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useListener } from "react-gbus";
 
-// const MultiMarkerMap = dynamic(() => import("./multi-marker-map"), { ssr: false });
 const MultiMarkerMap = dynamic(() => import("./geojson-multi-marker-map"), { ssr: false });
 
 const MultiMarkerMapModal = () => {
@@ -82,7 +81,7 @@ const MultiMarkerMapModal = () => {
           _id: _id,
           farmerId: farmerId,
           cc: cc,
-          noOfFarms: location.type === "Point" ? 1 : location.coordinates.length,
+          noOfFarms: location.type === locationType.POINT ? 1 : location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
           color: CC_COLOR_MAPPING[cc],
         },
       }))
@@ -139,8 +138,14 @@ const MultiMarkerMapModal = () => {
             ) : (
               <Flex direction={"column"}>
                 <Box>
-                  <Box>Total Farmer Selected: {recordCount.totalFarmer}</Box>
-                  <Box>Total Farm Plots: {recordCount.totalPlots}</Box>
+                  <Box>
+                    {t("traceability:farmer.farmer_modal_total_farmer_selected")}:{" "}
+                    {recordCount.totalFarmer}
+                  </Box>
+                  <Box>
+                    {t("traceability:farmer.farmer_modal_total_farm_plots")}:{" "}
+                    {recordCount.totalPlots}
+                  </Box>
                 </Box>
                 <Box
                   width={"100%"}

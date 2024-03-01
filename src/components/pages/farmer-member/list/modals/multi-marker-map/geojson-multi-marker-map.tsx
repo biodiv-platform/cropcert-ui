@@ -11,7 +11,7 @@ export default function FarmerMap({ geojsonData }) {
   };
 
   const calculateBounds = (geojsonData) => {
-    const bounds = latLngBounds();
+    const bounds = latLngBounds([]);
 
     geojsonData.forEach((feature) => {
       const { type, coordinates } = feature.geometry;

@@ -224,3 +224,15 @@ export const otherFarmEnterprisesList = [
   { label: "poultry", value: "poultry" },
   { label: "livestock", value: "livestock" },
 ];
+
+export const mapLayers = {
+  OSM: "Open Street Map",
+  GMAP: "Google Map",
+  GMAP_SAT: "Google Map Satellite",
+  GMAP_TERRAIN: "Google Map Terrain",
+};
+
+export const locationType = {
+  POINT: "Point",
+  MULTI_POINT: "MultiPoint",
+};

@@ -53,7 +53,7 @@ function FarmerMemberPageComponent() {
 
     // for time until next sync countdown
     const interval = setInterval(() => {
-      setTime(timeUntilNext(60));
+      setTime(timeUntilNext(120));
     }, 1000);
     return () => clearInterval(interval);
   }, []);

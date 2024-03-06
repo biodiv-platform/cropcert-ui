@@ -78,11 +78,16 @@ function FarmerMemberPageComponent() {
   };
 
   const handleSyncData = async () => {
-    setIsSyncing(true);
-    await axSyncFMDataOnDemand();
-    window.location.reload();
-    notification("Data Synced Successfully", NotificationType.Success);
-    setIsSyncing(false);
+    try {
+      setIsSyncing(true);
+      await axSyncFMDataOnDemand();
+      window.location.reload();
+      notification(t("traceability:sync_status.success"), NotificationType.Success);
+      setIsSyncing(false);
+    } catch (error) {
+      notification(t("traceability:sync_status.error"), NotificationType.Error);
+      setIsSyncing(false);
+    }
   };
 
   const ActionButtons = () => {
@@ -108,7 +113,9 @@ function FarmerMemberPageComponent() {
           isDisabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
           leftIcon={isSyncing ? <Spinner size="xs" /> : <RepeatIcon />}
         >
-          {isSyncing ? "Syncing..." : "Sync Data"}
+          {isSyncing
+            ? t("traceability:sync_status.syncing")
+            : t("traceability:sync_status.sync_now")}
         </Button>
       </ButtonGroup>
     );

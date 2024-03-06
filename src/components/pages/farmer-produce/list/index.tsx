@@ -112,7 +112,7 @@ function FarmerListPageComponent() {
       0
     );
     return (
-      <ButtonGroup spacing={4}>
+      <ButtonGroup display={"flex"} flexWrap={"wrap"} gap={4}>
         <Box
           display="flex"
           alignItems="center"
@@ -160,7 +160,7 @@ function FarmerListPageComponent() {
       <PageHeading actions={<ActionButtons />}>
         🚜 {t("traceability:tab_titles.farmer_produce")}
       </PageHeading>
-      <Flex justifyContent={"space-between"} alignItems={"center"}>
+      <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
         <Box my={2}>
           {t("traceability:total_records")}:{" "}
           {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}

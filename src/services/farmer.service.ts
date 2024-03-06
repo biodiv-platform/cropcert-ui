@@ -2,7 +2,7 @@ import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification";
 
-export const axListFarmer = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+export const axListFarmerProduce = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmerProduce/all`, {
       params: { ccCodes: ccCodes.toString(), offset, limit },
@@ -88,6 +88,30 @@ export const axUpdateFarmerById = async (farmerId, payload) => {
 export const axDeleteFarmerById = async (farmerId) => {
   try {
     const { data } = await http.delete(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`);
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
+export const axSyncFMDataOnDemand = async () => {
+  try {
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmer/fetchFarmerMemberFromODKApiOnDemand`
+    );
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
+export const axSyncFPDataOnDemand = async () => {
+  try {
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmerProduce/fetchFarmerProduceFromODKApiOnDemand`
+    );
     return { success: true, data };
   } catch (e) {
     notification(e);

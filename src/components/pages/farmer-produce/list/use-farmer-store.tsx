@@ -1,10 +1,10 @@
-import { axListFarmer } from "@services/farmer.service";
+import { axListFarmerProduce } from "@services/farmer.service";
 import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
 const DEFAULT_STATE = { offset: 0, hasMore: false, isLoading: true, farmer: [] as any[] };
 
-export function useFarmerStore() {
+export function useFarmerProduceStore() {
   const [state, setState] = useImmer(DEFAULT_STATE);
 
   const addFarmerProduce = (farmer) => {
@@ -53,7 +53,7 @@ export function useFarmerStore() {
         _draft.isLoading = true;
       });
       const offset = reset ? 0 : state.offset;
-      const response = await axListFarmer(ccCodes, offset);
+      const response = await axListFarmerProduce(ccCodes, offset);
       setFarmerProduces(response);
     }
   };

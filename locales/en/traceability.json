@@ -29,5 +29,9 @@
     "lot": "Lot(s)"
   },
   "title": "Traceability",
-  "total_records": "Total Records"
+  "total_records": "Total Records",
+  "sync_status": {
+    "last_synced": "Last Synced",
+    "next_sync": "Next Sync in"
+  }
 }

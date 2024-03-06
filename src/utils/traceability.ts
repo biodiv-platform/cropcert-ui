@@ -10,6 +10,9 @@ export const timeUntilNext = (minutes) => {
 };
 
 export const getLocalTime = (date) => {
-  const options = { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
-  return new Date(date).toLocaleTimeString("en-US", options);
+  return new Date(date).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 };

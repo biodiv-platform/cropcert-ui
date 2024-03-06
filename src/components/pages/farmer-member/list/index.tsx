@@ -126,7 +126,7 @@ function FarmerMemberPageComponent() {
         </Box>
         <Box fontSize={"xs"}>
           {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data.data)} |{" "}
+          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} |{" "}
           {t("traceability:sync_status.next_sync")} {Math.floor(time / 3600)}:
           {Math.floor((time / 60) % 60)}:{time % 60}
         </Box>

@@ -166,13 +166,12 @@ h6,
   width: 100%;
 }
 
-
 /* For react-datetime-picker with dateTimePicker class passed as props */
-.dateTimePicker .react-datetime-picker__wrapper{
+.dateTimePicker .react-datetime-picker__wrapper {
   padding-left: 11px;
 }
 
-.react-dateTimePicker{
+.react-dateTimePicker {
   width: 100% !important;
   border: 1px solid var(--chakra-colors-gray-300);
   border-radius: 0.35rem;
@@ -180,14 +179,14 @@ h6,
   padding: 0.5rem 1rem;
 }
 
-.react-dateTimePicker:focus-visible{
+.react-dateTimePicker:focus-visible {
   outline: none;
   border: 2px solid var(--chakra-colors-blue-500);
 }
 
 .react-datepicker__input-container input:disabled {
   background-color: white; /* Light gray background */
-  color: #A0AEC0; /* Dimmed text color */
+  color: #a0aec0; /* Dimmed text color */
   cursor: not-allowed; /* Cursor indicating disabled state */
-  border: 1px solid #E2E8F0; /* Custom border color */
+  border: 1px solid #e2e8f0; /* Custom border color */
 }

@@ -11,18 +11,18 @@ export default function FarmerMap({ geojsonData }) {
   };
 
   const calculateBounds = (geojsonData) => {
-    const bounds = latLngBounds([]);
-
-    geojsonData.forEach((feature) => {
+    const boundsArr = geojsonData.map((feature) => {
       const { type, coordinates } = feature.geometry;
 
       switch (type) {
         case "Point":
-          bounds.extend([coordinates[1], coordinates[0]]);
+          // bounds.extend([coordinates[1], coordinates[0]]);
+          return [coordinates[1], coordinates[0]];
           break;
         case "MultiPoint":
           coordinates.forEach((coord) => {
-            bounds.extend([coord[1], coord[0]]);
+            // bounds.extend([coord[1], coord[0]]);
+            return [coord[1], coord[0]];
           });
           break;
         // Add cases for other geometry types if needed
@@ -30,6 +30,8 @@ export default function FarmerMap({ geojsonData }) {
           console.warn(`Unsupported geometry type: ${type}`);
       }
     });
+
+    const bounds = latLngBounds(boundsArr);
 
     return bounds;
   };
@@ -54,10 +56,12 @@ export default function FarmerMap({ geojsonData }) {
   const ZoomOut = () => {
     const map = useMap();
 
+    console.log("zoom out");
+
     useEffect(() => {
       const bounds = calculateBounds(geojsonData);
       map.fitBounds(bounds, { padding: [40, 40] });
-    }, [geojsonData]);
+    }, []);
 
     return null;
   };

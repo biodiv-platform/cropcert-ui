@@ -4,6 +4,7 @@ import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
 import { axSyncFMDataOnDemand } from "@services/farmer.service";
 import { axGetLastSyncedTimeFM } from "@services/traceability.service";
@@ -12,7 +13,7 @@ import { DRAW_MAP } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
-import { getLocalTime, timeUntilNext } from "@utils/traceability";
+import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -31,7 +32,6 @@ function FarmerMemberPageComponent() {
   const [showTypeError, setShowTypeError] = useState(false);
   const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [isSyncing, setIsSyncing] = useState(false);
-  const [time, setTime] = useState(0);
   const { user } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
@@ -50,12 +50,6 @@ function FarmerMemberPageComponent() {
       setHideAccessor(false);
       setCCs([0]); // dummy cc
     }
-
-    // for time until next sync countdown
-    const interval = setInterval(() => {
-      setTime(timeUntilNext(120));
-    }, 1000);
-    return () => clearInterval(interval);
   }, []);
 
   const { data, isLoading } = useQuery({
@@ -133,9 +127,7 @@ function FarmerMemberPageComponent() {
         </Box>
         <Box fontSize={"xs"}>
           {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} |{" "}
-          {t("traceability:sync_status.next_sync")} {Math.floor(time / 3600)}:
-          {Math.floor((time / 60) % 60)}:{time % 60}
+          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
         </Box>
       </Flex>
 

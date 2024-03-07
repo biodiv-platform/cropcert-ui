@@ -12,3 +12,25 @@ export const axGetColumns = async (fieldsOf) => {
     return { success: false, data: {} };
   }
 };
+
+// get last synced time for farmer member and produce from product collection
+
+export const axGetLastSyncedTimeFM = async () => {
+  try {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFM`);
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};
+
+export const axGetLastSyncedTimeFP = async () => {
+  try {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFP`);
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};

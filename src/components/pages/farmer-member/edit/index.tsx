@@ -1,5 +1,6 @@
-import { ArrowBackIcon, CheckIcon, EditIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
+/* eslint-disable @typescript-eslint/no-unused-vars */ //TODO: remove this after fixing map edit issue
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Accordion, Button, Flex } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";

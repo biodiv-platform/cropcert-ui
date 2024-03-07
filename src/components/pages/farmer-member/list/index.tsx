@@ -1,13 +1,19 @@
-import { AddIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Spinner, useDisclosure } from "@chakra-ui/react";
+import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
+import { axSyncFMDataOnDemand } from "@services/farmer.service";
+import { axGetLastSyncedTimeFM } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
+import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
+import notification, { NotificationType } from "@utils/notification";
+import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -25,6 +31,7 @@ function FarmerMemberPageComponent() {
   const { state, ...actions } = useFarmerStore();
   const [showTypeError, setShowTypeError] = useState(false);
   const [hideAccessor, setHideAccessor] = useState<boolean>();
+  const [isSyncing, setIsSyncing] = useState(false);
   const { user } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
@@ -45,6 +52,12 @@ function FarmerMemberPageComponent() {
     }
   }, []);
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["lastSyncedTimeFM"],
+    queryFn: axGetLastSyncedTimeFM,
+    refetchInterval: 60 * 60 * 1000,
+  });
+
   const handleLoadMore = () => {
     actions.listFarmerMember({ ccCodes });
   };
@@ -58,9 +71,22 @@ function FarmerMemberPageComponent() {
     emit(DRAW_MAP, { selectedFarmerMember });
   };
 
+  const handleSyncData = async () => {
+    try {
+      setIsSyncing(true);
+      await axSyncFMDataOnDemand();
+      window.location.reload();
+      notification(t("traceability:sync_status.success"), NotificationType.Success);
+      setIsSyncing(false);
+    } catch (error) {
+      notification(t("traceability:sync_status.error"), NotificationType.Error);
+      setIsSyncing(false);
+    }
+  };
+
   const ActionButtons = () => {
     return (
-      <ButtonGroup spacing={4}>
+      <ButtonGroup display={"flex"} flexWrap={"wrap"} gap={4}>
         <Button
           colorScheme="green"
           variant="solid"
@@ -74,6 +100,17 @@ function FarmerMemberPageComponent() {
         >
           Show On Map
         </Button>
+        <Button
+          colorScheme="gray"
+          variant="solid"
+          onClick={handleSyncData}
+          isDisabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
+          leftIcon={isSyncing ? <Spinner size="xs" /> : <RepeatIcon />}
+        >
+          {isSyncing
+            ? t("traceability:sync_status.syncing")
+            : t("traceability:sync_status.sync_now")}
+        </Button>
       </ButtonGroup>
     );
   };
@@ -83,10 +120,16 @@ function FarmerMemberPageComponent() {
       <PageHeading actions={<ActionButtons />}>
         🧑‍🌾 {t("traceability:tab_titles.farmer_member")}
       </PageHeading>
-      <Box my={2}>
-        {t("traceability:total_records")}:{" "}
-        {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
-      </Box>
+      <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
+        <Box my={2}>
+          {t("traceability:total_records")}:{" "}
+          {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+        </Box>
+        <Box fontSize={"xs"}>
+          {t("traceability:sync_status.last_synced")}{" "}
+          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+        </Box>
+      </Flex>
 
       <CoreGrid hidden={hideAccessor}>
         <Accesser

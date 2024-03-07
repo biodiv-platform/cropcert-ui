@@ -49,7 +49,11 @@ const GeoJsonMap = ({ geoJsonData }) => {
   }
 
   return (
-    <MapContainer center={center} zoom={13} style={{ height: "400px", width: "100%" }}>
+    <MapContainer
+      center={[center[0], center[1]]}
+      zoom={13}
+      style={{ height: "400px", width: "100%" }}
+    >
       <LayersControl>
         <LayersControl.BaseLayer name={mapLayers.OSM}>
           <TileLayer

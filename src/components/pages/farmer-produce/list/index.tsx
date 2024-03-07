@@ -1,14 +1,21 @@
-import { Box, Button, ButtonGroup, Spinner, useDisclosure } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
+import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { FarmerProduce } from "@interfaces/traceability";
+import { axSyncFPDataOnDemand } from "@services/farmer.service";
+import { axGetLastSyncedTimeFP } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
+import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
+import notification, { NotificationType } from "@utils/notification";
+import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -17,18 +24,19 @@ import InfiniteScroll from "react-infinite-scroller";
 import { batchColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
-import { useFarmerStore } from "./use-farmer-store";
+import { useFarmerProduceStore } from "./use-farmer-store";
 
 function FarmerListPageComponent() {
   const [co, setCo] = useState({} as any);
   const [ccs, setCCs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
-  const { state, ...actions } = useFarmerStore();
+  const { state, ...actions } = useFarmerProduceStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const { t } = useTranslation();
+  const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
     ccCodes.length && actions.listFarmerProduce({ ccCodes, reset: true });
@@ -37,6 +45,12 @@ function FarmerListPageComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["lastSyncedTimeFP"],
+    queryFn: axGetLastSyncedTimeFP,
+    refetchInterval: 60 * 60 * 1000,
+  });
 
   const handleLoadMore = () => {
     actions.listFarmerProduce({ ccCodes });
@@ -77,13 +91,26 @@ function FarmerListPageComponent() {
     }
   };
 
+  const handleSyncData = async () => {
+    try {
+      setIsSyncing(true);
+      await axSyncFPDataOnDemand();
+      window.location.reload();
+      notification(t("traceability:sync_status.success"), NotificationType.Success);
+      setIsSyncing(false);
+    } catch (error) {
+      notification(t("traceability:sync_status.error"), NotificationType.Error);
+      setIsSyncing(false);
+    }
+  };
+
   const ActionButtons = () => {
     const quantity = selectedFarmerProduce.reduce(
       (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
       0
     );
     return (
-      <ButtonGroup spacing={4}>
+      <ButtonGroup display={"flex"} flexWrap={"wrap"} gap={4}>
         <Box
           display="flex"
           alignItems="center"
@@ -108,6 +135,17 @@ function FarmerListPageComponent() {
         >
           Create Batch
         </Button>
+        <Button
+          colorScheme="gray"
+          variant="solid"
+          onClick={handleSyncData}
+          isDisabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
+          leftIcon={isSyncing ? <Spinner size="xs" /> : <RepeatIcon />}
+        >
+          {isSyncing
+            ? t("traceability:sync_status.syncing")
+            : t("traceability:sync_status.sync_now")}
+        </Button>
       </ButtonGroup>
     );
   };
@@ -122,10 +160,16 @@ function FarmerListPageComponent() {
       <PageHeading actions={<ActionButtons />}>
         🚜 {t("traceability:tab_titles.farmer_produce")}
       </PageHeading>
-      <Box my={2}>
-        {t("traceability:total_records")}:{" "}
-        {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
-      </Box>
+      <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
+        <Box my={2}>
+          {t("traceability:total_records")}:{" "}
+          {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
+        </Box>
+        <Box fontSize={"xs"}>
+          {t("traceability:sync_status.last_synced")}{" "}
+          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+        </Box>
+      </Flex>
 
       <CoreGrid hidden={false}>
         <Accesser

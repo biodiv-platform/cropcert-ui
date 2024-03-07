@@ -1,17 +1,16 @@
 // style to remove leaftlet popup margin and padding
 .leaflet-popup-content p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
 
 .leaflet-container {
-    width: 100wh; 
-    height: 100vh;
+  width: 100wh;
+  height: 100vh;
 }
 
-.popup-heading{
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
+.popup-heading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
 }

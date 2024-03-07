@@ -56,8 +56,6 @@ export default function FarmerMap({ geojsonData }) {
   const ZoomOut = () => {
     const map = useMap();
 
-    console.log("zoom out");
-
     useEffect(() => {
       const bounds = calculateBounds(geojsonData);
       map.fitBounds(bounds, { padding: [40, 40] });

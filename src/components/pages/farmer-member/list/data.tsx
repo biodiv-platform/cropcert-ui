@@ -1,5 +1,4 @@
 import FarmerCell from "@components/@core/table/farmer-cell";
-import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
 export const batchColumns = [

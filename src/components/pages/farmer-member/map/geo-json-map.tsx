@@ -5,7 +5,7 @@ import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } f
 
 interface IProps {
   geoJsonData: any;
-  isDraggable: boolean | false;
+  isDraggable: boolean | undefined;
   setNewLatLng: any | null;
 }
 
@@ -116,7 +116,7 @@ const GeoJsonMap = (props: IProps) => {
           const marker = L.marker(latlng, { draggable: isDraggable });
           marker.bindPopup(customPopupContent);
           // Add dragend event listener to the marker
-          marker.on("dragend", function (e) {
+          marker.on("dragend", function () {
             const newLatLng = this.getLatLng();
             setNewLatLng(latlng, [newLatLng.lat, newLatLng.lng]);
           });

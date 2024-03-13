@@ -170,7 +170,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap geoJsonData={geoJsonData} />
+            <FarmerMap geoJsonData={geoJsonData} isDraggable={false} setNewLatLng={null} />
           </Box>
         </Stack>
       </Flex>

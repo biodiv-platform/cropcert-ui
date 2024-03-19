@@ -1,6 +1,9 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Button, chakra, useBoolean } from "@chakra-ui/react";
+import DeleteActionButton from "@components/@core/action-buttons/delete";
+import { axDeletePageByID } from "@services/pages.service";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 
 import usePages from "./use-pages-sidebar";
@@ -17,12 +20,13 @@ const TogglePaneButton = ({ isExpanded, onToggle }) => (
 );
 
 const PagesListItem = ({ page, isParent }) => {
-  const { currentPage, linkType } = usePages();
+  const { currentPage, linkType, canEdit } = usePages();
   const [isExpanded, setIsExpanded] = useBoolean(true);
   const [hasChildren, isActive] = useMemo(
     () => [page.children.length > 0, currentPage?.id === page.id],
     [page, currentPage]
   );
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -43,6 +47,15 @@ const PagesListItem = ({ page, isParent }) => {
             {page.title}
           </chakra.a>
         </Link>
+        {canEdit && page.pageType == "Redirect" && (
+          <DeleteActionButton
+            observationId={currentPage.id}
+            title={t("page:remove.title")}
+            description={t("page:remove.description")}
+            deleted={t("page:remove.success")}
+            deleteFunc={axDeletePageByID}
+          />
+        )}
 
         {hasChildren && (
           <TogglePaneButton isExpanded={isExpanded} onToggle={setIsExpanded.toggle} />

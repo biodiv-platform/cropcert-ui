@@ -6,6 +6,7 @@ import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 
+import { PAGE_TYPES } from "../data";
 import usePages from "./use-pages-sidebar";
 
 interface PagesListProps {
@@ -47,7 +48,7 @@ const PagesListItem = ({ page, isParent }) => {
             {page.title}
           </chakra.a>
         </Link>
-        {canEdit && page.pageType == "Redirect" && (
+        {canEdit && page.pageType == PAGE_TYPES.REDIRECT && (
           <DeleteActionButton
             observationId={currentPage.id}
             title={t("page:remove.title")}

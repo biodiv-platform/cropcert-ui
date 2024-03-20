@@ -24,7 +24,7 @@ export default function ActivityList({ resourceId, resourceType, title = "common
 
   useEffect(() => {
     loadActivity(true);
-  }, []);
+  }, [resourceId]);
 
   useListener(
     (oId) => {

@@ -4,6 +4,7 @@ export const isBrowser = typeof window !== `undefined`;
 
 export const SITE_TITLE = SITE_CONFIG.SITE.TITLE_LOCAL;
 export const PAGINATION_LIMIT = 20;
+export const ACTIVITY_LIMIT = 3;
 export const DEFAULT_PASSWORD_LENGTH = 10;
 
 export const DATEFORMATS = {

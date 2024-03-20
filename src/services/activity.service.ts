@@ -1,13 +1,8 @@
-import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
+import { ACTIVITY_LIMIT, ENDPOINT } from "@static/constants";
 import { waitForAuth } from "@utils/auth";
 import http, { plainHttp } from "@utils/http";
 
-export const axListActivity = async (
-  objectType,
-  objectId,
-  offset = 0,
-  limit = PAGINATION_LIMIT
-) => {
+export const axListActivity = async (objectType, objectId, offset = 0, limit = ACTIVITY_LIMIT) => {
   try {
     const res = await plainHttp.get(
       `${ENDPOINT.ACTIVITY}/v1/service/ibp/${objectType}/${objectId}`,

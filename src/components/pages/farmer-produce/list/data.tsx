@@ -45,6 +45,12 @@ export const batchColumns = [
     sortable: true,
     cell: (row) => `${row.farmerId}`,
   },
+  {
+    name: "Last Updated",
+    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
+    width: "210px",
+    sortable: true,
+  },
 ];
 
 export const lotCreateModalCols = [

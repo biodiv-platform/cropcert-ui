@@ -12,18 +12,18 @@ export const batchColumns = [
   {
     name: "Name",
     selector: (row) => row["farmerName"],
-    width: "280px",
+    width: "210px",
   },
   {
     name: "Village",
     selector: (row) => row["village"],
-    maxWidth: "260px",
+    maxWidth: "210px",
     sortable: true,
   },
   {
     name: "Collection Center",
     selector: (row) => row["cc"],
-    maxWidth: "250px",
+    maxWidth: "210px",
     sortable: true,
   },
   {
@@ -36,8 +36,14 @@ export const batchColumns = [
   {
     name: "Land Acreage",
     selector: (row) => row["landAcreage"],
-    maxWidth: "210px",
+    maxWidth: "180px",
     sortable: true,
     right: true,
+  },
+  {
+    name: "Last Updated",
+    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
+    width: "210px",
+    sortable: true,
   },
 ];

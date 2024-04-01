@@ -1,5 +1,6 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
+import FarmerCell from "@components/@core/table/farmer-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -150,7 +151,7 @@ export const farmerProduceColumns = [
     selector: (row) => row["farmerId"],
     maxWidth: "120px",
     sortable: true,
-    cell: (row) => `${row.farmerId}`,
+    cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
   },
 ];
 

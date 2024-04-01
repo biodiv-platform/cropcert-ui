@@ -50,6 +50,16 @@ export const axGetFarmerById = async (farmerId, ctx?) => {
   }
 };
 
+export const axGetFarmerDetailsByUUID = async (uuid) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/uuid/${uuid}`);
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
 // get farmer information for show page.
 export const axGetFarmerByIdWithBatchAndFarmerProduce = async (farmerId, ctx?) => {
   try {

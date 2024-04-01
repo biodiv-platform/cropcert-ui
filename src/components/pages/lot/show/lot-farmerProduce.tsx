@@ -1,4 +1,5 @@
 import DataTable from "@components/@core/table";
+import FarmerCell from "@components/@core/table/farmer-cell";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
@@ -49,7 +50,7 @@ export default function LotFarmerProduce({ rows }) {
       selector: (row) => row["farmerId"],
       maxWidth: "120px",
       sortable: true,
-      cell: (row) => `${row.farmerId}`,
+      cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
     },
     {
       name: "Batch ID",

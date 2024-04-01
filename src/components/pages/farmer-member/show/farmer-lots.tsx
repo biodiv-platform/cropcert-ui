@@ -1,5 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
+import LotCell from "@components/@core/table/lot-cell";
 import React from "react";
 
 import LotShowPanel from "./panel";
@@ -11,7 +12,7 @@ export default function FarmerLots({ rows }) {
       selector: (row) => row["lotId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `L-${row.lotId}`,
+      cell: (row) => <LotCell {...row} type="l" />,
     },
     {
       name: "Name",

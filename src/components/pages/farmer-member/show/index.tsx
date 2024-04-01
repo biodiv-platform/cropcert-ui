@@ -33,7 +33,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
 
   // Function to go back to the previous page
   const handleGoBack = () => {
-    router.push("/farmer/list");
+    router.back();
   };
 
   const ActionButtons = ({ hasEditDeleteAccess }) => {

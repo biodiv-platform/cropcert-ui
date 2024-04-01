@@ -48,6 +48,13 @@ export const batchColumns = [
     cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
   },
   {
+    name: "Selectable",
+    selector: (row) => row["farmerProduceId"],
+    maxWidth: "120px",
+    cell: (row) => (row.batchId ? "No" : "Yes"),
+    sortable: true,
+  },
+  {
     name: "Last Updated",
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     width: "210px",

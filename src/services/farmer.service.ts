@@ -20,17 +20,18 @@ export const axListFarmerProduce = async (ccCodes, offset = 0, limit = PAGINATIO
   }
 };
 
-export const axListFarmerMember = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+export const axListFarmerMember = async (params) => {
+  // ccCodes, offset, limit
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/all`, {
-      params: { ccCodes: ccCodes.toString(), offset, limit },
+      params,
     });
     return {
       success: true,
       data,
-      offset: offset + data.length,
-      reset: offset === 0,
-      hasMore: data.length === limit,
+      offset: params?.offset + data.length,
+      reset: params?.offset === 0,
+      hasMore: data.length === params?.limit,
     };
   } catch (e) {
     notification(e.message);

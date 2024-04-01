@@ -13,6 +13,7 @@ export const batchColumns = [
     name: "Name",
     selector: (row) => row["farmerName"],
     width: "280px",
+    sortable: true,
   },
   {
     name: "Village",

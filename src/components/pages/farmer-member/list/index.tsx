@@ -1,9 +1,18 @@
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  SimpleGrid,
+  Spinner,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import useFarmerMemberFilter from "@components/pages/farmer-member/common/use-farmer-member-filter";
 import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
 import { axSyncFMDataOnDemand } from "@services/farmer.service";
@@ -20,6 +29,7 @@ import { emit } from "react-gbus";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { batchColumns } from "./data";
+import Filters from "./filters";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
 import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
@@ -36,21 +46,26 @@ function FarmerMemberPageComponent() {
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
   const { t } = useTranslation();
+  const { farmerMemberData } = useFarmerMemberFilter();
+
+  // useEffect(() => {
+  //   ccCodes.length && actions.listFarmerMember({ ccCodes, reset: true });
+  // }, [ccCodes]);
+
+  // useEffect(() => {
+  //   ccs && setCCCodes(ccs.map((o) => o.value));
+  // }, [ccs]);
+
+  // useEffect(() => {
+  //   if (hasAccess([ROLES.UNION], user)) {
+  //     setHideAccessor(false);
+  //     setCCs([0]); // dummy cc
+  //   }
+  // }, []);
 
   useEffect(() => {
-    ccCodes.length && actions.listFarmerMember({ ccCodes, reset: true });
-  }, [ccCodes]);
-
-  useEffect(() => {
-    ccs && setCCCodes(ccs.map((o) => o.value));
-  }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(false);
-      setCCs([0]); // dummy cc
-    }
-  }, []);
+    console.log("new farmerMemberData", farmerMemberData);
+  }, [farmerMemberData]);
 
   const { data, isLoading } = useQuery({
     queryKey: ["lastSyncedTimeFM"],
@@ -116,43 +131,52 @@ function FarmerMemberPageComponent() {
   };
 
   return (
-    <Box>
-      <PageHeading actions={<ActionButtons />}>
-        🧑‍🌾 {t("traceability:tab_titles.farmer_member")}
-      </PageHeading>
-      <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
-        <Box my={2}>
-          {t("traceability:total_records")}:{" "}
-          {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
-        </Box>
-        <Box fontSize={"xs"}>
-          {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
-        </Box>
-      </Flex>
+    <Box w="full" maxH="calc( 100vh - var(--heading-height) )" display="flex">
+      <SimpleGrid w="full" columns={{ base: 1, lg: 14 }}>
+        <Filters />
+        <Box
+          maxH="full"
+          w="full"
+          id="items-container"
+          overflowY="auto"
+          gridColumn={{ lg: "4/15" }}
+          p={4}
+        >
+          <PageHeading actions={<ActionButtons />}>
+            🧑‍🌾 {t("traceability:tab_titles.farmer_member")}
+          </PageHeading>
+          <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
+            {/* <Box my={2}>
+              {t("traceability:total_records")}:{" "}
+              {state.isLoading ? <Spinner size="xs" /> : farmerMemberData?.l.length}
+            </Box> */}
+            <Box my={2}>
+              {t("traceability:total_records")}: {farmerMemberData?.l.length}
+            </Box>
+            <Box fontSize={"xs"}>
+              {t("traceability:sync_status.last_synced")}{" "}
+              {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+            </Box>
+          </Flex>
 
-      <CoreGrid hidden={hideAccessor}>
-        <Accesser
-          toRole={ROLES.COOPERATIVE}
-          onChange={setCo}
-          onTouch={() => {
-            actions?.clearFarmerMember();
-            actions?.setLoading(true);
-          }}
-        />
-        <Box>
-          <CCMultiSelect coId={co?.value} onChange={setCCs} />
-        </Box>
-      </CoreGrid>
+          {/* <CoreGrid hidden={hideAccessor}>
+            <Accesser
+              toRole={ROLES.COOPERATIVE}
+              onChange={setCo}
+              onTouch={() => {
+                actions?.clearFarmerMember();
+                actions?.setLoading(true);
+              }}
+            />
+            <Box>
+              <CCMultiSelect coId={co?.value} onChange={setCCs} />
+            </Box>
+          </CoreGrid> */}
 
-      <MultipleTypeWarning show={showTypeError} />
+          <MultipleTypeWarning show={showTypeError} />
 
-      {state.isLoading ? (
-        <Spinner />
-      ) : state.farmer.length > 0 ? (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
           <Table
-            data={state.farmer}
+            data={farmerMemberData.l}
             columns={batchColumns}
             selectableRows={true}
             onSelectedRowsChange={handleOnSelectionChange}
@@ -170,12 +194,38 @@ function FarmerMemberPageComponent() {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 50, 100]}
           />
-        </InfiniteScroll>
-      ) : (
-        <Box mt={2}>No records found</Box>
-      )}
 
-      <MultiMarkerMapModal />
+          {/* {state.isLoading ? (
+            <Spinner />
+          ) : state.farmer.length > 0 ? (
+            <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
+              <Table
+                data={documentData.l}
+                columns={batchColumns}
+                selectableRows={true}
+                onSelectedRowsChange={handleOnSelectionChange}
+                clearSelectedRows={clearRows}
+                conditionalRowStyles={[
+                  {
+                    when: (row) => row.lotId,
+                    style: {
+                      background: "var(--chakra-colors-gray-100)!important",
+                      opacity: "0.6",
+                    },
+                  },
+                ]}
+                pagination
+                paginationPerPage={15}
+                paginationRowsPerPageOptions={[15, 50, 100]}
+              />
+            </InfiniteScroll>
+          ) : (
+            <Box mt={2}>No records found</Box>
+          )} */}
+
+          <MultiMarkerMapModal />
+        </Box>
+      </SimpleGrid>
     </Box>
   );
 }

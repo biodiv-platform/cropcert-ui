@@ -54,6 +54,8 @@ export function useFarmerProduceStore() {
       });
       const offset = reset ? 0 : state.offset;
       const response = await axListFarmerProduce(ccCodes, offset);
+
+      console.log(response);
       setFarmerProduces(response);
     }
   };

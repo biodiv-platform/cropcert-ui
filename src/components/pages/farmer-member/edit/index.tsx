@@ -57,7 +57,7 @@ export default function FarmerEditPageComponent({ edit }) {
   };
 
   const handleSetNewLatLng = (oldLatlng, newLatlng) => {
-    if (geoJsonData.geometry.type === "Point") {
+    if (geoJsonData.geometry.type === locationType.POINT) {
       geoJsonData.geometry.coordinates;
       setLocationUpdated(true);
     } else {

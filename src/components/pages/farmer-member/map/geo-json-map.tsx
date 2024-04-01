@@ -3,7 +3,7 @@ import L from "leaflet";
 import React, { useEffect, useMemo } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
 
-interface IProps {
+interface IGeoJsonMapProps {
   geoJsonData: any;
   isDraggable: boolean | undefined;
   setNewLatLng: any | null;
@@ -14,7 +14,7 @@ const mapStyle = {
   height: "100%", // Set the height of the map
 };
 
-const GeoJsonMap = (props: IProps) => {
+const GeoJsonMap = (props: IGeoJsonMapProps) => {
   const { geoJsonData, isDraggable, setNewLatLng } = props;
 
   // Calculate center based on GeoJSON data

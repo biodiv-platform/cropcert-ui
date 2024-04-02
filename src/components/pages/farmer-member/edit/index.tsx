@@ -16,6 +16,7 @@ const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
 
 export default function FarmerEditPageComponent({ edit }) {
   const [locationUpdated, setLocationUpdated] = useState(false);
+  const [updatedGeoJsonData, setUpdatedGeoJsonData] = useState<any>(null);
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -57,19 +58,23 @@ export default function FarmerEditPageComponent({ edit }) {
   };
 
   const handleSetNewLatLng = (oldLatlng, newLatlng) => {
-    if (geoJsonData.geometry.type === locationType.POINT) {
-      geoJsonData.geometry.coordinates;
+    const newGeoJsonData = { ...geoJsonData };
+
+    if (newGeoJsonData.geometry.type === locationType.POINT) {
+      newGeoJsonData.geometry.coordinates = [newLatlng[1], newLatlng[0]];
       setLocationUpdated(true);
     } else {
-      const index = geoJsonData.geometry.coordinates.findIndex(
+      const index = newGeoJsonData.geometry.coordinates.findIndex(
         (subArr) => JSON.stringify(subArr) === JSON.stringify([oldLatlng.lng, oldLatlng.lat])
       );
 
       if (index != -1) {
-        geoJsonData.geometry.coordinates[index] = [newLatlng[1], newLatlng[0]];
+        newGeoJsonData.geometry.coordinates[index] = [newLatlng[1], newLatlng[0]];
         setLocationUpdated(true);
       }
     }
+
+    setUpdatedGeoJsonData(newGeoJsonData);
   };
 
   const handleSubmit = async (values) => {
@@ -78,8 +83,8 @@ export default function FarmerEditPageComponent({ edit }) {
 
       if (locationUpdated) {
         values.location = {
-          type: geoJsonData.geometry.type,
-          coordinates: geoJsonData.geometry.coordinates,
+          type: updatedGeoJsonData?.geometry.type,
+          coordinates: updatedGeoJsonData?.geometry.coordinates,
         };
       }
 

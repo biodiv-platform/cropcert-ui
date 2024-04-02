@@ -11,7 +11,7 @@ const schema = yup.object().shape({
   nationalIdentityNumber: yup
     .string()
     .nullable()
-    .matches(/^\d{14}$/, "National identity number must be exactly 14 digits"),
+    .matches(/^[\dA-Za-z]{14}$/, "National identity number must be exactly 14 digits"),
   levelOfEducation: yup.string(),
   noOfDependents: yup.number(),
   village: yup.string(),
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
   landAcreage: yup.number().min(1, "Land acreage must be greater than zero"),
   coffeeAcreage: yup
     .number()
-    .min(1, "Coffee acreage must be greater than zero")
+    .min(0.01, "Coffee acreage must be greater than zero")
     .test(
       "lessThanLandAcreage",
       "Coffee acreage must be less than land acreage",

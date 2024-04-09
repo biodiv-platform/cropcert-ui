@@ -1,5 +1,4 @@
 import { axListLot } from "@services/lot.service";
-import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
 const DEFAULT_STATE = { offset: 0, hasMore: true, isLoading: true, lot: [] as any[] };

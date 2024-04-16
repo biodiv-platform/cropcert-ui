@@ -50,7 +50,9 @@ export default function BatchCreateForm({
 
   const handleSubmit = async (payload) => {
     try {
-      const uniqueCCs = [...new Set(farmerProduceArr.map((b) => b.ccCode))]; // getting array of all unique ccCodes from selected farmerProduce records
+      const uniqueCCs = [...new Set(farmerProduceArr.map((b) => b.ccCode))];
+      const uniqueCOs = [...new Set(farmerProduceArr.map((b) => b.coCode))];
+      const unionCode = farmerProduceArr[0].unionCode;
       const updatedPayload = {
         batchName:
           "Buzaaya_" + // FIXME: get this name from odk api
@@ -59,6 +61,8 @@ export default function BatchCreateForm({
           formattedDate(payload.creationDate),
         type: batchConfig.type,
         ccCode: uniqueCCs,
+        coCode: uniqueCOs,
+        unionCode,
         quantity: batchConfig.quantity,
         createdOn: values.creationDate,
         farmerProduceIds: farmerProduceArr.map((b) => b._id),

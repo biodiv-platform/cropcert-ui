@@ -17,7 +17,9 @@ export interface Batch {
   lastUpdatedAt: any;
   _id?: string; // int64
   batchName?: string;
-  ccCode?: number; // int64
+  ccCode?: number[]; // int64
+  coCode?: number[]; // int64
+  unionCode?: number; // int64
   type?: "DRY" | "WET" | "FAQ";
   quantity?: number; // float
   date?: string; // date-time

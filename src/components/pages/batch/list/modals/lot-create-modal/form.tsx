@@ -44,6 +44,8 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
         lotName: lotConfig.name + formattedDate(payload.creationDate),
         type: lotConfig.type,
         coCode: lotConfig.coCode,
+        ccCode: lotConfig.ccCode,
+        unionCode: lotConfig.unionCode,
         quantity: lotConfig.quantity,
         createdOn: payload.creationDate,
         batchIds: batches.map((b) => b._id),

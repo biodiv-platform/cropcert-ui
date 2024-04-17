@@ -8,12 +8,14 @@ export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
   const label = `View Farmer #${farmerId}`;
   const [id, setId] = useState(_id);
 
+  const fetchFarmerDetailsByUUID = async () => {
+    const { data } = await axGetFarmerDetailsByUUID(_id);
+    setId(data._id);
+  };
+
   useEffect(() => {
     if (_id.substring(0, 4) === "uuid") {
-      (async () => {
-        const { data } = await axGetFarmerDetailsByUUID(_id);
-        setId(data._id);
-      })();
+      fetchFarmerDetailsByUUID();
     }
   }, []);
 

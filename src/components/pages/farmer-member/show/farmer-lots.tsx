@@ -12,7 +12,7 @@ export default function FarmerLots({ rows }) {
       selector: (row) => row["lotId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => <LotCell {...row} type="l" />,
+      cell: (row) => <LotCell {...row} />,
     },
     {
       name: "Name",

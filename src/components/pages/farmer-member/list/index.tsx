@@ -211,7 +211,7 @@ function FarmerMemberPageComponent() {
         </InfiniteScroll>
       ) : (
         <Flex direction={"column"} alignItems={"center"} gap={2}>
-          <Box mt={2}>No records found</Box>
+          <Box mt={2}>{t("traceability:no_records")}</Box>
           {filterText.length > 0 && <Button onClick={handleClearFilter}>Clear Filter</Button>}
         </Flex>
       )}

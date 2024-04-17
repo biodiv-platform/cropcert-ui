@@ -83,7 +83,7 @@ function LotListPageComponent() {
           />
         </InfiniteScroll>
       ) : (
-        <Box mt={2}>No records found</Box>
+        <Box mt={2}>{t("traceability:no_records")}</Box>
       )}
       <LotReportUpdate update={actions.updateLot} />
     </Container>

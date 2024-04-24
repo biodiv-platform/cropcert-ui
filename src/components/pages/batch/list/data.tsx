@@ -21,13 +21,15 @@ const createBatchColumn = (
   name: string,
   selector: (row: Batch) => any,
   maxWidth: string,
-  cell?: (row: Batch) => JSX.Element
+  cell?: (row: Batch) => JSX.Element,
+  sortable = true
 ) => ({
   name,
   selector,
   center: true,
   maxWidth,
   cell,
+  sortable,
 });
 
 const defaultBatchModalColumns = [

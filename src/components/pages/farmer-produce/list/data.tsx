@@ -30,7 +30,7 @@ export const batchColumns = [
   },
   {
     name: "Collection Date",
-    selector: (row) => timeCell(row.dateOfCollection),
+    selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
     maxWidth: "150px",
     sortable: true,
   },
@@ -46,13 +46,6 @@ export const batchColumns = [
     maxWidth: "120px",
     sortable: true,
     cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
-  },
-  {
-    name: "Selectable",
-    selector: (row) => row["farmerProduceId"],
-    maxWidth: "120px",
-    cell: (row) => (row.batchId ? "No" : "Yes"),
-    sortable: true,
   },
   {
     name: "Last Updated",

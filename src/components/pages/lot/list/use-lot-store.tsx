@@ -1,5 +1,4 @@
 import { axListLot } from "@services/lot.service";
-import { PAGINATION_LIMIT } from "@static/constants";
 import { useImmer } from "use-immer";
 
 const DEFAULT_STATE = { offset: 0, hasMore: true, isLoading: true, lot: [] as any[] };
@@ -33,14 +32,12 @@ export function useLotStore() {
   };
 
   const listLot = async ({ reset, ccCodes }: { reset?; ccCodes }) => {
-    if (state.lot.length % PAGINATION_LIMIT === 0) {
-      setState((_draft) => {
-        _draft.isLoading = true;
-      });
-      const offset = reset ? 0 : state.offset;
-      const response = await axListLot(ccCodes, offset);
-      setLot(response);
-    }
+    setState((_draft) => {
+      _draft.isLoading = true;
+    });
+    const offset = reset ? 0 : state.offset;
+    const response = await axListLot(ccCodes, offset);
+    setLot(response);
   };
 
   const clearLot = () => {

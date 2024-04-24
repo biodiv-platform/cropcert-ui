@@ -12,10 +12,10 @@ export const axCreateBatch = async (body) => {
   }
 };
 
-export const axListBatch = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+export const axListBatch = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
-      params: { ccCodes: ccCodes.toString(), offset, limit },
+      params: { coCodes: coCodes.toString(), offset, limit },
     });
     return {
       success: true,

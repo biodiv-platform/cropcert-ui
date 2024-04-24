@@ -21,6 +21,7 @@
     "location_heading": "Location :",
     "save_marker_location": "Save Marker Location"
   },
+  "no_records": "No Records Found",
   "selected_quantity": "Selected Quantity",
   "sync_status": {
     "error": "Error occurred while syncing data. Please try again.",

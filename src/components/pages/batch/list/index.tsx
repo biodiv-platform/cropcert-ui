@@ -8,7 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
-import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
+import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
@@ -32,34 +32,22 @@ import MultipleTypeWarning from "./multiple-warning";
 import { useBatchStore } from "./use-batch-store";
 
 function BatchListPageComponent() {
-  const [co, setCo] = useState([] as any);
-  const [ccs, setCCs] = useState([] as any);
-  const [ccCodes, setCCCodes] = useState<any>([]);
+  const [union, setUnion] = useState({} as any);
+  const [coCodes, setCOCodes] = useState<any>([]);
   const { state, ...actions } = useBatchStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
-  const [hideAccessor, setHideAccessor] = useState<boolean>();
+  const [hideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
   const [batchModalColumns, setBatchModalColumns] = useState<any>([]);
   const [showAlert, setShowAlert] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
-    ccCodes.length && actions.listBatch({ ccCodes, reset: true });
-  }, [triggerRender, ccCodes]);
-
-  useEffect(() => {
-    ccs && setCCCodes(ccs.map((o) => o.value));
-  }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(false);
-      setCCs([0]); // dummy cc
-    }
-  }, []);
+    coCodes.length && actions.listBatch({ coCodes, reset: true });
+  }, [triggerRender, coCodes]);
 
   useEffect(() => {
     (async () => {
@@ -69,7 +57,7 @@ function BatchListPageComponent() {
   }, []);
 
   const handleLoadMore = () => {
-    actions.listBatch({ ccCodes });
+    actions.listBatch({ coCodes });
   };
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
@@ -88,7 +76,9 @@ function BatchListPageComponent() {
       name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
       type: selectedBatches[0].type,
       selected: selectedBatches,
-      coCode: co.value,
+      coCode: [...new Set(selectedBatches.map((r) => r.coCode))].flat(),
+      ccCode: [...new Set(selectedBatches.map((r) => r.ccCode))].flat(),
+      unionCode: union.value,
       quantity,
     };
 
@@ -139,15 +129,15 @@ function BatchListPageComponent() {
       </Box>
       <CoreGrid hidden={hideAccessor}>
         <Accesser
-          toRole={ROLES.COOPERATIVE}
-          onChange={setCo}
+          toRole={ROLES.UNION}
+          onChange={setUnion}
           onTouch={() => {
             actions.clearBatch();
             actions.setLoading(true);
           }}
         />
         <Box>
-          <CCMultiSelect coId={co?.value} onChange={setCCs} />
+          <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
         </Box>
       </CoreGrid>
 
@@ -200,7 +190,7 @@ function BatchListPageComponent() {
           />
         </InfiniteScroll>
       ) : (
-        <Box mt={2}>No records found</Box>
+        <Box mt={2}>{t("traceability:no_records")}</Box>
       )}
 
       <BatchUpdateModal update={onBatchUpdate} />

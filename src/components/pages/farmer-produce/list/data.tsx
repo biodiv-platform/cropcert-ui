@@ -1,4 +1,5 @@
-import timeCell from "@components/@core/table/time-cell";
+import FarmerCell from "@components/@core/table/farmer-cell";
+import React from "react";
 
 export const batchColumns = [
   {
@@ -28,7 +29,7 @@ export const batchColumns = [
   },
   {
     name: "Collection Date",
-    selector: (row) => timeCell(row.dateOfCollection),
+    selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
     maxWidth: "150px",
     sortable: true,
   },
@@ -43,7 +44,13 @@ export const batchColumns = [
     selector: (row) => row["farmerId"],
     maxWidth: "120px",
     sortable: true,
-    cell: (row) => `${row.farmerId}`,
+    cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
+  },
+  {
+    name: "Last Updated",
+    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
+    width: "210px",
+    sortable: true,
   },
 ];
 

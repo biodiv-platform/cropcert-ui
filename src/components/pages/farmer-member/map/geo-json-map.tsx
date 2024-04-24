@@ -3,7 +3,20 @@ import L from "leaflet";
 import React, { useEffect, useMemo } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
 
-const GeoJsonMap = ({ geoJsonData }) => {
+interface IGeoJsonMapProps {
+  geoJsonData: any;
+  isDraggable: boolean | undefined;
+  setNewLatLng: any | null;
+}
+
+const mapStyle = {
+  width: "100%", // Set the width of the map
+  height: "100%", // Set the height of the map
+};
+
+const GeoJsonMap = (props: IGeoJsonMapProps) => {
+  const { geoJsonData, isDraggable, setNewLatLng } = props;
+
   // Calculate center based on GeoJSON data
   const center = useMemo(() => {
     if (
@@ -49,11 +62,7 @@ const GeoJsonMap = ({ geoJsonData }) => {
   }
 
   return (
-    <MapContainer
-      center={[center[0], center[1]]}
-      zoom={13}
-      style={{ height: "400px", width: "100%" }}
-    >
+    <MapContainer center={[center[0], center[1]]} zoom={13} style={mapStyle}>
       <LayersControl>
         <LayersControl.BaseLayer name={mapLayers.OSM}>
           <TileLayer
@@ -96,16 +105,21 @@ const GeoJsonMap = ({ geoJsonData }) => {
         pointToLayer={(feature, latlng) => {
           // Custom popup content
           const customPopupContent = `
-            <div style="display: flex; flex-direction: column; align-items: flex-start;">
-              <h3 style="margin: 0;">${feature.properties.name}</h3>
-              <p><strong>Farmer ID:</strong> ${feature.properties.farmerId}</p>
-              <p><strong>CC:</strong> ${feature.properties.cc}</p>
-            </div>
-          `;
+          <div style="display: flex; flex-direction: column; align-items: flex-start;">
+            <h3 style="margin: 0;">${feature.properties.name}</h3>
+            <p><strong>Farmer ID:</strong> ${feature.properties.farmerId}</p>
+            <p><strong>CC:</strong> ${feature.properties.cc}</p>
+          </div>
+        `;
 
           // Create a marker for each point and bind the custom popup
-          const marker = L.marker(latlng);
+          const marker = L.marker(latlng, { draggable: isDraggable });
           marker.bindPopup(customPopupContent);
+          // Add dragend event listener to the marker
+          marker.on("dragend", function () {
+            const newLatLng = this.getLatLng();
+            setNewLatLng(latlng, [newLatLng.lat, newLatLng.lng]);
+          });
 
           return marker;
         }}

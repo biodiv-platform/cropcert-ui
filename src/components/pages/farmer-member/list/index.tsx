@@ -1,5 +1,5 @@
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Flex, Input, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
 import { getLocalTime } from "@utils/traceability";
+import debounce from "debounce-promise";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -23,6 +24,20 @@ import { batchColumns } from "./data";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
 import MultipleTypeWarning from "./multiple-warning";
 import { useFarmerStore } from "./use-farmer-store";
+
+const FilterComponent = ({ onFilter, onClear, filterText }) => {
+  return (
+    <Flex>
+      <Input
+        type="text"
+        value={filterText}
+        onChange={onFilter}
+        placeholder="Filter by farmer name..."
+      />
+      <Button onClick={onClear}>Clear</Button>
+    </Flex>
+  );
+};
 
 function FarmerMemberPageComponent() {
   const [ccs, setCCs] = useState([] as any);
@@ -35,6 +50,7 @@ function FarmerMemberPageComponent() {
   const { user } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
+  const [filterText, setFilterText] = React.useState("");
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -51,6 +67,10 @@ function FarmerMemberPageComponent() {
       setCCs([0]); // dummy cc
     }
   }, []);
+
+  const filteredItems = state.farmer.filter((item) => {
+    return item.farmerName.toLowerCase().includes(filterText.toLowerCase());
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ["lastSyncedTimeFM"],
@@ -83,6 +103,22 @@ function FarmerMemberPageComponent() {
       setIsSyncing(false);
     }
   };
+
+  const handleClearFilter = () => {
+    if (filterText) {
+      setFilterText("");
+    }
+  };
+
+  const subHeaderComponentMemo = React.useMemo(() => {
+    return (
+      <FilterComponent
+        onFilter={(e) => debounce(setFilterText(e.target.value), 200)}
+        onClear={handleClearFilter}
+        filterText={filterText}
+      />
+    );
+  }, [filterText]);
 
   const ActionButtons = () => {
     return (
@@ -149,11 +185,13 @@ function FarmerMemberPageComponent() {
 
       {state.isLoading ? (
         <Spinner />
-      ) : state.farmer.length > 0 ? (
+      ) : filteredItems.length > 0 ? (
         <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
           <Table
-            data={state.farmer}
+            data={filteredItems}
             columns={batchColumns}
+            subHeader
+            subHeaderComponent={subHeaderComponentMemo}
             selectableRows={true}
             onSelectedRowsChange={handleOnSelectionChange}
             clearSelectedRows={clearRows}
@@ -172,7 +210,10 @@ function FarmerMemberPageComponent() {
           />
         </InfiniteScroll>
       ) : (
-        <Box mt={2}>No records found</Box>
+        <Flex direction={"column"} alignItems={"center"} gap={2}>
+          <Box mt={2}>{t("traceability:no_records")}</Box>
+          {filterText.length > 0 && <Button onClick={handleClearFilter}>Clear Filter</Button>}
+        </Flex>
       )}
 
       <MultiMarkerMapModal />

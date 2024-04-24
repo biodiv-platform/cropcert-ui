@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */ //TODO: remove this after fixing map edit issue
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Button, Flex } from "@chakra-ui/react";
+import { Accordion, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";
+import { locationType } from "@static/constants";
 import notification, { NotificationType } from "@utils/notification";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -12,26 +12,31 @@ import React, { useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
 
-const FarmerMap = dynamic(() => import("../map/farmer-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
 
 export default function FarmerEditPageComponent({ edit }) {
-  const [isDraggable, setIsDraggable] = useState(false);
-  const [newLatLng, setNewLatLng] = useState([0, 0]);
-  const [resetMarker, setResetMarker] = useState(false);
+  const [locationUpdated, setLocationUpdated] = useState(false);
+  const [updatedGeoJsonData, setUpdatedGeoJsonData] = useState<any>(null);
   const router = useRouter();
   const { t } = useTranslation();
 
   const farmer = edit;
 
-  const farmerInfo = {
-    lat: farmer?.location?.coordinates[1],
-    long: farmer?.location?.coordinates[0],
-    name: farmer.farmerName,
-    farmerId: farmer.farmerId,
-    cc: farmer.cc,
+  const geoJsonData = {
+    type: "Feature",
+    geometry: {
+      type: farmer.location.type,
+      coordinates: farmer.location.coordinates,
+    },
+    properties: {
+      name: farmer.farmerName,
+      _id: farmer._id,
+      farmerId: farmer.farmerId,
+      cc: farmer.cc,
+      noOfFarms:
+        farmer.location.type === locationType.POINT ? 1 : farmer.location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
+    },
   };
-
-  const hasEditDeleteAccess = true; //TODO: add access control
 
   // Function to go back to the previous page
   const handleGoBack = () => {
@@ -52,13 +57,34 @@ export default function FarmerEditPageComponent({ edit }) {
     );
   };
 
+  const handleSetNewLatLng = (oldLatlng, newLatlng) => {
+    const newGeoJsonData = { ...geoJsonData };
+
+    if (newGeoJsonData.geometry.type === locationType.POINT) {
+      newGeoJsonData.geometry.coordinates = [newLatlng[1], newLatlng[0]];
+      setLocationUpdated(true);
+    } else {
+      const index = newGeoJsonData.geometry.coordinates.findIndex(
+        (subArr) => JSON.stringify(subArr) === JSON.stringify([oldLatlng.lng, oldLatlng.lat])
+      );
+
+      if (index != -1) {
+        newGeoJsonData.geometry.coordinates[index] = [newLatlng[1], newLatlng[0]];
+        setLocationUpdated(true);
+      }
+    }
+
+    setUpdatedGeoJsonData(newGeoJsonData);
+  };
+
   const handleSubmit = async (values) => {
     try {
       // get farmer map values.
-      if (newLatLng[0] !== 0 && newLatLng[1] !== 0) {
+
+      if (locationUpdated) {
         values.location = {
-          type: "Point",
-          coordinates: [newLatLng[1], newLatLng[0]],
+          type: updatedGeoJsonData?.geometry.type,
+          coordinates: updatedGeoJsonData?.geometry.coordinates,
         };
       }
 
@@ -112,44 +138,9 @@ export default function FarmerEditPageComponent({ edit }) {
       <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
-        {/* <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
+        <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
           <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Heading size="md">{t("traceability:location.location_heading")}</Heading>
-            {hasEditDeleteAccess &&
-              (isDraggable ? (
-                <Flex gap={2}>
-                  <Button
-                    size={"md"}
-                    mb={2}
-                    colorScheme="yellow"
-                    onClick={() => {
-                      setIsDraggable(false);
-                      setResetMarker(true);
-                    }}
-                  >
-                    {t("common:cancel")}
-                  </Button>
-                  <Button
-                    size={"md"}
-                    mb={2}
-                    leftIcon={<CheckIcon />}
-                    colorScheme="green"
-                    onClick={() => setIsDraggable(false)}
-                  >
-                    {t("traceability:location.save_marker_location")}
-                  </Button>
-                </Flex>
-              ) : (
-                <Button
-                  size={"md"}
-                  mb={2}
-                  leftIcon={<EditIcon />}
-                  colorScheme="yellow"
-                  onClick={() => setIsDraggable(true)}
-                >
-                  {t("traceability:location.edit_marker_location")}
-                </Button>
-              ))}
           </Flex>
           <Box
             rounded="md"
@@ -161,14 +152,12 @@ export default function FarmerEditPageComponent({ edit }) {
             boxShadow="md"
           >
             <FarmerMap
-              farmerInfo={farmerInfo}
-              isDraggable={isDraggable}
-              setNewLatLng={setNewLatLng}
-              resetMarker={resetMarker}
-              setResetMarker={setResetMarker}
+              geoJsonData={geoJsonData}
+              isDraggable={true}
+              setNewLatLng={handleSetNewLatLng}
             />
           </Box>
-        </Stack> */}
+        </Stack>
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
           <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}

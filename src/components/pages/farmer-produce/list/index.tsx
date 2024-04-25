@@ -117,7 +117,7 @@ function FarmerListPageComponent() {
           hidden={
             showTypeError ||
             selectedFarmerProduce.length === 0 ||
-            !hasAccess([ROLES.ADMIN, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
         >
           {t("traceability:selected_quantity")}: {quantity}(Kgs)
@@ -152,6 +152,7 @@ function FarmerListPageComponent() {
 
   const onFarmerUpdate = (props) => {
     onToggle();
+    setSelectedFarmerProduce([]);
     actions.updateFarmerProduce(props);
   };
 

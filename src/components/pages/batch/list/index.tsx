@@ -114,6 +114,7 @@ function BatchListPageComponent() {
   const onBatchUpdate = (props) => {
     onToggle();
     actions.updateBatch(props);
+    setSelectedBatches([]);
     setTriggerRender(!triggerRender);
   };
 
@@ -168,17 +169,23 @@ function BatchListPageComponent() {
             defaultSortAsc={false}
             conditionalRowStyles={[
               {
+                when: (row) => row._id,
+                style: {
+                  paddingLeft: "2px",
+                },
+              },
+              {
                 when: (row) => row.lotId,
                 style: {
                   background: "var(--chakra-colors-gray-100)!important",
+                  paddingLeft: "2px",
                   opacity: "0.5",
                 },
               },
               {
                 when: (row) => row.isReadyForLot && !row.lotId,
                 style: {
-                  borderLeft: "5px solid var(--chakra-colors-green-500)",
-                  borderRadius: "6px",
+                  borderLeft: "2px solid var(--chakra-colors-green-500)",
                   backgroundColor: "var(--chakra-colors-green-50)",
                 },
               },

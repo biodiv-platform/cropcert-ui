@@ -70,12 +70,11 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
         {show.farmerProduceIds && <LotFarmerProduce rows={show.farmerProduceIds} />}
         {show.farmerArr && <LotFarmerMember rows={show.farmerArr} />}
         {show.farmerLocationArr && (
-          <Stack direction={"column"} spacing={2} width={"full"} my={4} height={"600px"}>
-            <Heading size="lg">Location :</Heading>
+          <Stack direction={"column"} spacing={2} width={"full"} my={4} mb={8} height={"400px"}>
             <Box
               rounded="md"
-              border={4}
-              borderColor={"gray.400"}
+              borderWidth={1}
+              borderColor={"gray.200"}
               width={{ base: "full" }}
               height={{ base: "400", md: "full", lg: "full", xl: "full" }}
               overflow={"hidden"}

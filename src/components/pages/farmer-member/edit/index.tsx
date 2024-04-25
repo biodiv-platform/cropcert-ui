@@ -12,7 +12,7 @@ import React, { useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
 
-const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../../../@core/map/geo-json-map"), { ssr: false });
 
 export default function FarmerEditPageComponent({ edit }) {
   const [locationUpdated, setLocationUpdated] = useState(false);

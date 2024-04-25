@@ -1,7 +1,8 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Button } from "@chakra-ui/react";
+import { Accordion, Box, Button } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
+import FarmerMap from "@components/@core/map/farmer-map";
 import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability";
 import { useRouter } from "next/router";
 import React from "react";
@@ -18,6 +19,7 @@ interface ILotShowProps {
   users: any[];
   batches: any[];
   farmerProduceIds: any[];
+  farmerLocationArr: any[];
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
@@ -49,6 +51,17 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
         <LotInfo lot={show.lot} />
         {show.batches && <LotBatches rows={show.batches} />}
         {show.farmerProduceIds && <LotFarmerProduce rows={show.farmerProduceIds} />}
+        <Box
+          rounded="md"
+          border={4}
+          borderColor={"gray.400"}
+          width={{ base: "full" }}
+          height={{ base: "400", md: "full", lg: "full", xl: "full" }}
+          overflow={"hidden"}
+          boxShadow="md"
+        >
+          <FarmerMap geoJsonData={show.farmerLocationArr} />
+        </Box>
       </Accordion>
     </Container>
   );

@@ -17,7 +17,7 @@ import React from "react";
 
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../../../@core/map/geo-json-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
   const farmer_dob = new Date(farmer["dateOfBirth"]);

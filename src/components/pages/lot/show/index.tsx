@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button, Heading, Stack } from "@chakra-ui/react";
+import { Accordion, Box, Button, Stack } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { Activity, Cupping, Lot, QualityReport } from "@interfaces/traceability";

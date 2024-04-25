@@ -226,14 +226,14 @@ export const otherFarmEnterprisesList = [
   { label: "livestock", value: "livestock" },
 ];
 
-export const mapLayers = {
+export const MAP_LAYERS = {
   OSM: "Open Street Map",
   GMAP: "Google Map",
   GMAP_SAT: "Google Map Satellite",
   GMAP_TERRAIN: "Google Map Terrain",
 };
 
-export const locationType = {
+export const LOCATION_TYPE = {
   POINT: "Point",
   MULTI_POINT: "MultiPoint",
 };

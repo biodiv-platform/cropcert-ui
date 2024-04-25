@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { axGetAllFarmerByUnion } from "@services/farmer.service";
-import { CC_COLOR_MAPPING, locationType } from "@static/constants";
+import { CC_COLOR_MAPPING, LOCATION_TYPE } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
@@ -81,7 +81,7 @@ const MultiMarkerMapModal = () => {
           _id: _id,
           farmerId: farmerId,
           cc: cc,
-          noOfFarms: location.type === locationType.POINT ? 1 : location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
+          noOfFarms: location.type === LOCATION_TYPE.POINT ? 1 : location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
           color: CC_COLOR_MAPPING[cc],
         },
       }))

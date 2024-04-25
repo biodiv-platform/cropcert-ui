@@ -3,7 +3,7 @@ import { Accordion, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";
-import { locationType } from "@static/constants";
+import { LOCATION_TYPE } from "@static/constants";
 import notification, { NotificationType } from "@utils/notification";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -12,7 +12,9 @@ import React, { useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
 
-const FarmerMap = dynamic(() => import("../../../@core/map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("@components/@core/map-leaflet/geo-json-map"), {
+  ssr: false,
+});
 
 export default function FarmerEditPageComponent({ edit }) {
   const [locationUpdated, setLocationUpdated] = useState(false);
@@ -34,7 +36,7 @@ export default function FarmerEditPageComponent({ edit }) {
       farmerId: farmer.farmerId,
       cc: farmer.cc,
       noOfFarms:
-        farmer.location.type === locationType.POINT ? 1 : farmer.location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
+        farmer.location.type === LOCATION_TYPE.POINT ? 1 : farmer.location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
     },
   };
 
@@ -60,7 +62,7 @@ export default function FarmerEditPageComponent({ edit }) {
   const handleSetNewLatLng = (oldLatlng, newLatlng) => {
     const newGeoJsonData = { ...geoJsonData };
 
-    if (newGeoJsonData.geometry.type === locationType.POINT) {
+    if (newGeoJsonData.geometry.type === LOCATION_TYPE.POINT) {
       newGeoJsonData.geometry.coordinates = [newLatlng[1], newLatlng[0]];
       setLocationUpdated(true);
     } else {

@@ -1,4 +1,4 @@
-import { locationType, mapLayers } from "@static/constants";
+import { LOCATION_TYPE, MAP_LAYERS } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect, useMemo } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -22,14 +22,14 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
     if (
       geoJsonData &&
       geoJsonData.type === "Feature" &&
-      geoJsonData.geometry.type === locationType.POINT
+      geoJsonData.geometry.type === LOCATION_TYPE.POINT
     ) {
       // Directly return the coordinates for a single point
       return [geoJsonData.geometry.coordinates[1], geoJsonData.geometry.coordinates[0]];
     } else if (
       geoJsonData &&
       geoJsonData.type === "Feature" &&
-      geoJsonData.geometry.type === locationType.MULTI_POINT
+      geoJsonData.geometry.type === LOCATION_TYPE.MULTI_POINT
     ) {
       // Calculate the average of coordinates for a MultiPoint
       const coords = geoJsonData.geometry.coordinates;
@@ -64,14 +64,14 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
   return (
     <MapContainer center={[center[0], center[1]]} zoom={13} style={mapStyle}>
       <LayersControl>
-        <LayersControl.BaseLayer name={mapLayers.OSM}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -79,7 +79,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
+        <LayersControl.BaseLayer checked name={MAP_LAYERS.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -89,7 +89,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"

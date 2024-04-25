@@ -17,9 +17,9 @@ export default function LotInfo({ lot }) {
       selector: (row) => row["quantity"],
     },
     {
-      name: "Created On",
-      selector: (row) => row["createdOn"],
-      cell: (row) => timeCell(row.createdOn),
+      name: "Created At",
+      selector: (row) => row["createdAt"],
+      cell: (row) => timeCell(row.createdAt),
     },
     {
       name: "Lot Status",

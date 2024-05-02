@@ -11,6 +11,7 @@ import {
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
+import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateLot } from "@services/lot.service";
 import { MLOT } from "@static/messages";
@@ -33,6 +34,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
     ),
     defaultValues: {
       creationDate: "",
+      note: "",
     },
   });
 
@@ -49,6 +51,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
         quantity: lotConfig.quantity,
         createdOn: payload.creationDate,
         batchIds: batches.map((b) => b._id),
+        note: payload.note,
       });
       if (success) {
         data.batches.map((b) => update({ ...b, lotStatus: data.lot.lotStatus }));
@@ -82,6 +85,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
                 <strong>Total</strong> {lotConfig.quantity} KG(s)
               </Box>
             </Flex>
+            <TextBoxField name="note" label="Note" mb={0} />
           </ModalBody>
           <ModalFooter>
             <Button mr={3} onClick={onClose}>

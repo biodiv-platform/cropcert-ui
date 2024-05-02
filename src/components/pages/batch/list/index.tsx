@@ -90,7 +90,7 @@ function BatchListPageComponent() {
     if (r.isReadyForLot && !r.lotId) {
       setShowAlert(true);
     }
-    r.isReadyForLot || r.lotId;
+    return r.lotId;
   };
 
   const ActionButtons = () => (

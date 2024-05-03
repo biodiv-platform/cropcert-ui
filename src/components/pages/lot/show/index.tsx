@@ -55,8 +55,6 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
     },
   }));
 
-  console.log("activityArr", show.activityArr);
-
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>📦 Lot: {show.lot.lotName}</PageHeading>

@@ -25,11 +25,10 @@ export default function SubAccordionPanel({ column, index }) {
   const columnStatus = {
     ADD: (
       <Box
-        color="blue.500"
-        background={"blue.100"}
+        color="blue.600"
         px={1}
         borderRadius={4}
-        borderColor={"blue.300"}
+        borderColor={"blue.600"}
         borderWidth={1}
         fontSize={"sm"}
       >
@@ -38,11 +37,10 @@ export default function SubAccordionPanel({ column, index }) {
     ),
     EDIT: (
       <Box
-        color="yellow.500"
-        background={"yellow.100"}
+        color="orange.600"
         px={1}
         borderRadius={4}
-        borderColor={"yellow.300"}
+        borderColor={"orange.600"}
         borderWidth={1}
         fontSize={"sm"}
       >
@@ -51,11 +49,10 @@ export default function SubAccordionPanel({ column, index }) {
     ),
     DONE: (
       <Box
-        color="green.500"
-        background={"green.100"}
+        color="green.600"
         px={1}
         borderRadius={4}
-        borderColor={"green.300"}
+        borderColor={"green.600"}
         borderWidth={1}
         fontSize={"sm"}
       >
@@ -65,7 +62,7 @@ export default function SubAccordionPanel({ column, index }) {
   };
   return (
     <Accordion allowToggle key={index} mb={4}>
-      <AccordionItem boxShadow="md" bg="gray.100" mb={2} mx={2} borderRadius="md" borderWidth={0}>
+      <AccordionItem boxShadow="md" bg="gray.50" mb={2} mx={2} borderRadius="md" borderWidth={0}>
         <h2>
           <AccordionButton>
             <Box
@@ -79,8 +76,8 @@ export default function SubAccordionPanel({ column, index }) {
               pr={2}
             >
               <Box display={"flex"} flexDirection={"column"}>
-                <Text>{column.columnName}</Text>
-                <Text fontSize="xs" color={"gray.500"}>
+                <Text color={"gray.800"}>{column.columnName}</Text>
+                <Text fontSize="xs" color={"gray.600"}>
                   {new Date(column.lastUpdatedAt).toLocaleString()}
                 </Text>
               </Box>

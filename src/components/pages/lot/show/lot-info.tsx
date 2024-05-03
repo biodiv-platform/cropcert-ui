@@ -1,6 +1,5 @@
 import { Badge, Box, Stack, Text } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
-import timeCell from "@components/@core/table/time-cell";
 import tooltipCell from "@components/@core/table/tooltip-cell";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -27,7 +26,7 @@ export default function LotInfo({ lot, geojsonData }) {
     {
       name: "Created At",
       selector: (row) => row["createdAt"],
-      cell: (row) => timeCell(row.createdAt),
+      cell: (row) => new Date(row.createdAt).toLocaleString(),
     },
     {
       name: "Lot Status",

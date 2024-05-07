@@ -6,7 +6,7 @@ import LotShowPanel from "./panel";
 
 export default function LotActivity({ rows }) {
   return (
-    <LotShowPanel icon="📜" title="Activity" isOpen={true}>
+    <LotShowPanel icon="📜" title="Activity" isOpen={true} count={rows.length}>
       <>
         {rows.length > 0 ? (
           rows.map((row, index) => (
@@ -22,18 +22,20 @@ export default function LotActivity({ rows }) {
               <Flex justify="space-between">
                 <Box>
                   <Text fontSize="lg" fontWeight="bold">
-                    {ACTIVITY_TYPE[row["activityType"]]}
+                    {ACTIVITY_TYPE[row["activityType"]]
+                      ? ACTIVITY_TYPE[row["activityType"]]
+                      : row["activityType"]}
                   </Text>
                   <Text fontSize="sm" color={"gray.500"}>
                     {row["activityDescription"]}
                   </Text>
                 </Box>
-                <Box>
-                  <Text fontSize="sm" color={"gray.500"}>
+                <Box width="28" textAlign={"right"}>
+                  <Text fontSize="xs" color={"gray.500"}>
                     {new Date(row["dateCreated"]).toLocaleString()}
                   </Text>
                   <Text fontSize="sm" color={"gray.500"}>
-                    UserId: {row["authorId"]}
+                    UserID: {row["authorId"]}
                   </Text>
                 </Box>
               </Flex>

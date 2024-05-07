@@ -11,7 +11,7 @@ import DataTable from "@components/@core/table";
 import React from "react";
 
 export default function SubAccordionPanel({ column, index }) {
-  const subAccordianColumns = [
+  const subAccordionColumns = [
     {
       name: "Field Name",
       selector: (row) => row["label"],
@@ -62,7 +62,7 @@ export default function SubAccordionPanel({ column, index }) {
   };
   return (
     <Accordion allowToggle key={index} mb={4}>
-      <AccordionItem boxShadow="md" bg="gray.50" mb={2} mx={2} borderRadius="md" borderWidth={0}>
+      <AccordionItem boxShadow="md" bg="gray.50" mb={2} mx={2} borderRadius="md" borderWidth={1}>
         <h2>
           <AccordionButton>
             <Box
@@ -86,10 +86,10 @@ export default function SubAccordionPanel({ column, index }) {
             <AccordionIcon />
           </AccordionButton>
         </h2>
-        <AccordionPanel pb={4} bg="white" p={6}>
+        <AccordionPanel pb={4} bg="white" p={6} borderRadius="md">
           <DataTable
             keyField={column.modalFieldId}
-            columns={subAccordianColumns}
+            columns={subAccordionColumns}
             noHeader={true}
             data={column.fields.filter((f) => f.fieldType === "input")}
           />

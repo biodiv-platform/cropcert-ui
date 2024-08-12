@@ -74,7 +74,7 @@ function FarmerMemberPageComponent() {
 
   const { data, isLoading } = useQuery({
     queryKey: ["lastSyncedTimeFM"],
-    queryFn: axGetLastSyncedTimeFM,
+    queryFn: () => axGetLastSyncedTimeFM(user.unionCode),
     refetchInterval: 60 * 60 * 1000,
   });
 
@@ -94,7 +94,7 @@ function FarmerMemberPageComponent() {
   const handleSyncData = async () => {
     try {
       setIsSyncing(true);
-      await axSyncFMDataOnDemand();
+      await axSyncFMDataOnDemand(user?.unionCode);
       window.location.reload();
       notification(t("traceability:sync_status.success"), NotificationType.Success);
       setIsSyncing(false);

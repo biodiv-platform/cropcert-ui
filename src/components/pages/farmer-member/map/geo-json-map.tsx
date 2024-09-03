@@ -108,6 +108,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
   }
 
   return (
+    // @ts-ignore
     <MapContainer center={[center.lat, center.lng]} zoom={13} style={mapStyle}>
       <LayersControl>
         <LayersControl.BaseLayer name={mapLayers.OSM}>

@@ -1,15 +1,7 @@
 import { locationType, mapLayers } from "@static/constants";
 import L from "leaflet";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  GeoJSON,
-  LayerGroup,
-  LayersControl,
-  MapContainer,
-  Marker,
-  TileLayer,
-  useMap,
-} from "react-leaflet";
+import React, { useEffect, useMemo, useState } from "react";
+import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
 
 interface IGeoJsonMapProps {
   geoJsonData: any;
@@ -172,7 +164,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
 
           return marker;
         }}
-        style={(feature) => {
+        style={() => {
           return {
             fillColor: "#3388ff",
             weight: 2,

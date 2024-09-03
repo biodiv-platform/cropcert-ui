@@ -1,5 +1,17 @@
-import { Box, Flex, Heading, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-// import { ENDPOINT } from "@static/constants";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image as ChakraImage,
+  Stack,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import { ENDPOINT } from "@static/constants";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -101,8 +113,8 @@ export default function FarmerInfo({ farmer }) {
   };
 
   // TODO: change ODK image constants
-  // const projectId = 2;
-  // const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
+  const projectId = 2;
+  const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -134,7 +146,7 @@ export default function FarmerInfo({ farmer }) {
         direction={{ base: "column", sm: "column", md: "row", lg: "row", xl: "row" }}
         minHeight={"400px"}
       >
-        {/* {farmer.photoOfFarm && (
+        {farmer.photoOfFarm && (
           <Stack direction={"column"} spacing={2}>
             <Heading size="md">Farm Image :</Heading>
             <ChakraImage
@@ -148,7 +160,7 @@ export default function FarmerInfo({ farmer }) {
               loading="lazy"
             />
           </Stack>
-        )} */}
+        )}
         <Stack direction={"column"} spacing={2} width={"full"}>
           <Heading size="md">Location :</Heading>
           <Box

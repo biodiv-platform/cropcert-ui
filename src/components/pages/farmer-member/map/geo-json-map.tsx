@@ -15,7 +15,7 @@ const mapStyle = {
 };
 
 const GeoJsonMap = (props: IGeoJsonMapProps) => {
-  const { geoJsonData, isDraggable, setNewLatLng } = props;
+  const { geoJsonData, isDraggable } = props;
   const [map, setMap] = useState<L.Map | null>(null);
 
   // Calculate bounds and center based on GeoJSON data
@@ -102,8 +102,13 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
     return area;
   };
 
+  if (!geoJsonData || !geoJsonData.type || !geoJsonData.geometry) {
+    console.error("Invalid GeoJSON data:", geoJsonData);
+    return null; // or return a fallback UI
+  }
+
   return (
-    <MapContainer center={[center[0], center[1]]} zoom={13} style={mapStyle}>
+    <MapContainer center={[center.lat, center.lng]} zoom={13} style={mapStyle}>
       <LayersControl>
         <LayersControl.BaseLayer name={mapLayers.OSM}>
           <TileLayer
@@ -156,11 +161,6 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
           // Create a marker for each point and bind the custom popup
           const marker = L.marker(latlng, { draggable: isDraggable });
           marker.bindPopup(customPopupContent);
-          // Add dragend event listener to the marker
-          marker.on("dragend", function () {
-            const newLatLng = this.getLatLng();
-            setNewLatLng(latlng, [newLatLng.lat, newLatLng.lng]);
-          });
 
           return marker;
         }}

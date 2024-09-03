@@ -176,6 +176,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
         }}
         onEachFeature={(feature, layer) => {
           if (feature.geometry.type === locationType.MULTI_POLYGON) {
+            // @ts-ignore
             const totalArea = feature.geometry.coordinates.reduce(
               (sum, polygon) => sum + calculatePolygonArea(polygon),
               0

@@ -107,10 +107,12 @@ export default function FarmerInfo({ farmer }) {
       name: farmer.farmerName,
       farmerId: farmer.farmerId,
       cc: farmer.cc,
+      centroid: farmer.centroid,
+      noOfFarmPlots: farmer.noOfFarmPlots,
     },
   };
 
-  // ODK image constants
+  // TODO: change ODK image constants
   const projectId = 2;
   const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
 

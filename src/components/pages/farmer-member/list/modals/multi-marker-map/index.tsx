@@ -12,8 +12,9 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-state";
 import { axGetAllFarmerByUnion } from "@services/farmer.service";
-import { CC_COLOR_MAPPING, locationType } from "@static/constants";
+import { CC_COLOR_MAPPING } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
@@ -25,6 +26,7 @@ const MultiMarkerMap = dynamic(() => import("./geojson-multi-marker-map"), { ssr
 
 const MultiMarkerMapModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user } = useGlobalState();
   const [geojsonData, setGeojsonData] = useState([]);
   const [recordCount, setRecordCount] = useState({
     totalFarmer: 0,
@@ -34,10 +36,9 @@ const MultiMarkerMapModal = () => {
   const { t } = useTranslation();
 
   const [fetchData, setFetchData] = useState(false);
-
   const { data, error, isLoading } = useQuery({
     queryKey: ["AllFarmerByUnion"],
-    queryFn: () => axGetAllFarmerByUnion(5), // unionId is hardcoded
+    queryFn: () => axGetAllFarmerByUnion(user?.unionCode || 6), // unionId is hardcoded
     enabled: fetchData,
     staleTime: 1000 * 60 * 60 * 24 * 2, // 2 days in milliseconds
     gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
@@ -70,19 +71,19 @@ const MultiMarkerMapModal = () => {
   const getSelectedFarmerMemberData = (selected) => {
     return (
       selected &&
-      selected.map(({ location, farmerId, farmerName, cc, _id }) => ({
+      selected.map(({ centroid, noOfFarmPlots, farmerId, farmerName, cc, _id }) => ({
         type: "Feature",
         geometry: {
-          type: location.type,
-          coordinates: location.coordinates,
+          type: centroid.type,
+          coordinates: centroid.coordinates,
         },
         properties: {
           name: farmerName,
           _id: _id,
           farmerId: farmerId,
           cc: cc,
-          noOfFarms: location.type === locationType.POINT ? 1 : location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
-          color: CC_COLOR_MAPPING[cc],
+          noOfFarms: noOfFarmPlots,
+          color: CC_COLOR_MAPPING[cc] ?? { insideColor: "#010101" },
         },
       }))
     );

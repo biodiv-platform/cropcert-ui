@@ -1,7 +1,15 @@
 import { locationType, mapLayers } from "@static/constants";
 import L from "leaflet";
-import React, { useEffect, useMemo } from "react";
-import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  GeoJSON,
+  LayerGroup,
+  LayersControl,
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 
 interface IGeoJsonMapProps {
   geoJsonData: any;
@@ -10,56 +18,97 @@ interface IGeoJsonMapProps {
 }
 
 const mapStyle = {
-  width: "100%", // Set the width of the map
-  height: "100%", // Set the height of the map
+  width: "100%",
+  height: "100%",
 };
 
 const GeoJsonMap = (props: IGeoJsonMapProps) => {
   const { geoJsonData, isDraggable, setNewLatLng } = props;
+  const [map, setMap] = useState<L.Map | null>(null);
 
-  // Calculate center based on GeoJSON data
-  const center = useMemo(() => {
-    if (
-      geoJsonData &&
-      geoJsonData.type === "Feature" &&
-      geoJsonData.geometry.type === locationType.POINT
-    ) {
-      // Directly return the coordinates for a single point
-      return [geoJsonData.geometry.coordinates[1], geoJsonData.geometry.coordinates[0]];
-    } else if (
-      geoJsonData &&
-      geoJsonData.type === "Feature" &&
-      geoJsonData.geometry.type === locationType.MULTI_POINT
-    ) {
-      // Calculate the average of coordinates for a MultiPoint
-      const coords = geoJsonData.geometry.coordinates;
-      const average = coords.reduce(
-        (acc, coord) => {
-          acc[0] += coord[0] / coords.length;
-          acc[1] += coord[1] / coords.length;
-          return acc;
-        },
-        [0, 0]
-      );
-      return [average[1], average[0]]; // Convert [long, lat] to [lat, long] for Leaflet
+  // Calculate bounds and center based on GeoJSON data
+  const { bounds, center } = useMemo(() => {
+    if (geoJsonData && geoJsonData.type === "Feature") {
+      const layer = L.geoJSON(geoJsonData);
+      const bounds = layer.getBounds();
+      const center = bounds.getCenter();
+
+      switch (geoJsonData.geometry.type) {
+        case locationType.POINT:
+          return {
+            bounds: bounds,
+            center: [geoJsonData.geometry.coordinates[1], geoJsonData.geometry.coordinates[0]],
+          };
+        case locationType.MULTI_POINT:
+        case locationType.MULTI_POLYGON:
+          return { bounds: bounds, center: center };
+        default:
+          break;
+      }
     }
-    // Default center if no data or unsupported type
-
-    const defaultUgandaCenter = [1.438082, 32.3232571]; // if no data, center on Uganda
-
-    return defaultUgandaCenter;
+    return {
+      bounds: L.latLngBounds(L.latLng(1.438082, 32.3232571), L.latLng(1.438082, 32.3232571)),
+      center: [1.438082, 32.3232571], // Default center (Uganda)
+    };
   }, [geoJsonData]);
 
-  function InvalidateCache() {
+  function MapController() {
     const map = useMap();
     useEffect(() => {
-      setTimeout(() => {
-        map.invalidateSize();
-      }, 250);
+      setMap(map);
     }, [map]);
-
     return null;
   }
+
+  useEffect(() => {
+    if (map) {
+      const handleResize = () => {
+        map.invalidateSize();
+        map.fitBounds(bounds);
+      };
+
+      handleResize(); // Call immediately
+
+      // Set up a timer to call handleResize multiple times
+      const timerId = setInterval(handleResize, 100);
+
+      // Clear the timer after 1 second
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1000);
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, [map, bounds]);
+
+  // Function to calculate approximate area of a polygon
+  const calculatePolygonArea = (coordinates) => {
+    const EARTH_RADIUS = 6371000; // Earth's radius in meters
+
+    function toRadians(degree) {
+      return (degree * Math.PI) / 180;
+    }
+
+    let area = 0;
+    if (coordinates && coordinates.length > 0) {
+      for (let i = 0; i < coordinates[0].length; i++) {
+        const j = (i + 1) % coordinates[0].length;
+        const xi = toRadians(coordinates[0][i][0]); // longitude
+        const yi = toRadians(coordinates[0][i][1]); // latitude
+        const xj = toRadians(coordinates[0][j][0]); // longitude
+        const yj = toRadians(coordinates[0][j][1]); // latitude
+
+        const calcArea = (xj - xi) * (2 + Math.sin(yi) + Math.sin(yj));
+        area += calcArea;
+      }
+    }
+    area = Math.abs((area * EARTH_RADIUS * EARTH_RADIUS) / 2);
+    return area;
+  };
 
   return (
     <MapContainer center={[center[0], center[1]]} zoom={13} style={mapStyle}>
@@ -103,14 +152,14 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
       <GeoJSON
         data={geoJsonData}
         pointToLayer={(feature, latlng) => {
-          // Custom popup content
           const customPopupContent = `
-          <div style="display: flex; flex-direction: column; align-items: flex-start;">
-            <h3 style="margin: 0;">${feature.properties.name}</h3>
-            <p><strong>Farmer ID:</strong> ${feature.properties.farmerId}</p>
-            <p><strong>CC:</strong> ${feature.properties.cc}</p>
-          </div>
-        `;
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+              <h3 style="margin: 0; font-size: 16px">${feature.properties.name}</h3>
+              <p><strong>Farmer ID:</strong> ${feature.properties.farmerId}</p>
+              <p><strong>CC:</strong> ${feature.properties.cc}</p>
+              <p><strong>No. of farms:</strong> ${feature.properties.noOfFarmPlots}</p>
+            </div>
+          `;
 
           // Create a marker for each point and bind the custom popup
           const marker = L.marker(latlng, { draggable: isDraggable });
@@ -123,8 +172,38 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
 
           return marker;
         }}
+        style={(feature) => {
+          return {
+            fillColor: "#3388ff",
+            weight: 2,
+            opacity: 1,
+            color: "white",
+            dashArray: "3",
+            fillOpacity: 0.7,
+          };
+        }}
+        onEachFeature={(feature, layer) => {
+          if (feature.geometry.type === locationType.MULTI_POLYGON) {
+            const totalArea = feature.geometry.coordinates.reduce(
+              (sum, polygon) => sum + calculatePolygonArea(polygon),
+              0
+            );
+            const areaInSquareMeters = Math.round(totalArea); // Round to nearest whole number
+            layer.bindPopup(`
+              <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <h3 style="margin: 0; font-size: 16px">${
+                  feature.properties.name || "MultiPolygon"
+                }</h3>
+                <p><strong>Farmer ID:</strong> ${feature.properties.farmerId}</p>
+              <p><strong>CC:</strong> ${feature.properties.cc}</p>
+                <p><strong>Approximate Area:</strong> ${areaInSquareMeters.toLocaleString()} m²</p>
+                <p><strong>No. of farms:</strong> ${feature.properties.noOfFarmPlots}</p>
+              </div>
+            `);
+          }
+        }}
       />
-      <InvalidateCache />
+      <MapController />
     </MapContainer>
   );
 };

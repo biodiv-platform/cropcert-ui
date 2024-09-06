@@ -237,3 +237,5 @@ export const locationType = {
   POINT: "Point",
   MULTI_POINT: "MultiPoint",
 };
+
+export const DEFAULT_FARMER_MEMBER_FILTER = { offset: 0, max: PAGINATION_LIMIT, farmer: [] };

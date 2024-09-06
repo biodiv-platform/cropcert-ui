@@ -48,6 +48,11 @@
     "title": "Dataset Metadata"
   },
   "document_title": "Title",
+  "farmer": {
+    "name": "Name",
+    "collection_center": "Collection Center",
+    "village": "Village"
+  },
   "item_type": {
     "title": "Item Type"
   },

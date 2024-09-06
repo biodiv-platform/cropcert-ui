@@ -14,6 +14,9 @@ interface GlobalStateContextProps {
   authorizedRoles;
 
   languageId;
+
+  union;
+  setUnion;
 }
 
 interface GlobalStateProviderProps {
@@ -28,6 +31,7 @@ const GlobalStateContext = createContext<GlobalStateContextProps>({} as GlobalSt
 export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
   const [pages, setPages] = useState(props.pages);
+  const [union, setUnion] = useState(null);
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
 
@@ -58,6 +62,9 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
         getPageTree,
 
         languageId: props.languageId,
+
+        union,
+        setUnion,
       }}
     >
       {props.children}

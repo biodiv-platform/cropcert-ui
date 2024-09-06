@@ -26,7 +26,7 @@ const MultiMarkerMap = dynamic(() => import("./geojson-multi-marker-map"), { ssr
 
 const MultiMarkerMapModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useGlobalState();
+  const { union } = useGlobalState();
   const [geojsonData, setGeojsonData] = useState([]);
   const [recordCount, setRecordCount] = useState({
     totalFarmer: 0,
@@ -38,7 +38,7 @@ const MultiMarkerMapModal = () => {
   const [fetchData, setFetchData] = useState(false);
   const { data, error, isLoading } = useQuery({
     queryKey: ["AllFarmerByUnion"],
-    queryFn: () => axGetAllFarmerByUnion(user?.unionCode || 6), // unionId is hardcoded
+    queryFn: () => axGetAllFarmerByUnion(union?.value),
     enabled: fetchData,
     staleTime: 1000 * 60 * 60 * 24 * 2, // 2 days in milliseconds
     gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
@@ -112,7 +112,7 @@ const MultiMarkerMapModal = () => {
           </ModalHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>
-              {!isLoading && (
+              {!isLoading && union?.value && (
                 <Button
                   colorScheme="teal"
                   size="md"

@@ -112,9 +112,20 @@ export default function FarmerInfo({ farmer }) {
     },
   };
 
-  // TODO: change ODK image constants
-  const projectId = 2;
-  const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
+  // TODO: hardcoded keys
+  const UNION_NAME_TO_PROJECT_DETAILS = {
+    6: {
+      projectId: 4,
+      xmlFormId: "NorthernUganda-Union-Farmer-Registraion",
+    },
+    5: {
+      projectId: 2,
+      xmlFormId: "Buzaaya-Union-Farmer-Registraion",
+    },
+  };
+
+  const prepareImageUrl = (unionName) =>
+    `${ENDPOINT.ODK_IMAGES}v1/projects/${unionName.projectId}/forms/${unionName.xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`;
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -153,7 +164,7 @@ export default function FarmerInfo({ farmer }) {
               objectFit="cover"
               boxSize={{ base: "400px", sm: "full", md: "400px" }}
               align="center"
-              src={`${ENDPOINT.ODK_IMAGES}v1/projects/${projectId}/forms/${xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`}
+              src={prepareImageUrl(UNION_NAME_TO_PROJECT_DETAILS[farmer.unionCode])}
               alt="farmers land picture"
               rounded="md"
               boxShadow="md"

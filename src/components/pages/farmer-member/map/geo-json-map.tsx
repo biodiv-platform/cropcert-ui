@@ -29,7 +29,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
         case locationType.POINT:
           return {
             bounds: bounds,
-            center: [geoJsonData.geometry.coordinates[1], geoJsonData.geometry.coordinates[0]],
+            center: center,
           };
         case locationType.MULTI_POINT:
         case locationType.MULTI_POLYGON:

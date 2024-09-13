@@ -1,5 +1,5 @@
 import { selectStyles } from "@components/form/configs";
-import { axSearchFilterByName } from "@services/esmodule.service";
+import { axFarmerFilterAutoCompleteSearch } from "@services/farmer.service";
 import { MENU_PORTAL_TARGET } from "@static/constants";
 import debounce from "debounce-promise";
 import React, { useMemo } from "react";
@@ -8,7 +8,7 @@ import AsyncSelect from "react-select/async";
 
 export interface FilterMultiSelectProps {
   label?: string;
-  filterKeyList;
+  filterKeyList?;
   useIndexFilter;
   translateKey?: string;
   filterKey: string;
@@ -24,16 +24,13 @@ export default function FilterMultiSelectInput({
   filterKey,
   options,
 }: FilterMultiSelectProps) {
-  const { filter, addFilter, removeFilter } = useIndexFilter();
+  const { filter, addFilter, removeFilter, ccCodes } = useIndexFilter();
 
   const S: any = options?.length ? Select : AsyncSelect;
 
   const searchKey = filterKeyList[filterKey].searchKey || filterKey;
 
-  const onQuery = debounce(
-    (q) => axSearchFilterByName(q, searchKey, filterKeyList.index, true),
-    200
-  );
+  const onQuery = debounce((q) => axFarmerFilterAutoCompleteSearch(searchKey, q, ccCodes), 200);
 
   const defaultValue = useMemo(
     () => (filter?.[filterKey] ? arrayToOptions(filter?.[filterKey]?.split(",")) : []),
@@ -42,7 +39,7 @@ export default function FilterMultiSelectInput({
 
   const handleOnChange = (values) => {
     if (values?.length > 0) {
-      addFilter(filterKey, values.map((item) => item.value).toString());
+      addFilter(filterKey, values.map((item) => item.label).toString());
     } else {
       removeFilter(filterKey);
     }

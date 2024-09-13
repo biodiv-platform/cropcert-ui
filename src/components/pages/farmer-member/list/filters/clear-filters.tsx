@@ -19,7 +19,9 @@ export default function ClearFilters() {
   const message = t("filters:clear", { filterCount });
   const router = useRouter();
 
-  const clearFilters = () => router.push("/farmer/list", {});
+  const clearFilters = () => {
+    router.push("/farmer/list", {}).then(() => window.location.reload());
+  };
 
   return filterCount ? (
     <Tooltip title={message} hasArrow={true}>

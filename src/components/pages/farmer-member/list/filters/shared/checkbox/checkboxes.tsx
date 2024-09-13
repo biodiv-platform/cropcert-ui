@@ -13,6 +13,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
 import useFarmerFilter from "../../../use-farmer-filter";
+import FilterStat from "../stat";
 
 export interface FilterCheckboxesProps {
   filterKey;
@@ -22,13 +23,16 @@ export interface FilterCheckboxesProps {
   options;
   skipTitleTranslation?: boolean;
   skipOptionsTranslation?: boolean;
+  showStat?: boolean;
   showSearch?: boolean;
 }
 
 export default function FilterCheckboxes({
   filterKey,
   translateKey,
+  statKey,
   options,
+  showStat = true,
   skipOptionsTranslation,
   showSearch,
 }: FilterCheckboxesProps) {
@@ -74,6 +78,7 @@ export default function FilterCheckboxes({
                 />
               )}
               {skipOptionsTranslation ? label || value : t(translateKey + label)}
+              {showStat && <FilterStat statKey={statKey} subStatKey={value || label} />}
             </Checkbox>
           ))}
         </Stack>

@@ -159,7 +159,7 @@
 // }
 
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
-import { axListFarmerMember } from "@services/farmer.service";
+import { axListAggregationFarmerMember, axListFarmerMember } from "@services/farmer.service";
 import { isBrowser } from "@static/constants";
 import {
   DEFAULT_MEDIA_GALLERY_FILTER,
@@ -176,7 +176,7 @@ export interface FARMER_LIST_DATA {
   hasMore: boolean;
   isLoading: boolean;
   farmer: any[];
-  ag?: any[];
+  aggregationData?: any[];
 }
 
 interface FarmerFilterContextProps {
@@ -193,6 +193,7 @@ interface FarmerFilterContextProps {
   setCCCodes: (codes: any[]) => void;
   loading: boolean;
   clearFarmerMember: () => void;
+  farmerListAggregationData?: any;
 }
 
 const FarmerFilterContext = createContext<FarmerFilterContextProps>({} as FarmerFilterContextProps);
@@ -204,6 +205,8 @@ export const FarmerFilterProvider: React.FC<any> = ({
 }) => {
   const [filter, setFilter] = useImmer({ f: initialFilter });
   const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(farmerData);
+  const [farmerListAggregationData, setFarmerListAggregationData] = useState({});
+
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -213,15 +216,17 @@ export const FarmerFilterProvider: React.FC<any> = ({
     NProgress.start();
 
     try {
-      const { data } = await axListFarmerMember(ccCodes, { ...filter.f });
-      setFarmerListData(data);
+      const farmerData = await axListFarmerMember(ccCodes, { ...filter.f });
+      const dataMapAggregation = await axListAggregationFarmerMember(ccCodes, { ...filter.f });
+      setFarmerListData(farmerData.data);
+      setFarmerListAggregationData(dataMapAggregation.data);
     } catch (e) {
       console.error(e);
     } finally {
       NProgress.done();
       setLoading(false);
     }
-  }, [ccCodes, filter.f, setFarmerListData]);
+  }, [ccCodes, filter.f, setFarmerListData, setFarmerListAggregationData]);
 
   useDidUpdateEffect(() => {
     fetchListData();
@@ -282,6 +287,7 @@ export const FarmerFilterProvider: React.FC<any> = ({
         setCCCodes,
         loading,
         clearFarmerMember,
+        farmerListAggregationData,
       }}
     >
       {children}

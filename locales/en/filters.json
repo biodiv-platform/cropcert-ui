@@ -49,9 +49,20 @@
   },
   "document_title": "Title",
   "farmer": {
+    "aggroforestry": {
+      "title": "Aggroforestry"
+    },
     "name": "Name",
     "collection_center": "Collection Center",
-    "village": "Village"
+    "village": {
+      "title": "Village"
+    },
+    "education": {
+      "title": "Education"
+    },
+    "other_enterprises": {
+      "title": "Other Enterprises"
+    }
   },
   "item_type": {
     "title": "Item Type"
@@ -153,6 +164,7 @@
       "sep": "September",
       "title": "Month Observed"
     },
+    "record_created": "Record Created",
     "title": "Time"
   },
   "title": "Filters",

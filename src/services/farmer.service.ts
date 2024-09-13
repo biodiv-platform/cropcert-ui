@@ -37,15 +37,48 @@ export const axListFarmerMember = async (ccCodes, params) => {
 
 export const axListAggregationFarmerMember = async (ccCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/aggregation/all?ccCodes=${ccCodes}`, {
-      params,
-    });
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmer/aggregation/all?ccCodes=${ccCodes}`,
+      {
+        params,
+      }
+    );
     return {
       success: true,
       data,
     };
   } catch (e) {
     notification(e.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axFarmerFilterSearch = async (name, ccCodes) => {
+  try {
+    // Format ccCodes as a comma-separated string if it's an array
+    const ccCodesParam = Array.isArray(ccCodes) ? ccCodes.join(",") : ccCodes;
+
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/autocomplete`, {
+      params: { name, ccCodes: ccCodesParam },
+    });
+    return data;
+  } catch (e) {
+    notification(e.response.data.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axFarmerFilterAutoCompleteSearch = async (key, value, ccCodes) => {
+  try {
+    // Format ccCodes as a comma-separated string if it's an array
+    const ccCodesParam = Array.isArray(ccCodes) ? ccCodes.join(",") : ccCodes;
+
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/document/autocomplete`, {
+      params: { key, value, ccCodes: ccCodesParam },
+    });
+    return data;
+  } catch (e) {
+    notification(e.response.data.message);
     return { success: false, data: [] };
   }
 };

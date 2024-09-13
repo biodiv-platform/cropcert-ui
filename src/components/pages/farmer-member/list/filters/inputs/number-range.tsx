@@ -34,16 +34,19 @@ const NumInput = (props) => (
 );
 
 export function NumberFilter({ filterKey }) {
-  const { addFilter, removeFilter } = useFarmerFilter();
+  const { addFilter, removeFilter, farmerListAggregationData } = useFarmerFilter();
 
   const values = useMemo(() => {
-    const min = 1;
-    const max = 100000;
+    const data = farmerListAggregationData?.aggregationData?.[filterKey] || {};
 
-    return { defaultValue: [min, max], min, max };
-  }, [filterKey]);
+    return {
+      defaultValue: [data.min ?? 0, data.max ?? 10000],
+      min: data.min ?? 0,
+      max: data.max ?? 10000,
+    };
+  }, [filterKey, farmerListAggregationData]);
 
-  if (!values.min) {
+  if (!values.max) {
     return <i>No Data</i>;
   }
 

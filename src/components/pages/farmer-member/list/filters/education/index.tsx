@@ -17,7 +17,7 @@ export default function EducationFilter() {
   return (
     <CheckboxFilterPanel
       translateKey="filters:farmer.education."
-      filterKey="education"
+      filterKey="levelOfEducation"
       statKey="educationCounts"
       skipOptionsTranslation={true}
       showSearch={false}

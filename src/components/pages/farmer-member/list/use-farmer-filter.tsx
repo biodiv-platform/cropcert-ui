@@ -1,163 +1,3 @@
-// import useDidUpdateEffect from "@hooks/use-did-update-effect";
-// import { axListFarmerMember } from "@services/farmer.service"; // import the service
-// import { isBrowser } from "@static/constants";
-// import {
-//   DEFAULT_MEDIA_GALLERY_FILTER,
-//   MEDIA_GALLERY_LIST_PAGINATION_LIMIT,
-// } from "@static/media-gallery-list";
-// import NProgress from "nprogress";
-// import { stringify } from "query-string";
-// import React, { createContext, useContext, useEffect, useState } from "react";
-// import { useImmer } from "use-immer";
-
-// export interface FARMER_LIST_DATA {
-//   length: number;
-//   offset: number;
-//   hasMore: boolean;
-//   isLoading: boolean;
-//   farmer: any[];
-// }
-
-// interface FarmerFilterContextProps {
-//   filter?;
-//   farmerListData: FARMER_LIST_DATA;
-//   totalCount?;
-//   setFilter?;
-//   addFilter?;
-//   removeFilter?;
-//   nextPage?;
-//   resetFilter?;
-//   getCheckboxProps?;
-//   selectAll?: boolean;
-//   setSelectAll?;
-//   isOpen?;
-//   onOpen?;
-//   onClose?;
-//   state?;
-//   addFarmerMember?;
-//   setFarmerMembers?;
-//   updateFarmerMember?;
-//   listFarmerMember?;
-//   clearFarmerMember?;
-//   setLoading?;
-//   ccCodes?;
-//   setCCCodes?;
-//   loading: boolean; // Added loading property
-// }
-
-// const FarmerFilterContext = createContext<FarmerFilterContextProps>({} as FarmerFilterContextProps);
-
-// export const FarmerFilterProvider = (props) => {
-//   const initialOffset = props.filter.offset;
-//   const [filter, setFilter] = useImmer({ f: props.filter });
-//   const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(props.farmerData);
-
-//   const [selectAll, setSelectAll] = useState(false);
-//   const [ccCodes, setCCCodes] = useState([] as any);
-//   const [loading, setLoading] = useState(false); // Added loading state
-
-//   // Function to fetch the farmer list data
-//   const fetchListData = async () => {
-//     setLoading(true); // Set loading to true before starting fetch
-//     try {
-//       NProgress.start();
-
-//       const { ...otherValues } = filter.f;
-
-//       // Pass CCS values to the API
-//       const { data } = await axListFarmerMember(ccCodes, { ...otherValues });
-
-//       setFarmerListData(data);
-//     } catch (e) {
-//       console.error(e);
-//     } finally {
-//       NProgress.done();
-//       setLoading(false); // Set loading to false after fetch is complete
-//     }
-//   };
-
-//   const EMPTY_FARMER_LIST_DATA: FARMER_LIST_DATA = {
-//     length: 0,
-//     offset: 0,
-//     hasMore: false,
-//     isLoading: false,
-//     farmer: [],
-//   };
-
-//   const clearFarmerMember = () => {
-//     setFarmerListData(EMPTY_FARMER_LIST_DATA);
-//   };
-
-//   // Effect to fetch data when filter changes
-//   useDidUpdateEffect(() => {
-//     fetchListData();
-//   }, [filter]);
-
-//   // Effect to fetch data when ccCodes changes
-//   useEffect(() => {
-//     fetchListData();
-//   }, [ccCodes]);
-
-//   // Sync filter state with URL query parameters
-//   useEffect(() => {
-//     if (isBrowser) {
-//       window.history.pushState("", "", `?${stringify({ ...filter.f, offset: initialOffset })}`);
-//     }
-//   }, [filter]);
-
-//   const addFilter = (key, value) => {
-//     setFilter((_draft) => {
-//       _draft.f.offset = 0;
-//       _draft.f[key] = value;
-//     });
-//   };
-
-//   const removeFilter = (key) => {
-//     setFilter((_draft) => {
-//       delete _draft.f[key];
-//     });
-//   };
-
-//   const nextPage = (max = MEDIA_GALLERY_LIST_PAGINATION_LIMIT) => {
-//     setFilter((_draft) => {
-//       _draft.f.offset = Number(_draft.f.offset) + max;
-//     });
-//   };
-
-//   const resetFilter = () => {
-//     setFilter((_draft) => {
-//       _draft.f = DEFAULT_MEDIA_GALLERY_FILTER;
-//     });
-//   };
-
-//   return (
-//     <FarmerFilterContext.Provider
-//       value={{
-//         filter: filter.f,
-//         setFilter,
-//         addFilter,
-//         removeFilter,
-//         nextPage,
-//         resetFilter,
-//         selectAll,
-//         setSelectAll,
-//         farmerListData,
-//         ccCodes,
-//         setCCCodes,
-//         loading, // Added loading to context
-//         clearFarmerMember,
-//         setLoading,
-//       }}
-//     >
-//       {props.children}
-//     </FarmerFilterContext.Provider>
-//   );
-// };
-
-// export default function useFarmerFilter() {
-//   return useContext(FarmerFilterContext);
-// }
-
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { axListAggregationFarmerMember, axListFarmerMember } from "@services/farmer.service";
 import { isBrowser } from "@static/constants";
@@ -167,7 +7,7 @@ import {
 } from "@static/media-gallery-list";
 import NProgress from "nprogress";
 import { stringify } from "query-string";
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
 export interface FARMER_LIST_DATA {
@@ -206,31 +46,32 @@ export const FarmerFilterProvider: React.FC<any> = ({
   const [filter, setFilter] = useImmer({ f: initialFilter });
   const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(farmerData);
   const [farmerListAggregationData, setFarmerListAggregationData] = useState({});
-
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchListData = useCallback(async () => {
+  const fetchListData = async () => {
+    if (ccCodes.length === 0) return;
     setLoading(true);
     NProgress.start();
-
     try {
       const farmerData = await axListFarmerMember(ccCodes, { ...filter.f });
       const dataMapAggregation = await axListAggregationFarmerMember(ccCodes, { ...filter.f });
       setFarmerListData(farmerData.data);
       setFarmerListAggregationData(dataMapAggregation.data);
+
+      NProgress.done();
     } catch (e) {
       console.error(e);
     } finally {
       NProgress.done();
       setLoading(false);
     }
-  }, [ccCodes, filter.f, setFarmerListData, setFarmerListAggregationData]);
+  };
 
   useDidUpdateEffect(() => {
     fetchListData();
-  }, [filter, ccCodes]);
+  }, [ccCodes, filter.f]);
 
   useEffect(() => {
     if (isBrowser) {

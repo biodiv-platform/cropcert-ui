@@ -17,7 +17,7 @@ export default function OtherEnterpriesFilter() {
   return (
     <CheckboxFilterPanel
       translateKey="filters:farmer.other_enterprises."
-      filterKey="education"
+      filterKey="otherFarmEnterprises"
       statKey="enterprisesCounts"
       skipOptionsTranslation={true}
       showSearch={false}

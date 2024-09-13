@@ -239,8 +239,6 @@ export const locationType = {
 };
 
 export const DEFAULT_FARMER_MEMBER_FILTER = {
-  offset: 0,
-  max: PAGINATION_LIMIT,
   farmerListData: [],
 };
 

@@ -35,7 +35,7 @@ export default function FiltersList() {
               </Box>
               <AccordionIcon />
             </AccordionButton>
-            <AccordionPanel>{isExpanded && <UserFilterInput filterKey="user" />}</AccordionPanel>
+            <AccordionPanel>{isExpanded && <UserFilterInput filterKey="farmerId" />}</AccordionPanel>
           </>
         )}
       </AccordionItem>

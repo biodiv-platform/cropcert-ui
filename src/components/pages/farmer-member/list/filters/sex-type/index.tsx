@@ -17,7 +17,7 @@ export default function SexTypeFilter() {
   return (
     <CheckboxFilterPanel
       translateKey="filters:user.sex_"
-      filterKey="sex"
+      filterKey="gender"
       statKey="genderCounts"
       skipOptionsTranslation={true}
       showSearch={false}

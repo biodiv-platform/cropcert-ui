@@ -17,7 +17,7 @@ export default function VillageFilter() {
   return (
     <CheckboxFilterPanel
       translateKey="filters:farmer.village."
-      filterKey="sex"
+      filterKey="village"
       statKey="villageCounts"
       skipOptionsTranslation={true}
       showSearch={true}

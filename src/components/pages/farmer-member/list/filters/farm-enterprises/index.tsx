@@ -6,7 +6,7 @@ import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function OtherEnterpriesFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
-  const enterprisesCounts = farmerListAggregationData?.aggregationData?.enterprisesCounts || {};
+  const enterprisesCounts = farmerListAggregationData?.aggregationData?.otherFarmEnterprises || {};
 
   const OPTIONS = Object.keys(enterprisesCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -18,7 +18,7 @@ export default function OtherEnterpriesFilter() {
     <CheckboxFilterPanel
       translateKey="filters:farmer.other_enterprises."
       filterKey="otherFarmEnterprises"
-      statKey="enterprisesCounts"
+      statKey="otherFarmEnterprises"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

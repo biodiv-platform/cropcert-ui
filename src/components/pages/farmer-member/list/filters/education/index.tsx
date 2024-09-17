@@ -6,7 +6,7 @@ import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function EducationFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
-  const educationCounts = farmerListAggregationData?.aggregationData?.educationCounts || {};
+  const educationCounts = farmerListAggregationData?.aggregationData?.levelOfEducation || {};
 
   const OPTIONS = Object.keys(educationCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -18,7 +18,7 @@ export default function EducationFilter() {
     <CheckboxFilterPanel
       translateKey="filters:farmer.education."
       filterKey="levelOfEducation"
-      statKey="educationCounts"
+      statKey="levelOfEducation"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

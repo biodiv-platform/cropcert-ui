@@ -6,7 +6,7 @@ import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function SexTypeFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
-  const genderCounts = farmerListAggregationData?.aggregationData?.genderCounts || {};
+  const genderCounts = farmerListAggregationData?.aggregationData?.gender || {};
 
   const OPTIONS = Object.keys(genderCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -18,7 +18,7 @@ export default function SexTypeFilter() {
     <CheckboxFilterPanel
       translateKey="filters:user.sex_"
       filterKey="gender"
-      statKey="genderCounts"
+      statKey="gender"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

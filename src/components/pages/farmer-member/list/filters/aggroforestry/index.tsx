@@ -6,7 +6,7 @@ import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function AggroforestryFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
-  const agroforestryCounts = farmerListAggregationData?.aggregationData?.agroforestryCounts || {};
+  const agroforestryCounts = farmerListAggregationData?.aggregationData?.agroforestry || {};
 
   const OPTIONS = Object.keys(agroforestryCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -17,8 +17,8 @@ export default function AggroforestryFilter() {
   return (
     <CheckboxFilterPanel
       translateKey="filters:farmer.aggroforestry."
-      filterKey="education"
-      statKey="agroforestryCounts"
+      filterKey="agroforestry"
+      statKey="agroforestry"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

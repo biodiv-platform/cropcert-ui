@@ -34,7 +34,7 @@ export const ENDPOINT = {
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
-  TRACEABILITY: `${SITE_CONFIG.SITE.API_ENDPOINT_SSR_2}traceability-node-api/api/v1`,
+  TRACEABILITY: `${API_ENDPOINT}traceability-node-api/api/v1`,
   ODK_IMAGES: `${API_ENDPOINT}odk-api/api/`,
   USER: `${API_ENDPOINT}user-api/api`,
   USERGROUP: `${API_ENDPOINT}userGroup-api/api`,
@@ -240,6 +240,10 @@ export const locationType = {
 
 export const DEFAULT_FARMER_MEMBER_FILTER = {
   farmerListData: [],
+};
+
+export const DEFAULT_FARMER_PRODUCE_FILTER = {
+  farmerProduceListData: [],
 };
 
 export const FARMER_FILTER_KEY = {

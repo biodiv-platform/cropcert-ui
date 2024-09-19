@@ -1,18 +1,33 @@
-import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
+import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification";
 
-export const axListFarmerProduce = async (ccCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+export const axListFarmerProduce = async (ccCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmerProduce/all`, {
-      params: { ccCodes: ccCodes.toString(), offset, limit },
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmerProduce/all?ccCodes=${ccCodes}`, {
+      params,
     });
     return {
       success: true,
+      data
+    };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axListAggregationFarmerProduce = async (ccCodes, params) => {
+  try {
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmerProduce/aggregation/all?ccCodes=${ccCodes}`,
+      {
+        params,
+      }
+    );
+    return {
+      success: true,
       data,
-      offset: offset + data.length,
-      reset: offset === 0,
-      hasMore: data.length === limit,
     };
   } catch (e) {
     notification(e.message);

@@ -62,6 +62,9 @@
     },
     "other_enterprises": {
       "title": "Other Enterprises"
+    },
+    "product_type":{
+      "title":"Product Type"
     }
   },
   "item_type": {
@@ -144,6 +147,7 @@
     "title": "Taxon Browser"
   },
   "time": {
+    "collected_on": "Collected On",
     "created_on": "Date Created",
     "last_logged": "Last Logged In",
     "last_updated": "Last Updated",

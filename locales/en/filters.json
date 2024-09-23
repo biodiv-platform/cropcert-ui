@@ -63,8 +63,11 @@
     "other_enterprises": {
       "title": "Other Enterprises"
     },
-    "product_type":{
-      "title":"Product Type"
+    "ready_for_lot":{
+      "title":"Ready for Lot"
+    },
+    "type":{
+      "title":"Type"
     }
   },
   "item_type": {

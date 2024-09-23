@@ -8,12 +8,11 @@ import {
   InputLeftElement,
   Stack,
 } from "@chakra-ui/react";
-import useFarmerFilter from "@components/pages/farmer-member/list/use-farmer-filter";
 import { getTraitIcon } from "@utils/media";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
-// import useFarmerFilter from "../../../use-farmer-filter";
+import useBatchFilter from "../../../use-batch-filter";
 import FilterStat from "../stat";
 
 export interface FilterCheckboxesProps {
@@ -37,7 +36,7 @@ export default function FilterCheckboxes({
   skipOptionsTranslation,
   showSearch,
 }: FilterCheckboxesProps) {
-  const { filter, addFilter, removeFilter } = useFarmerFilter();
+  const { filter, addFilter, removeFilter } = useBatchFilter();
   const defaultValue = filter?.[filterKey] ? filter?.[filterKey]?.split(",") : [];
   const { t } = useTranslation();
   const [filteredOptions, setFilteredOptions] = useState(options);

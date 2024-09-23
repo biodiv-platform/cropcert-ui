@@ -16,7 +16,7 @@ export default function ProductTypeFilter() {
 
   return (
     <CheckboxFilterPanel
-      translateKey="filters:farmer.product_type."
+      translateKey="filters:farmer.type."
       filterKey="produceType"
       statKey="produceType"
       skipOptionsTranslation={true}

@@ -6,8 +6,8 @@ export default function TimeFilter() {
   return (
     <>
       <DateRangeFilter
-        translateKey="filters:time.record_created"
-        filterKey={{ min: "submittedOnODKMinDate", max: "submittedOnODKMaxDate" }}
+        translateKey="filters:time.created_on"
+        filterKey={{ min: "createdOnMinDate", max: "createdOnMaxDate" }}
       />
       <DateRangeFilter
         translateKey="filters:time.last_updated"

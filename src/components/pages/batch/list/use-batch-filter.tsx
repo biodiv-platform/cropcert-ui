@@ -1,5 +1,5 @@
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
-import { axListAggregationFarmerProduce, axListFarmerProduce } from "@services/farmer.service";
+import { axListAggregationBatch, axListBatch } from "@services/batch.service";
 import { isBrowser } from "@static/constants";
 import {
   DEFAULT_MEDIA_GALLERY_FILTER,
@@ -10,18 +10,18 @@ import { stringify } from "query-string";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
-export interface FARMER_PRODUCE_LIST_DATA {
+export interface Batch_LIST_DATA {
   length: number;
   offset: number;
   hasMore: boolean;
   isLoading: boolean;
-  farmerProduce: any[];
+  batch: any[];
   aggregationData?: any[];
 }
 
-interface FarmerProduceFilterContextProps {
+interface BatchFilterContextProps {
   filter: any;
-  farmerProduceListData: FARMER_PRODUCE_LIST_DATA;
+  batchListData: Batch_LIST_DATA;
   setFilter: (filter: any) => void;
   addFilter: (key: string, value: any) => void;
   removeFilter: (key: string) => void;
@@ -29,49 +29,54 @@ interface FarmerProduceFilterContextProps {
   resetFilter: () => void;
   selectAll: boolean;
   setSelectAll: (selectAll: boolean) => void;
-  ccCodes: any[];
-  setCCCodes: (codes: any[]) => void;
+  coCodes: any[];
+  setCOCodes: (codes: any[]) => void;
   loading: boolean;
-  clearFarmerProduce: () => void;
-  farmerProduceListAggregationData?: any;
-  updateFarmerProduce
+  clearBatch: () => void;
+  batchListAggregationData?: any;
+  updateBatch;
+  addBatch;
 }
 
-const FarmerProduceFilterContext = createContext<FarmerProduceFilterContextProps>(
-  {} as FarmerProduceFilterContextProps
-);
+const BatchFilterContext = createContext<BatchFilterContextProps>({} as BatchFilterContextProps);
 
-export const FarmerProduceFilterProvider: React.FC<any> = ({
+export const BatchFilterProvider: React.FC<any> = ({
   children,
   filter: initialFilter,
-  farmerProduceData,
+  batchData,
 }) => {
   const [filter, setFilter] = useImmer({ f: initialFilter });
-  const [farmerProduceListData, setFarmerProduceListData] =
-    useImmer<FARMER_PRODUCE_LIST_DATA>(farmerProduceData);
-  const [farmerProduceListAggregationData, setFarmerProduceListAggregationData] = useState({});
+  const [batchListData, setBatchListData] = useImmer<Batch_LIST_DATA>(batchData);
+  const [batchListAggregationData, setBatchListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
-  const [ccCodes, setCCCodes] = useState<any[]>([]);
+  const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const updateFarmerProduce = (lot) => {
-    setFarmerProduceListData((draft) => {
-      const toUpdateIndex = draft.farmerProduce.findIndex((o) => o._id === lot._id);
+  const updateBatch = (lot) => {
+    setBatchListData((draft) => {
+      const toUpdateIndex = draft.batch.findIndex((o) => o._id === lot._id);
       if (toUpdateIndex !== -1) {
-        draft.farmerProduce[toUpdateIndex] = lot;
+        draft.batch[toUpdateIndex] = lot;
       }
     });
   };
 
+  const addBatch = (batch) => {
+    setBatchListData((draft) => {
+      draft.batch.push(batch);
+      draft.offset = draft.offset + 1;
+    });
+  };
+
   const fetchListData = async () => {
-    if (ccCodes.length === 0) return;
+    if (coCodes.length === 0) return;
     setLoading(true);
     NProgress.start();
     try {
-      const farmerProduceData = await axListFarmerProduce(ccCodes, { ...filter.f });
-      const dataMapAggregation = await axListAggregationFarmerProduce(ccCodes, { ...filter.f });
-      setFarmerProduceListData(farmerProduceData.data);
-      setFarmerProduceListAggregationData(dataMapAggregation.data);
+      const batchData = await axListBatch(coCodes, { ...filter.f });
+      const dataMapAggregation = await axListAggregationBatch(coCodes, { ...filter.f });
+      setBatchListData(batchData.data);
+      setBatchListAggregationData(dataMapAggregation.data);
 
       NProgress.done();
     } catch (e) {
@@ -84,7 +89,7 @@ export const FarmerProduceFilterProvider: React.FC<any> = ({
 
   useDidUpdateEffect(() => {
     fetchListData();
-  }, [ccCodes, filter.f]);
+  }, [coCodes, filter.f]);
 
   useEffect(() => {
     if (isBrowser) {
@@ -115,18 +120,18 @@ export const FarmerProduceFilterProvider: React.FC<any> = ({
     setFilter({ f: DEFAULT_MEDIA_GALLERY_FILTER });
   };
 
-  const clearFarmerProduce = () => {
-    setFarmerProduceListData({
+  const clearBatch = () => {
+    setBatchListData({
       length: 0,
       offset: 0,
       hasMore: false,
       isLoading: false,
-      farmerProduce: [],
+      batch: [],
     });
   };
 
   return (
-    <FarmerProduceFilterContext.Provider
+    <BatchFilterContext.Provider
       value={{
         filter: filter.f,
         setFilter,
@@ -136,20 +141,21 @@ export const FarmerProduceFilterProvider: React.FC<any> = ({
         resetFilter,
         selectAll,
         setSelectAll,
-        farmerProduceListData,
-        ccCodes,
-        setCCCodes,
+        batchListData,
+        coCodes,
+        setCOCodes,
         loading,
-        clearFarmerProduce,
-        farmerProduceListAggregationData,
-        updateFarmerProduce
+        clearBatch,
+        batchListAggregationData,
+        updateBatch,
+        addBatch
       }}
     >
       {children}
-    </FarmerProduceFilterContext.Provider>
+    </BatchFilterContext.Provider>
   );
 };
 
-export default function useFarmerProduceFilter() {
-  return useContext(FarmerProduceFilterContext);
+export default function useBatchFilter() {
+  return useContext(BatchFilterContext);
 }

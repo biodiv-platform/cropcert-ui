@@ -8,13 +8,13 @@ import {
   Box,
   Input,
 } from "@chakra-ui/react";
-import useFarmerFilter from "@components/pages/farmer-member/list/use-farmer-filter";
 import dayjs from "@utils/date";
 import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 import Flatpickr from "react-flatpickr";
 
-// import useFarmerFilter from "../../../use-farmer-filter";
+import useBatchFilter from "../../../use-batch-filter";
+
 
 interface MinMaxKey {
   min: any;
@@ -28,7 +28,7 @@ interface DateRangeFilterProp {
 
 export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFilterProp) {
   const { t } = useTranslation();
-  const { filter, setFilter } = useFarmerFilter();
+  const { filter, setFilter } = useBatchFilter();
   const defaultDate = useMemo(() => {
     if (filter[filterKey.min]) {
       return [

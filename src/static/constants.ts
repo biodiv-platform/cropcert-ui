@@ -246,6 +246,10 @@ export const DEFAULT_FARMER_PRODUCE_FILTER = {
   farmerProduceListData: [],
 };
 
+export const DEFAULT_BATCH_FILTER = {
+  farmerProduceListData: [],
+};
+
 export const FARMER_FILTER_KEY = {
   contactNumber: {
     filterKey: "contactNumber",
@@ -254,5 +258,12 @@ export const FARMER_FILTER_KEY = {
   farmerId: {
     filterKey: "farmerId",
     searchKey: "farmerId",
+  },
+};
+
+export const BATCH_FILTER_KEY = {
+  batchName: {
+    filterKey: "batchName",
+    searchKey: "batchName",
   },
 };

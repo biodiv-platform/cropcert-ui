@@ -21,7 +21,7 @@ export default function ClearFilters() {
   const router = useRouter();
 
   const clearFilters = () => {
-    router.push("/farmer/list", {}).then(() => window.location.reload());
+    router.push("/traceability/traceability-workflow", {}).then(() => window.location.reload());
   };
 
   return filterCount ? (

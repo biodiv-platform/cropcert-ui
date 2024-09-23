@@ -1,10 +1,11 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { RestrictedAccess } from "@components/@core/layout";
 import BatchListPageComponent from "@components/pages/batch/list";
+import { BatchFilterProvider } from "@components/pages/batch/list/use-batch-filter";
 import FarmerListPageComponent from "@components/pages/farmer-produce/list";
-import { FarmerFilterProvider } from "@components/pages/farmer-produce/list/use-farmer-produce-filter";
+import { FarmerProduceFilterProvider } from "@components/pages/farmer-produce/list/use-farmer-produce-filter";
 import LotListPageComponent from "@components/pages/lot/list";
-import { DEFAULT_FARMER_PRODUCE_FILTER } from "@static/constants";
+import { DEFAULT_BATCH_FILTER, DEFAULT_FARMER_PRODUCE_FILTER } from "@static/constants";
 import React, { useEffect, useState } from "react";
 
 function ShowTabs() {
@@ -37,12 +38,14 @@ function ShowTabs() {
 
         <TabPanels>
           <TabPanel>
-            <FarmerFilterProvider filter={DEFAULT_FARMER_PRODUCE_FILTER}>
+            <FarmerProduceFilterProvider filter={DEFAULT_FARMER_PRODUCE_FILTER}>
               <FarmerListPageComponent key={selectedTab} />
-            </FarmerFilterProvider>
+            </FarmerProduceFilterProvider>
           </TabPanel>
           <TabPanel>
-            <BatchListPageComponent key={selectedTab} />
+            <BatchFilterProvider filter={DEFAULT_BATCH_FILTER}>
+              <BatchListPageComponent key={selectedTab} />
+            </BatchFilterProvider>
           </TabPanel>
           <TabPanel>
             <LotListPageComponent key={selectedTab} />

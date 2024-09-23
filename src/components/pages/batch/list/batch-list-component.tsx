@@ -21,7 +21,6 @@ import { hasAccess } from "@utils/auth";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import InfiniteScroll from "react-infinite-scroller";
 
 import { createBatchColumns } from "./data";
 import BatchExpand from "./expand";
@@ -29,12 +28,10 @@ import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal-new";
 import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
-import { useBatchStore } from "./use-batch-store";
+import useBatchFilter from "./use-batch-filter";
 
 function BatchListPageComponent() {
   const [union, setUnion] = useState({} as any);
-  const [coCodes, setCOCodes] = useState<any>([]);
-  const { state, ...actions } = useBatchStore();
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
@@ -45,9 +42,8 @@ function BatchListPageComponent() {
   const [showAlert, setShowAlert] = useState(false);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    coCodes.length && actions.listBatch({ coCodes, reset: true });
-  }, [triggerRender, coCodes]);
+  const { clearBatch, setCOCodes, batchListData, loading, updateBatch, addBatch } =
+    useBatchFilter();
 
   useEffect(() => {
     (async () => {
@@ -55,10 +51,6 @@ function BatchListPageComponent() {
       setBatchModalColumns(columns.data);
     })();
   }, []);
-
-  const handleLoadMore = () => {
-    actions.listBatch({ coCodes });
-  };
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
     setSelectedBatches(selectedRows);
@@ -113,7 +105,7 @@ function BatchListPageComponent() {
 
   const onBatchUpdate = (props) => {
     onToggle();
-    actions.updateBatch(props);
+    updateBatch(props);
     setTriggerRender(!triggerRender);
   };
 
@@ -124,16 +116,14 @@ function BatchListPageComponent() {
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 {t("traceability:tab_titles.batch")}</PageHeading>
       <Box my={2}>
-        {t("traceability:total_records")}:{" "}
-        {state.isLoading ? <Spinner size="xs" /> : state.batch.length}
+        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : batchListData?.length}
       </Box>
       <CoreGrid hidden={hideAccessor}>
         <Accesser
           toRole={ROLES.UNION}
           onChange={setUnion}
           onTouch={() => {
-            actions.clearBatch();
-            actions.setLoading(true);
+            clearBatch();
           }}
         />
         <Box>
@@ -143,7 +133,7 @@ function BatchListPageComponent() {
 
       <MultipleTypeWarning show={showTypeError} />
 
-      {state.batch.length
+      {batchListData?.length
         ? showAlert && (
             <Alert status="success" variant="left-accent" marginY={2} rounded={"md"}>
               <AlertIcon />
@@ -152,50 +142,48 @@ function BatchListPageComponent() {
           )
         : null}
 
-      {state.isLoading ? (
+      {loading ? (
         <Spinner />
-      ) : state.batch.length > 0 ? (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
-          <Table
-            data={state.batch}
-            columns={batchColumns}
-            selectableRows={true}
-            expandableRows={true}
-            selectableRowDisabled={(r) => handleDisabledRows(r)}
-            onSelectedRowsChange={handleOnSelectionChange}
-            clearSelectedRows={clearRows}
-            defaultSortFieldId={1}
-            defaultSortAsc={false}
-            conditionalRowStyles={[
-              {
-                when: (row) => row.lotId,
-                style: {
-                  background: "var(--chakra-colors-gray-100)!important",
-                  opacity: "0.5",
-                },
+      ) : batchListData?.length > 0 ? (
+        <Table
+          data={batchListData}
+          columns={batchColumns}
+          selectableRows={true}
+          expandableRows={true}
+          selectableRowDisabled={(r) => handleDisabledRows(r)}
+          onSelectedRowsChange={handleOnSelectionChange}
+          clearSelectedRows={clearRows}
+          defaultSortFieldId={1}
+          defaultSortAsc={false}
+          conditionalRowStyles={[
+            {
+              when: (row) => row.lotId,
+              style: {
+                background: "var(--chakra-colors-gray-100)!important",
+                opacity: "0.5",
               },
-              {
-                when: (row) => row.isReadyForLot && !row.lotId,
-                style: {
-                  borderLeft: "5px solid var(--chakra-colors-green-500)",
-                  borderRadius: "6px",
-                  backgroundColor: "var(--chakra-colors-green-50)",
-                },
+            },
+            {
+              when: (row) => row.isReadyForLot && !row.lotId,
+              style: {
+                borderLeft: "5px solid var(--chakra-colors-green-500)",
+                borderRadius: "6px",
+                backgroundColor: "var(--chakra-colors-green-50)",
               },
-            ]}
-            expandableRowsComponent={BatchExpand}
-            pagination
-            paginationPerPage={20}
-            paginationRowsPerPageOptions={[10, 20, 50, 100]}
-          />
-        </InfiniteScroll>
+            },
+          ]}
+          expandableRowsComponent={BatchExpand}
+          pagination
+          paginationPerPage={20}
+          paginationRowsPerPageOptions={[10, 20, 50, 100]}
+        />
       ) : (
         <Box mt={2}>{t("traceability:no_records")}</Box>
       )}
 
       <BatchUpdateModal update={onBatchUpdate} />
       <LotCreateModal update={onBatchUpdate} />
-      <BatchCreateModal update={actions.addBatch} />
+      <BatchCreateModal update={addBatch} />
     </Box>
   );
 }

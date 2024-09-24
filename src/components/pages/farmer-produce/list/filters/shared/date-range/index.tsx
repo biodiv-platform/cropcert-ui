@@ -15,28 +15,21 @@ import Flatpickr from "react-flatpickr";
 
 import useFarmerProduceFilter from "../../../use-farmer-produce-filter";
 
-
-interface MinMaxKey {
-  min: any;
-  max: any;
-}
-
 interface DateRangeFilterProp {
-  filterKey: MinMaxKey;
+  filterKey: string;
   translateKey: string;
 }
 
 export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFilterProp) {
   const { t } = useTranslation();
   const { filter, setFilter } = useFarmerProduceFilter();
+
   const defaultDate = useMemo(() => {
-    if (filter[filterKey.min]) {
-      return [
-        dayjs(filter[filterKey.min]).toDate(),
-        filter[filterKey.max] ? dayjs(filter[filterKey.max]).toDate() : "today",
-      ];
+    if (filter[filterKey]) {
+      const [minDate, maxDate] = filter[filterKey].split(",");
+      return [dayjs(minDate).toDate(), dayjs(maxDate || "today").toDate()];
     }
-  }, []);
+  }, [filter, filterKey]);
 
   const options = {
     defaultDate: defaultDate,
@@ -49,11 +42,11 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
   const handleOnDateChange = (dates = []) => {
     setFilter((_draft) => {
       if (dates.length > 0) {
-        _draft.f[filterKey.min] = dayjs(dates[0]).utc().format();
-        _draft.f[filterKey.max] = dayjs(dates[1]).utc().format();
+        const minDate = dayjs(dates[0]).utc().format();
+        const maxDate = dayjs(dates[1]).utc().format();
+        _draft.f[filterKey] = `${minDate},${maxDate}`;
       } else {
-        _draft.f[filterKey.min] = undefined;
-        _draft.f[filterKey.max] = undefined;
+        _draft.f[filterKey] = undefined;
       }
     });
     console.debug(dates);

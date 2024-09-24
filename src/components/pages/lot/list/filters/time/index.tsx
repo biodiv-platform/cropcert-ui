@@ -7,11 +7,11 @@ export default function TimeFilter() {
     <>
       <DateRangeFilter
         translateKey="filters:time.created_on"
-        filterKey={{ min: "createdOnMinDate", max: "createdOnMaxDate" }}
+        filterKey="createdAt"
       />
       <DateRangeFilter
         translateKey="filters:time.last_updated"
-        filterKey={{ min: "lastUpdatedMinDate", max: "lastUpdatedMaxDate" }}
+        filterKey="lastUpdatedAt"
       />
     </>
   );

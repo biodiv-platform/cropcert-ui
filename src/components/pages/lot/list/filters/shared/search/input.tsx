@@ -1,14 +1,13 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
 import { TextBoxField } from "@components/form/text";
-import useFarmerFilter from "@components/pages/farmer-member/list/use-farmer-filter";
 import styled from "@emotion/styled";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-// import useFarmerFilter from "../../../use-farmer-filter";
+import useLotFilter from "../../../use-lot-filter";
 
 const TextFilterForm = styled.form`
   display: flex;
@@ -22,7 +21,7 @@ const TextFilterForm = styled.form`
 `;
 
 export default function TextFilterInput({ filterKey, label, mb = 0 }) {
-  const { filter, addFilter, removeFilter } = useFarmerFilter();
+  const { filter, addFilter, removeFilter } = useLotFilter();
   const defaultValue = filter?.[filterKey];
 
   const hForm = useForm<any>({

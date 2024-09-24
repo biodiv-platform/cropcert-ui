@@ -247,7 +247,11 @@ export const DEFAULT_FARMER_PRODUCE_FILTER = {
 };
 
 export const DEFAULT_BATCH_FILTER = {
-  farmerProduceListData: [],
+  batchListData: [],
+};
+
+export const DEFAULT_LOT_FILTER = {
+  lotListData: [],
 };
 
 export const FARMER_FILTER_KEY = {
@@ -265,5 +269,12 @@ export const BATCH_FILTER_KEY = {
   batchName: {
     filterKey: "batchName",
     searchKey: "batchName",
+  },
+};
+
+export const LOT_FILTER_KEY = {
+  lotName: {
+    filterKey: "lotName",
+    searchKey: "lotName",
   },
 };

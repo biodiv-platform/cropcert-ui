@@ -5,7 +5,12 @@ import { BatchFilterProvider } from "@components/pages/batch/list/use-batch-filt
 import FarmerListPageComponent from "@components/pages/farmer-produce/list";
 import { FarmerProduceFilterProvider } from "@components/pages/farmer-produce/list/use-farmer-produce-filter";
 import LotListPageComponent from "@components/pages/lot/list";
-import { DEFAULT_BATCH_FILTER, DEFAULT_FARMER_PRODUCE_FILTER } from "@static/constants";
+import { LotFilterProvider } from "@components/pages/lot/list/use-lot-filter";
+import {
+  DEFAULT_BATCH_FILTER,
+  DEFAULT_FARMER_PRODUCE_FILTER,
+  DEFAULT_LOT_FILTER,
+} from "@static/constants";
 import React, { useEffect, useState } from "react";
 
 function ShowTabs() {
@@ -48,7 +53,9 @@ function ShowTabs() {
             </BatchFilterProvider>
           </TabPanel>
           <TabPanel>
-            <LotListPageComponent key={selectedTab} />
+            <LotFilterProvider filter={DEFAULT_LOT_FILTER}>
+              <LotListPageComponent key={selectedTab} />
+            </LotFilterProvider>
           </TabPanel>
         </TabPanels>
       </Tabs>

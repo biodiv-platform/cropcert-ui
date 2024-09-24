@@ -7,25 +7,18 @@ import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
 
 import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
 import LotReportUpdate from "./modals/lot-report-update";
-import { useLotStore } from "./use-lot-store";
+import useLotFilter from "./use-lot-filter";
 
 function LotListPageComponent() {
   const [union, setUnion] = useState({} as any);
-  const [coCodes, setCoCodes] = useState<any>([]);
-  const { state, ...actions } = useLotStore();
   const [lotModalColumns, setLotModalColumns] = useState<any>([]);
   const { t } = useTranslation();
 
-  const handleLoadMore = () => actions.listLot({ ccCodes: coCodes });
-
-  useEffect(() => {
-    coCodes.length && actions.listLot({ ccCodes: coCodes, reset: true });
-  }, [coCodes]);
+  const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
 
   useEffect(() => {
     (async () => {
@@ -41,8 +34,7 @@ function LotListPageComponent() {
     <>
       <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
       <Box my={2}>
-        {t("traceability:total_records")}:{" "}
-        {state.isLoading ? <Spinner size="xs" /> : state.lot.length}
+        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : lotListData?.length}
       </Box>
 
       <CoreGrid>
@@ -50,41 +42,38 @@ function LotListPageComponent() {
           toRole={ROLES.UNION}
           onChange={setUnion}
           onTouch={() => {
-            actions.clearLot();
-            actions.setLoading(true);
+            clearLot();
           }}
         />
-        <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+        <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
       </CoreGrid>
 
-      {state.isLoading ? (
+      {loading ? (
         <Spinner />
-      ) : state.lot.length > 0 ? (
-        <InfiniteScroll pageStart={0} loadMore={handleLoadMore} hasMore={state.hasMore}>
-          <Table
-            data={state.lot}
-            columns={[...lotColumns, ...lotExtraColumns]}
-            expandableRows={true}
-            defaultSortFieldId={1}
-            defaultSortAsc={false}
-            customStyles={{
-              cells: {
-                style: {
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                },
+      ) : lotListData?.length > 0 ? (
+        <Table
+          data={lotListData}
+          columns={[...lotColumns, ...lotExtraColumns]}
+          expandableRows={true}
+          defaultSortFieldId={1}
+          defaultSortAsc={false}
+          customStyles={{
+            cells: {
+              style: {
+                paddingLeft: 0,
+                paddingRight: 0,
               },
-            }}
-            expandableRowsComponent={LotExpand}
-            pagination
-            paginationPerPage={20}
-            paginationRowsPerPageOptions={[10, 20, 50, 100]}
-          />
-        </InfiniteScroll>
+            },
+          }}
+          expandableRowsComponent={LotExpand}
+          pagination
+          paginationPerPage={20}
+          paginationRowsPerPageOptions={[10, 20, 50, 100]}
+        />
       ) : (
         <Box mt={2}>{t("traceability:no_records")}</Box>
       )}
-      <LotReportUpdate update={actions.updateLot} />
+      <LotReportUpdate update={updateLot} />
     </>
   );
 }

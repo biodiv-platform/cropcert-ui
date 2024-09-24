@@ -1,15 +1,15 @@
 import { Box } from "@chakra-ui/react";
-import useFarmerFilter from "@components/pages/farmer-member/list/use-farmer-filter";
 import { getByPath } from "@utils/basic";
 import { toHumanString } from "human-readable-numbers";
 import React from "react";
 
-// import useFarmerFilter from "../../../use-farmer-filter";
+import useLotFilter from "../../../use-lot-filter";
+
 
 export default function FilterStat({ statKey, subStatKey }) {
   const {
-    farmerListAggregationData: { aggregationData },
-  } = useFarmerFilter();
+    lotListAggregationData: { aggregationData },
+  } = useLotFilter();
 
   const path = statKey ? [statKey, subStatKey].join(".") : subStatKey;
   const count = getByPath(aggregationData, path);

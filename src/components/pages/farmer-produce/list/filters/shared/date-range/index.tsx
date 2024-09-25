@@ -42,9 +42,13 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
   const handleOnDateChange = (dates = []) => {
     setFilter((_draft) => {
       if (dates.length > 0) {
-        const minDate = dayjs(dates[0]).utc().format();
-        const maxDate = dayjs(dates[1]).utc().format();
-        _draft.f[filterKey] = `${minDate},${maxDate}`;
+        const minDate = dayjs(dates[0]).startOf("day").utc().format();
+        const maxDate = dates[1] ? dayjs(dates[1]).endOf("day").utc().format() : minDate;
+        if (minDate === maxDate) {
+          _draft.f[filterKey] = `${minDate},${maxDate}`;
+        } else {
+          _draft.f[filterKey] = `${minDate},${maxDate}`;
+        }
       } else {
         _draft.f[filterKey] = undefined;
       }

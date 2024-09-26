@@ -8,7 +8,7 @@ export default function FarmerIdFilter() {
   return (
     <CheckboxFilterPanel
       filterKey={FARMER_FILTER_KEY.farmerId.filterKey}
-      filterKeyList={FARMER_FILTER_KEY}
+      model={FARMER_FILTER_KEY.farmerId.model}
       useIndexFilter={useFarmerFilter}
       translateKey="Farmer ID"
     />

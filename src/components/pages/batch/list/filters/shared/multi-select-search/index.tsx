@@ -13,7 +13,7 @@ import FilterMultiSelectInput, { FilterMultiSelectProps } from "./input";
 export default function FilterMultiSelectPanel({
   filterKey,
   translateKey = "",
-  filterKeyList,
+  model,
   useIndexFilter,
   options = null,
 }: FilterMultiSelectProps) {
@@ -35,7 +35,7 @@ export default function FilterMultiSelectPanel({
               <FilterMultiSelectInput
                 filterKey={filterKey}
                 useIndexFilter={useIndexFilter}
-                filterKeyList={filterKeyList}
+                model={model}
                 label={label}
                 options={options}
               />

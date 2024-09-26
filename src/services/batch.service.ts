@@ -45,6 +45,21 @@ export const axListAggregationBatch = async (coCodes, params) => {
   }
 };
 
+export const axBatchFilterAutoCompleteSearch = async (key, value, coCodes, model) => {
+  try {
+    // Format coCodes as a comma-separated string if it's an array
+    const coCodesParam = Array.isArray(coCodes) ? coCodes.join(",") : coCodes;
+
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/global/document/autocomplete`, {
+      params: { key, value, coCodes: coCodesParam, model },
+    });
+    return data;
+  } catch (e) {
+    notification(e.response.data.message);
+    return { success: false, data: [] };
+  }
+};
+
 export const axListFarmerProduceByBatchId = async (batchId) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/${batchId}/farmerProduce`);

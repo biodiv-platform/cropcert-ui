@@ -8,7 +8,7 @@ import AsyncSelect from "react-select/async";
 
 export interface FilterMultiSelectProps {
   label?: string;
-  filterKeyList?;
+  model?;
   useIndexFilter;
   translateKey?: string;
   filterKey: string;
@@ -19,7 +19,7 @@ const arrayToOptions = (options) => options && options.map((value) => ({ value, 
 
 export default function FilterMultiSelectInput({
   label,
-  filterKeyList,
+  model,
   useIndexFilter,
   filterKey,
   options,
@@ -28,9 +28,12 @@ export default function FilterMultiSelectInput({
 
   const S: any = options?.length ? Select : AsyncSelect;
 
-  const searchKey = filterKeyList[filterKey].searchKey || filterKey;
+  const searchKey = filterKey;
 
-  const onQuery = debounce((q) => axFarmerFilterAutoCompleteSearch(searchKey, q, ccCodes), 200);
+  const onQuery = debounce(
+    (q) => axFarmerFilterAutoCompleteSearch(searchKey, q, ccCodes, model),
+    200
+  );
 
   const defaultValue = useMemo(
     () => (filter?.[filterKey] ? arrayToOptions(filter?.[filterKey]?.split(",")) : []),

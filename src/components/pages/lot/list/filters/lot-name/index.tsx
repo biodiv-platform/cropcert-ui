@@ -8,7 +8,7 @@ export default function LotNameFilter() {
   return (
     <CheckboxFilterPanel
       filterKey={LOT_FILTER_KEY.lotName.filterKey}
-      filterKeyList={LOT_FILTER_KEY}
+      model={LOT_FILTER_KEY.lotName.model}
       useIndexFilter={useLotFilter}
       translateKey="Lot Name"
     />

@@ -4,12 +4,15 @@ import notification from "@utils/notification";
 
 export const axListFarmerProduce = async (ccCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmerProduce/all?ccCodes=${ccCodes}`, {
-      params,
-    });
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmerProduce/all?ccCodes=${ccCodes}`,
+      {
+        params,
+      }
+    );
     return {
       success: true,
-      data
+      data,
     };
   } catch (e) {
     notification(e.message);
@@ -68,28 +71,13 @@ export const axListAggregationFarmerMember = async (ccCodes, params) => {
   }
 };
 
-export const axFarmerFilterSearch = async (name, ccCodes) => {
+export const axFarmerFilterAutoCompleteSearch = async (key, value, ccCodes, model) => {
   try {
     // Format ccCodes as a comma-separated string if it's an array
     const ccCodesParam = Array.isArray(ccCodes) ? ccCodes.join(",") : ccCodes;
 
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/autocomplete`, {
-      params: { name, ccCodes: ccCodesParam },
-    });
-    return data;
-  } catch (e) {
-    notification(e.response.data.message);
-    return { success: false, data: [] };
-  }
-};
-
-export const axFarmerFilterAutoCompleteSearch = async (key, value, ccCodes) => {
-  try {
-    // Format ccCodes as a comma-separated string if it's an array
-    const ccCodesParam = Array.isArray(ccCodes) ? ccCodes.join(",") : ccCodes;
-
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/document/autocomplete`, {
-      params: { key, value, ccCodes: ccCodesParam },
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/global/document/autocomplete`, {
+      params: { key, value, ccCodes: ccCodesParam, model },
     });
     return data;
   } catch (e) {

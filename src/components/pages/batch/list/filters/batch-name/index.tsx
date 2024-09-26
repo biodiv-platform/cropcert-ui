@@ -8,7 +8,7 @@ export default function BatchNameFilter() {
   return (
     <CheckboxFilterPanel
       filterKey={BATCH_FILTER_KEY.batchName.filterKey}
-      filterKeyList={BATCH_FILTER_KEY}
+      model={BATCH_FILTER_KEY.batchName.model}
       useIndexFilter={useBatchFilter}
       translateKey="Batch Name"
     />

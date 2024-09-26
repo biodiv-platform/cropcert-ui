@@ -4,13 +4,13 @@ import React from "react";
 import useFarmerFilter from "../../use-farmer-filter";
 import CheckboxFilterPanel from "../shared/multi-select-search";
 
-export default function PhoneNumberFilter() {
+export default function FarmerNameFilter() {
   return (
     <CheckboxFilterPanel
-      filterKey={FARMER_FILTER_KEY.contactNumber.filterKey}
-      model={FARMER_FILTER_KEY.contactNumber.model}
+      filterKey={FARMER_FILTER_KEY.farmerName.filterKey}
+      model={FARMER_FILTER_KEY.farmerName.model}
       useIndexFilter={useFarmerFilter}
-      translateKey="filters:user.phone"
+      translateKey="Farmer Name"
     />
   );
 }

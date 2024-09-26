@@ -35,6 +35,21 @@ export const axListAggregationLot = async (coCodes, params) => {
   }
 };
 
+export const axLotFilterAutoCompleteSearch = async (key, value, coCodes, model) => {
+  try {
+    // Format coCodes as a comma-separated string if it's an array
+    const coCodesParam = Array.isArray(coCodes) ? coCodes.join(",") : coCodes;
+
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/global/document/autocomplete`, {
+      params: { key, value, coCodes: coCodesParam, model },
+    });
+    return data;
+  } catch (e) {
+    notification(e.response.data.message);
+    return { success: false, data: [] };
+  }
+};
+
 export const axUpdateLot = async (payload) => {
   try {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/${payload.id}`, payload);

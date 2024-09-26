@@ -6,37 +6,20 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
-import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 import FarmerIdFilter from "./farmer-id";
+import FarmerNameFilter from "./farmer-name";
 import { NumberFilter } from "./inputs/number-range";
-import UserFilterInput from "./name-of-user";
 import ProductTypeFilter from "./product-type";
 import TimeFilter from "./time";
 
 export default function FiltersList() {
-  const { t } = useTranslation();
-
   return (
     <Accordion allowMultiple={true}>
       <FarmerIdFilter />
 
-      <AccordionItem>
-        {({ isExpanded }) => (
-          <>
-            <AccordionButton>
-              <Box flex={1} textAlign="left">
-                {t("filters:farmer.name")}
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>
-              {isExpanded && <UserFilterInput filterKey="farmerId" />}
-            </AccordionPanel>
-          </>
-        )}
-      </AccordionItem>
+      <FarmerNameFilter />
 
       <ProductTypeFilter />
 

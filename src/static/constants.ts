@@ -238,6 +238,13 @@ export const locationType = {
   MULTI_POINT: "MultiPoint",
 };
 
+export const MODEL = {
+  FARMERS: "Farmers",
+  FARMERPRODUCE: "FarmerProduce",
+  BATCHES: "Batches",
+  LOTS: "Lots",
+};
+
 export const DEFAULT_FARMER_MEMBER_FILTER = {
   farmerListData: [],
 };
@@ -257,24 +264,39 @@ export const DEFAULT_LOT_FILTER = {
 export const FARMER_FILTER_KEY = {
   contactNumber: {
     filterKey: "contactNumber",
-    searchKey: "contactNumber",
+    model: MODEL.FARMERS,
   },
   farmerId: {
     filterKey: "farmerId",
-    searchKey: "farmerId",
+    model: MODEL.FARMERS,
+  },
+  farmerName: {
+    filterKey: "farmerName",
+    model: MODEL.FARMERS,
+  },
+};
+
+export const FARMER_PRODUCE_FILTER_KEY = {
+  farmerId: {
+    filterKey: "farmerId",
+    model: MODEL.FARMERPRODUCE,
+  },
+  farmerName: {
+    filterKey: "farmerName",
+    model: MODEL.FARMERPRODUCE,
   },
 };
 
 export const BATCH_FILTER_KEY = {
   batchName: {
     filterKey: "batchName",
-    searchKey: "batchName",
+    model: MODEL.BATCHES,
   },
 };
 
 export const LOT_FILTER_KEY = {
   lotName: {
     filterKey: "lotName",
-    searchKey: "lotName",
+    model: MODEL.LOTS,
   },
 };

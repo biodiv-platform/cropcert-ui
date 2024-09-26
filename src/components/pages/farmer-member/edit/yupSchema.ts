@@ -30,6 +30,7 @@ const schema = yup.object().shape({
     ),
   noOfCoffeeTrees: yup.number(),
   agroforestry: yup.string(),
+  yearOfFirstPlanting: yup.number().nullable().min(1900).max(new Date().getFullYear()),
   instanceID: yup.string(),
   instanceName: yup.string(),
   submittedOnODK: yup.date(),

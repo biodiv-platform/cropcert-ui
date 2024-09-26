@@ -48,7 +48,7 @@ const MultiMarkerMapModal = () => {
     const totalFarmer = selected.length;
     let totalPlots = 0;
     selected.forEach((farmer) => {
-      totalPlots += farmer.location.type === "Point" ? 1 : farmer.location.coordinates.length;
+      totalPlots += farmer.noOfFarmPlots;
     });
     return { totalFarmer, totalPlots };
   };

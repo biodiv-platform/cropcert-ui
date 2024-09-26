@@ -1,42 +1,39 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Accordion, Alert, AlertIcon, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";
-import { locationType } from "@static/constants";
 import notification, { NotificationType } from "@utils/notification";
+import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
+import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
 
-const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/geoJson-featureCollection-map"), { ssr: false });
 
 export default function FarmerEditPageComponent({ edit }) {
   const [locationUpdated, setLocationUpdated] = useState(false);
-  const [updatedGeoJsonData, setUpdatedGeoJsonData] = useState<any>(null);
   const router = useRouter();
   const { t } = useTranslation();
 
   const farmer = edit;
 
-  const geoJsonData = {
-    type: "Feature",
-    geometry: {
-      type: farmer.location.type,
-      coordinates: farmer.location.coordinates,
-    },
-    properties: {
-      name: farmer.farmerName,
-      _id: farmer._id,
-      farmerId: farmer.farmerId,
-      cc: farmer.cc,
-      noOfFarms:
-        farmer.location.type === locationType.POINT ? 1 : farmer.location.coordinates.length, // update here in case of future expansion of polygon or other geojson types.
-    },
+  const properties = {
+    name: farmer.farmerName,
+    _id: farmer._id,
+    farmerId: farmer.farmerId,
+    cc: farmer.cc,
+    noOfFarmPlots: farmer.noOfFarmPlots,
   };
+
+  const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
+
+  const [geojson, setGeojson] = useState(geoJsonWithProperties);
+  const [isLocationVerified, setIsLocationVerified] = useState(farmer.isLocationVerified);
 
   // Function to go back to the previous page
   const handleGoBack = () => {
@@ -57,36 +54,33 @@ export default function FarmerEditPageComponent({ edit }) {
     );
   };
 
-  const handleSetNewLatLng = (oldLatlng, newLatlng) => {
-    const newGeoJsonData = { ...geoJsonData };
-
-    if (newGeoJsonData.geometry.type === locationType.POINT) {
-      newGeoJsonData.geometry.coordinates = [newLatlng[1], newLatlng[0]];
-      setLocationUpdated(true);
-    } else {
-      const index = newGeoJsonData.geometry.coordinates.findIndex(
-        (subArr) => JSON.stringify(subArr) === JSON.stringify([oldLatlng.lng, oldLatlng.lat])
-      );
-
-      if (index != -1) {
-        newGeoJsonData.geometry.coordinates[index] = [newLatlng[1], newLatlng[0]];
-        setLocationUpdated(true);
-      }
-    }
-
-    setUpdatedGeoJsonData(newGeoJsonData);
+  const handleUpdatedGeoJson = (geo) => {
+    setLocationUpdated(true);
+    setGeojson(geo);
   };
 
   const handleSubmit = async (values) => {
     try {
       // get farmer map values.
-
       if (locationUpdated) {
-        values.location = {
-          type: updatedGeoJsonData?.geometry.type,
-          coordinates: updatedGeoJsonData?.geometry.coordinates,
-        };
+        values.location = geojson;
       }
+
+      // adding isLocationVerified field
+      values.isLocationVerified = isLocationVerified;
+
+      /*
+       * Remove `dateOfSurvey` property from the `values` object.
+       *
+       * `dateOfSurvey` is initially assigned a placeholder value (`submittedOnODK`)
+       * if it is null. This placeholder value is used only for display purposes
+       * and is not intended to be sent to the server.
+       *
+       * To prevent sending unnecessary or misleading data to the server,
+       * we delete the `dateOfSurvey` property from the `values` object
+       * before submission.
+       */
+      delete values.dateOfSurvey;
 
       // get updated values.
       const updatedData = {};
@@ -95,6 +89,9 @@ export default function FarmerEditPageComponent({ edit }) {
         let valueChanged = false;
 
         switch (key) {
+          case "location":
+            valueChanged = locationUpdated;
+            break;
           case "otherFarmEnterprises":
             valueChanged = !values[key].every((enterprise) => farmer[key].includes(enterprise));
             break;
@@ -142,6 +139,21 @@ export default function FarmerEditPageComponent({ edit }) {
           <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Heading size="md">{t("traceability:location.location_heading")}</Heading>
           </Flex>
+          <LocationEditAndVerifyForm
+            isLocationVerified={isLocationVerified}
+            setIsLocationVerified={setIsLocationVerified}
+          />
+          {!isLocationVerified ? (
+            <Alert status="warning" variant="left-accent">
+              <AlertIcon />
+              Location is yet to be verified!
+            </Alert>
+          ) : (
+            <Alert status="success" variant="left-accent">
+              <AlertIcon />
+              Location is verified!
+            </Alert>
+          )}
           <Box
             rounded="md"
             border={4}
@@ -151,11 +163,7 @@ export default function FarmerEditPageComponent({ edit }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap
-              geoJsonData={geoJsonData}
-              isDraggable={true}
-              setNewLatLng={handleSetNewLatLng}
-            />
+            <FarmerMap geojson={geojson} setGeojson={handleUpdatedGeoJson} mode={"edit"} />
           </Box>
         </Stack>
         <Flex justifyContent={"flex-end"} gap={2} my={8}>

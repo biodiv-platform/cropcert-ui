@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Flex,
   Heading,
@@ -12,15 +14,19 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { ENDPOINT } from "@static/constants";
+import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/geoJson-featureCollection-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
-  const farmer_dob = new Date(farmer["dateOfBirth"]);
+  const farmerDob = new Date(farmer["dateOfBirth"]);
+  const dateOfSurvey = farmer["dateOfSurvey"]
+    ? new Date(farmer["dateOfSurvey"]).toLocaleDateString()
+    : "N/A";
 
   const basicInfoHeader = [
     {
@@ -37,7 +43,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Date of Birth",
-      selector: farmer_dob.toLocaleDateString(),
+      selector: farmerDob.toLocaleDateString(),
     },
     {
       name: "Contact Number",
@@ -84,6 +90,27 @@ export default function FarmerInfo({ farmer }) {
       selector: farmer["agroforestry"] ? "Yes" : "No", //TODO: ask question related to this!!
     },
     {
+      name: "Year of First Plantation",
+      selector: farmer["yearOfFirstPlanting"] || "N/A",
+    },
+    {
+      name: "No. of Farm Plots",
+      selector: farmer["noOfFarmPlots"],
+    },
+    {
+      name: "Date of Survey",
+      selector: dateOfSurvey,
+    },
+    {
+      name: "Enumerator Comment",
+      selector: farmer["enumeratorComment"] || "N/A",
+    },
+    {
+      name: "Location Verified",
+      selector: farmer["isLocationVerified"] ? "Yes" : "No",
+    },
+
+    {
       name: "ODK Instance ID",
       selector: farmer["instanceID"].split(":")[1],
     },
@@ -97,20 +124,17 @@ export default function FarmerInfo({ farmer }) {
     },
   ];
 
-  const geoJsonData = {
-    type: "Feature",
-    geometry: {
-      type: farmer.location.type,
-      coordinates: farmer.location.coordinates,
-    },
-    properties: {
-      name: farmer.farmerName,
-      farmerId: farmer.farmerId,
-      cc: farmer.cc,
-      centroid: farmer.centroid,
-      noOfFarmPlots: farmer.noOfFarmPlots,
-    },
+  const properties = {
+    name: farmer.farmerName,
+    _id: farmer._id,
+    farmerId: farmer.farmerId,
+    cc: farmer.cc,
+    noOfFarmPlots: farmer.noOfFarmPlots,
   };
+
+  const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
+
+  const [geojson, setGeojson] = useState(geoJsonWithProperties);
 
   // TODO: hardcoded keys
   const UNION_NAME_TO_PROJECT_DETAILS = {
@@ -174,6 +198,17 @@ export default function FarmerInfo({ farmer }) {
         )}
         <Stack direction={"column"} spacing={2} width={"full"}>
           <Heading size="md">Location :</Heading>
+          {!farmer.isLocationVerified ? (
+            <Alert status="warning" variant="left-accent">
+              <AlertIcon />
+              Location is yet to be verified!
+            </Alert>
+          ) : (
+            <Alert status="success" variant="left-accent">
+              <AlertIcon />
+              Location is verified!
+            </Alert>
+          )}
           <Box
             rounded="md"
             border={4}
@@ -183,7 +218,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap geoJsonData={geoJsonData} isDraggable={false} setNewLatLng={null} />
+            <FarmerMap geojson={geojson} setGeojson={setGeojson} mode={"view"} />
           </Box>
         </Stack>
       </Flex>

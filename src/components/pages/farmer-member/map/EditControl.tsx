@@ -19,7 +19,7 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
   React.useEffect(() => {
     if (ref.current?.getLayers().length === 0 && geojson) {
       L.geoJSON(geojson, {
-        onEachFeature: (feature, layer) => {
+        onEachFeature: (feature, layer: any) => {
           if (feature.properties) {
             let popupContent = Object.entries(feature.properties)
               .map(([key, value]) => `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}`)
@@ -27,7 +27,9 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
 
             // Add approximate area for Polygon features
             if (feature.geometry.type === "Polygon") {
-              const areaInSquareMeters = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
+              const areaInSquareMeters = (L.GeometryUtil as any).geodesicArea(
+                layer.getLatLngs()[0]
+              );
               popupContent += `<br><strong>Approximate Area:</strong> ${Math.round(
                 areaInSquareMeters
               )} m²`;

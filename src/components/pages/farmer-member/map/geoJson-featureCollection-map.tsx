@@ -12,7 +12,7 @@ import EditControlFC from "./EditControl";
 export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode }) {
   const mapRef = useRef(null);
 
-  const { bounds, center } = useMemo(() => {
+  const result = useMemo(() => {
     if (geojson && geojson.features && geojson.features.length > 0) {
       const geoJsonLayer = L.geoJSON(geojson);
       const bounds = geoJsonLayer.getBounds();
@@ -24,6 +24,9 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
     }
   }, [geojson]);
 
+  const bounds = result?.bounds;
+  const center = result?.center;
+
   const mapStyle = {
     width: "100%",
     height: "100%",
@@ -34,7 +37,7 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
     useEffect(() => {
       setTimeout(() => {
         map.invalidateSize();
-        map.fitBounds(bounds, { padding: [50, 50] });
+        map.fitBounds(bounds as any, { padding: [50, 50] });
       }, 250);
     }, [map]);
     return null;

@@ -39,9 +39,9 @@ interface LotFilterContextProps {
 
 const LotFilterContext = createContext<LotFilterContextProps>({} as LotFilterContextProps);
 
-export const LotFilterProvider: React.FC<any> = ({ children, filter: initialFilter, lotData }) => {
-  const [filter, setFilter] = useImmer({ f: initialFilter });
-  const [lotListData, setLotListData] = useImmer<Lot_LIST_DATA>(lotData);
+export const LotFilterProvider = (props) => {
+  const [filter, setFilter] = useImmer({ f: props.filter });
+  const [lotListData, setLotListData] = useImmer<Lot_LIST_DATA>(props.lotListData);
   const [lotListAggregationData, setLotListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
@@ -138,7 +138,7 @@ export const LotFilterProvider: React.FC<any> = ({ children, filter: initialFilt
         updateLot,
       }}
     >
-      {children}
+      {props.children}
     </LotFilterContext.Provider>
   );
 };

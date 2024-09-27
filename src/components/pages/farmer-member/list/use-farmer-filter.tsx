@@ -38,13 +38,9 @@ interface FarmerFilterContextProps {
 
 const FarmerFilterContext = createContext<FarmerFilterContextProps>({} as FarmerFilterContextProps);
 
-export const FarmerFilterProvider: React.FC<any> = ({
-  children,
-  filter: initialFilter,
-  farmerData,
-}) => {
-  const [filter, setFilter] = useImmer({ f: initialFilter });
-  const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(farmerData);
+export const FarmerFilterProvider = (props) => {
+  const [filter, setFilter] = useImmer({ f: props.filter });
+  const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(props.farmerListData);
   const [farmerListAggregationData, setFarmerListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
@@ -131,7 +127,7 @@ export const FarmerFilterProvider: React.FC<any> = ({
         farmerListAggregationData,
       }}
     >
-      {children}
+      {props.children}
     </FarmerFilterContext.Provider>
   );
 };

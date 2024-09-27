@@ -40,13 +40,9 @@ interface BatchFilterContextProps {
 
 const BatchFilterContext = createContext<BatchFilterContextProps>({} as BatchFilterContextProps);
 
-export const BatchFilterProvider: React.FC<any> = ({
-  children,
-  filter: initialFilter,
-  batchData,
-}) => {
-  const [filter, setFilter] = useImmer({ f: initialFilter });
-  const [batchListData, setBatchListData] = useImmer<Batch_LIST_DATA>(batchData);
+export const BatchFilterProvider = (props) => {
+  const [filter, setFilter] = useImmer({ f: props.filter });
+  const [batchListData, setBatchListData] = useImmer<Batch_LIST_DATA>(props.batchListData);
   const [batchListAggregationData, setBatchListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
@@ -148,10 +144,10 @@ export const BatchFilterProvider: React.FC<any> = ({
         clearBatch,
         batchListAggregationData,
         updateBatch,
-        addBatch
+        addBatch,
       }}
     >
-      {children}
+      {props.children}
     </BatchFilterContext.Provider>
   );
 };

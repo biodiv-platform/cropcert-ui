@@ -7,7 +7,10 @@ import React from "react";
 export default function FarmerMemberListPage() {
   return (
     <RestrictedAccess>
-      <FarmerFilterProvider filter={DEFAULT_FARMER_MEMBER_FILTER}>
+      <FarmerFilterProvider
+        filter={DEFAULT_FARMER_MEMBER_FILTER}
+        farmerData={DEFAULT_FARMER_MEMBER_FILTER.farmerListData}
+      >
         <FarmerMemberPageComponent />
       </FarmerFilterProvider>
     </RestrictedAccess>

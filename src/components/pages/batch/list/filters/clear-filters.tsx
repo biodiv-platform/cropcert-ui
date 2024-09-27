@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import Tooltip from "@components/@core/tooltip";
 import DeleteIcon from "@icons/delete";
-import { DEFAULT_FARMER_MEMBER_FILTER } from "@static/constants";
+import { DEFAULT_BATCH_FILTER } from "@static/constants";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
@@ -9,7 +9,7 @@ import React from "react";
 import useBatchFilter from "../use-batch-filter";
 
 
-const FILTERS_BLACKLIST = [...Object.keys(DEFAULT_FARMER_MEMBER_FILTER), "lang"];
+const FILTERS_BLACKLIST = [...Object.keys(DEFAULT_BATCH_FILTER), "lang"];
 
 export default function ClearFilters() {
   const { filter } = useBatchFilter();
@@ -21,7 +21,7 @@ export default function ClearFilters() {
   const router = useRouter();
 
   const clearFilters = () => {
-    router.push("/traceability/traceability-workflow", {}).then(() => window.location.reload());
+    router.push("/traceability/batch", {}).then(() => window.location.reload());
   };
 
   return filterCount ? (

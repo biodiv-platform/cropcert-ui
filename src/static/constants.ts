@@ -300,3 +300,15 @@ export const LOT_FILTER_KEY = {
     model: MODEL.LOTS,
   },
 };
+
+export const TabPaths = {
+  FARMER_PRODUCE: "/traceability/farmer-produce",
+  BATCH: "/traceability/batch",
+  LOT: "/traceability/lot",
+};
+
+export const TabIndices = {
+  FARMER_PRODUCE: 0,
+  BATCH: 1,
+  LOT: 2,
+};

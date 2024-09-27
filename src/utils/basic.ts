@@ -93,6 +93,22 @@ export const getByPath = (obj, path) => {
   return obj;
 };
 
+/**
+ * Safely retrieves a value from a nested object using a dot-separated path.
+ * @param {Object} obj - The object to query.
+ * @param {string} path - The dot-separated path to the desired value.
+ * @param {any} [defaultValue] - The value to return if the path does not exist.
+ * @returns {any} - The value at the specified path or the default value.
+ */
+export const getNestedValue = (obj, path, defaultValue) => {
+  return (
+    path
+      .split(".")
+      .reduce((acc, level) => (acc && acc[level] !== undefined ? acc[level] : undefined), obj) ??
+    defaultValue
+  ); // Return the defaultValue if the path is undefined
+};
+
 export const normalizeFileName = (s) => `${nanoid()}_${s.replace(/([^a-z0-9\.\s]+)/gi, "-")}`;
 
 export const getCoords = async () => {

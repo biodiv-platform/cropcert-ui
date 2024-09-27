@@ -1,4 +1,4 @@
-import { ENDPOINT, PAGINATION_LIMIT } from "@static/constants";
+import { ENDPOINT } from "@static/constants";
 import http from "@utils/http";
 import notification from "@utils/notification";
 
@@ -12,20 +12,50 @@ export const axCreateBatch = async (body) => {
   }
 };
 
-export const axListBatch = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
+export const axListBatch = async (coCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/cc`, {
-      params: { coCodes: coCodes.toString(), offset, limit },
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/coCodes?coCodes=${coCodes}`, {
+      params,
     });
     return {
       success: true,
       data,
-      offset: offset + data.length,
-      reset: offset === 0,
-      hasMore: data.length === limit,
     };
   } catch (e) {
     notification(e.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axListAggregationBatch = async (coCodes, params) => {
+  try {
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/batch/aggregation/all?coCodes=${coCodes}`,
+      {
+        params,
+      }
+    );
+    return {
+      success: true,
+      data,
+    };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: [] };
+  }
+};
+
+export const axBatchFilterAutoCompleteSearch = async (key, value, coCodes, model) => {
+  try {
+    // Format coCodes as a comma-separated string if it's an array
+    const coCodesParam = Array.isArray(coCodes) ? coCodes.join(",") : coCodes;
+
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/global/document/autocomplete`, {
+      params: { key, value, coCodes: coCodesParam, model },
+    });
+    return data;
+  } catch (e) {
+    notification(e.response.data.message);
     return { success: false, data: [] };
   }
 };

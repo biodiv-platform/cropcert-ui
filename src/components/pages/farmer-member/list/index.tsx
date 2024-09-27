@@ -47,7 +47,7 @@ function FarmerMemberPageComponent() {
   const [showTypeError, setShowTypeError] = useState(false);
   const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [isSyncing, setIsSyncing] = useState(false);
-  const { user } = useGlobalState();
+  const { user, union } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
   const [filterText, setFilterText] = React.useState("");
@@ -72,9 +72,10 @@ function FarmerMemberPageComponent() {
     return item.farmerName.toLowerCase().includes(filterText.toLowerCase());
   });
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["lastSyncedTimeFM"],
-    queryFn: axGetLastSyncedTimeFM,
+    queryFn: () => axGetLastSyncedTimeFM(union?.value),
+    enabled: !!union?.value,
     refetchInterval: 60 * 60 * 1000,
   });
 
@@ -94,7 +95,7 @@ function FarmerMemberPageComponent() {
   const handleSyncData = async () => {
     try {
       setIsSyncing(true);
-      await axSyncFMDataOnDemand();
+      await axSyncFMDataOnDemand(user?.unionCode);
       window.location.reload();
       notification(t("traceability:sync_status.success"), NotificationType.Success);
       setIsSyncing(false);
@@ -161,9 +162,9 @@ function FarmerMemberPageComponent() {
           {t("traceability:total_records")}:{" "}
           {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
         </Box>
-        <Box fontSize={"xs"}>
-          {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+        <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
+          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
+          <NextSyncCounter />
         </Box>
       </Flex>
 

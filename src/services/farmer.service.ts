@@ -105,10 +105,10 @@ export const axDeleteFarmerById = async (farmerId) => {
   }
 };
 
-export const axSyncFMDataOnDemand = async () => {
+export const axSyncFMDataOnDemand = async (key) => {
   try {
     const { data } = await http.get(
-      `${ENDPOINT.TRACEABILITY}/farmer/fetchFarmerMemberFromODKApiOnDemand`
+      `${ENDPOINT.TRACEABILITY}/farmer/fetchFarmerMemberFromODKApiOnDemand?key=${key}`
     );
     return { success: true, data };
   } catch (e) {

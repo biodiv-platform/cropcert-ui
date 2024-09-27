@@ -37,6 +37,13 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
       noOfCoffeeTrees: initialData?.noOfCoffeeTrees,
       otherFarmEnterprises: initialData?.otherFarmEnterprises,
       agroforestry: initialData?.agroforestry,
+      yearOfFirstPlanting: initialData?.yearOfFirstPlanting,
+      noOfFarmPlots: initialData?.noOfFarmPlots,
+      dateOfSurvey:
+        initialData?.dateOfSurvey === null
+          ? initialData?.submittedOnODK
+          : initialData?.dateOfSurvey,
+      enumeratorComment: initialData?.enumeratorComment,
       instanceID: initialData?.instanceID,
       instanceName: initialData?.instanceName,
       submitterName: initialData?.submitterName,
@@ -84,7 +91,6 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
               <TableRow name={"Farmer Name"} color="white">
                 <TextBoxField name="farmerName" mb={0} />
               </TableRow>
-
               <TableRow name={"Gender"} color="gray.100">
                 <Controller
                   name="gender"
@@ -108,7 +114,6 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                   )}
                 />
               </TableRow>
-
               <TableRow name={"Date of Birth"} color="white">
                 <DateTime
                   control={hForm.control}
@@ -117,24 +122,12 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                   maxDate={new Date()}
                 />
               </TableRow>
-
               <TableRow name={"Contact No."} color={"gray.100"}>
-                <TextBoxField
-                  name="contactNumber"
-                  type="number"
-                  placeholder={"078-123-4567"}
-                  mb={0}
-                />
+                <TextBoxField name="contactNumber" type="number" mb={0} />
               </TableRow>
-
               <TableRow name={"National Identity Number"} color={"white"}>
-                <TextBoxField
-                  name="nationalIdentityNumber"
-                  placeholder={"UGA-123-456-78910"}
-                  mb={0}
-                />
+                <TextBoxField name="nationalIdentityNumber" mb={0} />
               </TableRow>
-
               <TableRow name={"Level of Education"} color={"gray.100"}>
                 <Controller
                   name="levelOfEducation"
@@ -158,31 +151,24 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                   )}
                 />
               </TableRow>
-
               <TableRow name={"No of Dependents"} color={"white"}>
                 <TextBoxField name="noOfDependents" type="number" mb={0} />
               </TableRow>
-
               <TableRow name={"Village"} color={"gray.100"}>
                 <TextBoxField name="village" mb={0} />
               </TableRow>
-
               <TableRow name={"Collection Center"} color={"white"}>
                 <TextBoxField name="cc" mb={0} />
               </TableRow>
-
               <TableRow name={"Land Acreage"} color={"gray.100"}>
                 <TextBoxField name="landAcreage" type="number" mb={0} />
               </TableRow>
-
               <TableRow name={"Coffee Acreage"} color={"white"}>
                 <TextBoxField name="coffeeAcreage" type="number" mb={0} />
               </TableRow>
-
               <TableRow name={"No. of Coffee Trees"} color={"gray.100"}>
                 <TextBoxField name="noOfCoffeeTrees" type="number" mb={0} />
               </TableRow>
-
               <TableRow name={"Other Farm Enterprises"} color={"white"}>
                 <SelectMultipleInputField
                   name="otherFarmEnterprises"
@@ -190,7 +176,6 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                   mb={0}
                 />
               </TableRow>
-
               <TableRow name={"Agroforestry"} color={"gray.100"}>
                 <Controller
                   name="agroforestry"
@@ -214,40 +199,44 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                   )}
                 />
               </TableRow>
+              <TableRow name={"Year of First Plantation"} color={"white"}>
+                <TextBoxField name="yearOfFirstPlanting" mb={0} />
+              </TableRow>
 
-              <TableRow name={"Instance ID"} color={"white"}>
+              <TableRow name={"No. of Farm Plots"} color={"gray.100"}>
+                <TextBoxField mb={0} name="noOfFarmPlots" disabled={true} />
+              </TableRow>
+              <TableRow name={"Date of Survey"} color="white">
+                <DateTime control={hForm.control} name="dateOfSurvey" disabled={true} />
+              </TableRow>
+              <TableRow name={"Enumerator Comment"} color={"gray.100"}>
+                <TextBoxField mb={0} name="enumeratorComment" placeholder={"N/A"} disabled={true} />
+              </TableRow>
+              <TableRow name={"Instance ID"} color={"gray.100"}>
                 <TextBoxField mb={0} name="instanceID" disabled={true} />
               </TableRow>
-
-              <TableRow name={"Instance Name"} color={"gray.100"}>
+              <TableRow name={"Instance Name"} color={"white"}>
                 <TextBoxField mb={0} name="instanceName" disabled={true} />
               </TableRow>
-
-              <TableRow name={"Submission Date"} color={"white"}>
+              <TableRow name={"Submission Date"} color={"gray.100"}>
                 <DateTime control={hForm.control} name="submittedOnODK" disabled={true} />
               </TableRow>
-
-              <TableRow name={"Submitted By"} color={"gray.100"}>
+              <TableRow name={"Submitted By"} color={"white"}>
                 <TextBoxField mb={0} name="submitterName" disabled={true} />
               </TableRow>
-
-              <TableRow name={"Form Version"} color={"white"}>
+              <TableRow name={"Form Version"} color={"gray.100"}>
                 <TextBoxField mb={0} name="formVersion" disabled={true} />
               </TableRow>
-
-              <TableRow name={"Edits"} color={"gray.100"}>
+              <TableRow name={"Edits"} color={"white"}>
                 <TextBoxField mb={0} name="edits" disabled={true} type="number" />
               </TableRow>
-
-              <TableRow name={"CC Code"} color={"white"}>
+              <TableRow name={"CC Code"} color={"gray.100"}>
                 <TextBoxField mb={0} name="ccCode" disabled={true} type="number" />
               </TableRow>
-
-              <TableRow name={"CO Code"} color={"gray.100"}>
+              <TableRow name={"CO Code"} color={"white"}>
                 <TextBoxField mb={0} name="coCode" disabled={true} type="number" />
               </TableRow>
-
-              <TableRow name={"Union Code"} color={"white"}>
+              <TableRow name={"Union Code"} color={"gray.100"}>
                 <TextBoxField mb={0} name="unionCode" disabled={true} type="number" />
               </TableRow>
             </Tbody>

@@ -14,3 +14,13 @@
   font-weight: bold;
   text-align: center;
 }
+
+.centroid-marker {
+  background-color: red;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 12px !important;
+  height: 12px !important;
+  margin-left: -6px !important;
+  margin-top: -6px !important;
+}

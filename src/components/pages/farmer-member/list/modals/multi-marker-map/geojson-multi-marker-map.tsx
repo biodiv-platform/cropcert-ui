@@ -20,10 +20,7 @@ export default function FarmerMap({ geojsonData }) {
           return [coordinates[1], coordinates[0]];
           break;
         case "MultiPoint":
-          coordinates.forEach((coord) => {
-            // bounds.extend([coord[1], coord[0]]);
-            return [coord[1], coord[0]];
-          });
+          return coordinates.map((coord) => [coord[1], coord[0]]);
           break;
         // Add cases for other geometry types if needed
         default:

@@ -14,7 +14,7 @@ export const axCreateBatch = async (body) => {
 
 export const axListBatch = async (coCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/coCodes?coCodes=${coCodes}`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/coCodes?coCode=${coCodes}`, {
       params,
     });
     return {
@@ -30,7 +30,7 @@ export const axListBatch = async (coCodes, params) => {
 export const axListAggregationBatch = async (coCodes, params) => {
   try {
     const { data } = await http.get(
-      `${ENDPOINT.TRACEABILITY}/batch/aggregation/all?coCodes=${coCodes}`,
+      `${ENDPOINT.TRACEABILITY}/batch/aggregation/all?coCode=${coCodes}`,
       {
         params,
       }

@@ -52,17 +52,14 @@
     "aggroforestry": {
       "title": "Aggroforestry"
     },
-    "name": "Name",
     "collection_center": "Collection Center",
-    "village": {
-      "title": "Village"
-    },
     "education": {
       "title": "Education"
     },
     "location_verified": {
       "title": "Location Verified"
     },
+    "name": "Name",
     "other_enterprises": {
       "title": "Other Enterprises"
     },
@@ -71,6 +68,9 @@
     },
     "type": {
       "title": "Type"
+    },
+    "village": {
+      "title": "Village"
     }
   },
   "item_type": {

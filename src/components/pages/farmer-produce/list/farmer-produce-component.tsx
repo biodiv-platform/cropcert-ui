@@ -68,8 +68,6 @@ function FarmerProduceListComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    const prefix = "Buzaaya"; // TODO: get from odk data
-
     const batchTypeArr = [...new Set(selectedFarmerProduce.map((r) => r.produceType))];
 
     // checking if multiple types are selected
@@ -81,7 +79,6 @@ function FarmerProduceListComponent() {
       );
 
       const payload = {
-        name: `${prefix}_D_`,
         selected: selectedFarmerProduce,
         coCode: co.value,
         type: batchTypeArr[0],

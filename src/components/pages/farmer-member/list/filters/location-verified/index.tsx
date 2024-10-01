@@ -1,13 +1,13 @@
-import useFarmerProduceFilter from "@components/pages/farmer-produce/list/use-farmer-produce-filter";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
+import useFarmerFilter from "../../use-farmer-filter";
 import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function LocationVerifiedFilter() {
-  const { farmerProduceListAggregationData } = useFarmerProduceFilter();
+  const { farmerListAggregationData } = useFarmerFilter();
   const isLocationVerifiedCounts =
-    farmerProduceListAggregationData?.aggregationData?.isLocationVerified || {};
+  farmerListAggregationData?.aggregationData?.isLocationVerified || {};
 
   const OPTIONS = Object.keys(isLocationVerifiedCounts).map((val) => ({
     label: covertToSentenceCase(val),

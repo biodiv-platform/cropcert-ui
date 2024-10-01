@@ -15,6 +15,7 @@ import FarmerIdFilter from "./farmer-id";
 import FarmerNameFilter from "./farmer-name";
 import { NumberFilter } from "./inputs/number-range";
 import PhoneNumberFilter from "./phone";
+import LocationVerifiedFilter from "./ready-for-lot";
 import SexTypeFilter from "./sex-type";
 import TimeFilter from "./time";
 import VillageFilter from "./village";
@@ -96,6 +97,8 @@ export default function FiltersList() {
       <OtherEnterpriesFilter />
 
       <AggroforestryFilter />
+
+      <LocationVerifiedFilter />
       <TimeFilter />
     </Accordion>
   );

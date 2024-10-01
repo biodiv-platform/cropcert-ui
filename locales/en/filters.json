@@ -60,14 +60,17 @@
     "education": {
       "title": "Education"
     },
+    "location_verified": {
+      "title": "Location Verified"
+    },
     "other_enterprises": {
       "title": "Other Enterprises"
     },
-    "ready_for_lot":{
-      "title":"Ready for Lot"
+    "ready_for_lot": {
+      "title": "Ready for Lot"
     },
-    "type":{
-      "title":"Type"
+    "type": {
+      "title": "Type"
     }
   },
   "item_type": {

@@ -174,8 +174,8 @@ function BatchListPageComponent() {
           ]}
           expandableRowsComponent={BatchExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[10, 20, 50, 100]}
+          paginationPerPage={15}
+          paginationRowsPerPageOptions={[15, 50, 100]}
         />
       ) : (
         <Box mt={2}>{t("traceability:no_records")}</Box>

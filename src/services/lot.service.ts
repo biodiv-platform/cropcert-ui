@@ -4,7 +4,7 @@ import notification from "@utils/notification";
 
 export const axListLot = async (coCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes?coCodes=${coCodes}`, {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/lot/all/coCodes?coCode=${coCodes}`, {
       params,
     });
     return {
@@ -20,7 +20,7 @@ export const axListLot = async (coCodes, params) => {
 export const axListAggregationLot = async (coCodes, params) => {
   try {
     const { data } = await http.get(
-      `${ENDPOINT.TRACEABILITY}/lot/aggregation/all?coCodes=${coCodes}`,
+      `${ENDPOINT.TRACEABILITY}/lot/aggregation/all?coCode=${coCodes}`,
       {
         params,
       }

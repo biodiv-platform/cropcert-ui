@@ -16,7 +16,6 @@ import FarmerNameFilter from "./farmer-name";
 import { NumberFilter } from "./inputs/number-range";
 import LocationVerifiedFilter from "./location-verified";
 import PhoneNumberFilter from "./phone";
-import LocationVerifiedFilter from "./ready-for-lot";
 import SexTypeFilter from "./sex-type";
 import TimeFilter from "./time";
 import VillageFilter from "./village";

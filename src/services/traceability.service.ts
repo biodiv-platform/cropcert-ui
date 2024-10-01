@@ -25,9 +25,9 @@ export const axGetLastSyncedTimeFM = async (key) => {
   }
 };
 
-export const axGetLastSyncedTimeFP = async () => {
+export const axGetLastSyncedTimeFP = async (key) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFP`);
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFP?key=${key}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

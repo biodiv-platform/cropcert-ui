@@ -32,7 +32,7 @@ function FarmerProduceListComponent() {
   const { clearFarmerProduce, setCCCodes, farmerProduceListData, loading, updateFarmerProduce } =
     useFarmerProduceFilter();
 
-  const { user } = useGlobalState();
+  const { user, union } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
@@ -49,9 +49,10 @@ function FarmerProduceListComponent() {
     }
   }, []);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["lastSyncedTimeFP"],
-    queryFn: axGetLastSyncedTimeFP,
+    queryFn: () => axGetLastSyncedTimeFP(union?.value),
+    enabled: !!union?.value,
     refetchInterval: 60 * 60 * 1000,
   });
 
@@ -164,9 +165,9 @@ function FarmerProduceListComponent() {
           {t("traceability:total_records")}:{" "}
           {loading ? <Spinner size="xs" /> : farmerProduceListData?.length}
         </Box>
-        <Box fontSize={"xs"}>
-          {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+        <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
+          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
+          <NextSyncCounter />
         </Box>
       </Flex>
 
@@ -185,7 +186,7 @@ function FarmerProduceListComponent() {
 
       <MultipleTypeWarning show={showTypeError} />
 
-      {isLoading ? (
+      {loading ? (
         <Spinner />
       ) : farmerProduceListData?.length > 0 ? (
         <Table

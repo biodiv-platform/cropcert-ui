@@ -1,5 +1,6 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
+import useGlobalState from "@hooks/use-global-state";
 import { getByRole } from "@services/accessor.service";
 import { setUserKey } from "@utils/auth";
 import React, { useEffect, useMemo, useState } from "react";
@@ -24,6 +25,11 @@ export default function AccesserForm({
 }: IProps) {
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
+  const { setUnion } = useGlobalState();
+
+  useEffect(() => {
+    setUnion(rolesValues.UNION_PERSON);
+  }, [rolesValues.UNION_PERSON]);
 
   useEffect(() => {
     if (rolesValues[toRole]) {

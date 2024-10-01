@@ -66,7 +66,7 @@ function BatchListPageComponent() {
   };
 
   const handleOnCreateLot = () => {
-    const prefix = "Buzaaya"; // TODO: change based on odk data
+    const prefix = selectedBatches[0].batchName.split("_")[0];
     const quantity = selectedBatches.reduce(
       (acc, cv) => selectedBatches.length && cv.quantity + acc,
       0

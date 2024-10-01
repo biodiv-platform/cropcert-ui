@@ -31,7 +31,7 @@ function FarmerListPageComponent() {
   const [ccs, setCCs] = useState([] as any);
   const [ccCodes, setCCCodes] = useState<any>([]);
   const { state, ...actions } = useFarmerProduceStore();
-  const { user } = useGlobalState();
+  const { user, union } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
@@ -46,9 +46,10 @@ function FarmerListPageComponent() {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["lastSyncedTimeFP"],
-    queryFn: axGetLastSyncedTimeFP,
+    queryFn: () => axGetLastSyncedTimeFP(union?.value),
+    enabled: !!union?.value,
     refetchInterval: 60 * 60 * 1000,
   });
 
@@ -68,8 +69,6 @@ function FarmerListPageComponent() {
   };
 
   const handleOnCreateBatch = () => {
-    const prefix = "Buzaaya"; // TODO: get from odk data
-
     const batchTypeArr = [...new Set(selectedFarmerProduce.map((r) => r.produceType))];
 
     // checking if multiple types are selected
@@ -81,7 +80,6 @@ function FarmerListPageComponent() {
       );
 
       const payload = {
-        name: `${prefix}_D_`,
         selected: selectedFarmerProduce,
         coCode: co.value,
         type: batchTypeArr[0],
@@ -165,9 +163,9 @@ function FarmerListPageComponent() {
           {t("traceability:total_records")}:{" "}
           {state.isLoading ? <Spinner size="xs" /> : state.farmer.length}
         </Box>
-        <Box fontSize={"xs"}>
-          {t("traceability:sync_status.last_synced")}{" "}
-          {isLoading ? <Spinner size="xs" /> : getLocalTime(data?.data)} | <NextSyncCounter />
+        <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
+          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
+          <NextSyncCounter />
         </Box>
       </Flex>
 

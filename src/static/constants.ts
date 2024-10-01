@@ -236,4 +236,6 @@ export const mapLayers = {
 export const locationType = {
   POINT: "Point",
   MULTI_POINT: "MultiPoint",
+  POLYGON: "Polygon",
+  MULTI_POLYGON: "MultiPolygon",
 };

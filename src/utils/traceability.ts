@@ -16,3 +16,26 @@ export const getLocalTime = (date) => {
     second: "2-digit",
   });
 };
+
+export const bindPropertiesToGeoJSON = (geojson, properties) => {
+  // Ensure the input is a FeatureCollection
+  if (geojson.type !== "FeatureCollection") {
+    throw new Error("Input GeoJSON must be a FeatureCollection");
+  }
+
+  // Map over the features and add properties to each, including the index
+  const updatedFeatures = geojson.features.map((feature, index) => ({
+    ...feature,
+    properties: {
+      ...feature.properties, // Preserve any existing properties
+      ...properties, // Add new properties
+      featureIndex: index, // Add the index of the feature
+    },
+  }));
+
+  // Return a new GeoJSON object with updated features
+  return {
+    ...geojson,
+    features: updatedFeatures,
+  };
+};

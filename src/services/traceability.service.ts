@@ -15,9 +15,9 @@ export const axGetColumns = async (fieldsOf) => {
 
 // get last synced time for farmer member and produce from product collection
 
-export const axGetLastSyncedTimeFM = async () => {
+export const axGetLastSyncedTimeFM = async (key) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFM`);
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFM?key=${key}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);
@@ -25,9 +25,9 @@ export const axGetLastSyncedTimeFM = async () => {
   }
 };
 
-export const axGetLastSyncedTimeFP = async () => {
+export const axGetLastSyncedTimeFP = async (key) => {
   try {
-    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFP`);
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/product/lastSyncedTimeFP?key=${key}`);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

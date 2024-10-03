@@ -8,7 +8,7 @@ import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
 import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
@@ -19,6 +19,7 @@ export default function FarmerEditPageComponent({ edit }) {
   const [locationUpdated, setLocationUpdated] = useState(false);
   const router = useRouter();
   const { t } = useTranslation();
+  const ref: any = useRef(null);
 
   const farmer = edit;
 
@@ -112,7 +113,7 @@ export default function FarmerEditPageComponent({ edit }) {
 
       // if no changes, return.
       if (Object.keys(updatedData).length === 0) {
-        router.push("/farmer/list");
+        router.push(`/farmer/show/${farmer._id}`);
         return;
       }
 
@@ -127,8 +128,6 @@ export default function FarmerEditPageComponent({ edit }) {
       notification(t("traceability:farmer.update_farmer_error"), NotificationType.Error);
     }
   };
-
-  const ref: any = React.useRef(null);
 
   return (
     <Container>

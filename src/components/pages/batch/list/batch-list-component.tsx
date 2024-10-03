@@ -103,13 +103,12 @@ function BatchListPageComponent() {
     </ButtonGroup>
   );
 
-  const onBatchUpdate = (props) => {
+  const onBatchUpdate = () => {
     onToggle();
-    updateBatch(props);
+    updateBatch();
     setTriggerRender(!triggerRender);
   };
 
-  // Generate dynamic batchColumns based on state.batch
   const batchColumns = batchModalColumns.length > 0 ? createBatchColumns(batchModalColumns) : [];
 
   return (

@@ -47,13 +47,8 @@ export const LotFilterProvider = (props) => {
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const updateLot = (lot) => {
-    setLotListData((draft) => {
-      const toUpdateIndex = draft.lot.findIndex((o) => o._id === lot._id);
-      if (toUpdateIndex !== -1) {
-        draft.lot[toUpdateIndex] = lot;
-      }
-    });
+  const updateLot = () => {
+    fetchListData();
   };
 
   const fetchListData = async () => {

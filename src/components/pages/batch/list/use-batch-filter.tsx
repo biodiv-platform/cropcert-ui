@@ -48,13 +48,8 @@ export const BatchFilterProvider = (props) => {
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const updateBatch = (lot) => {
-    setBatchListData((draft) => {
-      const toUpdateIndex = draft.batch.findIndex((o) => o._id === lot._id);
-      if (toUpdateIndex !== -1) {
-        draft.batch[toUpdateIndex] = lot;
-      }
-    });
+  const updateBatch = () => {
+    fetchListData();
   };
 
   const addBatch = (batch) => {

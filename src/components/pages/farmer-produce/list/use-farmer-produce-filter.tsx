@@ -51,13 +51,8 @@ export const FarmerProduceFilterProvider = (props) => {
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const updateFarmerProduce = (lot) => {
-    setFarmerProduceListData((draft) => {
-      const toUpdateIndex = draft.farmerProduce.findIndex((o) => o._id === lot._id);
-      if (toUpdateIndex !== -1) {
-        draft.farmerProduce[toUpdateIndex] = lot;
-      }
-    });
+  const updateFarmerProduce = () => {
+    fetchListData();
   };
 
   const fetchListData = async () => {

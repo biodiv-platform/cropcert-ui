@@ -147,9 +147,9 @@ function FarmerProduceListComponent() {
     );
   };
 
-  const onFarmerUpdate = (props) => {
+  const onFarmerUpdate = () => {
     onToggle();
-    updateFarmerProduce(props);
+    updateFarmerProduce();
   };
 
   return (

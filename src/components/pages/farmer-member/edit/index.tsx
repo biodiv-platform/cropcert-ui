@@ -1,40 +1,21 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Alert, AlertIcon, Box, Button, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Accordion, Button, Flex } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";
 import notification, { NotificationType } from "@utils/notification";
-import { bindPropertiesToGeoJSON } from "@utils/traceability";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import FarmerEditForm from "./farmer-edit-form";
-import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
-
-const FarmerMap = dynamic(() => import("../map/geoJson-featureCollection-map"), { ssr: false });
 
 export default function FarmerEditPageComponent({ edit }) {
-  const [locationUpdated, setLocationUpdated] = useState(false);
   const router = useRouter();
   const { t } = useTranslation();
   const ref: any = useRef(null);
 
   const farmer = edit;
-
-  const properties = {
-    name: farmer.farmerName,
-    _id: farmer._id,
-    farmerId: farmer.farmerId,
-    cc: farmer.cc,
-    noOfFarmPlots: farmer.noOfFarmPlots,
-  };
-
-  const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
-
-  const [geojson, setGeojson] = useState(geoJsonWithProperties);
-  const [isLocationVerified, setIsLocationVerified] = useState(farmer.isLocationVerified);
 
   // Function to go back to the previous page
   const handleGoBack = () => {
@@ -55,21 +36,14 @@ export default function FarmerEditPageComponent({ edit }) {
     );
   };
 
-  const handleUpdatedGeoJson = (geo) => {
-    setLocationUpdated(true);
-    setGeojson(geo);
+  const valuesChangedKeys = {
+    OTHER_FARM_ENTERPRISES: "otherFarmEnterprises",
+    SUBMITTED_ON_ODK: "submittedOnODK",
+    DATE_OF_BIRTH: "dateOfBirth",
   };
 
   const handleSubmit = async (values) => {
     try {
-      // get farmer map values.
-      if (locationUpdated) {
-        values.location = geojson;
-      }
-
-      // adding isLocationVerified field
-      values.isLocationVerified = isLocationVerified;
-
       /*
        * Remove `dateOfSurvey` property from the `values` object.
        *
@@ -90,16 +64,13 @@ export default function FarmerEditPageComponent({ edit }) {
         let valueChanged = false;
 
         switch (key) {
-          case "location":
-            valueChanged = locationUpdated;
-            break;
-          case "otherFarmEnterprises":
+          case valuesChangedKeys.OTHER_FARM_ENTERPRISES:
             valueChanged = !values[key].every((enterprise) => farmer[key].includes(enterprise));
             break;
-          case "submittedOnODK":
+          case valuesChangedKeys.SUBMITTED_ON_ODK:
             valueChanged = JSON.stringify(values[key]) !== JSON.stringify(new Date(farmer[key]));
             break;
-          case "dateOfBirth":
+          case valuesChangedKeys.DATE_OF_BIRTH:
             valueChanged = JSON.stringify(values[key]) !== JSON.stringify(new Date(farmer[key]));
             break;
           default:
@@ -134,37 +105,6 @@ export default function FarmerEditPageComponent({ edit }) {
       <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
       <Accordion defaultIndex={[0]} allowMultiple>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
-        <Stack direction={"column"} spacing={2} width={"full"} height={"600px"}>
-          <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Heading size="md">{t("traceability:location.location_heading")}</Heading>
-          </Flex>
-          <LocationEditAndVerifyForm
-            isLocationVerified={isLocationVerified}
-            setIsLocationVerified={setIsLocationVerified}
-          />
-          {!isLocationVerified ? (
-            <Alert status="warning" variant="left-accent">
-              <AlertIcon />
-              Location is yet to be verified!
-            </Alert>
-          ) : (
-            <Alert status="success" variant="left-accent">
-              <AlertIcon />
-              Location is verified!
-            </Alert>
-          )}
-          <Box
-            rounded="md"
-            border={4}
-            borderColor={"gray.400"}
-            width={{ base: "full" }}
-            height={{ base: "400", md: "full", lg: "full", xl: "full" }}
-            overflow={"hidden"}
-            boxShadow="md"
-          >
-            <FarmerMap geojson={geojson} setGeojson={handleUpdatedGeoJson} mode={"edit"} />
-          </Box>
-        </Stack>
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
           <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}

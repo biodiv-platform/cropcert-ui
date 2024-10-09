@@ -19,7 +19,10 @@
   "location": {
     "edit_marker_location": "Edit Marker Location",
     "location_heading": "Location :",
-    "save_marker_location": "Save Marker Location"
+    "save_marker_location": "Save Marker Location",
+    "farmer_location_not_verified": "Location is yet to be verified!",
+    "farmer_location_verified": "Location is verified!",
+    "location_verified_radio_btn_title": "Location verified?"
   },
   "no_records": "No Records Found",
   "selected_quantity": "Selected Quantity",

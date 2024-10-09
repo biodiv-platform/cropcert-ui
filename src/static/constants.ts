@@ -236,4 +236,81 @@ export const mapLayers = {
 export const locationType = {
   POINT: "Point",
   MULTI_POINT: "MultiPoint",
+  POLYGON: "Polygon",
+  MULTI_POLYGON: "MultiPolygon",
+};
+
+export const MODEL = {
+  FARMERS: "Farmers",
+  FARMERPRODUCE: "FarmerProduce",
+  BATCHES: "Batches",
+  LOTS: "Lots",
+};
+
+export const DEFAULT_FARMER_MEMBER_FILTER = {
+  farmerListData: [],
+};
+
+export const DEFAULT_FARMER_PRODUCE_FILTER = {
+  farmerProduceListData: [],
+};
+
+export const DEFAULT_BATCH_FILTER = {
+  batchListData: [],
+};
+
+export const DEFAULT_LOT_FILTER = {
+  lotListData: [],
+};
+
+export const FARMER_FILTER_KEY = {
+  contactNumber: {
+    filterKey: "contactNumber",
+    model: MODEL.FARMERS,
+  },
+  farmerId: {
+    filterKey: "farmerId",
+    model: MODEL.FARMERS,
+  },
+  farmerName: {
+    filterKey: "farmerName",
+    model: MODEL.FARMERS,
+  },
+};
+
+export const FARMER_PRODUCE_FILTER_KEY = {
+  farmerId: {
+    filterKey: "farmerId",
+    model: MODEL.FARMERPRODUCE,
+  },
+  farmerName: {
+    filterKey: "farmerName",
+    model: MODEL.FARMERPRODUCE,
+  },
+};
+
+export const BATCH_FILTER_KEY = {
+  batchName: {
+    filterKey: "batchName",
+    model: MODEL.BATCHES,
+  },
+};
+
+export const LOT_FILTER_KEY = {
+  lotName: {
+    filterKey: "lotName",
+    model: MODEL.LOTS,
+  },
+};
+
+export const TabPaths = {
+  FARMER_PRODUCE: "/traceability/farmer-produce",
+  BATCH: "/traceability/batch",
+  LOT: "/traceability/lot",
+};
+
+export const TabIndices = {
+  FARMER_PRODUCE: 0,
+  BATCH: 1,
+  LOT: 2,
 };

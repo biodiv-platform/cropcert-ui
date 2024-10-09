@@ -1,5 +1,8 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
+  Button,
   Flex,
   Heading,
   Image as ChakraImage,
@@ -11,16 +14,35 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-state";
+import { axUpdateFarmerById } from "@services/farmer.service";
 import { ENDPOINT } from "@static/constants";
+import { hasAccess } from "@utils/auth";
+import { capitalizeFirstLetter } from "@utils/basic";
+import notification, { NotificationType } from "@utils/notification";
+import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
-import React from "react";
+import useTranslation from "next-translate/useTranslation";
+import React, { useState } from "react";
 
+import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
 import FarmerShowPanel from "./panel";
 
-const FarmerMap = dynamic(() => import("../map/geo-json-map"), { ssr: false });
+const FarmerMap = dynamic(() => import("../map/geoJson-featureCollection-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
-  const farmer_dob = new Date(farmer["dateOfBirth"]);
+  const { t } = useTranslation();
+  const [locationUpdated, setLocationUpdated] = useState(false);
+  const [mode, setMode] = useState<"view" | "edit">("view");
+  const [isLocationVerified, setIsLocationVerified] = useState(farmer.isLocationVerified);
+  const { user } = useGlobalState();
+
+  const hasLocationEditAccess = hasAccess(["ROLE_LOCATION_EDITOR"], user);
+
+  const farmerDob = new Date(farmer["dateOfBirth"]);
+  const dateOfSurvey = farmer["dateOfSurvey"]
+    ? new Date(farmer["dateOfSurvey"]).toLocaleDateString()
+    : "N/A";
 
   const basicInfoHeader = [
     {
@@ -33,11 +55,11 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Gender",
-      selector: farmer["gender"],
+      selector: capitalizeFirstLetter(farmer["gender"]),
     },
     {
       name: "Date of Birth",
-      selector: farmer_dob.toLocaleDateString(),
+      selector: farmerDob.toLocaleDateString(),
     },
     {
       name: "Contact Number",
@@ -49,7 +71,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Level of Education",
-      selector: farmer["levelOfEducation"],
+      selector: capitalizeFirstLetter(farmer["levelOfEducation"]),
     },
     {
       name: "No of Dependents",
@@ -77,12 +99,33 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["otherFarmEnterprises"].join(", ") || "N/A",
+      selector: farmer["otherFarmEnterprises"].map(capitalizeFirstLetter).join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
       selector: farmer["agroforestry"] ? "Yes" : "No", //TODO: ask question related to this!!
     },
+    {
+      name: "Year of First Plantation",
+      selector: farmer["yearOfFirstPlanting"] || "N/A",
+    },
+    {
+      name: "No. of Farm Plots",
+      selector: farmer["noOfFarmPlots"],
+    },
+    {
+      name: "Date of Survey",
+      selector: dateOfSurvey,
+    },
+    {
+      name: "Enumerator Comment",
+      selector: capitalizeFirstLetter(farmer["enumeratorComment"]) || "N/A",
+    },
+    {
+      name: "Location Verified",
+      selector: farmer["isLocationVerified"] ? "Yes" : "No",
+    },
+
     {
       name: "ODK Instance ID",
       selector: farmer["instanceID"].split(":")[1],
@@ -97,22 +140,58 @@ export default function FarmerInfo({ farmer }) {
     },
   ];
 
-  const geoJsonData = {
-    type: "Feature",
-    geometry: {
-      type: farmer.location.type,
-      coordinates: farmer.location.coordinates,
+  const properties = {
+    name: farmer.farmerName,
+    _id: farmer._id,
+    farmerId: farmer.farmerId,
+    cc: farmer.cc,
+    noOfFarmPlots: farmer.noOfFarmPlots,
+  };
+
+  const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
+
+  const [geojson, setGeojson] = useState(geoJsonWithProperties);
+
+  // TODO: hardcoded keys, add new keys if new union is added or modified
+  const UNION_NAME_TO_PROJECT_DETAILS = {
+    6: {
+      projectId: 4,
+      xmlFormId: "NorthernUganda-Union-Farmer-Registraion",
     },
-    properties: {
-      name: farmer.farmerName,
-      farmerId: farmer.farmerId,
-      cc: farmer.cc,
+    5: {
+      projectId: 2,
+      xmlFormId: "Buzaaya-Union-Farmer-Registraion",
     },
   };
 
-  // ODK image constants
-  const projectId = 2;
-  const xmlFormId = "Buzaaya-Union-Farmer-Registraion";
+  const prepareImageUrl = (unionName) =>
+    `${ENDPOINT.ODK_IMAGES}v1/projects/${unionName.projectId}/forms/${unionName.xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`;
+
+  const handleUpdatedGeoJson = (geo) => {
+    setLocationUpdated(true);
+    setGeojson(geo);
+  };
+
+  const processFarmerLocationEdit = async () => {
+    try {
+      if (locationUpdated) {
+        const { success } = await axUpdateFarmerById(farmer._id, {
+          location: geojson,
+          isLocationVerified,
+        });
+
+        if (success) {
+          notification(t("traceability:farmer.update_farmer_success"), NotificationType.Success);
+          window.location.reload();
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      notification(t("traceability:farmer.update_farmer_error"), NotificationType.Error);
+    } finally {
+      setMode("view");
+    }
+  };
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -137,6 +216,17 @@ export default function FarmerInfo({ farmer }) {
             ))}
         </Tbody>
       </Table>
+      {!isLocationVerified ? (
+        <Alert status="warning" variant="left-accent" mt={2}>
+          <AlertIcon />
+          {t("traceability:location.farmer_location_not_verified")}
+        </Alert>
+      ) : (
+        <Alert status="success" variant="left-accent" mt={2}>
+          <AlertIcon />
+          {t("traceability:location.farmer_location_verified")}
+        </Alert>
+      )}
       <Flex
         gap={2}
         mt={2}
@@ -151,7 +241,7 @@ export default function FarmerInfo({ farmer }) {
               objectFit="cover"
               boxSize={{ base: "400px", sm: "full", md: "400px" }}
               align="center"
-              src={`${ENDPOINT.ODK_IMAGES}v1/projects/${projectId}/forms/${xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`}
+              src={prepareImageUrl(UNION_NAME_TO_PROJECT_DETAILS[farmer.unionCode])}
               alt="farmers land picture"
               rounded="md"
               boxShadow="md"
@@ -160,7 +250,45 @@ export default function FarmerInfo({ farmer }) {
           </Stack>
         )}
         <Stack direction={"column"} spacing={2} width={"full"}>
-          <Heading size="md">Location :</Heading>
+          <Box display={"flex"} justifyContent={"space-between"} alignContent={"center"}>
+            <Heading size="md">Location :</Heading>
+            {hasLocationEditAccess && (
+              <Box>
+                {mode === "view" ? (
+                  <Button
+                    onClick={() => setMode("edit")}
+                    size={"sm"}
+                    variant={"outline"}
+                    colorScheme={"green"}
+                  >
+                    Edit Location
+                  </Button>
+                ) : (
+                  <Box>
+                    <Button onClick={() => setMode("view")} size={"sm"} variant={"ghost"} mx={1}>
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={processFarmerLocationEdit}
+                      size={"sm"}
+                      variant={"solid"}
+                      mx={1}
+                      colorScheme="red"
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
+          {hasLocationEditAccess && mode === "edit" && (
+            <LocationEditAndVerifyForm
+              isLocationVerified={isLocationVerified}
+              setIsLocationVerified={setIsLocationVerified}
+            />
+          )}
+
           <Box
             rounded="md"
             border={4}
@@ -170,7 +298,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap geoJsonData={geoJsonData} isDraggable={false} setNewLatLng={null} />
+            <FarmerMap geojson={geojson} setGeojson={handleUpdatedGeoJson} mode={mode} />
           </Box>
         </Stack>
       </Flex>

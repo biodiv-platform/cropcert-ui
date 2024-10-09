@@ -53,12 +53,11 @@ export default function BatchCreateForm({
       const uniqueCCs = [...new Set(farmerProduceArr.map((b) => b.ccCode))];
       const uniqueCOs = [...new Set(farmerProduceArr.map((b) => b.coCode))];
       const unionCode = farmerProduceArr[0].unionCode;
+      const prefix = farmerProduceArr[0].farmerId.split("-")[0];
       const updatedPayload = {
-        batchName:
-          "Buzaaya_" + // FIXME: get this name from odk api
-          batchConfig.type.charAt(0).toUpperCase() +
-          "_" +
-          formattedDate(payload.creationDate),
+        batchName: `${prefix}_${batchConfig.type.charAt(0).toUpperCase()}_${formattedDate(
+          payload.creationDate
+        )}`,
         type: batchConfig.type,
         ccCode: uniqueCCs,
         coCode: uniqueCOs,

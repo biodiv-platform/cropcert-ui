@@ -17,7 +17,7 @@ interface ILotShowProps {
   quality_report: QualityReport[];
   users: any[];
   batches: any[];
-  farmerProduceIds: any[];
+  farmerProduceArr: any[];
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
@@ -48,7 +48,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
       <Accordion defaultIndex={[0]} allowMultiple>
         <LotInfo lot={show.lot} />
         {show.batches && <LotBatches rows={show.batches} />}
-        {show.farmerProduceIds && <LotFarmerProduce rows={show.farmerProduceIds} />}
+        {show.farmerProduceArr && <LotFarmerProduce rows={show.farmerProduceArr} />}
       </Accordion>
     </Container>
   );

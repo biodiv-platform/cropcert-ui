@@ -39,7 +39,12 @@ export const getInitialOptionsAndValues = async (roles: string[]): Promise<{ opt
     options = { ...options, [role]: opts };
     values = {
       ...values,
-      [role]: initialRoleCode > 0 ? opts.find((o) => o.value === initialRoleCode) : undefined,
+      [role]:
+        initialRoleCode > 0
+          ? opts.find((o) => o.value === initialRoleCode)
+          : opts.length > 0
+          ? opts[0]
+          : undefined,
     };
   }
   return { options, values };

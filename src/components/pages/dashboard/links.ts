@@ -16,7 +16,7 @@ const links = [
       {
         title: "📦 Traceability",
         description: "Tracing Coffee's Source",
-        to: "/traceability/traceability-workflow",
+        to: "/traceability/farmer-produce",
         access: hierarchicalRoles(ROLES.COLLECTION_CENTER),
         tag: "Beta",
       },

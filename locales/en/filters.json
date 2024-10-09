@@ -48,6 +48,31 @@
     "title": "Dataset Metadata"
   },
   "document_title": "Title",
+  "farmer": {
+    "aggroforestry": {
+      "title": "Aggroforestry"
+    },
+    "collection_center": "Collection Center",
+    "education": {
+      "title": "Education"
+    },
+    "location_verified": {
+      "title": "Location Verified"
+    },
+    "name": "Name",
+    "other_enterprises": {
+      "title": "Other Enterprises"
+    },
+    "ready_for_lot": {
+      "title": "Ready for Lot"
+    },
+    "type": {
+      "title": "Type"
+    },
+    "village": {
+      "title": "Village"
+    }
+  },
   "item_type": {
     "title": "Item Type"
   },
@@ -128,6 +153,7 @@
     "title": "Taxon Browser"
   },
   "time": {
+    "collected_on": "Collected On",
     "created_on": "Date Created",
     "last_logged": "Last Logged In",
     "last_updated": "Last Updated",
@@ -148,6 +174,7 @@
       "sep": "September",
       "title": "Month Observed"
     },
+    "record_created": "Record Created",
     "title": "Time"
   },
   "title": "Filters",

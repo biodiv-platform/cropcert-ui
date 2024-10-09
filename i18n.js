@@ -15,5 +15,7 @@ module.exports = {
     "rgx:/user/": ["user", "group", "filters"],
     "rgx:/media-gallery/": ["filters"],
     "rgx:/resource/": ["filters"],
+    "rgx:/farmer/": ["filters"],
+    "rgx:/traceability/": ["filters"],
   },
 };

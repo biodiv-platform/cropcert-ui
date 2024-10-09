@@ -1,4 +1,5 @@
 import { FormControl, FormLabel, Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 type Props = {
@@ -10,13 +11,15 @@ export default function LocationEditAndVerifyForm({
   isLocationVerified,
   setIsLocationVerified,
 }: Props) {
+  const { t } = useTranslation();
+
   const handleChange = (value: string) => {
     setIsLocationVerified(value === "yes");
   };
 
   return (
     <FormControl display={"flex"}>
-      <FormLabel>Location verified?</FormLabel>
+      <FormLabel>{t("traceability:location.location_verified_radio_btn_title")}</FormLabel>
       <RadioGroup
         onChange={handleChange}
         value={isLocationVerified ? "yes" : "no"}

@@ -2,6 +2,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Button,
   Flex,
   Heading,
   Image as ChakraImage,
@@ -13,16 +14,31 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import useGlobalState from "@hooks/use-global-state";
+import { axUpdateFarmerById } from "@services/farmer.service";
 import { ENDPOINT } from "@static/constants";
+import { hasAccess } from "@utils/auth";
+import { capitalizeFirstLetter } from "@utils/basic";
+import notification, { NotificationType } from "@utils/notification";
 import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
+import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
 import FarmerShowPanel from "./panel";
 
 const FarmerMap = dynamic(() => import("../map/geoJson-featureCollection-map"), { ssr: false });
 
 export default function FarmerInfo({ farmer }) {
+  const { t } = useTranslation();
+  const [locationUpdated, setLocationUpdated] = useState(false);
+  const [mode, setMode] = useState<"view" | "edit">("view");
+  const [isLocationVerified, setIsLocationVerified] = useState(farmer.isLocationVerified);
+  const { user } = useGlobalState();
+
+  const hasLocationEditAccess = hasAccess(["ROLE_LOCATION_EDITOR"], user);
+
   const farmerDob = new Date(farmer["dateOfBirth"]);
   const dateOfSurvey = farmer["dateOfSurvey"]
     ? new Date(farmer["dateOfSurvey"]).toLocaleDateString()
@@ -39,7 +55,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Gender",
-      selector: farmer["gender"],
+      selector: capitalizeFirstLetter(farmer["gender"]),
     },
     {
       name: "Date of Birth",
@@ -55,7 +71,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Level of Education",
-      selector: farmer["levelOfEducation"],
+      selector: capitalizeFirstLetter(farmer["levelOfEducation"]),
     },
     {
       name: "No of Dependents",
@@ -83,7 +99,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["otherFarmEnterprises"].join(", ") || "N/A",
+      selector: farmer["otherFarmEnterprises"].map(capitalizeFirstLetter).join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
@@ -103,7 +119,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Enumerator Comment",
-      selector: farmer["enumeratorComment"] || "N/A",
+      selector: capitalizeFirstLetter(farmer["enumeratorComment"]) || "N/A",
     },
     {
       name: "Location Verified",
@@ -136,7 +152,7 @@ export default function FarmerInfo({ farmer }) {
 
   const [geojson, setGeojson] = useState(geoJsonWithProperties);
 
-  // TODO: hardcoded keys
+  // TODO: hardcoded keys, add new keys if new union is added or modified
   const UNION_NAME_TO_PROJECT_DETAILS = {
     6: {
       projectId: 4,
@@ -150,6 +166,32 @@ export default function FarmerInfo({ farmer }) {
 
   const prepareImageUrl = (unionName) =>
     `${ENDPOINT.ODK_IMAGES}v1/projects/${unionName.projectId}/forms/${unionName.xmlFormId}/submissions/${farmer.instanceID}/attachments/${farmer.photoOfFarm}`;
+
+  const handleUpdatedGeoJson = (geo) => {
+    setLocationUpdated(true);
+    setGeojson(geo);
+  };
+
+  const processFarmerLocationEdit = async () => {
+    try {
+      if (locationUpdated) {
+        const { success } = await axUpdateFarmerById(farmer._id, {
+          location: geojson,
+          isLocationVerified,
+        });
+
+        if (success) {
+          notification(t("traceability:farmer.update_farmer_success"), NotificationType.Success);
+          window.location.reload();
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      notification(t("traceability:farmer.update_farmer_error"), NotificationType.Error);
+    } finally {
+      setMode("view");
+    }
+  };
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
@@ -174,6 +216,17 @@ export default function FarmerInfo({ farmer }) {
             ))}
         </Tbody>
       </Table>
+      {!isLocationVerified ? (
+        <Alert status="warning" variant="left-accent" mt={2}>
+          <AlertIcon />
+          {t("traceability:location.farmer_location_not_verified")}
+        </Alert>
+      ) : (
+        <Alert status="success" variant="left-accent" mt={2}>
+          <AlertIcon />
+          {t("traceability:location.farmer_location_verified")}
+        </Alert>
+      )}
       <Flex
         gap={2}
         mt={2}
@@ -197,18 +250,45 @@ export default function FarmerInfo({ farmer }) {
           </Stack>
         )}
         <Stack direction={"column"} spacing={2} width={"full"}>
-          <Heading size="md">Location :</Heading>
-          {!farmer.isLocationVerified ? (
-            <Alert status="warning" variant="left-accent">
-              <AlertIcon />
-              Location is yet to be verified!
-            </Alert>
-          ) : (
-            <Alert status="success" variant="left-accent">
-              <AlertIcon />
-              Location is verified!
-            </Alert>
+          <Box display={"flex"} justifyContent={"space-between"} alignContent={"center"}>
+            <Heading size="md">Location :</Heading>
+            {hasLocationEditAccess && (
+              <Box>
+                {mode === "view" ? (
+                  <Button
+                    onClick={() => setMode("edit")}
+                    size={"sm"}
+                    variant={"outline"}
+                    colorScheme={"green"}
+                  >
+                    Edit Location
+                  </Button>
+                ) : (
+                  <Box>
+                    <Button onClick={() => setMode("view")} size={"sm"} variant={"ghost"} mx={1}>
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={processFarmerLocationEdit}
+                      size={"sm"}
+                      variant={"solid"}
+                      mx={1}
+                      colorScheme="red"
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
+          {hasLocationEditAccess && mode === "edit" && (
+            <LocationEditAndVerifyForm
+              isLocationVerified={isLocationVerified}
+              setIsLocationVerified={setIsLocationVerified}
+            />
           )}
+
           <Box
             rounded="md"
             border={4}
@@ -218,7 +298,7 @@ export default function FarmerInfo({ farmer }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <FarmerMap geojson={geojson} setGeojson={setGeojson} mode={"view"} />
+            <FarmerMap geojson={geojson} setGeojson={handleUpdatedGeoJson} mode={mode} />
           </Box>
         </Stack>
       </Flex>

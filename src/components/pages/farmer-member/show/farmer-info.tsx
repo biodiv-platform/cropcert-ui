@@ -55,7 +55,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Gender",
-      selector: capitalizeFirstLetter(farmer["gender"]),
+      selector: farmer["gender"] !== null && capitalizeFirstLetter(farmer["gender"]),
     },
     {
       name: "Date of Birth",
@@ -71,7 +71,8 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Level of Education",
-      selector: capitalizeFirstLetter(farmer["levelOfEducation"]),
+      selector:
+        farmer["levelOfEducation"] !== null && capitalizeFirstLetter(farmer["levelOfEducation"]),
     },
     {
       name: "No of Dependents",
@@ -99,7 +100,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Other Farm Enterprises",
-      selector: farmer["otherFarmEnterprises"].map(capitalizeFirstLetter).join(", ") || "N/A",
+      selector: farmer["otherFarmEnterprises"].join(", ") || "N/A",
     },
     {
       name: "Agroforestry",
@@ -119,7 +120,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Enumerator Comment",
-      selector: capitalizeFirstLetter(farmer["enumeratorComment"]) || "N/A",
+      selector: farmer["enumeratorComment"] || "N/A",
     },
     {
       name: "Location Verified",

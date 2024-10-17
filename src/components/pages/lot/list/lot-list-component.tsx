@@ -13,7 +13,7 @@ import LotExpand from "./expand";
 import LotReportUpdate from "./modals/lot-report-update";
 import useLotFilter from "./use-lot-filter";
 
-function LotListPageComponent() {
+function LotComponent() {
   const [union, setUnion] = useState({} as any);
   const [lotModalColumns, setLotModalColumns] = useState<any>([]);
   const { t } = useTranslation();
@@ -78,4 +78,4 @@ function LotListPageComponent() {
   );
 }
 
-export default LotListPageComponent;
+export default LotComponent;

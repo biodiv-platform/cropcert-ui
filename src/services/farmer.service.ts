@@ -121,6 +121,22 @@ export const axGetFarmerByIdWithBatchAndFarmerProduce = async (farmerId, ctx?) =
   }
 };
 
+// get farmer produce information for show page.
+export const axGetFarmerProduceDetailsById = async (farmerProduceId, ctx?) => {
+  try {
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/farmerProduce/show/${farmerProduceId}`,
+      {
+        params: { ctx },
+      }
+    );
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};
+
 export const axGetAllFarmerByUnion = async (unionCode) => {
   try {
     const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/farmer/allByUnion`, {

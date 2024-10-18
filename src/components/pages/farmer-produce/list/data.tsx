@@ -1,4 +1,5 @@
 import FarmerCell from "@components/@core/table/farmer-cell";
+import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import React from "react";
 
 export const batchColumns = [
@@ -7,7 +8,7 @@ export const batchColumns = [
     selector: (row) => row["farmerProduceId"],
     maxWidth: "100px",
     sortable: true,
-    cell: (row) => `FP-${row.farmerProduceId}`,
+    cell: (row) => <FarmerProduceCell {...row} type="l" />,
   },
   {
     name: "Farmer Name",

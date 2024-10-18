@@ -1,6 +1,6 @@
 import { RestrictedAccess } from "@components/@core/layout";
 import LotListPageComponent from "@components/pages/lot/list";
-import { axListUnion } from "@services/union.service";
+import { axListUnion } from "@services/entities.service";
 import React from "react";
 
 function LotListPage() {

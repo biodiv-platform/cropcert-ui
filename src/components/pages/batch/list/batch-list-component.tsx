@@ -30,7 +30,7 @@ import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
 import useBatchFilter from "./use-batch-filter";
 
-function BatchListPageComponent() {
+function BatchComponent() {
   const [union, setUnion] = useState({} as any);
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
@@ -187,4 +187,4 @@ function BatchListPageComponent() {
   );
 }
 
-export default BatchListPageComponent;
+export default BatchComponent;

@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Skeleton } from "@chakra-ui/react";
-import { axListUnion } from "@services/union.service";
+import { axListUnion } from "@services/entities.service";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 

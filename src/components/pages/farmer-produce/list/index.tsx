@@ -9,14 +9,7 @@ export default function FarmerProducePageComponent() {
     <Box w="full" maxH="calc( 100vh - var(--heading-height) )" display="flex">
       <SimpleGrid w="full" columns={{ base: 1, lg: 14 }}>
         <Filters />
-        <Box
-          maxH="full"
-          w="full"
-          id="items-container"
-          gridColumn={{ lg: "4/15" }}
-          overflowY="auto"
-          p={4}
-        >
+        <Box maxH="full" w="full" id="items-container" gridColumn={{ lg: "4/15" }} p={4}>
           <FarmerProduceListComponent />
         </Box>
       </SimpleGrid>

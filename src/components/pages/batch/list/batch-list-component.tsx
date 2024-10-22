@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
@@ -118,13 +119,17 @@ function BatchComponent() {
         {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : batchListData?.length}
       </Box>
       <CoreGrid hidden={hideAccessor}>
-        <Accesser
-          toRole={ROLES.UNION}
-          onChange={setUnion}
-          onTouch={() => {
-            clearBatch();
-          }}
-        />
+        {hasAccess([ROLES.ADMIN, ROLES.UNION], user) ? (
+          <PlainUnionSelect onChange={setUnion} maxW="full" />
+        ) : (
+          <Accesser
+            toRole={ROLES.UNION}
+            onChange={setUnion}
+            onTouch={() => {
+              clearBatch();
+            }}
+          />
+        )}
         <Box>
           <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
         </Box>

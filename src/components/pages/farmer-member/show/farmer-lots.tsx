@@ -3,7 +3,7 @@ import DataTable from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import FarmerShowPanel from "./panel";
 
 export default function FarmerLots({ rows }) {
   const lotColumns = [
@@ -36,8 +36,8 @@ export default function FarmerLots({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="📦" title="Lot(s)" count={rows.length}>
+    <FarmerShowPanel icon="📦" title="Lot(s)" count={rows.length}>
       <DataTable keyField="LotId" columns={lotColumns} noHeader={true} data={rows} />
-    </LotShowPanel>
+    </FarmerShowPanel>
   );
 }

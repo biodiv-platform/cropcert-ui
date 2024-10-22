@@ -3,7 +3,7 @@ import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import FarmerShowPanel from "./panel";
 
 export default function FarmerBatches({ rows }) {
   const batchColumns = [
@@ -54,8 +54,8 @@ export default function FarmerBatches({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="🧺" title="Batch(s)" count={rows.length}>
+    <FarmerShowPanel icon="🧺" title="Batch(s)" count={rows.length}>
       <DataTable keyField="batchId" columns={batchColumns} noHeader={true} data={rows} />
-    </LotShowPanel>
+    </FarmerShowPanel>
   );
 }

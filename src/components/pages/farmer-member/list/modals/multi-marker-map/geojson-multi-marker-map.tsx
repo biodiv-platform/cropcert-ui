@@ -1,5 +1,5 @@
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
-import { mapLayers } from "@static/constants";
+import { MAP_LAYERS } from "@static/constants";
 import L, { divIcon, latLngBounds } from "leaflet";
 import React, { useEffect } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -65,14 +65,14 @@ export default function FarmerMap({ geojsonData }) {
     <MapContainer scrollWheelZoom={true} style={mapStyle} className="markercluster-map">
       <ZoomOut />
       <LayersControl>
-        <LayersControl.BaseLayer name={mapLayers.OSM}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -80,7 +80,7 @@ export default function FarmerMap({ geojsonData }) {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
+        <LayersControl.BaseLayer checked name={MAP_LAYERS.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -90,7 +90,7 @@ export default function FarmerMap({ geojsonData }) {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"
@@ -108,14 +108,17 @@ export default function FarmerMap({ geojsonData }) {
           pointToLayer={(point, ll) => {
             const popupString = `
             <div>
-              <h1 class="popup-heading"><a href="/farmer/show/${point.properties._id}">${point.properties.name}</a></h1>
+              <h1 class="popup-heading"><a href="/farmer/show/${point.properties._id}">${
+              point.properties.name
+            }</a></h1>
               <p>Farmer ID: ${point.properties.farmerId}</p>
               <p>CC: ${point.properties.cc}</p>
               <p>No of Farms: ${point.properties.noOfFarms}</p>
+              ${point.properties.batchId ? `<p>Batch ID: B-${point.properties.batchId}</p>` : ""}
             </div>`;
 
             return new L.Marker(ll, {
-              icon: createColoredIcon(point.properties.color),
+              icon: createColoredIcon(point.properties.color ?? { insideColor: "#262626" }),
             }).bindPopup(popupString);
           }}
           data={geojsonData}

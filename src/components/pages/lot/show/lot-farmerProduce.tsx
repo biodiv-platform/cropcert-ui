@@ -20,6 +20,19 @@ export default function LotFarmerProduce({ rows }) {
       maxWidth: "280px",
     },
     {
+      name: "Farmer ID",
+      selector: (row) => row["farmerId"],
+      maxWidth: "120px",
+      sortable: true,
+      cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
+    },
+    {
+      name: "CC",
+      selector: (row) => row["cc"],
+      maxWidth: "100px",
+      sortable: true,
+    },
+    {
       name: "Quantity",
       selector: (row) => row["quantity"],
       maxWidth: "100px",
@@ -28,7 +41,7 @@ export default function LotFarmerProduce({ rows }) {
     },
     {
       name: "Type",
-      selector: (row) => row["produceType"].toUpperCase(),
+      selector: (row) => row["produceType"],
       maxWidth: "70px",
       sortable: true,
     },
@@ -46,13 +59,6 @@ export default function LotFarmerProduce({ rows }) {
       right: true,
     },
     {
-      name: "Farmer ID",
-      selector: (row) => row["farmerId"],
-      maxWidth: "120px",
-      sortable: true,
-      cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
-    },
-    {
       name: "Batch ID",
       selector: (row) => row["batchId"],
       maxWidth: "100px",
@@ -62,7 +68,12 @@ export default function LotFarmerProduce({ rows }) {
 
   return (
     <LotShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
-      <DataTable keyField="batchId" columns={farmerProduceColumns} noHeader={true} data={rows} />
+      <DataTable
+        keyField="farmerProduceId"
+        columns={farmerProduceColumns}
+        noHeader={true}
+        data={rows}
+      />
     </LotShowPanel>
   );
 }

@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
 
+import FarmerActivity from "./farmer-activity";
 import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
 import FarmerLots from "./farmer-lots";
@@ -23,6 +24,7 @@ interface IFarmerShowProps {
   batches: any[];
   farmerProduces: any[];
   farmer: FarmerMember;
+  activityArr?: any[];
 }
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
@@ -97,6 +99,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
           {show.batches && <FarmerBatches rows={show.batches} />}
           {show.lots && <FarmerLots rows={show.lots} />}
+          {show.activityArr && <FarmerActivity rows={show.activityArr} />}
         </Accordion>
         <DeleteFarmerModal />
       </Container>

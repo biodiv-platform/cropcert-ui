@@ -2,7 +2,7 @@ import DataTable from "@components/@core/table";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import FarmerShowPanel from "./panel";
 
 export default function FarmerProduce({ rows }) {
   const farmerProduceColumns = [
@@ -59,8 +59,8 @@ export default function FarmerProduce({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
+    <FarmerShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
       <DataTable keyField="batchId" columns={farmerProduceColumns} noHeader={true} data={rows} />
-    </LotShowPanel>
+    </FarmerShowPanel>
   );
 }

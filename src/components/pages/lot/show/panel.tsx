@@ -24,8 +24,6 @@ export default function LotShowPanel({
       bg="gray.200"
       mb={6}
       borderRadius="md"
-      border="1px solid"
-      borderColor="gray.200"
     >
       {({ isExpanded }) => (
         <>

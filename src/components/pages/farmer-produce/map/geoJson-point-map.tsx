@@ -1,7 +1,7 @@
 import "react-leaflet-fullscreen/styles.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
-import { mapLayers } from "@static/constants";
+import { MAP_LAYERS } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect, useMemo, useRef } from "react";
 import { LayerGroup, LayersControl, MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
@@ -46,14 +46,14 @@ export default function GeoJsonPointMap({ geojson }) {
   return (
     <MapContainer center={center} zoom={14} ref={mapRef} style={mapStyle}>
       <LayersControl>
-        <LayersControl.BaseLayer name={mapLayers.OSM}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -61,7 +61,7 @@ export default function GeoJsonPointMap({ geojson }) {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
+        <LayersControl.BaseLayer checked name={MAP_LAYERS.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -71,7 +71,7 @@ export default function GeoJsonPointMap({ geojson }) {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"

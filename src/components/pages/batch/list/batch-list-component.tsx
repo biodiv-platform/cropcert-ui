@@ -161,18 +161,23 @@ function BatchComponent() {
           defaultSortAsc={false}
           conditionalRowStyles={[
             {
+              when: (row) => row._id,
+              style: {
+                paddingLeft: "2px",
+              },
+            },
+            {
               when: (row) => row.lotId,
               style: {
                 background: "var(--chakra-colors-gray-100)!important",
+                paddingLeft: "2px",
                 opacity: "0.5",
               },
             },
             {
               when: (row) => row.isReadyForLot && !row.lotId,
               style: {
-                borderLeft: "5px solid var(--chakra-colors-green-500)",
-                borderRadius: "6px",
-                backgroundColor: "var(--chakra-colors-green-50)",
+                borderLeft: "2px solid var(--chakra-colors-green-500)",
               },
             },
           ]}

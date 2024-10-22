@@ -7,14 +7,15 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
   const dateOfCollection = farmerProduces["dateOfCollection"]
     ? new Date(farmerProduces["dateOfCollection"]).toLocaleDateString()
     : "N/A";
-  const lastUpdatedAt = farmerProduces["lastUpdatedAt"]
-    ? new Date(farmerProduces["lastUpdatedAt"]).toLocaleDateString()
-    : "N/A";
 
   const basicInfoHeader = [
     {
-      name: "Produce ID",
+      name: "Farmer Produce ID",
       selector: farmerProduces["farmerProduceId"],
+    },
+    {
+      name: "Farmer ID",
+      selector: farmerProduces["farmerId"],
     },
     {
       name: "Farmer Name",
@@ -61,29 +62,13 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
       selector: farmerProduces["millingCharge"],
     },
     {
-      name: "Collector Name",
-      selector: farmerProduces["collectorName"],
-    },
-    {
       name: "Collection Date",
       selector: dateOfCollection,
-    },
-    {
-      name: "Grn",
-      selector: farmerProduces["calculateGrn"],
-    },
-    {
-      name: "Submitter Name",
-      selector: farmerProduces["submitterName"],
-    },
-    {
-      name: "Last Updated",
-      selector: lastUpdatedAt,
     },
   ];
 
   return (
-    <FarmerProduceShowPanel icon="🧑‍🌾" title={farmerProduces.farmerName} isOpen={true}>
+    <FarmerProduceShowPanel icon="🚜" title="Produce Information" isOpen={true}>
       <Table variant="simple" size="md">
         <Thead>
           <Tr>

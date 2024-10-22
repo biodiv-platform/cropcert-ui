@@ -6,8 +6,8 @@ import { FarmerMember, FarmerProduce } from "@interfaces/traceability";
 import { useRouter } from "next/router";
 import React from "react";
 
+import FarmerProduceCollectionInfo from "./collection-information";
 import FarmerProduceInfo from "./farmer-produce-info";
-import GrnReceiptInfo from "./grn-receipt";
 
 interface IFarmerProduceShowProps {
   farmerProduces: FarmerProduce;
@@ -47,10 +47,10 @@ export default function FarmerProduceShowPageComponent({
   return (
     show?.farmer && (
       <Container>
-        <PageHeading actions={<ActionButtons />}>🚜 Produce Information</PageHeading>
+        <PageHeading actions={<ActionButtons />}>🧑‍🌾 {show.farmerProduces.farmerName}</PageHeading>
         <Accordion defaultIndex={[0]} allowMultiple>
           <FarmerProduceInfo farmerProduces={show.farmerProduces} />
-          <GrnReceiptInfo farmerProduces={show.farmerProduces} />
+          <FarmerProduceCollectionInfo farmerProduces={show.farmerProduces} />
         </Accordion>
       </Container>
     )

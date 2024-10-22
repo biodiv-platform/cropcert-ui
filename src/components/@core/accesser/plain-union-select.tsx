@@ -10,7 +10,7 @@ import Select from "react-select";
  * @param {*} { onChange }
  * @return {*}
  */
-export default function PlainUnionSelect({ onChange }) {
+export default function PlainUnionSelect({ onChange, maxW = "308px" }) {
   const [unions, setUnions] = useState<any>();
 
   const getAllUnions = async () => {
@@ -28,7 +28,7 @@ export default function PlainUnionSelect({ onChange }) {
 
   return (
     <div>
-      <FormControl mb={4} maxW="308px">
+      <FormControl mb={4} maxW={maxW}>
         <FormLabel htmlFor="union">Select union</FormLabel>
         {unions ? (
           <Select

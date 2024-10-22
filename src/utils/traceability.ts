@@ -39,3 +39,21 @@ export const bindPropertiesToGeoJSON = (geojson, properties) => {
     features: updatedFeatures,
   };
 };
+
+export const convertPointToFeatureCollection = (pointGeoJson, properties) => {
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: pointGeoJson.coordinates,
+        },
+        properties: {
+          ...properties,
+        },
+      },
+    ],
+  };
+};

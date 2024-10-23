@@ -8,6 +8,7 @@ import React from "react";
 
 import FarmerProduceCollectionInfo from "./collection-information";
 import FarmerProduceInfo from "./farmer-produce-info";
+import GrnReceiptInfo from "./grn-receip";
 
 interface IFarmerProduceShowProps {
   farmerProduces: FarmerProduce;
@@ -51,6 +52,7 @@ export default function FarmerProduceShowPageComponent({
         <Accordion defaultIndex={[0]} allowMultiple>
           <FarmerProduceInfo farmerProduces={show.farmerProduces} />
           <FarmerProduceCollectionInfo farmerProduces={show.farmerProduces} />
+          <GrnReceiptInfo farmerProduces={show.farmerProduces}  />
         </Accordion>
       </Container>
     )

@@ -1,10 +1,13 @@
 import { Box, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import useGlobalState from "@hooks/use-global-state";
 import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
+import { hasAccess } from "@utils/auth";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
@@ -13,10 +16,11 @@ import LotExpand from "./expand";
 import LotReportUpdate from "./modals/lot-report-update";
 import useLotFilter from "./use-lot-filter";
 
-function LotListPageComponent() {
+function LotComponent() {
   const [union, setUnion] = useState({} as any);
   const [lotModalColumns, setLotModalColumns] = useState<any>([]);
   const { t } = useTranslation();
+  const { user } = useGlobalState();
 
   const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
 
@@ -38,13 +42,17 @@ function LotListPageComponent() {
       </Box>
 
       <CoreGrid>
-        <Accesser
-          toRole={ROLES.UNION}
-          onChange={setUnion}
-          onTouch={() => {
-            clearLot();
-          }}
-        />
+        {hasAccess([ROLES.ADMIN, ROLES.UNION], user) ? (
+          <PlainUnionSelect onChange={setUnion} maxW="full" />
+        ) : (
+          <Accesser
+            toRole={ROLES.UNION}
+            onChange={setUnion}
+            onTouch={() => {
+              clearLot();
+            }}
+          />
+        )}
         <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
       </CoreGrid>
 
@@ -78,4 +86,4 @@ function LotListPageComponent() {
   );
 }
 
-export default LotListPageComponent;
+export default LotComponent;

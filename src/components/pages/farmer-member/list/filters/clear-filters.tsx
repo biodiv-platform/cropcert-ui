@@ -11,10 +11,12 @@ import useFarmerFilter from "../use-farmer-filter";
 const FILTERS_BLACKLIST = [...Object.keys(DEFAULT_FARMER_MEMBER_FILTER), "lang"];
 
 export default function ClearFilters() {
-  const { filter } = useFarmerFilter();
+  const { filter, setFilterCount } = useFarmerFilter();
 
-  const filterCount: any =
-    filter && Object.keys(filter).filter((f) => !FILTERS_BLACKLIST.includes(f)).length > 0;
+  const filterCount: number = filter
+    ? Object.keys(filter).filter((f) => filter[f] && !FILTERS_BLACKLIST.includes(f)).length
+    : 0;
+  setFilterCount(filterCount);
   const { t } = useTranslation();
   const message = t("filters:clear", { filterCount });
   const router = useRouter();

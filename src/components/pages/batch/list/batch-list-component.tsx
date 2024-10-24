@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
+import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
@@ -30,7 +31,7 @@ import LotCreateModal from "./modals/lot-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
 import useBatchFilter from "./use-batch-filter";
 
-function BatchListPageComponent() {
+function BatchComponent() {
   const [union, setUnion] = useState({} as any);
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
@@ -118,13 +119,17 @@ function BatchListPageComponent() {
         {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : batchListData?.length}
       </Box>
       <CoreGrid hidden={hideAccessor}>
-        <Accesser
-          toRole={ROLES.UNION}
-          onChange={setUnion}
-          onTouch={() => {
-            clearBatch();
-          }}
-        />
+        {hasAccess([ROLES.ADMIN, ROLES.UNION], user) ? (
+          <PlainUnionSelect onChange={setUnion} maxW="full" />
+        ) : (
+          <Accesser
+            toRole={ROLES.UNION}
+            onChange={setUnion}
+            onTouch={() => {
+              clearBatch();
+            }}
+          />
+        )}
         <Box>
           <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
         </Box>
@@ -187,4 +192,4 @@ function BatchListPageComponent() {
   );
 }
 
-export default BatchListPageComponent;
+export default BatchComponent;

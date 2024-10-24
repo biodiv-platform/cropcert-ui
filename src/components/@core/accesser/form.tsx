@@ -2,6 +2,7 @@ import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import useGlobalState from "@hooks/use-global-state";
 import { getByRole } from "@services/accessor.service";
+import { ROLES } from "@static/constants";
 import { setUserKey } from "@utils/auth";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
@@ -15,14 +16,7 @@ interface IProps {
   onTouch;
 }
 
-export default function AccesserForm({
-  toRole,
-  roles,
-  initialState,
-  currentRole,
-  onChange,
-  onTouch,
-}: IProps) {
+export default function AccesserForm({ toRole, roles, initialState, onChange, onTouch }: IProps) {
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
   const { setUnion } = useGlobalState();
@@ -81,7 +75,7 @@ export default function AccesserForm({
   };
 
   const RoleDropdown = (role, index) => {
-    if (role === currentRole) return null;
+    if (role === ROLES.ADMIN) return null;
 
     const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
 

@@ -2,8 +2,7 @@ import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth";
 
 import { axListCCByCoId } from "./cc.service";
-import { axCoByUnionId } from "./co.service";
-import { axListUnion } from "./union.service";
+import { axCoByUnionId, axListUnion } from "./entities.service";
 
 /**
  * Provides list of entities by role and entity code

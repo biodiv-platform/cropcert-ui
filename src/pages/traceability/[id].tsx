@@ -4,8 +4,6 @@ import React, { useMemo } from "react";
 import ShowTabs from "./traceability-workflow";
 
 const TraceabilityShowPage = ({ page }) => {
-  console.warn("page", page);
-
   const selectedTab = useMemo(() => {
     switch (page) {
       case "batch":

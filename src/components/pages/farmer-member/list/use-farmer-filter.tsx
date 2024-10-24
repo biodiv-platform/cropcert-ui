@@ -34,6 +34,8 @@ interface FarmerFilterContextProps {
   loading: boolean;
   clearFarmerMember: () => void;
   farmerListAggregationData?: any;
+  filterCount: number;
+  setFilterCount;
 }
 
 const FarmerFilterContext = createContext<FarmerFilterContextProps>({} as FarmerFilterContextProps);
@@ -45,6 +47,7 @@ export const FarmerFilterProvider = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [filterCount, setFilterCount] = useState(0);
 
   const fetchListData = async () => {
     if (ccCodes.length === 0) return;
@@ -70,14 +73,13 @@ export const FarmerFilterProvider = (props) => {
   }, [ccCodes, filter.f]);
 
   useEffect(() => {
-    if (isBrowser) {
+    if (isBrowser && filterCount > 0) {
       window.history.pushState("", "", `?${stringify({ ...filter.f })}`);
     }
-  }, [filter]);
+  }, [filter, filterCount]);
 
   const addFilter = (key: string, value: any) => {
     setFilter((draft) => {
-      draft.f.offset = 0;
       draft.f[key] = value;
     });
   };
@@ -125,6 +127,8 @@ export const FarmerFilterProvider = (props) => {
         loading,
         clearFarmerMember,
         farmerListAggregationData,
+        filterCount,
+        setFilterCount,
       }}
     >
       {props.children}

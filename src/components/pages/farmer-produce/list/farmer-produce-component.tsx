@@ -43,12 +43,6 @@ function FarmerProduceListComponent() {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
 
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setCCs([0]);
-    }
-  }, []);
-
   const { data } = useQuery({
     queryKey: ["lastSyncedTimeFP"],
     queryFn: () => axGetLastSyncedTimeFP(union?.value),

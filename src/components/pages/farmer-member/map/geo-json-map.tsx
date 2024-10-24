@@ -1,4 +1,4 @@
-import { locationType, mapLayers } from "@static/constants";
+import { LOCATION_TYPE, MAP_LAYERS } from "@static/constants";
 import L from "leaflet";
 import React, { useEffect, useMemo, useState } from "react";
 import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
@@ -26,13 +26,13 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
       const center = bounds.getCenter();
 
       switch (geoJsonData.geometry.type) {
-        case locationType.POINT:
+        case LOCATION_TYPE.POINT:
           return {
             bounds: bounds,
             center: center,
           };
-        case locationType.MULTI_POINT:
-        case locationType.MULTI_POLYGON:
+        case LOCATION_TYPE.MULTI_POINT:
+        case LOCATION_TYPE.MULTI_POLYGON:
           return { bounds: bounds, center: center };
         default:
           break;
@@ -111,14 +111,14 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
     // @ts-ignore
     <MapContainer center={[center.lat, center.lng]} zoom={13} style={mapStyle}>
       <LayersControl>
-        <LayersControl.BaseLayer name={mapLayers.OSM}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             maxZoom={21}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP}>
           <TileLayer
             attribution="Google Maps"
             url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
@@ -126,7 +126,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
             subdomains={["mt0", "mt1", "mt2", "mt3"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name={mapLayers.GMAP_SAT}>
+        <LayersControl.BaseLayer checked name={MAP_LAYERS.GMAP_SAT}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Satellite"
@@ -136,7 +136,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
             />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={mapLayers.GMAP_TERRAIN}>
+        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP_TERRAIN}>
           <LayerGroup>
             <TileLayer
               attribution="Google Maps Terrain"
@@ -176,7 +176,7 @@ const GeoJsonMap = (props: IGeoJsonMapProps) => {
           };
         }}
         onEachFeature={(feature, layer) => {
-          if (feature.geometry.type === locationType.MULTI_POLYGON) {
+          if (feature.geometry.type === LOCATION_TYPE.MULTI_POLYGON) {
             // @ts-ignore
             const totalArea = feature.geometry.coordinates.reduce(
               (sum, polygon) => sum + calculatePolygonArea(polygon),

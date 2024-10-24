@@ -70,7 +70,7 @@ export default function BatchCreateForm({
 
       const { success, data } = await axCreateBatch({ ...updatedPayload });
       if (success) {
-        data.farmerProduceIds.map((b) => update({ ...b }));
+        farmerProduceArr.map((b) => update({ ...b, batchId: data.batch.batchId }));
         notification(BATCH.CREATED, NotificationType.Success, data.batch);
         onClose();
       }

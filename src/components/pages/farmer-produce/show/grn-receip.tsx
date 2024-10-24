@@ -29,7 +29,7 @@ export default function GrnReceiptInfo({ farmerProduces }) {
   };
 
   return (
-    <FarmerProduceShowPanel icon="🧾" title="Grn Receipt" isOpen={true}>
+    <FarmerProduceShowPanel icon="🧾" title="GRN Receipt" isOpen={true}>
       <Box display="flex" justifyContent="center" alignItems="center" height="600px">
         <Image
           loading="lazy"

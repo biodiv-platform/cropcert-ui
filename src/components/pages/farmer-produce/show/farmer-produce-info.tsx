@@ -75,7 +75,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
       selector: farmerProduces["collectorSubstr"],
     },
     {
-      name: "Calculate Grn",
+      name: "Calculate GRN",
       selector: farmerProduces["calculateGrn"],
     },
   ];

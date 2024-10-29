@@ -1,4 +1,5 @@
 import DataTable from "@components/@core/table";
+import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
@@ -11,7 +12,7 @@ export default function FarmerProduce({ rows }) {
       selector: (row) => row["farmerProduceId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `FP-${row.farmerProduceId}`,
+      cell: (row) => <FarmerProduceCell {...row} type="l" />,
     },
     {
       name: "Farmer Name",

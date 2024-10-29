@@ -1,5 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
+import BatchCell from "@components/@core/table/batch-cell";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
@@ -12,7 +13,7 @@ export default function LotBatches({ rows }) {
       selector: (row) => row["batchId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `B-${row.batchId}`,
+      cell: (row) => <BatchCell {...row} />,
     },
     {
       name: "Name",
@@ -33,9 +34,9 @@ export default function LotBatches({ rows }) {
     },
     {
       name: "Last Updated",
-      selector: (row) => row["lastUpdatedOn"],
+      selector: (row) => row["lastUpdatedAt"],
       maxWidth: "180px",
-      cell: (row) => timeCell(row.lastUpdatedOn),
+      cell: (row) => timeCell(row.lastUpdatedAt),
       sortable: true,
     },
     {

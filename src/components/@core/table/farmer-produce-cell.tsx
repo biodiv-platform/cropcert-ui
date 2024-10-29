@@ -14,7 +14,7 @@ export default function FarmerProduceCell({ farmerProduceId, _id }: { farmerProd
   };
 
   useEffect(() => {
-    if (_id.substring(0, 4) === "uuid") {
+    if (_id?.substring(0, 4) === "uuid") {
       fetchFarmerProduceDetailsByUUID();
     }
   }, []);

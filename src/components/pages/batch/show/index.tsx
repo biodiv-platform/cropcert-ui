@@ -11,14 +11,14 @@ import BatchFarmerMember from "./batch-farmerMember";
 import BatchFarmerProduce from "./batch-farmerProduce";
 import BatchInfo from "./batch-info";
 
-interface ILotShowProps {
+interface IBatchShowProps {
   batch: Batch;
   farmerProduceArr;
   farmerArr;
   farmerLocationArr;
 }
 
-export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
+export default function BatchShowPageComponent({ show }: { show: IBatchShowProps }) {
   const router = useRouter();
 
   // Function to go back to the previous page

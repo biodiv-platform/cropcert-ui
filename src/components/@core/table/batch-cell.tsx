@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import React from "react";
 
 export default function BatchCell({ batchId, _id }: { batchId?; _id? }) {
-  const label = `View Lot #${batchId}`;
+  const label = `View Batch #${batchId}`;
   return batchId ? (
     <NextLink href={`/batch/show/${_id}`} passHref={true}>
       <Link>

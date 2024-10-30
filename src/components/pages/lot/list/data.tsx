@@ -1,5 +1,6 @@
 import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
+import BatchCell from "@components/@core/table/batch-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import { LOT_FLAGS, ROLES } from "@static/constants";
@@ -108,7 +109,7 @@ export const batchColumns = [
     name: "#",
     selector: (row) => row.batchId,
     sortable: true,
-    cell: (row) => `B-${row.batchId}`,
+    cell: (row) => <BatchCell {...row} />,
   },
   {
     name: "Name",

@@ -1,6 +1,8 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
+import BatchCell from "@components/@core/table/batch-cell";
 import FarmerCell from "@components/@core/table/farmer-cell";
+import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -33,7 +35,7 @@ const createBatchColumn = (
 });
 
 const defaultBatchModalColumns = [
-  createBatchColumn("#", (row) => `B-${row.batchId}`, "100px"), // You can add cell rendering function if needed
+  createBatchColumn("#", (row) => <BatchCell {...row} />, "100px"), // You can add cell rendering function if needed
   createBatchColumn("Name", (row) => row.batchName, "280px"),
   createBatchColumn("Type", (row) => row.type, "100px"),
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
@@ -115,7 +117,7 @@ export const farmerProduceColumns = [
     selector: (row) => row["farmerProduceId"],
     maxWidth: "100px",
     sortable: true,
-    cell: (row) => `FP-${row.farmerProduceId}`,
+    cell: (row) => <FarmerProduceCell {...row} type="l" />,
   },
   {
     name: "Farmer Name",

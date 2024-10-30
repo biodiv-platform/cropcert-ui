@@ -14,9 +14,12 @@ export const axCreateBatch = async (body) => {
 
 export const axListBatch = async (coCodes, params) => {
   try {
-    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/all/coCodes?coCode=${coCodes}`, {
-      params,
-    });
+    const { data } = await http.get(
+      `${ENDPOINT.TRACEABILITY}/batch/all/coCodes?coCode=${coCodes}`,
+      {
+        params,
+      }
+    );
     return {
       success: true,
       data,
@@ -77,5 +80,17 @@ export const axUpdateBatch = async (payload) => {
   } catch (e) {
     notification(e.message);
     return { success: false };
+  }
+};
+
+export const axGetBatchById = async (batchId, ctx?) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/batch/show/${batchId}`, {
+      params: { ctx },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
   }
 };

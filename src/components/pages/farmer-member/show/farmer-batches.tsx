@@ -1,5 +1,6 @@
 import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
+import BatchCell from "@components/@core/table/batch-cell";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
@@ -12,7 +13,7 @@ export default function FarmerBatches({ rows }) {
       selector: (row) => row["batchId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `B-${row.batchId}`,
+      cell: (row) => <BatchCell {...row} />,
     },
     {
       name: "Name",
@@ -43,7 +44,7 @@ export default function FarmerBatches({ rows }) {
     {
       name: "Lot ID",
       selector: (row) => row["lotId"],
-      cell: (row) => `L-${row.lotId}`,
+      cell: (row) => row.lotId && `L-${row.lotId}`,
       maxWidth: "100px",
     },
     {

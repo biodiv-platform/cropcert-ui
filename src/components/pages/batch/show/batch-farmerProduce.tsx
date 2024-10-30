@@ -4,9 +4,9 @@ import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import timeCell from "@components/@core/table/time-cell";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import BatchShowPanel from "./panel";
 
-export default function LotFarmerProduce({ rows }) {
+export default function BatchFarmerProduce({ rows }) {
   const farmerProduceColumns = [
     {
       name: "#",
@@ -68,13 +68,13 @@ export default function LotFarmerProduce({ rows }) {
   ];
 
   return (
-    <LotShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
+    <BatchShowPanel icon="🚜" title="Farmer Produce" count={rows.length}>
       <DataTable
         keyField="farmerProduceId"
         columns={farmerProduceColumns}
         noHeader={true}
         data={rows}
       />
-    </LotShowPanel>
+    </BatchShowPanel>
   );
 }

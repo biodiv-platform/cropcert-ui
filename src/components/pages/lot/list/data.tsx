@@ -21,7 +21,7 @@ export const createLotColumns = (columns) => {
 
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
 
-    const lotExtraColumns = columns.reduce((acc, curr) => {
+    const lotModalFieldColumns = columns.reduce((acc, curr) => {
       const printCurrRow = (lot, canWrite) => {
         return { lot, canWrite };
       };
@@ -66,7 +66,7 @@ export const createLotColumns = (columns) => {
       ];
     }, []);
 
-    return lotExtraColumns;
+    return [...lotModalFieldColumns, ...lotExtraColumns];
   } catch (e) {
     console.error("error", e);
     // returning default value
@@ -101,6 +101,15 @@ export const lotColumns = [
     sortable: true,
     width: "150px",
     cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+  },
+];
+
+const lotExtraColumns = [
+  {
+    name: "Last Updated",
+    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
+    maxWidth: "210px",
+    sortable: true,
   },
 ];
 

@@ -22,7 +22,7 @@ export default function LotBatches({ rows }) {
     },
     {
       name: "Type",
-      selector: (row) => row["type"],
+      selector: (row) => row["type"]?.toUpperCase(),
       maxWidth: "100px",
       sortable: true,
     },

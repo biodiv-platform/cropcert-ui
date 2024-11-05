@@ -18,7 +18,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
-import { batchColumns } from "./data";
+import { farmerMemberColumns } from "./data";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
 import MultipleTypeWarning from "./multiple-warning";
 import useFarmerFilter from "./use-farmer-filter";
@@ -135,8 +135,7 @@ function FarmerMemberComponent() {
       ) : farmerListData?.length > 0 ? (
         <Table
           data={farmerListData}
-          columns={batchColumns}
-          subHeader
+          columns={farmerMemberColumns}
           selectableRows={true}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}

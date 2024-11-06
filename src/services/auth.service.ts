@@ -102,3 +102,16 @@ export const axResetPassword = async (payload) => {
     return { success: false, data: {} };
   }
 };
+
+export const axEsUserAutoComplete = async (name, userGroupId?) => {
+  try {
+    const { data } = await plainHttp.get(`${ENDPOINT.USER}/v1/user/ibp/autocomplete`, {
+      params: { name, userGroupId },
+    });
+    return { success: true, data: data.map((o) => ({ ...o, display: o.name })) };
+  } catch (e) {
+    console.error(e);
+    notification(e?.response?.data?.message);
+    return { success: false, data: [] };
+  }
+};

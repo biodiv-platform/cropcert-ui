@@ -1,11 +1,12 @@
 import { ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button, Tooltip } from "@chakra-ui/react";
+import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import useGlobalState from "@hooks/use-global-state";
 import DeleteIcon from "@icons/delete";
 import { FarmerMember } from "@interfaces/traceability";
-import { ROLES } from "@static/constants";
+import { RESOURCE_TYPE, ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import NextLink from "next/link";
@@ -13,7 +14,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
 
-import FarmerActivity from "./farmer-activity";
 import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
 import FarmerLots from "./farmer-lots";
@@ -99,7 +99,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
           {show.batches && <FarmerBatches rows={show.batches} />}
           {show.lots && <FarmerLots rows={show.lots} />}
-          {show.activityArr && <FarmerActivity rows={show.activityArr} />}
+          <Activity resourceId={show.farmer.id} resourceType={RESOURCE_TYPE.FARMER} />
         </Accordion>
         <DeleteFarmerModal />
       </Container>

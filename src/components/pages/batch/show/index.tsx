@@ -1,9 +1,10 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Accordion, Button } from "@chakra-ui/react";
+import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { Batch } from "@interfaces/traceability";
-import { CC_COLOR_MAPPING } from "@static/constants";
+import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -55,6 +56,7 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
         <BatchInfo batch={show.batch} geojsonData={geojsonData} />
         {show.farmerProduceArr && <BatchFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <BatchFarmerMember rows={show.farmerArr} />}
+        <Activity resourceId={show.batch.id} resourceType={RESOURCE_TYPE.BATCH} />
       </Accordion>
     </Container>
   );

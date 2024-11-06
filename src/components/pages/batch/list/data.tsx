@@ -1,8 +1,6 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
-import FarmerCell from "@components/@core/table/farmer-cell";
-import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";

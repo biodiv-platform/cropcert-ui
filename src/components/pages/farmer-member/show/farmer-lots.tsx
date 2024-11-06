@@ -1,6 +1,7 @@
 import { Badge } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
 import LotCell from "@components/@core/table/lot-cell";
+import tooltipCell from "@components/@core/table/tooltip-cell";
 import React from "react";
 
 import FarmerShowPanel from "./panel";
@@ -20,9 +21,15 @@ export default function FarmerLots({ rows }) {
       width: "280px",
     },
     {
-      name: "Initial Quantity",
+      name: "Type",
+      selector: (row) => row["type"]?.toUpperCase(),
+      maxWidth: "100px",
+      sortable: true,
+    },
+    {
+      name: "Quantity",
       selector: (row) => row["quantity"],
-      maxWidth: "150px",
+      maxWidth: "100px",
       sortable: true,
       right: true,
     },
@@ -32,6 +39,18 @@ export default function FarmerLots({ rows }) {
       cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
       maxWidth: "180px",
       sortable: true,
+    },
+    {
+      name: "Created At",
+      selector: (row) => row["createdAt"],
+      cell: (row) => new Date(row.createdAt).toLocaleString(),
+      maxWidth: "180px",
+      sortable: true,
+    },
+    {
+      name: "Note",
+      selector: (row) => row["note"],
+      cell: (row) => (row.note ? tooltipCell(row.note) : "N/A"),
     },
   ];
 

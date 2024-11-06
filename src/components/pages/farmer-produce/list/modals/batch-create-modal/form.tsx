@@ -22,7 +22,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import { lotCreateModalCols } from "../../data";
+import { batchCreateModalCols } from "../../data";
 
 export default function BatchCreateForm({
   update,
@@ -96,7 +96,7 @@ export default function BatchCreateForm({
               format="dd-MM-yyyy"
               min={highestDate}
             />
-            <Table data={farmerProduceArr} columns={[...lotCreateModalCols]} />
+            <Table data={farmerProduceArr} columns={[...batchCreateModalCols]} />
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
                 <strong>Total</strong> {batchConfig.quantity} KG(s)

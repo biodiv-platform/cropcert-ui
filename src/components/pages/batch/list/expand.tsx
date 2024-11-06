@@ -1,10 +1,9 @@
 import { Box, CircularProgress, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
+import { farmerProduceColumns } from "@components/pages/farmer-produce/list/data";
 import { FarmerProduce } from "@interfaces/traceability";
 import { axListFarmerProduceByBatchId } from "@services/batch.service";
 import React, { useEffect, useState } from "react";
-
-import { farmerProduceColumns } from "./data";
 
 function BatchExpand(props) {
   const { isOpen, onOpen } = useDisclosure();

@@ -2,18 +2,18 @@ import FarmerCell from "@components/@core/table/farmer-cell";
 import FarmerProduceCell from "@components/@core/table/farmer-produce-cell";
 import React from "react";
 
-export const batchColumns = [
+export const farmerProduceColumns = [
   {
     name: "#",
     selector: (row) => row["farmerProduceId"],
     maxWidth: "100px",
     sortable: true,
-    cell: (row) => <FarmerProduceCell {...row} type="l" />,
+    cell: (row) => <FarmerProduceCell {...row} />,
   },
   {
     name: "Farmer Name",
     selector: (row) => row["farmerName"],
-    maxWidth: "280px",
+    maxWidth: "210px",
   },
   {
     name: "Quantity",
@@ -29,16 +29,24 @@ export const batchColumns = [
     sortable: true,
   },
   {
-    name: "Collection Date",
-    selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
-    maxWidth: "150px",
+    name: "GRN Number",
+    selector: (row) => row["calculateGrn"],
+    maxWidth: "120px",
     sortable: true,
   },
   {
-    name: "GRN Number",
-    selector: (row) => row["calculateGrn"],
-    maxWidth: "150px",
+    name: "Amount Paid",
+    selector: (row) => row["amountPaidCalculate"],
+    maxWidth: "120px",
     sortable: true,
+    right: true,
+  },
+  {
+    name: "Milling Charge",
+    selector: (row) => row["millingCharge"],
+    maxWidth: "100px",
+    sortable: true,
+    right: true,
   },
   {
     name: "Farmer ID",
@@ -48,14 +56,14 @@ export const batchColumns = [
     cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
   },
   {
-    name: "Last Updated",
-    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
-    width: "210px",
+    name: "Collection Date",
+    selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
+    maxWidth: "210px",
     sortable: true,
   },
 ];
 
-export const lotCreateModalCols = [
+export const batchCreateModalCols = [
   {
     name: "#",
     selector: (row) => row["farmerProduceId"],
@@ -70,15 +78,6 @@ export const lotCreateModalCols = [
   {
     name: "Quantity",
     selector: (row) => row["quantity"],
-    sortable: true,
-    right: true,
-  },
-];
-
-export const lotCreateModalColsExtra = [
-  {
-    name: "Perchment Quantity",
-    selector: (row) => row["perchmentQuantity"],
     sortable: true,
     right: true,
   },

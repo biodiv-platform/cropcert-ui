@@ -15,7 +15,6 @@ import Table from "@components/@core/table";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { Batch } from "@interfaces/traceability";
-import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { LOT_CREATE } from "@static/events";
 import { hasAccess } from "@utils/auth";
@@ -23,7 +22,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
-import { createBatchColumns } from "./data";
+import { fetchBatchColumns } from "./data";
 import BatchExpand from "./expand";
 import BatchCreateModal from "./modals/batch-create-modal";
 import BatchUpdateModal from "./modals/batch-update-modal-new";
@@ -39,18 +38,29 @@ function BatchComponent() {
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const [hideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
-  const [batchModalColumns, setBatchModalColumns] = useState<any>([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [batchColumns, setBatchColumns] = useState<any[]>([]);
+  const [columnsLoading, setColumnsLoading] = useState(true);
+  const [columnsError, setColumnsError] = useState<Error | null>(null);
   const { t } = useTranslation();
 
   const { clearBatch, setCOCodes, batchListData, loading, updateBatch, addBatch } =
     useBatchFilter();
 
   useEffect(() => {
-    (async () => {
-      const columns = await axGetColumns("BATCH");
-      setBatchModalColumns(columns.data);
-    })();
+    async function loadColumns() {
+      try {
+        setColumnsLoading(true);
+        const columns = await fetchBatchColumns();
+        setBatchColumns(columns);
+      } catch (error) {
+        setColumnsError(error as Error);
+      } finally {
+        setColumnsLoading(false);
+      }
+    }
+
+    loadColumns();
   }, []);
 
   const handleOnSelectionChange = ({ selectedRows }: { selectedRows: Required<Batch>[] }) => {
@@ -110,7 +120,9 @@ function BatchComponent() {
     setTriggerRender(!triggerRender);
   };
 
-  const batchColumns = batchModalColumns.length > 0 ? createBatchColumns(batchModalColumns) : [];
+  if (columnsError) {
+    return <Box>Error loading columns: {columnsError.message}</Box>;
+  }
 
   return (
     <Box>
@@ -146,7 +158,7 @@ function BatchComponent() {
           )
         : null}
 
-      {loading ? (
+      {loading || columnsLoading ? (
         <Spinner />
       ) : batchListData?.length > 0 ? (
         <Table

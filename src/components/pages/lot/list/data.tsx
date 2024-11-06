@@ -3,6 +3,7 @@ import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
+import timeCell from "@components/@core/table/time-cell";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
 import { capitalizeFirstLetter } from "@utils/basic";
@@ -117,17 +118,34 @@ export const batchColumns = [
   {
     name: "#",
     selector: (row) => row.batchId,
+    maxWidth: "150px",
     sortable: true,
     cell: (row) => <BatchCell {...row} />,
   },
   {
-    name: "Name",
+    name: "Batch Name",
     selector: (row) => row.batchName,
+    maxWidth: "250px",
+    sortable: true,
+  },
+  {
+    name: "Type",
+    selector: (row) => row.type?.toUpperCase(),
+    maxWidth: "150px",
+    sortable: true,
   },
   {
     name: "Quantity",
     selector: (row) => row.quantity,
+    maxWidth: "150px",
     sortable: true,
+    right: true,
+  },
+  {
+    name: "Last Updated",
+    selector: (row) => row.lastUpdatedAt,
+    maxWidth: "180px",
+    cell: (row) => timeCell(row.lastUpdatedAt),
   },
 ];
 

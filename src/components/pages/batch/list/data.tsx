@@ -5,6 +5,7 @@ import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
 import { Batch } from "@interfaces/traceability";
+import { axGetColumns } from "@services/traceability.service";
 import { BATCH_FLAGS, ROLES } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
 import React from "react";
@@ -33,8 +34,8 @@ const createBatchColumn = (
 });
 
 const defaultBatchModalColumns = [
-  createBatchColumn("#", (row) => <BatchCell {...row} />, "100px"), // You can add cell rendering function if needed
-  createBatchColumn("Name", (row) => row.batchName, "280px"),
+  createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"), // You can add cell rendering function if needed
+  createBatchColumn("Name", (row) => row.batchName, "220px"),
   createBatchColumn("Type", (row) => row.type?.toUpperCase(), "100px"),
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
   createBatchColumn(
@@ -131,3 +132,13 @@ export const lotCreateModalColsExtra = [
     right: true,
   },
 ];
+
+export async function fetchBatchColumns(): Promise<any[]> {
+  try {
+    const response = await axGetColumns("BATCH");
+    return response.data.length > 0 ? createBatchColumns(response.data) : [];
+  } catch (error) {
+    console.error("Error fetching batch columns:", error);
+    throw error;
+  }
+}

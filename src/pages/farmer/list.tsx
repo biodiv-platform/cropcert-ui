@@ -4,15 +4,31 @@ import { FarmerFilterProvider } from "@components/pages/farmer-member/list/use-f
 import { DEFAULT_FARMER_MEMBER_FILTER } from "@static/constants";
 import React from "react";
 
-export default function FarmerMemberListPage() {
+function FarmerMemberListPage({ initialFilterParams }) {
   return (
     <RestrictedAccess>
       <FarmerFilterProvider
-        filter={DEFAULT_FARMER_MEMBER_FILTER}
-        farmerData={DEFAULT_FARMER_MEMBER_FILTER.farmerListData}
+        filter={initialFilterParams}
+        farmerData={initialFilterParams.farmerListData}
       >
         <FarmerMemberPageComponent />
       </FarmerFilterProvider>
     </RestrictedAccess>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  const CUSTOM_FILTER = { ...DEFAULT_FARMER_MEMBER_FILTER };
+
+  const initialFilterParams = {
+    ...CUSTOM_FILTER,
+    ...ctx.query,
+  };
+  return {
+    props: {
+      initialFilterParams,
+    },
+  };
+};
+
+export default FarmerMemberListPage;

@@ -1,11 +1,10 @@
 import { Badge, Box, Stack, Text } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
-import LotCell from "@components/@core/table/lot-cell";
-import tooltipCell from "@components/@core/table/tooltip-cell";
+import timeCell from "@components/@core/table/time-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import BatchShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
 const MultiMarkerMap = dynamic(
@@ -14,29 +13,42 @@ const MultiMarkerMap = dynamic(
   { ssr: false }
 );
 
-export default function LotInfo({ lot, geojsonData }) {
-  const basicInfoHeader = [
+export default function BatchInfo({ batch, geojsonData }) {
+  const batchColumns = [
     {
       name: "#",
-      selector: (row) => row["lotId"],
+      selector: (row) => row["batchId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => <LotCell {...row} />,
+      cell: (row) => `B-${row.batchId}`,
     },
     {
       name: "Name",
-      selector: (row) => row["lotName"],
+      selector: (row) => row["batchName"],
       width: "280px",
     },
     {
       name: "Type",
-      selector: (row) => row["type"]?.toUpperCase(),
+      selector: (row) => row["type"],
       maxWidth: "100px",
+      sortable: true,
     },
     {
       name: "Quantity",
       selector: (row) => row["quantity"],
       maxWidth: "100px",
+      sortable: true,
+    },
+    {
+      name: "Last Updated",
+      selector: (row) => row["lastUpdatedAt"],
+      maxWidth: "150px",
+      cell: (row) => timeCell(row.lastUpdatedAt),
+      sortable: true,
+    },
+    {
+      name: "Lot ID",
+      selector: (row) => row["lotId"],
     },
     {
       name: "Lot Status",
@@ -44,34 +56,29 @@ export default function LotInfo({ lot, geojsonData }) {
       cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
     },
     {
-      name: "Created At",
-      selector: (row) => row["createdAt"],
-      cell: (row) => new Date(row.createdAt).toLocaleString(),
-    },
-    {
       name: "Note",
       selector: (row) => row["note"],
-      cell: (row) => (row.note ? tooltipCell(row.note) : "N/A"),
     },
   ];
 
   return (
-    <LotShowPanel icon="ℹ️" title="Information" isOpen={true}>
-      <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
+    <BatchShowPanel icon="🧺" title="Batch(s)">
+      <DataTable keyField="batchId" columns={batchColumns} noHeader={true} data={[batch]} />
 
       <Stack my={4}>
         <Text variant={"title"} as={"b"} pl={2}>
           Parameters:
         </Text>
         <Box>
-          {lot.modalFieldCombined &&
-            lot.modalFieldCombined.map(
+          {batch.modalFieldCombined &&
+            batch.modalFieldCombined.map(
               (column, index) =>
-                (column.columnStatus === "ADD" ||
-                  column.columnStatus === "EDIT" ||
-                  column.columnStatus === "DONE") && (
+                column.columnStatus === "ADD" ||
+                column.columnStatus === "EDIT" ||
+                column.columnStatus === "DONE" ||
+                (column.columnStatus === "NOTAPPLICABLE" && (
                   <SubAccordionPanel key={index} column={column} index={index} />
-                )
+                ))
             )}
         </Box>
       </Stack>
@@ -91,6 +98,6 @@ export default function LotInfo({ lot, geojsonData }) {
           </Box>
         </Stack>
       )}
-    </LotShowPanel>
+    </BatchShowPanel>
   );
 }

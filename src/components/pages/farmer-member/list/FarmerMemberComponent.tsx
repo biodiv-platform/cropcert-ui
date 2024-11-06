@@ -18,7 +18,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
-import { batchColumns } from "./data";
+import { farmerMemberColumns } from "./data";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
 import MultipleTypeWarning from "./multiple-warning";
 import useFarmerFilter from "./use-farmer-filter";
@@ -29,7 +29,6 @@ function FarmerMemberComponent() {
   const { clearFarmerMember, setCCCodes, farmerListData, loading } = useFarmerFilter();
 
   const [showTypeError, setShowTypeError] = useState(false);
-  const [hideAccessor, setHideAccessor] = useState<boolean>();
   const [isSyncing, setIsSyncing] = useState(false);
   const { user, union } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
@@ -39,13 +38,6 @@ function FarmerMemberComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setHideAccessor(false);
-      setCCs([0]);
-    }
-  }, []);
 
   const { data } = useQuery({
     queryKey: ["lastSyncedTimeFM"],
@@ -123,7 +115,7 @@ function FarmerMemberComponent() {
         </Box>
       </Flex>
 
-      <CoreGrid hidden={hideAccessor}>
+      <CoreGrid hidden={false}>
         <Accesser
           toRole={ROLES.COOPERATIVE}
           onChange={setCo}
@@ -143,8 +135,7 @@ function FarmerMemberComponent() {
       ) : farmerListData?.length > 0 ? (
         <Table
           data={farmerListData}
-          columns={batchColumns}
-          subHeader
+          columns={farmerMemberColumns}
           selectableRows={true}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}

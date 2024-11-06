@@ -1,10 +1,11 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
-import FarmerCell from "@components/@core/table/farmer-cell";
+import BatchCell from "@components/@core/table/batch-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
 import { Batch } from "@interfaces/traceability";
+import { axGetColumns } from "@services/traceability.service";
 import { BATCH_FLAGS, ROLES } from "@static/constants";
 import { BATCH_UPDATE } from "@static/events";
 import React from "react";
@@ -33,9 +34,9 @@ const createBatchColumn = (
 });
 
 const defaultBatchModalColumns = [
-  createBatchColumn("#", (row) => `B-${row.batchId}`, "100px"), // You can add cell rendering function if needed
-  createBatchColumn("Name", (row) => row.batchName, "280px"),
-  createBatchColumn("Type", (row) => row.type, "100px"),
+  createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"), // You can add cell rendering function if needed
+  createBatchColumn("Name", (row) => row.batchName, "220px"),
+  createBatchColumn("Type", (row) => row.type?.toUpperCase(), "100px"),
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
   createBatchColumn(
     "Last Updated",
@@ -109,54 +110,6 @@ export const createBatchColumns = (columns) => {
   }
 };
 
-export const farmerProduceColumns = [
-  {
-    name: "#",
-    selector: (row) => row["farmerProduceId"],
-    maxWidth: "100px",
-    sortable: true,
-    cell: (row) => `FP-${row.farmerProduceId}`,
-  },
-  {
-    name: "Farmer Name",
-    selector: (row) => row["farmerName"],
-    maxWidth: "280px",
-  },
-  {
-    name: "Quantity",
-    selector: (row) => row["quantity"],
-    maxWidth: "100px",
-    sortable: true,
-    right: true,
-  },
-  {
-    name: "Type",
-    selector: (row) => row["produceType"].toUpperCase(),
-    maxWidth: "70px",
-    sortable: true,
-  },
-  {
-    name: "Collection Date",
-    selector: (row) => row["dateOfCollection"],
-    maxWidth: "150px",
-    sortable: true,
-    cell: (row) => timeCell(row.dateOfCollection),
-  },
-  {
-    name: "GRN Number",
-    selector: (row) => row["calculateGrn"],
-    maxWidth: "150px",
-    sortable: true,
-  },
-  {
-    name: "Farmer ID",
-    selector: (row) => row["farmerId"],
-    maxWidth: "120px",
-    sortable: true,
-    cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
-  },
-];
-
 export const lotCreateModalCols = [
   {
     name: "Name",
@@ -179,3 +132,13 @@ export const lotCreateModalColsExtra = [
     right: true,
   },
 ];
+
+export async function fetchBatchColumns(): Promise<any[]> {
+  try {
+    const response = await axGetColumns("BATCH");
+    return response.data.length > 0 ? createBatchColumns(response.data) : [];
+  } catch (error) {
+    console.error("Error fetching batch columns:", error);
+    throw error;
+  }
+}

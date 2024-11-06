@@ -21,7 +21,12 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
       L.geoJSON(geojson, {
         onEachFeature: (feature, layer: any) => {
           if (feature.properties) {
-            let popupContent = Object.entries(feature.properties)
+            let popupContent = "";
+
+            popupContent += `<h1 class="popup-heading">${feature.properties.name}</h1>`;
+
+            popupContent += Object.entries(feature.properties)
+              .splice(1)
               .map(([key, value]) => `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}`)
               .join("<br>");
 

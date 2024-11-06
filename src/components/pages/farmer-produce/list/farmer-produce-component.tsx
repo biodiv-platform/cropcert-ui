@@ -20,7 +20,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
-import { batchColumns } from "./data";
+import { farmerProduceColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
 import useFarmerProduceFilter from "./use-farmer-produce-filter";
@@ -42,12 +42,6 @@ function FarmerProduceListComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  useEffect(() => {
-    if (hasAccess([ROLES.UNION], user)) {
-      setCCs([0]);
-    }
-  }, []);
 
   const { data } = useQuery({
     queryKey: ["lastSyncedTimeFP"],
@@ -188,7 +182,7 @@ function FarmerProduceListComponent() {
       ) : farmerProduceListData?.length > 0 ? (
         <Table
           data={farmerProduceListData}
-          columns={batchColumns}
+          columns={farmerProduceColumns}
           selectableRows={true}
           selectableRowDisabled={(r) => r.batchId}
           onSelectedRowsChange={handleOnSelectionChange}

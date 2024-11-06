@@ -1,7 +1,7 @@
 import FarmerCell from "@components/@core/table/farmer-cell";
 import React from "react";
 
-export const batchColumns = [
+export const farmerMemberColumns = [
   {
     name: "#",
     selector: (row) => row["farmerId"],
@@ -39,6 +39,19 @@ export const batchColumns = [
     maxWidth: "180px",
     sortable: true,
     right: true,
+  },
+  {
+    name: "Year of First Plantation",
+    selector: (row) => row["yearOfFirstPlanting"] ?? "N/A",
+    maxWidth: "150px",
+    sortable: true,
+    right: true,
+  },
+  {
+    name: "Record Created",
+    selector: (row) => new Date(row.submittedOnODK).toLocaleString(),
+    width: "210px",
+    sortable: true,
   },
   {
     name: "Last Updated",

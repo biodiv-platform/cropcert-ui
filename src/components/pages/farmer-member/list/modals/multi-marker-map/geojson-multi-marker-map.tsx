@@ -74,10 +74,14 @@ export default function FarmerMap({ geojsonData }) {
               <h1 class="popup-heading"><a href="/farmer/show/${point.properties._id}">${
               point.properties.name
             }</a></h1>
-              <p>Farmer ID: ${point.properties.farmerId}</p>
-              <p>CC: ${point.properties.cc}</p>
-              <p>No of Farms: ${point.properties.noOfFarms}</p>
-              ${point.properties.batchId ? `<p>Batch ID: B-${point.properties.batchId}</p>` : ""}
+              <p><strong>Farmer ID</strong>: ${point.properties.farmerId}</p>
+              <p><strong>CC</strong>: ${point.properties.cc}</p>
+              <p><strong>No of Farms</strong>: ${point.properties.noOfFarms}</p>
+              ${
+                point.properties.batchId
+                  ? `<p><strong>Batch ID</strong>: B-${point.properties.batchId}</p>`
+                  : ""
+              }
             </div>`;
 
             return new L.Marker(ll, {

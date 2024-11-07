@@ -145,12 +145,13 @@ export default function FarmerInfo({ farmer }) {
     name: farmer.farmerName,
     _id: farmer._id,
     farmerId: farmer.farmerId,
-    cc: farmer.cc,
+    CC: farmer.cc,
     noOfFarmPlots: farmer.noOfFarmPlots,
   };
 
   const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
 
+  const [originalGeojson, setOriginalGeojson] = useState(geoJsonWithProperties);
   const [geojson, setGeojson] = useState(geoJsonWithProperties);
 
   // TODO: hardcoded keys, add new keys if new union is added or modified
@@ -171,6 +172,16 @@ export default function FarmerInfo({ farmer }) {
   const handleUpdatedGeoJson = (geo) => {
     setLocationUpdated(true);
     setGeojson(geo);
+  };
+
+  const handleCancelSaveLocation = () => {
+    setMode("view");
+    setGeojson(originalGeojson); // Reset to original state
+  };
+
+  const enterEditMode = () => {
+    setOriginalGeojson(geojson); // Store current state before editing
+    setMode("edit");
   };
 
   const processFarmerLocationEdit = async () => {
@@ -257,7 +268,7 @@ export default function FarmerInfo({ farmer }) {
               <Box>
                 {mode === "view" ? (
                   <Button
-                    onClick={() => setMode("edit")}
+                    onClick={enterEditMode}
                     size={"sm"}
                     variant={"outline"}
                     colorScheme={"green"}
@@ -266,7 +277,7 @@ export default function FarmerInfo({ farmer }) {
                   </Button>
                 ) : (
                   <Box>
-                    <Button onClick={() => setMode("view")} size={"sm"} variant={"ghost"} mx={1}>
+                    <Button onClick={handleCancelSaveLocation} size={"sm"} variant={"ghost"} mx={1}>
                       Cancel
                     </Button>
                     <Button

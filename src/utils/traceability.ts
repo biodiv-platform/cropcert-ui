@@ -19,7 +19,7 @@ export const getLocalTime = (date) => {
 
 // Helper function to filter out unwanted properties
 const filterProperties = (properties) => {
-  const { _id, featureIndex, ...filteredProps } = properties;
+  const { _id, featureIndex, cc, ...filteredProps } = properties;
   return filteredProps;
 };
 

@@ -140,3 +140,41 @@ export const generatePassword = (passwordLength) => {
 
   return newPassword;
 };
+
+export const generateBackBtnStr = (previousPath: string) => {
+  let backButtonText = "Back to List";
+
+  switch (true) {
+    case previousPath.includes("/traceability/lot"):
+      backButtonText = "Back to Lot List";
+      break;
+    case previousPath.includes("/traceability/batch"):
+      backButtonText = "Back to Batch List";
+      break;
+    case previousPath.includes("/traceability/farmer-produce"):
+      backButtonText = "Back to Produce List";
+      break;
+    case previousPath.includes("/farmer/list"):
+      backButtonText = "Back to Farmer List";
+      break;
+    case previousPath.includes("/farmer/show"):
+      backButtonText = "Go Back";
+      break;
+    case previousPath.includes("/farmer-produce/show"):
+      backButtonText = "Go Back";
+      break;
+    case previousPath.includes("/batch/show"):
+      backButtonText = "Go Back";
+      break;
+    case previousPath.includes("/lot/show"):
+      backButtonText = "Go Back";
+      break;
+    default:
+      backButtonText = "Back to List"; // Default case
+  }
+
+  return {
+    backButtonText,
+    backLink: previousPath ?? "/",
+  };
+};

@@ -3,8 +3,10 @@ import { Accordion, Button } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
+import useGlobalState from "@hooks/use-global-state";
 import { Cupping, Lot, QualityReport } from "@interfaces/traceability";
 import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
+import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -27,10 +29,17 @@ interface ILotShowProps {
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
   const router = useRouter();
+  const { previousPath } = useGlobalState();
+  const { backButtonText, backLink } = generateBackBtnStr(previousPath);
 
   // Function to go back to the previous page
   const handleGoBack = () => {
-    router.back();
+    if (previousPath.includes("/traceability")) {
+      router.push(backLink);
+    } else {
+      router.back();
+      setTimeout(() => window.location.reload(), 300); // workaround to reload pages which are not reloading due to filter query param in url.
+    }
   };
 
   const ActionButtons = () => {
@@ -42,7 +51,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
         rounded="md"
         colorScheme="gray"
       >
-        Back to List
+        {backButtonText}
       </Button>
     );
   };

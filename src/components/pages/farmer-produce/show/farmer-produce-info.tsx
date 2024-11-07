@@ -78,6 +78,23 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
       name: "Calculate GRN",
       selector: farmerProduces["calculateGrn"],
     },
+    {
+      name: "ODK Instance ID",
+      selector: farmerProduces["instanceID"].split(":")[1],
+    },
+
+    {
+      name: "Farmer Member ODK Instance ID",
+      selector: farmerProduces["farmerEID"].split(":")[1],
+    },
+    {
+      name: "Created At",
+      selector: new Date(farmerProduces["createdAt"]).toLocaleString(),
+    },
+    {
+      name: "Form Version",
+      selector: farmerProduces["formVersion"],
+    },
   ];
 
   const FarmerProduceMap = dynamic(() => import("../map/geoJson-point-map"), {

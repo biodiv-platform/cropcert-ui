@@ -172,11 +172,17 @@ export default function FarmerInfo({ farmer }) {
   const handleUpdatedGeoJson = (geo) => {
     setLocationUpdated(true);
     setGeojson(geo);
+    setLocationUpdated(true);
   };
 
   const handleCancelSaveLocation = () => {
     setMode("view");
     setGeojson(originalGeojson); // Reset to original state
+  };
+
+  const handleLocationVerifiedChange = (isVerified) => {
+    setIsLocationVerified(isVerified);
+    setLocationUpdated(true);
   };
 
   const enterEditMode = () => {
@@ -297,7 +303,7 @@ export default function FarmerInfo({ farmer }) {
           {hasLocationEditAccess && mode === "edit" && (
             <LocationEditAndVerifyForm
               isLocationVerified={isLocationVerified}
-              setIsLocationVerified={setIsLocationVerified}
+              setIsLocationVerified={handleLocationVerifiedChange}
             />
           )}
 

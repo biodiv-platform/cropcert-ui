@@ -201,7 +201,7 @@ export default function FarmerInfo({ farmer }) {
           updatedValues.isLocationVerified = isLocationVerified;
         }
 
-        if (JSON.stringify(geojson) !== JSON.stringify(new Date(originalGeojson))) {
+        if (JSON.stringify(geojson) !== JSON.stringify(originalGeojson)) {
           updatedValues.location = geojson;
         }
 

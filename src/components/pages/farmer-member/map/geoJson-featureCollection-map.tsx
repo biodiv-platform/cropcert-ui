@@ -45,7 +45,13 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
 
   // TODO: in future versions, save the selection of map layer(OSM, GMAP, GMAP-Satellite etc) to localStorage for better UX.
   return (
-    <MapContainer center={center} zoom={14} ref={mapRef} style={mapStyle}>
+    <MapContainer
+      center={center}
+      zoom={14}
+      ref={mapRef}
+      style={mapStyle}
+      key={JSON.stringify(geojson)}
+    >
       <LayerControl />
       <EditControlFC geojson={geojson} setGeojson={setGeojson} mode={mode} />
       <FullscreenControl position="topleft" />

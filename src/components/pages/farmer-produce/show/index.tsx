@@ -1,8 +1,10 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button } from "@chakra-ui/react";
+import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { FarmerMember, FarmerProduce } from "@interfaces/traceability";
+import { RESOURCE_TYPE } from "@static/constants";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -54,6 +56,7 @@ export default function FarmerProduceShowPageComponent({
             <GrnReceiptInfo farmerProduces={show.farmerProduces} />
           )}
         </Accordion>
+        <Activity resourceId={show.farmerProduces.id} resourceType={RESOURCE_TYPE.FARMER_PRODUCE} />
       </Container>
     )
   );

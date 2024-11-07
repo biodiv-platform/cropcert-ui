@@ -1,13 +1,13 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Accordion, Button } from "@chakra-ui/react";
+import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { Cupping, Lot, QualityReport } from "@interfaces/traceability";
-import { CC_COLOR_MAPPING } from "@static/constants";
+import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
 import { useRouter } from "next/router";
 import React from "react";
 
-import LotActivity from "./lot-activity";
 import LotBatches from "./lot-batches";
 import LotFarmerMember from "./lot-farmerMember";
 import LotFarmerProduce from "./lot-farmerProduce";
@@ -63,7 +63,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
         {show.batches && <LotBatches rows={show.batches} />}
         {show.farmerProduceArr && <LotFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <LotFarmerMember rows={show.farmerArr} />}
-        {show.activityArr && <LotActivity rows={show.activityArr} />}
+        <Activity resourceId={show.lot.id} resourceType={RESOURCE_TYPE.LOT} />
       </Accordion>
     </Container>
   );

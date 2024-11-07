@@ -70,7 +70,6 @@ export const createLotColumns = (columns) => {
     return [...lotModalFieldColumns, ...lotExtraColumns];
   } catch (e) {
     console.error("error", e);
-    // returning default value
     return [];
   }
 };

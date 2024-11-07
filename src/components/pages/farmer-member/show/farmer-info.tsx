@@ -177,7 +177,6 @@ export default function FarmerInfo({ farmer }) {
   const handleCancelSaveLocation = () => {
     setMode("view");
     setGeojson(originalGeojson); // Reset to original state
-    // setLocationUpdated(false); // Reset the update flag
   };
 
   const enterEditMode = () => {

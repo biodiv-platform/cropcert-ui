@@ -2,7 +2,9 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Accordion, Box, Button } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
+import useGlobalState from "@hooks/use-global-state";
 import { FarmerMember, FarmerProduce } from "@interfaces/traceability";
+import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -21,11 +23,17 @@ export default function FarmerProduceShowPageComponent({
 }) {
   const router = useRouter();
 
+  const { previousPath } = useGlobalState();
+  const { backButtonText, backLink } = generateBackBtnStr(previousPath);
+
+  // Function to go back to the previous page
   const handleGoBack = () => {
-    router.back();
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    if (previousPath.includes("/traceability")) {
+      router.push(backLink);
+    } else {
+      router.back();
+      setTimeout(() => window.location.reload(), 300); // workaround to reload pages which are not reloading due to filter query param in url.
+    }
   };
 
   const ActionButtons = () => {
@@ -38,7 +46,7 @@ export default function FarmerProduceShowPageComponent({
           rounded="md"
           colorScheme="gray"
         >
-          Back to List
+          {backButtonText}
         </Button>
       </Box>
     );

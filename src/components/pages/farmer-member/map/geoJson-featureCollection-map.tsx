@@ -27,6 +27,14 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
   const bounds = result?.bounds;
   const center = result?.center;
 
+  if (!bounds || !center) {
+    // Set default values or return null/loading state
+    return null; // or return a loading component
+  }
+
+  if (!geojson || !geojson.features || geojson.features.length === 0) {
+    return null; // or return a placeholder component
+  }
   const mapStyle = {
     width: "100%",
     height: "100%",
@@ -35,11 +43,13 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
   function MapController() {
     const map = useMap();
     useEffect(() => {
-      setTimeout(() => {
-        map?.invalidateSize();
-        map.fitBounds(bounds as any, { padding: [50, 50] });
-      }, 250);
-    }, [map]);
+      if (map && bounds) {
+        map.whenReady(() => {
+          map.invalidateSize();
+          map.fitBounds(bounds, { padding: [50, 50] });
+        });
+      }
+    }, [map, bounds]);
     return null;
   }
 

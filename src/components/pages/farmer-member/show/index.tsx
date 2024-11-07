@@ -8,6 +8,7 @@ import { FarmerMember } from "@interfaces/traceability";
 import { ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
+import { generateBackBtnStr } from "@utils/basic";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -29,13 +30,19 @@ interface IFarmerShowProps {
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
   const router = useRouter();
-  const { user } = useGlobalState();
+  const { user, previousPath } = useGlobalState();
+  const { backButtonText, backLink } = generateBackBtnStr(previousPath);
 
   const hasEditDeleteAccess = hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   // Function to go back to the previous page
   const handleGoBack = () => {
-    router.back();
+    if (previousPath.includes("/traceability")) {
+      router.push(backLink);
+    } else {
+      router.back();
+      setTimeout(() => window.location.reload(), 300); // workaround to reload pages which are not reloading due to filter query param in url.
+    }
   };
 
   const ActionButtons = ({ hasEditDeleteAccess }) => {
@@ -48,7 +55,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           rounded="md"
           colorScheme="gray"
         >
-          Back to List
+          {backButtonText}
         </Button>
         <Tooltip label="Edit Farmer" hasArrow>
           <Box

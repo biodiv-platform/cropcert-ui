@@ -172,7 +172,6 @@ export default function FarmerInfo({ farmer }) {
   const handleUpdatedGeoJson = (geo) => {
     setLocationUpdated(true);
     setGeojson(geo);
-    setLocationUpdated(true);
   };
 
   const handleCancelSaveLocation = () => {
@@ -193,10 +192,20 @@ export default function FarmerInfo({ farmer }) {
   const processFarmerLocationEdit = async () => {
     try {
       if (locationUpdated) {
-        const { success } = await axUpdateFarmerById(farmer._id, {
-          location: geojson,
-          isLocationVerified,
-        });
+        const updatedValues: {
+          isLocationVerified?;
+          location?;
+        } = {};
+
+        if (isLocationVerified !== farmer.isLocationVerified) {
+          updatedValues.isLocationVerified = isLocationVerified;
+        }
+
+        if (JSON.stringify(geojson) !== JSON.stringify(new Date(originalGeojson))) {
+          updatedValues.location = geojson;
+        }
+
+        const { success } = await axUpdateFarmerById(farmer._id, updatedValues);
 
         if (success) {
           notification(t("traceability:farmer.update_farmer_success"), NotificationType.Success);

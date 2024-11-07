@@ -144,6 +144,10 @@ export const RESOURCE_TYPE = {
   TAXONOMY: "taxonomy",
   PAGE: "page",
   RESOURCE: "resource",
+  FARMER: "content.eml.Farmer",
+  BATCH: "content.eml.Batch",
+  LOT: "content.eml.Lot",
+  FARMER_PRODUCE: "content.eml.FarmerProduce",
 };
 
 export const MENU_PORTAL_TARGET = isBrowser ? document.body : undefined;

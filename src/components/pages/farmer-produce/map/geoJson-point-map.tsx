@@ -34,7 +34,7 @@ export default function GeoJsonPointMap({ geojson }) {
     const map = useMap();
     useEffect(() => {
       setTimeout(() => {
-        map.invalidateSize();
+        map?.invalidateSize();
         if (bounds) {
           map.fitBounds(bounds, { padding: [50, 50] });
         }

@@ -36,7 +36,7 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
     const map = useMap();
     useEffect(() => {
       setTimeout(() => {
-        map.invalidateSize();
+        map?.invalidateSize();
         map.fitBounds(bounds as any, { padding: [50, 50] });
       }, 250);
     }, [map]);

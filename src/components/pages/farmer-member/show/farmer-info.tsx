@@ -145,7 +145,7 @@ export default function FarmerInfo({ farmer }) {
     name: farmer.farmerName,
     _id: farmer._id,
     farmerId: farmer.farmerId,
-    cc: farmer.cc,
+    CC: farmer.cc,
     noOfFarmPlots: farmer.noOfFarmPlots,
   };
 

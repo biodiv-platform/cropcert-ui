@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import FarmerCell from "@components/@core/table/farmer-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -119,7 +120,18 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
             basicInfoHeader.map((item, index) => (
               <Tr key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
                 <Td textAlign="left">{item.name}</Td>
-                <Td textAlign="left">{item.selector}</Td>
+                {item.name === "Farmer ID" ? (
+                  <Td textAlign="left">
+                    <FarmerCell
+                      {...{
+                        farmerId: farmerProduces["farmerId"],
+                        _id: farmerProduces["farmerEID"],
+                      }}
+                    />
+                  </Td>
+                ) : (
+                  <Td textAlign="left">{item.selector}</Td>
+                )}
               </Tr>
             ))}
         </Tbody>

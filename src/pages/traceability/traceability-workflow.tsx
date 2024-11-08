@@ -74,16 +74,25 @@ function ShowTabs({ selectedTab: initialSelectedTab }) {
 
   return (
     <RestrictedAccess>
-      <Tabs isFitted variant="enclosed" p={4} onChange={handleTabChange} index={selectedTab}>
-        <TabList>
+      <Tabs
+        isFitted
+        variant="enclosed"
+        p={4}
+        onChange={handleTabChange}
+        index={selectedTab}
+        height={"100%"}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <TabList flexShrink={0}>
           {tabConfig.map(({ label }) => (
             <Tab key={label}>{label}</Tab>
           ))}
         </TabList>
 
-        <TabPanels>
+        <TabPanels flexGrow={1}>
           {tabConfig.map(({ index, component: Component, provider: Provider, defaultFilter }) => (
-            <TabPanel key={index}>
+            <TabPanel key={index} height={"100%"}>
               {selectedTab === index && (
                 <Suspense fallback={<div>Loading...</div>}>
                   <Provider filter={defaultFilter}>

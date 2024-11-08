@@ -165,7 +165,7 @@
     "title": "Taxon Browser"
   },
   "time": {
-    "collected_on": "Collected On",
+    "collected_on": "Date of Collection",
     "created_on": "Date Created",
     "date_of_survey": "Date of Survey",
     "last_logged": "Last Logged In",

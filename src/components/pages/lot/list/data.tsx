@@ -85,7 +85,8 @@ export const lotColumns = [
   {
     name: "Name",
     selector: (row) => row.lotName,
-    width: "220px",
+    width: "210px",
+    sortable: true,
   },
   {
     name: "Initial Quantity",

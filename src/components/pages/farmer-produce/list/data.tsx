@@ -11,7 +11,7 @@ export const farmerProduceColumns = [
     cell: (row) => <FarmerProduceCell {...row} />,
   },
   {
-    name: "Farmer Name",
+    name: "Name",
     selector: (row) => row["farmerName"],
     maxWidth: "210px",
   },
@@ -56,9 +56,8 @@ export const farmerProduceColumns = [
     cell: (row) => <FarmerCell {...{ farmerId: row.farmerId, _id: row.farmerEID }} />,
   },
   {
-    name: "Collection Date",
+    name: "Date of Collection",
     selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
-    maxWidth: "210px",
     sortable: true,
   },
 ];

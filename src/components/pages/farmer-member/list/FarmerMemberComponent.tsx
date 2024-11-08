@@ -154,7 +154,9 @@ function FarmerMemberComponent() {
         />
       ) : (
         <Flex direction={"column"} alignItems={"center"} gap={2}>
-          <Box mt={2}>{t("traceability:no_records")}</Box>
+          <Box mt={2} minHeight={"300px"}>
+            {t("traceability:no_records")}
+          </Box>
         </Flex>
       )}
 

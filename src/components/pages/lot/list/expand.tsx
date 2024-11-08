@@ -41,16 +41,29 @@ function LotExpand(props) {
     });
   }, [props.data]);
 
+  const BatchExpandWithProps = (props) => {
+    return <BatchExpand ml={8} {...props} />;
+  };
+
   return isOpen ? (
     <Box p={3}>
       {columnsLoading ? (
         <Spinner />
       ) : (
         <Table
+          title={"Batch"}
           data={batchList}
           columns={batchColumns}
           expandableRows={true}
-          expandableRowsComponent={BatchExpand}
+          expandableRowsComponent={BatchExpandWithProps}
+          customStyles={{
+            headRow: {
+              style: {
+                backgroundColor: "chakra-colors-blue-500", // Example Chakra color
+                color: "white",
+              },
+            },
+          }}
         />
       )}
     </Box>

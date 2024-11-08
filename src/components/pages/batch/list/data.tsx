@@ -27,7 +27,6 @@ const createBatchColumn = (
 ) => ({
   name,
   selector,
-  center: true,
   maxWidth,
   cell,
   sortable,
@@ -35,9 +34,9 @@ const createBatchColumn = (
 
 const defaultBatchModalColumns = [
   createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"), // You can add cell rendering function if needed
-  createBatchColumn("Name", (row) => row.batchName, "220px"),
-  createBatchColumn("Type", (row) => row.type?.toUpperCase(), "100px"),
+  createBatchColumn("Name", (row) => row.batchName, "210px"),
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
+  createBatchColumn("Type", (row) => row.type?.toUpperCase(), "70px"),
   createBatchColumn(
     "Last Updated",
     (row) => row.lastUpdatedAt,

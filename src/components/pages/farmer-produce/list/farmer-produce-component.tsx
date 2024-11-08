@@ -201,7 +201,9 @@ function FarmerProduceListComponent() {
           paginationRowsPerPageOptions={[15, 30, 50, 100]}
         />
       ) : (
-        <Box mt={2}>{t("traceability:no_records")}</Box>
+        <Box mt={2} minHeight={"300px"}>
+          {t("traceability:no_records")}
+        </Box>
       )}
 
       <BatchCreateModal update={onFarmerUpdate} />

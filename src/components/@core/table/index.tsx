@@ -15,7 +15,13 @@ const Table = (props) =>
       id="scrollableDiv"
       overflow="auto"
       mb={4}
+      ml={props?.ml}
     >
+      {props.title && (
+        <Box fontSize="md" px={3} pt={1} bg="blue.50" textAlign={"center"}>
+          {props.title}
+        </Box>
+      )}
       {props.data.length > 0 && <DataTable striped={true} {...props} />}
     </Box>
   ) : null;

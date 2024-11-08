@@ -19,7 +19,20 @@ function BatchExpand(props) {
 
   return isOpen ? (
     <Box p={3}>
-      <Table data={fpList} columns={columns} />
+      <Table
+        title={"Farmer Produce"}
+        data={fpList}
+        columns={columns}
+        customStyles={{
+          headRow: {
+            style: {
+              backgroundColor: "chakra-colors-blue-500", // Example Chakra color
+              color: "white",
+            },
+          },
+        }}
+        ml={props.ml}
+      />
     </Box>
   ) : (
     <CircularProgress isIndeterminate={true} m={4} size="30px" color="blue"></CircularProgress>

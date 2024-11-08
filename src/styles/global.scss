@@ -14,6 +14,9 @@
 :root {
   --heading-height: 69px;
   --page-height: calc(100vh - var(--heading-height) - 214px);
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:disabled {

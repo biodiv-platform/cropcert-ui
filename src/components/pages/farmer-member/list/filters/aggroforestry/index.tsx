@@ -1,4 +1,3 @@
-import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
@@ -8,10 +7,16 @@ export default function AggroforestryFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
   const agroforestryCounts = farmerListAggregationData?.aggregationData?.agroforestry || {};
 
-  const OPTIONS = Object.keys(agroforestryCounts).map((val) => ({
-    label: covertToSentenceCase(val),
-    value: val,
-    stat: agroforestryCounts[val],
+  const defaultOptions = {
+    yes: 0,
+    no: 0,
+    ...agroforestryCounts,
+  };
+
+  const OPTIONS = Object.entries(defaultOptions).map(([key, count]) => ({
+    label: key === "yes" ? "Yes" : "No",
+    value: key,
+    stat: count,
   }));
 
   return (

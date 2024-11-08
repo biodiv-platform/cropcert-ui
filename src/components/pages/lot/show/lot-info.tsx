@@ -1,5 +1,6 @@
 import { Badge, Box, Stack, Text } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
+import LotCell from "@components/@core/table/lot-cell";
 import tooltipCell from "@components/@core/table/tooltip-cell";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -16,22 +17,36 @@ const MultiMarkerMap = dynamic(
 export default function LotInfo({ lot, geojsonData }) {
   const basicInfoHeader = [
     {
+      name: "#",
+      selector: (row) => row["lotId"],
+      maxWidth: "100px",
+      sortable: true,
+      cell: (row) => <LotCell {...row} />,
+    },
+    {
+      name: "Name",
+      selector: (row) => row["lotName"],
+      width: "280px",
+    },
+    {
       name: "Type",
-      selector: (row) => row["type"],
+      selector: (row) => row["type"]?.toUpperCase(),
+      maxWidth: "100px",
     },
     {
       name: "Quantity",
       selector: (row) => row["quantity"],
-    },
-    {
-      name: "Created At",
-      selector: (row) => row["createdAt"],
-      cell: (row) => new Date(row.createdAt).toLocaleString(),
+      maxWidth: "100px",
     },
     {
       name: "Lot Status",
       selector: (row) => row["lotStatus"],
       cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+    },
+    {
+      name: "Created At",
+      selector: (row) => row["createdAt"],
+      cell: (row) => new Date(row.createdAt).toLocaleString(),
     },
     {
       name: "Note",

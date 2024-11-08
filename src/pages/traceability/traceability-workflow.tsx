@@ -7,6 +7,7 @@ import {
   TabIndices,
   TabPaths,
 } from "@static/constants";
+import { useRouter } from "next/router";
 import React, { lazy, startTransition, Suspense, useEffect, useMemo, useState } from "react";
 
 const FarmerProduceListPageComponent = lazy(() => import("@components/pages/farmer-produce/list"));
@@ -45,6 +46,7 @@ const tabConfig = [
 
 function ShowTabs({ selectedTab: initialSelectedTab }) {
   const [selectedTab, setSelectedTab] = useState(initialSelectedTab);
+  const router = useRouter();
 
   const pathToIndex = useMemo(
     () => Object.fromEntries(tabConfig.map((tab) => [tab.path, tab.index])),
@@ -54,33 +56,43 @@ function ShowTabs({ selectedTab: initialSelectedTab }) {
   const indexToPath = useMemo(() => tabConfig.map((tab) => tab.path), []);
 
   useEffect(() => {
-    const currentPath = window.location.pathname;
+    const currentPath = router.asPath;
     const index = pathToIndex[currentPath];
     if (index !== undefined) {
       setSelectedTab(index);
     }
-  }, [pathToIndex]);
+  }, [pathToIndex, router.asPath]);
 
   const handleTabChange = (index) => {
     startTransition(() => {
       setSelectedTab(index);
       const newPath = indexToPath[index];
-      window.history.pushState({}, "", newPath);
+      // Replace window.history.pushState with router.push
+      router.push(newPath, undefined, { shallow: true });
     });
   };
 
   return (
     <RestrictedAccess>
-      <Tabs isFitted variant="enclosed" p={4} onChange={handleTabChange} index={selectedTab}>
-        <TabList>
+      <Tabs
+        isFitted
+        variant="enclosed"
+        p={4}
+        onChange={handleTabChange}
+        index={selectedTab}
+        height={"100%"}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <TabList flexShrink={0}>
           {tabConfig.map(({ label }) => (
             <Tab key={label}>{label}</Tab>
           ))}
         </TabList>
 
-        <TabPanels>
+        <TabPanels flexGrow={1}>
           {tabConfig.map(({ index, component: Component, provider: Provider, defaultFilter }) => (
-            <TabPanel key={index}>
+            <TabPanel key={index} height={"100%"}>
               {selectedTab === index && (
                 <Suspense fallback={<div>Loading...</div>}>
                   <Provider filter={defaultFilter}>

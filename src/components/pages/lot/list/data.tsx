@@ -3,6 +3,7 @@ import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
+import timeCell from "@components/@core/table/time-cell";
 import { LOT_FLAGS, ROLES } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
 import { capitalizeFirstLetter } from "@utils/basic";
@@ -21,7 +22,7 @@ export const createLotColumns = (columns) => {
 
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
 
-    const lotExtraColumns = columns.reduce((acc, curr) => {
+    const lotModalFieldColumns = columns.reduce((acc, curr) => {
       const printCurrRow = (lot, canWrite) => {
         return { lot, canWrite };
       };
@@ -66,10 +67,9 @@ export const createLotColumns = (columns) => {
       ];
     }, []);
 
-    return lotExtraColumns;
+    return [...lotModalFieldColumns, ...lotExtraColumns];
   } catch (e) {
     console.error("error", e);
-    // returning default value
     return [];
   }
 };
@@ -85,7 +85,8 @@ export const lotColumns = [
   {
     name: "Name",
     selector: (row) => row.lotName,
-    width: "220px",
+    width: "210px",
+    sortable: true,
   },
   {
     name: "Initial Quantity",
@@ -104,21 +105,47 @@ export const lotColumns = [
   },
 ];
 
+const lotExtraColumns = [
+  {
+    name: "Last Updated",
+    selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
+    maxWidth: "210px",
+    sortable: true,
+  },
+];
+
 export const batchColumns = [
   {
     name: "#",
     selector: (row) => row.batchId,
+    maxWidth: "150px",
     sortable: true,
     cell: (row) => <BatchCell {...row} />,
   },
   {
-    name: "Name",
+    name: "Batch Name",
     selector: (row) => row.batchName,
+    maxWidth: "250px",
+    sortable: true,
+  },
+  {
+    name: "Type",
+    selector: (row) => row.type?.toUpperCase(),
+    maxWidth: "150px",
+    sortable: true,
   },
   {
     name: "Quantity",
     selector: (row) => row.quantity,
+    maxWidth: "150px",
     sortable: true,
+    right: true,
+  },
+  {
+    name: "Last Updated",
+    selector: (row) => row.lastUpdatedAt,
+    maxWidth: "180px",
+    cell: (row) => timeCell(row.lastUpdatedAt),
   },
 ];
 

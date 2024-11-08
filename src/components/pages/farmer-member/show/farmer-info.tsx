@@ -145,12 +145,13 @@ export default function FarmerInfo({ farmer }) {
     name: farmer.farmerName,
     _id: farmer._id,
     farmerId: farmer.farmerId,
-    cc: farmer.cc,
+    CC: farmer.cc,
     noOfFarmPlots: farmer.noOfFarmPlots,
   };
 
   const geoJsonWithProperties = bindPropertiesToGeoJSON(farmer.location, properties);
 
+  const [originalGeojson, setOriginalGeojson] = useState(geoJsonWithProperties);
   const [geojson, setGeojson] = useState(geoJsonWithProperties);
 
   // TODO: hardcoded keys, add new keys if new union is added or modified
@@ -173,13 +174,38 @@ export default function FarmerInfo({ farmer }) {
     setGeojson(geo);
   };
 
+  const handleCancelSaveLocation = () => {
+    setMode("view");
+    setGeojson(originalGeojson); // Reset to original state
+  };
+
+  const handleLocationVerifiedChange = (isVerified) => {
+    setIsLocationVerified(isVerified);
+    setLocationUpdated(true);
+  };
+
+  const enterEditMode = () => {
+    setOriginalGeojson(geojson); // Store current state before editing
+    setMode("edit");
+  };
+
   const processFarmerLocationEdit = async () => {
     try {
       if (locationUpdated) {
-        const { success } = await axUpdateFarmerById(farmer._id, {
-          location: geojson,
-          isLocationVerified,
-        });
+        const updatedValues: {
+          isLocationVerified?;
+          location?;
+        } = {};
+
+        if (isLocationVerified !== farmer.isLocationVerified) {
+          updatedValues.isLocationVerified = isLocationVerified;
+        }
+
+        if (JSON.stringify(geojson) !== JSON.stringify(originalGeojson)) {
+          updatedValues.location = geojson;
+        }
+
+        const { success } = await axUpdateFarmerById(farmer._id, updatedValues);
 
         if (success) {
           notification(t("traceability:farmer.update_farmer_success"), NotificationType.Success);
@@ -257,7 +283,7 @@ export default function FarmerInfo({ farmer }) {
               <Box>
                 {mode === "view" ? (
                   <Button
-                    onClick={() => setMode("edit")}
+                    onClick={enterEditMode}
                     size={"sm"}
                     variant={"outline"}
                     colorScheme={"green"}
@@ -266,7 +292,7 @@ export default function FarmerInfo({ farmer }) {
                   </Button>
                 ) : (
                   <Box>
-                    <Button onClick={() => setMode("view")} size={"sm"} variant={"ghost"} mx={1}>
+                    <Button onClick={handleCancelSaveLocation} size={"sm"} variant={"ghost"} mx={1}>
                       Cancel
                     </Button>
                     <Button
@@ -286,7 +312,7 @@ export default function FarmerInfo({ farmer }) {
           {hasLocationEditAccess && mode === "edit" && (
             <LocationEditAndVerifyForm
               isLocationVerified={isLocationVerified}
-              setIsLocationVerified={setIsLocationVerified}
+              setIsLocationVerified={handleLocationVerifiedChange}
             />
           )}
 

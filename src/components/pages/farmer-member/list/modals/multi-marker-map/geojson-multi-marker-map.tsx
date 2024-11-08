@@ -1,8 +1,8 @@
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
-import { MAP_LAYERS } from "@static/constants";
+import LayerControl from "@components/pages/farmer-member/map/layerControl";
 import L, { divIcon, latLngBounds } from "leaflet";
 import React, { useEffect } from "react";
-import { GeoJSON, LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
+import { GeoJSON, MapContainer, useMap } from "react-leaflet";
 
 export default function FarmerMap({ geojsonData }) {
   const mapStyle = {
@@ -64,44 +64,7 @@ export default function FarmerMap({ geojsonData }) {
   return (
     <MapContainer scrollWheelZoom={true} style={mapStyle} className="markercluster-map">
       <ZoomOut />
-      <LayersControl>
-        <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            maxZoom={21}
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP}>
-          <TileLayer
-            attribution="Google Maps"
-            url="http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}"
-            maxZoom={21}
-            subdomains={["mt0", "mt1", "mt2", "mt3"]}
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer checked name={MAP_LAYERS.GMAP_SAT}>
-          <LayerGroup>
-            <TileLayer
-              attribution="Google Maps Satellite"
-              url="https://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}"
-              maxZoom={21}
-              subdomains={["mt0", "mt1", "mt2", "mt3"]}
-            />
-          </LayerGroup>
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={MAP_LAYERS.GMAP_TERRAIN}>
-          <LayerGroup>
-            <TileLayer
-              attribution="Google Maps Terrain"
-              url="http://{s}.google.com/vt?lyrs=p&x={x}&y={y}&z={z}"
-              maxZoom={21}
-              subdomains={["mt0", "mt1", "mt2", "mt3"]}
-            />
-          </LayerGroup>
-        </LayersControl.BaseLayer>
-      </LayersControl>
-
+      <LayerControl />
       <MarkerClusterGroup key={JSON.stringify(geojsonData)}>
         <GeoJSON
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -111,10 +74,14 @@ export default function FarmerMap({ geojsonData }) {
               <h1 class="popup-heading"><a href="/farmer/show/${point.properties._id}">${
               point.properties.name
             }</a></h1>
-              <p>Farmer ID: ${point.properties.farmerId}</p>
-              <p>CC: ${point.properties.cc}</p>
-              <p>No of Farms: ${point.properties.noOfFarms}</p>
-              ${point.properties.batchId ? `<p>Batch ID: B-${point.properties.batchId}</p>` : ""}
+              <p><strong>Farmer ID</strong>: ${point.properties.farmerId}</p>
+              <p><strong>CC</strong>: ${point.properties.cc}</p>
+              <p><strong>No of Farms</strong>: ${point.properties.noOfFarms}</p>
+              ${
+                point.properties.batchId
+                  ? `<p><strong>Batch ID</strong>: B-${point.properties.batchId}</p>`
+                  : ""
+              }
             </div>`;
 
             return new L.Marker(ll, {

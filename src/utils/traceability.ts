@@ -17,25 +17,54 @@ export const getLocalTime = (date) => {
   });
 };
 
+// Helper function to filter out unwanted properties
+const filterProperties = (properties) => {
+  const { _id, featureIndex, cc, ...filteredProps } = properties;
+  return filteredProps;
+};
+
+// When using bindPropertiesToGeoJSON, you can modify it like this:
 export const bindPropertiesToGeoJSON = (geojson, properties) => {
-  // Ensure the input is a FeatureCollection
   if (geojson.type !== "FeatureCollection") {
     throw new Error("Input GeoJSON must be a FeatureCollection");
   }
 
-  // Map over the features and add properties to each, including the index
-  const updatedFeatures = geojson.features.map((feature, index) => ({
-    ...feature,
-    properties: {
-      ...feature.properties, // Preserve any existing properties
-      ...properties, // Add new properties
-      featureIndex: index, // Add the index of the feature
-    },
-  }));
+  const updatedFeatures = geojson.features.map((feature, index) => {
+    const allProperties = {
+      ...feature.properties,
+      ...properties,
+      featureIndex: index,
+    };
 
-  // Return a new GeoJSON object with updated features
+    // Filter properties for popup display
+    const displayProperties = filterProperties(allProperties);
+
+    return {
+      ...feature,
+      properties: displayProperties,
+    };
+  });
+
   return {
     ...geojson,
     features: updatedFeatures,
+  };
+};
+
+export const convertPointToFeatureCollection = (pointGeoJson, properties) => {
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: pointGeoJson.coordinates,
+        },
+        properties: {
+          ...properties,
+        },
+      },
+    ],
   };
 };

@@ -1,16 +1,38 @@
-import { Box, CircularProgress, useDisclosure } from "@chakra-ui/react";
+import { Box, CircularProgress, Spinner, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
+import { fetchBatchColumns } from "@components/pages/batch/list/data";
+import BatchExpand from "@components/pages/batch/list/expand";
 import { Batch } from "@interfaces/traceability";
 import { axListBatchByLotId } from "@services/lot.service";
-import { BATCH_TYPE } from "@static/constants";
 import React, { useEffect, useState } from "react";
-
-import { batchColumns, batchColumnsWet } from "./data";
 
 function LotExpand(props) {
   const { isOpen, onOpen } = useDisclosure();
   const [batchList, setBatchList] = useState([] as Batch[]);
-  const columns = [...batchColumns, ...(props.data.type === BATCH_TYPE.WET ? batchColumnsWet : [])];
+
+  const [batchColumns, setBatchColumns] = useState<any[]>([]);
+  const [columnsLoading, setColumnsLoading] = useState(true);
+  const [columnsError, setColumnsError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function loadColumns() {
+      try {
+        setColumnsLoading(true);
+        const columns = await fetchBatchColumns();
+        setBatchColumns(columns);
+      } catch (error) {
+        setColumnsError(error as Error);
+      } finally {
+        setColumnsLoading(false);
+      }
+    }
+
+    loadColumns();
+  }, []);
+
+  if (columnsError) {
+    return <Box>Error loading columns: {columnsError.message}</Box>;
+  }
 
   useEffect(() => {
     axListBatchByLotId(props.data._id).then(({ data }) => {
@@ -19,9 +41,31 @@ function LotExpand(props) {
     });
   }, [props.data]);
 
+  const BatchExpandWithProps = (props) => {
+    return <BatchExpand ml={8} {...props} />;
+  };
+
   return isOpen ? (
     <Box p={3}>
-      <Table data={batchList} columns={columns} />
+      {columnsLoading ? (
+        <Spinner />
+      ) : (
+        <Table
+          title={"Batch"}
+          data={batchList}
+          columns={batchColumns}
+          expandableRows={true}
+          expandableRowsComponent={BatchExpandWithProps}
+          customStyles={{
+            headRow: {
+              style: {
+                backgroundColor: "chakra-colors-blue-500", // Example Chakra color
+                color: "white",
+              },
+            },
+          }}
+        />
+      )}
     </Box>
   ) : (
     <CircularProgress isIndeterminate={true} m={4} size="30px" color="blue"></CircularProgress>

@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Stack, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import FarmerCell from "@components/@core/table/farmer-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -12,7 +13,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
   const basicInfoHeader = [
     {
       name: "Farmer Produce ID",
-      selector: farmerProduces["farmerProduceId"],
+      selector: `FP-${farmerProduces["farmerProduceId"]}`,
     },
     {
       name: "Farmer ID",
@@ -28,7 +29,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
     },
     {
       name: "Produce Type",
-      selector: farmerProduces["produceType"],
+      selector: farmerProduces["produceType"].toUpperCase(),
     },
     {
       name: "Quantity",
@@ -78,6 +79,23 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
       name: "Calculate GRN",
       selector: farmerProduces["calculateGrn"],
     },
+    {
+      name: "ODK Instance ID",
+      selector: farmerProduces["instanceID"].split(":")[1],
+    },
+
+    {
+      name: "Farmer Member ODK Instance ID",
+      selector: farmerProduces["farmerEID"].split(":")[1],
+    },
+    {
+      name: "Created At",
+      selector: new Date(farmerProduces["createdAt"]).toLocaleString(),
+    },
+    {
+      name: "Form Version",
+      selector: farmerProduces["formVersion"],
+    },
   ];
 
   const FarmerProduceMap = dynamic(() => import("../map/geoJson-point-map"), {
@@ -102,7 +120,18 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
             basicInfoHeader.map((item, index) => (
               <Tr key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
                 <Td textAlign="left">{item.name}</Td>
-                <Td textAlign="left">{item.selector}</Td>
+                {item.name === "Farmer ID" ? (
+                  <Td textAlign="left">
+                    <FarmerCell
+                      {...{
+                        farmerId: farmerProduces["farmerId"],
+                        _id: farmerProduces["farmerEID"],
+                      }}
+                    />
+                  </Td>
+                ) : (
+                  <Td textAlign="left">{item.selector}</Td>
+                )}
               </Tr>
             ))}
         </Tbody>

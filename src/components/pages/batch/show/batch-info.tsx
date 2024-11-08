@@ -55,6 +55,10 @@ export default function BatchInfo({ batch, geojsonData }) {
       selector: (row) => row["lotStatus"],
       cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
     },
+    {
+      name: "Note",
+      selector: (row) => row["note"],
+    },
   ];
 
   return (

@@ -52,12 +52,24 @@
     "aggroforestry": {
       "title": "Aggroforestry"
     },
+    "batch_status": {
+      "title": "Batch Status"
+    },
     "collection_center": "Collection Center",
+    "data_verified": {
+      "title": "Data Verified"
+    },
+    "deduction_reason": {
+      "title": "Deduction Reason"
+    },
     "education": {
       "title": "Education"
     },
     "location_verified": {
       "title": "Location Verified"
+    },
+    "lot_status": {
+      "title": "Lot Status"
     },
     "name": "Name",
     "other_enterprises": {
@@ -155,6 +167,7 @@
   "time": {
     "collected_on": "Collected On",
     "created_on": "Date Created",
+    "date_of_survey": "Date of Survey",
     "last_logged": "Last Logged In",
     "last_updated": "Last Updated",
     "max_date": "Maximum Date",
@@ -187,6 +200,7 @@
     "email": "email",
     "group_role_title": "Usergroup Roles",
     "institution_title": "Institution",
+    "nationalIdentityNumber": "National Identity Number",
     "phone": "Phone Number",
     "profession_title": "Profession",
     "role_title": "Roles",

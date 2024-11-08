@@ -4,21 +4,22 @@ import React from "react";
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
 import CheckboxFilterPanel from "../shared/checkbox";
 
-export default function ProductTypeFilter() {
+export default function DeductionReasonFilter() {
   const { farmerProduceListAggregationData } = useFarmerProduceFilter();
-  const produceTypeCounts = farmerProduceListAggregationData?.aggregationData?.produceType || {};
+  const deductionReasonCounts =
+    farmerProduceListAggregationData?.aggregationData?.deductionReason || {};
 
-  const OPTIONS = Object.keys(produceTypeCounts).map((val) => ({
+  const OPTIONS = Object.keys(deductionReasonCounts).map((val) => ({
     label: convertToUpperCase(val),
     value: val,
-    stat: produceTypeCounts[val],
+    stat: deductionReasonCounts[val],
   }));
 
   return (
     <CheckboxFilterPanel
-      translateKey="filters:farmer.type."
-      filterKey="produceType"
-      statKey="produceType"
+      translateKey="filters:farmer.deduction_reason."
+      filterKey="deductionReason"
+      statKey="deductionReason"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

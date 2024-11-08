@@ -11,12 +11,15 @@ import React from "react";
 import AggroforestryFilter from "./aggroforestry";
 import EducationFilter from "./education";
 import OtherEnterpriesFilter from "./farm-enterprises";
+import FarmerDataValidatedFilter from "./farmer-data-validated";
 import FarmerIdFilter from "./farmer-id";
 import FarmerNameFilter from "./farmer-name";
 import { NumberFilter } from "./inputs/number-range";
 import LocationVerifiedFilter from "./location-verified";
+import NationalIdentityNumberFilter from "./national-identity";
 import PhoneNumberFilter from "./phone";
 import SexTypeFilter from "./sex-type";
+import DateRangeFilter from "./shared/date-range";
 import TimeFilter from "./time";
 import VillageFilter from "./village";
 
@@ -26,8 +29,10 @@ export default function FiltersList() {
       <FarmerIdFilter />
       <FarmerNameFilter />
       <SexTypeFilter />
+      <DateRangeFilter translateKey="Date Of Birth" filterKey={"dateOfBirth"} />
       <PhoneNumberFilter />
 
+      <NationalIdentityNumberFilter />
       <EducationFilter />
 
       <VillageFilter />
@@ -94,11 +99,28 @@ export default function FiltersList() {
         )}
       </AccordionItem>
 
+      <AccordionItem>
+        {({ isExpanded }) => (
+          <>
+            <AccordionButton>
+              <Box flex={1} textAlign="left">
+                Year Of First Planting
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel>
+              {isExpanded && <NumberFilter filterKey="yearOfFirstPlanting" />}
+            </AccordionPanel>
+          </>
+        )}
+      </AccordionItem>
+
       <OtherEnterpriesFilter />
 
       <AggroforestryFilter />
 
       <LocationVerifiedFilter />
+      <FarmerDataValidatedFilter />
       <TimeFilter />
     </Accordion>
   );

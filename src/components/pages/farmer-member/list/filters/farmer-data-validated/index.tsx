@@ -3,15 +3,15 @@ import React from "react";
 import useFarmerFilter from "../../use-farmer-filter";
 import CheckboxFilterPanel from "../shared/checkbox";
 
-export default function LocationVerifiedFilter() {
+export default function FarmerDataValidatedFilter() {
   const { farmerListAggregationData } = useFarmerFilter();
-  const isLocationVerifiedCounts =
-    farmerListAggregationData?.aggregationData?.isLocationVerified || {};
+  const isFarmerDataValidatedCounts =
+    farmerListAggregationData?.aggregationData?.isFarmerDataValidated || {};
 
   const defaultOptions = {
     true: 0,
     false: 0,
-    ...isLocationVerifiedCounts,
+    ...isFarmerDataValidatedCounts,
   };
 
   const OPTIONS = Object.entries(defaultOptions).map(([key, count]) => ({
@@ -22,9 +22,9 @@ export default function LocationVerifiedFilter() {
 
   return (
     <CheckboxFilterPanel
-      translateKey="filters:farmer.location_verified."
-      filterKey="isLocationVerified"
-      statKey="isLocationVerified"
+      translateKey="filters:farmer.data_verified."
+      filterKey="isFarmerDataValidated"
+      statKey="isFarmerDataValidated"
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}

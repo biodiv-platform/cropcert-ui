@@ -1,12 +1,12 @@
 import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
-import useBatchFilter from "../../use-batch-filter";
+import useLotFilter from "../../use-lot-filter";
 import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function TypeFilter() {
-  const { batchListAggregationData } = useBatchFilter();
-  const typeCounts = batchListAggregationData?.aggregationData?.type || {};
+  const { lotListAggregationData } = useLotFilter();
+  const typeCounts = lotListAggregationData?.aggregationData?.type || {};
 
   const OPTIONS = Object.keys(typeCounts).map((val) => ({
     label: convertToUpperCase(val),

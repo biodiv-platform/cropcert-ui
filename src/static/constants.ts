@@ -148,7 +148,6 @@ export const RESOURCE_TYPE = {
   BATCH: "content.eml.Batch",
   LOT: "content.eml.Lot",
   FARMER_PRODUCE: "content.eml.FarmerProduce",
-
 };
 
 export const MENU_PORTAL_TARGET = isBrowser ? document.body : undefined;
@@ -281,6 +280,10 @@ export const FARMER_FILTER_KEY = {
     filterKey: "farmerName",
     model: MODEL.FARMERS,
   },
+  nationalIdentityNumber: {
+    filterKey: "nationalIdentityNumber",
+    model: MODEL.FARMERS,
+  },
 };
 
 export const FARMER_PRODUCE_FILTER_KEY = {
@@ -288,8 +291,16 @@ export const FARMER_PRODUCE_FILTER_KEY = {
     filterKey: "farmerId",
     model: MODEL.FARMERPRODUCE,
   },
+  farmerProduceId: {
+    filterKey: "farmerProduceId",
+    model: MODEL.FARMERPRODUCE,
+  },
   farmerName: {
     filterKey: "farmerName",
+    model: MODEL.FARMERPRODUCE,
+  },
+  contactNumber: {
+    filterKey: "contactNo",
     model: MODEL.FARMERPRODUCE,
   },
 };

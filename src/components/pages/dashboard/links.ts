@@ -39,7 +39,6 @@ const links = [
         // to: "/farmer-certification/inspection-report/list",
         to: "#",
         description: "To be done.",
-
         access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
       },
       {

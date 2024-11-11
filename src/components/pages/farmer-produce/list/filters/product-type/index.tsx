@@ -1,4 +1,4 @@
-import { covertToSentenceCase } from "@utils/text";
+import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
@@ -9,7 +9,7 @@ export default function ProductTypeFilter() {
   const produceTypeCounts = farmerProduceListAggregationData?.aggregationData?.produceType || {};
 
   const OPTIONS = Object.keys(produceTypeCounts).map((val) => ({
-    label: covertToSentenceCase(val),
+    label: convertToUpperCase(val),
     value: val,
     stat: produceTypeCounts[val],
   }));

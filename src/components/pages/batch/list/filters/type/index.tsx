@@ -1,4 +1,4 @@
-import { covertToSentenceCase } from "@utils/text";
+import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
 import useBatchFilter from "../../use-batch-filter";
@@ -9,7 +9,7 @@ export default function TypeFilter() {
   const typeCounts = batchListAggregationData?.aggregationData?.type || {};
 
   const OPTIONS = Object.keys(typeCounts).map((val) => ({
-    label: covertToSentenceCase(val),
+    label: convertToUpperCase(val),
     value: val,
     stat: typeCounts[val],
   }));

@@ -64,7 +64,7 @@ export default function SubAccordionPanel({ column, index }) {
         color="gray.600"
         px={1}
         borderRadius={4}
-        borderColor={"green.600"}
+        borderColor={"gray.600"}
         borderWidth={1}
         fontSize={"sm"}
       >
@@ -72,9 +72,19 @@ export default function SubAccordionPanel({ column, index }) {
       </Box>
     ),
   };
+
+  const isNotApplicable = column.columnStatus === "NOTAPPLICABLE";
   return (
     <Accordion allowToggle key={index} mb={4}>
-      <AccordionItem boxShadow="md" bg="gray.50" mb={2} mx={2} borderRadius="md" borderWidth={1}>
+      <AccordionItem
+        boxShadow="md"
+        bg="gray.50"
+        mb={2}
+        mx={2}
+        borderRadius="md"
+        borderWidth={1}
+        isDisabled={isNotApplicable}
+      >
         <h2>
           <AccordionButton>
             <Box

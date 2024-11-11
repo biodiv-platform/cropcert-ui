@@ -6,10 +6,17 @@ import Filters from "./filters";
 
 export default function FarmerProducePageComponent() {
   return (
-    <Box w="full" maxH="calc( 100vh - var(--heading-height) )" display="flex">
+    <Box w="full" h="100%" display="flex">
       <SimpleGrid w="full" columns={{ base: 1, lg: 14 }}>
         <Filters />
-        <Box maxH="full" w="full" id="items-container" gridColumn={{ lg: "4/15" }} p={4}>
+        <Box
+          maxH="full"
+          w="full"
+          id="items-container"
+          gridColumn={{ lg: "4/15" }}
+          p={4}
+          overflowY="auto"
+        >
           <FarmerProduceListComponent />
         </Box>
       </SimpleGrid>

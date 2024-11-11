@@ -20,7 +20,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
-import { batchColumns } from "./data";
+import { farmerProduceColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
 import useFarmerProduceFilter from "./use-farmer-produce-filter";
@@ -182,7 +182,7 @@ function FarmerProduceListComponent() {
       ) : farmerProduceListData?.length > 0 ? (
         <Table
           data={farmerProduceListData}
-          columns={batchColumns}
+          columns={farmerProduceColumns}
           selectableRows={true}
           selectableRowDisabled={(r) => r.batchId}
           onSelectedRowsChange={handleOnSelectionChange}
@@ -201,7 +201,9 @@ function FarmerProduceListComponent() {
           paginationRowsPerPageOptions={[15, 30, 50, 100]}
         />
       ) : (
-        <Box mt={2}>{t("traceability:no_records")}</Box>
+        <Box mt={2} minHeight={"300px"}>
+          {t("traceability:no_records")}
+        </Box>
       )}
 
       <BatchCreateModal update={onFarmerUpdate} />

@@ -21,7 +21,7 @@ import FiltersList from "./list";
 
 export const FilterWrapper = styled.div`
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-right: 1px solid var(--chakra-colors-gray-300);
 
   [data-accordion-item] {

@@ -12,6 +12,7 @@ export interface Activity {
 
 //  TODO: review batch and lot interfaces
 export interface Batch {
+  id: any;
   lotStatus: any;
   batchId: any;
   lastUpdatedAt: any;
@@ -223,6 +224,7 @@ export interface Location {
 }
 
 export interface FarmerMember {
+  id: any;
   _id?: string;
   product: string;
   farmerId: string;
@@ -263,6 +265,7 @@ export interface FarmerMember {
 }
 
 export interface FarmerProduce {
+  id: any;
   product: string;
   farmerProduceId: string;
   farmerId?: string;

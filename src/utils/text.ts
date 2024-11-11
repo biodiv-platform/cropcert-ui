@@ -61,6 +61,10 @@ export const covertToSentenceCase = (text): string => {
   const result = text.replace(/[^a-zA-Z ]/g, " ").toLowerCase();
   return `${result[0].toUpperCase()}${result.slice(1)}`;
 };
+export const convertToUpperCase = (text: string): string => {
+  const result = text.replace(/[^a-zA-Z ]/g, " ");
+  return result.toUpperCase();
+};
 
 export const stripSpecialCharacters = (text): string => {
   return text.replace(/(\B[A-Z])/g, " $1").replace(/^./, text[0].toUpperCase());

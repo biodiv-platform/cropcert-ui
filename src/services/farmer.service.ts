@@ -181,10 +181,10 @@ export const axSyncFMDataOnDemand = async (key) => {
   }
 };
 
-export const axSyncFPDataOnDemand = async () => {
+export const axSyncFPDataOnDemand = async (key) => {
   try {
     const { data } = await http.get(
-      `${ENDPOINT.TRACEABILITY}/farmerProduce/fetchFarmerProduceFromODKApiOnDemand`
+      `${ENDPOINT.TRACEABILITY}/farmerProduce/fetchFarmerProduceFromODKApiOnDemand?key=${key}`
     );
     return { success: true, data };
   } catch (e) {

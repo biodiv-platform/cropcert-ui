@@ -85,7 +85,7 @@ function FarmerProduceListComponent() {
   const handleSyncData = async () => {
     try {
       setIsSyncing(true);
-      await axSyncFPDataOnDemand();
+      await axSyncFPDataOnDemand(user?.unionCode);
       window.location.reload();
       notification(t("traceability:sync_status.success"), NotificationType.Success);
       setIsSyncing(false);

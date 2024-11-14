@@ -56,6 +56,12 @@
       "title": "Batch Status"
     },
     "collection_center": "Collection Center",
+    "collector_name": {
+      "title": "Collector Name"
+    },
+    "collector_substr": {
+      "title": "Collector Substr"
+    },
     "data_verified": {
       "title": "Data Verified"
     },
@@ -64,6 +70,9 @@
     },
     "education": {
       "title": "Education"
+    },
+    "enumerator": {
+      "title": "Enumerator"
     },
     "location_verified": {
       "title": "Location Verified"

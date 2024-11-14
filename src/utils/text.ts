@@ -57,7 +57,8 @@ export const getInjectableHTML = (nHtml): string => {
   return "";
 };
 
-export const covertToSentenceCase = (text): string => {
+export const covertToSentenceCase = (text: string): string => {
+  if (text === "") return text;
   const result = text.replace(/[^a-zA-Z ]/g, " ").toLowerCase();
   return `${result[0].toUpperCase()}${result.slice(1)}`;
 };

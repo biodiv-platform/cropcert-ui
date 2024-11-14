@@ -10,6 +10,7 @@ import React from "react";
 
 import AggroforestryFilter from "./aggroforestry";
 import EducationFilter from "./education";
+import EnumeratorFilter from "./enumerator";
 import OtherEnterpriesFilter from "./farm-enterprises";
 import FarmerDataValidatedFilter from "./farmer-data-validated";
 import FarmerIdFilter from "./farmer-id";
@@ -115,10 +116,26 @@ export default function FiltersList() {
         )}
       </AccordionItem>
 
+      <AccordionItem>
+        {({ isExpanded }) => (
+          <>
+            <AccordionButton>
+              <Box flex={1} textAlign="left">
+                No Of Farm Plots
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel>
+              {isExpanded && <NumberFilter filterKey="noOfFarmPlots" />}
+            </AccordionPanel>
+          </>
+        )}
+      </AccordionItem>
+
       <OtherEnterpriesFilter />
 
       <AggroforestryFilter />
-
+      <EnumeratorFilter />
       <LocationVerifiedFilter />
       <FarmerDataValidatedFilter />
       <TimeFilter />

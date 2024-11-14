@@ -8,6 +8,9 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
+import CalculateGrnFilter from "./calculate-grn";
+import CollectorNameFilter from "./collector-name";
+import CollectorSubstrFilter from "./collector-substr";
 import DeductionReasonFilter from "./deduction-reason";
 import FarmerIdFilter from "./farmer-id";
 import FarmerNameFilter from "./farmer-name";
@@ -130,6 +133,9 @@ export default function FiltersList() {
           </>
         )}
       </AccordionItem>
+      <CalculateGrnFilter />
+      <CollectorNameFilter />
+      <CollectorSubstrFilter />
       <TimeFilter />
     </Accordion>
   );

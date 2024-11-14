@@ -303,9 +303,17 @@ export const FARMER_PRODUCE_FILTER_KEY = {
     filterKey: "contactNo",
     model: MODEL.FARMERPRODUCE,
   },
+  calculateGrn: {
+    filterKey: "calculateGrn",
+    model: MODEL.FARMERPRODUCE,
+  },
 };
 
 export const BATCH_FILTER_KEY = {
+  batchId: {
+    filterKey: "batchId",
+    model: MODEL.BATCHES,
+  },
   batchName: {
     filterKey: "batchName",
     model: MODEL.BATCHES,
@@ -313,6 +321,10 @@ export const BATCH_FILTER_KEY = {
 };
 
 export const LOT_FILTER_KEY = {
+  lotId: {
+    filterKey: "lotId",
+    model: MODEL.LOTS,
+  },
   lotName: {
     filterKey: "lotName",
     model: MODEL.LOTS,

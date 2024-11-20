@@ -10,7 +10,7 @@ export default function FarmerProduceCell({ farmerProduceId, _id }: { farmerProd
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            FP-{farmerProduceId} <ArrowForwardIcon />
+            {farmerProduceId} <ArrowForwardIcon />
           </span>
         </Tooltip>
       </Link>

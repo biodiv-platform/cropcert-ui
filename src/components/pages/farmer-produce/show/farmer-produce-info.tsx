@@ -13,7 +13,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
   const basicInfoHeader = [
     {
       name: "Farmer Produce ID",
-      selector: `FP-${farmerProduces["farmerProduceId"]}`,
+      selector: `${farmerProduces["farmerProduceId"]}`,
     },
     {
       name: "Farmer ID",

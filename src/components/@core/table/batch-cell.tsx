@@ -10,7 +10,7 @@ export default function BatchCell({ batchId, _id }: { batchId?; _id? }) {
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            B-{batchId} <ArrowForwardIcon />
+            {batchId} <ArrowForwardIcon />
           </span>
         </Tooltip>
       </Link>

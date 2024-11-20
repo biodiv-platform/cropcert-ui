@@ -33,24 +33,29 @@ const NumInput = (props) => (
   </NumberInput>
 );
 
-export function NumberFilter({ filterKey }) {
-  const { addFilter, removeFilter, farmerListAggregationData } = useFarmerFilter();
+export function NumberFilter({ filterKey, min, max }) {
+  const { filter, addFilter, removeFilter } = useFarmerFilter();
 
   const values = useMemo(() => {
-    const data = farmerListAggregationData?.aggregationData?.[filterKey] || {};
+    const v = filter[filterKey];
+    const [_min, _max] = v ? v.split("-").map(Number) : [null, null];
 
+    // Ensure valid ranges or fall back to defaults
     return {
-      defaultValue: [data.min ?? 0, data.max ?? 10000],
-      min: data.min ?? 0,
-      max: data.max ?? 10000,
+      defaultValue: [_min ?? min, _max ?? max],
+      min,
+      max,
     };
-  }, [filterKey, farmerListAggregationData]);
+  }, [filter, filterKey, min, max]);
 
-  if (!values.max) {
-    return <i>No Data</i>;
-  }
+  const [rState, setRState] = useState(() => values.defaultValue);
 
-  const [rState, setRState] = useState(values.defaultValue);
+  useEffect(() => {
+    // Reset rState if the filter changes and does not include the filterKey
+    if (!filter[filterKey]) {
+      setRState([values.min, values.max]);
+    }
+  }, [filter, filterKey, values.min, values.max]);
 
   const debouncedRState = useDebouncedState(rState, 300);
 
@@ -63,8 +68,12 @@ export function NumberFilter({ filterKey }) {
   };
 
   useEffect(() => {
-    handleOnChange(rState);
+    handleOnChange(debouncedRState);
   }, [debouncedRState]);
+
+  if (!values.max) {
+    return <i>No Data</i>;
+  }
 
   return (
     <Box py={3}>

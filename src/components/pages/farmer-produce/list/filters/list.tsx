@@ -2,7 +2,6 @@ import { Accordion } from "@chakra-ui/react";
 import React from "react";
 
 import AmountPaidCalculateFilter from "./amount-paid-calculate";
-import BatchStatusFilter from "./batch-status";
 import CalculateGrnFilter from "./calculate-grn";
 import CollectorNameFilter from "./collector-name";
 import CollectorSubstrFilter from "./collector-substr";
@@ -16,6 +15,7 @@ import NetCollectionFilter from "./net-collection";
 import NoOfBagsFilter from "./no-of-bags";
 import PhoneNumberFilter from "./phone";
 import PricePerKgFilter from "./price-per-kg";
+import ProduceStatusFilter from "./produce-status";
 import ProductTypeFilter from "./product-type";
 import QuantityFilter from "./quantity";
 import TimeFilter from "./time";
@@ -27,7 +27,7 @@ export default function FiltersList() {
       <FarmerIdFilter />
       <FarmerNameFilter />
       <PhoneNumberFilter />
-      <BatchStatusFilter />
+      <ProduceStatusFilter />
       <ProductTypeFilter />
       <QuantityFilter />
       <NoOfBagsFilter />

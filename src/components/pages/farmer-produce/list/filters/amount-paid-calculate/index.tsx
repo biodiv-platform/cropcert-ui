@@ -1,12 +1,12 @@
+import NumberRangeFilterPanel from "@components/pages/common/filters/number-range";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
-import NumberRangeFilterPanel from "../number-range";
 
 export default function AmountPaidCalculateFilter() {
-  const { farmerProduceListAggregationData } = useFarmerProduceFilter();
-  const min = farmerProduceListAggregationData?.aggregationData?.amountPaidCalculate?.min || 0;
-  const max = farmerProduceListAggregationData?.aggregationData?.amountPaidCalculate?.max || 1000;
+  const { aggregations } = useFarmerProduceFilter();
+  const min = aggregations?.aggregationData?.amountPaidCalculate?.min || 0;
+  const max = aggregations?.aggregationData?.amountPaidCalculate?.max || 1000;
 
   return (
     <NumberRangeFilterPanel
@@ -14,6 +14,7 @@ export default function AmountPaidCalculateFilter() {
       filterKey="amountPaidCalculate"
       min={min}
       max={max}
+      useIndexFilter={useFarmerProduceFilter}
     />
   );
 }

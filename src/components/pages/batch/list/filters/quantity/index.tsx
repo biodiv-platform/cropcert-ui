@@ -1,12 +1,12 @@
+import NumberRangeFilterPanel from "@components/pages/common/filters/number-range";
 import React from "react";
 
 import useBatchFilter from "../../use-batch-filter";
-import NumberRangeFilterPanel from "../number-range";
 
 export default function QuantityFilter() {
-  const { batchListAggregationData } = useBatchFilter();
-  const min = batchListAggregationData?.aggregationData?.quantity?.min || 0;
-  const max = batchListAggregationData?.aggregationData?.quantity?.max || 1000;
+  const { aggregations } = useBatchFilter();
+  const min = aggregations?.aggregationData?.quantity?.min || 0;
+  const max = aggregations?.aggregationData?.quantity?.max || 1000;
 
   return (
     <NumberRangeFilterPanel
@@ -14,6 +14,7 @@ export default function QuantityFilter() {
       filterKey="quantity"
       min={min}
       max={max}
+      useIndexFilter={useBatchFilter}
     />
   );
 }

@@ -1,12 +1,11 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function LocationVerifiedFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const isLocationVerifiedCounts =
-    farmerListAggregationData?.aggregationData?.isLocationVerified || {};
+  const { aggregations } = useFarmerFilter();
+  const isLocationVerifiedCounts = aggregations?.aggregationData?.isLocationVerified || {};
 
   const defaultOptions = {
     true: 0,
@@ -28,6 +27,7 @@ export default function LocationVerifiedFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

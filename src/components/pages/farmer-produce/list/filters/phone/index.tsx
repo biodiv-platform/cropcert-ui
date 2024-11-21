@@ -1,8 +1,8 @@
+import FilterMultiSelectPanel from "@components/pages/common/filters/multi-select-search";
 import { FARMER_PRODUCE_FILTER_KEY } from "@static/constants";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
-import FilterMultiSelectPanel from "../shared/multi-select-search";
 
 export default function PhoneNumberFilter() {
   return (

@@ -1,12 +1,12 @@
+import NumberRangeFilterPanel from "@components/pages/common/filters/number-range";
 import React from "react";
 
 import useLotFilter from "../../use-lot-filter";
-import NumberRangeFilterPanel from "../number-range";
 
 export default function QuantityFilter() {
-  const { lotListAggregationData } = useLotFilter();
-  const min = lotListAggregationData?.aggregationData?.quantity?.min || 0;
-  const max = lotListAggregationData?.aggregationData?.quantity?.max || 1000;
+  const { aggregations } = useLotFilter();
+  const min = aggregations?.aggregationData?.quantity?.min || 0;
+  const max = aggregations?.aggregationData?.quantity?.max || 1000;
 
   return (
     <NumberRangeFilterPanel
@@ -14,6 +14,7 @@ export default function QuantityFilter() {
       filterKey="quantity"
       min={min}
       max={max}
+      useIndexFilter={useLotFilter}
     />
   );
 }

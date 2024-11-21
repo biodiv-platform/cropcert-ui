@@ -1,12 +1,12 @@
+import NumberRangeFilterPanel from "@components/pages/common/filters/number-range";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
-import NumberRangeFilterPanel from "../number-range";
 
 export default function DeductionFilter() {
-  const { farmerProduceListAggregationData } = useFarmerProduceFilter();
-  const min = farmerProduceListAggregationData?.aggregationData?.deduction?.min || 0;
-  const max = farmerProduceListAggregationData?.aggregationData?.deduction?.max || 1000;
+  const { aggregations } = useFarmerProduceFilter();
+  const min = aggregations?.aggregationData?.deduction?.min || 0;
+  const max = aggregations?.aggregationData?.deduction?.max || 1000;
 
   return (
     <NumberRangeFilterPanel
@@ -14,6 +14,7 @@ export default function DeductionFilter() {
       filterKey="deduction"
       min={min}
       max={max}
+      useIndexFilter={useFarmerProduceFilter}
     />
   );
 }

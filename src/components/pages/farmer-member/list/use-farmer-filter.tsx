@@ -16,7 +16,7 @@ export interface FARMER_LIST_DATA {
   hasMore: boolean;
   isLoading: boolean;
   farmer: any[];
-  aggregationData?: any[];
+  aggregations?: any[];
 }
 
 interface FarmerFilterContextProps {
@@ -33,7 +33,7 @@ interface FarmerFilterContextProps {
   setCCCodes: (codes: any[]) => void;
   loading: boolean;
   clearFarmerMember: () => void;
-  farmerListAggregationData?: any;
+  aggregations?: any;
   filterCount: number;
   setFilterCount;
 }
@@ -43,7 +43,7 @@ const FarmerFilterContext = createContext<FarmerFilterContextProps>({} as Farmer
 export const FarmerFilterProvider = (props) => {
   const [filter, setFilter] = useImmer({ f: props.filter });
   const [farmerListData, setFarmerListData] = useImmer<FARMER_LIST_DATA>(props.farmerListData);
-  const [farmerListAggregationData, setFarmerListAggregationData] = useState({});
+  const [aggregations, setFarmerListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -126,7 +126,7 @@ export const FarmerFilterProvider = (props) => {
         setCCCodes,
         loading,
         clearFarmerMember,
-        farmerListAggregationData,
+        aggregations,
         filterCount,
         setFilterCount,
       }}

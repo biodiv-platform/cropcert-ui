@@ -3,6 +3,7 @@ import React from "react";
 
 import AggroforestryFilter from "./aggroforestry";
 import CoffeeAcerageFilter from "./coffee-acerage";
+import DateOfBirthFilter from "./dob";
 import EducationFilter from "./education";
 import EnumeratorFilter from "./enumerator";
 import OtherEnterpriesFilter from "./farm-enterprises";
@@ -17,7 +18,6 @@ import NoOfDependentsFilter from "./no-of-dependents";
 import NoOfFarmPlotsFilter from "./no-of-farm-plots";
 import PhoneNumberFilter from "./phone";
 import SexTypeFilter from "./sex-type";
-import DateRangeFilter from "./shared/date-range";
 import TimeFilter from "./time";
 import VillageFilter from "./village";
 import YearOfFirstPlantingFilter from "./year-of-first-planting";
@@ -28,7 +28,7 @@ export default function FiltersList() {
       <FarmerIdFilter />
       <FarmerNameFilter />
       <SexTypeFilter />
-      <DateRangeFilter translateKey="Date Of Birth" filterKey={"dateOfBirth"} />
+      <DateOfBirthFilter />
       <PhoneNumberFilter />
       <NationalIdentityNumberFilter />
       <EducationFilter />

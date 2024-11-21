@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function EnumeratorFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const enumeratorCounts = farmerListAggregationData?.aggregationData?.enumerator || {};
+  const { aggregations } = useFarmerFilter();
+  const enumeratorCounts = aggregations?.aggregationData?.enumerator || {};
 
   const OPTIONS = Object.keys(enumeratorCounts)
     .map((val) => ({
@@ -24,6 +24,7 @@ export default function EnumeratorFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

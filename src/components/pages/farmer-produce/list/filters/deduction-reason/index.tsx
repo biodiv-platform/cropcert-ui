@@ -1,19 +1,20 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function DeductionReasonFilter() {
-  const { farmerProduceListAggregationData } = useFarmerProduceFilter();
-  const deductionReasonCounts =
-    farmerProduceListAggregationData?.aggregationData?.deductionReason || {};
+  const { aggregations } = useFarmerProduceFilter();
+  const deductionReasonCounts = aggregations?.aggregationData?.deductionReason || {};
 
-  const OPTIONS = Object.keys(deductionReasonCounts).map((val) => ({
-    label: convertToUpperCase(val),
-    value: val,
-    stat: deductionReasonCounts[val],
-  }));
+  const OPTIONS = Object.keys(deductionReasonCounts)
+    .map((val) => ({
+      label: convertToUpperCase(val),
+      value: val,
+      stat: deductionReasonCounts[val],
+    }))
+    .filter((option) => option.label !== "");
 
   return (
     <CheckboxFilterPanel
@@ -23,6 +24,7 @@ export default function DeductionReasonFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerProduceFilter}
     />
   );
 }

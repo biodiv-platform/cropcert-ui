@@ -71,7 +71,7 @@ export const axListAggregationFarmerMember = async (ccCodes, params) => {
   }
 };
 
-export const axFarmerFilterAutoCompleteSearch = async (key, value, ccCodes, model) => {
+export const axDocumentAutoCompleteSearch = async (key, value, ccCodes, model) => {
   try {
     // Format ccCodes as a comma-separated string if it's an array
     const ccCodesParam = Array.isArray(ccCodes) ? ccCodes.join(",") : ccCodes;

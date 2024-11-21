@@ -1,12 +1,12 @@
+import NumberRangeFilterPanel from "@components/pages/common/filters/number-range";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import NumberRangeFilterPanel from "../number-range";
 
 export default function YearOfFirstPlantingFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const min = farmerListAggregationData?.aggregationData?.yearOfFirstPlanting?.min || 0;
-  const max = farmerListAggregationData?.aggregationData?.yearOfFirstPlanting?.max || 1000;
+  const { aggregations } = useFarmerFilter();
+  const min = aggregations?.aggregationData?.yearOfFirstPlanting?.min || 0;
+  const max = aggregations?.aggregationData?.yearOfFirstPlanting?.max || 1000;
 
   return (
     <NumberRangeFilterPanel
@@ -14,6 +14,7 @@ export default function YearOfFirstPlantingFilter() {
       filterKey="yearOfFirstPlanting"
       min={min}
       max={max}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

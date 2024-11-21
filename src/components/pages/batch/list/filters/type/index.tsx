@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
 import useBatchFilter from "../../use-batch-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function TypeFilter() {
-  const { batchListAggregationData } = useBatchFilter();
-  const typeCounts = batchListAggregationData?.aggregationData?.type || {};
+  const { aggregations } = useBatchFilter();
+  const typeCounts = aggregations?.aggregationData?.type || {};
 
   const OPTIONS = Object.keys(typeCounts).map((val) => ({
     label: convertToUpperCase(val),
@@ -22,6 +22,7 @@ export default function TypeFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useBatchFilter}
     />
   );
 }

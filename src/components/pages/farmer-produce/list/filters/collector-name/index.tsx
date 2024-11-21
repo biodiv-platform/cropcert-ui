@@ -1,13 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerProduceFilter from "../../use-farmer-produce-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function CollectorNameFilter() {
-  const { farmerProduceListAggregationData } = useFarmerProduceFilter();
-  const collectorNameCounts =
-    farmerProduceListAggregationData?.aggregationData?.collectorName || {};
+  const { aggregations } = useFarmerProduceFilter();
+  const collectorNameCounts = aggregations?.aggregationData?.collectorName || {};
 
   const OPTIONS = Object.keys(collectorNameCounts)
     .map((val) => ({
@@ -25,6 +24,7 @@ export default function CollectorNameFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerProduceFilter}
     />
   );
 }

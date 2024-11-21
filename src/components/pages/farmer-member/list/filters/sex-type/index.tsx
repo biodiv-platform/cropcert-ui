@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function SexTypeFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const genderCounts = farmerListAggregationData?.aggregationData?.gender || {};
+  const { aggregations } = useFarmerFilter();
+  const genderCounts = aggregations?.aggregationData?.gender || {};
 
   const OPTIONS = Object.keys(genderCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -22,6 +22,7 @@ export default function SexTypeFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

@@ -22,7 +22,7 @@ export default function LotCell({
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>
-            L-{finalLotId} <ArrowForwardIcon />
+            {finalLotId} <ArrowForwardIcon />
           </span>
         </Tooltip>
       </Link>

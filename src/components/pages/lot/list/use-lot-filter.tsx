@@ -33,7 +33,7 @@ interface LotFilterContextProps {
   setCOCodes: (codes: any[]) => void;
   loading: boolean;
   clearLot: () => void;
-  lotListAggregationData?: any;
+  aggregations?: any;
   updateLot;
 }
 
@@ -42,7 +42,7 @@ const LotFilterContext = createContext<LotFilterContextProps>({} as LotFilterCon
 export const LotFilterProvider = (props) => {
   const [filter, setFilter] = useImmer({ f: props.filter });
   const [lotListData, setLotListData] = useImmer<Lot_LIST_DATA>(props.lotListData);
-  const [lotListAggregationData, setLotListAggregationData] = useState({});
+  const [aggregations, setLotListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -129,7 +129,7 @@ export const LotFilterProvider = (props) => {
         setCOCodes,
         loading,
         clearLot,
-        lotListAggregationData,
+        aggregations,
         updateLot,
       }}
     >

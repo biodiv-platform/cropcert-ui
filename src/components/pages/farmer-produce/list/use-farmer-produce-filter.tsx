@@ -33,7 +33,7 @@ interface FarmerProduceFilterContextProps {
   setCCCodes: (codes: any[]) => void;
   loading: boolean;
   clearFarmerProduce: () => void;
-  farmerProduceListAggregationData?: any;
+  aggregations?: any;
   updateFarmerProduce;
 }
 
@@ -46,7 +46,7 @@ export const FarmerProduceFilterProvider = (props) => {
   const [farmerProduceListData, setFarmerProduceListData] = useImmer<FARMER_PRODUCE_LIST_DATA>(
     props.farmerProduceListData
   );
-  const [farmerProduceListAggregationData, setFarmerProduceListAggregationData] = useState({});
+  const [aggregations, setFarmerProduceListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -133,7 +133,7 @@ export const FarmerProduceFilterProvider = (props) => {
         setCCCodes,
         loading,
         clearFarmerProduce,
-        farmerProduceListAggregationData,
+        aggregations,
         updateFarmerProduce,
       }}
     >

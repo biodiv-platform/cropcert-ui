@@ -1,11 +1,11 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function AggroforestryFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const agroforestryCounts = farmerListAggregationData?.aggregationData?.agroforestry || {};
+  const { aggregations } = useFarmerFilter();
+  const agroforestryCounts = aggregations?.aggregationData?.agroforestry || {};
 
   const defaultOptions = {
     yes: 0,
@@ -27,6 +27,7 @@ export default function AggroforestryFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

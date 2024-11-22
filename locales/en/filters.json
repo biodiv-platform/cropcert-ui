@@ -52,8 +52,11 @@
     "aggroforestry": {
       "title": "Aggroforestry"
     },
-    "batch_status": {
-      "title": "Batch Status"
+    "amount_paid_calculate": {
+      "title": "Amount Paid Calculate"
+    },
+    "coffee_acerage": {
+      "title": "Coffee Acerage"
     },
     "collection_center": "Collection Center",
     "collector_name": {
@@ -65,6 +68,9 @@
     "data_verified": {
       "title": "Data Verified"
     },
+    "deduction": {
+      "title": "Deduction"
+    },
     "deduction_reason": {
       "title": "Deduction Reason"
     },
@@ -74,15 +80,45 @@
     "enumerator": {
       "title": "Enumerator"
     },
+    "land_acerage": {
+      "title": "Land Acerage"
+    },
     "location_verified": {
       "title": "Location Verified"
     },
     "lot_status": {
       "title": "Lot Status"
     },
+    "milling_charge": {
+      "title": "Milling Charge"
+    },
     "name": "Name",
+    "net_collection": {
+      "title": "Net Collection"
+    },
+    "no_of_bags": {
+      "title": "No Of Bags"
+    },
+    "no_of_coffee_trees": {
+      "title": "No Of Coffee Tress"
+    },
+    "no_of_dependents": {
+      "title": "No Of Dependents"
+    },
+    "no_of_farm_plots": {
+      "title": "No Of Farm Plots"
+    },
     "other_enterprises": {
       "title": "Other Enterprises"
+    },
+    "price_per_kg": {
+      "title": "Price Per Kg"
+    },
+    "produce_status": {
+      "title": "Produce Status"
+    },
+    "quantity": {
+      "title": "Quantity"
     },
     "ready_for_lot": {
       "title": "Ready for Lot"
@@ -92,6 +128,9 @@
     },
     "village": {
       "title": "Village"
+    },
+    "year_of_first_planting": {
+      "title": "Year of First Planting"
     }
   },
   "item_type": {

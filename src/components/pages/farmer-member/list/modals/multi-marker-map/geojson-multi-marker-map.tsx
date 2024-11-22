@@ -1,8 +1,11 @@
+import "react-leaflet-fullscreen/styles.css";
+
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 import LayerControl from "@components/pages/farmer-member/map/layerControl";
 import L, { divIcon, latLngBounds } from "leaflet";
 import React, { useEffect } from "react";
 import { GeoJSON, MapContainer, useMap } from "react-leaflet";
+import { FullscreenControl } from "react-leaflet-fullscreen";
 
 export default function FarmerMap({ geojsonData }) {
   const mapStyle = {
@@ -91,6 +94,7 @@ export default function FarmerMap({ geojsonData }) {
           data={geojsonData}
         />
       </MarkerClusterGroup>
+      <FullscreenControl position="topleft" />
     </MapContainer>
   );
 }

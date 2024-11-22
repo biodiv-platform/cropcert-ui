@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function OtherEnterpriesFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const enterprisesCounts = farmerListAggregationData?.aggregationData?.otherFarmEnterprises || {};
+  const { aggregations } = useFarmerFilter();
+  const enterprisesCounts = aggregations?.aggregationData?.otherFarmEnterprises || {};
 
   const OPTIONS = Object.keys(enterprisesCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -22,6 +22,7 @@ export default function OtherEnterpriesFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

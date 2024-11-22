@@ -1,12 +1,13 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useBatchFilter from "../../use-batch-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
+// import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function BatchStatusFilter() {
-  const { batchListAggregationData } = useBatchFilter();
-  const batchStatusCounts = batchListAggregationData?.aggregationData?.batchStatus || {};
+  const { aggregations } = useBatchFilter();
+  const batchStatusCounts = aggregations?.aggregationData?.batchStatus || {};
 
   const OPTIONS = Object.keys(batchStatusCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -22,6 +23,7 @@ export default function BatchStatusFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useBatchFilter}
     />
   );
 }

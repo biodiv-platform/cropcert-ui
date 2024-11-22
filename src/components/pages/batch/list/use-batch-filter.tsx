@@ -33,7 +33,7 @@ interface BatchFilterContextProps {
   setCOCodes: (codes: any[]) => void;
   loading: boolean;
   clearBatch: () => void;
-  batchListAggregationData?: any;
+  aggregations?: any;
   updateBatch;
   addBatch;
 }
@@ -43,7 +43,7 @@ const BatchFilterContext = createContext<BatchFilterContextProps>({} as BatchFil
 export const BatchFilterProvider = (props) => {
   const [filter, setFilter] = useImmer({ f: props.filter });
   const [batchListData, setBatchListData] = useImmer<Batch_LIST_DATA>(props.batchListData);
-  const [batchListAggregationData, setBatchListAggregationData] = useState({});
+  const [aggregations, setBatchListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -137,7 +137,7 @@ export const BatchFilterProvider = (props) => {
         setCOCodes,
         loading,
         clearBatch,
-        batchListAggregationData,
+        aggregations,
         updateBatch,
         addBatch,
       }}

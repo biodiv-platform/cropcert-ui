@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { convertToUpperCase } from "@utils/text";
 import React from "react";
 
 import useLotFilter from "../../use-lot-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function TypeFilter() {
-  const { lotListAggregationData } = useLotFilter();
-  const typeCounts = lotListAggregationData?.aggregationData?.type || {};
+  const { aggregations } = useLotFilter();
+  const typeCounts = aggregations?.aggregationData?.type || {};
 
   const OPTIONS = Object.keys(typeCounts).map((val) => ({
     label: convertToUpperCase(val),
@@ -22,6 +22,7 @@ export default function TypeFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useLotFilter}
     />
   );
 }

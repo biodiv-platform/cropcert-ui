@@ -1,12 +1,12 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import { covertToSentenceCase } from "@utils/text";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function EducationFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const educationCounts = farmerListAggregationData?.aggregationData?.levelOfEducation || {};
+  const { aggregations } = useFarmerFilter();
+  const educationCounts = aggregations?.aggregationData?.levelOfEducation || {};
 
   const OPTIONS = Object.keys(educationCounts).map((val) => ({
     label: covertToSentenceCase(val),
@@ -22,6 +22,7 @@ export default function EducationFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

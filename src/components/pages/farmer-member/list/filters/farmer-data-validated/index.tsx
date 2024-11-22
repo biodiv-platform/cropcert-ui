@@ -1,12 +1,11 @@
+import CheckboxFilterPanel from "@components/pages/common/filters/checkbox";
 import React from "react";
 
 import useFarmerFilter from "../../use-farmer-filter";
-import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function FarmerDataValidatedFilter() {
-  const { farmerListAggregationData } = useFarmerFilter();
-  const isFarmerDataValidatedCounts =
-    farmerListAggregationData?.aggregationData?.isFarmerDataValidated || {};
+  const { aggregations } = useFarmerFilter();
+  const isFarmerDataValidatedCounts = aggregations?.aggregationData?.isFarmerDataValidated || {};
 
   const defaultOptions = {
     true: 0,
@@ -28,6 +27,7 @@ export default function FarmerDataValidatedFilter() {
       skipOptionsTranslation={true}
       showSearch={false}
       options={OPTIONS}
+      useIndexFilter={useFarmerFilter}
     />
   );
 }

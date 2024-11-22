@@ -55,9 +55,6 @@
     "amount_paid_calculate": {
       "title": "Amount Paid Calculate"
     },
-    "batch_status": {
-      "title": "Batch Status"
-    },
     "coffee_acerage": {
       "title": "Coffee Acerage"
     },
@@ -116,6 +113,9 @@
     },
     "price_per_kg": {
       "title": "Price Per Kg"
+    },
+    "produce_status": {
+      "title": "Produce Status"
     },
     "quantity": {
       "title": "Quantity"

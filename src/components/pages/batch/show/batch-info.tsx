@@ -20,7 +20,7 @@ export default function BatchInfo({ batch, geojsonData }) {
       selector: (row) => row["batchId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => `B-${row.batchId}`,
+      cell: (row) => `${row.batchId}`,
     },
     {
       name: "Name",

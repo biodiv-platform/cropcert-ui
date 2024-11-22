@@ -55,6 +55,9 @@
     "amount_paid_calculate": {
       "title": "Amount Paid Calculate"
     },
+    "batch_status": {
+      "title": "Batch Status"
+    },
     "coffee_acerage": {
       "title": "Coffee Acerage"
     },

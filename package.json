@@ -16,7 +16,7 @@
     "@changey/react-leaflet-markercluster": "^4.0.0-rc1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@hookform/resolvers": "^2.9.8",
+    "@hookform/resolvers": "^3.3.2",
     "@nikolovlazar/chakra-ui-prose": "^1.2.1",
     "@react-google-maps/api": "^2.13.1",
     "@rehooks/online-status": "^1.1.2",

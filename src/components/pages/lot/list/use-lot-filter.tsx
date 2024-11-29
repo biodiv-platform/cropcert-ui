@@ -35,6 +35,8 @@ interface LotFilterContextProps {
   clearLot: () => void;
   aggregations?: any;
   updateLot;
+  filterCount: number;
+  setFilterCount;
 }
 
 const LotFilterContext = createContext<LotFilterContextProps>({} as LotFilterContextProps);
@@ -46,6 +48,8 @@ export const LotFilterProvider = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [filterCount, setFilterCount] = useState(0);
 
   const updateLot = () => {
     fetchListData();
@@ -75,14 +79,13 @@ export const LotFilterProvider = (props) => {
   }, [coCodes, filter.f]);
 
   useEffect(() => {
-    if (isBrowser) {
+    if (isBrowser && filterCount > 0) {
       window.history.pushState("", "", `?${stringify({ ...filter.f })}`);
     }
-  }, [filter]);
+  }, [filter, filterCount]);
 
   const addFilter = (key: string, value: any) => {
     setFilter((draft) => {
-      draft.f.offset = 0;
       draft.f[key] = value;
     });
   };
@@ -131,6 +134,8 @@ export const LotFilterProvider = (props) => {
         clearLot,
         aggregations,
         updateLot,
+        filterCount,
+        setFilterCount,
       }}
     >
       {props.children}

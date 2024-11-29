@@ -23,17 +23,16 @@ interface IBatchShowProps {
 
 export default function BatchShowPageComponent({ show }: { show: IBatchShowProps }) {
   const router = useRouter();
-  const { previousPath } = useGlobalState();
-  const { backButtonText, backLink } = generateBackBtnStr(previousPath);
+  const { previousPath, setPreviousPath } = useGlobalState();
+  const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Batch List");
+
+  if (!previousPath) {
+    setPreviousPath("/traceability/batch");
+  }
 
   // Function to go back to the previous page
   const handleGoBack = () => {
-    if (previousPath.includes("/traceability")) {
-      router.push(backLink);
-    } else {
-      router.back();
-      setTimeout(() => window.location.reload(), 300); // workaround to reload pages which are not reloading due to filter query param in url.
-    }
+    router.push(backLink);
   };
 
   const ActionButtons = () => {

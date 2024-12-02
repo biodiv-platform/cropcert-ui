@@ -98,6 +98,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
           actions={
             hasEditDeleteAccess && <ActionButtons hasEditDeleteAccess={hasEditDeleteAccess} />
           }
+          floatHeader={true}
         >
           🧑‍🌾 {show.farmer.farmerName}
         </PageHeading>

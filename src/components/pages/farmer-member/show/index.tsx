@@ -30,19 +30,18 @@ interface IFarmerShowProps {
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {
   const router = useRouter();
-  const { user, previousPath } = useGlobalState();
-  const { backButtonText, backLink } = generateBackBtnStr(previousPath);
+  const { user, previousPath, setPreviousPath } = useGlobalState();
+  const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Farmer List");
+
+  if (!previousPath) {
+    setPreviousPath("/farmer/list");
+  }
 
   const hasEditDeleteAccess = hasAccess(hierarchicalRoles(ROLES.UNION), user);
 
   // Function to go back to the previous page
   const handleGoBack = () => {
-    if (previousPath.includes("/traceability")) {
-      router.push(backLink);
-    } else {
-      router.back();
-      setTimeout(() => window.location.reload(), 300); // workaround to reload pages which are not reloading due to filter query param in url.
-    }
+    router.push(backLink);
   };
 
   const ActionButtons = ({ hasEditDeleteAccess }) => {

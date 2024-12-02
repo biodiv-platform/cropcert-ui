@@ -21,7 +21,7 @@ const roleToIndex = (role: string): number =>
 export const getDropdownArray = (fromRole: string, toRole: string): string[] => {
   const iStart = roleToIndex(fromRole);
   const iEnd = roleToIndex(toRole) + 1;
-  return iStart === iEnd ? [toRole] : ROLE_HIERARCHY.slice(iStart, iEnd);
+  return iStart === iEnd ? [fromRole] : ROLE_HIERARCHY.slice(iStart, iEnd);
 };
 
 /**

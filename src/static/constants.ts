@@ -331,14 +331,20 @@ export const LOT_FILTER_KEY = {
   },
 };
 
-export const TabPaths = {
-  FARMER_PRODUCE: "/traceability/farmer-produce",
-  BATCH: "/traceability/batch",
-  LOT: "/traceability/lot",
-};
-
-export const TabIndices = {
-  FARMER_PRODUCE: 0,
-  BATCH: 1,
-  LOT: 2,
-};
+export const TRACEABILITY_TABS = [
+  {
+    label: "🚜 Farmer Produce",
+    path: "/traceability/farmer-produce",
+    tabIndex: 0,
+  },
+  {
+    label: "🧺 Batch(s)",
+    path: "/traceability/batch",
+    tabIndex: 1,
+  },
+  {
+    label: "📦 Lot(s)",
+    path: "/traceability/lot",
+    tabIndex: 2,
+  },
+];

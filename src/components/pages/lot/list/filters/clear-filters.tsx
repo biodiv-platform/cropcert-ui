@@ -11,10 +11,13 @@ import useLotFilter from "../use-lot-filter";
 const FILTERS_BLACKLIST = [...Object.keys(DEFAULT_LOT_FILTER), "lang"];
 
 export default function ClearFilters() {
-  const { filter } = useLotFilter();
+  const { filter, setFilterCount } = useLotFilter();
 
-  const filterCount: any =
-    filter && Object.keys(filter).filter((f) => !FILTERS_BLACKLIST.includes(f)).length > 0;
+  const filterCount: number = filter
+    ? Object.keys(filter).filter((f) => filter[f] && !FILTERS_BLACKLIST.includes(f)).length
+    : 0;
+
+  setFilterCount(filterCount);
   const { t } = useTranslation();
   const message = t("filters:clear", { filterCount });
   const router = useRouter();

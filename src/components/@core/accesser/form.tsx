@@ -97,5 +97,5 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
     );
   };
 
-  return <>{roles.length > 1 && roles.map(RoleDropdown)}</>;
+  return <>{roles.map(RoleDropdown)}</>;
 }

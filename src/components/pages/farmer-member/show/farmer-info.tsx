@@ -119,6 +119,10 @@ export default function FarmerInfo({ farmer }) {
       selector: dateOfSurvey,
     },
     {
+      name: "Enumerator",
+      selector: farmer["enumerator"] || "N/A",
+    },
+    {
       name: "Enumerator Comment",
       selector: farmer["enumeratorComment"] || "N/A",
     },

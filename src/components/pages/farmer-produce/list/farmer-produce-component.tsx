@@ -15,7 +15,6 @@ import { BATCH_CREATE } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
-import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -157,8 +156,7 @@ function FarmerProduceListComponent() {
           {loading ? <Spinner size="xs" /> : farmerProduceListData?.length}
         </Box>
         <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
-          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
-          <NextSyncCounter />
+          {t("traceability:sync_status.last_synced")} {data?.data} | <NextSyncCounter />
         </Box>
       </Flex>
 

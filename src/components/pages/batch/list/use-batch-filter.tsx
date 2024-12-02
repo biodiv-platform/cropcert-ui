@@ -36,6 +36,8 @@ interface BatchFilterContextProps {
   aggregations?: any;
   updateBatch;
   addBatch;
+  filterCount: number;
+  setFilterCount;
 }
 
 const BatchFilterContext = createContext<BatchFilterContextProps>({} as BatchFilterContextProps);
@@ -47,6 +49,8 @@ export const BatchFilterProvider = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [filterCount, setFilterCount] = useState(0);
 
   const updateBatch = () => {
     fetchListData();
@@ -83,14 +87,13 @@ export const BatchFilterProvider = (props) => {
   }, [coCodes, filter.f]);
 
   useEffect(() => {
-    if (isBrowser) {
+    if (isBrowser && filterCount > 0) {
       window.history.pushState("", "", `?${stringify({ ...filter.f })}`);
     }
-  }, [filter]);
+  }, [filter, filterCount]);
 
   const addFilter = (key: string, value: any) => {
     setFilter((draft) => {
-      draft.f.offset = 0;
       draft.f[key] = value;
     });
   };
@@ -140,6 +143,8 @@ export const BatchFilterProvider = (props) => {
         aggregations,
         updateBatch,
         addBatch,
+        filterCount,
+        setFilterCount,
       }}
     >
       {props.children}

@@ -1,6 +1,5 @@
 import { axGetTree } from "@services/pages.service";
 import { ROLES } from "@static/constants";
-import { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface GlobalStateContextProps {
@@ -36,7 +35,6 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
   const [pages, setPages] = useState(props.pages);
   const [union, setUnion] = useState(null);
-  const router = useRouter();
   const [previousPath, setPreviousPath] = useState("");
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
@@ -47,19 +45,41 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   }, [user]);
 
   useEffect(() => {
-    // Store the previous path when the route changes
-    const handleRouteChange = () => {
-      setPreviousPath(router.asPath);
+    let lastPath = window.location.pathname + window.location.search;
+
+    const updatePath = () => {
+      const currentPath = window.location.pathname + window.location.search;
+
+      if (
+        currentPath !== lastPath &&
+        (currentPath.includes("/traceability") || currentPath.includes("farmer/list"))
+      ) {
+        lastPath = currentPath;
+        setPreviousPath(currentPath);
+      }
     };
 
-    // Listen to route changes
-    router.events.on("routeChangeStart", handleRouteChange);
+    const interceptHistoryMethod = (method: "pushState" | "replaceState") => {
+      const original = window.history[method];
+      return function (...args: Parameters<History["pushState"]>) {
+        original.apply(this, args);
+        updatePath();
+      };
+    };
 
-    // Cleanup the event listener
+    window.history.pushState = interceptHistoryMethod("pushState");
+    window.history.replaceState = interceptHistoryMethod("replaceState");
+
+    window.addEventListener("popstate", updatePath);
+
+    updatePath();
+
     return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
+      window.history.pushState = interceptHistoryMethod("pushState");
+      window.history.replaceState = interceptHistoryMethod("replaceState");
+      window.removeEventListener("popstate", updatePath);
     };
-  }, [router]);
+  }, []);
 
   const getPageTree = async () => {
     try {

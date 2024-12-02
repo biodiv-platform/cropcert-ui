@@ -141,7 +141,7 @@ export const generatePassword = (passwordLength) => {
   return newPassword;
 };
 
-export const generateBackBtnStr = (previousPath: string) => {
+export const generateBackBtnStr = (previousPath: string, defaultPath: string) => {
   let backButtonText = "Back to List";
 
   switch (true) {
@@ -170,7 +170,7 @@ export const generateBackBtnStr = (previousPath: string) => {
       backButtonText = "Go Back";
       break;
     default:
-      backButtonText = "Back to List"; // Default case
+      backButtonText = defaultPath;
   }
 
   return {

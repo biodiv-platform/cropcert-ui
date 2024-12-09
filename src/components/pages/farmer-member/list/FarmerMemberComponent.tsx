@@ -12,8 +12,8 @@ import { ROLES } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
+import { formatTimeDifference } from "@utils/date";
 import notification, { NotificationType } from "@utils/notification";
-import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -30,6 +30,7 @@ function FarmerMemberComponent() {
 
   const [showTypeError, setShowTypeError] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [timeString, setTimeString] = useState<string>("");
   const { user, union } = useGlobalState();
   const { isOpen: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
@@ -45,6 +46,17 @@ function FarmerMemberComponent() {
     enabled: !!union?.value,
     refetchInterval: 60 * 60 * 1000,
   });
+
+  useEffect(() => {
+    if (data) {
+      const interval = setInterval(() => {
+        setTimeString(formatTimeDifference(data?.data));
+      }, 1000);
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(interval);
+    }
+  }, [data?.data]);
 
   const handleOnSelectionChange = ({ selectedRows }) => {
     setSelectedFarmerMember(selectedRows);
@@ -110,8 +122,8 @@ function FarmerMemberComponent() {
           {loading ? <Spinner size="xs" /> : farmerListData?.length}
         </Box>
         <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
-          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
-          <NextSyncCounter />
+          {t("traceability:sync_status.last_synced")} {timeString} |{" "}
+          <NextSyncCounter syncIntervalHours={120} />
         </Box>
       </Flex>
 
@@ -149,8 +161,10 @@ function FarmerMemberComponent() {
             },
           ]}
           pagination
-          paginationPerPage={15}
-          paginationRowsPerPageOptions={[15, 50, 100]}
+          paginationPerPage={10}
+          paginationRowsPerPageOptions={[10, 20, 50, 100]}
+          fixedHeader
+          fixedHeaderScrollHeight="600px"
         />
       ) : (
         <Flex direction={"column"} alignItems={"center"} gap={2}>

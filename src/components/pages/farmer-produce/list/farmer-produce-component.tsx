@@ -14,8 +14,8 @@ import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
 import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
+import { formatTimeDifference } from "@utils/date";
 import notification, { NotificationType } from "@utils/notification";
-import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -34,6 +34,7 @@ function FarmerProduceListComponent() {
 
   const { user, union } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
+  const [timeString, setTimeString] = useState<string>("");
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
   const { isOpen: clearRows, onToggle } = useDisclosure();
   const { t } = useTranslation();
@@ -49,6 +50,17 @@ function FarmerProduceListComponent() {
     enabled: !!union?.value,
     refetchInterval: 60 * 60 * 1000,
   });
+
+  useEffect(() => {
+    if (data) {
+      const interval = setInterval(() => {
+        setTimeString(formatTimeDifference(data?.data));
+      }, 1000);
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(interval);
+    }
+  }, [data?.data]);
 
   const handleOnSelectionChange = ({
     selectedRows,
@@ -157,8 +169,8 @@ function FarmerProduceListComponent() {
           {loading ? <Spinner size="xs" /> : farmerProduceListData?.length}
         </Box>
         <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
-          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
-          <NextSyncCounter />
+          {t("traceability:sync_status.last_synced")} {timeString} |{" "}
+          <NextSyncCounter syncIntervalHours={60} />
         </Box>
       </Flex>
 

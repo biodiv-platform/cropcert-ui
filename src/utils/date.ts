@@ -1,8 +1,10 @@
 import dayjs from "dayjs";
 import CustomParseFormat from "dayjs/plugin/customParseFormat";
+import duration from "dayjs/plugin/duration";
 import RealtiveTime from "dayjs/plugin/relativeTime";
 import UTCPlugin from "dayjs/plugin/utc";
 
+dayjs.extend(duration);
 dayjs.extend(CustomParseFormat);
 dayjs.extend(RealtiveTime);
 dayjs.extend(UTCPlugin);
@@ -33,5 +35,23 @@ export const formatDateReadableFromUTC = (ts) =>
 export const timeAgoUTC = (ts) => dayjs(ts).utc().fromNow();
 
 export const parseEXIF = (ts) => ts && dayjs(ts, FORMAT_EXIF_TIMESTAMP).toDate();
+
+export const formatTimeDifference = (timestamp: Date): string => {
+  const lastSyncedDate = dayjs(new Date(timestamp));
+  const now = dayjs();
+
+  // Calculate the difference in seconds
+  const diffInSeconds = now.diff(lastSyncedDate, "second");
+
+  // Create a duration object
+  const timeDuration = dayjs.duration(Math.abs(diffInSeconds), "seconds");
+
+  // Format the time in HH:mm:ss
+  const hours = String(timeDuration.hours()).padStart(2, "0");
+  const minutes = String(timeDuration.minutes()).padStart(2, "0");
+  const seconds = String(timeDuration.seconds()).padStart(2, "0");
+
+  return `${hours}:${minutes}:${seconds} ago`;
+};
 
 export default dayjs;

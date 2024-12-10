@@ -19,7 +19,7 @@ export default function LastSyncTime({ type, isSyncing }) {
   const { data } = useQuery({
     queryKey,
     queryFn,
-    enabled: !!union?.value && isSyncing,
+    enabled: !!union?.value || isSyncing,
     refetchInterval: 60 * 60 * 1000,
   });
 

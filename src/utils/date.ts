@@ -44,7 +44,7 @@ export const formatTimeDifference = (timestamp: Date): string => {
   const diffInSeconds = now.diff(lastSyncedDate, "second");
 
   // Create a duration object
-  const timeDuration = dayjs.duration(diffInSeconds, "seconds");
+  const timeDuration = dayjs.duration(Math.abs(diffInSeconds), "seconds");
 
   // Format the time in HH:mm:ss
   const hours = String(timeDuration.hours()).padStart(2, "0");

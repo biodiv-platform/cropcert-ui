@@ -4,16 +4,14 @@ import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import LastSyncTime from "@components/traceability/lastSyncTime";
 import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
 import { axSyncFMDataOnDemand } from "@services/farmer.service";
-import { axGetLastSyncedTimeFM } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { DRAW_MAP } from "@static/events";
-import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
-import { getLocalTime } from "@utils/traceability";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
@@ -38,13 +36,6 @@ function FarmerMemberComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  const { data } = useQuery({
-    queryKey: ["lastSyncedTimeFM"],
-    queryFn: () => axGetLastSyncedTimeFM(union?.value),
-    enabled: !!union?.value,
-    refetchInterval: 60 * 60 * 1000,
-  });
 
   const handleOnSelectionChange = ({ selectedRows }) => {
     setSelectedFarmerMember(selectedRows);
@@ -109,9 +100,14 @@ function FarmerMemberComponent() {
           {t("traceability:total_records")}:{" "}
           {loading ? <Spinner size="xs" /> : farmerListData?.length}
         </Box>
-        <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
-          {t("traceability:sync_status.last_synced")} {getLocalTime(data?.data)} |{" "}
-          <NextSyncCounter />
+        <Box
+          fontSize={"xs"}
+          visibility={union?.value ? "visible" : "hidden"}
+          display={"flex"}
+          gap={2}
+        >
+          <LastSyncTime type={"FM"} isSyncing={isSyncing} /> |{" "}
+          <NextSyncCounter syncIntervalHours={120} />
         </Box>
       </Flex>
 
@@ -148,7 +144,6 @@ function FarmerMemberComponent() {
               },
             },
           ]}
-          pagination
           paginationPerPage={15}
           paginationRowsPerPageOptions={[15, 50, 100]}
         />

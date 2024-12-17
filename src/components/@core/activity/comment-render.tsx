@@ -22,7 +22,7 @@ const CommentRender = ({ html }) => {
   return (
     <HTMLContainer
       dangerouslySetInnerHTML={{
-        __html: getInjectableHTML(nHtml)
+        __html: getInjectableHTML(nHtml),
       }}
     />
   );

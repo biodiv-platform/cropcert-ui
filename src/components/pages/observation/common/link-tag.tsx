@@ -10,7 +10,7 @@ interface LinkTagProps {
 
 export default function LinkTag({ label, href = "/observation/list" }: LinkTagProps) {
   return (
-    <NextLink href={{ pathname: href, query: { tags: label } }}>
+    <NextLink href={{ pathname: href, query: { tags: label } }} legacyBehavior>
       <Link>
         <Tag size="sm" key={label} colorScheme="blue" mb={2} mr={2}>
           {label}

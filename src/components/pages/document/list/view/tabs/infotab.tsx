@@ -49,19 +49,17 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
         {/* Title + Flag */}
         <Flex justifyContent="space-between" mb={3}>
           <NextLink href={`/document/show/${document.id}`}>
-            <a>
-              <HStack alignItems="center" spacing={4}>
-                <DocumentIcon />
-                <Heading
-                  fontSize="lg"
-                  className="elipsis-2"
-                  dangerouslySetInnerHTML={{
-                    __html: getInjectableHTML(document?.title || t("document:unknown")),
-                  }}
-                />
-                <Badge colorScheme="red">{document.itemtype}</Badge>
-              </HStack>
-            </a>
+            <HStack alignItems="center" spacing={4}>
+              <DocumentIcon />
+              <Heading
+                fontSize="lg"
+                className="elipsis-2"
+                dangerouslySetInnerHTML={{
+                  __html: getInjectableHTML(document?.title || t("document:unknown")),
+                }}
+              />
+              <Badge colorScheme="red">{document.itemtype}</Badge>
+            </HStack>
           </NextLink>
           {/* Meta Data */}
           <Box>

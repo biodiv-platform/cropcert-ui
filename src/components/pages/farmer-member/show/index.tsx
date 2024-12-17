@@ -67,7 +67,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
-            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true}>
+            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
               <EditIcon boxSize={5} />
             </NextLink>
           </Box>

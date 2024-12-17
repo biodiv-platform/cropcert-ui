@@ -42,6 +42,7 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
           <NextLink
             href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}
             passHref={true}
+            legacyBehavior
           >
             <Button as="a" colorScheme="blue" size="sm" rightIcon={<ArrowForwardIcon />} mb={4}>
               Farmers List ({syncStatus?.farmersCount})

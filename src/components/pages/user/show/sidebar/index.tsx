@@ -39,12 +39,11 @@ export default function UserInfoSidebar({ user }) {
           </Text>
         </Box>
       </Flex>
-      <NextLink href={`/user/edit/${user.id}`}>
+      <NextLink href={`/user/edit/${user.id}`} legacyBehavior>
         <Button as="a" w="full" colorScheme="blue" mb={4} hidden={!canEdit}>
           {t("user:edit_profile")}
         </Button>
       </NextLink>
-
       {canDelete && <DeleteAccount userId={user.id} />}
     </div>
   );

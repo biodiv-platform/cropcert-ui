@@ -18,7 +18,7 @@ export default function LotCell({
   const label = `View Lot #${finalLotId}`;
   const id = batchStatus === undefined ? _id : lotIdMongo;
   return finalLotId ? (
-    <NextLink href={`/lot/show/${id}`} passHref={true}>
+    <NextLink href={`/lot/show/${id}`} passHref={true} legacyBehavior>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>

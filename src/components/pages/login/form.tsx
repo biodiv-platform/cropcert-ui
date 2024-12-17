@@ -116,13 +116,12 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
             <SubmitButton>
               Sign In <ArrowForwardIcon ml={2} />
             </SubmitButton>
-            <NextLink href="/register/forgotPassword">
+            <NextLink href="/register/forgotPassword" legacyBehavior>
               <BlueLink display="block">{t("auth:forgot_password_link")}</BlueLink>
             </NextLink>
           </Flex>
         </form>
       </FormProvider>
-
       {SITE_CONFIG.TOKENS.OAUTH_GOOGLE ? (
         <>
           <Box textAlign="center" color="gray.500" my={4}>
@@ -134,15 +133,13 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
       ) : (
         <Box py={4} />
       )}
-
       {t("auth:sign_up")}
-      <NextLink href="/register">
+      <NextLink href="/register" legacyBehavior>
         <BlueLink ml={2}>
           {t("auth:sign_up_link")}
           <ChevronRightIcon />
         </BlueLink>
       </NextLink>
-
       <OTPModal isOpen={isOpen} onClose={onClose} user={user} />
     </>
   );

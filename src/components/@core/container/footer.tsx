@@ -84,7 +84,7 @@ export default function Footer() {
               {pages
                 .filter((page) => page.showInFooter !== false)
                 .map((page) => (
-                  <NextLink href={`/page/show/${page.id}`} key={page.id}>
+                  <NextLink href={`/page/show/${page.id}`} key={page.id} legacyBehavior>
                     <Link>{page.title}</Link>
                   </NextLink>
                 ))}

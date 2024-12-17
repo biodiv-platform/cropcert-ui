@@ -42,7 +42,7 @@ const PagesListItem = ({ page, isParent }) => {
         fontWeight={isParent ? "semibold" : "normal"}
         mb={2}
       >
-        <Link passHref={true} href={`/page/${linkType}/${page.id}`}>
+        <Link passHref={true} href={`/page/${linkType}/${page.id}`} legacyBehavior>
           <chakra.a flexGrow={1} pl={3} py={2}>
             {!isParent && <chakra.span opacity={0.5} mr={3} children="#" />}
             {page.title}

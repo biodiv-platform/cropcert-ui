@@ -18,7 +18,7 @@ export default function BoxHeading({
   p = 4,
   fontSize = "lg",
   onClick,
-  styles
+  styles,
 }: IBoxHeadingProps) {
   return (
     <Flex

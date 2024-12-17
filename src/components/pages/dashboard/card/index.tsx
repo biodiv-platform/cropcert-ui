@@ -48,7 +48,7 @@ function Card({ title, description, to, tag, external = false }: IProps) {
         {children}
       </Link>
     ) : (
-      <NextLink href={to} passHref={true}>
+      <NextLink href={to} passHref={true} legacyBehavior>
         <Link style={{ textDecoration: "none" }}>{children}</Link>
       </NextLink>
     );

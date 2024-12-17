@@ -95,7 +95,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
             </Button>
           )
         ) : (
-          <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true}>
+          <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true} legacyBehavior>
             <Button className="fade" as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
               Create Inspection Report
             </Button>

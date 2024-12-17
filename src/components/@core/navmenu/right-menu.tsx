@@ -24,7 +24,7 @@ function NavbarRightMenu() {
       {isLoggedIn ? (
         <>
           <li>
-            <NextLink href={`/user/show/${user.id}`} passHref={true}>
+            <NextLink href={`/user/show/${user.id}`} passHref={true} legacyBehavior>
               <Link className="user">
                 <Tooltip title={`${user.name} (${visualRole})`}>
                   <Avatar size="sm" name={user.name} />
@@ -33,7 +33,7 @@ function NavbarRightMenu() {
             </NextLink>
           </li>
           <li>
-            <NextLink href="/logout" passHref={true}>
+            <NextLink href="/logout" passHref={true} legacyBehavior>
               <Link px={0}>
                 <LogoutIcon ml={1} />
               </Link>
@@ -42,7 +42,7 @@ function NavbarRightMenu() {
         </>
       ) : (
         <li>
-          <NextLink href="/login" passHref={true}>
+          <NextLink href="/login" passHref={true} legacyBehavior>
             <Link>Sign In</Link>
           </NextLink>
         </li>

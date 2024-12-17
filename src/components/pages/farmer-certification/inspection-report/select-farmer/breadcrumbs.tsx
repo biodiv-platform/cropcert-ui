@@ -18,15 +18,13 @@ export default function Breadcrumbs({ ccName, coName, unionName }) {
           Union: <b>{unionName}</b>
         </BreadcrumbLink>
       </BreadcrumbItem>
-
       <BreadcrumbItem>
-        <NextLink passHref={true} href="/farmer-certification/manage-farmers">
+        <NextLink passHref={true} href="/farmer-certification/manage-farmers" legacyBehavior>
           <BreadcrumbLink>
             Cooperative: <b>{coName}</b>
           </BreadcrumbLink>
         </NextLink>
       </BreadcrumbItem>
-
       <BreadcrumbItem isCurrentPage>
         <BreadcrumbLink as="span">
           Collection Center: <b>{ccName}</b>

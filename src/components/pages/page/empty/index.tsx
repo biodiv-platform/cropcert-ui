@@ -26,7 +26,7 @@ export default function EmptyPageComponent() {
             {t("page:empty")}
           </Text>
           {canCreate && (
-            <Link passHref={true} href="/page/create">
+            <Link passHref={true} href="/page/create" legacyBehavior>
               <Button as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
                 {t("page:create.title")}
               </Button>

@@ -44,6 +44,7 @@ export default function ScientificNamesTable({
                   {taxonConceptId != null ? (
                     <NextLink
                       href={`/taxonomy/list?showTaxon=${taxonConceptId}&taxonId=${taxonConceptId}`}
+                      legacyBehavior
                     >
                       <ExternalBlueLink>{canonicalForm}</ExternalBlueLink>
                     </NextLink>

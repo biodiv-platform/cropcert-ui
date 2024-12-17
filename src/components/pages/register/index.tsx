@@ -21,7 +21,7 @@ function RegisterComponent() {
           <PageHeading>{t("user:sign_up")}</PageHeading>
           <Text mb={4}>
             {t("user:existing_user")}{" "}
-            <NextLink href="/login">
+            <NextLink href="/login" legacyBehavior>
               <BlueLink>
                 {t("auth:sign_in")}
                 <ChevronRightIcon />

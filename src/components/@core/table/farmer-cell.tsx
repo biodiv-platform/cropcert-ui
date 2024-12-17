@@ -20,7 +20,7 @@ export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
   }, []);
 
   return farmerId ? (
-    <NextLink href={`/farmer/show/${id}`} passHref={true}>
+    <NextLink href={`/farmer/show/${id}`} passHref={true} legacyBehavior>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>

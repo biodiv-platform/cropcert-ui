@@ -29,6 +29,7 @@ export const inspectionReportColumns = [
         <NextLink
           href={`/farmer-certification/inspection-report/show?pid=${lastApprovedReportId}`}
           passHref={true}
+          legacyBehavior
         >
           <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
             View Report
@@ -49,6 +50,7 @@ export const inspectionReportColumns = [
         <NextLink
           href={`/farmer-certification/inspection-report/show?cid=${reportId}&pid=${lastApprovedReportId}`}
           passHref={true}
+          legacyBehavior
         >
           <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
             Manage Report

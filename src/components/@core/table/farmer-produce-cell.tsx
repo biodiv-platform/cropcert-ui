@@ -6,7 +6,7 @@ import React from "react";
 export default function FarmerProduceCell({ farmerProduceId, _id }: { farmerProduceId?; _id? }) {
   const label = `View Farmer Produce #${farmerProduceId}`;
   return _id ? (
-    <NextLink href={`/farmer-produce/show/${_id}`} passHref={true}>
+    <NextLink href={`/farmer-produce/show/${_id}`} passHref={true} legacyBehavior>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>

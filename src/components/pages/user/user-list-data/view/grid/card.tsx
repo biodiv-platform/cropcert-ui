@@ -8,7 +8,7 @@ export default function GridViewCard({ user: { user } }) {
   return (
     <Box className="hover-box fade">
       <Box w="full" position="relative" h="16rem">
-        <NextLink href={`/user/show/${user?.id}`}>
+        <NextLink href={`/user/show/${user?.id}`} legacyBehavior>
           <Link>
             <Image
               objectFit="cover"

@@ -25,7 +25,7 @@ export default function ShadowedUser({
 }) {
   return (
     <UserBox>
-      <NextLink href={`/user/show/${user?.id}`}>
+      <NextLink href={`/user/show/${user?.id}`} legacyBehavior>
         <Link color="white">
           <Flex alignItems="center">
             {avatar && (

@@ -31,7 +31,7 @@ export default function Comment({ resourceId, resourceType, focusRef, commentFun
       rootHolderId: resourceId,
       rootHolderType: resourceType,
       subRootHolderId: null,
-      subRootHolderType: null
+      subRootHolderType: null,
     });
     if (success) {
       notification("Comment Added", NotificationType.Success);

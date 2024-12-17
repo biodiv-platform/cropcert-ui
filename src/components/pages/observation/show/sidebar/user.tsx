@@ -13,13 +13,13 @@ interface UserProps {
 const User = ({ user }: UserProps) =>
   user ? (
     <SimpleGrid columns={5} py={4} mb={4} alignItems="center" className="white-box">
-      <NextLink href={`/user/show/${user.id}`}>
+      <NextLink href={`/user/show/${user.id}`} legacyBehavior>
         <Link justifySelf="center" px={4}>
           <Avatar name={user.name} src={getUserImage(user.profilePic, user.name)} />
         </Link>
       </NextLink>
       <Box gridColumn="2/6">
-        <NextLink href={`/user/show/${user.id}`}>
+        <NextLink href={`/user/show/${user.id}`} legacyBehavior>
           <BlueLink className="text-elipsis" fontWeight="bold">
             {user.name} <Badge isAdmin={user.isAdmin} />
           </BlueLink>

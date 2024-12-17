@@ -139,7 +139,7 @@ export default function FlagActionButton({
                               src={getUserImage(user.profilePic, user.name)}
                             />
                             <Box>
-                              <Link href={`/user/show/${user.id}`}>
+                              <Link href={`/user/show/${user.id}`} legacyBehavior>
                                 <BlueLink mr={2}>
                                   {user.name} <UserBadge isAdmin={user.isAdmin} />
                                 </BlueLink>

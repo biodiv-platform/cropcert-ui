@@ -6,7 +6,7 @@ import React from "react";
 export default function BatchCell({ batchId, _id }: { batchId?; _id? }) {
   const label = `View Batch #${batchId}`;
   return batchId ? (
-    <NextLink href={`/batch/show/${_id}`} passHref={true}>
+    <NextLink href={`/batch/show/${_id}`} passHref={true} legacyBehavior>
       <Link>
         <Tooltip label={label} aria-label={label}>
           <span>

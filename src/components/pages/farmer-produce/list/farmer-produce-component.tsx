@@ -4,15 +4,14 @@ import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import LastSyncTime from "@components/traceability/lastSyncTime";
 import { NextSyncCounter } from "@components/traceability/nextSyncCounter";
 import useGlobalState from "@hooks/use-global-state";
 import AddIcon from "@icons/add";
 import { FarmerProduce } from "@interfaces/traceability";
 import { axSyncFPDataOnDemand } from "@services/farmer.service";
-import { axGetLastSyncedTimeFP } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { BATCH_CREATE } from "@static/events";
-import { useQuery } from "@tanstack/react-query";
 import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
@@ -41,13 +40,6 @@ function FarmerProduceListComponent() {
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
-
-  const { data } = useQuery({
-    queryKey: ["lastSyncedTimeFP"],
-    queryFn: () => axGetLastSyncedTimeFP(union?.value),
-    enabled: !!union?.value,
-    refetchInterval: 60 * 60 * 1000,
-  });
 
   const handleOnSelectionChange = ({
     selectedRows,
@@ -155,8 +147,14 @@ function FarmerProduceListComponent() {
           {t("traceability:total_records")}:{" "}
           {loading ? <Spinner size="xs" /> : farmerProduceListData?.length}
         </Box>
-        <Box fontSize={"xs"} visibility={data && union?.value ? "visible" : "hidden"}>
-          {t("traceability:sync_status.last_synced")} {data?.data} | <NextSyncCounter />
+        <Box
+          fontSize={"xs"}
+          visibility={union?.value ? "visible" : "hidden"}
+          display={"flex"}
+          gap={2}
+        >
+          <LastSyncTime type={"FP"} isSyncing={isSyncing} /> |{" "}
+          <NextSyncCounter syncIntervalHours={60} />
         </Box>
       </Flex>
 

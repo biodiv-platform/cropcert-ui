@@ -38,7 +38,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
   return (
     <>
       {!isCC && (
-        <FormControl mb={4} maxW="308px">
+        <FormControl mb={2} maxW="308px">
           <FormLabel htmlFor={ROLES.COLLECTION_CENTER}>{label}</FormLabel>
           <MultiSelect
             options={cc}

@@ -14,6 +14,10 @@ function LotListPage({ initialFilterParams }) {
   );
 }
 
+LotListPage.config = {
+  footer: false,
+};
+
 export const getServerSideProps = async (ctx) => {
   const CUSTOM_FILTER = { ...DEFAULT_LOT_FILTER };
 

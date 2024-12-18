@@ -11,7 +11,7 @@ interface PageHeadingProps {
 
 export default function PageHeading({
   children,
-  mb = 4,
+  mb = 2,
   actions,
   PreviousPageButton,
   floatHeader = false,
@@ -26,21 +26,27 @@ export default function PageHeading({
   return (
     <Flex
       alignItems={"center"}
-      gap={2}
       as={motion.header}
       position={floatHeader ? "sticky" : "relative"}
       top="0"
       backgroundColor={"white"}
       zIndex={floatHeader ? 99999 : 0}
       rounded={floatHeader ? "md" : undefined}
-      shadow={floatHeader ? "md" : undefined}
+      shadow={floatHeader ? "sm" : undefined}
       my={floatHeader ? 2 : 0}
       px={floatHeader ? 2 : 0}
     >
       <Box mb={mb} mt={6}>
         {PreviousPageButton && PreviousPageButton}
       </Box>
-      <Flex flex={1} justifyContent="space-between" alignItems="center" mb={mb} mt={6}>
+      <Flex
+        flex={1}
+        justifyContent={{ base: "center", md: "space-between" }}
+        alignItems="center"
+        mb={mb ?? 0}
+        flexWrap={"wrap"}
+        gap={2}
+      >
         {floatHeader ? (
           <motion.div style={{ opacity, scale }} transition={{ duration: 0.3 }}>
             <Heading as="h1" display="inline-block" {...props}>

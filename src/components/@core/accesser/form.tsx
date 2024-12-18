@@ -80,7 +80,7 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
     const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
 
     return (
-      <FormControl key={index} mb={4}>
+      <FormControl key={index} mb={1}>
         <FormLabel htmlFor={role}>Select {roleName?.toLowerCase()}</FormLabel>
         <Select
           id={role}

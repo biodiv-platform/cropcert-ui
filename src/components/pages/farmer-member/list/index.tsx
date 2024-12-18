@@ -15,7 +15,7 @@ export default function FarmerMemberPageComponent() {
           id="items-container"
           gridColumn={{ lg: "4/15" }}
           overflowY="auto"
-          p={4}
+          p={3}
         >
           <FarmerMemberComponent />
         </Box>

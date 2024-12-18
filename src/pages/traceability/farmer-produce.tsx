@@ -17,6 +17,10 @@ function FarmerProduceListPage({ initialFilterParams }) {
   );
 }
 
+FarmerProduceListPage.config = {
+  footer: false,
+};
+
 export const getServerSideProps = async (ctx) => {
   const CUSTOM_FILTER = { ...DEFAULT_FARMER_PRODUCE_FILTER };
 

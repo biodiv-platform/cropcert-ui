@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, Tabs } from "@chakra-ui/react";
+import { Box, Tab, TabIndicator, TabList, Tabs } from "@chakra-ui/react";
 import { TRACEABILITY_TABS } from "@static/constants";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -20,8 +20,8 @@ const TraceabilityTabs = ({ children }: { children: React.ReactNode }) => {
   return (
     <Tabs
       isFitted
-      variant="enclosed"
-      p={4}
+      variant="unstyled"
+      px={4}
       onChange={handleTabChange}
       index={selectedTab}
       height="100%"
@@ -33,6 +33,7 @@ const TraceabilityTabs = ({ children }: { children: React.ReactNode }) => {
           <Tab key={label}>{label}</Tab>
         ))}
       </TabList>
+      <TabIndicator mt="-1.5px" height="2px" bg="blue.500" borderRadius="2px" />
       <Box flex="1" overflowY="auto">
         {children}
       </Box>

@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import DataTable from "react-data-table-component";
 
+import Footer from "../container/footer";
 import useActionProps from "./get-action-props";
 
 const Table = (props) =>
@@ -14,7 +15,6 @@ const Table = (props) =>
       className="white-box"
       id="scrollableDiv"
       overflow="auto"
-      mb={4}
       ml={props?.ml}
     >
       {props.title && (
@@ -23,6 +23,7 @@ const Table = (props) =>
         </Box>
       )}
       {props.data.length > 0 && <DataTable striped={true} {...props} />}
+      {props.showFooter && <Footer />}
     </Box>
   ) : null;
 

@@ -51,16 +51,32 @@ export default function Footer() {
 
   return (
     <Box bg="gray.100" color="gray.700" className="no-print">
-      <Container as={Stack} maxW={containerMaxW} py={20}>
+      <Container as={Stack} maxW={containerMaxW} py={4}>
         <SimpleGrid templateColumns={{ md: "4fr 2fr" }} spacing={8}>
           <Stack spacing={4}>
             <Flex gap={6}>
-              <Image alt={SITE_TITLE} src={SITE_CONFIG.SITE.ICON} />
-              <Image src="/eu.svg" />
+              <Image
+                alt={SITE_TITLE}
+                src={SITE_CONFIG.SITE.ICON}
+                height={{ base: "30px", md: "40px" }}
+              />
+              <Image src="/eu.svg" height={{ base: "30px", md: "40px" }} />
             </Flex>
             <Text fontSize="sm" color="subtle">
               {t("common:license")} (v{packagejson.version})
             </Text>
+          </Stack>
+          <Stack spacing={4}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+              {pages
+                .filter((page) => page.showInFooter !== false)
+                .map((page) => (
+                  <NextLink href={`/page/show/${page.id}`} key={page.id}>
+                    <Link>{page.title}</Link>
+                  </NextLink>
+                ))}
+            </SimpleGrid>
+
             <Stack direction="row" spacing={6}>
               <SocialButton
                 label="Mail"
@@ -79,17 +95,6 @@ export default function Footer() {
               />
             </Stack>
           </Stack>
-          <div>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-              {pages
-                .filter((page) => page.showInFooter !== false)
-                .map((page) => (
-                  <NextLink href={`/page/show/${page.id}`} key={page.id}>
-                    <Link>{page.title}</Link>
-                  </NextLink>
-                ))}
-            </SimpleGrid>
-          </div>
         </SimpleGrid>
       </Container>
     </Box>

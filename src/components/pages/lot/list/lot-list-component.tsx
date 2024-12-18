@@ -33,7 +33,7 @@ function LotComponent() {
   return (
     <>
       <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
-      <Box my={2}>
+      <Box mt={2}>
         {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : lotListData?.length}
       </Box>
 
@@ -68,7 +68,10 @@ function LotComponent() {
           expandableRowsComponent={LotExpand}
           pagination
           paginationPerPage={20}
-          paginationRowsPerPageOptions={[15, 50, 100]}
+          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          fixedHeader
+          fixedHeaderScrollHeight="460px"
+          showFooter={true}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

@@ -126,7 +126,7 @@ function BatchComponent() {
   return (
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 {t("traceability:tab_titles.batch")}</PageHeading>
-      <Box my={2}>
+      <Box mt={2}>
         {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : batchListData?.length}
       </Box>
       <CoreGrid hidden={hideAccessor}>
@@ -146,7 +146,7 @@ function BatchComponent() {
 
       {batchListData?.length
         ? showAlert && (
-            <Alert status="success" variant="left-accent" marginY={2} rounded={"md"}>
+            <Alert status="success" variant="left-accent" marginBottom={2} rounded={"md"}>
               <AlertIcon />
               {t("traceability:batch.batch_ready_for_lot")}
             </Alert>
@@ -190,8 +190,11 @@ function BatchComponent() {
           ]}
           expandableRowsComponent={BatchExpand}
           pagination
-          paginationPerPage={15}
-          paginationRowsPerPageOptions={[15, 50, 100]}
+          paginationPerPage={20}
+          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          fixedHeader
+          fixedHeaderScrollHeight="410px"
+          showFooter={true}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

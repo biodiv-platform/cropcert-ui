@@ -30,7 +30,7 @@ export default function PageHeading({
       position={floatHeader ? "sticky" : "relative"}
       top="0"
       backgroundColor={"white"}
-      zIndex={floatHeader ? 99999 : 0}
+      zIndex={floatHeader ? 99 : 0}
       rounded={floatHeader ? "md" : undefined}
       shadow={floatHeader ? "sm" : undefined}
       my={floatHeader ? 2 : 0}

@@ -1,5 +1,5 @@
 import { ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button, Tooltip } from "@chakra-ui/react";
+import { Accordion, Box, Button, Flex, Text, Tooltip } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -90,26 +90,28 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
     );
   };
 
-  return (
-    show?.farmer && (
-      <Container>
-        <PageHeading
-          actions={
-            hasEditDeleteAccess && <ActionButtons hasEditDeleteAccess={hasEditDeleteAccess} />
-          }
-          floatHeader={true}
-        >
-          🧑‍🌾 {show.farmer.farmerName}
-        </PageHeading>
-        <Accordion defaultIndex={[0]} allowMultiple>
-          <FarmerInfo farmer={show.farmer} />
-          {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
-          {show.batches && <FarmerBatches rows={show.batches} />}
-          {show.lots && <FarmerLots rows={show.lots} />}
-          <Activity resourceId={show.farmer.id} resourceType={RESOURCE_TYPE.FARMER} />
-        </Accordion>
-        <DeleteFarmerModal />
-      </Container>
-    )
+  return show?.farmer ? (
+    <Container>
+      <PageHeading
+        actions={hasEditDeleteAccess && <ActionButtons hasEditDeleteAccess={hasEditDeleteAccess} />}
+        floatHeader={true}
+      >
+        🧑‍🌾 {show.farmer.farmerName}
+      </PageHeading>
+      <Accordion defaultIndex={[0]} allowMultiple>
+        <FarmerInfo farmer={show.farmer} />
+        {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
+        {show.batches && <FarmerBatches rows={show.batches} />}
+        {show.lots && <FarmerLots rows={show.lots} />}
+        <Activity resourceId={show.farmer.id} resourceType={RESOURCE_TYPE.FARMER} />
+      </Accordion>
+      <DeleteFarmerModal />
+    </Container>
+  ) : (
+    <Flex justifyContent={"center"} alignItems={"center"} pt={20}>
+      <Text fontSize="lg">
+        The farmer you are trying to access has been deleted or does not exist.
+      </Text>
+    </Flex>
   );
 }

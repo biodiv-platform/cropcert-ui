@@ -61,6 +61,7 @@ export default function GeoJsonFeatureCollectionMap({ geojson, setGeojson, mode 
       ref={mapRef}
       style={mapStyle}
       key={JSON.stringify(geojson)}
+      className="map-container"
     >
       <LayerControl />
       <EditControlFC geojson={geojson} setGeojson={setGeojson} mode={mode} />

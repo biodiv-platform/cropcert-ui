@@ -148,8 +148,8 @@ function FarmerMemberComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="500px"
-          showFooter={true}
+          fixedHeaderScrollHeight="610px"
+          showFooter={false}
         />
       ) : (
         <Flex direction={"column"} alignItems={"center"} gap={2}>

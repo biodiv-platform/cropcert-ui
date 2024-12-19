@@ -70,8 +70,8 @@ function LotComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="460px"
-          showFooter={true}
+          fixedHeaderScrollHeight="570px"
+          showFooter={false}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

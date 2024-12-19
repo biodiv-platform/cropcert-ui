@@ -193,8 +193,8 @@ function BatchComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="410px"
-          showFooter={true}
+          fixedHeaderScrollHeight="520px"
+          showFooter={false}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

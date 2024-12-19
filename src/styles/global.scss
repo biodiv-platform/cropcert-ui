@@ -12,8 +12,9 @@
 @import "~@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 :root {
-  --heading-height: 69px;
-  --page-height: calc(100vh - var(--heading-height) - 214px);
+  --heading-height: 55px;
+  --footer-height: 110px;
+  --page-height: calc(100vh - var(--heading-height) - var(--footer-height));
   height: 100%;
   width: 100%;
   box-sizing: border-box;

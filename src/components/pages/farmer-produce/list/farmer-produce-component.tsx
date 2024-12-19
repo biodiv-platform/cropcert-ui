@@ -143,7 +143,7 @@ function FarmerProduceListComponent() {
         🚜 {t("traceability:tab_titles.farmer_produce")}
       </PageHeading>
       <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
-        <Box my={2}>
+        <Box mt={2}>
           {t("traceability:total_records")}:{" "}
           {loading ? <Spinner size="xs" /> : farmerProduceListData?.length}
         </Box>
@@ -193,8 +193,11 @@ function FarmerProduceListComponent() {
             },
           ]}
           pagination
-          paginationPerPage={15}
-          paginationRowsPerPageOptions={[15, 30, 50, 100]}
+          paginationPerPage={20}
+          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          fixedHeader
+          fixedHeaderScrollHeight="570px"
+          showFooter={false}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

@@ -32,8 +32,10 @@ export default function DashboardPageComponent() {
   };
 
   return (
-    <Container pt={6}>
-      <Box maxWidth="60rem">{links.map(renderCardGroup)}</Box>
+    <Container>
+      <Box pt={4} w="full" h="100%" display="flex" flexDirection={"column"}>
+        {links.map(renderCardGroup)}
+      </Box>
     </Container>
   );
 }

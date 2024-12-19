@@ -11,10 +11,9 @@ import React, { useEffect } from "react";
 import { useListener } from "react-gbus";
 
 import Tooltip from "../tooltip";
-import BoxHeading from "./box-heading";
 import ContentBox from "./content-box";
 
-export default function ActivityList({ resourceId, resourceType, title = "common:activity" }) {
+export default function ActivityList({ resourceId, resourceType }) {
   const { t } = useTranslation();
   const activity = useActivity();
 
@@ -43,13 +42,12 @@ export default function ActivityList({ resourceId, resourceType, title = "common
 
   return (
     <>
-      <BoxHeading>🕒 {t(title)}</BoxHeading>
       {activity.data.list.map((a: any) => (
         <Stack
           key={a?.activityIbp?.dateCreated}
           isInline={true}
           spacing={3}
-          p={4}
+          py={4}
           borderBottom="1px"
           borderColor="gray.300"
           className="fade"

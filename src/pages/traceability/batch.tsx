@@ -17,6 +17,10 @@ function BatchListPage({ initialFilterParams }) {
   );
 }
 
+BatchListPage.config = {
+  footer: false,
+};
+
 export const getServerSideProps = async (ctx) => {
   const CUSTOM_FILTER = { ...DEFAULT_BATCH_FILTER };
 

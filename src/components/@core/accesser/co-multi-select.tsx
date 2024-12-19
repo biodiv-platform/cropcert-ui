@@ -40,7 +40,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
   return (
     <>
       {!isCoCC && (
-        <FormControl mb={4} maxW="308px">
+        <FormControl mb={2} maxW="308px">
           <FormLabel>{label}</FormLabel>
           <MultiSelect
             options={co}

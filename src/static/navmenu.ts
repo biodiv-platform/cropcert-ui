@@ -12,21 +12,28 @@ export const navmenuPre = {
 export const navmenu = [
   {
     id: 10001,
-    title: "Documents",
-    url: "/document/list",
+    title: "Modules",
     access: [ROLES.UNAUTHORIZED],
-  },
-  {
-    id: 10002,
-    title: "Maps",
-    url: "/map",
-    access: [ROLES.UNAUTHORIZED],
-  },
-  {
-    id: 10003,
-    title: "Users",
-    url: "/user/list",
-    access: [ROLES.UNAUTHORIZED],
+    children: [
+      {
+        id: 10002,
+        title: "Documents",
+        url: "/document/list",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 10003,
+        title: "Maps",
+        url: "/map",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 10004,
+        title: "Users",
+        url: "/user/list",
+        access: [ROLES.UNAUTHORIZED],
+      },
+    ],
   },
   {
     id: 3,

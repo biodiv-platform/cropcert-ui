@@ -1,8 +1,9 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import dynamic from "next/dynamic";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
 
 const WYSIWYGEditor = dynamic(() => import("@components/@core/wysiwyg-editor"), {
   ssr: false,
@@ -34,8 +35,13 @@ export const WYSIWYGField = ({
   const { field, fieldState } = useController({ name });
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb} {...props}>
-      {label && <FormLabel htmlFor={name} children={label} />}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
+      mb={mb}
+      {...props}
+    >
+      {label && <Field htmlFor={name} children={label} />}
       <WYSIWYGEditor
         name={name}
         id={name}
@@ -48,8 +54,7 @@ export const WYSIWYGField = ({
         {label}
       </WYSIWYGEditor>
 
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

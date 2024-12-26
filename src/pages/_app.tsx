@@ -1,6 +1,6 @@
 import "../styles/global.scss";
 
-import { ChakraProvider, createStandaloneToast } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import AuthWall from "@components/@core/container/authwall";
 import Footer from "@components/@core/container/footer";
 import Metadata from "@components/@core/container/metadata";
@@ -8,7 +8,6 @@ import Navbar from "@components/@core/navmenu";
 import SITE_CONFIG from "@configs/site-config";
 import { GlobalStateProvider } from "@hooks/use-global-state";
 import { axGetTree } from "@services/pages.service";
-import { customTheme } from "@static/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getParsedUser } from "@utils/auth";
 import App, { AppContext } from "next/app";
@@ -17,22 +16,25 @@ import NProgress from "nprogress";
 import React from "react";
 import BusProvider from "react-gbus";
 
+import { Toaster } from "@/components/ui/toaster";
+import { system } from "@/static/theme";
+
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function MainApp({ Component, pageProps, user, pages, languageId }) {
-  const { ToastContainer } = createStandaloneToast({ theme: customTheme });
   const config = { footer: true, ...Component?.config };
 
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
-        <BusProvider>
-          <ToastContainer />
-          <ChakraProvider theme={customTheme}>
+      <ChakraProvider value={system}>
+        <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
+          <BusProvider>
+            <Toaster />
+
             <Metadata />
             <Navbar />
             <main>
@@ -40,9 +42,9 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
             </main>
             {config?.footer && <Footer />}
             <AuthWall />
-          </ChakraProvider>
-        </BusProvider>
-      </GlobalStateProvider>
+          </BusProvider>
+        </GlobalStateProvider>
+      </ChakraProvider>
     </QueryClientProvider>
   );
 }

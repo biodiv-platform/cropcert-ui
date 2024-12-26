@@ -1,6 +1,6 @@
-import { createIcon } from "@chakra-ui/icon";
 import React from "react";
 
+import { createIcon } from "./createIcon";
 const MenuIcon = createIcon({
   displayName: "Menu",
   path: (

@@ -1,7 +1,9 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Link, Tooltip } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import { LuArrowRight } from "react-icons/lu";
+
+import { Tooltip } from "@/components/ui/tooltip";
 
 export default function LotCell({
   lotId,
@@ -15,14 +17,14 @@ export default function LotCell({
   batchStatus?;
 }) {
   const finalLotId = lotId;
-  const label = `View Lot #${finalLotId}`;
+  const content = `View Lot #${finalLotId}`;
   const id = batchStatus === undefined ? _id : lotIdMongo;
   return finalLotId ? (
     <NextLink href={`/lot/show/${id}`} passHref={true} legacyBehavior>
       <Link>
-        <Tooltip label={label} aria-label={label}>
+        <Tooltip content={content} aria-label={content}>
           <span>
-            {finalLotId} <ArrowForwardIcon />
+            {finalLotId} <LuArrowRight />
           </span>
         </Tooltip>
       </Link>

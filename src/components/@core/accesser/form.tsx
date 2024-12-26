@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import useGlobalState from "@hooks/use-global-state";
 import { getByRole } from "@services/accessor.service";
@@ -6,6 +5,8 @@ import { ROLES } from "@static/constants";
 import { setUserKey } from "@utils/auth";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
+
+import { Field } from "@/components/ui/field";
 
 interface IProps {
   toRole: string;
@@ -80,8 +81,8 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
     const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
 
     return (
-      <FormControl key={index} mb={4}>
-        <FormLabel htmlFor={role}>Select {roleName?.toLowerCase()}</FormLabel>
+      <Field key={index} mb={4}>
+        <Field htmlFor={role}>Select {roleName?.toLowerCase()}</Field>
         <Select
           id={role}
           options={rolesOptions[role]}
@@ -93,7 +94,7 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
           value={rolesValues[role]}
           {...reactSelectProps}
         />
-      </FormControl>
+      </Field>
     );
   };
 

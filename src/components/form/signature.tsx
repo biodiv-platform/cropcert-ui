@@ -1,9 +1,10 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { namedFormErrorMessage } from "@utils/field";
 import React, { useRef } from "react";
 import { useController } from "react-hook-form";
 import SignaturePad from "react-signature-canvas";
+
+import { Field } from "../ui/field";
 
 const SignatureWrapper = styled.div`
   .declaration,
@@ -47,13 +48,14 @@ export const SignatureInputField = ({
   const onStrokeEnd = () => field.onChange(ref.current.toDataURL());
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb || 4}
-      isRequired={isRequired}
+      required={isRequired}
       id={field.name}
     >
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      <Field htmlFor={field.name}>{label}</Field>
       <SignatureWrapper>
         <div className="declaration">
           {declaration} - {personName}
@@ -69,8 +71,7 @@ export const SignatureInputField = ({
           ref={ref}
         />
       </SignatureWrapper>
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint}></Field>}
+    </Field>
   );
 };

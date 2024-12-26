@@ -1,5 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -9,6 +8,9 @@ import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
 import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
+import { LuArrowRight } from "react-icons/lu";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import BatchFarmerMember from "./batch-farmerMember";
 import BatchFarmerProduce from "./batch-farmerProduce";
@@ -37,13 +39,8 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
 
   const ActionButtons = () => {
     return (
-      <Button
-        onClick={handleGoBack}
-        leftIcon={<ArrowBackIcon />}
-        variant="solid"
-        rounded="md"
-        colorScheme="gray"
-      >
+      <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+        <LuArrowRight />
         {backButtonText}
       </Button>
     );
@@ -60,12 +57,13 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>🧺 {show.batch.batchName}</PageHeading>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      {/* defaultIndex={[0]}  */}
+      <AccordionRoot multiple>
         <BatchInfo batch={show.batch} geojsonData={geojsonData} />
         {show.farmerProduceArr && <BatchFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <BatchFarmerMember rows={show.farmerArr} />}
         <Activity resourceId={show.batch.id} resourceType={RESOURCE_TYPE.BATCH} />
-      </Accordion>
+      </AccordionRoot>
     </Container>
   );
 }

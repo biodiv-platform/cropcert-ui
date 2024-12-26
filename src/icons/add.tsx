@@ -1,5 +1,7 @@
-import { createIcon } from "@chakra-ui/icon";
 import React from "react";
+
+import { createIcon } from "./createIcon";
+
 
 const Add2Icon = createIcon({
   displayName: "Add2",

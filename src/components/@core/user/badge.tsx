@@ -2,9 +2,11 @@ import Tooltip from "@components/@core/tooltip";
 import VerifiedIcon from "@icons/verified";
 import React from "react";
 
+// shouldWrapChildren={true}
+
 const Badge = ({ isAdmin }) =>
   isAdmin ? (
-    <Tooltip hasArrow={true} placement="right" shouldWrapChildren={true} title="Administrator">
+    <Tooltip showArrow={true} positioning={{ placement: "right" }} title="Administrator">
       <VerifiedIcon color="green.500" />
     </Tooltip>
   ) : null;

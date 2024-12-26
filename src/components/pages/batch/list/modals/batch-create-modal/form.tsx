@@ -1,11 +1,4 @@
-import {
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Button, } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -24,6 +17,13 @@ import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog"
 
 export default function BatchCreateForm({ update, onClose }) {
   const [cc, setCc] = useState({} as any);
@@ -71,12 +71,11 @@ export default function BatchCreateForm({ update, onClose }) {
   };
 
   return (
-    <ModalContent>
+    <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <ModalHeader>✨ Create Batch</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          <DialogHeader>✨ Create Batch</DialogHeader>
+          <DialogBody>
             <CoreGrid rows={3}>
               <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
             </CoreGrid>
@@ -86,15 +85,15 @@ export default function BatchCreateForm({ update, onClose }) {
               <NumberInputField name="quantity" label="Quantity" />
             </CoreGrid>
             <TextBoxField name="note" label="Note" mb={0} />
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<Check2Icon />}>Create Batch</SubmitButton>
-          </ModalFooter>
+          </DialogFooter>
         </form>
       </FormProvider>
-    </ModalContent>
+    </DialogContent>
   );
 }

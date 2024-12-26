@@ -1,12 +1,14 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { LOT_CREATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogRoot } from "@/components/ui/dialog";
+
 import { LotCreateForm } from "./form";
 
 export default function BatchUpdateModal({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<{ batches; lotConfig; highestDate }>();
 
   useListener(
@@ -27,9 +29,9 @@ export default function BatchUpdateModal({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
-      <ModalOverlay />
+    <DialogRoot open={open} onOpenChange={onClose} size="lg">
+      {/* closeOnOverlayClick={false} size="2xl" <ModalOverlay /> */}
       {data && <LotCreateForm update={update} onClose={handleOnClose} {...data} />}
-    </Modal>
+    </DialogRoot>
   );
 }

@@ -1,9 +1,9 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
 import Select, { components } from "react-select";
 
+import { Field } from "../ui/field";
 import { reactSelectProps } from "./configs";
 
 interface SelectMultipleProps {
@@ -55,15 +55,16 @@ export const SelectMultipleInputField = ({
   };
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
       className="dropdown"
       aria-invalid={!!fieldState.error}
       mb={mb}
-      isRequired={isRequired}
+      required={isRequired}
       {...props}
     >
-      {label && <FormLabel htmlFor={name} children={label} />}
+      {label && <Field htmlFor={name} children={label} />}
       <Select
         id={name}
         instanceId={name}
@@ -84,10 +85,7 @@ export const SelectMultipleInputField = ({
         styles={customStyles}
       />
 
-      <FormErrorMessage
-        children={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
-      />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

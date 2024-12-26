@@ -75,15 +75,16 @@ export default function FilePreview({ fileName, date, onSelect, onDelete }: File
         </Text>
       </div>
       <IconButton
-        variant="link"
+        // variant="link"
         colorScheme="red"
-        icon={<DeleteIcon />}
         className="action"
-        isLoading={isLoading}
+        // loading={isLoading}
         aria-label={t("common:delete")}
         title={t("common:delete")}
         onClick={handleOnDelete}
-      />
+      >
+        {isLoading && <DeleteIcon />}
+      </IconButton>
     </DocumentList>
   );
 }

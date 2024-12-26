@@ -1,8 +1,10 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { useController } from "react-hook-form";
 import MobileInput from "react-phone-number-input";
+
+import { Field } from "../ui/field";
 
 const PhoneFormControl = styled.div`
   .PhoneInput {
@@ -53,8 +55,14 @@ export const PhoneNumberInputField = ({
   const { field, fieldState } = useController({ name });
 
   return (
-    <FormControl as={PhoneFormControl} isInvalid={!!fieldState.error} mb={mb} {...props}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+    <Field
+      as={PhoneFormControl}
+      invalid={!!fieldState.error}
+      errorText={fieldState?.error?.message}
+      mb={mb}
+      {...props}
+    >
+      <Field htmlFor={name}>{label}</Field>
       <MobileInput
         id={name}
         inputComponent={Input}
@@ -63,8 +71,7 @@ export const PhoneNumberInputField = ({
         disabled={disabled}
         {...field}
       />
-      <FormErrorMessage children={fieldState?.error?.message} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

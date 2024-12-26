@@ -1,17 +1,9 @@
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  useDisclosure,
-} from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
+import { PasswordInput } from "../ui/password-input";
 
 interface IPasswordInputProps {
   name: string;
@@ -45,43 +37,25 @@ export const PasswordInputField = ({
   autoComplete,
   ...props
 }: IPasswordInputProps) => {
-  const { isOpen, onToggle } = useDisclosure();
   const { field, fieldState } = useController({ name, defaultValue: "" });
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
       mb={mb}
       hidden={hidden}
-      isRequired={isRequired}
+      required={isRequired}
       {...props}
     >
-      {label && <FormLabel htmlFor={name} children={label} />}
-      <InputGroup size="md">
-        <Input
-          id={name}
-          placeholder={placeholder}
-          type={isOpen ? "text" : "password"}
-          colorScheme="blue"
-          maxLength={maxLength}
-          isDisabled={disabled}
-          autoComplete={autoComplete}
-          bg="white"
-          {...field}
-        />
-        <InputRightElement width="4.5rem">
-          <Button h="1.75rem" size="sm" onClick={onToggle}>
-            {isOpen ? "Hide" : "Show"}
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-      <FormErrorMessage
-        children={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
-      />
+      {label && <Field htmlFor={name} children={label} />}
+
+      <PasswordInput {...field} />
+
       {maxLength && field.value && (
-        <FormHelperText color="gray.600" children={`${field.value.length}/${maxLength}`} />
+        <Field color="gray.600" helperText={`${field.value.length}/${maxLength}`} />
       )}
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint}></Field>}
+    </Field>
   );
 };

@@ -1,5 +1,6 @@
-import { Accordion } from "@chakra-ui/react";
 import React from "react";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import BatchIdFilter from "./Batch-id";
 import BatchNameFilter from "./batch-name";
@@ -10,13 +11,13 @@ import TypeFilter from "./type";
 
 export default function FiltersList() {
   return (
-    <Accordion allowMultiple={true}>
+    <AccordionRoot multiple={true}>
       <BatchIdFilter />
       <BatchNameFilter />
       <QuantityFilter />
       <BatchStatusFilter />
       <TypeFilter />
       <TimeFilter />
-    </Accordion>
+    </AccordionRoot>
   );
 }

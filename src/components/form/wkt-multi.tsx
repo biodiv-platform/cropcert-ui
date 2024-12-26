@@ -1,14 +1,4 @@
-import {
-  Box,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Box, Tabs } from "@chakra-ui/react";
 import WKT, { WKTProps } from "@components/@core/WKT";
 import GmapsWktLocationPicker from "@components/@core/WKT/gmaps-wkt";
 import WKTDrawViewer from "@components/@core/WKT/wkt-draw-viewer";
@@ -17,6 +7,8 @@ import SITE_CONFIG from "@configs/site-config";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
 
 interface WKTInputProps extends Omit<WKTProps, "onSave"> {
   isMultiple?;
@@ -45,15 +37,15 @@ export default function WKTFieldMulti(props: WKTInputProps) {
   }, [value]);
 
   return (
-    <FormControl isInvalid={!!fieldState.error}>
+    <Field invalid={!!fieldState.error} errorText={JSON.stringify(fieldState?.error?.message)}>
       <Box mb={props.mb || 4}>
-        <FormLabel>{props.label}</FormLabel>
+        <Field>{props.label}</Field>
         <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md">
-          <Tabs defaultIndex={SITE_CONFIG?.WKT?.DEFAULT_TAB} isLazy={true}>
-            <TabList>
-              <Tab>{t("form:gmaps")}</Tab>
-              <Tab>{t("form:search_point")}</Tab>
-            </TabList>
+          <Tabs.Root defaultValue={SITE_CONFIG?.WKT?.DEFAULT_TAB} lazyMount={true}>
+            <Tabs.List>
+              <Tabs.Trigger value="draw">{t("form:gmaps")}</Tabs.Trigger>
+              <Tabs.Trigger value="search">{t("form:search_point")}</Tabs.Trigger>
+            </Tabs.List>
             <Box>
               {value.length > 0 && (
                 <Box>
@@ -64,23 +56,20 @@ export default function WKTFieldMulti(props: WKTInputProps) {
                 </Box>
               )}
             </Box>
-            <TabPanels>
-              <TabPanel>
-                <Viewer {...props} disabled={isDisabled} onSave={handleOnSave} />
-              </TabPanel>
-              <TabPanel>
-                <GmapsWktLocationPicker
-                  {...props}
-                  label={t("form:coverage.place")}
-                  disabled={isDisabled}
-                  onSave={handleOnSave}
-                />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+            <Tabs.Content value="draw">
+              <Viewer {...props} disabled={isDisabled} onSave={handleOnSave} />
+            </Tabs.Content>
+            <Tabs.Content value="search">
+              <GmapsWktLocationPicker
+                {...props}
+                label={t("form:coverage.place")}
+                disabled={isDisabled}
+                onSave={handleOnSave}
+              />
+            </Tabs.Content>
+          </Tabs.Root>
         </Box>
       </Box>
-      <FormErrorMessage children={JSON.stringify(fieldState?.error?.message)} />
-    </FormControl>
+    </Field>
   );
 }

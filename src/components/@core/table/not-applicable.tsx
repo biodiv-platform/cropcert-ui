@@ -3,7 +3,7 @@ import React from "react";
 
 export default function NotApplicable() {
   return (
-    <Button colorScheme="black" variant="outline" isDisabled={true} size="xs">
+    <Button colorScheme="black" variant="outline" disabled={true} size="xs">
       NA
     </Button>
   );

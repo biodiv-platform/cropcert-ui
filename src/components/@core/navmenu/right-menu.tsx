@@ -1,8 +1,10 @@
-import { Avatar, Link } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import NextLink from "next/link";
 import React, { useMemo } from "react";
 import LogoutIcon from "src/icons/logout";
+
+import { Avatar } from "@/components/ui/avatar";
 
 import Tooltip from "../tooltip";
 
@@ -35,7 +37,7 @@ function NavbarRightMenu() {
           <li>
             <NextLink href="/logout" passHref={true} legacyBehavior>
               <Link px={0}>
-                <LogoutIcon ml={1} />
+                <LogoutIcon />
               </Link>
             </NextLink>
           </li>

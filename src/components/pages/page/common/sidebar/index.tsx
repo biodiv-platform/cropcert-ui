@@ -1,4 +1,4 @@
-import { Button, Collapse, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import { Button, Collapsible, Spinner, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import MenuIcon from "@icons/menu";
 import dynamic from "next/dynamic";
@@ -16,23 +16,24 @@ export default function PagesSidebar() {
   const { t } = useTranslation();
 
   const isDesktop = useBreakpointValue({ base: false, md: true });
-  const { isOpen, onToggle } = useDisclosure();
+  const { open, onToggle } = useDisclosure();
 
   return pages.length ? (
     <div>
       {!isDesktop && (
-        <Button colorScheme="blue" w="full" mb={4} onClick={onToggle} leftIcon={<MenuIcon />}>
+        <Button colorScheme="blue" w="full" mb={4} onClick={onToggle}>
+          <MenuIcon />
           {t("page:sidebar.toggle")}
         </Button>
       )}
-      <Collapse in={isDesktop || isOpen} unmountOnExit={true}>
+      <Collapsible.Root open={isDesktop || open} unmountOnExit={true}>
         {canEdit && (
           <Suspense fallback={<Spinner />}>
             <ReOrderPagesModal />
           </Suspense>
         )}
         <PagesList items={pages} isParent={true} />
-      </Collapse>
+      </Collapsible.Root>
     </div>
   ) : null;
 }

@@ -1,7 +1,9 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
 
 interface INumberInputProps {
   name: string;
@@ -48,26 +50,26 @@ export const NumberInputField = ({
   };
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
       hidden={hidden}
-      isRequired={isRequired}
+      required={isRequired}
       {...props}
     >
-      {label && <FormLabel htmlFor={name} children={label} />}
+      {label && <Field htmlFor={name} children={label} />}
       <Input
         id={name}
         placeholder={placeholder}
         type="number"
         colorScheme="blue"
-        isDisabled={disabled}
+        disabled={disabled}
         bg="white"
         {...field}
         onChange={handleOnFieldChange}
       />
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

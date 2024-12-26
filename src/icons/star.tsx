@@ -1,4 +1,4 @@
-import { createIcon } from "@chakra-ui/icon";
+import { createIcon } from "./createIcon";
 
 const StarIcon = createIcon({
   displayName: "Star",

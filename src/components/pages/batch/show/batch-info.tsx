@@ -66,7 +66,8 @@ export default function BatchInfo({ batch, geojsonData }) {
       <DataTable keyField="batchId" columns={batchColumns} noHeader={true} data={[batch]} />
 
       <Stack my={4}>
-        <Text variant={"title"} as={"b"} pl={2}>
+        {/* variant={"title"} */}
+        <Text as={"b"} pl={2}>
           Parameters:
         </Text>
         <Box>
@@ -84,7 +85,7 @@ export default function BatchInfo({ batch, geojsonData }) {
       </Stack>
 
       {geojsonData && (
-        <Stack direction={"column"} spacing={2} width={"full"} my={4} mb={8} height={"400px"}>
+        <Stack direction={"column"} gap={2} width={"full"} my={4} mb={8} height={"400px"}>
           <Box
             rounded="md"
             borderWidth={1}

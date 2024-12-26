@@ -1,19 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Badge,
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Button, Input, Text } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { SubmitButton } from "@components/form/submit-button";
@@ -28,6 +13,10 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import { Alert } from "@/components/ui/alert";
+import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import { Field } from "@/components/ui/field";
 
 export default function BatchUpdateForm({
   batch,
@@ -156,12 +145,12 @@ export default function BatchUpdateForm({
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <ModalContent>
+        <DialogContent>
           {fieldsObj &&
             fieldsObj.fields.map((field, index) => {
               if (field.fieldType === "Title") {
                 return (
-                  <ModalHeader key={index} px={5}>
+                  <DialogHeader key={index} px={5}>
                     {field.value}
                     <br />
                     <Box>
@@ -170,7 +159,7 @@ export default function BatchUpdateForm({
                     <Box>
                       <Text fontSize="sm">Batch Quantity: {batch && batch.quantity}(Kgs)</Text>
                     </Box>
-                  </ModalHeader>
+                  </DialogHeader>
                 );
               } else if (field.fieldType === "SubTitle") {
                 return (
@@ -180,8 +169,8 @@ export default function BatchUpdateForm({
                 );
               }
             })}
-          <ModalCloseButton />
-          <ModalBody>
+          {/* <ModalCloseButton /> */}
+          <DialogBody>
             {/* dynamic Fields */}
             <CoreGrid rows={2}>
               {fieldsObj.fields.map((field, index) => {
@@ -200,8 +189,8 @@ export default function BatchUpdateForm({
                   );
                 } else if (field.fieldType === "auto") {
                   return (
-                    <FormControl mb={4}>
-                      <FormLabel>{field.label}</FormLabel>
+                    <Field mb={4}>
+                      <Field>{field.label}</Field>
                       <Input
                         mb={0}
                         name={field.name}
@@ -212,7 +201,7 @@ export default function BatchUpdateForm({
                         value={`${formulas[field?.formula]} %`}
                         disabled={true}
                       />
-                    </FormControl>
+                    </Field>
                   );
                 }
               })}
@@ -229,19 +218,19 @@ export default function BatchUpdateForm({
             />
             {errorMessage && (
               <Alert status="error" borderRadius="md">
-                <AlertIcon /> {errorMessage}
+                {errorMessage}
               </Alert>
             )}
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

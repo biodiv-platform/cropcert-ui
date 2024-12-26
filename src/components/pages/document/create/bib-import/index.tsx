@@ -1,9 +1,10 @@
-import { ArrowUpIcon } from "@chakra-ui/icons";
+// import { ArrowUpIcon } from "@chakra-ui/icons";
 import { Button, VisuallyHidden } from "@chakra-ui/react";
 import { axParseBib } from "@services/document.service";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { LuArrowRight } from "react-icons/lu";
 
 export default function BibImportButton() {
   const { setValue } = useFormContext();
@@ -28,15 +29,15 @@ export default function BibImportButton() {
       cursor="pointer"
       as="label"
       size="sm"
-      leftIcon={<ArrowUpIcon />}
       colorScheme="blue"
       borderRadius="3rem"
     >
+      <LuArrowRight />
       <VisuallyHidden
-        type="file"
+        // type="file"
         as="input"
         id="bibtex-file"
-        accept=".bib"
+        // accept=".bib"
         onChange={handleOnBibUpload}
       />
       {t("document:import_bibtex")}

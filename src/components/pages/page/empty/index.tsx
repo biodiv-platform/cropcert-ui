@@ -1,4 +1,3 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Button, Center, Text } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import useGlobalState from "@hooks/use-global-state";
@@ -7,6 +6,7 @@ import { hasAccess } from "@utils/auth";
 import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { LuArrowRight } from "react-icons/lu";
 
 export default function EmptyPageComponent() {
   const { t } = useTranslation();
@@ -27,7 +27,8 @@ export default function EmptyPageComponent() {
           </Text>
           {canCreate && (
             <Link passHref={true} href="/page/create" legacyBehavior>
-              <Button as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
+              <Button as="a" colorScheme="blue">
+                {<LuArrowRight />}
                 {t("page:create.title")}
               </Button>
             </Link>

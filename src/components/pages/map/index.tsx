@@ -1,4 +1,4 @@
-import { Box, useToast } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
@@ -24,7 +24,7 @@ const defaultViewState = getMapCenter(3.1);
 export default function MapPageComponent({ defaultLayers }) {
   const { t, lang } = useTranslation();
   const { user } = useGlobalState();
-  const toast = useToast();
+  // const toast = useToast();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
 
@@ -36,21 +36,21 @@ export default function MapPageComponent({ defaultLayers }) {
 
   const handleOnDownload = async (layerId) => {
     console.debug(`Layer download requested ${layerId}`);
-    toast({
-      title: t("common:success"),
-      description: (
-        <div>
-          {t("page:mail.sent")}{" "}
-          <ExternalBlueLink href="/user/download-logs">
-            {t("page:mail.download_logs")}
-          </ExternalBlueLink>
-        </div>
-      ),
-      variant: "left-accent",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+    // toast({
+    //   title: t("common:success"),
+    //   description: (
+    //     <div>
+    //       {t("page:mail.sent")}{" "}
+    //       <ExternalBlueLink href="/user/download-logs">
+    //         {t("page:mail.download_logs")}
+    //       </ExternalBlueLink>
+    //     </div>
+    //   ),
+    //   variant: "left-accent",
+    //   status: "success",
+    //   duration: 9000,
+    //   isClosable: true,
+    // });
   };
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import { FormErrorMessage } from "@chakra-ui/form-control";
-import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/react";
 import { TagsInput } from "@components/@core/tag-input";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
 
 interface TagsFieldProps {
   name: string;
@@ -15,11 +15,10 @@ export default function TagsField({ name, label, hint, mb }: TagsFieldProps) {
   const { field, fieldState } = useController({ name });
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb || 4}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+    <Field invalid={!!fieldState.error} errorText={fieldState?.error?.message} mb={mb || 4}>
+      <Field htmlFor={name}>{label}</Field>
       <TagsInput name={field.name} onChange={field.onChange} onBlur={field.onBlur} />
-      <FormErrorMessage children={fieldState?.error?.message} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint}></Field>}
+    </Field>
   );
 }

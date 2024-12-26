@@ -1,18 +1,12 @@
-import { RepeatClockIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { formattedTimeStamp, local2utc, utc2local } from "@utils/basic";
 import { namedFormErrorMessage } from "@utils/field";
 import React, { useEffect, useMemo, useState } from "react";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
 import { useController } from "react-hook-form";
+import { LuRotateCcw } from "react-icons/lu";
+
+import { Field } from "../ui/field";
 
 const r = (v) => formattedTimeStamp(utc2local(v));
 
@@ -82,8 +76,13 @@ export const DateTimeInputField = ({
   }, [dateTimeValue]);
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb} id={field.name}>
-      {label && <FormLabel htmlFor={field.name}>{label}</FormLabel>}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
+      mb={mb}
+      id={field.name}
+    >
+      {label && <Field htmlFor={field.name}>{label}</Field>}
       <Flex>
         <Box flex={1}>
           <DateTimePicker
@@ -103,16 +102,15 @@ export const DateTimeInputField = ({
           <Button
             ml={4}
             aria-label="Now"
-            isDisabled={nowDisabled || props.disabled}
-            leftIcon={<RepeatClockIcon />}
+            disabled={nowDisabled || props.disabled}
             onClick={handleNow}
           >
+            {<LuRotateCcw />}
             Now
           </Button>
         )}
       </Flex>
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText>{hintText}</FormHelperText>}
-    </FormControl>
+      {hint && <Field helperText={hintText}>{hintText}</Field>}
+    </Field>
   );
 };

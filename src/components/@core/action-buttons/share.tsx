@@ -1,4 +1,4 @@
-import ShareIcon from "@icons/share";
+import ShareIcon from "@icons/share"; // Import the created icon
 import React from "react";
 import { RWebShare } from "react-web-share";
 

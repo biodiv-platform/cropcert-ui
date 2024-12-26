@@ -34,12 +34,10 @@ export function PageOptions({ title, pageId }) {
     >
       <Container>
         <Flex alignItems="center" justifyContent="space-between">
-          <div>
-            <TableOfContents />
-          </div>
-          <div>
-            <ShareActionButton text={title} title={t("page:share")} />
-            {canEdit && (
+          <TableOfContents />
+
+          <ShareActionButton text={title} title={t("page:share")} />
+          {canEdit && (
               <>
                 <SimpleActionButton
                   icon={<AddIcon />}
@@ -62,7 +60,6 @@ export function PageOptions({ title, pageId }) {
                 />
               </>
             )}
-          </div>
         </Flex>
       </Container>
     </Box>

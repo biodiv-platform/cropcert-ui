@@ -57,7 +57,7 @@ export default function BasicInfo({
         {canImport && <BibImportButton />}
       </Stack>
 
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>
         <Box gridColumn="1/4">
           <TextBoxField name="bibFieldData.title" label={t("form:title")} isRequired={true} />
         </Box>
@@ -71,9 +71,9 @@ export default function BasicInfo({
         />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
         <div>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
             <DateTimeInputField name="fromDate" label={t("document:publication_date")} />
             <SelectInputField
               name="licenseId"

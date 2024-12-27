@@ -1,4 +1,4 @@
-import { CloseButton, Flex, Image, Input } from "@chakra-ui/react";
+import {  Flex, Image, Input } from "@chakra-ui/react";
 import Rating from "@components/@core/rating";
 import { selectStyles } from "@components/form/configs";
 import ResourceTagsEditor from "@components/pages/common/tags-editor";
@@ -18,6 +18,8 @@ import { ASSET_TYPES, LOCAL_ASSET_PREFIX } from "@static/observation-create";
 import { getResourceThumbnail, getYoutubeImage, RESOURCE_CTX } from "@utils/media";
 import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
+
+import { CloseButton } from "@/components/ui/close-button";
 
 import useManageMediaGallery from "../media-gallery-upload-provider";
 import StatusIcon from "../statusicon";

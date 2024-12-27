@@ -1,4 +1,3 @@
-import { ArrowUpIcon, TimeIcon } from "@chakra-ui/icons";
 import { Button, Heading, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { ACCEPTED_FILE_TYPES } from "@static/media-gallery";
@@ -7,6 +6,7 @@ import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { LuArrowUp, LuTimer } from "react-icons/lu";
 
 import useManageMediaGallery from "../media-gallery-upload-provider";
 
@@ -71,12 +71,12 @@ export default function DropTarget({ assetsSize }) {
       <input {...getInputProps()} />
       {isProcessing ? (
         <div className="fade">
-          <TimeIcon />
+          <LuTimer />
           <span>{t("form:uploader.processing")}</span>
         </div>
       ) : isDragActive ? (
         <div className="fade">
-          <ArrowUpIcon />
+          <LuArrowUp />
           <span>{t("form:uploader.label_release")}</span>
         </div>
       ) : (

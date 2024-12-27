@@ -1,5 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Button } from "@chakra-ui/react";
+import { AccordionRoot, Button } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -9,6 +8,7 @@ import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
 import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
+import { LuArrowLeft } from "react-icons/lu";
 
 import LotBatches from "./lot-batches";
 import LotFarmerMember from "./lot-farmerMember";
@@ -43,13 +43,8 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
 
   const ActionButtons = () => {
     return (
-      <Button
-        onClick={handleGoBack}
-        leftIcon={<ArrowBackIcon />}
-        variant="solid"
-        rounded="md"
-        colorScheme="gray"
-      >
+      <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+        <LuArrowLeft />
         {backButtonText}
       </Button>
     );
@@ -66,13 +61,13 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>📦 {show.lot.lotName}</PageHeading>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <AccordionRoot defaultValue={["Information"]} multiple>
         <LotInfo lot={show.lot} geojsonData={geojsonData} />
         {show.batches && <LotBatches rows={show.batches} />}
         {show.farmerProduceArr && <LotFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <LotFarmerMember rows={show.farmerArr} />}
         <Activity resourceId={show.lot.id} resourceType={RESOURCE_TYPE.LOT} />
-      </Accordion>
+      </AccordionRoot>
     </Container>
   );
 }

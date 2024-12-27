@@ -17,7 +17,7 @@ export default function BasicInfo({ isEdit }) {
         </PageHeading>
       </Stack>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
         <Box>
           <TextBoxField name="name" label={t("Name")} isRequired={true} />
         </Box>

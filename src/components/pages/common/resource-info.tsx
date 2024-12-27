@@ -1,16 +1,8 @@
-import { InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Box,
   Grid,
   IconButton,
   Link,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
 } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import {
@@ -23,6 +15,17 @@ import { adminOrAuthor } from "@utils/auth";
 import { formatTimeStampFromUTC } from "@utils/date";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { LuInfo } from "react-icons/lu";
+
+import {
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverRoot,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import TagsShow from "../observation/show/info/tags";
 import FieldShow from "./inline-edit";
@@ -67,20 +70,18 @@ function CarouselResourceInfo({
 
   return (
     <Box position="absolute" top={4} right={20} display="flex">
-      <Popover
-        placement="bottom-start"
-        closeOnBlur={true}
-        isLazy={true}
-        isOpen={isOpen}
-        onOpen={() => setIsOpen(true)}
-        onClose={() => setIsOpen(false)}
+      <PopoverRoot
+        positioning={{ placement: "bottom-start" }}
+        // closeOnBlur={true}
+        lazyMount={true}
+        open={isOpen}
+        onOpenChange={() => setIsOpen(!isOpen)}
       >
         <PopoverTrigger>
           <IconButton
             aria-label={t("common:resource.resource_info")}
-            icon={<InfoOutlineIcon />}
             zIndex={4}
-            isRound={true}
+            rounded="full"
             _hover={{ backgroundColor: "gray" }}
             backgroundColor="#232323"
             width="50px"
@@ -88,11 +89,13 @@ function CarouselResourceInfo({
             color={"white"}
             bgSize={"8px"}
             size={"lg"}
-          />
+          >
+            {<LuInfo />}
+          </IconButton>
         </PopoverTrigger>
         <PopoverContent zIndex={4} minWidth="400px" maxHeight="800px">
           <PopoverArrow />
-          <PopoverCloseButton />
+          <PopoverCloseTrigger />
           <PopoverHeader>{t("common:resource.resource_info")}</PopoverHeader>
           <PopoverBody>
             <Grid templateColumns="1fr 2fr" gap={3}>
@@ -167,7 +170,7 @@ function CarouselResourceInfo({
             </Grid>
           </PopoverBody>
         </PopoverContent>
-      </Popover>
+      </PopoverRoot>
     </Box>
   );
 }

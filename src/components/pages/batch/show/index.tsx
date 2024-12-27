@@ -58,7 +58,7 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
     <Container>
       <PageHeading actions={<ActionButtons />}>🧺 {show.batch.batchName}</PageHeading>
       {/* defaultIndex={[0]}  */}
-      <AccordionRoot multiple>
+      <AccordionRoot multiple lazyMount>
         <BatchInfo batch={show.batch} geojsonData={geojsonData} />
         {show.farmerProduceArr && <BatchFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <BatchFarmerMember rows={show.farmerArr} />}

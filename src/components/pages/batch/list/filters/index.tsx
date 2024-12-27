@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-import { DrawerBackdrop, DrawerBody, DrawerContent, DrawerRoot } from "@/components/ui/drawer";
+import { DrawerBackdrop, DrawerBody, DrawerCloseTrigger, DrawerContent, DrawerRoot } from "@/components/ui/drawer";
 
 import ClearFilters from "./clear-filters";
 import FiltersList from "./list";
@@ -51,7 +51,7 @@ export default function Filters() {
       <DrawerRoot open={open} placement="end" onOpenChange={onClose}>
         <DrawerBackdrop>
           <DrawerContent>
-            {/* <DrawerCloseButton /> */}
+            <DrawerCloseTrigger />
             <BoxHeading>{t("filters:title")}</BoxHeading>
             <DrawerBody p={0}>{open && <FiltersList />}</DrawerBody>
           </DrawerContent>

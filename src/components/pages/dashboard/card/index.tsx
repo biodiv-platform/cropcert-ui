@@ -1,15 +1,9 @@
-import {
-  Box,
-  Flex,
-  Link,
-  Stat,
-  StatHelpText,
-  StatNumber,
-  Tag,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+
+import { StatHelpText, StatRoot, StatValueText } from "@/components/ui/stat";
+import { Tag } from "@/components/ui/tag";
 
 import OdkModal from "./odk-modal";
 
@@ -22,14 +16,14 @@ interface IProps {
 }
 
 function Card({ title, description, to, tag, external = false }: IProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   const getContent = () => (
-    <Stat>
+    <StatRoot>
       <Flex alignItems="center" mb={4}>
-        <StatNumber lineHeight="1em" fontSize="2xl">
+        <StatValueText lineHeight="1em" fontSize="2xl">
           {title}
-        </StatNumber>
+        </StatValueText>
         {tag && (
           <Tag colorScheme="red" color="red.500" ml={2}>
             {tag}
@@ -39,7 +33,7 @@ function Card({ title, description, to, tag, external = false }: IProps) {
       <StatHelpText fontSize="md" mb={0}>
         {description} &rarr;
       </StatHelpText>
-    </Stat>
+    </StatRoot>
   );
 
   const XLink = ({ children }) =>
@@ -70,7 +64,7 @@ function Card({ title, description, to, tag, external = false }: IProps) {
           >
             {getContent()}
           </Box>
-          <OdkModal isOpen={isOpen} odkLink={to} onClose={onClose} />
+          <OdkModal open={open} odkLink={to} onClose={onClose} />
         </>
       ) : (
         <XLink>

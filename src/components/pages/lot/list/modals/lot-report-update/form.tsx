@@ -1,14 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Badge, Button } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { SubmitButton } from "@components/form/submit-button";
@@ -23,6 +13,15 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import { Alert } from "@/components/ui/alert";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDone, update }) {
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);
@@ -134,13 +133,13 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <ModalContent>
+        <DialogContent>
           {fieldsObj.fields.map((field, index) => {
             if (field.fieldType === "Title") {
               return (
-                <ModalHeader key={index} px={5}>
+                <DialogHeader key={index} px={5}>
                   {field.value}
-                </ModalHeader>
+                </DialogHeader>
               );
             } else if (field.fieldType === "SubTitle") {
               return (
@@ -150,8 +149,8 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
               );
             }
           })}
-          <ModalCloseButton />
-          <ModalBody>
+          <DialogCloseTrigger />
+          <DialogBody>
             {/* dynamic Fields */}
             <CoreGrid rows={2}>
               {fieldsObj.fields.map((field, index) => {
@@ -186,19 +185,19 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             />
             {errorMessage && (
               <Alert status="error" borderRadius="md">
-                <AlertIcon /> {errorMessage}
+                {errorMessage}
               </Alert>
             )}
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

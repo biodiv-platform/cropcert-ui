@@ -1,14 +1,13 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
 import React from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 export default function SubAccordionPanel({ column, index }) {
   const subAccordionColumns = [
@@ -75,18 +74,19 @@ export default function SubAccordionPanel({ column, index }) {
 
   const isNotApplicable = column.columnStatus === "NOTAPPLICABLE";
   return (
-    <Accordion allowToggle key={index} mb={4}>
+    <AccordionRoot multiple key={index} mb={4}>
       <AccordionItem
+        value=""
         boxShadow="md"
         bg="gray.50"
         mb={2}
         mx={2}
         borderRadius="md"
         borderWidth={1}
-        isDisabled={isNotApplicable}
+        disabled={isNotApplicable}
       >
         <h2>
-          <AccordionButton>
+          <AccordionItemTrigger>
             <Box
               as="h4"
               flex="1"
@@ -105,18 +105,18 @@ export default function SubAccordionPanel({ column, index }) {
               </Box>
               <Box>{columnStatus[column.columnStatus]}</Box>
             </Box>
-            <AccordionIcon />
-          </AccordionButton>
+            {/* <AccordionIcon /> */}
+          </AccordionItemTrigger>
         </h2>
-        <AccordionPanel pb={4} bg="white" p={6} borderRadius="md">
+        <AccordionItemContent pb={4} bg="white" p={6} borderRadius="md">
           <DataTable
             keyField={column.modalFieldId}
             columns={subAccordionColumns}
             noHeader={true}
             data={column.fields.filter((f) => f.fieldType === "input")}
           />
-        </AccordionPanel>
+        </AccordionItemContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   );
 }

@@ -1,12 +1,12 @@
-import {
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from "@/components/ui/accordion";
 
 import { NumberFilter } from "./range";
 
@@ -30,27 +30,15 @@ export default function NumberRangeFilterPanel({
   const { t } = useTranslation();
 
   return (
-    <AccordionItem>
-      {({ isExpanded }) => (
-        <>
-          <AccordionButton>
-            <Box flex={1} textAlign="left">
-              {label || t(translateKey + "title")}
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel>
-            {isExpanded && (
-              <NumberFilter
-                useIndexFilter={useIndexFilter}
-                filterKey={filterKey}
-                min={min}
-                max={max}
-              />
-            )}
-          </AccordionPanel>
-        </>
-      )}
+    <AccordionItem value={filterKey} pl={4}>
+      <AccordionItemTrigger>
+        <Box flex={1} textAlign="left">
+          {label || t(translateKey + "title")}
+        </Box>
+      </AccordionItemTrigger>
+      <AccordionItemContent>
+        <NumberFilter useIndexFilter={useIndexFilter} filterKey={filterKey} min={min} max={max} />
+      </AccordionItemContent>
     </AccordionItem>
   );
 }

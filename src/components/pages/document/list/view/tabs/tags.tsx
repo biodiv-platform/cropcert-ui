@@ -15,7 +15,7 @@ interface ITagsTabsProps {
 export default function TagsTab({ documentId, tags }: ITagsTabsProps) {
   const { t } = useTranslation();
   const { isLoggedIn } = useGlobalState();
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { open, onToggle, onClose } = useDisclosure();
   const [tagsItems, setTags] = useState<any | undefined>(
     tags[0] ? tags?.map((i) => ({ label: i.name, value: i?.id })) : null
   );
@@ -27,16 +27,17 @@ export default function TagsTab({ documentId, tags }: ITagsTabsProps) {
         {isLoggedIn && (
           <IconButton
             ml={3}
-            variant="link"
+            // variant="link"
             colorScheme="blue"
             onClick={onToggle}
             aria-label="Edit"
-            icon={<EditIcon />}
-          />
+          >
+            <EditIcon />
+          </IconButton>
         )}
       </BoxHeading>
       <Box gridColumn="2/5" m={3}>
-        {isOpen ? (
+        {open ? (
           <TagsEditor
             objectId={documentId}
             tags={tagsItems}

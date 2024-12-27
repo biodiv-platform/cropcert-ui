@@ -1,6 +1,6 @@
-import { DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
+import DeleteIcon from "@icons/delete";
 import { RESOURCE_SIZE } from "@static/constants";
 import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
 import React from "react";
@@ -33,18 +33,19 @@ export default function DocumentPreview() {
               {selectedMediaGallery?.path?.replace(/^.*[\\\/]/, "")}
             </Text>
             <IconButton
-              icon={<DeleteIcon />}
               variant="ghost"
               colorScheme="red"
               size="sm"
               onClick={() => handleDelete(index)}
               aria-label={""}
-            />
+            >
+              <DeleteIcon />
+            </IconButton>
           </Flex>
           <Image
             objectFit="cover"
             borderRadius="md"
-            fallbackSrc={selectedMediaGallery?.path?.replace(/^.*[\\\/]/, "")}
+            // fallbackSrc={selectedMediaGallery?.path?.replace(/^.*[\\\/]/, "")}
             src={getImageThumb(selectedMediaGallery.path)}
             width={"100%"}
             height={"300px"}

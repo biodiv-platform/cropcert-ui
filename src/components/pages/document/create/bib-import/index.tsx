@@ -1,4 +1,3 @@
-// import { ArrowUpIcon } from "@chakra-ui/icons";
 import { Button, VisuallyHidden } from "@chakra-ui/react";
 import { axParseBib } from "@services/document.service";
 import useTranslation from "next-translate/useTranslation";

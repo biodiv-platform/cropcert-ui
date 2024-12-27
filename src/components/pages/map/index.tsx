@@ -11,6 +11,8 @@ import { parseCookies } from "nookies";
 import { stringify } from "querystring";
 import React, { useEffect, useMemo, useState } from "react";
 
+import { toaster } from "@/components/ui/toaster"
+
 const NakshaMapboxList: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxList),
   {
@@ -24,7 +26,7 @@ const defaultViewState = getMapCenter(3.1);
 export default function MapPageComponent({ defaultLayers }) {
   const { t, lang } = useTranslation();
   const { user } = useGlobalState();
-  // const toast = useToast();
+  // const toast = useToaster();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
 
@@ -36,21 +38,22 @@ export default function MapPageComponent({ defaultLayers }) {
 
   const handleOnDownload = async (layerId) => {
     console.debug(`Layer download requested ${layerId}`);
-    // toast({
-    //   title: t("common:success"),
-    //   description: (
-    //     <div>
-    //       {t("page:mail.sent")}{" "}
-    //       <ExternalBlueLink href="/user/download-logs">
-    //         {t("page:mail.download_logs")}
-    //       </ExternalBlueLink>
-    //     </div>
-    //   ),
-    //   variant: "left-accent",
-    //   status: "success",
-    //   duration: 9000,
-    //   isClosable: true,
-    // });
+    toaster.create({
+      title: t("common:success"),
+      description: (
+        <div>
+          {t("page:mail.sent")}{" "}
+          <ExternalBlueLink href="/user/download-logs">
+            {t("page:mail.download_logs")}
+          </ExternalBlueLink>
+        </div>
+      ),
+      // variant: "left-accent",
+      type: "success",
+      duration: 9000,
+      placement: "top",
+      // isClosable: true,
+    });
   };
 
   useEffect(() => {

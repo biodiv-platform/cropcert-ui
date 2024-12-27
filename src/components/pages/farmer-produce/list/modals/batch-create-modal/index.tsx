@@ -1,12 +1,14 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { BATCH_CREATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
+
 import BatchCreateForm from "./form";
 
 export default function BatchCreateModal({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<{ farmerProduceArr; batchConfig; highestDate }>();
 
   useListener(
@@ -22,9 +24,9 @@ export default function BatchCreateModal({ update }) {
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
-      <ModalOverlay />
+    <DialogRoot open={open} onOpenChange={onClose} closeOnInteractOutside={false} size="xl">
+      <DialogBackdrop />
       {data && <BatchCreateForm update={update} onClose={onClose} {...data} />}
-    </Modal>
+    </DialogRoot>
   );
 }

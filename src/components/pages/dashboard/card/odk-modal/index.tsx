@@ -1,32 +1,27 @@
-import { WarningIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Heading,
-  Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Stat,
-  StatHelpText,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Link, StatHelpText, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetOdkProjectListBysUserIdForAppUser, axIsOdkWebUser } from "@services/odk.service";
 import { ENDPOINT } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { MdWarning } from "react-icons/md";
+
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+} from "@/components/ui/dialog";
+import { StatRoot } from "@/components/ui/stat";
 
 import AppUserQrModal from "./qr-modal";
 
 function SeeQrModal({ index, item, user }) {
   const { t } = useTranslation();
 
-  const { isOpen: isQrOpen, onOpen: onQrOpen, onClose: onQrClose } = useDisclosure();
+  const { open: isQrOpen, onOpen: onQrOpen, onClose: onQrClose } = useDisclosure();
 
   return (
     <tr key={index}>
@@ -36,7 +31,8 @@ function SeeQrModal({ index, item, user }) {
         </Box>
       </td>
       <td>
-        <Button variant="link" onClick={onQrOpen} leftIcon={<WarningIcon />}>
+        <Button onClick={onQrOpen}>
+          {<MdWarning />}
           {t("common:action.see_code")}
         </Button>
       </td>
@@ -51,7 +47,7 @@ function SeeQrModal({ index, item, user }) {
   );
 }
 
-export default function OdkModal({ isOpen, onClose, odkLink }) {
+export default function OdkModal({ open, onClose, odkLink }) {
   const { t } = useTranslation();
 
   const { user } = useGlobalState();
@@ -66,20 +62,20 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader></ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+      <DialogRoot open={open} onOpenChange={onClose}>
+        <DialogBackdrop />
+        <DialogBackdrop>
+          <DialogHeader></DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             {isOdkWebUser && (
               <Heading size="sm" mb={3}>
                 {t("common:actions.odk.odkWebuser")}
-                <Stat>
+                <StatRoot>
                   <StatHelpText fontSize="md" mb={0}>
                     <Link href={`${odkLink}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
                   </StatHelpText>
-                </Stat>
+                </StatRoot>
               </Heading>
             )}
 
@@ -109,15 +105,15 @@ export default function OdkModal({ isOpen, onClose, odkLink }) {
                 </table>
               </>
             )}
-          </ModalBody>
+          </DialogBody>
 
-          <ModalFooter>
+          <DialogFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DialogFooter>
+        </DialogBackdrop>
+      </DialogRoot>
     </>
   );
 }

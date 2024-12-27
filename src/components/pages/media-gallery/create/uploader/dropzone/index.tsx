@@ -10,7 +10,7 @@ export default function MediaGalleryDropzone({ isMultiUpload }) {
 
   return (
     <>
-      <SimpleGrid borderRadius="lg" columns={[1, 3, 4, 5]} spacing={4}>
+      <SimpleGrid borderRadius="lg" columns={[1, 3, 4, 5]} gap={4}>
         {mediaGalleryAssets?.map((r, index) => (
           <ResourceCard resource={r} key={r.hashKey} index={index} isMultiUpload={isMultiUpload} />
         ))}

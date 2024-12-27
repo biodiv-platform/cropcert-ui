@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Badge, Button } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
@@ -20,6 +12,14 @@ import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 export default function LotCoDispatchForm({ onSubmit, onClose, isDone, lot }) {
   const { user } = useGlobalState();
@@ -56,10 +56,10 @@ export default function LotCoDispatchForm({ onSubmit, onClose, isDone, lot }) {
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(onSubmit)}>
-        <ModalContent>
-          <ModalHeader>🚚 Dispatch Lot to Milling</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader>🚚 Dispatch Lot to Milling</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <NumberInputField
               name="weightLeavingCooperative"
               label="Weight Leaving Cooperative"
@@ -86,16 +86,16 @@ export default function LotCoDispatchForm({ onSubmit, onClose, isDone, lot }) {
               }
               isDisabled={!isFinalizeEnabled}
             />
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={isDone || !canEdit}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

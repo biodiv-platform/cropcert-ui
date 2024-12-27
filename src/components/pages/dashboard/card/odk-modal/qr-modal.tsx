@@ -1,41 +1,39 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import React from "react";
+
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+} from "@/components/ui/dialog";
 
 export default function AppUserQrModal({ qrUrl, projectName, isQrOpen, onQrClose }) {
   return (
     <>
-      <Modal size="md" isOpen={isQrOpen} onClose={onQrClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{`${projectName} QR Code for ODK Collect app`}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+      <DialogRoot size="md" open={isQrOpen} onOpenChange={onQrClose}>
+        <DialogBackdrop />
+        <DialogContent>
+          <DialogHeader>{`${projectName} QR Code for ODK Collect app`}</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <Flex justifyContent="center">
               <Box mb={6}>
                 <Image h="250px" src={qrUrl} alt="" />
               </Box>
             </Flex>
-          </ModalBody>
+          </DialogBody>
 
-          <ModalFooter>
+          <DialogFooter>
             <Button colorScheme="blue" mr={3} onClick={onQrClose}>
               Close
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DialogFooter>
+        </DialogContent>
+      </DialogRoot>
     </>
   );
 }

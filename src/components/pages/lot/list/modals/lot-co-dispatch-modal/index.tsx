@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { Lot } from "@interfaces/traceability";
 import { axDispatchLotCoOperative } from "@services/lot.service";
 import { LOT_FLAGS } from "@static/constants";
@@ -6,10 +6,12 @@ import { LOT_DISPATCH_FACTORY } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
+
 import LotCoDispatchForm from "./form";
 
 export default function LotCoDispatchModal({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState<any>(undefined);
   const [isDone, setIsDone] = useState(false);
 
@@ -40,8 +42,8 @@ export default function LotCoDispatchModal({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false}>
-      <ModalOverlay />
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+      <DialogBackdrop />
       {lot && (
         <LotCoDispatchForm
           onSubmit={handleOnSubmit}
@@ -50,6 +52,6 @@ export default function LotCoDispatchModal({ update }) {
           lot={lot}
         />
       )}
-    </Modal>
+    </DialogRoot>
   );
 }

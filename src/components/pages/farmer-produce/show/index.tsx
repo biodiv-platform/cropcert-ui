@@ -1,5 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button } from "@chakra-ui/react";
+import { AccordionRoot, Box, Button } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -9,6 +8,7 @@ import { RESOURCE_TYPE } from "@static/constants";
 import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
+import { LuArrowLeft } from "react-icons/lu";
 
 import FarmerProduceInfo from "./farmer-produce-info";
 import GrnReceiptInfo from "./grn-receip";
@@ -40,13 +40,8 @@ export default function FarmerProduceShowPageComponent({
   const ActionButtons = () => {
     return (
       <Box display={"flex"}>
-        <Button
-          onClick={handleGoBack}
-          leftIcon={<ArrowBackIcon />}
-          variant="solid"
-          rounded="md"
-          colorScheme="gray"
-        >
+        <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+          <LuArrowLeft />
           {backButtonText}
         </Button>
       </Box>
@@ -57,12 +52,12 @@ export default function FarmerProduceShowPageComponent({
     show?.farmer && (
       <Container>
         <PageHeading actions={<ActionButtons />}>🧑‍🌾 {show.farmerProduces.farmerName}</PageHeading>
-        <Accordion defaultIndex={[0]} allowMultiple>
+        <AccordionRoot defaultValue={["Produce Information"]} multiple>
           <FarmerProduceInfo farmerProduces={show.farmerProduces} />
           {show?.farmerProduces?.grnReceipt && (
             <GrnReceiptInfo farmerProduces={show.farmerProduces} />
           )}
-        </Accordion>
+        </AccordionRoot>
         <Activity resourceId={show.farmerProduces.id} resourceType={RESOURCE_TYPE.FARMER_PRODUCE} />
       </Container>
     )

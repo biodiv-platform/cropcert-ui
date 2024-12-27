@@ -1,34 +1,14 @@
-import {
-  Box,
-  HStack,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  RangeSlider,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
-  RangeSliderTrack,
-} from "@chakra-ui/react";
-import Tooltip from "@components/@core/tooltip";
+import { Box, HStack } from "@chakra-ui/react";
 import useDebouncedState from "@hooks/use-debounced-effect";
 import React, { useEffect, useMemo, useState } from "react";
 
-const Slider = ({ value, index }) => (
-  <Tooltip label={value} placement="top" hasArrow={true}>
-    <RangeSliderThumb boxSizing="border-box" bg="blue.500" index={index} />
-  </Tooltip>
-);
+import { NumberInputField, NumberInputRoot } from "@/components/ui/number-input";
+import { Slider } from "@/components/ui/slider";
 
 const NumInput = (props) => (
-  <NumberInput {...props}>
+  <NumberInputRoot {...props}>
     <NumberInputField />
-    <NumberInputStepper>
-      <NumberIncrementStepper />
-      <NumberDecrementStepper />
-    </NumberInputStepper>
-  </NumberInput>
+  </NumberInputRoot>
 );
 
 export function NumberFilter({ useIndexFilter, filterKey, min, max }) {
@@ -76,21 +56,9 @@ export function NumberFilter({ useIndexFilter, filterKey, min, max }) {
   return (
     <Box py={3}>
       <Box pr={3}>
-        <RangeSlider
-          aria-label={["min", "max"]}
-          value={rState}
-          min={values.min}
-          max={values.max}
-          onChange={setRState}
-        >
-          <RangeSliderTrack bg="gray.300">
-            <RangeSliderFilledTrack bg="blue.500" />
-          </RangeSliderTrack>
-          <Slider value={rState[0]?.toString()} index={0} />
-          <Slider value={rState[1]?.toString()} index={1} />
-        </RangeSlider>
+        <Slider defaultValue={[0.2, 10]} />
       </Box>
-      <HStack mt={4} spacing={4}>
+      <HStack mt={4} gap={4}>
         <NumInput
           name={`${filterKey}.0`}
           value={rState[0]}

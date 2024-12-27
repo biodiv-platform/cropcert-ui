@@ -1,11 +1,6 @@
 import {
   Badge,
   Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
   Text,
 } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
@@ -23,6 +18,14 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import DiffMessage from "../../diff-message";
 import FormHeading from "../../typography";
@@ -131,10 +134,10 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleFactoryReportSubmit)}>
-        <ModalContent>
-          <ModalHeader>🏭 Factory Report</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader>🏭 Factory Report</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <CoreGrid>
               <DateTimeInputField name="date" label="Date" disabled={!canWrite} />
               <NumberInputField name="mcIn" label="MC In (%)" disabled={!canWrite} />
@@ -276,16 +279,16 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
               }
               isDisabled={!canWrite}
             />
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={totalDiff !== 0}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

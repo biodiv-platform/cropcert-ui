@@ -1,14 +1,16 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { FactoryReport, Lot } from "@interfaces/traceability";
 import { axGetFactoryReportById } from "@services/report.service";
 import { LOT_REPORT_FACTORY_DRY } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
+
 import FactoryReportDryModal from "./modal";
 
 export default function FactoryReportDry({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState<Lot | undefined>();
   const [report, setReport] = useState<FactoryReport | undefined>();
   const [canWrite, setCanWrite] = useState(false);
@@ -30,8 +32,9 @@ export default function FactoryReportDry({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false} size="6xl">
-      <ModalOverlay />
+    // size="6xl"
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+      <DialogBackdrop />
       {lot && report && (
         <FactoryReportDryModal
           report={report}
@@ -41,6 +44,6 @@ export default function FactoryReportDry({ update }) {
           update={update}
         />
       )}
-    </Modal>
+    </DialogRoot>
   );
 }

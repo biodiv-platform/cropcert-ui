@@ -1,17 +1,16 @@
 import "flatpickr/dist/themes/material_blue.css";
 
-import {
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Input,
-} from "@chakra-ui/react";
+import { AccordionRoot, Box, Input } from "@chakra-ui/react";
 import dayjs from "@utils/date";
 import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 import Flatpickr from "react-flatpickr";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from "@/components/ui/accordion";
 
 interface DateRangeFilterProp {
   filterKey: string;
@@ -60,22 +59,28 @@ export default function DateRangeFilter({
   };
 
   return (
-    <AccordionItem>
-      <AccordionButton>
-        <Box flex={1} textAlign="left">
-          {t(translateKey)}
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel>
-        <Flatpickr
-          options={options}
-          onChange={handleOnDateChange}
-          render={({ defaultValue, value, ...props }, ref) => (
-            <Input {...props} placeholder={t(translateKey)} defaultValue={defaultValue} ref={ref} />
-          )}
-        />
-      </AccordionPanel>
-    </AccordionItem>
+    <AccordionRoot collapsible >
+      <AccordionItem value="1" pl={4}>
+        <AccordionItemTrigger>
+          <Box flex={1} textAlign="left">
+            {t(translateKey)}
+          </Box>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <Flatpickr
+            options={options}
+            onChange={handleOnDateChange}
+            render={({ defaultValue, value, ...props }, ref) => (
+              <Input
+                {...props}
+                placeholder={t(translateKey)}
+                defaultValue={defaultValue}
+                ref={ref}
+              />
+            )}
+          />
+        </AccordionItemContent>
+      </AccordionItem>
+    </AccordionRoot>
   );
 }

@@ -1,4 +1,3 @@
-import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Icon, Image } from "@chakra-ui/react";
 import DeleteIcon from "@icons/delete";
 import { axDeleteResource, axGetAllMediaGallery } from "@services/media-gallery.service";
@@ -8,6 +7,7 @@ import { getNextResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { LuChevronLeft, LuChevronRight, LuX } from "react-icons/lu";
 
 import CarouselResourceInfo from "./resource-info";
 
@@ -103,7 +103,9 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
         height="50px"
         zIndex={1000}
       >
-        <Icon as={ChevronLeftIcon} boxSize={10} />
+        <Icon boxSize={10}>
+          <LuChevronLeft />
+        </Icon>
       </Button>
       <Button
         position="absolute"
@@ -120,7 +122,9 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
         height="50px"
         zIndex={1000}
       >
-        <Icon as={ChevronRightIcon} boxSize={10} />
+        <Icon boxSize={10}>
+          <LuChevronRight />
+        </Icon>
       </Button>
 
       <Box position="absolute" top={0} right={4}>
@@ -137,7 +141,9 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
           height="50px"
           zIndex={1000}
         >
-          <Icon as={CloseIcon} />
+          <Icon>
+            <LuX />
+          </Icon>
         </Button>
       </Box>
 

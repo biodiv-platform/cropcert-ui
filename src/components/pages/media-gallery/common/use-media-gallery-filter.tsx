@@ -44,7 +44,7 @@ export const MediaGalleryFilterProvider = (props) => {
   const [mediaGalleryData, setMediaGalleryData] = useImmer(props.mediaGalleryData);
   const [mediaGalleryListData, setMediaGalleryListData] = useImmer(props.mediaGalleryData); // Initialize with initial data if needed
   const [selectAll, setSelectAll] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (isBrowser) {
@@ -52,7 +52,7 @@ export const MediaGalleryFilterProvider = (props) => {
     }
   }, [filter]);
 
-  const { getCheckboxProps, value: bulkMediaGalleryIds, setValue } = useCheckboxGroup();
+  const {  value: bulkMediaGalleryIds, setValue } = useCheckboxGroup();
 
   const handleBulkCheckbox = (actionType: string) => {
     switch (actionType) {
@@ -178,12 +178,12 @@ export const MediaGalleryFilterProvider = (props) => {
         removeFilter,
         nextPage,
         resetFilter,
-        getCheckboxProps,
+        // getCheckboxProps,
         selectAll,
         setSelectAll,
         bulkMediaGalleryIds,
         handleBulkCheckbox,
-        isOpen,
+        isOpen: open,
         onOpen,
         onClose,
       }}

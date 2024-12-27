@@ -1,8 +1,10 @@
-import { Box, IconButton, Image, Stack, Tooltip } from "@chakra-ui/react";
+import { Box, IconButton, Image, Stack } from "@chakra-ui/react";
 import RotateLeftIcon from "@icons/rotate-left";
 import RotateRightIcon from "@icons/rotate-right";
 import { ENDPOINT } from "@static/constants";
 import React, { useState } from "react";
+
+import { Tooltip } from "@/components/ui/tooltip";
 
 import FarmerProduceShowPanel from "./panel";
 
@@ -40,22 +42,16 @@ export default function GrnReceiptInfo({ farmerProduces }) {
         />
       </Box>
 
-      <Stack direction="row" spacing={4} justifyContent="center" mt={4}>
-        <Tooltip label="Rotate Image to the Left" aria-label="Rotate Left">
-          <IconButton
-            aria-label="Rotate Left"
-            icon={<RotateLeftIcon />}
-            onClick={handleRotateLeft}
-            variant="outline"
-          />
+      <Stack direction="row" gap={4} justifyContent="center" mt={4}>
+        <Tooltip content="Rotate Image to the Left" aria-label="Rotate Left">
+          <IconButton aria-label="Rotate Left" onClick={handleRotateLeft} variant="outline">
+            <RotateLeftIcon />
+          </IconButton>
         </Tooltip>
-        <Tooltip label="Rotate Image to the Right" aria-label="Rotate Right">
-          <IconButton
-            aria-label="Rotate Right"
-            icon={<RotateRightIcon />}
-            onClick={handleRotateRight}
-            variant="outline"
-          />
+        <Tooltip content="Rotate Image to the Right" aria-label="Rotate Right">
+          <IconButton aria-label="Rotate Right" onClick={handleRotateRight} variant="outline">
+            <RotateRightIcon />
+          </IconButton>
         </Tooltip>
       </Stack>
     </FarmerProduceShowPanel>

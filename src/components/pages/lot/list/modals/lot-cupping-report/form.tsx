@@ -2,11 +2,6 @@ import {
   Badge,
   Box,
   Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
 } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
@@ -27,6 +22,14 @@ import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import FormHeading from "../typography";
 
@@ -156,10 +159,10 @@ export default function CuppingReportForm({
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-        <ModalContent>
-          <ModalHeader>☕ Cupping Lab Report</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader>☕ Cupping Lab Report</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <CoreGrid>
               <TextBoxField label="GRN Number" name="grnNumber" disabled={true} />
               <TextBoxField label="Lot Name" name="lotName" disabled={true} />
@@ -228,14 +231,14 @@ export default function CuppingReportForm({
               }
               isDisabled={!canWrite || !isFinalizeEnabled}
             />
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />}>Save</SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

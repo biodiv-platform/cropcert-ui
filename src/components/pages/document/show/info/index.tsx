@@ -129,7 +129,7 @@ export default function DocumentInfo({ d }: DocumentInfoProps) {
 
   return (
     <Box p={4} mb={4} className="white-box">
-      <SimpleGrid columns={[1, 1, 5, 5]} spacing={2}>
+      <SimpleGrid columns={[1, 1, 5, 5]} gap={2}>
         {INFO_LINKS.map(({ title, value, isHtml, cell }) =>
           value ? (
             <ResponsiveInfo key={title} title={title} isHtml={isHtml} children={cell || value} />

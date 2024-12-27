@@ -1,14 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Badge, Button } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
@@ -20,6 +10,15 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import { Alert } from "@/components/ui/alert";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 export default function LotGRNForm({ onClose, onSubmit, lot, canWrite, errorMessage, isDone }) {
   const hForm = useForm<any>({
@@ -51,10 +50,10 @@ export default function LotGRNForm({ onClose, onSubmit, lot, canWrite, errorMess
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(onSubmit)}>
-        <ModalContent>
-          <ModalHeader>🔢 Add GRN Number</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader>🔢 Add GRN Number</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <TextBoxField name="grnNumber" label="GRN Number" disabled={isFormReadOnly} />
             <DateTimeInputField name="grnTimestamp" label="Date" disabled={isFormReadOnly} />
             <NumberInputField label="Weight" name="weightAtGrn" disabled={isFormReadOnly} />
@@ -70,19 +69,19 @@ export default function LotGRNForm({ onClose, onSubmit, lot, canWrite, errorMess
             />
             {errorMessage && (
               <Alert status="error" borderRadius="md">
-                <AlertIcon /> {errorMessage}
+                {errorMessage}
               </Alert>
             )}
-          </ModalBody>
-          <ModalFooter>
+          </DialogBody>
+          <DialogFooter>
             <Button mr={3} onClick={onClose}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

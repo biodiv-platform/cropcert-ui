@@ -1,17 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Spinner,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetAllFarmerByUnion } from "@services/farmer.service";
 import { CC_COLOR_MAPPING } from "@static/constants";
@@ -24,8 +11,17 @@ import { useListener } from "react-gbus";
 
 const MultiMarkerMap = dynamic(() => import("./geojson-multi-marker-map"), { ssr: false });
 
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogRoot,
+} from "@/components/ui/dialog";
+
 const MultiMarkerMapModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const { union } = useGlobalState();
   const [geojsonData, setGeojsonData] = useState([]);
   const [recordCount, setRecordCount] = useState({
@@ -103,13 +99,13 @@ const MultiMarkerMapModal = () => {
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="full">
-      <ModalOverlay />
-      <ModalContent>
+    <DialogRoot open={open} onOpenChange={onClose} closeOnInteractOutside={false} size="full">
+      <DialogBackdrop />
+      <DialogContent>
         <Flex>
-          <ModalHeader flex={1} paddingBottom={1}>
+          <DialogHeader flex={1} paddingBottom={1}>
             {t("traceability:farmer.farmer_modal_heading")}
-          </ModalHeader>
+          </DialogHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>
               {!isLoading && union?.value && (
@@ -123,11 +119,11 @@ const MultiMarkerMapModal = () => {
                   Get All Data
                 </Button>
               )}
-              <ModalCloseButton />
+              <DialogCloseTrigger />
             </Flex>
           </Box>
         </Flex>
-        <ModalBody>
+        <DialogBody>
           {error && <Text>Error loading data ...</Text>}
 
           {geojsonData &&
@@ -159,9 +155,9 @@ const MultiMarkerMapModal = () => {
                 </Box>
               </Flex>
             ))}
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react";
 import Container from "@components/@core/container";
+import Link from "next/link";
 import React from "react";
 
 export default function Page404() {
@@ -16,8 +17,8 @@ export default function Page404() {
           {"The page you're looking for does not seem to exist"}
         </Text>
 
-        <Button colorPalette="blue" color="white" variant="solid" as="a" href="/">
-          Go to Home
+        <Button colorPalette="blue" color="white" variant="solid" as="a">
+          <Link href="/"></Link>Go to Home
         </Button>
       </Box>
     </Container>

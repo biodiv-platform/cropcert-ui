@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Tooltip as T, TooltipProps } from "@/components/ui/tooltip";
+import { Tooltip as T, TooltipProps } from "@/components/ui/tooltip";
 
 interface ITooltipProps extends TooltipProps {
   title: any;

@@ -8,7 +8,6 @@ import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
 
 import LotGRNForm from "./form";
 
-
 export default function LotReportUpdate({ update }) {
   const { open, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState<any>();

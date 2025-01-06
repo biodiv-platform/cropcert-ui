@@ -24,7 +24,7 @@ export default function Metadata({ bibFields }: MetadataProps) {
             key={name}
             name={`bibFieldData.${name}`}
             hidden={!Object.prototype.hasOwnProperty.call(bibFields, name)}
-            isRequired={bibFields[name]}
+            required={bibFields[name]}
             label={t(`document:bib.${name.toLowerCase()}`)}
           />
         ))}

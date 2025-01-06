@@ -44,18 +44,18 @@ export default function LotGRNModal({ update }) {
   };
 
   return (
-      <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
-        <DialogBackdrop />
-        {lot && (
-          <LotGRNForm
-            onSubmit={handleOnSubmit}
-            onClose={handleOnClose}
-            lot={lot}
-            canWrite={canWrite}
-            errorMessage={errorMessage}
-            isDone={isDone}
-          />
-        )}
-      </DialogRoot>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+      <DialogBackdrop />
+      {lot && (
+        <LotGRNForm
+          onSubmit={handleOnSubmit}
+          onClose={handleOnClose}
+          lot={lot}
+          canWrite={canWrite}
+          errorMessage={errorMessage}
+          isDone={isDone}
+        />
+      )}
+    </DialogRoot>
   );
 }

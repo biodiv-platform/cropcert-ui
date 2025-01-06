@@ -1,4 +1,4 @@
-import { Box,Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { selectStyles } from "@components/form/configs";
 import { axGetUsersByID, axUserFilterSearch } from "@services/user.service";
 import { MENU_PORTAL_TARGET } from "@static/constants";

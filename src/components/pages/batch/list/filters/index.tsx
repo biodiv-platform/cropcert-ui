@@ -4,7 +4,13 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-import { DrawerBackdrop, DrawerBody, DrawerCloseTrigger, DrawerContent, DrawerRoot } from "@/components/ui/drawer";
+import {
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerRoot,
+} from "@/components/ui/drawer";
 
 import ClearFilters from "./clear-filters";
 import FiltersList from "./list";

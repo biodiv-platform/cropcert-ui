@@ -1,4 +1,4 @@
-import {  Box, Link, SimpleGrid } from "@chakra-ui/react";
+import { Box, Link, SimpleGrid } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import Badge from "@components/@core/user/badge";
 import { UserIbp } from "@interfaces/observation";

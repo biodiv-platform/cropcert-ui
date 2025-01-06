@@ -41,15 +41,15 @@ export default function AuthWall() {
   return (
     <DialogRoot open={open} onOpenChange={handleOnFailure}>
       <DialogBackdrop className="fade">
-      <DialogContent className="fadeInUp" borderRadius="md">
-        <DialogHeader>Auth Wall</DialogHeader>
-        <DialogCloseTrigger />
-        <DialogBody>
-          <Suspense fallback={<Spinner />}>
-            <SignInForm onSuccess={handleOnSuccess} redirect={false} />
-          </Suspense>
-        </DialogBody>
-      </DialogContent>
+        <DialogContent className="fadeInUp" borderRadius="md">
+          <DialogHeader>Auth Wall</DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
+            <Suspense fallback={<Spinner />}>
+              <SignInForm onSuccess={handleOnSuccess} redirect={false} />
+            </Suspense>
+          </DialogBody>
+        </DialogContent>
       </DialogBackdrop>
     </DialogRoot>
   );

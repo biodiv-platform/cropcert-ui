@@ -5,10 +5,6 @@ import { MEDIA_TYPES } from "./filter-keys";
 
 export default function MediaType() {
   return (
-    <CheckboxFilterPanel
-      translateKey="filters:media."
-      filterKey="type"
-      options={MEDIA_TYPES}
-    />
+    <CheckboxFilterPanel translateKey="filters:media." filterKey="type" options={MEDIA_TYPES} />
   );
 }

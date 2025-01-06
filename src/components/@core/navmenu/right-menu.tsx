@@ -40,10 +40,10 @@ function NavbarRightMenu() {
           </List.Item>
           <List.Item px={2}>
             <NextLink href="/logout" passHref={true} legacyBehavior>
-              <Link  className="user">
+              <Link className="user">
                 <Tooltip title={`${user.name}`}>
                   <IconButton variant={"ghost"} size="sm">
-                    <LogoutIcon/>
+                    <LogoutIcon />
                   </IconButton>
                 </Tooltip>
               </Link>

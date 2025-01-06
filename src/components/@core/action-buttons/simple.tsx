@@ -11,7 +11,7 @@ interface SimpleActionButtonProps {
 
 const SimpleActionButton = ({ icon, title, onClick, colorPalette }: SimpleActionButtonProps) => (
   //position bottom needs to be added
-  <Tooltip title={title} positioning={{ placement: "bottom" }} >
+  <Tooltip title={title} positioning={{ placement: "bottom" }}>
     <IconButton
       size="lg"
       rounded={"full"}

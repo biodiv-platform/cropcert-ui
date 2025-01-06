@@ -35,7 +35,7 @@ const TraceabilityTabs = ({ children }: { children: React.ReactNode }) => {
     >
       <Tabs.List flexShrink={0}>
         {TRACEABILITY_TABS.map((item) => (
-          <Tabs.Trigger value={item.tabIndex} key={item.label} >
+          <Tabs.Trigger value={item.tabIndex} key={item.label}>
             {item.label}
           </Tabs.Trigger>
         ))}

@@ -39,8 +39,8 @@ export default function WKTFieldMulti(props: WKTInputProps) {
     <Field invalid={!!fieldState.error} errorText={JSON.stringify(fieldState?.error?.message)}>
       <Box mb={props.mb || 4} width={"full"}>
         <Field>{props.label}</Field>
-        <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md" >
-          <Tabs.Root defaultValue="draw" lazyMount={true} fitted >
+        <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md">
+          <Tabs.Root defaultValue="draw" lazyMount={true} fitted>
             <Tabs.List>
               <Tabs.Trigger value="draw">{t("form:gmaps")}</Tabs.Trigger>
               <Tabs.Trigger value="search">{t("form:search_point")}</Tabs.Trigger>

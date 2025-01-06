@@ -1,5 +1,4 @@
-import { SearchIcon } from "@chakra-ui/icons";
-import { Badge, Box, Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
+import { Badge, Box, Input, Text } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
@@ -7,7 +6,10 @@ import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
 import { ROLES } from "@static/constants";
 import React, { useEffect, useMemo, useState } from "react";
+import { LuSearch } from "react-icons/lu";
 import { format } from "timeago.js";
+
+import { InputGroup } from "@/components/ui/input-group";
 
 import ActionButton from "./action-button";
 
@@ -35,8 +37,7 @@ export default function DownloadTable() {
       <CoreGrid mb={4}>
         <Accesser toRole={ROLES.COOPERATIVE} onChange={onCoCodeChange} />
         <div></div>
-        <InputGroup mt={6}>
-          <InputLeftElement children={<SearchIcon color="gray.300" />} />
+        <InputGroup mt={6} startElement={<LuSearch color="gray.300" />}>
           <Input
             type="text"
             placeholder="Find Collection Center"

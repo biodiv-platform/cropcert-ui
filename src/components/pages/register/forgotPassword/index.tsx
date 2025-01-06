@@ -153,9 +153,7 @@ export default function ForgotPasswordComponent() {
                   autoComplete="new-password"
                 />
                 <Flex justifyContent="space-between" alignItems="center">
-                  <SubmitButton rightIcon={<LuForward />}>
-                    {t("auth:otp.form.submit")}
-                  </SubmitButton>
+                  <SubmitButton rightIcon={<LuForward />}>{t("auth:otp.form.submit")}</SubmitButton>
                   <BlueLink onClick={handleRegenerate}>{t("auth:otp.resend")}</BlueLink>
                 </Flex>
               </form>

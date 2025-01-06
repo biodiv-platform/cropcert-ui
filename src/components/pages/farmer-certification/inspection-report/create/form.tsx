@@ -1,4 +1,3 @@
-import { Accordion } from "@chakra-ui/react";
 import ErrorSummery from "@components/form/error-summery";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +11,8 @@ import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIndexedDBStore } from "use-indexeddb";
 import * as yup from "yup";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import Advices from "./panels/advices";
 import Animals from "./panels/animals";
@@ -184,7 +185,7 @@ export default function InspectionForm({ farmer }) {
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnInspectionFormSubmit)}>
-        <Accordion allowMultiple>
+        <AccordionRoot multiple>
           <FarmerInformation farmer={farmer} />
           <CertificationStatus farmer={farmer} />
           <GeneralInformation i={farmer?.inspection} />
@@ -193,7 +194,7 @@ export default function InspectionForm({ farmer }) {
           <Advices previousAdvices={farmer?.advices} />
           <Recommendation />
           <Signature />
-        </Accordion>
+        </AccordionRoot>
         <ErrorSummery />
         <SubmitButton leftIcon={<Check2Icon />}>Save</SubmitButton>
       </form>

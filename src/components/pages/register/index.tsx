@@ -1,4 +1,3 @@
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import Container from "@components/@core/container";
@@ -7,6 +6,7 @@ import NextLink from "next/link";
 import { NextSeo } from "next-seo";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+import { LuChevronRight } from "react-icons/lu";
 
 import SignUpForm from "./form";
 
@@ -24,7 +24,7 @@ function RegisterComponent() {
             <NextLink href="/login" legacyBehavior>
               <BlueLink>
                 {t("auth:sign_in")}
-                <ChevronRightIcon />
+                <LuChevronRight />
               </BlueLink>
             </NextLink>
           </Text>

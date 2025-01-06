@@ -88,7 +88,6 @@ const VerticalTabs = styled.div`
 
 export default function Container({ o }) {
   const { t } = useTranslation();
-  // const [tabIndex, setTabIndex] = useState(0);
   const [filterTabs] = useState(actionTabs.filter((item) => item.active === true));
 
   return (
@@ -100,31 +99,38 @@ export default function Container({ o }) {
       overflow="hidden"
     >
       <VerticalTabs>
-        <Tabs.Root
-          // type="unstyled"
-          className="tabs"
-          // index={tabIndex}
-          // onValueChange={setTabIndex}
-          lazyMount
-        >
-          <Tabs.List height={["fit-content"]} className="tab-content" position="relative">
-            <Tabs.Trigger value="info">
-              <InfoTab
-                document={o.document}
-                user={o.userIbp}
-                flags={o.flag[0] ? o.flag.map((item) => ({ flag: item, user: o.userIbp })) : null}
-              />
-            </Tabs.Trigger>
-            <Tabs.Trigger value="tags">
-              <TagsTab documentId={o.document.id} tags={o.tags} />
-            </Tabs.Trigger>
-            <Tabs.Trigger value="comment">
-              <CommentsTab documentId={o.document.id} />
-            </Tabs.Trigger>
-          </Tabs.List>
+        <Tabs.Root variant="plain" className="tabs" lazyMount defaultValue="common:information">
+          <Tabs.Content
+            value="common:information"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <InfoTab
+              document={o.document}
+              user={o.userIbp}
+              flags={o.flag[0] ? o.flag.map((item) => ({ flag: item, user: o.userIbp })) : null}
+            />
+          </Tabs.Content>
+          <Tabs.Content
+            value="document:tags.title"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <TagsTab documentId={o.document.id} tags={o.tags} />
+          </Tabs.Content>
+          <Tabs.Content
+            value="form:comments.title"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <CommentsTab documentId={o.document.id} />
+          </Tabs.Content>
           <Tabs.List>
             {filterTabs.map(({ name, icon }) => (
-              <Tabs.Trigger value={name} key={name}>
+              <Tabs.Trigger key={name} value={name}>
                 <Tooltip title={t(name)}>
                   <div>
                     {icon} <span>{t(name)}</span>

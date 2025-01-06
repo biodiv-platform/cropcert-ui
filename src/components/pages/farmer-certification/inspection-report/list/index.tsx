@@ -1,4 +1,4 @@
-import { Box, Checkbox, Input, Select, Stack } from "@chakra-ui/react";
+import { Box, Input, Stack } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import Container from "@components/@core/container";
@@ -7,6 +7,9 @@ import Table from "@components/@core/table";
 import { axGetInspectionReportsByCCIds } from "@services/certification.service";
 import { ROLES } from "@static/constants";
 import React, { useEffect, useState } from "react";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 
 import { inspectionReportColumns } from "./data";
 
@@ -54,7 +57,7 @@ export default function InspectionReportListComponent() {
         </Box>
       </CoreGrid>
 
-      <Stack mb={4} isInline={true} spacing={4}>
+      <Stack mb={4} direction={"row"} gap={4}>
         <Input
           type="search"
           placeholder="Search"
@@ -62,17 +65,19 @@ export default function InspectionReportListComponent() {
           maxW="18rem"
           borderColor="gray.300"
         />
-        <Select
-          onChange={(e) => setLimit(Number(e.target.value))}
-          maxW="10rem"
-          borderColor="gray.300"
-        >
-          <option value={50} selected>
-            50 Records
-          </option>
-          <option value={100}>100 Records</option>
-        </Select>
-        <Checkbox defaultChecked={true} onChange={(e) => setPendingReportOnly(e.target.checked)}>
+        <NativeSelectRoot>
+          <NativeSelectField
+            onChange={(e) => setLimit(Number(e.target.value))}
+            maxW="10rem"
+            borderColor="gray.300"
+          >
+            <option value={50} selected>
+              50 Records
+            </option>
+            <option value={100}>100 Records</option>
+          </NativeSelectField>
+        </NativeSelectRoot>
+        <Checkbox defaultChecked={true} onCheckedChange={(e) => setPendingReportOnly(!!e.checked)}>
           Pending Reports Only
         </Checkbox>
       </Stack>

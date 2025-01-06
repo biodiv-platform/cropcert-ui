@@ -10,7 +10,7 @@ import {
   DrawerCloseTrigger,
   DrawerContent,
   DrawerRoot,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 
 import ClearFilters from "./clear-filters";
 import FiltersList from "./list";

@@ -13,12 +13,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import {
-  DialogBody,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-} from "@/components/ui/dialog"
+import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 
 import { lotCreateModalCols } from "../../data";
 

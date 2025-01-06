@@ -1,4 +1,4 @@
-import {  Badge, Box, Flex, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react";
 import FlagActionButton from "@components/@core/action-buttons/flag";
 import DocumentIcon from "@components/pages/document/common/document-icon";
 import BookIcon from "@icons/bookmark";
@@ -29,8 +29,9 @@ interface MetaBlockProps {
 
 const MetaBlock = ({ icon, children, isHtml, tooltip }: MetaBlockProps) =>
   children ? (
-    <HStack w="full" alignItems="center" gap={2} title={tooltip}>
+    <HStack w="full" alignItems="center" title={tooltip}>
       {icon}
+
       {isHtml ? (
         <div
           className="elipsis"
@@ -46,7 +47,7 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
   const { t } = useTranslation();
 
   return (
-    <Flex direction="column" minH="18rem" justifyContent="space-between" p={4}>
+    <Flex direction="column" minH="18rem" justifyContent="space-between" pl={4} pr={4}>
       <Stack color="gray.600">
         {/* Title + Flag */}
         <Flex justifyContent="space-between" mb={3}>

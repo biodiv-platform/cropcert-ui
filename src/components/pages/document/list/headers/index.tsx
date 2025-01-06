@@ -53,7 +53,6 @@ export default function ListHeader() {
               // value={filter?.sort}
               defaultValue={filter?.sort}
               onChange={handleOnSort}
-              
             >
               <NativeSelectField>
                 {sortByOptions.map(({ name, key }) => (

@@ -66,13 +66,13 @@ export default function GridView() {
           {resourceData.l
             .filter((o) => o.resource.type === "IMAGE")
             .map((o, index) => (
-                <GridViewCard
-                  o={o}
-                  canEdit={isLoggedIn}
-                  getCheckboxProps={getCheckboxProps}
-                  index={index}
-                  setSelectedImageIndex={setSelectedImageIndex}
-                />
+              <GridViewCard
+                o={o}
+                canEdit={isLoggedIn}
+                getCheckboxProps={getCheckboxProps}
+                index={index}
+                setSelectedImageIndex={setSelectedImageIndex}
+              />
             ))}
         </div>
       </InfiniteScroll>

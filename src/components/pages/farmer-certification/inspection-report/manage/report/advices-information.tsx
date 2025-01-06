@@ -1,4 +1,4 @@
-import { Box, Flex, List, ListItem, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Flex, List, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic";
 import React from "react";
@@ -8,11 +8,11 @@ import ReportTabs from "./tabs";
 
 const AdvicesList = ({ data }) =>
   data ? (
-    <List as="ol" styleType="decimal" p={4} pt={0}>
+    <List.Root as="ol" listStyle="decimal" p={4} pt={0}>
       {data.map(({ id, advice }) => (
-        <ListItem key={id}>{advice}</ListItem>
+        <List.Item key={id}>{advice}</List.Item>
       ))}
-    </List>
+    </List.Root>
   ) : (
     <Box p={4}>No Advices</Box>
   );
@@ -24,7 +24,7 @@ const AdvicesInformation = ({ currentReport, previousReport, showCurrent }) => (
     isOpen={true}
     noPadding={true}
   >
-    <SimpleGrid columns={{ base: 1, sm: showCurrent ? 3 : 2 }} spacingY={2} p={4}>
+    <SimpleGrid columns={{ base: 1, sm: showCurrent ? 3 : 2 }} gapY={2} p={4}>
       <React.Fragment>
         <Flex alignItems="center">{ADVICES_PANEL.keys.hasFarmerImplementedPreviousAdvice}</Flex>
         <Box>

@@ -1,4 +1,4 @@
-import { Button, } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import { CoreGrid } from "@components/@core/layout";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -18,12 +18,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import {
-  DialogBody,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-} from "@/components/ui/dialog"
+import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 
 export default function BatchCreateForm({ update, onClose }) {
   const [cc, setCc] = useState({} as any);

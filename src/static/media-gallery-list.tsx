@@ -8,7 +8,7 @@ export const DEFAULT_MEDIA_GALLERY_FILTER: MediaGalleryFilterProps = {
   offset: 0,
   limit: MEDIA_GALLERY_LIST_PAGINATION_LIMIT,
   view: "grid",
-  mId:""
+  mId: "",
 };
 
 export const viewTabs = [

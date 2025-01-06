@@ -105,7 +105,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
   return (
     <FarmerProduceShowPanel icon="🚜" title="Produce Information" isOpen={true}>
       {/* variant="simple" */}
-      <Table.Root  size="md">
+      <Table.Root size="md">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">

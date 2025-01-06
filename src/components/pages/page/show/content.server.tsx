@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 
 import { Prose } from "@/components/ui/prose";
 
-
 export function Content({ html }) {
   const getCards = async () => {
     document.querySelectorAll(".epc").forEach(async (el: any) => {

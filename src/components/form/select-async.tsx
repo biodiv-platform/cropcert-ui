@@ -100,7 +100,7 @@ export const SelectAsyncInputField = ({
       required={isRequired}
       mb={mb}
       htmlFor={field.name}
-      label={label}      
+      label={label}
       {...props}
     >
       <Select

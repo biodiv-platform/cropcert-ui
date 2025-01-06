@@ -3,11 +3,12 @@ import ExternalBlueLink from "@components/@core/blue-link/external";
 import { ResponsiveInfo } from "@components/pages/observation/show/info/responsive-info";
 import TagsShow from "@components/pages/observation/show/info/tags";
 import { ShowDocument } from "@interfaces/document";
-import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import { axQueryDocumentTagsByText, axUpdateDocumentTags } from "@services/document.service";
 import { formatDateReadableFromUTC } from "@utils/date";
 import { getInjectableHTML } from "@utils/text";
 import React from "react";
+
+import { Prose } from "@/components/ui/prose";
 
 interface DocumentInfoProps {
   d: ShowDocument;

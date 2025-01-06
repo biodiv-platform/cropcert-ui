@@ -1,14 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Button,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Button, SimpleGrid } from "@chakra-ui/react";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import { DateTimeInputField } from "@components/form/datepicker";
 import DisplayTextField from "@components/form/display";
@@ -20,7 +10,15 @@ import LotShowPanel from "@components/pages/lot/show/panel";
 import useDebouncedState from "@hooks/use-debounced-effect";
 import React, { useEffect } from "react";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { LuPlus } from "react-icons/lu";
 import DeleteIcon from "src/icons/delete";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import GridRow from "../../../row";
 import { FIELD_SEPRATION_OPTIONS, GFP_OPTIONS } from "../options";
@@ -54,17 +52,16 @@ export default function Farm() {
   return (
     <LotShowPanel title={FARM_PANEL.title} icon={FARM_PANEL.icon} isOpen={true} noPadding={true}>
       <>
-        <Accordion defaultIndex={[...Array(farms.fields.length).keys()]} allowMultiple={true}>
+        <AccordionRoot multiple={true}>
           {farms.fields.map((field, index) => (
-            <AccordionItem key={field.id + index}>
-              <AccordionButton>
+            <AccordionItem value={field.id + index} key={field.id + index}>
+              <AccordionItemTrigger>
                 <Box flex="1" textAlign="left">
                   🚜 Plot #{index + 1}
                 </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4}>
-                <SimpleGrid columns={{ md: 1, lg: 2 }} spacing={2} mb={4}>
+              </AccordionItemTrigger>
+              <AccordionItemContent pb={4}>
+                <SimpleGrid columns={{ md: 1, lg: 2 }} gap={2} mb={4}>
                   <CoreGrid
                     rows={2}
                     alignItems="flex-end"
@@ -152,35 +149,24 @@ export default function Farm() {
                     </CoreGrid>
                   </Box>
                 </SimpleGrid>
-                <Button
-                  colorPalette="red"
-                  type="button"
-                  leftIcon={<DeleteIcon />}
-                  mr={4}
-                  onClick={() => farms.remove(index)}
-                >
+                <Button colorPalette="red" type="button" mr={4} onClick={() => farms.remove(index)}>
+                  <DeleteIcon />
                   Remove this Plot
                 </Button>
                 <Button
                   colorPalette="blue"
                   type="button"
-                  leftIcon={<AddIcon />}
                   onClick={() => farms.insert(index + 1, {})}
                 >
+                  <LuPlus />
                   Add Plot Below
                 </Button>
-              </AccordionPanel>
+              </AccordionItemContent>
             </AccordionItem>
           ))}
-        </Accordion>
-        <Button
-          colorPalette="blue"
-          type="button"
-          m={4}
-          mb={0}
-          onClick={() => farms.append({})}
-          leftIcon={<AddIcon />}
-        >
+        </AccordionRoot>
+        <Button colorPalette="blue" type="button" m={4} mb={0} onClick={() => farms.append({})}>
+          <LuPlus />
           Add a Plot
         </Button>
       </>

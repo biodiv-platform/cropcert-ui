@@ -1,8 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-} from "@chakra-ui/react";
+import { Badge, Box, Button } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";

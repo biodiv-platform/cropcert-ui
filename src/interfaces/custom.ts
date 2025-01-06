@@ -43,7 +43,7 @@ export interface MediaGalleryFilterProps {
   limit?: number;
   offset?: number;
   view?: string;
-  mId?:string
+  mId?: string;
 }
 
 export interface ResourceData {

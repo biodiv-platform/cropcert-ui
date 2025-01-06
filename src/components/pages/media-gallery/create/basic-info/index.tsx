@@ -12,7 +12,7 @@ export default function BasicInfo({ isEdit }) {
   return (
     <div>
       <Stack flexDirection={["column", "row"]} alignItems="top" mb={1}>
-        <PageHeading  mb={4} mr={4}>
+        <PageHeading mb={4} mr={4}>
           ℹ️ {t("Media Gallery Information")}
         </PageHeading>
       </Stack>

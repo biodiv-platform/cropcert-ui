@@ -41,12 +41,7 @@ export default function TagsShow({
           {tags?.map((tag) => (
             <LinkTag href={href} label={tag.label} key={tag?.label} />
           ))}
-          <IconButton
-            variant="ghost"
-            colorPalette="blue"
-            onClick={onToggle}
-            aria-label="Edit"
-          >
+          <IconButton variant="ghost" colorPalette="blue" onClick={onToggle} aria-label="Edit">
             <EditIcon />
           </IconButton>
         </Box>

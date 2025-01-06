@@ -52,7 +52,7 @@ export const MediaGalleryFilterProvider = (props) => {
     }
   }, [filter]);
 
-  const {  value: bulkMediaGalleryIds, setValue } = useCheckboxGroup();
+  const { value: bulkMediaGalleryIds, setValue } = useCheckboxGroup();
 
   const handleBulkCheckbox = (actionType: string) => {
     switch (actionType) {

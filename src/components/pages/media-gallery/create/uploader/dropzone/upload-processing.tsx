@@ -9,7 +9,7 @@ export default function UploadProcessing() {
   return (
     <Flex direction="column" alignItems="center" className="fade">
       {/* mb={4} */}
-      <LuTimer  fontSize="3xl" />
+      <LuTimer fontSize="3xl" />
       <span>{t("form:uploader.processing")}</span>
     </Flex>
   );

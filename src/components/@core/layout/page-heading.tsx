@@ -21,7 +21,7 @@ export default function PageHeading({
         {PreviousPageButton && PreviousPageButton}
       </Box>
       <Flex flex={1} justifyContent="space-between" alignItems="center" mb={mb} mt={6}>
-        <Heading  size={"4xl"} display="inline-block" {...props}>
+        <Heading size={"4xl"} display="inline-block" {...props}>
           {children}
         </Heading>
         {actions && actions}

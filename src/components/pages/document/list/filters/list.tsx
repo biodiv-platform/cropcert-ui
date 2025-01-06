@@ -1,9 +1,15 @@
-import { Accordion, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
-import { AccordionRoot } from "@/components/ui/accordion";
+const Location = dynamic(() => import("./location"), { ssr: false });
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import AuthorFilter from "./author";
 import DataQuality from "./data-quality";
@@ -14,47 +20,44 @@ import TimeFilter from "./time";
 import TitleFilter from "./title";
 import UserFilter from "./user";
 
-const Location = dynamic(() => import("./location"), { ssr: false });
-
 export default function FiltersList() {
   const { t } = useTranslation();
 
   return (
-    <AccordionRoot multiple={true}>
-      {/* <AccordionItem>
-        <AccordionButton>
-          <Box flex={1} textAlign="left">
+    <AccordionRoot multiple={true} lazyMount defaultValue={["location"]}>
+      <AccordionItem value="location">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
             {t("filters:location.title")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
           <Location />
-        </AccordionPanel>
+        </AccordionItemContent>
       </AccordionItem>
 
-      <AccordionItem>
-        <AccordionButton>
-          <Box flex={1} textAlign="left">
+      <AccordionItem value="time">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
             {t("filters:time.title")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel>
-          <TimeFilter />
-        </AccordionPanel>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <Box p={4}>
+            <TimeFilter />
+          </Box>
+        </AccordionItemContent>
       </AccordionItem>
 
-      <AccordionItem>
-        <AccordionButton>
-          <Box flex={1} textAlign="left">
+      <AccordionItem value="dataQuality">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
             {t("filters:data_quality.title")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
           <DataQuality />
-        </AccordionPanel>
+        </AccordionItemContent>
       </AccordionItem>
 
       <ItemTypeFilter />
@@ -67,19 +70,14 @@ export default function FiltersList() {
 
       <TagsFilter />
 
-      <AccordionItem>
-        {({ isExpanded }) => (
-          <>
-            <AccordionButton>
-              <Box flex={1} textAlign="left">
-                {t("filters:user.title")}
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>{isExpanded && <UserFilter filterKey="user" />}</AccordionPanel>
-          </>
-        )}
-      </AccordionItem> */}
+      <AccordionItem value="user">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
+            {t("filters:user.title")}
+          </Box>
+        </AccordionItemTrigger>
+        <AccordionItemContent>{<UserFilter filterKey="user" />}</AccordionItemContent>
+      </AccordionItem>
     </AccordionRoot>
   );
 }

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { RadioInputField } from "@components/form/radio";
 import GridRow from "@components/pages/farmer-certification/row";

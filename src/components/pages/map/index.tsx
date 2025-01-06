@@ -11,7 +11,7 @@ import { parseCookies } from "nookies";
 import { stringify } from "querystring";
 import React, { useEffect, useMemo, useState } from "react";
 
-import { toaster } from "@/components/ui/toaster"
+import { toaster } from "@/components/ui/toaster";
 
 const NakshaMapboxList: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxList),

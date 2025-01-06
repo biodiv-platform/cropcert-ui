@@ -32,7 +32,7 @@ const CustomMarker = ({ position, setCoordinates, onTextUpdate }) => {
       {open && (
         <InfoWindow anchor={markerRef} onCloseClick={onClose}>
           {/* styleType="disc" */}
-          <List.Root >
+          <List.Root>
             {suggestons.map(({ formatted_address, place_id }) => (
               <List.Item key={place_id}>
                 {formatted_address}

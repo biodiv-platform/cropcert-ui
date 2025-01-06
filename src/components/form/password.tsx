@@ -50,7 +50,6 @@ export const PasswordInputField = ({
       label={label}
       {...props}
     >
-
       <PasswordInput {...field} />
 
       {maxLength && field.value && (

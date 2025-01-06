@@ -340,7 +340,7 @@ export const TRACEABILITY_TABS = [
   {
     label: "🧺 Batch(s)",
     path: "/traceability/batch",
-    tabIndex: 'batch',
+    tabIndex: "batch",
   },
   {
     label: "📦 Lot(s)",

@@ -1,5 +1,6 @@
-import { Accordion } from "@chakra-ui/react";
 import React from "react";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import AdvicesInformation from "./advices-information";
 import AnimalsInformation from "./animals-information";
@@ -11,7 +12,7 @@ import SignatureInformation from "./signature-information";
 
 export default function InspectionReportPreview({ currentReport, previousReport, showCurrent }) {
   return (
-    <Accordion allowMultiple={true}>
+    <AccordionRoot multiple={true}>
       <FarmerInformation farmerId={currentReport.farmerId || previousReport.farmerId} />
       <CertificationInformation
         currentReport={currentReport}
@@ -43,6 +44,6 @@ export default function InspectionReportPreview({ currentReport, previousReport,
         previousReport={previousReport}
         showCurrent={showCurrent}
       />
-    </Accordion>
+    </AccordionRoot>
   );
 }

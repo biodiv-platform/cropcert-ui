@@ -52,11 +52,7 @@ export default function MyMediaGalleryUploads({ onDone, hasTabs = true }) {
       </Flex>
       <SimpleGrid columns={[3, 4, 5, 8]} gridGap={4} className="custom-checkbox-group">
         {assets.map((asset) => (
-          <Checkbox
-            key={asset.hashKey}
-            asset={asset}
-            {...getItemProps({ value: asset.hashKey })}
-          />
+          <Checkbox key={asset.hashKey} asset={asset} {...getItemProps({ value: asset.hashKey })} />
         ))}
       </SimpleGrid>
     </Box>

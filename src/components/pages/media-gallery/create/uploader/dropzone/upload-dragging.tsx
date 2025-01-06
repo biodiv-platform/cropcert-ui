@@ -9,7 +9,7 @@ export default function UploadDragging() {
   return (
     <Flex direction="column" alignItems="center" className="fade">
       {/* mb={4} */}
-      <LuArrowUp  fontSize="3xl" />
+      <LuArrowUp fontSize="3xl" />
       <span>{t("form:uploader.label_release")}</span>
     </Flex>
   );

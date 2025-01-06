@@ -27,10 +27,11 @@ export default function TagsTab({ documentId, tags }: ITagsTabsProps) {
         {isLoggedIn && (
           <IconButton
             ml={3}
-            // variant="link"
+            variant="ghost"
             colorPalette="blue"
             onClick={onToggle}
             aria-label="Edit"
+            size="xs"
           >
             <EditIcon />
           </IconButton>

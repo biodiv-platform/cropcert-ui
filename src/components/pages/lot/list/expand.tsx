@@ -70,7 +70,10 @@ function LotExpand(props) {
       )}
     </Box>
   ) : (
-    <ProgressCircleRoot value={null} m={4} size="sm" color="blue">  <ProgressCircleRing cap="round" /></ProgressCircleRoot>
+    <ProgressCircleRoot value={null} m={4} size="sm" color="blue">
+      {" "}
+      <ProgressCircleRing cap="round" />
+    </ProgressCircleRoot>
   );
 }
 

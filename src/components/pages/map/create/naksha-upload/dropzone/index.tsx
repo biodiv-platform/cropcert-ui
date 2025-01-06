@@ -1,20 +1,11 @@
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Tabs, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { Mq } from "mq-styled-components";
 import useTranslation from "next-translate/useTranslation";
-import React, { useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
+
+import { Tooltip } from "@/components/ui/tooltip";
 
 import { FILE_TYPES, RASTER_FILE_TYPES } from "../data";
 import useLayerUpload, { MapFileType } from "../use-layer-upload";
@@ -85,7 +76,7 @@ export default function LayerUploadDropzone() {
   const { updateMapFile, mapFileType, setMapFileType } = useLayerUpload();
   const { t } = useTranslation();
 
-  const [tabIndex, setTabIndex] = useState(0);
+  // const [tabIndex, setTabIndex] = useState(0);
 
   const onDrop = async (files) => {
     for (const file of files) {
@@ -108,7 +99,6 @@ export default function LayerUploadDropzone() {
         setMapFileType(MapFileType.raster);
         break;
     }
-    setTabIndex(val);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -121,30 +111,30 @@ export default function LayerUploadDropzone() {
 
   return (
     <VerticalTabs>
-      <Tabs
-        variant="unstyled"
+      <Tabs.Root
+        // variant="unstyled"
         className="tabs"
-        index={tabIndex}
+        // index={tabIndex}
         onChange={handleTabInex}
-        isLazy={true}
+        lazyMount
       >
-        <TabList>
-          <Tab>
-            <Tooltip title={t("Vector")}>
+        <Tabs.List>
+          <Tabs.Trigger value="vector">
+            <Tooltip content={t("Vector")}>
               <div>{t("Vector")}</div>
             </Tooltip>
-          </Tab>
-          <Tab>
-            <Tooltip title={t("Raster")}>
+          </Tabs.Trigger>
+          <Tabs.Trigger value="raster">
+            <Tooltip content={t("Raster")}>
               <div>{t("Raster")}</div>
             </Tooltip>
-          </Tab>
+          </Tabs.Trigger>
           <Box borderLeft="1px" borderColor="gray.300" flexGrow={1} />
-        </TabList>
-        <TabPanels ml={2} height={["100%"]} className="tab-content" position="relative">
+        </Tabs.List>
+        <Flex ml={2} height={["100%"]} className="tab-content" position="relative">
           {Object.keys(MapFileType).map(() => (
-            <TabPanel h="inherit">
-              <SimpleGrid columns={{ base: 1, md: 7 }} spacing={4} h="100%">
+            <Tabs.Content value="vector" h="inherit">
+              <SimpleGrid columns={{ base: 1, md: 7 }} gap={4} h="100%">
                 <Flex
                   {...getRootProps()}
                   gridColumn="1/6"
@@ -174,10 +164,10 @@ export default function LayerUploadDropzone() {
                 </Flex>
                 <FilePreview />
               </SimpleGrid>
-            </TabPanel>
+            </Tabs.Content>
           ))}
-        </TabPanels>
-      </Tabs>
+        </Flex>
+      </Tabs.Root>
     </VerticalTabs>
   );
 }

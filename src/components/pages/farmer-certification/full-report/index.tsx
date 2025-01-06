@@ -1,5 +1,4 @@
-import { DownloadIcon } from "@chakra-ui/icons";
-import { Button, Checkbox, Spinner } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import Container from "@components/@core/container";
@@ -11,6 +10,9 @@ import { formattedTimeStamp, utc2local } from "@utils/basic";
 import flat from "flat";
 import j2x from "json-as-xlsx";
 import React, { useEffect, useMemo, useState } from "react";
+import { LuDownload } from "react-icons/lu";
+
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { columns } from "./data";
 
@@ -77,7 +79,8 @@ export default function FullReportComponent() {
     <Container>
       <PageHeading
         actions={
-          <Button colorPalette="blue" leftIcon={<DownloadIcon />} onClick={downloadXLS}>
+          <Button colorPalette="blue" onClick={downloadXLS}>
+            <LuDownload />
             Download XLS
           </Button>
         }
@@ -89,7 +92,7 @@ export default function FullReportComponent() {
         <Accesser toRole={ROLES.UNION} onChange={setUnion} onTouch={() => null} />
         <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
 
-        <Checkbox defaultChecked={true} onChange={(e) => setIsFiltered(e.target.checked)} mt={4}>
+        <Checkbox defaultChecked={true} onCheckedChange={(e) => setIsFiltered(!!e.checked)} mt={4}>
           with reports only
         </Checkbox>
       </CoreGrid>

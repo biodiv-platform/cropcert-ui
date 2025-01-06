@@ -1,4 +1,4 @@
-import { Box,Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { selectStyles } from "@components/form/configs";
 import { axMediaGalleryTagsFilterSearch } from "@services/media-gallery.service";
 import { axGetUsersByID } from "@services/user.service";

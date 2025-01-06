@@ -29,7 +29,7 @@ export default function FarmerEditPageComponent({ edit }) {
         leftIcon={<ArrowBackIcon />}
         variant="solid"
         rounded="md"
-        colorScheme="gray"
+        colorPalette="gray"
       >
         {t("common:back")}
       </Button>
@@ -106,7 +106,7 @@ export default function FarmerEditPageComponent({ edit }) {
       <Accordion defaultIndex={[0]} allowMultiple>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
-          <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
+          <Button variant="solid" colorPalette="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}
           </Button>
           <Button
@@ -114,7 +114,7 @@ export default function FarmerEditPageComponent({ edit }) {
               ref?.current?.submit();
             }}
             variant="solid"
-            colorScheme="red"
+            colorPalette="red"
             size={"lg"}
           >
             {t("traceability:farmer.update_farmer")}

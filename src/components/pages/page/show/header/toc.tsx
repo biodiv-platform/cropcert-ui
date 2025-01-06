@@ -41,7 +41,7 @@ export function TableOfContents() {
   return showToC ? (
     <PopoverRoot positioning={{ placement: "bottom-start" }}>
       <PopoverTrigger>
-        <Button variant="outline" size="sm" colorScheme="gray" bg="white">
+        <Button variant="outline" size="sm" colorPalette="gray" bg="white" fontWeight={"bold"}>
           <MenuIcon /> {t("page:quick_navigation")}
         </Button>
       </PopoverTrigger>

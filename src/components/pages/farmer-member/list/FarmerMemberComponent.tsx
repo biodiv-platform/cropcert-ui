@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Group, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Group, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -15,6 +15,8 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { LuPlus, LuRepeat } from "react-icons/lu";
+
+import { Button } from "@/components/ui/button";
 
 import { farmerMemberColumns } from "./data";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
@@ -63,7 +65,7 @@ function FarmerMemberComponent() {
     return (
       <Group display={"flex"} flexWrap={"wrap"} gap={4}>
         <Button
-          colorScheme="green"
+          colorPalette="green"
           variant="solid"
           onClick={handleDrawMap}
           disabled={
@@ -76,7 +78,7 @@ function FarmerMemberComponent() {
           Show On Map
         </Button>
         <Button
-          colorScheme="gray"
+          colorPalette="gray"
           variant="solid"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}

@@ -28,7 +28,7 @@ export default function BibImportButton() {
       cursor="pointer"
       as="label"
       size="sm"
-      colorScheme="blue"
+      colorPalette="blue"
       borderRadius="3rem"
     >
       <LuArrowRight />

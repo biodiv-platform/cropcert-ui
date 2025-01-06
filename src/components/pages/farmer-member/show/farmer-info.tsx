@@ -276,7 +276,7 @@ export default function FarmerInfo({ farmer }) {
                     onClick={enterEditMode}
                     size={"sm"}
                     variant={"outline"}
-                    colorScheme={"green"}
+                    colorPalette={"green"}
                   >
                     Edit Location
                   </Button>
@@ -290,7 +290,7 @@ export default function FarmerInfo({ farmer }) {
                       size={"sm"}
                       variant={"solid"}
                       mx={1}
-                      colorScheme="red"
+                      colorPalette="red"
                     >
                       Save
                     </Button>

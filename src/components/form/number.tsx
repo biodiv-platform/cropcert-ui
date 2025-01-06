@@ -56,14 +56,15 @@ export const NumberInputField = ({
       mb={mb}
       hidden={hidden}
       required={isRequired}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
       <Input
         id={name}
         placeholder={placeholder}
         type="number"
-        colorScheme="blue"
+        colorPalette="blue"
         disabled={disabled}
         bg="white"
         {...field}

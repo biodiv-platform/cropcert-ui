@@ -16,7 +16,7 @@ export default function Page404() {
           {"The page you're looking for does not seem to exist"}
         </Text>
 
-        <Button colorScheme="blue" color="white" variant="solid" as="a" href="/">
+        <Button colorPalette="blue" color="white" variant="solid" as="a" href="/">
           Go to Home
         </Button>
       </Box>

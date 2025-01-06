@@ -30,10 +30,10 @@ export default function ClearFilters() {
     <Tooltip title={message} showArrow={true}>
       <Button
         onClick={clearFilters}
-        // variant="link"
+        variant="plain"
         className="fade"
         size="lg"
-        colorScheme="red"
+        colorPalette="red"
         aria-label={message}
       >
         <DeleteIcon />

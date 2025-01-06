@@ -22,7 +22,7 @@ export default function UserAbout({ user }) {
       title: "user:website",
       value: user.website,
       cell: (
-        <Stack isInline={false}>
+        <Stack direction={"row"}>
           <ExternalBlueLinkList
             hrefs={user?.website?.split(",").map((url) => (url.includes("//") ? url : `//${url}`))}
           />
@@ -54,7 +54,7 @@ export default function UserAbout({ user }) {
   ];
 
   return (
-    <SimpleGrid className="white-box" columns={[1, 1, 5, 5]} spacing={2} p={4}>
+    <SimpleGrid className="white-box" columns={[1, 1, 5, 5]} gap={2} p={4}>
       {aboutLinks.map(({ title, value, cell }) =>
         value ? (
           <ResponsiveInfo key={title} title={title}>

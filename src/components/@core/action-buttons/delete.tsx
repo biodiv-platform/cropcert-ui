@@ -1,21 +1,20 @@
-import {
-  Button,
-  DialogActionTrigger,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-  HStack,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import DeleteIcon from "@icons/delete";
 import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+} from "@/components/ui/dialog";
+
+import SimpleActionButton from "./simple";
 
 export default function DeleteActionButton({
   observationId,
@@ -30,6 +29,8 @@ export default function DeleteActionButton({
 }) {
   const { t } = useTranslation();
   const router = useRouter();
+  const { open, onClose, onOpen } = useDisclosure();
+  const cancelRef = React.useRef(null);
 
   const handleOnDelete = async () => {
     const { success } = await deleteFunc(observationId);
@@ -38,6 +39,7 @@ export default function DeleteActionButton({
       if (deleteGnfinderName) {
         refreshFunc();
       }
+      onClose();
       if (!deleteGnfinderName) {
         router.push("/");
       }
@@ -45,32 +47,28 @@ export default function DeleteActionButton({
   };
 
   return (
-    <HStack>
-      <DialogRoot placement="center" motionPreset="slide-in-bottom">
-        <DialogTrigger asChild>
-          <Button variant="outline" colorScheme="red">
-            <DeleteIcon />
-            {title}
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>🗑️ {title}</DialogTitle>
-          </DialogHeader>
-          <DialogBody>
-            <p>{description}</p>
-          </DialogBody>
-          <DialogFooter>
-            <DialogActionTrigger asChild>
-              <Button variant="outline">{t("common:cancel")}</Button>
-            </DialogActionTrigger>
-            <Button colorScheme="red" onClick={handleOnDelete}>
-              {t("common:delete")}
-            </Button>
-          </DialogFooter>
-          <DialogCloseTrigger />
-        </DialogContent>
+    <>
+      <SimpleActionButton onClick={onOpen} icon={<DeleteIcon />} title={title} colorPalette="red" />
+      <DialogRoot open={open} onOpenChange={onClose}>
+        <DialogBackdrop>
+          <DialogContent>
+            <DialogHeader fontSize="lg" fontWeight="bold">
+              🗑️ {title}
+            </DialogHeader>
+
+            <DialogBody>{description}</DialogBody>
+
+            <DialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                {t("common:cancel")}
+              </Button>
+              <Button colorPalette="red" onClick={handleOnDelete} ml={3}>
+                {t("common:delete")}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </DialogBackdrop>
       </DialogRoot>
-    </HStack>
+    </>
   );
 }

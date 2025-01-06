@@ -60,7 +60,7 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
                   __html: getInjectableHTML(document?.title || t("document:unknown")),
                 }}
               />
-              <Badge colorScheme="red">{document.itemtype}</Badge>
+              <Badge colorPalette="red">{document.itemtype}</Badge>
             </HStack>
           </NextLink>
           {/* Meta Data */}

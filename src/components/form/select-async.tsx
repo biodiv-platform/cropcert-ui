@@ -99,9 +99,10 @@ export const SelectAsyncInputField = ({
       aria-invalid={!!fieldState.error}
       required={isRequired}
       mb={mb}
+      htmlFor={field.name}
+      label={label}      
       {...props}
     >
-      {label && <Field htmlFor={name}>{label}</Field>}
       <Select
         name={name}
         inputId={name}

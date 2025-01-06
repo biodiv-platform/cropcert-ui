@@ -32,7 +32,7 @@ export default function ScientificNamesTable({
     <Box className="white-box">
       <BoxHeading>⭐ {title}</BoxHeading>
       <Box w="full" overflowY="auto" h={360}>
-        <Table.Root striped colorScheme="gray" size="sm">
+        <Table.Root striped colorPalette="gray" size="sm">
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader {...stickyTh}>

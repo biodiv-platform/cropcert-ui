@@ -226,7 +226,7 @@ export default function CuppingReportForm({
               mt={4}
               label={
                 <span>
-                  Finalize Cupping Report <Badge colorScheme="red">irreversible</Badge>
+                  Finalize Cupping Report <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={!canWrite || !isFinalizeEnabled}

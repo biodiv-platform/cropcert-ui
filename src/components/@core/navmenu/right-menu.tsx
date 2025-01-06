@@ -1,4 +1,5 @@
-import { Link } from "@chakra-ui/react";
+import { IconButton, Link } from "@chakra-ui/react";
+import { List } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import NextLink from "next/link";
 import React, { useMemo } from "react";
@@ -22,34 +23,41 @@ function NavbarRightMenu() {
   );
 
   return (
-    <ul className="main-menu right">
+    <List.Root as="ul" className="main-menu right">
       {isLoggedIn ? (
         <>
-          <li>
+          <List.Item>
             <NextLink href={`/user/show/${user.id}`} passHref={true} legacyBehavior>
               <Link className="user">
-                <Tooltip title={`${user.name} (${visualRole})`}>
+                <Tooltip
+                  title={`${user.name} (${visualRole})`}
+                  positioning={{ placement: "bottom" }}
+                >
                   <Avatar size="sm" name={user.name} />
                 </Tooltip>
               </Link>
             </NextLink>
-          </li>
-          <li>
+          </List.Item>
+          <List.Item px={2}>
             <NextLink href="/logout" passHref={true} legacyBehavior>
-              <Link px={0}>
-                <LogoutIcon />
+              <Link  className="user">
+                <Tooltip title={`${user.name}`}>
+                  <IconButton variant={"ghost"} size="sm">
+                    <LogoutIcon/>
+                  </IconButton>
+                </Tooltip>
               </Link>
             </NextLink>
-          </li>
+          </List.Item>
         </>
       ) : (
-        <li>
+        <List.Item>
           <NextLink href="/login" passHref={true} legacyBehavior>
             <Link>Sign In</Link>
           </NextLink>
-        </li>
+        </List.Item>
       )}
-    </ul>
+    </List.Root>
   );
 }
 

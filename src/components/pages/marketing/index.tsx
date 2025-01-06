@@ -75,7 +75,7 @@ export const columns = [
       return (
         <Button
           size="sm"
-          colorScheme="blue"
+          colorPalette="blue"
           as="a"
           ref={`mailto:${to}?cc=${process.env.NEXT_PUBLIC_CC}&subject=Inquiry on Lot ${r.lotName}&body=Hi ${r.manager},%0A%0A<your message>%0A%0APlease, provide the following detail:%0ACompany name:%0AAddress:%0AContact person:%0ATelephone:%0Aemail:%0A%0A------------------------------------%0A%0ALot Information%0ALot Name: ${r.lotName} (L-${r.id})%0ACooperative: ${r.cooperativeFullName} (${r.cooperativeName})%0AWeight: ${r.highGradeWeight}%0AStatus: ${r.lotStatus}`}
         >

@@ -3,7 +3,6 @@ import WKT, { WKTProps } from "@components/@core/WKT";
 import GmapsWktLocationPicker from "@components/@core/WKT/gmaps-wkt";
 import WKTDrawViewer from "@components/@core/WKT/wkt-draw-viewer";
 import WKTList from "@components/@core/WKT/wkt-list";
-import SITE_CONFIG from "@configs/site-config";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
@@ -38,10 +37,10 @@ export default function WKTFieldMulti(props: WKTInputProps) {
 
   return (
     <Field invalid={!!fieldState.error} errorText={JSON.stringify(fieldState?.error?.message)}>
-      <Box mb={props.mb || 4}>
+      <Box mb={props.mb || 4} width={"full"}>
         <Field>{props.label}</Field>
-        <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md">
-          <Tabs.Root defaultValue={SITE_CONFIG?.WKT?.DEFAULT_TAB} lazyMount={true}>
+        <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md" >
+          <Tabs.Root defaultValue="draw" lazyMount={true} fitted >
             <Tabs.List>
               <Tabs.Trigger value="draw">{t("form:gmaps")}</Tabs.Trigger>
               <Tabs.Trigger value="search">{t("form:search_point")}</Tabs.Trigger>

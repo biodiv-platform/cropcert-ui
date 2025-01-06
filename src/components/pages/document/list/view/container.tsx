@@ -101,7 +101,7 @@ export default function Container({ o }) {
     >
       <VerticalTabs>
         <Tabs.Root
-          // variant="unstyled"
+          // type="unstyled"
           className="tabs"
           // index={tabIndex}
           // onValueChange={setTabIndex}

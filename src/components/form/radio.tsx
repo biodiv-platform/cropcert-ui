@@ -49,11 +49,12 @@ export const RadioInputField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
       mb={mb}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
       <RadioGroup
-        colorScheme="blue"
+        colorPalette="blue"
         id={name}
         {...field}
         value={String(field.value)}

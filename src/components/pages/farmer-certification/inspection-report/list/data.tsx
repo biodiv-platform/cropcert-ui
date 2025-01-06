@@ -31,7 +31,7 @@ export const inspectionReportColumns = [
           passHref={true}
           legacyBehavior
         >
-          <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
+          <Button variant="outline" colorPalette="blue" size="xs" as={Link}>
             View Report
           </Button>
         </NextLink>
@@ -52,7 +52,7 @@ export const inspectionReportColumns = [
           passHref={true}
           legacyBehavior
         >
-          <Button variant="outline" colorScheme="blue" size="xs" as={Link}>
+          <Button variant="outline" colorPalette="blue" size="xs" as={Link}>
             Manage Report
           </Button>
         </NextLink>

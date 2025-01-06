@@ -1,4 +1,4 @@
-import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { SubmitButton } from "@components/form/submit-button";
 import { SwitchField } from "@components/form/switch";
@@ -141,7 +141,7 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
   return userProjectList && rolesOptionList.length && projectList.length ? (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnUpdate)}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={4}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} pl={4}>
           <div>
             <SwitchField name="enabled" label={t("user:enabled")} />
             <SwitchField name="accountExpired" label={t("user:expired")} />
@@ -158,8 +158,14 @@ export default function PermissionsTab({ user, isWebUser }: UserEditPageComponen
           setPassword={setPassword}
           setProjectId={setProjectId}
         />
-        <SelectMultipleInputField name="roles" label={t("user:roles")} options={rolesOptionList} />
-        <SubmitButton leftIcon={<CheckIcon />}>{t("common:save")}</SubmitButton>
+        <Box pl={4} mb={4}>
+          <SelectMultipleInputField
+            name="roles"
+            label={t("user:roles")}
+            options={rolesOptionList}
+          />
+          <SubmitButton icon={<CheckIcon />}>{t("common:save")}</SubmitButton>
+        </Box>
       </form>
     </FormProvider>
   ) : (

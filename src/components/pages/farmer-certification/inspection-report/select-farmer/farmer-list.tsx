@@ -92,7 +92,7 @@ export default function FarmerList({ feCCCode }) {
         <Box>
           <Button
             mb={4}
-            colorScheme="orange"
+            colorPalette="orange"
             onClick={() => emit(UPLOAD_ALL_INSPECTION)}
             isDisabled={!isOnline}
           >

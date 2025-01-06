@@ -28,7 +28,7 @@ export default function AppUserQrModal({ qrUrl, projectName, isQrOpen, onQrClose
           </DialogBody>
 
           <DialogFooter>
-            <Button colorScheme="blue" mr={3} onClick={onQrClose}>
+            <Button colorPalette="blue" mr={3} onClick={onQrClose}>
               Close
             </Button>
           </DialogFooter>

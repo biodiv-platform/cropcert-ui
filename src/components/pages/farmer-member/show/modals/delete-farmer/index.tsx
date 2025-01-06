@@ -62,7 +62,7 @@ const DeleteFarmerModal = () => {
         <DialogBody>{t("traceability:farmer.delete_farmer_message")}</DialogBody>
 
         <DialogFooter>
-          <Button colorScheme="red" mr={3} onClick={handleConfirmDelete}>
+          <Button colorPalette="red" mr={3} onClick={handleConfirmDelete}>
             {t("traceability:farmer.delete_farmer_confirm")}
           </Button>
           <Button onClick={handleCancel}>{t("traceability:farmer.delete_farmer_cancel")}</Button>

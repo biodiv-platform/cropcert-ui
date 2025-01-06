@@ -18,20 +18,20 @@ export default function BulkMapperHeader({
     bulkIds?.length > 0 && (
       <Group attached>
         {!selectAll && (
-          <Button variant="outline" colorScheme="blue" onClick={handleSelectAll}>
+          <Button variant="outline" colorPalette="blue" onClick={handleSelectAll}>
             {<MdCheckCircle />}
             {t("common:actions.select_all")}
           </Button>
         )}
         <Button
           variant="outline"
-          colorScheme="red"
+          colorPalette="red"
           onClick={() => handleBulkCheckbox("UnsSelectAll")}
         >
           <LuRepeat />
           {t("common:actions.unselect_all")}
         </Button>
-        <Button variant="outline" colorScheme="green" onClick={openBulkMappingModal}>
+        <Button variant="outline" colorPalette="green" onClick={openBulkMappingModal}>
           {<LuSettings />}
           {t("common:actions.name")}
         </Button>

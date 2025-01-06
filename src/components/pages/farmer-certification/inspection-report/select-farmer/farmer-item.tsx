@@ -55,7 +55,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  colorScheme="orange"
+                  colorPalette="orange"
                   leftIcon={<ArrowUpIcon />}
                   onClick={upload}
                   isLoading={isLoading}
@@ -67,7 +67,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  colorScheme="purple"
+                  colorPalette="purple"
                   leftIcon={<ArrowUpIcon />}
                   onClick={upload}
                   isLoading={isLoading}
@@ -76,7 +76,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 </Button>
               )}
               <Button
-                colorScheme="red"
+                colorPalette="red"
                 leftIcon={<DeleteIcon />}
                 onClick={discard}
                 hidden={isLoading}
@@ -87,7 +87,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
           ) : (
             <Button
               variant="outline"
-              colorScheme="green"
+              colorPalette="green"
               leftIcon={<CheckCircleIcon />}
               isDisabled={true}
             >
@@ -96,7 +96,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
           )
         ) : (
           <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true} legacyBehavior>
-            <Button className="fade" as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
+            <Button className="fade" as="a" colorPalette="blue" rightIcon={<ArrowForwardIcon />}>
               Create Inspection Report
             </Button>
           </NextLink>

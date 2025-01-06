@@ -21,8 +21,14 @@ export const RichTextareaField = ({ name, label, hint, mb = 4, ...props }: IRich
   const { field, fieldState } = useController({ name });
 
   return (
-    <Field invalid={!!fieldState.error} errorText={fieldState?.error?.message} mb={mb} {...props}>
-      {label && <Field>{label}</Field>}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={fieldState?.error?.message}
+      mb={mb}
+      htmlFor={field.name}
+      label={label}
+      {...props}
+    >
       <DefaultEditor placeholder={label} {...field} title={label} />
       {hint && <Field color="gray.600" helperText={hint} />}
     </Field>

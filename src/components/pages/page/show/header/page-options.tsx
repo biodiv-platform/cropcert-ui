@@ -35,21 +35,21 @@ export function PageOptions({ title, pageId }) {
       <Container>
         <Flex alignItems="center" justifyContent="space-between">
           <TableOfContents />
-
-          <ShareActionButton text={title} title={t("page:share")} />
-          {canEdit && (
+          <Flex alignItems="center" gap={2}>
+            <ShareActionButton text={title} title={t("page:share")} />
+            {canEdit && (
               <>
                 <SimpleActionButton
                   icon={<AddIcon />}
                   title={t("page:create.title")}
                   onClick={handleOnCreate}
-                  colorScheme="yellow"
+                  colorPalette="yellow"
                 />
                 <SimpleActionButton
                   icon={<EditIcon />}
                   title={t("common:edit")}
                   onClick={handleOnEdit}
-                  colorScheme="teal"
+                  colorPalette="teal"
                 />
                 <DeleteActionButton
                   observationId={pageId}
@@ -60,6 +60,7 @@ export function PageOptions({ title, pageId }) {
                 />
               </>
             )}
+          </Flex>
         </Flex>
       </Container>
     </Box>

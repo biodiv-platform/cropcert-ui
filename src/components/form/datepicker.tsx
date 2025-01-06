@@ -81,9 +81,10 @@ export const DateTimeInputField = ({
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
       id={field.name}
+      htmlFor={field.name}
+      label={label}
     >
-      {label && <Field htmlFor={field.name}>{label}</Field>}
-      <Flex>
+      <Flex width={"full"}>
         <Box flex={1}>
           <DateTimePicker
             {...props}

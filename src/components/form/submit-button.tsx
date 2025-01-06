@@ -8,17 +8,19 @@ interface ISubmitButtonProps {
   leftIcon?;
   rightIcon?;
   isDisabled?;
-  colorScheme?;
+  colorPalette?;
   mb?;
   w?;
   mt?;
+  icon?;
 }
 
 export const SubmitButton = ({
   children,
   isDisabled,
-  colorScheme = "blue",
+  colorPalette = "blue",
   mb = 0,
+  icon,
   ...rest
 }: ISubmitButtonProps) => {
   const { formState } = useFormContext();
@@ -35,8 +37,9 @@ export const SubmitButton = ({
       disabled={disabled}
       mb={mb}
       {...rest}
-      bgColor={colorScheme}
+      bgColor={colorPalette}
     >
+      {icon}
       {children}
     </Button>
   );

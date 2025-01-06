@@ -21,11 +21,11 @@ export default function TagsShow({
   href,
 }: ITagsShowProps) {
   const [tags, setTags] = useState(items.map((i) => ({ label: i.name, value: i.id })));
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { open, onToggle, onClose } = useDisclosure();
 
   return (
     <Box gridColumn="2/5" mb={2}>
-      {isOpen ? (
+      {open ? (
         <Box>
           <TagsEditor
             objectId={objectId}
@@ -42,12 +42,13 @@ export default function TagsShow({
             <LinkTag href={href} label={tag.label} key={tag?.label} />
           ))}
           <IconButton
-            variant="link"
-            colorScheme="blue"
+            variant="ghost"
+            colorPalette="blue"
             onClick={onToggle}
             aria-label="Edit"
-            icon={<EditIcon />}
-          />
+          >
+            <EditIcon />
+          </IconButton>
         </Box>
       )}
     </Box>

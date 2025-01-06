@@ -51,7 +51,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
   const ActionButtons = ({ hasEditDeleteAccess }) => {
     return (
       <Box display={"flex"}>
-        <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+        <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
           {<LuArrowLeft />}
           {backButtonText}
         </Button>

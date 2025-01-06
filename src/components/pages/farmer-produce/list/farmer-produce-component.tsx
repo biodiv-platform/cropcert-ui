@@ -105,7 +105,7 @@ function FarmerProduceListComponent() {
           {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
-          colorScheme="blue"
+          colorPalette="blue"
           variant="solid"
           onClick={handleOnCreateBatch}
           disabled={
@@ -118,7 +118,7 @@ function FarmerProduceListComponent() {
           Create Batch
         </Button>
         <Button
-          colorScheme="gray"
+          colorPalette="gray"
           variant="solid"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}

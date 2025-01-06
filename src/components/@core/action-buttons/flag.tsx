@@ -95,7 +95,7 @@ export default function FlagActionButton({
         <SimpleActionButton
           icon={flags && flags.length ? <FlagFillIcon /> : <FlagOutlineIcon />}
           title={t("common:actions.flag.title")}
-          colorScheme={flags && flags?.length ? "red" : "purple"}
+          colorPalette={flags && flags?.length ? "red" : "purple"}
         />
       </DialogTrigger>
       <DialogContent>
@@ -134,7 +134,7 @@ export default function FlagActionButton({
                           {user.name} <UserBadge isAdmin={user.isAdmin} />
                         </BlueLink>
                       </Link>
-                      <Badge colorScheme="red" verticalAlign="baseline">
+                      <Badge colorPalette="red" verticalAlign="baseline">
                         {t(`common:actions.flag.flags.${flag.flag?.toLowerCase()}`)}
                       </Badge>
                       <Text>{flag.notes}</Text>
@@ -144,7 +144,7 @@ export default function FlagActionButton({
                         <Button
                           size="sm"
                           variant="outline"
-                          colorScheme="red"
+                          colorPalette="red"
                           onClick={() => handleOnUnFlag(flag.id)}
                         >
                           Remove
@@ -177,7 +177,7 @@ export default function FlagActionButton({
             <DialogActionTrigger asChild>
               <Button variant="outline">Close</Button>
             </DialogActionTrigger>
-            <SubmitButton colorScheme="red">Flag</SubmitButton>
+            <SubmitButton colorPalette="red">Flag</SubmitButton>
           </DialogFooter>
         )}
       </DialogContent>

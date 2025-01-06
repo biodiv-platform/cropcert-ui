@@ -1,4 +1,4 @@
-import {  Flex, Image, Input } from "@chakra-ui/react";
+import { Flex, Image, Input } from "@chakra-ui/react";
 import Rating from "@components/@core/rating";
 import { selectStyles } from "@components/form/configs";
 import ResourceTagsEditor from "@components/pages/common/tags-editor";

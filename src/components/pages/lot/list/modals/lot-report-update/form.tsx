@@ -178,7 +178,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
               name="finalizeLotColumn"
               label={
                 <span>
-                  Finalize GRN Number <Badge colorScheme="red">irreversible</Badge>
+                  Finalize GRN Number <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={!isFinalizeEnabled}

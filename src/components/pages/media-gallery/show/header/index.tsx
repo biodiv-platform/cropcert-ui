@@ -123,7 +123,7 @@ export default function ListHeader() {
                   icon={<Add2Icon />}
                   title={t("common:media_gallery.contribute")}
                   onClick={handleOnAdd}
-                  colorScheme="green"
+                  colorPalette="green"
                 />
                 {isAdmin && (
                   <>
@@ -131,13 +131,13 @@ export default function ListHeader() {
                       icon={<EditIcon />}
                       title={t("common:edit")}
                       onClick={handleOnEdit}
-                      colorScheme="green"
+                      colorPalette="green"
                     />
                     <SimpleActionButton
                       icon={<DeleteIcon />}
                       title={t("common:delete")}
                       onClick={handleOnDelete}
-                      colorScheme="red"
+                      colorPalette="red"
                     />
                   </>
                 )}

@@ -61,7 +61,7 @@ export default function FieldShow({
             <ExternalBlueLink href={defaultValue?.license?.url}>{fieldValue}</ExternalBlueLink>
           ) : fieldName == "mediaGallery" ? (
             defaultValue.mediaGallery?.map((item) => (
-              <Tag size="sm" key={item.name} colorScheme="blue" mb={2} mr={2}>
+              <Tag size="sm" key={item.name} colorPalette="blue" mb={2} mr={2}>
                 {item.name}
               </Tag>
             ))
@@ -70,10 +70,11 @@ export default function FieldShow({
           )}
           {canEdit && (
             <IconButton
-              // variant="link"
-              colorScheme="blue"
+              variant="plain"
+              colorPalette="blue"
               onClick={onToggle}
               aria-label="Edit"
+              size={"xs"}
             >
               {<EditIcon />}
             </IconButton>

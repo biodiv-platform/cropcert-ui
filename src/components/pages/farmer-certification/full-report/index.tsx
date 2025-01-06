@@ -77,7 +77,7 @@ export default function FullReportComponent() {
     <Container>
       <PageHeading
         actions={
-          <Button colorScheme="blue" leftIcon={<DownloadIcon />} onClick={downloadXLS}>
+          <Button colorPalette="blue" leftIcon={<DownloadIcon />} onClick={downloadXLS}>
             Download XLS
           </Button>
         }

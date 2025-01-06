@@ -39,9 +39,10 @@ export const WYSIWYGField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
       <WYSIWYGEditor
         name={name}
         id={name}

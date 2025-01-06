@@ -1,4 +1,4 @@
-import { AspectRatio, Box, IconButton, Image } from "@chakra-ui/react";
+import { AspectRatio, Box, IconButton, Image, useCheckbox } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import DeleteIcon from "@icons/delete";
 import { RESOURCE_SIZE } from "@static/constants";
@@ -52,13 +52,14 @@ const Checkbox = (props: any) => {
 
   // const { getInputProps, getCheckboxProps } = useCheckbox(props);
 
+  const { getControlProps, getLabelProps } = useCheckbox(props);
+
   return (
     <Box as="label" className="fade" aria-checked={props.isChecked}>
-      {/* {...getInputProps()} */}
-      <input onChange={handleOnChange} required={false} />
+      <input {...getControlProps()} onChange={handleOnChange} required={false} />
       <AspectRatio
         ratio={1}
-        // {...getCheckboxProps()}
+        {...getLabelProps()}
         borderRadius="lg"
         overflow="hidden"
         borderWidth="2px"
@@ -70,7 +71,7 @@ const Checkbox = (props: any) => {
           <IconButton
             className="remove fade"
             variant="ghost"
-            colorScheme="red"
+            colorPalette="red"
             hidden={props.isChecked}
             aria-label={t("common:delete")}
             onClick={() => removeAsset(props.asset)}

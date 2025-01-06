@@ -153,7 +153,7 @@ export default function Farm() {
                   </Box>
                 </SimpleGrid>
                 <Button
-                  colorScheme="red"
+                  colorPalette="red"
                   type="button"
                   leftIcon={<DeleteIcon />}
                   mr={4}
@@ -162,7 +162,7 @@ export default function Farm() {
                   Remove this Plot
                 </Button>
                 <Button
-                  colorScheme="blue"
+                  colorPalette="blue"
                   type="button"
                   leftIcon={<AddIcon />}
                   onClick={() => farms.insert(index + 1, {})}
@@ -174,7 +174,7 @@ export default function Farm() {
           ))}
         </Accordion>
         <Button
-          colorScheme="blue"
+          colorPalette="blue"
           type="button"
           m={4}
           mb={0}

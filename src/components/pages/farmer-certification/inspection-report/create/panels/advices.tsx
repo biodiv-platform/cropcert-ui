@@ -29,7 +29,7 @@ export default function Advices({ previousAdvices }) {
             <Box key={field.id} mt={index !== 0 ? 6 : 0}>
               <TextBoxField name={`advices.${index}.advice`} label="Advice" />
               <Button
-                colorScheme="red"
+                colorPalette="red"
                 type="button"
                 leftIcon={<DeleteIcon />}
                 mr={4}
@@ -38,7 +38,7 @@ export default function Advices({ previousAdvices }) {
                 Remove Current
               </Button>
               <Button
-                colorScheme="blue"
+                colorPalette="blue"
                 type="button"
                 leftIcon={<AddIcon />}
                 onClick={() => advices.insert(index + 1, "")}
@@ -49,7 +49,7 @@ export default function Advices({ previousAdvices }) {
           ))
         ) : (
           <Button
-            colorScheme="blue"
+            colorPalette="blue"
             type="button"
             onClick={() => advices.append("")}
             leftIcon={<AddIcon />}

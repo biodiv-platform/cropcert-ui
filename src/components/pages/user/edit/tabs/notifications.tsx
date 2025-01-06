@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import { SwitchField } from "@components/form/switch";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,11 +45,13 @@ export default function NotificationsTab({ user }: UserEditPageComponentProps) {
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnUpdate)}>
-        <SwitchField name="sendPushNotification" label={t("user:send_push_notifications")} />
-        <SwitchField name="sendNotification" label={t("user:send_email")} />
-        <SwitchField name="identificationMail" label={t("user:identification_mail")} />
-        <SwitchField name="hideEmial" label={t("user:hide_email")} />
-        <SubmitButton leftIcon={<CheckIcon />}>{t("common:save")}</SubmitButton>
+        <Box p={4}>
+          <SwitchField name="sendPushNotification" label={t("user:send_push_notifications")} />
+          <SwitchField name="sendNotification" label={t("user:send_email")} />
+          <SwitchField name="identificationMail" label={t("user:identification_mail")} />
+          <SwitchField name="hideEmial" label={t("user:hide_email")} />
+          <SubmitButton icon={<CheckIcon />}>{t("common:save")}</SubmitButton>
+        </Box>
       </form>
     </FormProvider>
   );

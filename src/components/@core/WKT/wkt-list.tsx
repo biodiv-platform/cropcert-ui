@@ -12,7 +12,7 @@ export default function WKTList({ list, onDelete, nameTitle }) {
           content={o[nameTitle]}
           rounded="full"
           variant="solid"
-          colorScheme="blue"
+          colorPalette="blue"
           closable={onDelete(index)}
         ></Tag>
       ))}

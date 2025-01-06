@@ -34,7 +34,7 @@ export default function DocumentPreview() {
             </Text>
             <IconButton
               variant="ghost"
-              colorScheme="red"
+              colorPalette="red"
               size="sm"
               onClick={() => handleDelete(index)}
               aria-label={""}

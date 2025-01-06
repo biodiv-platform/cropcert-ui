@@ -104,7 +104,7 @@ const GmapsWktLocationPicker = ({
                   size="xs"
                   ml={1}
                   verticalAlign="baseline"
-                  colorScheme="blue"
+                  colorPalette="blue"
                   onClick={ll.use}
                 >
                   {t("observation:last_location")}

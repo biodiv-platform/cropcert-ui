@@ -21,7 +21,7 @@ export default function FormDebugger() {
       <Alert status="warning" mb={2} borderRadius="md">
         FOR DEVELOPMENT PURPOSES ONLY
       </Alert>
-      <Button w="100%" colorScheme="red" onClick={update} mb={2}>
+      <Button w="100%" colorPalette="red" onClick={update} mb={2}>
         Refresh Values
       </Button>
       <Box bg="gray.100" p={4}>

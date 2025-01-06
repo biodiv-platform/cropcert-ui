@@ -324,7 +324,7 @@ export default function GreenReportForm({
               name="finalizeGreenStatus"
               label={
                 <span>
-                  Dispatch to Milling <Badge colorScheme="red">irreversible</Badge>
+                  Dispatch to Milling <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={isFinalizeEnabled}

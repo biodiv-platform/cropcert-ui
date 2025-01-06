@@ -44,13 +44,13 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
             passHref={true}
             legacyBehavior
           >
-            <Button as="a" colorScheme="blue" size="sm" rightIcon={<ArrowForwardIcon />} mb={4}>
+            <Button as="a" colorPalette="blue" size="sm" rightIcon={<ArrowForwardIcon />} mb={4}>
               Farmers List ({syncStatus?.farmersCount})
             </Button>
           </NextLink>
           <Button
             className="download"
-            colorScheme="red"
+            colorPalette="red"
             isLoading={isLoading}
             onClick={handleOnRemove}
             loadingText="Deleting"
@@ -64,7 +64,7 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
         <Button
           size="sm"
           className="download"
-          colorScheme="teal"
+          colorPalette="teal"
           onClick={handleOnDownload}
           isLoading={isLoading}
           isDisabled={!isOnline}

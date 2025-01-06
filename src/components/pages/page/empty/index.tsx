@@ -27,7 +27,7 @@ export default function EmptyPageComponent() {
           </Text>
           {canCreate && (
             <Link passHref={true} href="/page/create" legacyBehavior>
-              <Button as="a" colorScheme="blue">
+              <Button as="a" colorPalette="blue">
                 {<LuArrowRight />}
                 {t("page:create.title")}
               </Button>

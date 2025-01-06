@@ -46,9 +46,10 @@ export const PasswordInputField = ({
       mb={mb}
       hidden={hidden}
       required={isRequired}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
 
       <PasswordInput {...field} />
 

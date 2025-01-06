@@ -16,19 +16,21 @@ export default function ClearFilters() {
   const message = t("filters:clear", { filterCount });
   const router = useRouter();
 
-  const clearFilters = () => router.push("/user/list", {});
+  const clearFilters = () => {
+    router.push("/user/list", {}).then(() => window.location.reload());
+  };
 
   return filterCount > 0 ? (
-    <Tooltip title={message} hasArrow={true}>
+    <Tooltip title={message} showArrow={true}>
       <Button
         onClick={clearFilters}
-        variant="link"
+        variant="plain"
         className="fade"
         size="lg"
-        colorScheme="red"
+        colorPalette="red"
         aria-label={message}
-        leftIcon={<DeleteIcon />}
       >
+        <DeleteIcon />
         {filterCount}
       </Button>
     </Tooltip>

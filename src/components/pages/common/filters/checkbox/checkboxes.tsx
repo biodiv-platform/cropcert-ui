@@ -53,7 +53,7 @@ export default function FilterCheckboxes({
   return (
     <>
       {showSearch && (
-        <InputGroup mb={2} startElement={<LuSearch color="gray.300" />}>
+        <InputGroup mb={2} startElement={<LuSearch color="gray.300" />} width={"full"}>
           <Input type="text" placeholder={t("common:search")} onChange={handleOnSearch} />
         </InputGroup>
       )}

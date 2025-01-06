@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -43,23 +43,26 @@ export default function ChangePasswordTab({ userId }) {
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnUpdate)}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={4}>
-          <div>
-            <TextBoxField
-              name="oldPassword"
-              type="password"
-              hidden={hideOldPassword}
-              label={t("user:current_password")}
-            />
-            <TextBoxField name="newPassword" type="password" label={t("user:new_password")} />
-            <TextBoxField
-              name="confirmNewPassword"
-              type="password"
-              label={t("user:confirm_new_password")}
-            />
-          </div>
-        </SimpleGrid>
-        <SubmitButton leftIcon={<CheckIcon />}>{t("user:update_password")}</SubmitButton>
+        <Box p={4}>
+          <SimpleGrid columns={{ base: 1, md: 2 }}>
+            <div>
+              <TextBoxField
+                name="oldPassword"
+                type="password"
+                hidden={hideOldPassword}
+                label={t("user:current_password")}
+              />
+              <TextBoxField name="newPassword" type="password" label={t("user:new_password")} />
+              <TextBoxField
+                name="confirmNewPassword"
+                type="password"
+                label={t("user:confirm_new_password")}
+              />
+            </div>
+          </SimpleGrid>
+
+          <SubmitButton icon={<CheckIcon />}>{t("user:update_password")}</SubmitButton>
+        </Box>
       </form>
     </FormProvider>
   );

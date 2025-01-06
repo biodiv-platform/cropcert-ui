@@ -126,7 +126,7 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
               name="finalizeMillingStatus"
               label={
                 <span>
-                  Dispatch to Union <Badge colorScheme="red">irreversible</Badge>
+                  Dispatch to Union <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={isFCheckbox}

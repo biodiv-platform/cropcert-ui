@@ -108,7 +108,7 @@ export default function OdkModal({ open, onClose, odkLink }) {
           </DialogBody>
 
           <DialogFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorPalette="blue" mr={3} onClick={onClose}>
               Close
             </Button>
           </DialogFooter>

@@ -16,8 +16,14 @@ export const RecaptchaField = ({ name, label, hint, mb = 4, ...props }: IRecaptc
   const { field, fieldState } = useController({ name, defaultValue: null });
 
   return (
-    <Field invalid={!!fieldState.error} errorText={fieldState?.error?.message} mb={mb} {...props}>
-      {label && <Field>{label}</Field>}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={fieldState?.error?.message}
+      mb={mb}
+      htmlFor={field.name}
+      label={label}
+      {...props}
+    >
       <ReCaptcha
         sitekey={SITE_CONFIG.TOKENS.RECAPTCHA}
         onExpired={field.onChange}

@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box,Flex } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
@@ -34,17 +34,20 @@ export const SwitchField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
+      htmlFor={field.name}
       {...props}
     >
-      <Flex>
-        {label && <Field htmlFor={name} children={label} />}
+      <Flex align="center">
+        <Box as="label" mr={2}>
+          {label}
+        </Box>
         <Switch
           id={name}
           onBlur={field.onBlur}
           onChange={(e) => field.onChange(e.target["checked"])}
           defaultChecked={field.value}
           disabled={disabled}
-          color={color}
+          colorPalette={color}
           name={name}
           pl={pl}
         />

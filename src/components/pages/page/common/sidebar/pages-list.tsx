@@ -15,7 +15,7 @@ interface PagesListProps {
 }
 
 const TogglePaneButton = ({ isExpanded, onToggle }) => (
-  <Button variant="ghost" fontSize="xl" colorScheme="transparent" onClick={onToggle} pl={0}>
+  <Button variant="ghost" fontSize="xl" colorPalette="transparent" onClick={onToggle} pl={0}>
     {isExpanded ? <LuChevronUp /> : <LuChevronDown />}
   </Button>
 );

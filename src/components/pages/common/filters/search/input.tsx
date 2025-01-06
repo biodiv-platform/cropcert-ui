@@ -39,7 +39,7 @@ export default function TextFilterInput({ filterKey, label, mb = 0, useIndexFilt
     <FormProvider {...hForm}>
       <TextFilterForm onSubmit={hForm.handleSubmit(handleOnChange)}>
         <TextBoxField name="query" id={filterKey} label={label} showLabel={false} mb={mb} />
-        <IconButton variant="solid" colorScheme="blue" type="submit" aria-label={`Find ${label}`}>
+        <IconButton variant="solid" colorPalette="blue" type="submit" aria-label={`Find ${label}`}>
           <LuSearch />
         </IconButton>
       </TextFilterForm>

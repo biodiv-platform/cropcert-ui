@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
@@ -51,6 +52,7 @@ export const SelectMultipleInputField = ({
       maxHeight: "200px",
       overflowY: "auto",
       paddingLeft: "10px",
+      width: "100%",
     }),
   };
 
@@ -62,28 +64,31 @@ export const SelectMultipleInputField = ({
       aria-invalid={!!fieldState.error}
       mb={mb}
       required={isRequired}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
-      <Select
-        id={name}
-        instanceId={name}
-        inputId={name}
-        onChange={(o) => field.onChange(o ? o.map(({ value }) => value) : [])}
-        onBlur={field.onBlur}
-        options={options}
-        components={{
-          Option: optionComponent,
-        }}
-        defaultValue={initialValue}
-        isSearchable={true}
-        isMulti={true}
-        isClearable={isClearable}
-        isDisabled={disabled}
-        ref={selectRef}
-        {...reactSelectProps}
-        styles={customStyles}
-      />
+      <Box width={"full"} p={4}>
+        <Select
+          id={name}
+          instanceId={name}
+          inputId={name}
+          onChange={(o) => field.onChange(o ? o.map(({ value }) => value) : [])}
+          onBlur={field.onBlur}
+          options={options}
+          components={{
+            Option: optionComponent,
+          }}
+          defaultValue={initialValue}
+          isSearchable={true}
+          isMulti={true}
+          isClearable={isClearable}
+          isDisabled={disabled}
+          ref={selectRef}
+          {...reactSelectProps}
+          styles={customStyles}
+        />
+      </Box>
 
       {hint && <Field color="gray.600" helperText={hint} />}
     </Field>

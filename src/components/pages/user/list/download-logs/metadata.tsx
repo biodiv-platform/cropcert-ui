@@ -77,7 +77,7 @@ export const downloadLogsRow = (data, downloadLabel, unknown) => {
               download={true}
               disabled={!adminOrAuthor(row.user.id)}
               leftIcon={<DownloadIcon />}
-              colorScheme="blue"
+              colorPalette="blue"
             >
               {downloadLabel}
             </Button>

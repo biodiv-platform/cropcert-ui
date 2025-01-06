@@ -100,7 +100,7 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
               name="finalizeBatch"
               label={
                 <span>
-                  Ready for Lot <Badge colorScheme="red">irreversible</Badge>
+                  Ready for Lot <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={batch.isReadyForLot || !values.perchmentQuantity}

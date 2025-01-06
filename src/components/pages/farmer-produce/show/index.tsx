@@ -40,7 +40,7 @@ export default function FarmerProduceShowPageComponent({
   const ActionButtons = () => {
     return (
       <Box display={"flex"}>
-        <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+        <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
           <LuArrowLeft />
           {backButtonText}
         </Button>

@@ -1,18 +1,19 @@
 import { AspectRatio, Box, IconButton, Image, Input, SimpleGrid, Stack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { axUploadResource } from "@services/files.service";
-// import { axGetLicenseList } from "@services/resources.service";
+import { axGetLicenseList } from "@services/resources.service";
 import { resizeImage } from "@utils/image";
 import { getResourceRAW, RESOURCE_CTX } from "@utils/media";
 import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 
 import { CloseButton } from "@/components/ui/close-button";
 import { Field } from "@/components/ui/field";
+import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 
 export const getColor = (props) => {
   if (props.isDragAccept) {
@@ -76,7 +77,7 @@ export const PageGalleryField = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const { formState, register } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({ name, keyName: "hId" });
-  // const [licenses, setLicenses] = useState<any[]>();
+  const [licenses, setLicenses] = useState<any[]>();
 
   const onDrop = async (files) => {
     if (!files?.length) return;
@@ -110,11 +111,11 @@ export const PageGalleryField = ({
     }
   };
 
-  // useEffect(() => {
-  //   axGetLicenseList().then(({ data }) => {
-  //     setLicenses(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    axGetLicenseList().then(({ data }) => {
+      setLicenses(data);
+    });
+  }, []);
 
   return (
     <Field
@@ -128,7 +129,7 @@ export const PageGalleryField = ({
       {label && <Field htmlFor={name}>{label}</Field>}
 
       {/* Dropzone */}
-      <div id={name}>
+      <Box id={name} width={"full"}>
         <Container {...getRootProps({ isDragActive, isDragAccept, isDragReject })}>
           <input {...getInputProps()} />
           {isProcessing ? (
@@ -137,7 +138,7 @@ export const PageGalleryField = ({
             <p>Drag n drop some images here, or click to select files</p>
           )}
         </Container>
-      </div>
+      </Box>
 
       {/* Preview */}
       {fields && (
@@ -179,18 +180,20 @@ export const PageGalleryField = ({
                   {...register(`${name}.${index}.attribution`)}
                   placeholder={t("form:attribution")}
                 />
-                {/* {licenses && (
-                  <Select
-                    {...register(`${name}.${index}.licenseId`)}
-                    defaultValue={licenses[0].value}
-                  >
-                    {licenses.map((l) => (
-                      <option value={l.value} key={l.value}>
-                        {l.label}
-                      </option>
-                    ))}
-                  </Select>
-                )} */}
+                {licenses && (
+                  <NativeSelectRoot>
+                    <NativeSelectField
+                      {...register(`${name}.${index}.licenseId`)}
+                      defaultValue={licenses[0].value}
+                    >
+                      {licenses.map((l) => (
+                        <option value={l.value} key={l.value}>
+                          {l.label}
+                        </option>
+                      ))}
+                    </NativeSelectField>
+                  </NativeSelectRoot>
+                )}
                 <SimpleGrid columns={2} gap={2}>
                   <IconButton
                     onClick={() => move(index, index - 1)}

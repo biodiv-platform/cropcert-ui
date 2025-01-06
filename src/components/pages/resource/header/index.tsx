@@ -1,4 +1,4 @@
-import { Flex, Heading, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
+import { Flex, Heading, Tabs, Text } from "@chakra-ui/react";
 import SimpleActionButton from "@components/@core/action-buttons/simple";
 import BulkMapperHeader from "@components/pages/common/bulk-mapper";
 import Add2Icon from "@icons/add";
@@ -12,7 +12,6 @@ import useResourceFilter from "../common/use-resource-filter";
 
 export default function ListHeader() {
   const {
-    filter,
     setFilter,
     onOpen: openBulkMappingModal,
     resourceData,
@@ -20,19 +19,17 @@ export default function ListHeader() {
     handleBulkCheckbox,
     bulkResourceIds,
   } = useResourceFilter();
-  const defaultIndex = viewTabs.findIndex((tab) => tab.key === filter?.view);
   const { t } = useTranslation();
 
-  const handleOnViewChange = (index: number) => {
+  const handleOnViewChange = (value) => {
     setFilter((_draft) => {
       _draft.f.offset = 0;
-      _draft.f.view = viewTabs[index].key;
+      _draft.f.view = value;
     });
   };
 
   const handleSelectAll = () => {
-    alert(` ${resourceData.n}${t(" resources selected")}`);
-
+    alert(` ${resourceData.n}${" resources selected"}`);
     handleBulkCheckbox("selectAll");
   };
 
@@ -41,35 +38,38 @@ export default function ListHeader() {
   return (
     <>
       <Flex mt={4} direction={{ base: "column", md: "row" }} justify="space-between">
-        <Tabs
+        <Tabs.Root
           display="inline-block"
           className="icon-tabs"
-          onChange={handleOnViewChange}
-          variant="soft-rounded"
-          isManual={true}
-          defaultIndex={defaultIndex}
+          onValueChange={(e) => handleOnViewChange(e.value)}
+          activationMode="manual"
           mb={4}
-          isLazy={true}
+          lazyMount
           hidden={true}
         >
-          <TabList aria-orientation="vertical">
+          <Tabs.List aria-orientation="vertical">
             {viewTabs.map(({ name, icon, key }) => (
-              <Tab key={key} aria-label={t(name)} aria-controls={`view_${key}`}>
+              <Tabs.Trigger
+                value={key}
+                key={key}
+                aria-label={t(name)}
+                aria-controls={`view_${key}`}
+              >
                 {icon} {t(name)}
-              </Tab>
+              </Tabs.Trigger>
             ))}
-          </TabList>
-        </Tabs>
+          </Tabs.List>
+        </Tabs.Root>
       </Flex>
       {resourceData && resourceData.n > -1 && (
         <Flex mb={4} justifyContent="center" minH="32px" alignItems="center" flexDirection="column">
-          <Heading textAlign="center" size="2xl">
+          <Heading textAlign="center" size="5xl">
             All Media Gallery
             <SimpleActionButton
               icon={<Add2Icon />}
               title={t("common:resource.contribute")}
               onClick={handleOnAdd}
-              colorScheme="green"
+              colorPalette="green"
             />
           </Heading>
           <Text fontSize="xl" color="gray.600">

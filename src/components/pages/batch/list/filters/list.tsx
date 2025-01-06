@@ -11,7 +11,7 @@ import TypeFilter from "./type";
 
 export default function FiltersList() {
   return (
-    <AccordionRoot multiple={true}>
+    <AccordionRoot multiple={true} lazyMount>
       <BatchIdFilter />
       <BatchNameFilter />
       <QuantityFilter />

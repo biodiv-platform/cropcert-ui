@@ -1,10 +1,12 @@
-import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup } from "@chakra-ui/react";
+// import { DeleteIcon } from "@chakra-ui/icons";
+import { Box, Button, Group } from "@chakra-ui/react";
 import AddIcon from "@icons/add";
 import { axDeleteAppUser } from "@services/odk.service";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import DeleteIcon from "@/icons/delete";
 
 const GroupRulesTable = ({
   user,
@@ -31,26 +33,18 @@ const GroupRulesTable = ({
 
   return (
     <Box fontSize="lg" w="full" overflowX="auto" className="fade">
-      <ButtonGroup spacing={4} mt={4} mb={4}>
+      <Group gridRowGap={4} mt={4} mb={4}>
         {!isWebUser && (
-          <Button
-            colorScheme="blue"
-            size="sm"
-            onClick={() => setIsCreateWebUser(true)}
-            leftIcon={<AddIcon />}
-          >
+          <Button colorPalette="blue" size="sm" onClick={() => setIsCreateWebUser(true)}>
+            <AddIcon />
             {t("common:action.create_web_user")}
           </Button>
         )}
-        <Button
-          colorScheme="blue"
-          size="sm"
-          onClick={() => setIsCreate(true)}
-          leftIcon={<AddIcon />}
-        >
+        <Button colorPalette="blue" size="sm" onClick={() => setIsCreate(true)}>
+          <AddIcon />
           {t("common:action.create_app_user")}
         </Button>
-      </ButtonGroup>
+      </Group>
       {project.length > 0 && (
         <table style={{ minWidth: "750px" }} className="table table-bordered">
           <thead>
@@ -70,10 +64,10 @@ const GroupRulesTable = ({
                 <td>
                   <Button
                     onClick={() => removeGroupRules(item.id)}
-                    variant="link"
-                    colorScheme="red"
-                    leftIcon={<DeleteIcon />}
+                    // variant="link"
+                    colorPalette="red"
                   >
+                    <DeleteIcon />
                     {t("common:delete")}
                   </Button>
                 </td>

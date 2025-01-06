@@ -9,7 +9,7 @@ import UserLocationMap from "./user-info-tabs/about/user-location-map";
 export default function UserShowPageComponent({ user }) {
   return (
     <Container py={6}>
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 6 }}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 6 }}>
         <UserInfoSidebar user={user} />
 
         <GridItem colSpan={3}>

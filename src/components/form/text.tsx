@@ -16,7 +16,7 @@ interface ITextBoxProps {
   hint?: string;
   style?;
   maxLength?;
-  isRequired?: boolean;
+  required?: boolean;
   showLabel?: boolean;
   hidden?;
   autoComplete?;
@@ -33,7 +33,7 @@ export const TextBoxField = ({
   pl = 4,
   disabled,
   hint,
-  isRequired,
+  required,
   showLabel = true,
   maxLength,
   hidden,
@@ -48,15 +48,16 @@ export const TextBoxField = ({
 
   return (
     <Field
+      label={showLabel && label}
+      htmlFor={name}
       invalid={!!fieldState.error}
       errorText={fieldState?.error?.message}
       mb={mb}
       mt={mt}
       hidden={hidden}
-      required={isRequired}
+      required={required}
       {...props}
     >
-      {label && showLabel && <Field htmlFor={name}>{label}</Field>}
       <Input
         id={id || name}
         placeholder={placeholder}

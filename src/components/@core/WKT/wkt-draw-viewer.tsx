@@ -168,7 +168,7 @@ export default function WKTDrawViewer({
                     className="left"
                     aria-label={t("common:clear")}
                     color="red.300"
-                    colorScheme="red.300"
+                    colorPalette="red.300"
                     onClick={clearWktForm}
                     disabled={disabled}
                   />

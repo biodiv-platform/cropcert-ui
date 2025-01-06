@@ -69,7 +69,7 @@ export default function Comment({ resourceId, resourceType, focusRef, commentFun
           />
         </MentionsInput>
       </Field>
-      <Button colorScheme="blue" onClick={handleOnComment}>
+      <Button colorPalette="blue" onClick={handleOnComment}>
         {t("form:comments.post")}
       </Button>
     </Box>

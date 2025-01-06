@@ -1,15 +1,4 @@
-import {
-  Box,
-  Checkbox,
-  CheckboxGroup,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, CheckboxGroup, Stack } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import CheckIcon from "@icons/check";
 import { axGetAllMediaGallery, axGetAllResources } from "@services/media-gallery.service";
@@ -18,17 +7,25 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogRoot,
+} from "@/components/ui/dialog";
+
 import useResourceFilter from "../../common/use-resource-filter";
 
 export default function BulkMapperModal() {
   const { t } = useTranslation();
-  const { onClose, isOpen, bulkResourceIds, selectAll, unselectedResourceIds, filter } =
+  const { onClose, open, bulkResourceIds, selectAll, unselectedResourceIds, filter } =
     useResourceFilter();
 
   const [mediaGalleryList, setMediaGalleryList] = useState<any[]>([]);
   const [mediaIds, setMediaIds] = useState<any[]>([]);
-
-  const checkBoxValue = [];
 
   useEffect(() => {
     axGetAllMediaGallery().then(setMediaGalleryList);
@@ -46,7 +43,6 @@ export default function BulkMapperModal() {
       isBulkPosting: true,
     };
 
-    console.warn(params);
     const { success } = await axGetAllResources(params);
     if (success) {
       notification(t("common:media_gallery.post.success"), NotificationType.Success);
@@ -56,24 +52,30 @@ export default function BulkMapperModal() {
     onClose();
   };
 
-  const handleOnChange = (v) => {
-    setMediaIds(v);
+  const handleOnChange = (e) => {
+    setMediaIds(e);
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>{t("common:media_gallery.select")}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
+    <DialogRoot open={open} onOpenChange={onClose} lazyMount>
+      <DialogBackdrop />
+      <DialogContent>
+        <DialogHeader>{t("common:media_gallery.select")}</DialogHeader>
+        <DialogCloseTrigger />
+        <DialogBody>
           <FormProvider {...projectForm}>
             <form className="fade" onSubmit={projectForm.handleSubmit(handleFormSubmit)}>
               <Box mb={"4"}>
-                <CheckboxGroup defaultValue={checkBoxValue} onChange={handleOnChange}>
+                <CheckboxGroup name="mediaGalleryId" onValueChange={handleOnChange}>
                   <Stack>
                     {mediaGalleryList.map(({ id, name }) => (
-                      <Checkbox value={String(id)} alignItems="baseline" name="mediaGalleryId">
+                      <Checkbox
+                        value={String(id)}
+                        alignItems="baseline"
+                        name="mediaGalleryId"
+                        key={id}
+                        colorPalette={"blue"}
+                      >
                         {name}
                       </Checkbox>
                     ))}
@@ -85,8 +87,8 @@ export default function BulkMapperModal() {
               </SubmitButton>
             </form>
           </FormProvider>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 }

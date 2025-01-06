@@ -56,7 +56,7 @@ export default function DownloadTable() {
               {code}. {name}
             </Text>
             {syncStatus && pendingReports.length > 0 && (
-              <Badge colorScheme="green" variant="outline">
+              <Badge colorPalette="green" variant="outline">
                 {pendingReports.length} Report Completed
               </Badge>
             )}

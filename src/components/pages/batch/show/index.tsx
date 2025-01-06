@@ -39,7 +39,7 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+      <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
         <LuArrowRight />
         {backButtonText}
       </Button>

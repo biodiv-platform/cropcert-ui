@@ -110,7 +110,7 @@ const MultiMarkerMapModal = () => {
             <Flex alignItems={"center"}>
               {!isLoading && union?.value && (
                 <Button
-                  colorScheme="teal"
+                  colorPalette="teal"
                   size="md"
                   mt={2}
                   marginX={"auto"}

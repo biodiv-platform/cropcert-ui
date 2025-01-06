@@ -12,25 +12,30 @@ const TraceabilityTabs = ({ children }: { children: React.ReactNode }) => {
     setSelectedTab(activeTab ?? "farmerProduce");
   }, [router.pathname]);
 
-  const handleTabChange = (index) => {
-    const selectedPath = TRACEABILITY_TABS[index].path;
+  const handleTabChange = (e) => {
+    // const selectedPath = TRACEABILITY_TABS[index].path;
+    const selectedPath = TRACEABILITY_TABS.map((tab) =>
+      tab.tabIndex === e ? tab.path : null
+    ).filter((path) => path !== null)[0]; // Extract the first non-null path
+    console.warn("e", e);
     router.push(selectedPath);
   };
 
   return (
     <Tabs.Root
+      size="lg"
       fitted
-      variant="enclosed"
+      variant="outline"
       p={4}
-      onChange={handleTabChange}
+      onValueChange={(e) => handleTabChange(e.value)}
       height="100%"
       display="flex"
       flexDirection="column"
-      defaultValue={selectedTab}
+      value={selectedTab}
     >
       <Tabs.List flexShrink={0}>
         {TRACEABILITY_TABS.map((item) => (
-          <Tabs.Trigger value={TRACEABILITY_TABS[item.tabIndex].tabIndex} key={item.label}>
+          <Tabs.Trigger value={item.tabIndex} key={item.label} >
             {item.label}
           </Tabs.Trigger>
         ))}

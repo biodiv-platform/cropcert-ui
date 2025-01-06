@@ -25,7 +25,7 @@ function Card({ title, description, to, tag, external = false }: IProps) {
           {title}
         </StatValueText>
         {tag && (
-          <Tag colorScheme="red" color="red.500" ml={2}>
+          <Tag colorPalette="red" color="red.500" ml={2}>
             {tag}
           </Tag>
         )}

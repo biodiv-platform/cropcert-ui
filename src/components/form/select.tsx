@@ -58,9 +58,10 @@ export const SelectInputField = ({
       mb={mb}
       hidden={hidden}
       required={isRequired}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <Field htmlFor={name} children={label} />}
       <Select
         id={name}
         instanceId={name}

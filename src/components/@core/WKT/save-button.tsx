@@ -8,7 +8,7 @@ export default function SaveButton({ onClick, disabled }: ButtonProps) {
 
   return (
     <Flex alignItems="flex-end">
-      <Button disabled={disabled} type="button" colorScheme="blue" w="full" onClick={onClick}>
+      <Button disabled={disabled} type="button" colorPalette="blue" w="full" onClick={onClick}>
         {<CheckIcon />}
         {t("common:save")}
       </Button>

@@ -1,4 +1,4 @@
-import { Input } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import React from "react";
 import { useController } from "react-hook-form";
@@ -60,17 +60,20 @@ export const PhoneNumberInputField = ({
       invalid={!!fieldState.error}
       errorText={fieldState?.error?.message}
       mb={mb}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      <Field htmlFor={name}>{label}</Field>
-      <MobileInput
-        id={name}
-        inputComponent={Input}
-        countrySelectProps={{ unicodeFlags: true }}
-        defaultCountry={defaultCountry as any}
-        disabled={disabled}
-        {...field}
-      />
+      <Box width={"full"}>
+        <MobileInput
+          id={name}
+          inputComponent={Input}
+          countrySelectProps={{ unicodeFlags: true }}
+          defaultCountry={defaultCountry as any}
+          disabled={disabled}
+          {...field}
+        />
+      </Box>
       {hint && <Field color="gray.600" helperText={hint} />}
     </Field>
   );

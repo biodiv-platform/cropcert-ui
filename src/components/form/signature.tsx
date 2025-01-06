@@ -53,9 +53,10 @@ export const SignatureInputField = ({
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb || 4}
       required={isRequired}
+      htmlFor={field.name}
+      label={label}
       id={field.name}
     >
-      <Field htmlFor={field.name}>{label}</Field>
       <SignatureWrapper>
         <div className="declaration">
           {declaration} - {personName}

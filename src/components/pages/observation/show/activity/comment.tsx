@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axUserSearch } from "@services/auth.service";
 import { ACTIVITY_UPDATED } from "@static/events";
@@ -7,6 +7,8 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { emit } from "react-gbus";
 import { Mention, MentionsInput } from "react-mentions";
+
+import { Field } from "@/components/ui/field";
 
 export default function Comment({ resourceId, resourceType, focusRef, commentFunc }) {
   const [text, setText] = useState("");
@@ -43,10 +45,7 @@ export default function Comment({ resourceId, resourceType, focusRef, commentFun
 
   return (
     <Box>
-      <FormControl isInvalid={false} mb={4}>
-        <FormLabel htmlFor="comment" mb={2}>
-          {t("form:comments.add_comment")}
-        </FormLabel>
+      <Field invalid={false} mb={4} htmlFor="comment" label={t("form:comments.add_comment")}>
         <MentionsInput
           id="comment"
           className="textarea"
@@ -58,8 +57,8 @@ export default function Comment({ resourceId, resourceType, focusRef, commentFun
         >
           <Mention trigger="@" data={onMentionQuery} />
         </MentionsInput>
-      </FormControl>
-      <Button colorScheme="blue" onClick={handleOnComment}>
+      </Field>
+      <Button colorPalette="blue" onClick={handleOnComment}>
         {t("form:comments.post")}
       </Button>
     </Box>

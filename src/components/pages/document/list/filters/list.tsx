@@ -1,14 +1,9 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Accordion, Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import AuthorFilter from "./author";
 import DataQuality from "./data-quality";
@@ -25,8 +20,8 @@ export default function FiltersList() {
   const { t } = useTranslation();
 
   return (
-    <Accordion defaultIndex={[0]} allowMultiple={true}>
-      <AccordionItem>
+    <AccordionRoot multiple={true}>
+      {/* <AccordionItem>
         <AccordionButton>
           <Box flex={1} textAlign="left">
             {t("filters:location.title")}
@@ -84,7 +79,7 @@ export default function FiltersList() {
             <AccordionPanel>{isExpanded && <UserFilter filterKey="user" />}</AccordionPanel>
           </>
         )}
-      </AccordionItem>
-    </Accordion>
+      </AccordionItem> */}
+    </AccordionRoot>
   );
 }

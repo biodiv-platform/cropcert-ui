@@ -36,8 +36,9 @@ export const GeolocationInputField = ({
       mb={mb || 4}
       required={isRequired}
       id={field.name}
+      htmlFor={field.name}
+      label={label}
     >
-      <Field htmlFor={field.name}>{label}</Field>
       <Button mb={4} onClick={onGetLocationClick}>
         {field.value ? <Check2Icon /> : undefined}
         {field.value || "Click to capture location"}

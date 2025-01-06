@@ -64,7 +64,7 @@ export default function Animals() {
               </CoreGrid>
 
               <Button
-                colorScheme="red"
+                colorPalette="red"
                 type="button"
                 leftIcon={<DeleteIcon />}
                 mr={4}
@@ -73,7 +73,7 @@ export default function Animals() {
                 Remove Current
               </Button>
               <Button
-                colorScheme="blue"
+                colorPalette="blue"
                 type="button"
                 leftIcon={<AddIcon />}
                 onClick={() => animals.insert(index + 1, {})}
@@ -84,7 +84,7 @@ export default function Animals() {
           ))
         ) : (
           <Button
-            colorScheme="blue"
+            colorPalette="blue"
             type="button"
             onClick={() => animals.append({})}
             leftIcon={<AddIcon />}

@@ -32,11 +32,11 @@ export default function DownloadButtons({ documentPath, documentId, title }) {
 
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} mb={4} gap={4}>
-      <Button variant="outline" onClick={downloadPDF} disabled={!documentPath} colorScheme="red">
+      <Button variant="outline" onClick={downloadPDF} disabled={!documentPath} colorPalette="red">
         <DownloadIcon />
         {t("document:download.pdf")}
       </Button>
-      <Button variant="outline" onClick={openZbib} colorScheme="teal">
+      <Button variant="outline" onClick={openZbib} colorPalette="teal">
         <PeopleIcon />
         {t("document:download.citation")}
       </Button>

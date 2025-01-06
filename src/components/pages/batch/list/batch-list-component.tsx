@@ -92,7 +92,7 @@ function BatchComponent() {
   const ActionButtons = () => (
     <Group gap={4}>
       <Button
-        colorScheme="green"
+        colorPalette="green"
         variant="solid"
         disabled={
           showTypeError ||

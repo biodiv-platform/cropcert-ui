@@ -1,9 +1,4 @@
-import {
-  Box,
-  Grid,
-  IconButton,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Grid, IconButton, Link } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import {
   axEditResource,
@@ -72,10 +67,10 @@ function CarouselResourceInfo({
     <Box position="absolute" top={4} right={20} display="flex">
       <PopoverRoot
         positioning={{ placement: "bottom-start" }}
-        // closeOnBlur={true}
         lazyMount={true}
         open={isOpen}
         onOpenChange={() => setIsOpen(!isOpen)}
+        portalled
       >
         <PopoverTrigger>
           <IconButton

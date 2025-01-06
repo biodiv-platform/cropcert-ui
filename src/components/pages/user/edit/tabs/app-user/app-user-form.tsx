@@ -1,4 +1,3 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import { SelectInputField } from "@components/form/select";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +5,7 @@ import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuArrowLeft } from "react-icons/lu";
 import * as Yup from "yup";
 
 export default function AppAppUser({ setIsCreate, projectList, setProjectId }) {
@@ -34,13 +34,8 @@ export default function AppAppUser({ setIsCreate, projectList, setProjectId }) {
   return (
     <FormProvider {...projectForm}>
       <form className="fade">
-        <Button
-          mb={4}
-          type="button"
-          size="sm"
-          onClick={() => setIsCreate(false)}
-          leftIcon={<ArrowBackIcon />}
-        >
+        <Button mb={4} type="button" size="sm" onClick={() => setIsCreate(false)}>
+          <LuArrowLeft />
           {t("common:prev")}
         </Button>
         <SelectInputField

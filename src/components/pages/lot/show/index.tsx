@@ -43,7 +43,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="solid" rounded="md" colorScheme="gray">
+      <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
         <LuArrowLeft />
         {backButtonText}
       </Button>

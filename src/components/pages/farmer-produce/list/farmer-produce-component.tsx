@@ -37,6 +37,10 @@ function FarmerProduceListComponent() {
   const { t } = useTranslation();
   const [isSyncing, setIsSyncing] = useState(false);
 
+  const [visibleColumns, setVisibleColumns] = useState(
+    farmerProduceColumns.filter((col) => col.showDefault)
+  );
+
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
@@ -178,7 +182,7 @@ function FarmerProduceListComponent() {
       ) : farmerProduceListData?.length > 0 ? (
         <Table
           data={farmerProduceListData}
-          columns={farmerProduceColumns}
+          columns={visibleColumns}
           selectableRows={true}
           selectableRowDisabled={(r) => r.batchId}
           onSelectedRowsChange={handleOnSelectionChange}
@@ -197,7 +201,9 @@ function FarmerProduceListComponent() {
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
           fixedHeaderScrollHeight="570px"
-          showFooter={false}
+          showManageColumnDropdown={true}
+          setVisibleColumns={setVisibleColumns}
+          allColumns={farmerProduceColumns}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

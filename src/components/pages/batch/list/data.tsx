@@ -23,13 +23,15 @@ const createBatchColumn = (
   selector: (row: Batch) => any,
   maxWidth: string,
   cell?: (row: Batch) => JSX.Element,
-  sortable = true
+  sortable = true,
+  showDefault = true
 ) => ({
   name,
   selector,
   maxWidth,
   cell,
   sortable,
+  showDefault,
 });
 
 const defaultBatchModalColumns = [
@@ -52,6 +54,7 @@ const batchModalColumnsWithLotInfo = [
     "100px",
     (row) => <LotCell {...row} />
   ),
+  createBatchColumn("Note", (row) => row.note, "200px", undefined, false, false),
 ];
 
 export const createBatchColumns = (columns) => {

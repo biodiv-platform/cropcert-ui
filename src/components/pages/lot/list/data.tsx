@@ -63,6 +63,7 @@ export const createLotColumns = (columns) => {
           center: true,
           maxWidth: "130px",
           cell: ButtonComponent,
+          showDefault: true, // revisit this later
         },
       ];
     }, []);
@@ -81,12 +82,14 @@ export const lotColumns = [
     sortable: true,
     width: "80px",
     cell: (row) => <LotCell {...row} type="l" />,
+    showDefault: true,
   },
   {
     name: "Name",
     selector: (row) => row.lotName,
     width: "210px",
     sortable: true,
+    showDefault: true,
   },
   {
     name: "Initial Quantity",
@@ -94,6 +97,7 @@ export const lotColumns = [
     center: true,
     sortable: true,
     maxWidth: "140px",
+    showDefault: true,
   },
   {
     name: "Lot Status",
@@ -102,6 +106,7 @@ export const lotColumns = [
     sortable: true,
     width: "150px",
     cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+    showDefault: true,
   },
 ];
 
@@ -111,6 +116,14 @@ const lotExtraColumns = [
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    showDefault: true,
+  },
+  {
+    name: "Note",
+    selector: (row) => row.note,
+    maxWidth: "200px",
+    sortable: false,
+    showDefault: false,
   },
 ];
 

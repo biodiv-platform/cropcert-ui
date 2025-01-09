@@ -1,4 +1,5 @@
 import FarmerCell from "@components/@core/table/farmer-cell";
+import { capitalizeFirstLetter } from "@utils/basic";
 import React from "react";
 
 export const farmerMemberColumns = [
@@ -8,23 +9,27 @@ export const farmerMemberColumns = [
     maxWidth: "150px",
     sortable: true,
     cell: (row) => <FarmerCell {...row} type="l" />,
+    showDefault: true,
   },
   {
     name: "Name",
     selector: (row) => row["farmerName"],
     width: "210px",
+    showDefault: true,
   },
   {
     name: "Village",
     selector: (row) => row["village"],
     maxWidth: "210px",
     sortable: true,
+    showDefault: true,
   },
   {
     name: "Collection Center",
     selector: (row) => row["cc"],
     maxWidth: "210px",
     sortable: true,
+    showDefault: true,
   },
   {
     name: "No. of Coffee Trees",
@@ -32,6 +37,7 @@ export const farmerMemberColumns = [
     maxWidth: "210px",
     sortable: true,
     right: true,
+    showDefault: true,
   },
   {
     name: "Land Acreage",
@@ -39,6 +45,7 @@ export const farmerMemberColumns = [
     maxWidth: "180px",
     sortable: true,
     right: true,
+    showDefault: true,
   },
   {
     name: "Year of First Plantation",
@@ -46,17 +53,106 @@ export const farmerMemberColumns = [
     maxWidth: "150px",
     sortable: true,
     right: true,
+    showDefault: true,
   },
   {
     name: "Record Created",
     selector: (row) => new Date(row.submittedOnODK).toLocaleString(),
     width: "210px",
     sortable: true,
+    showDefault: false,
   },
   {
     name: "Last Updated",
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     width: "210px",
     sortable: true,
+    showDefault: true,
+  },
+  {
+    name: "Gender",
+    selector: (row) => (row["gender"] ? capitalizeFirstLetter(row["gender"]) : "N/A"),
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Date of Birth",
+    selector: (row) => new Date(row["dateOfBirth"]).toLocaleDateString(),
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Contact Number",
+    selector: (row) => row["contactNumber"] || "N/A",
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "National Identity Number",
+    selector: (row) => row["nationalIdentityNumber"] || "N/A",
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Level of Education",
+    selector: (row) =>
+      row["levelOfEducation"] !== null ? capitalizeFirstLetter(row["levelOfEducation"]) : null,
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "No of Dependents",
+    selector: (row) => row["noOfDependents"],
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Coffee Acreage",
+    selector: (row) => row["coffeeAcreage"],
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Other Farm Enterprises",
+    selector: (row) =>
+      (row["otherFarmEnterprises"] && row["otherFarmEnterprises"].join(", ")) || "N/A",
+    maxWidth: "250px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Agroforestry",
+    selector: (row) => (row["agroforestry"] ? "Yes" : "No"),
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "No. of Farm Plots",
+    selector: (row) => row["noOfFarmPlots"],
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Enumerator",
+    selector: (row) => row["enumerator"] || "N/A",
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
+  },
+  {
+    name: "Location Verified",
+    selector: (row) => (row["isLocationVerified"] ? "Yes" : "No"),
+    maxWidth: "120px",
+    sortable: true,
+    showDefault: false,
   },
 ];

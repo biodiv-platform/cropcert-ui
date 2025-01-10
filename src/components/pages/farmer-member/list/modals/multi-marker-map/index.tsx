@@ -100,12 +100,12 @@ const MultiMarkerMapModal = () => {
   );
 
   return (
-    <DialogRoot open={open} onOpenChange={onClose}  size="full">
+    <DialogRoot open={open} onOpenChange={onClose} size="full">
       <DialogBackdrop />
       <DialogContent>
         <Flex>
           <DialogHeader flex={1} paddingBottom={1}>
-          <DialogTitle> {t("traceability:farmer.farmer_modal_heading")}</DialogTitle>
+            <DialogTitle> {t("traceability:farmer.farmer_modal_heading")}</DialogTitle>
           </DialogHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>

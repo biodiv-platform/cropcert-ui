@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import Tooltip from "../tooltip";
 import ContentBox from "./content-box";
 
-export default function ActivityList({ resourceId, resourceType, }) {
+export default function ActivityList({ resourceId, resourceType }) {
   const { t } = useTranslation();
   const activity = useActivity();
 

@@ -43,7 +43,7 @@ export default function TagFilterInput({ filterKey }) {
             {t("Tags")}
           </Box>
         </AccordionItemTrigger>
-        <AccordionItemContent >
+        <AccordionItemContent>
           {defaultValue ? (
             <AsyncSelect
               name={filterKey}

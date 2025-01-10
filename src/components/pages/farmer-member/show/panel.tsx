@@ -37,7 +37,7 @@ export default function FarmerShowPanel({
       }}
     >
       <AccordionItemTrigger indicatorPlacement="end" p={3}>
-        <Box flex="1" textAlign="left" >
+        <Box flex="1" textAlign="left">
           <Heading as="h2" size="3xl">
             {icon} {count > -1 && (count > 0 ? count : "No")} {title}
           </Heading>

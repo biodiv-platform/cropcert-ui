@@ -80,7 +80,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
             <TextBoxField name="note" label="Note" mb={0} />
           </DialogBody>
           <DialogFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<Check2Icon />} isDisabled={batches.length === 0}>

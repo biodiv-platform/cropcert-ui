@@ -21,6 +21,8 @@ export const SubmitButton = ({
   colorPalette = "blue",
   mb = 0,
   icon,
+  leftIcon,
+  rightIcon,
   ...rest
 }: ISubmitButtonProps) => {
   const { formState } = useFormContext();
@@ -39,8 +41,10 @@ export const SubmitButton = ({
       {...rest}
       bgColor={colorPalette}
     >
+      {leftIcon}
       {icon}
       {children}
+      {rightIcon}
     </Button>
   );
 };

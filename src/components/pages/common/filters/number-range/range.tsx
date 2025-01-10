@@ -55,8 +55,8 @@ export function NumberFilter({ useIndexFilter, filterKey, min, max }) {
 
   return (
     <Box py={3}>
-      <Box pr={3}>
-        <Slider defaultValue={[0.2, 10]} />
+      <Box pl={4} pr={4}>
+        <Slider value={[min, max]} min={min} max={max}  colorPalette={"blue"}/>
       </Box>
       <HStack mt={4} gap={4}>
         <NumInput

@@ -56,6 +56,7 @@ export const TextBoxField = ({
       mt={mt}
       hidden={hidden}
       required={required}
+      colorPalette={"blue"}
       {...props}
     >
       <Input

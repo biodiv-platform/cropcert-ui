@@ -74,7 +74,7 @@ export default function LotGRNForm({ onClose, onSubmit, lot, canWrite, errorMess
             )}
           </DialogBody>
           <DialogFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>

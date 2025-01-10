@@ -79,7 +79,7 @@ function FarmerMemberComponent() {
         </Button>
         <Button
           colorPalette="gray"
-          variant="solid"
+          variant="subtle"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
         >

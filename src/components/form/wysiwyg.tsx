@@ -41,6 +41,7 @@ export const WYSIWYGField = ({
       mb={mb}
       htmlFor={field.name}
       label={label}
+      colorPalette={"blue"}
       {...props}
     >
       <WYSIWYGEditor

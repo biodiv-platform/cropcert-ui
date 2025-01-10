@@ -28,7 +28,6 @@ export default function FarmerShowPanel({
     <AccordionItem
       value={title}
       defaultChecked={isOpen}
-      // defaultValue={isOpen ? "open" : undefined}
       disabled={count === 0}
       style={{
         boxShadow: "var(--chakra-shadows-md)",
@@ -37,9 +36,9 @@ export default function FarmerShowPanel({
         borderRadius: "var(--chakra-radii-md)",
       }}
     >
-      <AccordionItemTrigger indicatorPlacement="end">
-        <Box flex="1" textAlign="left">
-          <Heading as="h2" size="lg">
+      <AccordionItemTrigger indicatorPlacement="end" p={3}>
+        <Box flex="1" textAlign="left" >
+          <Heading as="h2" size="3xl">
             {icon} {count > -1 && (count > 0 ? count : "No")} {title}
           </Heading>
         </Box>

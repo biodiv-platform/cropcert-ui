@@ -3,7 +3,7 @@ import { createSystem, defaultConfig } from "@chakra-ui/react";
 const defaultFontFamily =
   "-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji";
 
-export const system = createSystem(defaultConfig, {
+export const customTheme = createSystem(defaultConfig, {
   globalCss: {
     "html, body": {
       scrollBehavior: "smooth",

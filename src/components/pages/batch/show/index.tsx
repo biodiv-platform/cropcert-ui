@@ -8,7 +8,7 @@ import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
 import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
-import { LuArrowRight } from "react-icons/lu";
+import { LuArrowLeft } from "react-icons/lu";
 
 import { AccordionRoot } from "@/components/ui/accordion";
 
@@ -39,8 +39,8 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
-        <LuArrowRight />
+      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+        <LuArrowLeft />
         {backButtonText}
       </Button>
     );
@@ -57,8 +57,7 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>🧺 {show.batch.batchName}</PageHeading>
-      {/* defaultIndex={[0]}  */}
-      <AccordionRoot multiple lazyMount>
+      <AccordionRoot multiple lazyMount defaultValue={["activity", "Batch(s)"]} pb={4} spaceY="4">
         <BatchInfo batch={show.batch} geojsonData={geojsonData} />
         {show.farmerProduceArr && <BatchFarmerProduce rows={show.farmerProduceArr} />}
         {show.farmerArr && <BatchFarmerMember rows={show.farmerArr} />}

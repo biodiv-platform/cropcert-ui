@@ -96,18 +96,18 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
           tooltip={t("document:bib.abstract")}
           children={stripTags(document?.notes)}
         />
+        <Link href={`/user/show/${user?.id}`}>
+          <Flex alignItems="center" pt={6}>
+            <Avatar
+              mr={1}
+              size="xs"
+              name={user?.name}
+              src={getUserImage(user?.profilePic, user?.name)}
+            />
+            <Text>{user?.name}</Text>
+          </Flex>
+        </Link>
       </Stack>
-      <Link href={`/user/show/${user?.id}`}>
-        <Flex alignItems="center">
-          <Avatar
-            mr={1}
-            size="sm"
-            name={user?.name}
-            src={getUserImage(user?.profilePic, user?.name)}
-          />
-          <Text>{user?.name}</Text>
-        </Flex>
-      </Link>
     </Flex>
   );
 }

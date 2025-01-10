@@ -66,7 +66,6 @@ export default function BatchInfo({ batch, geojsonData }) {
       <DataTable keyField="batchId" columns={batchColumns} noHeader={true} data={[batch]} />
 
       <Stack my={4}>
-        {/* variant={"title"} */}
         <Text as={"b"} pl={2}>
           Parameters:
         </Text>

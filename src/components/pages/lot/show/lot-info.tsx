@@ -60,7 +60,6 @@ export default function LotInfo({ lot, geojsonData }) {
       <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
 
       <Stack my={4}>
-        {/* variant={"title"} */}
         <Text as={"b"} pl={2}>
           Parameters:
         </Text>

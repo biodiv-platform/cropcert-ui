@@ -11,7 +11,7 @@ import {
 import React from "react";
 
 export const toaster = createToaster({
-  placement: "top-end",
+  placement: "top",
   pauseOnPageIdle: true,
 });
 
@@ -27,8 +27,10 @@ export const Toaster = () => {
               <Toast.Indicator />
             )}
             <Stack gap="1" flex="1" maxWidth="100%">
-              {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
-              {toast.description && <Toast.Description>{toast.description}</Toast.Description>}
+              {toast.title && <Toast.Title fontSize={"xl"}>{toast.title}</Toast.Title>}
+              {toast.description && (
+                <Toast.Description fontSize={"md"}>{toast.description}</Toast.Description>
+              )}
             </Stack>
             {toast.action && <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger>}
             {toast.meta?.closable && <Toast.CloseTrigger />}

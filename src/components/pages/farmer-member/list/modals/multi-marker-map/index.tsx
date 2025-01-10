@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogRoot,
+  DialogTitle,
 } from "@/components/ui/dialog";
 
 const MultiMarkerMapModal = () => {
@@ -99,12 +100,12 @@ const MultiMarkerMapModal = () => {
   );
 
   return (
-    <DialogRoot open={open} onOpenChange={onClose} closeOnInteractOutside={false} size="full">
+    <DialogRoot open={open} onOpenChange={onClose}  size="full">
       <DialogBackdrop />
       <DialogContent>
         <Flex>
           <DialogHeader flex={1} paddingBottom={1}>
-            {t("traceability:farmer.farmer_modal_heading")}
+          <DialogTitle> {t("traceability:farmer.farmer_modal_heading")}</DialogTitle>
           </DialogHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>

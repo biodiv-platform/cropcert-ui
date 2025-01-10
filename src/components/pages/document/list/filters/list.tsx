@@ -70,13 +70,13 @@ export default function FiltersList() {
 
       <TagsFilter />
 
-      <AccordionItem value="user">
-        <AccordionItemTrigger pr={4}>
-          <Box flex={1} textAlign="left" pl={4}>
+      <AccordionItem value="user" pl={4}>
+        <AccordionItemTrigger pr={4} >
+          <Box flex={1} textAlign="left" >
             {t("filters:user.title")}
           </Box>
         </AccordionItemTrigger>
-        <AccordionItemContent>{<UserFilter filterKey="user" />}</AccordionItemContent>
+        <AccordionItemContent pr={4}>{<UserFilter filterKey="user" />}</AccordionItemContent>
       </AccordionItem>
     </AccordionRoot>
   );

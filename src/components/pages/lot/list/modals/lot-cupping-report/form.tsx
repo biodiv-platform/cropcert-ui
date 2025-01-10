@@ -229,7 +229,7 @@ export default function CuppingReportForm({
             />
           </DialogBody>
           <DialogFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />}>Save</SubmitButton>

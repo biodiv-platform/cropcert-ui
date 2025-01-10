@@ -17,7 +17,7 @@ import React from "react";
 import BusProvider from "react-gbus";
 
 import { Toaster } from "@/components/ui/toaster";
-import { system } from "@/static/theme";
+import { customTheme } from "@/static/theme";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -30,11 +30,10 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider value={system}>
+      <ChakraProvider value={customTheme}>
         <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
           <BusProvider>
             <Toaster />
-
             <Metadata />
             <Navbar />
             <main>

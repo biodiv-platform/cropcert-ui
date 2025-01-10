@@ -14,10 +14,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
 import { LuArrowLeft } from "react-icons/lu";
-import { MdEdit } from "react-icons/md";
 
 import Tooltip from "@/components/@core/tooltip";
 import { AccordionRoot } from "@/components/ui/accordion";
+import EditIcon from "@/icons/edit";
 
 import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
@@ -51,7 +51,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
   const ActionButtons = ({ hasEditDeleteAccess }) => {
     return (
       <Box display={"flex"}>
-        <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
+        <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
           {<LuArrowLeft />}
           {backButtonText}
         </Button>
@@ -67,8 +67,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
             }
           >
             <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
-              {/* boxSize={5} */}
-              <MdEdit />
+              <EditIcon />
             </NextLink>
           </Box>
         </Tooltip>
@@ -83,7 +82,6 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_DELETE, { farmerId: show.farmer._id, hasAccess: hasEditDeleteAccess })
             }
           >
-            {/* boxSize={5} */}
             <DeleteIcon />
           </Box>
         </Tooltip>
@@ -101,7 +99,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
         >
           🧑‍🌾 {show.farmer.farmerName}
         </PageHeading>
-        <AccordionRoot multiple defaultValue={["Information"]}>
+        <AccordionRoot multiple defaultValue={["Information", "activity"]} spaceY="4" pb={4}>
           <FarmerInfo farmer={show.farmer} />
           {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
           {show.batches && <FarmerBatches rows={show.batches} />}

@@ -5,12 +5,12 @@ import { chakra } from "@chakra-ui/react";
 export const Prose = chakra("div", {
   base: {
     color: "fg.muted",
-    maxWidth: "65ch",
-    fontSize: "sm",
+    maxWidth: "94ch",
     lineHeight: "1.7em",
     "& p": {
       marginTop: "1em",
       marginBottom: "1em",
+      lineHeight: "1.6em",
     },
     "& blockquote": {
       marginTop: "1.285em",
@@ -33,49 +33,39 @@ export const Prose = chakra("div", {
       color: "inherit",
     },
     "& h1": {
-      fontSize: "2.15em",
+      fontFamily: "heading",
+      fontWeight: "bold",
+      fontSize: { base: "4xl", md: "5xl" },
       letterSpacing: "-0.02em",
       marginTop: "0",
       marginBottom: "0.8em",
       lineHeight: "1.2em",
     },
     "& h2": {
-      fontSize: "1.4em",
+      fontFamily: "heading",
+      fontWeight: "bold",
+      fontSize: { base: "2xl", md: "3xl" },
       letterSpacing: "-0.02em",
       marginTop: "1.6em",
       marginBottom: "0.8em",
       lineHeight: "1.4em",
     },
     "& h3": {
-      fontSize: "1.285em",
+      fontFamily: "heading",
+      fontWeight: "semibold",
       letterSpacing: "-0.01em",
       marginTop: "1.5em",
       marginBottom: "0.4em",
       lineHeight: "1.5em",
     },
     "& h4": {
+      fontFamily: "heading",
+      fontWeight: "semibold",
+      fontSize: { base: "md", md: "lg" },
       marginTop: "1.4em",
       marginBottom: "0.5em",
       letterSpacing: "-0.01em",
       lineHeight: "1.5em",
-    },
-    "& img": {
-      marginTop: "1.7em",
-      marginBottom: "1.7em",
-      borderRadius: "lg",
-      boxShadow: "inset",
-    },
-    "& picture": {
-      marginTop: "1.7em",
-      marginBottom: "1.7em",
-    },
-    "& picture > img": {
-      marginTop: "0",
-      marginBottom: "0",
-    },
-    "& video": {
-      marginTop: "1.7em",
-      marginBottom: "1.7em",
     },
     "& kbd": {
       fontSize: "0.85em",
@@ -251,14 +241,14 @@ export const Prose = chakra("div", {
   variants: {
     size: {
       md: {
-        fontSize: "sm",
+        fontSize: "md",
       },
       lg: {
-        fontSize: "md",
+        fontSize: "lg",
       },
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "lg",
   },
 });

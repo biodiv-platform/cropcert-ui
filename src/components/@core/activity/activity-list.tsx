@@ -14,10 +14,9 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import Tooltip from "../tooltip";
-import BoxHeading from "./box-heading";
 import ContentBox from "./content-box";
 
-export default function ActivityList({ resourceId, resourceType, title = "common:activity" }) {
+export default function ActivityList({ resourceId, resourceType, }) {
   const { t } = useTranslation();
   const activity = useActivity();
 
@@ -46,7 +45,6 @@ export default function ActivityList({ resourceId, resourceType, title = "common
 
   return (
     <>
-      <BoxHeading>🕒 {t(title)}</BoxHeading>
       {activity.data.list.map((a: any) => (
         <Stack
           key={a?.activityIbp?.dateCreated}
@@ -84,6 +82,7 @@ export default function ActivityList({ resourceId, resourceType, title = "common
           rounded={0}
           loading={activity.isLoading}
           onClick={() => loadActivity(false)}
+          variant={"subtle"}
         >
           {t("activity:load_more_activity")}
         </Button>

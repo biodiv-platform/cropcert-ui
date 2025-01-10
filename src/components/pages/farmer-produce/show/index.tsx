@@ -40,7 +40,7 @@ export default function FarmerProduceShowPageComponent({
   const ActionButtons = () => {
     return (
       <Box display={"flex"}>
-        <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
+        <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
           <LuArrowLeft />
           {backButtonText}
         </Button>
@@ -52,13 +52,16 @@ export default function FarmerProduceShowPageComponent({
     show?.farmer && (
       <Container>
         <PageHeading actions={<ActionButtons />}>🧑‍🌾 {show.farmerProduces.farmerName}</PageHeading>
-        <AccordionRoot defaultValue={["Produce Information"]} multiple>
+        <AccordionRoot spaceY="4" defaultValue={["Produce Information"]} multiple pb={4}>
           <FarmerProduceInfo farmerProduces={show.farmerProduces} />
           {show?.farmerProduces?.grnReceipt && (
             <GrnReceiptInfo farmerProduces={show.farmerProduces} />
           )}
+          <Activity
+            resourceId={show.farmerProduces.id}
+            resourceType={RESOURCE_TYPE.FARMER_PRODUCE}
+          />
         </AccordionRoot>
-        <Activity resourceId={show.farmerProduces.id} resourceType={RESOURCE_TYPE.FARMER_PRODUCE} />
       </Container>
     )
   );

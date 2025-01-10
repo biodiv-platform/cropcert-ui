@@ -209,7 +209,6 @@ export default function FarmerInfo({ farmer }) {
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
-      {/* variant="simple" */}
       <Table.Root size="md">
         <Table.Header>
           <Table.Row>
@@ -232,15 +231,11 @@ export default function FarmerInfo({ farmer }) {
         </Table.Body>
       </Table.Root>
       {!isLocationVerified ? (
-        // variant="left-accent"
         <Alert status="warning" mt={2}>
-          {/* <AlertIcon /> */}
           {t("traceability:location.farmer_location_not_verified")}
         </Alert>
       ) : (
-        // variant="left-accent"
         <Alert status="success" mt={2}>
-          {/* <AlertIcon /> */}
           {t("traceability:location.farmer_location_verified")}
         </Alert>
       )}

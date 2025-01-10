@@ -38,6 +38,7 @@ export const TextAreaField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
       mb={mb}
+      colorPalette={"blue"}
       {...props}
     >
       {label && <Field htmlFor={name} children={label} />}

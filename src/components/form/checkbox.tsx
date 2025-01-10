@@ -34,12 +34,13 @@ export const CheckBoxField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
+      colorPalette={"blue"}
       {...props}
     >
       <Checkbox
         name={name}
         onChange={(e) => onChange(e.target["checked"])}
-        // placeholder={label}
+        _placeholder={label}
         onBlur={onBlur}
         defaultChecked={value}
         disabled={isDisabled}

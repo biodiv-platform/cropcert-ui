@@ -26,7 +26,7 @@ export default function FarmerEditPageComponent({ edit }) {
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
+      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
         <LuArrowLeft />
         {t("common:back")}
       </Button>
@@ -100,10 +100,10 @@ export default function FarmerEditPageComponent({ edit }) {
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
-      <AccordionRoot multiple>
+      <AccordionRoot multiple defaultValue={["Information"]}>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
-          <Button variant="solid" colorPalette="gray" size={"lg"} onClick={() => router.back()}>
+          <Button variant="subtle" colorPalette="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}
           </Button>
           <Button

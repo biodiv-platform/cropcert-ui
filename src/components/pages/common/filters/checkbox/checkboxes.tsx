@@ -57,7 +57,7 @@ export default function FilterCheckboxes({
           <Input type="text" placeholder={t("common:search")} onChange={handleOnSearch} />
         </InputGroup>
       )}
-      <CheckboxGroup defaultValue={defaultValue} onValueChange={handleOnChange}>
+      <CheckboxGroup defaultValue={defaultValue} onValueChange={handleOnChange} colorPalette={"blue"}>
         <Stack>
           {filteredOptions.map(({ label, value, valueIcon }) => (
             <Checkbox mr={4} key={label} value={value} alignItems="baseline">
@@ -69,7 +69,6 @@ export default function FilterCheckboxes({
                   display="inline"
                   verticalAlign="center"
                   mr={1}
-                  // ignoreFallback={true}
                 />
               )}
               {skipOptionsTranslation ? label || value : t(translateKey + label)}

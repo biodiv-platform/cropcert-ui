@@ -13,11 +13,9 @@ const TraceabilityTabs = ({ children }: { children: React.ReactNode }) => {
   }, [router.pathname]);
 
   const handleTabChange = (e) => {
-    // const selectedPath = TRACEABILITY_TABS[index].path;
     const selectedPath = TRACEABILITY_TABS.map((tab) =>
       tab.tabIndex === e ? tab.path : null
-    ).filter((path) => path !== null)[0]; // Extract the first non-null path
-    console.warn("e", e);
+    ).filter((path) => path !== null)[0];
     router.push(selectedPath);
   };
 

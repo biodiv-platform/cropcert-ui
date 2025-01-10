@@ -43,7 +43,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="solid" rounded="md" colorPalette="gray">
+      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
         <LuArrowLeft />
         {backButtonText}
       </Button>
@@ -61,7 +61,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>📦 {show.lot.lotName}</PageHeading>
-      <AccordionRoot defaultValue={["Information"]} multiple>
+      <AccordionRoot defaultValue={["Information", "activity"]} multiple pb={4} spaceY="4">
         <LotInfo lot={show.lot} geojsonData={geojsonData} />
         {show.batches && <LotBatches rows={show.batches} />}
         {show.farmerProduceArr && <LotFarmerProduce rows={show.farmerProduceArr} />}

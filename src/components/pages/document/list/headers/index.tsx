@@ -26,10 +26,9 @@ export default function ListHeader() {
         <Tabs.Root
           display="inline-block"
           className="icon-tabs"
-          // variant="soft-rounded"
           variant="subtle"
           activationMode="manual"
-          // defaultIndex={0}
+          defaultValue={viewTabs[0].name}
           mb={4}
           lazyMount
         >
@@ -50,7 +49,6 @@ export default function ListHeader() {
           <Box>
             <NativeSelectRoot
               aria-label={t("common:list.sort_by")}
-              // value={filter?.sort}
               defaultValue={filter?.sort}
               onChange={handleOnSort}
             >

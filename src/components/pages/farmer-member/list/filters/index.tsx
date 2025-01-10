@@ -44,7 +44,7 @@ export default function Filters() {
   return isDesktopFilter ? (
     <Box as={FilterWrapper} gridColumn={{ lg: "1/4" }}>
       <Stack m={4} direction={"row"} align="center" justify="space-between">
-        <Heading size="md">{t("filters:title")}</Heading>
+        <Heading size="xl">{t("filters:title")}</Heading>
         <ClearFilters />
       </Stack>
       <FiltersList />

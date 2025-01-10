@@ -93,9 +93,8 @@ export default function ListHeader() {
           display="inline-block"
           className="icon-tabs"
           onValueChange={(e) => handleOnViewChange(e.value)}
-          // variant="soft-rounded"
           activationMode="manual"
-          // defaultIndex={defaultIndex}
+          defaultValue={viewTabs[0].name}
           mb={4}
           lazyMount
         >

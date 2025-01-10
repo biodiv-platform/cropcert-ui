@@ -277,7 +277,7 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
             />
           </DialogBody>
           <DialogFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={totalDiff !== 0}>

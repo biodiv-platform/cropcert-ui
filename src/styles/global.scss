@@ -194,3 +194,12 @@ h6,
   cursor: not-allowed; /* Cursor indicating disabled state */
   border: 1px solid #e2e8f0; /* Custom border color */
 }
+
+/* For dropdown in traceability not showing above table headers */
+.css-yspyln-menu {
+  z-index: 99 !important;
+}
+
+.dropdown-content {
+  z-index: 99 !important;
+}

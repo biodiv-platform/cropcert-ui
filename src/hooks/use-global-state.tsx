@@ -18,6 +18,9 @@ interface GlobalStateContextProps {
   union;
   setUnion;
 
+  multiSelectCo;
+  setMultiSelectCo;
+
   previousPath;
   setPreviousPath;
 }
@@ -35,6 +38,7 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
   const [pages, setPages] = useState(props.pages);
   const [union, setUnion] = useState(null);
+  const [multiSelectCo, setMultiSelectCo] = useState(null);
   const [previousPath, setPreviousPath] = useState("");
 
   const isLoggedIn = useMemo(() => !!user.id, [user]);
@@ -106,6 +110,9 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
 
         union,
         setUnion,
+
+        multiSelectCo,
+        setMultiSelectCo,
 
         previousPath,
         setPreviousPath,

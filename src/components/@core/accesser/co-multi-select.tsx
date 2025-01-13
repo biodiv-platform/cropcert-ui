@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
-  const { authorizedRoles } = useGlobalState();
+  const { authorizedRoles, setMultiSelectCo } = useGlobalState();
   const [co, setCo] = useState<any[]>([]);
   const [coSelected, setCoSelected] = useState<any>([]);
   const isCoCC =
@@ -31,6 +31,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
 
   useEffect(() => {
     setCoSelected(co);
+    setMultiSelectCo(co);
   }, [co]);
 
   useEffect(() => {

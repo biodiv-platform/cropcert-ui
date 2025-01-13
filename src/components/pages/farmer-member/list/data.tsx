@@ -37,7 +37,7 @@ export const farmerMemberColumns = [
     maxWidth: "210px",
     sortable: true,
     right: true,
-    showDefault: true,
+    showDefault: false,
   },
   {
     name: "Land Acreage",
@@ -45,7 +45,7 @@ export const farmerMemberColumns = [
     maxWidth: "180px",
     sortable: true,
     right: true,
-    showDefault: true,
+    showDefault: false,
   },
   {
     name: "Year of First Plantation",
@@ -53,17 +53,17 @@ export const farmerMemberColumns = [
     maxWidth: "150px",
     sortable: true,
     right: true,
-    showDefault: true,
+    showDefault: false,
   },
   {
     name: "Record Created",
     selector: (row) => new Date(row.submittedOnODK).toLocaleString(),
     width: "210px",
     sortable: true,
-    showDefault: false,
+    showDefault: true,
   },
   {
-    name: "Last Updated",
+    name: "Record Updated",
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     width: "210px",
     sortable: true,

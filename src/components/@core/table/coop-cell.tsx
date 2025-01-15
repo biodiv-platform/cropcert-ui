@@ -6,8 +6,10 @@ export default function CoopCell({ coCode }: { coCode: number[] }) {
 
   let coopStr = "";
 
+  const coCodeSet = new Set(coCode);
+
   if (multiSelectCo) {
-    coCode.forEach((code) => {
+    coCodeSet.forEach((code) => {
       const co = multiSelectCo.find((c) => c.value === code);
       if (co) {
         coopStr += `${co.label}, `;

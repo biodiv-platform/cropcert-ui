@@ -34,6 +34,7 @@ export interface Batch {
   lotId?: number; // int64
   batchStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   isDeleted?: boolean;
+  createdAt?: string; // date-time
   modalFieldCombined?: {
     columnName: string;
     isOptional: boolean;

@@ -40,6 +40,9 @@
     "farmer_produce": "Farmer Produce",
     "lot": "Lot(s)"
   },
+  "table": {
+    "manage_columns": "Manage Columns"
+  },
   "title": "Traceability",
   "total_records": "Total Records"
 }

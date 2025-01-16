@@ -1,6 +1,7 @@
 import { Badge, Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
+import CoopCell from "@components/@core/table/coop-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -63,6 +64,7 @@ export const createLotColumns = (columns) => {
           center: true,
           maxWidth: "130px",
           cell: ButtonComponent,
+          showDefault: true, // revisit this later
         },
       ];
     }, []);
@@ -81,19 +83,37 @@ export const lotColumns = [
     sortable: true,
     width: "80px",
     cell: (row) => <LotCell {...row} type="l" />,
+    showDefault: true,
   },
   {
     name: "Name",
     selector: (row) => row.lotName,
     width: "210px",
     sortable: true,
+    showDefault: true,
   },
   {
-    name: "Initial Quantity",
+    name: "Quantity",
     selector: (row) => row.quantity,
+    right: true,
+    sortable: true,
+    maxWidth: "100px",
+    showDefault: true,
+  },
+  {
+    name: "Type",
+    selector: (row) => row.type?.toUpperCase(),
     center: true,
     sortable: true,
-    maxWidth: "140px",
+    maxWidth: "150px",
+    showDefault: true,
+  },
+  {
+    name: "Cooperative",
+    selector: (row) => row.coCode,
+    maxWidth: "250px",
+    showDefault: true,
+    cell: (row) => <CoopCell coCode={row.coCode} />,
   },
   {
     name: "Lot Status",
@@ -102,15 +122,31 @@ export const lotColumns = [
     sortable: true,
     width: "150px",
     cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+    showDefault: false,
   },
 ];
 
 const lotExtraColumns = [
   {
-    name: "Last Updated",
+    name: "Record Created",
+    selector: (row) => new Date(row.createdAt).toLocaleString(),
+    maxWidth: "210px",
+    sortable: true,
+    showDefault: true,
+  },
+  {
+    name: "Record Updated",
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    showDefault: true,
+  },
+  {
+    name: "Note",
+    selector: (row) => row.note,
+    maxWidth: "200px",
+    sortable: false,
+    showDefault: false,
   },
 ];
 

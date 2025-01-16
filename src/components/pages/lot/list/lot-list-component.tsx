@@ -15,7 +15,7 @@ import useLotFilter from "./use-lot-filter";
 
 function LotComponent() {
   const [union, setUnion] = useState({} as any);
-  const [lotModalColumns, setLotModalColumns] = useState<any>([]);
+  const [lotExtraColumns, setLotExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
 
   const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
@@ -23,13 +23,18 @@ function LotComponent() {
   useEffect(() => {
     (async () => {
       const columns = await axGetColumns("LOT");
-      setLotModalColumns(columns.data);
+      columns.data.length > 0 && setLotExtraColumns(createLotColumns(columns.data));
     })();
   }, []);
 
-  // Generate dynamic batchColumns based on state.batch
-  const lotExtraColumns = lotModalColumns.length > 0 ? createLotColumns(lotModalColumns) : [];
+  const [visibleColumns, setVisibleColumns] = useState(
+    [...lotColumns, ...lotExtraColumns].filter((col) => col.showDefault)
+  );
 
+  useEffect(() => {
+    lotExtraColumns.length > 0 &&
+      setVisibleColumns([...lotColumns, ...lotExtraColumns].filter((col) => col.showDefault));
+  }, [lotExtraColumns]);
   return (
     <>
       <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
@@ -53,7 +58,7 @@ function LotComponent() {
       ) : lotListData?.length > 0 ? (
         <Table
           data={lotListData}
-          columns={[...lotColumns, ...lotExtraColumns]}
+          columns={visibleColumns}
           expandableRows={true}
           defaultSortFieldId={1}
           defaultSortAsc={false}
@@ -71,7 +76,9 @@ function LotComponent() {
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
           fixedHeaderScrollHeight="570px"
-          showFooter={false}
+          showManageColumnDropdown={true}
+          setVisibleColumns={setVisibleColumns}
+          allColumns={[...lotColumns, ...lotExtraColumns]}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

@@ -1,6 +1,7 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
+import CoopCell from "@components/@core/table/coop-cell";
 import LotCell from "@components/@core/table/lot-cell";
 import NotApplicable from "@components/@core/table/not-applicable";
 import timeCell from "@components/@core/table/time-cell";
@@ -23,25 +24,27 @@ const createBatchColumn = (
   selector: (row: Batch) => any,
   maxWidth: string,
   cell?: (row: Batch) => JSX.Element,
-  sortable = true
+  sortable = true,
+  showDefault = true
 ) => ({
   name,
   selector,
   maxWidth,
   cell,
   sortable,
+  showDefault,
 });
 
 const defaultBatchModalColumns = [
-  createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"), // You can add cell rendering function if needed
+  createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"),
   createBatchColumn("Name", (row) => row.batchName, "210px"),
   createBatchColumn("Quantity", (row) => row.quantity, "100px"),
   createBatchColumn("Type", (row) => row.type?.toUpperCase(), "70px"),
   createBatchColumn(
-    "Last Updated",
-    (row) => row.lastUpdatedAt,
-    "150px",
-    (row) => timeCell(row.lastUpdatedAt)
+    "Cooperative",
+    (row) => row.coCode,
+    "200px",
+    (row) => <CoopCell coCode={row.coCode || []} />
   ),
 ];
 
@@ -52,6 +55,19 @@ const batchModalColumnsWithLotInfo = [
     "100px",
     (row) => <LotCell {...row} />
   ),
+  createBatchColumn(
+    "Record Created",
+    (row) => row.createdAt,
+    "150px",
+    (row) => timeCell(row.createdAt)
+  ),
+  createBatchColumn(
+    "Record Updated",
+    (row) => row.lastUpdatedAt,
+    "150px",
+    (row) => timeCell(row.lastUpdatedAt)
+  ),
+  createBatchColumn("Note", (row) => row.note, "200px", undefined, false, false),
 ];
 
 export const createBatchColumns = (columns) => {

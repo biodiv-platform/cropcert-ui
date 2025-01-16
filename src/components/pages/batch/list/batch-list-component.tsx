@@ -39,6 +39,7 @@ function BatchComponent() {
   const [triggerRender, setTriggerRender] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [batchColumns, setBatchColumns] = useState<any[]>([]);
+  const [visibleColumns, setVisibleColumns] = useState<any[]>([]);
   const [columnsLoading, setColumnsLoading] = useState(true);
   const [columnsError, setColumnsError] = useState<Error | null>(null);
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ function BatchComponent() {
         setColumnsLoading(true);
         const columns = await fetchBatchColumns();
         setBatchColumns(columns);
+        setVisibleColumns(columns.filter((col) => col.showDefault));
       } catch (error) {
         setColumnsError(error as Error);
       } finally {
@@ -158,7 +160,7 @@ function BatchComponent() {
       ) : batchListData?.length > 0 ? (
         <Table
           data={batchListData}
-          columns={batchColumns}
+          columns={visibleColumns}
           selectableRows={true}
           expandableRows={true}
           selectableRowDisabled={(r) => handleDisabledRows(r)}
@@ -194,7 +196,9 @@ function BatchComponent() {
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
           fixedHeaderScrollHeight="520px"
-          showFooter={false}
+          showManageColumnDropdown={true}
+          setVisibleColumns={setVisibleColumns}
+          allColumns={batchColumns}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

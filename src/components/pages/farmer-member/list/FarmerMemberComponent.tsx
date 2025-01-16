@@ -33,6 +33,10 @@ function FarmerMemberComponent() {
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
   const { t } = useTranslation();
 
+  const [visibleColumns, setVisibleColumns] = useState(
+    farmerMemberColumns.filter((col) => col.showDefault)
+  );
+
   useEffect(() => {
     ccs && setCCCodes(ccs.map((o) => o.value));
   }, [ccs]);
@@ -131,7 +135,7 @@ function FarmerMemberComponent() {
       ) : farmerListData?.length > 0 ? (
         <Table
           data={farmerListData}
-          columns={farmerMemberColumns}
+          columns={visibleColumns}
           selectableRows={true}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
@@ -149,7 +153,9 @@ function FarmerMemberComponent() {
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
           fixedHeaderScrollHeight="610px"
-          showFooter={false}
+          showManageColumnDropdown={true}
+          setVisibleColumns={setVisibleColumns}
+          allColumns={farmerMemberColumns}
         />
       ) : (
         <Flex direction={"column"} alignItems={"center"} gap={2}>

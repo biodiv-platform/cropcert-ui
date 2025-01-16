@@ -1,7 +1,10 @@
 import { Button, Checkbox, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 export default function ManageColumnDropdown({ columnList, allColumns, setVisibleColumns }) {
+  const { t } = useTranslation();
+
   const toggleColumnVisibility = (columnName) => {
     setVisibleColumns((prevColumns) => prevColumns.filter((column) => column.name !== columnName));
   };
@@ -24,7 +27,7 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
   return (
     <Menu>
       <MenuButton as={Button} position={"absolute"} bottom="8px" left="10px" variant={"outline"}>
-        Manage Columns
+        {t("traceability:table.manage_columns")}
       </MenuButton>
       <MenuList maxHeight={"400px"} overflowY={"scroll"} shadow={"md"}>
         {allColumns.map((column) => (

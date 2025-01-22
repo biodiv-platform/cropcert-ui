@@ -156,7 +156,9 @@ export default function CuppingReportForm({
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleSubmit)}>
         <DialogContent>
-          <DialogHeader>☕ Cupping Lab Report</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            ☕ Cupping Lab Report
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <CoreGrid>

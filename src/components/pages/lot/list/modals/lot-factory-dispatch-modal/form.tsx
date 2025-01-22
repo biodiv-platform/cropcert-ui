@@ -70,7 +70,9 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
     <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(onSubmit)}>
-          <DialogHeader>🏭 Update milling details</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🏭 Update milling details
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <CoreGrid rows={2}>

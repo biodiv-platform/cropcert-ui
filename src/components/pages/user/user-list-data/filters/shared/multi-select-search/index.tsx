@@ -23,7 +23,7 @@ export default function FilterMultiSelectPanel({
   return (
     <AccordionItem value={filterKey} pl={4}>
       <>
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left">
             {label}
           </Box>

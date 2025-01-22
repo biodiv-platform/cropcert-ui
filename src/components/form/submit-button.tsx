@@ -35,11 +35,11 @@ export const SubmitButton = ({
   return (
     <Button
       loading={formState.isSubmitting}
-      type="submit"
       disabled={disabled}
       mb={mb}
       {...rest}
-      bgColor={colorPalette}
+      colorPalette={colorPalette}
+      variant={"solid"}
     >
       {leftIcon}
       {icon}

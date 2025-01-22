@@ -31,7 +31,7 @@ export default function NumberRangeFilterPanel({
 
   return (
     <AccordionItem value={filterKey} pl={4}>
-      <AccordionItemTrigger>
+      <AccordionItemTrigger pr={4}>
         <Box flex={1} textAlign="left">
           {label || t(translateKey + "title")}
         </Box>

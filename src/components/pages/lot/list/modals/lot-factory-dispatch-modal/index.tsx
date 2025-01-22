@@ -45,8 +45,7 @@ export default function LotFactoryDispatchModal({ update, unions }) {
   };
 
   return (
-    // size="3xl"
-    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"lg"}>
       <DialogBackdrop />
       {lot && (
         <LotFactoryDispatchForm

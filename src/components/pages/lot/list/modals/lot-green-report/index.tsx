@@ -38,8 +38,7 @@ export default function GreenReportModal({ update }) {
   };
 
   return (
-    //size="6xl"
-    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
       <DialogBackdrop />
       {origin && report && factoryReport && (
         <GreenReportForm

@@ -40,7 +40,6 @@ export const CheckBoxField = ({
       <Checkbox
         name={name}
         onChange={(e) => onChange(e.target["checked"])}
-        _placeholder={label}
         onBlur={onBlur}
         defaultChecked={value}
         disabled={isDisabled}

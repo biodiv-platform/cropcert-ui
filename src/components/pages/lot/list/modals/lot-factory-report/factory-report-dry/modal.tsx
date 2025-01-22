@@ -143,7 +143,9 @@ export default function FactoryReportDryModal({
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleFactoryReportSubmit)}>
         <DialogContent>
-          <DialogHeader>🏭 Factory Report</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🏭 Factory Report
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <CoreGrid>

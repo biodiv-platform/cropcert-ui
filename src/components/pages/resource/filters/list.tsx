@@ -24,7 +24,7 @@ export default function FiltersList() {
 
       <AccordionItem value="tags" pl={4}>
         <>
-          <AccordionItemTrigger>
+          <AccordionItemTrigger pr={4}>
             <Box flex={1} textAlign="left">
               {t("Tags")}
             </Box>
@@ -35,7 +35,7 @@ export default function FiltersList() {
 
       <AccordionItem value="user" pl={4}>
         <>
-          <AccordionItemTrigger>
+          <AccordionItemTrigger pr={4}>
             <Box flex={1} textAlign="left">
               {t("filters:user.title")}
             </Box>

@@ -137,7 +137,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
           {fieldsObj.fields.map((field, index) => {
             if (field.fieldType === "Title") {
               return (
-                <DialogHeader key={index} px={5}>
+                <DialogHeader key={index} px={5} fontWeight={"bold"} fontSize={"lg"}>
                   {field.value}
                 </DialogHeader>
               );

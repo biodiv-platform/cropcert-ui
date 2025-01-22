@@ -5,7 +5,7 @@ import { BATCH_UPDATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
-import { DialogRoot } from "@/components/ui/dialog";
+import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
 
 import BatchUpdateForm from "./form";
 
@@ -33,8 +33,8 @@ export default function BatchUpdateModal({ update }) {
   };
 
   return (
-    <DialogRoot open={open} onOpenChange={onClose}>
-      {/*size="2xl" closeOnOverlayClick={false} <ModalOverlay /> */}
+    <DialogRoot open={open} onOpenChange={onClose} size={"lg"}>
+      <DialogBackdrop />
       {open && batch && (
         <BatchUpdateForm
           batch={batch}

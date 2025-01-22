@@ -13,7 +13,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
 
-import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import { lotCreateModalCols } from "../../data";
 
@@ -57,13 +63,14 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
   };
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-        <DialogContent>
-          <DialogHeader>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleSubmit)}>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
             Finalize Lot: {lotConfig.name}
             {formattedDate(values.creationDate)}
           </DialogHeader>
+          <DialogCloseTrigger />
           <DialogBody>
             <DateTimeInputField
               name="creationDate"
@@ -87,8 +94,8 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
               Create Lot
             </SubmitButton>
           </DialogFooter>
-        </DialogContent>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

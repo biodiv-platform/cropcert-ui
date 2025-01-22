@@ -13,7 +13,7 @@ export default function UserEditTabs({ isAdmin, isOdkWebUser, user }) {
   return (
     <Box gridColumn={{ md: "2/5" }} mb={4}>
       <div className="white-box">
-        <Tabs.Root lazyMount defaultValue="about">
+        <Tabs.Root lazyMount defaultValue="about" size={"lg"}>
           <Tabs.List>
             <Tabs.Trigger value="about">👤 {t("user:about")}</Tabs.Trigger>
             <Tabs.Trigger value="password">🔑 {t("user:change_password")}</Tabs.Trigger>

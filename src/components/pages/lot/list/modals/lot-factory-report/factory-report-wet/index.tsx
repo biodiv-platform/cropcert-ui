@@ -31,8 +31,7 @@ export default function FactoryReportWet({ update }) {
   };
 
   return (
-    // size="6xl"
-    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
       <DialogBackdrop />
       {lot && report && (
         <FactoryReportWetModal

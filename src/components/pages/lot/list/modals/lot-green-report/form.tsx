@@ -234,7 +234,9 @@ export default function GreenReportForm({
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleGreenReportSubmit)}>
         <DialogContent>
-          <DialogHeader>🧪 Quality/Green Lab Report</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🧪 Quality/Green Lab Report
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <CoreGrid>

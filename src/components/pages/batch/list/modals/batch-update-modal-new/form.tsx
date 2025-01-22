@@ -15,7 +15,13 @@ import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
 
 import { Alert } from "@/components/ui/alert";
-import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 import { Field } from "@/components/ui/field";
 
 export default function BatchUpdateForm({
@@ -143,14 +149,14 @@ export default function BatchUpdateForm({
     !isDone && canWrite && isEverythingFilledExcept("finalizeBatch", values);
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <DialogContent>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
           {fieldsObj &&
             fieldsObj.fields.map((field, index) => {
               if (field.fieldType === "Title") {
                 return (
-                  <DialogHeader key={index} px={5}>
+                  <DialogHeader key={index} px={5} fontWeight={"bold"} fontSize={"lg"}>
                     {field.value}
                     <br />
                     <Box>
@@ -169,7 +175,7 @@ export default function BatchUpdateForm({
                 );
               }
             })}
-          {/* <ModalCloseButton /> */}
+          <DialogCloseTrigger />
           <DialogBody>
             {/* dynamic Fields */}
             <CoreGrid rows={2}>
@@ -230,8 +236,8 @@ export default function BatchUpdateForm({
               Save
             </SubmitButton>
           </DialogFooter>
-        </DialogContent>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

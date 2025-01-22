@@ -37,7 +37,7 @@ export default function UserFilterInput({ filterKey }) {
   return (
     <AccordionItem value={filterKey} pl={4}>
       <>
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left">
             {t("filters:user.title")}
           </Box>

@@ -15,7 +15,7 @@ export default function CheckboxFilterPanel(props: FilterCheckboxesProps) {
 
   return (
     <AccordionItem value={props.filterKey} pl={4}>
-      <AccordionItemTrigger>
+      <AccordionItemTrigger pr={4}>
         <Box flex={1} textAlign="left">
           {props.label || t(props.translateKey + "title")}
         </Box>

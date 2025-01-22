@@ -131,7 +131,9 @@ export default function FactoryReportWetModal({ report, lot, onClose, canWrite, 
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleFactoryReportSubmit)}>
         <DialogContent>
-          <DialogHeader>🏭 Factory Report</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🏭 Factory Report
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <CoreGrid>

@@ -41,13 +41,14 @@ export default function UserInfoSidebar({ user }: UserEditPageComponentProps) {
         </AspectRatio>
         <Box pl={{ base: 4, md: 0 }}>
           <Button type="button" as="label" cursor="pointer" w="full" colorPalette="blue">
-            <VisuallyHidden
-              as="input"
-              // type="file"
-              id="user-profile"
-              // accept="image/*"
-              onChange={handleOnPhotoUpload}
-            />
+            <VisuallyHidden asChild>
+              <input
+                type="file"
+                id="user-profile"
+                accept="image/*"
+                onChange={handleOnPhotoUpload}
+              />
+            </VisuallyHidden>
             {t("user:upload_photo")}
           </Button>
         </Box>

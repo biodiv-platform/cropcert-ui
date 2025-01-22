@@ -44,7 +44,7 @@ export default function LotGRNModal({ update }) {
   };
 
   return (
-    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
       <DialogBackdrop />
       {lot && (
         <LotGRNForm

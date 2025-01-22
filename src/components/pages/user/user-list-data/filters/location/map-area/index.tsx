@@ -17,7 +17,7 @@ export default function MapAreaFilter() {
   return (
     <AccordionRoot multiple={true} lazyMount>
       <AccordionItem value={"map"} pl={8}>
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left">
             {t("filters:location.map.title")}
           </Box>

@@ -69,7 +69,9 @@ export default function BatchCreateForm({ update, onClose }) {
     <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <DialogHeader>✨ Create Batch</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"4xl"}>
+            ✨ Create Batch
+          </DialogHeader>
           <DialogBody>
             <CoreGrid rows={3}>
               <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />

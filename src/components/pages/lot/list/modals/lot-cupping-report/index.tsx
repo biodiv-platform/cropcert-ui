@@ -41,8 +41,7 @@ export default function CuppingReportModal({ update }) {
   };
 
   return (
-    //  size="6xl"
-    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false}>
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
       <DialogBackdrop />
       {origin && report && lot && (
         <CuppingReportForm

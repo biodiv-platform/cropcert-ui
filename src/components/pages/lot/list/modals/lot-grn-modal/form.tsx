@@ -51,7 +51,9 @@ export default function LotGRNForm({ onClose, onSubmit, lot, canWrite, errorMess
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(onSubmit)}>
         <DialogContent>
-          <DialogHeader>🔢 Add GRN Number</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🔢 Add GRN Number
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <TextBoxField name="grnNumber" label="GRN Number" disabled={isFormReadOnly} />

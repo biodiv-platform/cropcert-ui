@@ -58,7 +58,7 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
 
   return (
     <AccordionItem value="time">
-      <AccordionItemTrigger>
+      <AccordionItemTrigger pr={4}>
         <Box flex={1} textAlign="left">
           {t(translateKey)}
         </Box>

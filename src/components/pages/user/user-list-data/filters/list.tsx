@@ -27,7 +27,7 @@ export default function FiltersList() {
   return (
     <AccordionRoot multiple={true} lazyMount defaultValue={["location"]}>
       <AccordionItem value="location">
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left" pl={4}>
             {t("filters:location.title")}
           </Box>
@@ -38,7 +38,7 @@ export default function FiltersList() {
       </AccordionItem>
 
       <AccordionItem value="time">
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left" pl={4}>
             {t("filters:time.title")}
           </Box>
@@ -62,7 +62,7 @@ export default function FiltersList() {
 
       <AccordionItem value="user" pl={4}>
         <>
-          <AccordionItemTrigger>
+          <AccordionItemTrigger pr={4}>
             <Box flex={1} textAlign="left">
               {t("filters:user.title")}
             </Box>

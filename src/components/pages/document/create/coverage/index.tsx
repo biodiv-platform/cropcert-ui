@@ -10,10 +10,9 @@ export default function Coverage() {
 
   return (
     <Box mb={6}>
-      <PageHeading as="h2" size="lg" mr={4}>
+      <PageHeading mr={4} size={"3xl"}>
         ⭐ {t("form:coverage.title")}
       </PageHeading>
-
       <WKTCoverage name="docCoverageData" />
     </Box>
   );

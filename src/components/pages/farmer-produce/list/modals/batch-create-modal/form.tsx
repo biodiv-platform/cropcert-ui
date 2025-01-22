@@ -95,7 +95,9 @@ export default function BatchCreateForm({
     <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <DialogHeader>✨ Create Batch</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            ✨ Create Batch
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <DateTimeInputField

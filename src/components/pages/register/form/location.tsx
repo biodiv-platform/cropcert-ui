@@ -79,13 +79,15 @@ export const LocationPicker = () => {
                 </Button>
               }
             >
-              <Autocomplete
-                onLoad={setSearchBoxRef}
-                onPlaceChanged={handleOnSearchSelected}
-                fields={AUTOCOMPLETE_FIELDS}
-              >
-                <Input {...fieldLocationName.field} required={false} pr="5rem" />
-              </Autocomplete>
+              <Box width={"full"}>
+                <Autocomplete
+                  onLoad={setSearchBoxRef}
+                  onPlaceChanged={handleOnSearchSelected}
+                  fields={AUTOCOMPLETE_FIELDS}
+                >
+                  <Input {...fieldLocationName.field} required={false} pr="5rem" />
+                </Autocomplete>
+              </Box>
             </InputGroup>
           </Field>
         </Box>

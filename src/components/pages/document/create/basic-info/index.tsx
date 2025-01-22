@@ -51,10 +51,10 @@ export default function BasicInfo({
   return (
     <div>
       <Stack flexDirection={["column", "row"]} alignItems="top" mb={1}>
-        <PageHeading as="h2" size="lg" mb={4} mr={4}>
+        <PageHeading mb={4} mr={4} size={"3xl"}>
           ℹ️ {t("document:basic_information")}
+          {canImport && <BibImportButton />}
         </PageHeading>
-        {canImport && <BibImportButton />}
       </Stack>
 
       <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>

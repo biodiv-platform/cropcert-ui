@@ -34,7 +34,13 @@ export default function AppAppUser({ setIsCreate, projectList, setProjectId }) {
   return (
     <FormProvider {...projectForm}>
       <form className="fade">
-        <Button mb={4} type="button" size="sm" onClick={() => setIsCreate(false)}>
+        <Button
+          mb={4}
+          type="button"
+          size="sm"
+          onClick={() => setIsCreate(false)}
+          variant={"subtle"}
+        >
           <LuArrowLeft />
           {t("common:prev")}
         </Button>

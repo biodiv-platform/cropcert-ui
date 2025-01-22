@@ -1,4 +1,4 @@
-import { Button, Input, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Input, SimpleGrid } from "@chakra-ui/react";
 import { WKTProps } from "@components/@core/WKT";
 import SaveButton from "@components/@core/WKT/save-button";
 import LocationMap from "@components/pages/observation/create/form/location/map";
@@ -100,31 +100,33 @@ const GmapsWktLocationPicker = ({
               {ll.has && (
                 <Button
                   title={ll.value?.address}
-                  // variant="link"
+                  variant="subtle"
                   size="xs"
                   ml={1}
                   verticalAlign="baseline"
                   colorPalette="blue"
                   onClick={ll.use}
                 >
-                  {t("observation:last_location")}
+                  {t("form:coverage.last_location")}
                 </Button>
               )}
             </Field>
-            <Autocomplete
-              onLoad={setSearchBoxRef}
-              onPlaceChanged={handleOnSearchSelected}
-              options={GEOCODE_OPTIONS}
-              fields={AUTOCOMPLETE_FIELDS}
-            >
-              <Input
-                id="places-search"
-                value={observedAtText}
-                onChange={handleOnSearchChange}
-                pr="5rem"
-                placeholder={t("observation:location_placeholder")}
-              />
-            </Autocomplete>
+            <Box width={"full"}>
+              <Autocomplete
+                onLoad={setSearchBoxRef}
+                onPlaceChanged={handleOnSearchSelected}
+                options={GEOCODE_OPTIONS}
+                fields={AUTOCOMPLETE_FIELDS}
+              >
+                <Input
+                  id="places-search"
+                  value={observedAtText}
+                  onChange={handleOnSearchChange}
+                  pr="5rem"
+                  placeholder={t("form:coverage.location_placeholder")}
+                />
+              </Autocomplete>
+            </Box>
           </Field>
           <SaveButton disabled={disabled} onClick={handleOnSave} />
         </SimpleGrid>

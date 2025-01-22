@@ -61,7 +61,7 @@ export default function DateRangeFilter({
   return (
     <AccordionRoot collapsible>
       <AccordionItem value="1" pl={4}>
-        <AccordionItemTrigger>
+        <AccordionItemTrigger pr={4}>
           <Box flex={1} textAlign="left">
             {t(translateKey)}
           </Box>

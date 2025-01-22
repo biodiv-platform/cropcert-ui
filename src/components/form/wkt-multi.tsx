@@ -39,8 +39,8 @@ export default function WKTFieldMulti(props: WKTInputProps) {
     <Field invalid={!!fieldState.error} errorText={JSON.stringify(fieldState?.error?.message)}>
       <Box mb={props.mb || 4} width={"full"}>
         <Field>{props.label}</Field>
-        <Box border="1px" borderColor="gray.300" bg="white" borderRadius="md">
-          <Tabs.Root defaultValue="draw" lazyMount={true} fitted>
+        <Box borderWidth="1px" borderColor="gray.300" bg="white" borderRadius="md">
+          <Tabs.Root defaultValue="draw" lazyMount={true} variant={"line"}>
             <Tabs.List>
               <Tabs.Trigger value="draw">{t("form:gmaps")}</Tabs.Trigger>
               <Tabs.Trigger value="search">{t("form:search_point")}</Tabs.Trigger>
@@ -55,17 +55,19 @@ export default function WKTFieldMulti(props: WKTInputProps) {
                 </Box>
               )}
             </Box>
-            <Tabs.Content value="draw">
-              <Viewer {...props} disabled={isDisabled} onSave={handleOnSave} />
-            </Tabs.Content>
-            <Tabs.Content value="search">
-              <GmapsWktLocationPicker
-                {...props}
-                label={t("form:coverage.place")}
-                disabled={isDisabled}
-                onSave={handleOnSave}
-              />
-            </Tabs.Content>
+            <Box p={4}>
+              <Tabs.Content value="draw">
+                <Viewer {...props} disabled={isDisabled} onSave={handleOnSave} />
+              </Tabs.Content>
+              <Tabs.Content value="search">
+                <GmapsWktLocationPicker
+                  {...props}
+                  label={t("form:coverage.place")}
+                  disabled={isDisabled}
+                  onSave={handleOnSave}
+                />
+              </Tabs.Content>
+            </Box>
           </Tabs.Root>
         </Box>
       </Box>

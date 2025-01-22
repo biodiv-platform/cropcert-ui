@@ -39,7 +39,13 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
   return (
     <FormProvider {...projectForm}>
       <form className="fade">
-        <Button mb={4} type="button" size="sm" onClick={() => setIsCreateWebUser(false)}>
+        <Button
+          mb={4}
+          type="button"
+          size="sm"
+          onClick={() => setIsCreateWebUser(false)}
+          variant={"subtle"}
+        >
           <LuArrowLeft />
           {t("common:prev")}
         </Button>

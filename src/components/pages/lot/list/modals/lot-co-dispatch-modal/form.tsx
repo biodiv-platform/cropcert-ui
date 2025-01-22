@@ -57,7 +57,9 @@ export default function LotCoDispatchForm({ onSubmit, onClose, isDone, lot }) {
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(onSubmit)}>
         <DialogContent>
-          <DialogHeader>🚚 Dispatch Lot to Milling</DialogHeader>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🚚 Dispatch Lot to Milling
+          </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>
             <NumberInputField

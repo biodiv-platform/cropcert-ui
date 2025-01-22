@@ -23,13 +23,7 @@ export default function DocumentUploaderTabs({ onChange }) {
 
   return (
     <Box width={"full"}>
-      <Tabs.Root
-        className="nospace"
-        defaultValue={tabIndex}
-        // onValueChange={setTabIndex}
-        // variant="outline"
-        lazyMount={true}
-      >
+      <Tabs.Root className="nospace" defaultValue={tabIndex} lazyMount={true}>
         <Tabs.List mb={4} overflowX="auto" py={1}>
           <Tabs.Trigger value="selectedDocument">✔️ {t("document:upload.selected")}</Tabs.Trigger>
           <Tabs.Trigger value="draftmedia">☁️ {t("document:upload.my_uploads")}</Tabs.Trigger>

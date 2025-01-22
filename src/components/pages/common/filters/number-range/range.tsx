@@ -6,7 +6,7 @@ import { NumberInputField, NumberInputRoot } from "@/components/ui/number-input"
 import { Slider } from "@/components/ui/slider";
 
 const NumInput = (props) => (
-  <NumberInputRoot {...props}>
+  <NumberInputRoot {...props} width={"full"}>
     <NumberInputField />
   </NumberInputRoot>
 );
@@ -56,20 +56,26 @@ export function NumberFilter({ useIndexFilter, filterKey, min, max }) {
   return (
     <Box py={3}>
       <Box pl={4} pr={4}>
-        <Slider value={[min, max]} min={min} max={max} colorPalette={"blue"} />
+        <Slider
+          value={rState}
+          min={min}
+          max={max}
+          colorPalette={"blue"}
+          onValueChange={(e) => setRState(e.value)}
+        />
       </Box>
-      <HStack mt={4} gap={4}>
+      <HStack mt={4} gap={4} justifyContent="space-between">
         <NumInput
           name={`${filterKey}.0`}
           value={rState[0]}
-          onChange={(v) => setRState([Number(v), rState[1]])}
+          onValueChange={(v) => setRState([Number(v.value), rState[1]])}
           min={values.min}
           max={values.max}
         />
         <NumInput
           name={`${filterKey}.1`}
           value={rState[1]}
-          onChange={(v) => setRState([rState[0], Number(v)])}
+          onValueChange={(v) => setRState([rState[0], Number(v.value)])}
           min={values.min}
           max={values.max}
         />

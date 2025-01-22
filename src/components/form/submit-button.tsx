@@ -35,6 +35,7 @@ export const SubmitButton = ({
   return (
     <Button
       loading={formState.isSubmitting}
+      type="submit"
       disabled={disabled}
       mb={mb}
       {...rest}

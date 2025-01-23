@@ -50,14 +50,16 @@ const Checkbox = (props: any) => {
       : removeMediaGalleryAsset(props.asset.hashKey);
   };
 
-  const { getInputProps, getCheckboxProps } = useCheckbox(props);
+  // const { getInputProps, getCheckboxProps } = useCheckbox(props);
+
+  const { getControlProps, getLabelProps } = useCheckbox(props);
 
   return (
     <Box as="label" className="fade" aria-checked={props.isChecked}>
-      <input {...getInputProps()} onChange={handleOnChange} required={false} />
+      <input {...getControlProps()} onChange={handleOnChange} required={false} />
       <AspectRatio
         ratio={1}
-        {...getCheckboxProps()}
+        {...getLabelProps()}
         borderRadius="lg"
         overflow="hidden"
         borderWidth="2px"
@@ -69,12 +71,13 @@ const Checkbox = (props: any) => {
           <IconButton
             className="remove fade"
             variant="ghost"
-            colorScheme="red"
+            colorPalette="red"
             hidden={props.isChecked}
             aria-label={t("common:delete")}
             onClick={() => removeAsset(props.asset)}
-            icon={<DeleteIcon />}
-          />
+          >
+            <DeleteIcon />
+          </IconButton>
           <Image
             style={{ filter: "none" }}
             boxSize="full"

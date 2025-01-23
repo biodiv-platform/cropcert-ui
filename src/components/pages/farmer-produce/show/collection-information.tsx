@@ -4,19 +4,8 @@ import {
   Heading,
   IconButton,
   Image as ChakraImage,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalOverlay,
   Stack,
   Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tooltip,
-  Tr,
   useDisclosure,
 } from "@chakra-ui/react";
 import RotateLeftIcon from "@icons/rotate-left";
@@ -24,6 +13,15 @@ import RotateRightIcon from "@icons/rotate-right";
 import { ENDPOINT } from "@static/constants";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
+
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogRoot,
+} from "@/components/ui/dialog";
+import { Tooltip } from "@/components/ui/tooltip";
 
 import FarmerProduceShowPanel from "./panel";
 
@@ -57,7 +55,7 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
     ssr: false,
   });
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [rotationAngle, setRotationAngle] = useState(0);
 
   const handleRotateLeft = () => {
@@ -70,27 +68,28 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
 
   return (
     <FarmerProduceShowPanel icon="ℹ️" title="Collection Information" isOpen={true}>
-      <Table variant="simple" size="md">
-        <Thead>
-          <Tr>
-            <Th textAlign="left" backgroundColor="slategray" color="white">
+      {/* variant="simple" */}
+      <Table.Root size="md">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
               Key
-            </Th>
-            <Th textAlign="left" backgroundColor="slategray" color="white">
+            </Table.ColumnHeader>
+            <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
               Value
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
+            </Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {basicInfoHeader &&
             basicInfoHeader.map((item, index) => (
-              <Tr key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
-                <Td textAlign="left">{item.name}</Td>
-                <Td textAlign="left">{item.selector}</Td>
-              </Tr>
+              <Table.Row key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
+                <Table.Cell textAlign="left">{item.name}</Table.Cell>
+                <Table.Cell textAlign="left">{item.selector}</Table.Cell>
+              </Table.Row>
             ))}
-        </Tbody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
 
       <Flex
         gap={2}
@@ -100,7 +99,7 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
         minHeight={"400px"}
       >
         {farmerProduces.grnReceipt && (
-          <Stack direction={"column"} spacing={2}>
+          <Stack direction={"column"} gap={2}>
             <Heading size="md">Grn Receipt :</Heading>
             <ChakraImage
               objectFit="cover"
@@ -116,7 +115,7 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
             />
           </Stack>
         )}
-        <Stack direction={"column"} spacing={2} width={"full"}>
+        <Stack direction={"column"} gap={2} width={"full"}>
           <Box display={"flex"} justifyContent={"space-between"} alignContent={"center"}>
             <Heading size="md">Collection Location :</Heading>
           </Box>
@@ -136,14 +135,14 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
       </Flex>
 
       {/* Modal for Fullscreen Image */}
-      <Modal isOpen={isOpen} onClose={onClose} size="full">
-        <ModalOverlay />
-        <ModalContent>
+      <DialogRoot open={open} onOpenChange={onClose} size="full">
+        <DialogBackdrop />
+        <DialogContent>
           <Box display="flex" justifyContent="space-between" alignItems="center" p={4}>
             <Heading size="md">GRN Receipt</Heading>
-            <ModalCloseButton />
+            <DialogCloseTrigger />
           </Box>
-          <ModalBody display="flex" flexDirection="column" alignItems="center">
+          <DialogBody display="flex" flexDirection="column" alignItems="center">
             <ChakraImage
               loading="lazy"
               objectFit="contain"
@@ -152,28 +151,30 @@ export default function FarmerProduceCollectionInfo({ farmerProduces }) {
               transform={`rotate(${rotationAngle}deg)`}
             />
             <Box display="flex" justifyContent="center" mt={4}>
-              <Tooltip label="Rotate Image to the Left" aria-label="Rotate Left">
+              <Tooltip content="Rotate Image to the Left" aria-label="Rotate Left">
                 <IconButton
                   aria-label="Rotate Left"
-                  icon={<RotateLeftIcon />}
                   onClick={handleRotateLeft}
                   variant="outline"
                   mr={2}
-                />
+                >
+                  <RotateLeftIcon />
+                </IconButton>
               </Tooltip>
-              <Tooltip label="Rotate Image to the Right" aria-label="Rotate Right">
+              <Tooltip content="Rotate Image to the Right" aria-label="Rotate Right">
                 <IconButton
                   aria-label="Rotate Right"
-                  icon={<RotateRightIcon />}
                   onClick={handleRotateRight}
                   variant="outline"
                   mr={2}
-                />
+                >
+                  <RotateRightIcon />
+                </IconButton>
               </Tooltip>
             </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          </DialogBody>
+        </DialogContent>
+      </DialogRoot>
     </FarmerProduceShowPanel>
   );
 }

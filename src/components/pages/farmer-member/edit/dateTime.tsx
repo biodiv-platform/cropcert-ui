@@ -1,9 +1,11 @@
 import "react-datepicker/dist/react-datepicker.css";
 
-import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import DatePicker from "react-datepicker";
 import { Controller } from "react-hook-form";
+
+import { Field } from "@/components/ui/field";
 
 type DateTimeProps = {
   control: any;
@@ -25,8 +27,7 @@ const DateTime = ({
   disabled = false,
 }: DateTimeProps) => {
   return (
-    <FormControl isInvalid={error}>
-      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+    <Field invalid={error} htmlFor={name} label={label}>
       <Flex>
         <Box flex={1} width={"full"}>
           <Controller
@@ -49,7 +50,7 @@ const DateTime = ({
         </Box>
       </Flex>
       {error && <p style={{ color: "red" }}>{error.message}</p>}
-    </FormControl>
+    </Field>
   );
 };
 

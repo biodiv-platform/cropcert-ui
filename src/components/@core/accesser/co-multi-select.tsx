@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetCoByCode } from "@services/co.service";
@@ -7,6 +6,8 @@ import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
+
+import { Field } from "@/components/ui/field";
 
 function CoMultiSelect({ unionId = -1, onChange }) {
   const { authorizedRoles, setMultiSelectCo } = useGlobalState();
@@ -41,8 +42,8 @@ function CoMultiSelect({ unionId = -1, onChange }) {
   return (
     <>
       {!isCoCC && (
-        <FormControl mb={2} maxW="308px">
-          <FormLabel>{label}</FormLabel>
+        <Field mb={2} maxW="308px">
+          <Field>{label}</Field>
           <MultiSelect
             options={co}
             value={coSelected}
@@ -51,7 +52,7 @@ function CoMultiSelect({ unionId = -1, onChange }) {
             labelledBy={label}
             {...reactSelectProps}
           />
-        </FormControl>
+        </Field>
       )}
     </>
   );

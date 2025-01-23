@@ -1,4 +1,4 @@
-import { Button, Image, Text } from "@chakra-ui/react";
+import { Image, Text } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import DownloadIcon from "@icons/download";
 import { ENDPOINT } from "@static/constants";
@@ -6,7 +6,10 @@ import { adminOrAuthor } from "@utils/auth";
 import { formatDate } from "@utils/date";
 import { getUserImage } from "@utils/media";
 import { stripSpecialCharacters } from "@utils/text";
+import Link from "next/link";
 import React from "react";
+
+import { Button } from "@/components/ui/button";
 
 const doFilter = (data) => {
   if (data[0]) {
@@ -44,7 +47,7 @@ export const downloadLogsRow = (data, downloadLabel, unknown) => {
                 borderRadius={50}
                 title={row.name}
                 boxSize="2rem"
-                fallbackSrc={`/api/avatar?t=${row.name}&s=${100}`}
+                alt={`/api/avatar?t=${row.name}&s=${100}`}
                 src={getUserImage(row.profilePic, row.name, 100)}
               />
             </a>
@@ -71,14 +74,18 @@ export const downloadLogsRow = (data, downloadLabel, unknown) => {
               variant="outline"
               size="sm"
               as="a"
-              href={
-                row.filePath.startsWith("/naksha") ? row.filePath : `${ENDPOINT.RAW}${row.filePath}`
-              }
-              download={true}
+              // download={true}
               disabled={!adminOrAuthor(row.user.id)}
-              leftIcon={<DownloadIcon />}
-              colorScheme="blue"
+              colorPalette="blue"
             >
+              <DownloadIcon />
+              <Link
+                href={
+                  row.filePath.startsWith("/naksha")
+                    ? row.filePath
+                    : `${ENDPOINT.RAW}${row.filePath}`
+                }
+              ></Link>
               {downloadLabel}
             </Button>
           ),

@@ -41,7 +41,6 @@ const BlurredBackground = styled.div`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(8px);
-  z-index: 999;
 `;
 
 export default function GridView() {

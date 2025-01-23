@@ -1,8 +1,11 @@
-import { Avatar, Link } from "@chakra-ui/react";
+import { IconButton, Link } from "@chakra-ui/react";
+import { List } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import NextLink from "next/link";
 import React, { useMemo } from "react";
 import LogoutIcon from "src/icons/logout";
+
+import { Avatar } from "@/components/ui/avatar";
 
 import Tooltip from "../tooltip";
 
@@ -20,34 +23,41 @@ function NavbarRightMenu() {
   );
 
   return (
-    <ul className="main-menu right">
+    <List.Root as="ul" className="main-menu right">
       {isLoggedIn ? (
         <>
-          <li>
-            <NextLink href={`/user/show/${user.id}`} passHref={true}>
+          <List.Item>
+            <NextLink href={`/user/show/${user.id}`} passHref={true} legacyBehavior>
               <Link className="user">
-                <Tooltip title={`${user.name} (${visualRole})`}>
+                <Tooltip
+                  title={`${user.name} (${visualRole})`}
+                  positioning={{ placement: "bottom" }}
+                >
                   <Avatar size="sm" name={user.name} />
                 </Tooltip>
               </Link>
             </NextLink>
-          </li>
-          <li>
-            <NextLink href="/logout" passHref={true}>
-              <Link px={0}>
-                <LogoutIcon ml={1} />
+          </List.Item>
+          <List.Item px={2}>
+            <NextLink href="/logout" passHref={true} legacyBehavior>
+              <Link className="user">
+                <Tooltip title={`${user.name}`}>
+                  <IconButton variant={"ghost"} size="sm">
+                    <LogoutIcon />
+                  </IconButton>
+                </Tooltip>
               </Link>
             </NextLink>
-          </li>
+          </List.Item>
         </>
       ) : (
-        <li>
-          <NextLink href="/login" passHref={true}>
+        <List.Item>
+          <NextLink href="/login" passHref={true} legacyBehavior>
             <Link>Sign In</Link>
           </NextLink>
-        </li>
+        </List.Item>
       )}
-    </ul>
+    </List.Root>
   );
 }
 

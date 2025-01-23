@@ -1,8 +1,9 @@
-import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import { getInjectableHTML } from "@utils/text";
 import React, { useEffect, useState } from "react";
 
 const userMatch = /@\[([^\]]+?)\]\((\d+)\)/gm;
+
+import { Prose } from "@/components/ui/prose";
 
 const CommentRender = ({ html }) => {
   const [nHtml, setNHtml] = useState(html);

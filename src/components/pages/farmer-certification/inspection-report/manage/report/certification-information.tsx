@@ -12,7 +12,7 @@ const CertificationInformation = ({ currentReport, previousReport, showCurrent }
         key={key}
         columns={{ base: 1, md: showCurrent ? 3 : 2 }}
         mb={4}
-        spacingX={2}
+        gapX={2}
         data-odd={index % 2 === 0}
       >
         <Flex alignItems="center">{title}</Flex>

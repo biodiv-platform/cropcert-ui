@@ -1,19 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image as ChakraImage,
-  Stack,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image as ChakraImage, Stack, Table } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axUpdateFarmerById } from "@services/farmer.service";
 import { ENDPOINT } from "@static/constants";
@@ -24,6 +9,8 @@ import { bindPropertiesToGeoJSON } from "@utils/traceability";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
+
+import { Alert } from "@/components/ui/alert";
 
 import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
 import FarmerShowPanel from "./panel";
@@ -226,37 +213,39 @@ export default function FarmerInfo({ farmer }) {
 
   return (
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
-      <Table variant="simple" size="md">
-        <Thead>
-          <Tr>
-            <Th textAlign="left" backgroundColor="slategray" color="white">
+      <Table.Root size="md">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
               Key
-            </Th>
-            <Th textAlign="left" backgroundColor="slategray" color="white">
+            </Table.ColumnHeader>
+            <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
               Value
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
+            </Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {basicInfoHeader &&
             basicInfoHeader.map((item, index) => (
-              <Tr key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
-                <Td textAlign="left">{item.name}</Td>
-                <Td textAlign="left">{item.selector}</Td>
-              </Tr>
+              <Table.Row key={index} backgroundColor={index % 2 === 0 ? "gray.100" : "white"}>
+                <Table.Cell textAlign="left">{item.name}</Table.Cell>
+                <Table.Cell textAlign="left">{item.selector}</Table.Cell>
+              </Table.Row>
             ))}
-        </Tbody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
       {!isLocationVerified ? (
-        <Alert status="warning" variant="left-accent" mt={2}>
-          <AlertIcon />
-          {t("traceability:location.farmer_location_not_verified")}
-        </Alert>
+        <Alert
+          status="warning"
+          mt={2}
+          title={t("traceability:location.farmer_location_not_verified")}
+        ></Alert>
       ) : (
-        <Alert status="success" variant="left-accent" mt={2}>
-          <AlertIcon />
-          {t("traceability:location.farmer_location_verified")}
-        </Alert>
+        <Alert
+          status="success"
+          mt={2}
+          title={t("traceability:location.farmer_location_verified")}
+        ></Alert>
       )}
       <Flex
         gap={2}
@@ -266,7 +255,7 @@ export default function FarmerInfo({ farmer }) {
         minHeight={"400px"}
       >
         {farmer.photoOfFarm && (
-          <Stack direction={"column"} spacing={2}>
+          <Stack direction={"column"} gap={2}>
             <Heading size="md">Farm Image :</Heading>
             <ChakraImage
               objectFit="cover"
@@ -280,7 +269,7 @@ export default function FarmerInfo({ farmer }) {
             />
           </Stack>
         )}
-        <Stack direction={"column"} spacing={2} width={"full"}>
+        <Stack direction={"column"} gap={2} width={"full"}>
           <Box display={"flex"} justifyContent={"space-between"} alignContent={"center"}>
             <Heading size="md">Location :</Heading>
             {hasLocationEditAccess && (
@@ -290,7 +279,7 @@ export default function FarmerInfo({ farmer }) {
                     onClick={enterEditMode}
                     size={"sm"}
                     variant={"outline"}
-                    colorScheme={"green"}
+                    colorPalette={"green"}
                   >
                     Edit Location
                   </Button>
@@ -304,7 +293,7 @@ export default function FarmerInfo({ farmer }) {
                       size={"sm"}
                       variant={"solid"}
                       mx={1}
-                      colorScheme="red"
+                      colorPalette="red"
                     >
                       Save
                     </Button>

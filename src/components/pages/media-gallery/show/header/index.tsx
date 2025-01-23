@@ -1,5 +1,4 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Flex, Heading, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
+import { Flex, Heading, Tabs, Text } from "@chakra-ui/react";
 import SimpleActionButton from "@components/@core/action-buttons/simple";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
@@ -18,18 +17,19 @@ import { NextSeo } from "next-seo";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
+import EditIcon from "@/icons/edit";
+
 import useMediaGalleryFilter from "../../common/use-media-gallery-filter";
 
 export default function ListHeader() {
   const { filter, setFilter, mediaGalleryData } = useMediaGalleryFilter();
-  const defaultIndex = viewTabs.findIndex((tab) => tab.key === filter?.view);
   const { t } = useTranslation();
   const currentRoute = useRouter();
 
-  const handleOnViewChange = (index: number) => {
+  const handleOnViewChange = (e) => {
     setFilter((_draft) => {
       _draft.f.offset = 0;
-      _draft.f.view = viewTabs[index].key;
+      _draft.f.view = e.value;
     });
   };
 
@@ -89,24 +89,28 @@ export default function ListHeader() {
       />
 
       <Flex mt={4} direction={{ base: "column", md: "row" }} justify="space-between">
-        <Tabs
+        <Tabs.Root
           display="inline-block"
           className="icon-tabs"
-          onChange={handleOnViewChange}
-          variant="soft-rounded"
-          isManual={true}
-          defaultIndex={defaultIndex}
+          onValueChange={(e) => handleOnViewChange(e.value)}
+          activationMode="manual"
+          defaultValue={viewTabs[0].name}
           mb={4}
-          isLazy={true}
+          lazyMount
         >
-          <TabList aria-orientation="vertical">
+          <Tabs.List aria-orientation="vertical">
             {viewTabs.map(({ name, icon, key }) => (
-              <Tab key={key} aria-label={t(name)} aria-controls={`view_${key}`}>
+              <Tabs.Trigger
+                value={name}
+                key={key}
+                aria-label={t(name)}
+                aria-controls={`view_${key}`}
+              >
                 {icon} {t(name)}
-              </Tab>
+              </Tabs.Trigger>
             ))}
-          </TabList>
-        </Tabs>
+          </Tabs.List>
+        </Tabs.Root>
       </Flex>
       {mediaGalleryData && mediaGalleryData.n > -1 && (
         <Flex mb={4} direction="column" justifyContent="center" alignItems="center">
@@ -118,7 +122,7 @@ export default function ListHeader() {
                   icon={<Add2Icon />}
                   title={t("common:media_gallery.contribute")}
                   onClick={handleOnAdd}
-                  colorScheme="green"
+                  colorPalette="green"
                 />
                 {isAdmin && (
                   <>
@@ -126,13 +130,13 @@ export default function ListHeader() {
                       icon={<EditIcon />}
                       title={t("common:edit")}
                       onClick={handleOnEdit}
-                      colorScheme="green"
+                      colorPalette="green"
                     />
                     <SimpleActionButton
                       icon={<DeleteIcon />}
                       title={t("common:delete")}
                       onClick={handleOnDelete}
-                      colorScheme="red"
+                      colorPalette="red"
                     />
                   </>
                 )}

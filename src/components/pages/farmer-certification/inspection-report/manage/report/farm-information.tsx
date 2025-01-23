@@ -1,35 +1,31 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Flex,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic";
 import React from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import { FARM_PANEL } from "../../create/panels/data";
 import ReportTabs from "./tabs";
 
 const FarmsList = ({ data = [] }) =>
   data.length ? (
-    <Accordion allowToggle={true} allowMultiple={true}>
+    <AccordionRoot multiple={true}>
       {data.map((farm, index) => (
-        <AccordionItem key={index}>
-          <AccordionButton _expanded={{ bg: "gray.100" }}>
+        <AccordionItem value={farm} key={index}>
+          <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
             <Box flex="1" textAlign="left">
               Farm #{index + 1}
             </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <SimpleGrid columns={{ base: 1, sm: 2 }} spacingY={2}>
+          </AccordionItemTrigger>
+          <AccordionItemContent pb={4}>
+            <SimpleGrid columns={{ base: 1, sm: 2 }} gapY={2}>
               {Object.keys(farm).map((key) => (
                 <React.Fragment key={key}>
                   <Box>{FARM_PANEL.keys[key]}</Box>
@@ -37,10 +33,10 @@ const FarmsList = ({ data = [] }) =>
                 </React.Fragment>
               ))}
             </SimpleGrid>
-          </AccordionPanel>
+          </AccordionItemContent>
         </AccordionItem>
       ))}
-    </Accordion>
+    </AccordionRoot>
   ) : (
     <Box p={4}>No Farms</Box>
   );
@@ -55,7 +51,7 @@ const FarmInformation = ({ currentReport, previousReport, showCurrent }) => (
     />
     <Box p={4}>
       <PageHeading size="md">📑 Summary</PageHeading>
-      <SimpleGrid columns={{ base: 1, sm: showCurrent ? 3 : 2 }} spacingY={4}>
+      <SimpleGrid columns={{ base: 1, sm: showCurrent ? 3 : 2 }} gapY={4}>
         {Object.entries(FARM_PANEL.keys.summery).map(([key, title]) => (
           <React.Fragment key={key}>
             <Flex alignItems="center">{title}</Flex>

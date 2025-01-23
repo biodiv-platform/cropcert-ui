@@ -5,6 +5,10 @@ export const reactSelectProps = {
       cursor: "text",
       paddingLeft: "0.4rem",
     }),
+    container: (p) => ({
+      ...p,
+      width: "100%",
+    }),
     valueContainer: (p) => ({ ...p, height: "38px" }),
     menu: (p) => ({ ...p, minWidth: "20em" }),
     menuPortal: (p) => ({ ...p, zIndex: 1900 }),

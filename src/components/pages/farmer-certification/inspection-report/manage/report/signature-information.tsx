@@ -7,7 +7,7 @@ import React from "react";
 const SIGNATURE_URL_PREFIX = `${ENDPOINT.FILES}/get/raw/signature`;
 
 const SignatureBlock = ({ previous, current, showCurrent, title }) => (
-  <SimpleGrid columns={{ base: 1, md: 3 }} mb={4} spacingX={2}>
+  <SimpleGrid columns={{ base: 1, md: 3 }} mb={4} gapX={2}>
     <Flex alignItems="center">{title} Signature</Flex>
     <Box>
       <Text color="gray.600" fontSize="0.8em">
@@ -34,10 +34,10 @@ export default function SignatureInformation({ currentReport, previousReport, sh
       {currentReport.geoLocation && (
         <Box
           as="iframe"
-          src={`https://maps.google.com/maps?q=${currentReport.geoLocation}&z=7&output=embed`}
+          // src={`https://maps.google.com/maps?q=${currentReport.geoLocation}&z=7&output=embed`}
           width="100%"
           height={300}
-          frameBorder="0"
+          // frameBorder="0"
           border={0}
           borderRadius="md"
           mb={4}

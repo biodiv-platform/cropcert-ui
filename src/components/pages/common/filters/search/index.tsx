@@ -1,12 +1,13 @@
-import {
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import TextFilterInput from "./input";
 
@@ -15,16 +16,16 @@ export default function TextFilterPanel({ filterKey, translateKey, useIndexFilte
   const label = t(translateKey);
 
   return (
-    <AccordionItem>
-      <AccordionButton>
+    <AccordionRoot>
+      <AccordionItem value={label} pl={4}>
         <Box flex={1} textAlign="left">
           {label}
         </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel>
+        <AccordionItemTrigger pr={4} />
+      </AccordionItem>
+      <AccordionItemContent>
         <TextFilterInput filterKey={filterKey} label={label} useIndexFilter={useIndexFilter} />
-      </AccordionPanel>
-    </AccordionItem>
+      </AccordionItemContent>
+    </AccordionRoot>
   );
 }

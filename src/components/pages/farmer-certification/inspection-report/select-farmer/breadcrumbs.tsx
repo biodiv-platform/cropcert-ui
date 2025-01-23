@@ -1,10 +1,11 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 
+import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from "@/components/ui/breadcrumb";
+
 export default function Breadcrumbs({ ccName, coName, unionName }) {
   return (
-    <Breadcrumb
+    <BreadcrumbRoot
       bg="white"
       px={4}
       py={2}
@@ -13,25 +14,17 @@ export default function Breadcrumbs({ ccName, coName, unionName }) {
       borderColor="gray.200"
       mb={8}
     >
-      <BreadcrumbItem isCurrentPage={true}>
+      <BreadcrumbCurrentLink>
+        Union: <b>{unionName}</b>
+      </BreadcrumbCurrentLink>
+      <NextLink passHref={true} href="/farmer-certification/manage-farmers" legacyBehavior>
         <BreadcrumbLink>
-          Union: <b>{unionName}</b>
+          Cooperative: <b>{coName}</b>
         </BreadcrumbLink>
-      </BreadcrumbItem>
-
-      <BreadcrumbItem>
-        <NextLink passHref={true} href="/farmer-certification/manage-farmers">
-          <BreadcrumbLink>
-            Cooperative: <b>{coName}</b>
-          </BreadcrumbLink>
-        </NextLink>
-      </BreadcrumbItem>
-
-      <BreadcrumbItem isCurrentPage>
-        <BreadcrumbLink as="span">
-          Collection Center: <b>{ccName}</b>
-        </BreadcrumbLink>
-      </BreadcrumbItem>
-    </Breadcrumb>
+      </NextLink>
+      <BreadcrumbCurrentLink as="span">
+        Collection Center: <b>{ccName}</b>
+      </BreadcrumbCurrentLink>
+    </BreadcrumbRoot>
   );
 }

@@ -51,15 +51,15 @@ export default function BasicInfo({
   return (
     <div>
       <Stack flexDirection={["column", "row"]} alignItems="top" mb={1}>
-        <PageHeading as="h2" size="lg" mb={4} mr={4}>
+        <PageHeading mb={4} mr={4} size={"3xl"}>
           ℹ️ {t("document:basic_information")}
+          {canImport && <BibImportButton />}
         </PageHeading>
-        {canImport && <BibImportButton />}
       </Stack>
 
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>
         <Box gridColumn="1/4">
-          <TextBoxField name="bibFieldData.title" label={t("form:title")} isRequired={true} />
+          <TextBoxField name="bibFieldData.title" label={t("form:title")} required={true} />
         </Box>
         <SelectInputField
           name="itemTypeId"
@@ -71,10 +71,12 @@ export default function BasicInfo({
         />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
         <div>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
-            <DateTimeInputField name="fromDate" label={t("document:publication_date")} />
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
+            <Box width={"full"}>
+              <DateTimeInputField name="fromDate" label={t("document:publication_date")} />
+            </Box>
             <SelectInputField
               name="licenseId"
               label={t("form:license")}

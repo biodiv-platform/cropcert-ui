@@ -13,7 +13,7 @@ export default function ListHeader() {
     <>
       {mediaGalleryListData && (
         <Flex mb={8} direction="column" justifyContent="center" alignItems="center" py={6}>
-          <Heading textAlign="center" size="2xl" mb={2}>
+          <Heading textAlign="center" size="5xl" mb={2}>
             {t(" Media Gallery")}
           </Heading>
 

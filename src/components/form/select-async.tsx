@@ -1,4 +1,3 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
 import { MENU_PORTAL_TARGET } from "@static/constants";
 import debounce from "debounce-promise";
 import React, { useEffect, useMemo, useState } from "react";
@@ -7,6 +6,7 @@ import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import AsyncSelectCreatable from "react-select/async-creatable";
 
+import { Field } from "../ui/field";
 import { reactSelectProps } from "./configs";
 
 interface ISelectProps {
@@ -93,14 +93,16 @@ export const SelectAsyncInputField = ({
   }, [form.formState.submitCount]);
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={fieldState?.error?.message}
       aria-invalid={!!fieldState.error}
-      isRequired={isRequired}
+      required={isRequired}
       mb={mb}
+      htmlFor={field.name}
+      label={label}
       {...props}
     >
-      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <Select
         name={name}
         inputId={name}
@@ -124,8 +126,7 @@ export const SelectAsyncInputField = ({
         ref={selectRef}
         {...reactSelectProps}
       />
-      <FormErrorMessage children={fieldState?.error?.message} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

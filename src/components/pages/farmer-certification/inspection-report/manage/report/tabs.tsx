@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Tabs } from "@chakra-ui/react";
 import React from "react";
 
 interface ReportTabsProps {
@@ -15,21 +15,19 @@ export default function ReportTabs({
   currentProps,
 }: ReportTabsProps) {
   return showCurrent ? (
-    <Tabs>
-      <TabList>
-        <Tab>Current</Tab>
-        <Tab>Previous</Tab>
-      </TabList>
+    <Tabs.Root>
+      <Tabs.List>
+        <Tabs.Trigger value="Current">Current</Tabs.Trigger>
+        <Tabs.Trigger value="Previous">Previous</Tabs.Trigger>
+      </Tabs.List>
 
-      <TabPanels>
-        <TabPanel>
-          <Component data={currentProps} />
-        </TabPanel>
-        <TabPanel>
-          <Component data={previousProps} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+      <Tabs.Content value="Current">
+        <Component data={currentProps} />
+      </Tabs.Content>
+      <Tabs.Content value="Previous">
+        <Component data={previousProps} />
+      </Tabs.Content>
+    </Tabs.Root>
   ) : (
     <Component data={previousProps} />
   );

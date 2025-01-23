@@ -1,5 +1,4 @@
-import { ArrowBackIcon, EditIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button, Flex, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -14,6 +13,11 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
+import { LuArrowLeft } from "react-icons/lu";
+
+import Tooltip from "@/components/@core/tooltip";
+import { AccordionRoot } from "@/components/ui/accordion";
+import EditIcon from "@/icons/edit";
 
 import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
@@ -47,16 +51,11 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
   const ActionButtons = ({ hasEditDeleteAccess }) => {
     return (
       <Box display={"flex"}>
-        <Button
-          onClick={handleGoBack}
-          leftIcon={<ArrowBackIcon />}
-          variant="solid"
-          rounded="md"
-          colorScheme="gray"
-        >
+        <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+          {<LuArrowLeft />}
           {backButtonText}
         </Button>
-        <Tooltip label="Edit Farmer" hasArrow>
+        <Tooltip content="Edit Farmer" showArrow>
           <Box
             paddingY={2}
             paddingX={3}
@@ -67,12 +66,12 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
-            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true}>
-              <EditIcon boxSize={5} />
+            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
+              <EditIcon />
             </NextLink>
           </Box>
         </Tooltip>
-        <Tooltip label="Delete Farmer" hasArrow>
+        <Tooltip content="Delete Farmer" showArrow>
           <Box
             paddingY={2}
             paddingX={3}
@@ -83,7 +82,7 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_DELETE, { farmerId: show.farmer._id, hasAccess: hasEditDeleteAccess })
             }
           >
-            <DeleteIcon boxSize={5} />
+            <DeleteIcon />
           </Box>
         </Tooltip>
       </Box>
@@ -98,13 +97,13 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
       >
         🧑‍🌾 {show.farmer.farmerName}
       </PageHeading>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <AccordionRoot multiple defaultValue={["Information", "activity"]} spaceY="4" pb={4}>
         <FarmerInfo farmer={show.farmer} />
         {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
         {show.batches && <FarmerBatches rows={show.batches} />}
         {show.lots && <FarmerLots rows={show.lots} />}
         <Activity resourceId={show.farmer.id} resourceType={RESOURCE_TYPE.FARMER} />
-      </Accordion>
+      </AccordionRoot>
       <DeleteFarmerModal />
     </Container>
   ) : (

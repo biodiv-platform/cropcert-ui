@@ -1,12 +1,15 @@
-import { ArrowForwardIcon, ArrowUpIcon, CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
 import useInspectionReport from "@hooks/use-inspection-report";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
 import NextLink from "next/link";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
+import { LuArrowRight, LuArrowUp, LuCircleCheck } from "react-icons/lu";
+import { MdWarning } from "react-icons/md";
 import DeleteIcon from "src/icons/delete";
+
+import { Button } from "@/components/ui/button";
 
 export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
   const { uploadInspectionReport, discardInspectionReport } = useInspectionReport();
@@ -40,7 +43,7 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
             {farmer.name}
           </Text>
           <Box hidden={!isConflict} className="fade">
-            <WarningIcon mr={2} color="orange.500" />
+            <MdWarning color="orange.500" />
             {isSubVersionConflict
               ? "Sub-version Mismatch, Please choose one of the action"
               : "New Major version available Please discard local report"}
@@ -55,11 +58,11 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  colorScheme="orange"
-                  leftIcon={<ArrowUpIcon />}
+                  colorPalette="orange"
                   onClick={upload}
-                  isLoading={isLoading}
+                  loading={isLoading}
                 >
+                  <LuArrowUp />
                   Upload
                 </Button>
               )}
@@ -67,37 +70,30 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
                 <Button
                   mr={4}
                   className="fade"
-                  colorScheme="purple"
-                  leftIcon={<ArrowUpIcon />}
+                  colorPalette="purple"
                   onClick={upload}
-                  isLoading={isLoading}
+                  loading={isLoading}
                 >
+                  <LuArrowUp />
                   Force Upload
                 </Button>
               )}
-              <Button
-                colorScheme="red"
-                leftIcon={<DeleteIcon />}
-                onClick={discard}
-                hidden={isLoading}
-              >
+              <Button colorPalette="red" onClick={discard} hidden={isLoading}>
+                <DeleteIcon />
                 Discard
               </Button>
             </>
           ) : (
-            <Button
-              variant="outline"
-              colorScheme="green"
-              leftIcon={<CheckCircleIcon />}
-              isDisabled={true}
-            >
+            <Button variant="outline" colorPalette="green" disabled={true}>
+              <LuCircleCheck />
               Report Ready
             </Button>
           )
         ) : (
-          <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true}>
-            <Button className="fade" as="a" colorScheme="blue" rightIcon={<ArrowForwardIcon />}>
+          <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true} legacyBehavior>
+            <Button className="fade" as="a" colorPalette="blue">
               Create Inspection Report
+              <LuArrowRight />
             </Button>
           </NextLink>
         )}

@@ -1,5 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Button, Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { axUpdateFarmerById } from "@services/farmer.service";
@@ -7,6 +6,9 @@ import notification, { NotificationType } from "@utils/notification";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React, { useRef } from "react";
+import { LuArrowLeft } from "react-icons/lu";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import FarmerEditForm from "./farmer-edit-form";
 
@@ -24,13 +26,8 @@ export default function FarmerEditPageComponent({ edit }) {
 
   const ActionButtons = () => {
     return (
-      <Button
-        onClick={handleGoBack}
-        leftIcon={<ArrowBackIcon />}
-        variant="solid"
-        rounded="md"
-        colorScheme="gray"
-      >
+      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+        <LuArrowLeft />
         {t("common:back")}
       </Button>
     );
@@ -103,10 +100,10 @@ export default function FarmerEditPageComponent({ edit }) {
   return (
     <Container>
       <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <AccordionRoot multiple defaultValue={["Information"]}>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
         <Flex justifyContent={"flex-end"} gap={2} my={8}>
-          <Button variant="solid" colorScheme="gray" size={"lg"} onClick={() => router.back()}>
+          <Button variant="subtle" colorPalette="gray" size={"lg"} onClick={() => router.back()}>
             {t("common:cancel")}
           </Button>
           <Button
@@ -114,13 +111,13 @@ export default function FarmerEditPageComponent({ edit }) {
               ref?.current?.submit();
             }}
             variant="solid"
-            colorScheme="red"
+            colorPalette="red"
             size={"lg"}
           >
             {t("traceability:farmer.update_farmer")}
           </Button>
         </Flex>
-      </Accordion>
+      </AccordionRoot>
     </Container>
   );
 }

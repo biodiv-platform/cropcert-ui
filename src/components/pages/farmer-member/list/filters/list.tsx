@@ -1,5 +1,6 @@
-import { Accordion } from "@chakra-ui/react";
 import React from "react";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import AggroforestryFilter from "./aggroforestry";
 import CoffeeAcerageFilter from "./coffee-acerage";
@@ -24,7 +25,7 @@ import YearOfFirstPlantingFilter from "./year-of-first-planting";
 
 export default function FiltersList() {
   return (
-    <Accordion allowMultiple={true}>
+    <AccordionRoot multiple={true} lazyMount>
       <FarmerIdFilter />
       <FarmerNameFilter />
       <SexTypeFilter />
@@ -45,6 +46,6 @@ export default function FiltersList() {
       <LocationVerifiedFilter />
       <FarmerDataValidatedFilter />
       <TimeFilter />
-    </Accordion>
+    </AccordionRoot>
   );
 }

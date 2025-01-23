@@ -1,5 +1,4 @@
-import { EmailIcon } from "@chakra-ui/icons";
-import { Badge, Button, Checkbox, Spinner } from "@chakra-ui/react";
+import { Badge, Spinner } from "@chakra-ui/react";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import PlainUnionSelect from "@components/@core/accesser/plain-union-select";
 import Container from "@components/@core/container";
@@ -10,7 +9,11 @@ import timeCell from "@components/@core/table/time-cell";
 import useGlobalState from "@hooks/use-global-state";
 import { hasAccess } from "@utils/auth";
 import React, { useMemo, useState } from "react";
+import { MdEmail } from "react-icons/md";
 import InfiniteScroll from "react-infinite-scroller";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { PageHeader } from "../page/show/header";
 import useMarketing from "./use-marketing";
@@ -72,11 +75,11 @@ export const columns = [
       return (
         <Button
           size="sm"
-          colorScheme="blue"
-          leftIcon={<EmailIcon />}
+          colorPalette="blue"
           as="a"
-          href={`mailto:${to}?cc=${process.env.NEXT_PUBLIC_CC}&subject=Inquiry on Lot ${r.lotName}&body=Hi ${r.manager},%0A%0A<your message>%0A%0APlease, provide the following detail:%0ACompany name:%0AAddress:%0AContact person:%0ATelephone:%0Aemail:%0A%0A------------------------------------%0A%0ALot Information%0ALot Name: ${r.lotName} (L-${r.id})%0ACooperative: ${r.cooperativeFullName} (${r.cooperativeName})%0AWeight: ${r.highGradeWeight}%0AStatus: ${r.lotStatus}`}
+          ref={`mailto:${to}?cc=${process.env.NEXT_PUBLIC_CC}&subject=Inquiry on Lot ${r.lotName}&body=Hi ${r.manager},%0A%0A<your message>%0A%0APlease, provide the following detail:%0ACompany name:%0AAddress:%0AContact person:%0ATelephone:%0Aemail:%0A%0A------------------------------------%0A%0ALot Information%0ALot Name: ${r.lotName} (L-${r.id})%0ACooperative: ${r.cooperativeFullName} (${r.cooperativeName})%0AWeight: ${r.highGradeWeight}%0AStatus: ${r.lotStatus}`}
         >
+          <MdEmail />
           Inquire
         </Button>
       );
@@ -115,7 +118,7 @@ export default function MarketingPageComponent() {
 
           <Checkbox
             defaultChecked={isFiltered}
-            onChange={(e) => setIsFiltered(e.target.checked)}
+            onChange={(e) => setIsFiltered((e.target as HTMLInputElement).checked)}
             mt={4}
           >
             with quality scores only

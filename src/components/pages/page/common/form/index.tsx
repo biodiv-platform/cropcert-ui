@@ -1,13 +1,4 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  GridItem,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { SelectInputField } from "@components/form/select";
 import { SubmitButton } from "@components/form/submit-button";
 import { SwitchField } from "@components/form/switch";
@@ -21,6 +12,13 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import { PAGE_TYPE_OPTIONS, PAGE_TYPES } from "../data";
 import usePages from "../sidebar/use-pages-sidebar";
@@ -94,7 +92,7 @@ export default function PageForm({
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(onSubmit)}>
-        <SimpleGrid columns={{ md: 6 }} spacing={4}>
+        <SimpleGrid columns={{ md: 6 }} gap={4}>
           <GridItem colSpan={4}>
             <TextBoxField name="title" label={t("page:form.title")} />
           </GridItem>
@@ -121,20 +119,20 @@ export default function PageForm({
         </Box>
 
         <Box hidden={isPageTypeRedirect}>
-          <Accordion allowToggle>
+          <AccordionRoot collapsible>
             <AccordionItem
               mb={8}
               bg="white"
               border="1px solid var(--chakra-colors-gray-300)"
               borderRadius="md"
+              value={"1"}
             >
-              <AccordionButton _expanded={{ bg: "gray.100" }}>
-                <Box flex={1} textAlign="left">
+              <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
+                <Box flex={1} textAlign="left" pl={4}>
                   🖼️ {t("page:form.gallery")}
                 </Box>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>
+              </AccordionItemTrigger>
+              <AccordionItemContent pl={4}>
                 <Box hidden={isPageTypeRedirect}>
                   <PageGalleryField
                     name="galleryData"
@@ -143,24 +141,24 @@ export default function PageForm({
                   />
                 </Box>
                 <SocialPreviewField name="socialPreview" label={t("page:form.social_preview")} />
-              </AccordionPanel>
+              </AccordionItemContent>
             </AccordionItem>
-          </Accordion>
+          </AccordionRoot>
         </Box>
-        <Accordion allowToggle>
+        <AccordionRoot collapsible>
           <AccordionItem
             mb={8}
             bg="white"
             border="1px solid var(--chakra-colors-gray-300)"
             borderRadius="md"
+            value={"2"}
           >
-            <AccordionButton _expanded={{ bg: "gray.100" }}>
-              <Box flex={1} textAlign="left">
+            <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
+              <Box flex={1} textAlign="left" pl={4}>
                 📝 {t("page:form.meta_data")}
               </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>
+            </AccordionItemTrigger>
+            <AccordionItemContent pl={4}>
               <TextAreaField name="description" label={t("page:form.description")} />
               {!hideParentId && (
                 <SelectInputField
@@ -174,9 +172,9 @@ export default function PageForm({
               <SwitchField name="showInMenu" mb={2} label={t("page:form.is_menu")} />
               <SwitchField name="showInFooter" mb={2} label={t("page:form.is_footer")} />
               <SwitchField name="allowComments" mb={2} label={t("page:form.is_allow_comments")} />
-            </AccordionPanel>
+            </AccordionItemContent>
           </AccordionItem>
-        </Accordion>
+        </AccordionRoot>
 
         <SubmitButton>{submitLabel}</SubmitButton>
       </form>

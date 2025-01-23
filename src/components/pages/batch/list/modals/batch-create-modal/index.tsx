@@ -1,15 +1,17 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import React from "react";
+
+import { DialogRoot } from "@/components/ui/dialog";
 
 import BatchCreateForm from "./form";
 
 export default function BatchCreateModal({ update }) {
-  const { isOpen, onClose } = useDisclosure();
+  const { open, onClose } = useDisclosure();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
-      <ModalOverlay />
-      {isOpen && <BatchCreateForm update={update} onClose={onClose} />}
-    </Modal>
+    <DialogRoot open={open} onOpenChange={onClose} size="lg">
+      {/*  closeOnOverlayClick={false}  size="2xl" <ModalOverlay /> */}
+      {open && <BatchCreateForm update={update} onClose={onClose} />}
+    </DialogRoot>
   );
 }

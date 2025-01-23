@@ -60,7 +60,7 @@ export default function LotInfo({ lot, geojsonData }) {
       <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
 
       <Stack my={4}>
-        <Text variant={"title"} as={"b"} pl={2}>
+        <Text as={"b"} pl={2}>
           Parameters:
         </Text>
         <Box>
@@ -77,7 +77,7 @@ export default function LotInfo({ lot, geojsonData }) {
       </Stack>
 
       {geojsonData && (
-        <Stack direction={"column"} spacing={2} width={"full"} my={4} mb={8} height={"400px"}>
+        <Stack direction={"column"} gap={2} width={"full"} my={4} mb={8} height={"400px"}>
           <Box
             rounded="md"
             borderWidth={1}

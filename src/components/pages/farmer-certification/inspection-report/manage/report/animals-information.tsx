@@ -1,34 +1,30 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Flex,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import { booleanOrText } from "@utils/basic";
 import React from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import { ANIMALS_PANEL } from "../../create/panels/data";
 import ReportTabs from "./tabs";
 
 const AnimalsList = ({ data = [] }) =>
   data.length ? (
-    <Accordion allowToggle={true} allowMultiple={true}>
+    <AccordionRoot multiple={true}>
       {data.map((animal: any) => (
-        <AccordionItem key={animal.id}>
-          <AccordionButton _expanded={{ bg: "gray.100" }}>
+        <AccordionItem value={animal.id} key={animal.id}>
+          <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
             <Box flex="1" textAlign="left">
               {animal.type}
             </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <SimpleGrid columns={{ base: 1, sm: 2 }} spacingY={2}>
+          </AccordionItemTrigger>
+          <AccordionItemContent pb={4}>
+            <SimpleGrid columns={{ base: 1, sm: 2 }} gapY={2}>
               {Object.entries(ANIMALS_PANEL.keys.animals).map(([key, title]) => (
                 <React.Fragment key={key}>
                   <Box>{title}</Box>
@@ -36,10 +32,10 @@ const AnimalsList = ({ data = [] }) =>
                 </React.Fragment>
               ))}
             </SimpleGrid>
-          </AccordionPanel>
+          </AccordionItemContent>
         </AccordionItem>
       ))}
-    </Accordion>
+    </AccordionRoot>
   ) : (
     <Box p={4}>No Animals</Box>
   );
@@ -50,7 +46,7 @@ const AnimalsInformation = ({ currentReport, previousReport, showCurrent }) => (
     isOpen={true}
     noPadding={true}
   >
-    <SimpleGrid columns={{ base: 1, md: showCurrent ? 3 : 2 }} spacingY={2} p={4}>
+    <SimpleGrid columns={{ base: 1, md: showCurrent ? 3 : 2 }} gapY={2} p={4}>
       {Object.entries(ANIMALS_PANEL.keys.general).map(([key, title]) => (
         <React.Fragment key={key}>
           <Flex alignItems="center">{title}</Flex>

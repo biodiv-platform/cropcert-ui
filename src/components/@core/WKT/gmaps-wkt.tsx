@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Input, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Input, SimpleGrid } from "@chakra-ui/react";
 import { WKTProps } from "@components/@core/WKT";
 import SaveButton from "@components/@core/WKT/save-button";
 import LocationMap from "@components/pages/observation/create/form/location/map";
@@ -15,6 +15,8 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useMemo, useState } from "react";
 import { useListener } from "react-gbus";
 import wkt from "wkt";
+
+import { Field } from "@/components/ui/field";
 
 const GmapsWktLocationPicker = ({
   nameTitle,
@@ -91,40 +93,42 @@ const GmapsWktLocationPicker = ({
       libraries={GMAP_LIBRARIES}
     >
       <>
-        <SimpleGrid columns={[1 / 2, 1 / 2, 5, 5]} spacing={3} mb={mb}>
-          <FormControl gridColumn={"1/5"}>
-            <FormLabel htmlFor="places-search">
+        <SimpleGrid columns={[1 / 2, 1 / 2, 5, 5]} gap={3} mb={mb}>
+          <Field gridColumn={"1/5"}>
+            <Field htmlFor="places-search">
               {label}
               {ll.has && (
                 <Button
                   title={ll.value?.address}
-                  variant="link"
+                  variant="subtle"
                   size="xs"
                   ml={1}
                   verticalAlign="baseline"
-                  colorScheme="blue"
+                  colorPalette="blue"
                   onClick={ll.use}
                 >
-                  {t("observation:last_location")}
+                  {t("form:coverage.last_location")}
                 </Button>
               )}
-            </FormLabel>
-            <Autocomplete
-              onLoad={setSearchBoxRef}
-              onPlaceChanged={handleOnSearchSelected}
-              options={GEOCODE_OPTIONS}
-              fields={AUTOCOMPLETE_FIELDS}
-            >
-              <Input
-                id="places-search"
-                value={observedAtText}
-                onChange={handleOnSearchChange}
-                pr="5rem"
-                placeholder={t("observation:location_placeholder")}
-              />
-            </Autocomplete>
-          </FormControl>
-          <SaveButton isDisabled={disabled} onClick={handleOnSave} />
+            </Field>
+            <Box width={"full"}>
+              <Autocomplete
+                onLoad={setSearchBoxRef}
+                onPlaceChanged={handleOnSearchSelected}
+                options={GEOCODE_OPTIONS}
+                fields={AUTOCOMPLETE_FIELDS}
+              >
+                <Input
+                  id="places-search"
+                  value={observedAtText}
+                  onChange={handleOnSearchChange}
+                  pr="5rem"
+                  placeholder={t("form:coverage.location_placeholder")}
+                />
+              </Autocomplete>
+            </Box>
+          </Field>
+          <SaveButton disabled={disabled} onClick={handleOnSave} />
         </SimpleGrid>
         <LocationMap
           coordinates={coordinates}

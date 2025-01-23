@@ -31,15 +31,15 @@ const SocialButton = ({ children, label, href }) => (
     h={8}
     cursor="pointer"
     as="a"
-    href={href}
     display="inline-flex"
     alignItems="center"
     justifyContent="center"
     transition="background 0.3s ease"
     _hover={{ bg: "blackAlpha.200" }}
-    target="_blank"
+    // target="_blank"
     rel="noreferrer noopener"
   >
+    <a href={href} />
     <VisuallyHidden>{label}</VisuallyHidden>
     {children}
   </chakra.button>
@@ -51,9 +51,9 @@ export default function Footer() {
 
   return (
     <Box bg="gray.100" color="gray.700" className="no-print">
-      <Container as={Stack} maxW={containerMaxW} py={4}>
-        <SimpleGrid templateColumns={{ md: "4fr 2fr" }} spacing={8}>
-          <Stack spacing={4}>
+      <Container as={Stack} maxW={containerMaxW} py={20}>
+        <SimpleGrid templateColumns={{ md: "4fr 2fr" }} gap={8}>
+          <Stack gap={4}>
             <Flex gap={6}>
               <Image
                 alt={SITE_TITLE}
@@ -66,8 +66,8 @@ export default function Footer() {
               {t("common:license")} (v{packagejson.version})
             </Text>
           </Stack>
-          <Stack spacing={4}>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+          <Stack gap={4}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
               {pages
                 .filter((page) => page.showInFooter !== false)
                 .map((page) => (
@@ -77,7 +77,7 @@ export default function Footer() {
                 ))}
             </SimpleGrid>
 
-            <Stack direction="row" spacing={6}>
+            <Stack direction="row" gap={6}>
               <SocialButton
                 label="Mail"
                 href={SITE_CONFIG.FOOTER.SOCIAL.MAIL.URL}

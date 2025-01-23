@@ -31,7 +31,7 @@ export default function DocumentShowComponent({ document }: DocumentShowProps) {
   return (
     <Container my={6}>
       <DocumentHeader document={document} />
-      <SimpleGrid columns={[1, 1, 3, 3]} spacing={[1, 1, 4, 4]}>
+      <SimpleGrid columns={[1, 1, 3, 3]} gap={[1, 1, 4, 4]}>
         <Box gridColumn="1/3">
           {documentPath && (
             <DocumentIframe className="fadeInUp delay-2" src={getDocumentPath(documentPath)} />

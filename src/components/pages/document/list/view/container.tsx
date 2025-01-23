@@ -1,4 +1,4 @@
-import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Box, Flex, Tabs } from "@chakra-ui/react";
 import Tooltip from "@components/@core/tooltip";
 import styled from "@emotion/styled";
 import { actionTabs } from "@static/documnet-list";
@@ -88,7 +88,6 @@ const VerticalTabs = styled.div`
 
 export default function Container({ o }) {
   const { t } = useTranslation();
-  const [tabIndex, setTabIndex] = useState(0);
   const [filterTabs] = useState(actionTabs.filter((item) => item.active === true));
 
   return (
@@ -100,41 +99,48 @@ export default function Container({ o }) {
       overflow="hidden"
     >
       <VerticalTabs>
-        <Tabs
-          variant="unstyled"
-          className="tabs"
-          index={tabIndex}
-          onChange={setTabIndex}
-          isLazy={true}
-        >
-          <TabPanels height={["fit-content"]} className="tab-content" position="relative">
-            <TabPanel>
-              <InfoTab
-                document={o.document}
-                user={o.userIbp}
-                flags={o.flag[0] ? o.flag.map((item) => ({ flag: item, user: o.userIbp })) : null}
-              />
-            </TabPanel>
-            <TabPanel>
-              <TagsTab documentId={o.document.id} tags={o.tags} />
-            </TabPanel>
-            <TabPanel>
-              <CommentsTab documentId={o.document.id} />
-            </TabPanel>
-          </TabPanels>
-          <TabList>
+        <Tabs.Root variant="plain" className="tabs" lazyMount defaultValue="common:information">
+          <Tabs.Content
+            value="common:information"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <InfoTab
+              document={o.document}
+              user={o.userIbp}
+              flags={o.flag[0] ? o.flag.map((item) => ({ flag: item, user: o.userIbp })) : null}
+            />
+          </Tabs.Content>
+          <Tabs.Content
+            value="document:tags.title"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <TagsTab documentId={o.document.id} tags={o.tags} />
+          </Tabs.Content>
+          <Tabs.Content
+            value="form:comments.title"
+            height={["fit-content"]}
+            className="tab-content"
+            position="relative"
+          >
+            <CommentsTab documentId={o.document.id} />
+          </Tabs.Content>
+          <Tabs.List>
             {filterTabs.map(({ name, icon }) => (
-              <Tab key={name}>
+              <Tabs.Trigger key={name} value={name}>
                 <Tooltip title={t(name)}>
                   <div>
                     {icon} <span>{t(name)}</span>
                   </div>
                 </Tooltip>
-              </Tab>
+              </Tabs.Trigger>
             ))}
             <Box borderLeft="1px" borderColor="gray.300" flexGrow={1} />
-          </TabList>
-        </Tabs>
+          </Tabs.List>
+        </Tabs.Root>
       </VerticalTabs>
     </Flex>
   );

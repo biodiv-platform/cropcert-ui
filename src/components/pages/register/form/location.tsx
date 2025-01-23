@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Input, useDisclosure } from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
 import { Autocomplete, LoadScriptNext } from "@react-google-maps/api";
 import { AUTOCOMPLETE_FIELDS, GMAP_LIBRARIES } from "@static/location";
@@ -16,6 +6,9 @@ import { getMapCenter } from "@utils/location";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useMemo, useState } from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "@/components/ui/field";
+import { InputGroup } from "@/components/ui/input-group";
 
 import LocationMap from "../../observation/create/form/location/map";
 
@@ -40,7 +33,7 @@ export const LocationPicker = () => {
     fieldLocationLng.field.onChange(lng);
   };
 
-  const { isOpen, onToggle } = useDisclosure();
+  const { open, onToggle } = useDisclosure();
   const [zoom, setZoom] = useState(initialZoom);
   const [center, setCenter] = useState({ lat, lng });
   const [searchBoxRef, setSearchBoxRef] = useState<any>();
@@ -71,30 +64,37 @@ export const LocationPicker = () => {
       libraries={GMAP_LIBRARIES}
     >
       <>
-        <Box mb={4}>
-          <FormControl isInvalid={!!fieldLocationName.fieldState.error}>
-            <FormLabel>{t("user:location")}</FormLabel>
-            <InputGroup size="md" className="places-search">
-              <Autocomplete
-                onLoad={setSearchBoxRef}
-                onPlaceChanged={handleOnSearchSelected}
-                fields={AUTOCOMPLETE_FIELDS}
-              >
-                <Input {...fieldLocationName.field} isRequired={false} pr="5rem" />
-              </Autocomplete>
-              <InputRightElement w="7rem">
-                <Button variant="link" size="sm" onClick={onToggle}>
-                  {t(isOpen ? "form:map.hide" : "form:map.show")}
+        <Box mb={4} width={"full"}>
+          <Field
+            invalid={!!fieldLocationName.fieldState.error}
+            errorText={fieldLocationName.fieldState?.error?.message}
+            label={t("user:location")}
+          >
+            <InputGroup
+              width={"full"}
+              flex="1"
+              endElement={
+                <Button variant="ghost" size="sm" onClick={onToggle}>
+                  {t(open ? "form:map.hide" : "form:map.show")}
                 </Button>
-              </InputRightElement>
+              }
+            >
+              <Box width={"full"}>
+                <Autocomplete
+                  onLoad={setSearchBoxRef}
+                  onPlaceChanged={handleOnSearchSelected}
+                  fields={AUTOCOMPLETE_FIELDS}
+                >
+                  <Input {...fieldLocationName.field} required={false} pr="5rem" />
+                </Autocomplete>
+              </Box>
             </InputGroup>
-            <FormErrorMessage children={fieldLocationName.fieldState?.error?.message} />
-          </FormControl>
+          </Field>
         </Box>
         <LocationMap
           coordinates={coordinates}
           setCoordinates={setCoordinates}
-          isOpen={isOpen}
+          isOpen={open}
           onTextUpdate={fieldLocationName.field.onChange}
           zoom={zoom}
           center={center}

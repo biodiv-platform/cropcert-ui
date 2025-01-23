@@ -1,4 +1,4 @@
-import { Box, Image, Link } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import CaptionOverlay from "@components/pages/common/caption-overlay";
 import { MediaGalleryListMinimalData } from "@interfaces/media";
 import { RESOURCE_SIZE } from "@static/constants";
@@ -24,17 +24,15 @@ export default function GridViewCard({ o }: MediaGalleryMinList) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Box w="full" position="relative" h="16rem">
-        <Link>
-          <Image
-            objectFit="cover"
-            bg="gray.100"
-            w="full"
-            h="full"
-            borderTopRadius="md"
-            src={getNextResourceThumbnail(o.resource?.id, RESOURCE_SIZE.DEFAULT)}
-            alt={o.mediaGalleryId?.toString()}
-          />
-        </Link>
+        <Image
+          objectFit="cover"
+          bg="gray.100"
+          w="full"
+          h="full"
+          borderTopRadius="md"
+          src={getNextResourceThumbnail(o.resource?.id, RESOURCE_SIZE.DEFAULT)}
+          alt={o.mediaGalleryId?.toString()}
+        />
         {isHovered && <CaptionOverlay caption={o.resource?.description} />}
       </Box>
     </Box>

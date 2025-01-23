@@ -31,7 +31,7 @@ export const createLotColumns = (columns) => {
       const ButtonComponent = (row) => {
         const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
 
-        const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+        const { canWrite, colorPalette, show } = useActionProps(data?.columnStatus, ROLES.UNION);
         const isDone = data?.columnStatus === LOT_FLAGS.DONE;
         const isOptional = data?.isOptional;
 
@@ -46,7 +46,7 @@ export const createLotColumns = (columns) => {
         return (isOptional && renderButton) || renderButton ? (
           <Button
             {...buttonProps}
-            colorScheme={colorScheme}
+            colorPalette={colorPalette}
             onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite))}
           >
             {data?.columnStatus}

@@ -1,4 +1,4 @@
-import { Box, FormErrorMessage, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Table } from "@chakra-ui/react";
 import { SelectMultipleInputField } from "@components/form/select-multiple";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +11,8 @@ import {
 import React, { forwardRef, useImperativeHandle } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import Select from "react-select";
+
+import { Field } from "@/components/ui/field";
 
 import FarmerShowPanel from "../show/panel";
 import DateTime from "./dateTime";
@@ -73,18 +75,18 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
     <FarmerShowPanel icon="ℹ️" title="Information" isOpen={true}>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <Table variant="simple" size="md" my={2}>
-            <Thead>
-              <Tr>
-                <Th textAlign="left" backgroundColor="slategray" color="white">
+          <Table.Root size="md" my={2}>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
                   Key
-                </Th>
-                <Th textAlign="left" backgroundColor="slategray" color="white">
+                </Table.ColumnHeader>
+                <Table.ColumnHeader textAlign="left" backgroundColor="slategray" color="white">
                   Value
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
+                </Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               <TableRow name={"Farmer ID"} color="gray.100">
                 <TextBoxField mb={0} name="farmerId" disabled={true} />
               </TableRow>
@@ -109,7 +111,7 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                           }),
                         }}
                       />
-                      <FormErrorMessage children={fieldState?.error?.message} />
+                      <Field children={fieldState?.error?.message} />
                     </Box>
                   )}
                 />
@@ -146,7 +148,7 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                           }),
                         }}
                       />
-                      <FormErrorMessage children={fieldState?.error?.message} />
+                      <Field children={fieldState?.error?.message} />
                     </Box>
                   )}
                 />
@@ -194,7 +196,7 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
                           }),
                         }}
                       />
-                      <FormErrorMessage children={fieldState?.error?.message} />
+                      <Field children={fieldState?.error?.message} />
                     </Box>
                   )}
                 />
@@ -239,8 +241,8 @@ const FarmerEditForm = forwardRef(({ initialData, handleSubmit }: any, ref) => {
               <TableRow name={"Union Code"} color={"gray.100"}>
                 <TextBoxField mb={0} name="unionCode" disabled={true} type="number" />
               </TableRow>
-            </Tbody>
-          </Table>
+            </Table.Body>
+          </Table.Root>
         </form>
       </FormProvider>
     </FarmerShowPanel>

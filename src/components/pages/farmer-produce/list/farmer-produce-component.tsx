@@ -1,5 +1,4 @@
-import { RepeatIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, Group, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -17,6 +16,7 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
+import { LuRepeat } from "react-icons/lu";
 
 import { farmerProduceColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
@@ -33,7 +33,7 @@ function FarmerProduceListComponent() {
   const { user, union } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedFarmerProduce, setSelectedFarmerProduce] = useState<Required<FarmerProduce>[]>([]);
-  const { isOpen: clearRows, onToggle } = useDisclosure();
+  const { open: clearRows, onToggle } = useDisclosure();
   const { t } = useTranslation();
   const [isSyncing, setIsSyncing] = useState(false);
 
@@ -96,7 +96,7 @@ function FarmerProduceListComponent() {
       0
     );
     return (
-      <ButtonGroup display={"flex"} flexWrap={"wrap"} gap={4}>
+      <Group display={"flex"} flexWrap={"wrap"} gap={4}>
         <Box
           display="flex"
           alignItems="center"
@@ -109,30 +109,30 @@ function FarmerProduceListComponent() {
           {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
-          colorScheme="blue"
+          colorPalette="blue"
           variant="solid"
           onClick={handleOnCreateBatch}
-          isDisabled={
+          disabled={
             showTypeError ||
             selectedFarmerProduce.length === 0 ||
             !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
-          leftIcon={<AddIcon />}
         >
+          {<AddIcon />}
           Create Batch
         </Button>
         <Button
-          colorScheme="gray"
-          variant="solid"
+          colorPalette="gray"
+          variant="subtle"
           onClick={handleSyncData}
-          isDisabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
-          leftIcon={isSyncing ? <Spinner size="xs" /> : <RepeatIcon />}
+          disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
         >
+          {isSyncing ? <Spinner size="xs" /> : <LuRepeat />}
           {isSyncing
             ? t("traceability:sync_status.syncing")
             : t("traceability:sync_status.sync_now")}
         </Button>
-      </ButtonGroup>
+      </Group>
     );
   };
 

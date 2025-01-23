@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
@@ -21,6 +12,14 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import { lotCreateModalCols } from "../../data";
 
@@ -64,15 +63,15 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
   };
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-        <ModalContent>
-          <ModalHeader>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleSubmit)}>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
             Finalize Lot: {lotConfig.name}
             {formattedDate(values.creationDate)}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <DateTimeInputField
               name="creationDate"
               label="Creation Date"
@@ -86,17 +85,17 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
               </Box>
             </Flex>
             <TextBoxField name="note" label="Note" mb={0} />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<Check2Icon />} isDisabled={batches.length === 0}>
               Create Lot
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
-      </form>
-    </FormProvider>
+          </DialogFooter>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

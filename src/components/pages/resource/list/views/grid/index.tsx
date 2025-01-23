@@ -1,4 +1,3 @@
-import { Link } from "@chakra-ui/react";
 import ImageViewer from "@components/pages/common/image-viewer";
 import Loading from "@components/pages/common/loading";
 import useResourceFilter from "@components/pages/resource/common/use-resource-filter";
@@ -67,15 +66,13 @@ export default function GridView() {
           {resourceData.l
             .filter((o) => o.resource.type === "IMAGE")
             .map((o, index) => (
-              <Link>
-                <GridViewCard
-                  o={o}
-                  canEdit={isLoggedIn}
-                  getCheckboxProps={getCheckboxProps}
-                  index={index}
-                  setSelectedImageIndex={setSelectedImageIndex}
-                />
-              </Link>
+              <GridViewCard
+                o={o}
+                canEdit={isLoggedIn}
+                getCheckboxProps={getCheckboxProps}
+                index={index}
+                setSelectedImageIndex={setSelectedImageIndex}
+              />
             ))}
         </div>
       </InfiniteScroll>

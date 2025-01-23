@@ -1,9 +1,11 @@
-import { Avatar, Flex, Link } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { UserIbp } from "@interfaces/activity";
 import { getUserImage } from "@utils/media";
 import NextLink from "next/link";
 import React from "react";
+
+import { Avatar } from "@/components/ui/avatar";
 
 const UserBox = styled.div`
   position: absolute;
@@ -25,7 +27,7 @@ export default function ShadowedUser({
 }) {
   return (
     <UserBox>
-      <NextLink href={`/user/show/${user?.id}`}>
+      <NextLink href={`/user/show/${user?.id}`} legacyBehavior>
         <Link color="white">
           <Flex alignItems="center">
             {avatar && (

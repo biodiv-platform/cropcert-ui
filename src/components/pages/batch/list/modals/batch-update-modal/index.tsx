@@ -1,13 +1,15 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { Batch } from "@interfaces/traceability";
 import { BATCH_UPDATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogRoot } from "@/components/ui/dialog";
+
 import BatchUpdateForm from "./form";
 
 export default function BatchUpdateModal({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [batch, setBatch] = useState<Required<Batch>>();
 
   useListener(
@@ -24,9 +26,9 @@ export default function BatchUpdateModal({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size="2xl">
-      <ModalOverlay />
-      {isOpen && batch && <BatchUpdateForm batch={batch} update={update} onClose={handleOnClose} />}
-    </Modal>
+    <DialogRoot open={open} onOpenChange={onClose}>
+      {/*closeOnOverlayClick={false}  size="2xl" <ModalOverlay /> */}
+      {open && batch && <BatchUpdateForm batch={batch} update={update} onClose={handleOnClose} />}
+    </DialogRoot>
   );
 }

@@ -1,4 +1,4 @@
-import { useCheckboxGroup, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { ResourceData } from "@interfaces/custom";
 import { axGetAllResources } from "@services/media-gallery.service";
@@ -8,6 +8,8 @@ import NProgress from "nprogress";
 import { stringify } from "query-string";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useImmer } from "use-immer";
+
+import { useCheckboxGroup } from "@/hooks/use-checkbox-group";
 
 interface ResourceFilterContextProps {
   filter?;
@@ -27,7 +29,7 @@ interface ResourceFilterContextProps {
   bulkResourceIds?: any[];
   unselectedResourceIds?;
   handleBulkCheckbox: (arg: string) => void;
-  isOpen?;
+  open?;
   onOpen?;
   onClose?;
 }
@@ -39,7 +41,7 @@ export const ResourceFilterProvider = (props) => {
   const [filter, setFilter] = useImmer({ f: props.filter });
   const [resourceData, setResourceData] = useImmer(props.resourceData);
   const [selectAll, setSelectAll] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (isBrowser) {
@@ -157,7 +159,7 @@ export const ResourceFilterProvider = (props) => {
         bulkResourceIds,
         unselectedResourceIds,
         handleBulkCheckbox,
-        isOpen,
+        open,
         onOpen,
         onClose,
       }}

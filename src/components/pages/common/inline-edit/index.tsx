@@ -1,7 +1,9 @@
-import { Box, IconButton, Tag, useDisclosure } from "@chakra-ui/react";
+import { Box, IconButton, useDisclosure } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import EditIcon from "@icons/edit";
 import React, { useState } from "react";
+
+import { Tag } from "@/components/ui/tag";
 
 import FieldEditor from "./field-editor";
 
@@ -29,7 +31,7 @@ export default function FieldShow({
 }: IFieldProps) {
   const [fieldName] = useState(field);
 
-  const { isOpen, onToggle, onClose } = useDisclosure();
+  const { open, onToggle, onClose } = useDisclosure();
 
   const convertToMediaList = (data) => {
     return data?.map((item) => {
@@ -42,7 +44,7 @@ export default function FieldShow({
 
   return (
     <Box>
-      {isOpen && canEdit ? (
+      {open && canEdit ? (
         <FieldEditor
           fieldName={fieldName}
           onClose={onClose}
@@ -59,7 +61,7 @@ export default function FieldShow({
             <ExternalBlueLink href={defaultValue?.license?.url}>{fieldValue}</ExternalBlueLink>
           ) : fieldName == "mediaGallery" ? (
             defaultValue.mediaGallery?.map((item) => (
-              <Tag size="sm" key={item.name} colorScheme="blue" mb={2} mr={2}>
+              <Tag size="sm" key={item.name} colorPalette="blue" mb={2} mr={2}>
                 {item.name}
               </Tag>
             ))
@@ -68,12 +70,14 @@ export default function FieldShow({
           )}
           {canEdit && (
             <IconButton
-              variant="link"
-              colorScheme="blue"
+              variant="plain"
+              colorPalette="blue"
               onClick={onToggle}
               aria-label="Edit"
-              icon={<EditIcon />}
-            />
+              size={"xs"}
+            >
+              {<EditIcon />}
+            </IconButton>
           )}
         </Box>
       )}

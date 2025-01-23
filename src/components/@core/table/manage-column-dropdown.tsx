@@ -1,6 +1,14 @@
-import { Button, Checkbox, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import {
+  MenuCheckboxItem,
+  MenuContent,
+  MenuItemGroup,
+  MenuRoot,
+  MenuTrigger,
+} from "@/components/ui/menu";
 
 export default function ManageColumnDropdown({ columnList, allColumns, setVisibleColumns }) {
   const { t } = useTranslation();
@@ -25,26 +33,30 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button} position={"absolute"} bottom="8px" left="10px" variant={"outline"}>
-        {t("traceability:table.manage_columns")}
-      </MenuButton>
-      <MenuList maxHeight={"400px"} overflowY={"scroll"} shadow={"md"}>
-        {allColumns.map((column) => (
-          <MenuItem key={column.name}>
-            <Checkbox
-              isChecked={columnList.some((col) => col.name === column.name)}
-              onChange={() =>
+    <MenuRoot positioning={{ placement: "top-end" }}>
+      <MenuTrigger asChild position={"absolute"} bottom="8px" left="10px">
+        <Button variant="outline" size="sm">
+          {t("traceability:table.manage_columns")}
+        </Button>
+      </MenuTrigger>
+      <MenuContent maxHeight={"400px"} overflowY={"scroll"} shadow={"md"}>
+        <MenuItemGroup title="Features">
+          {allColumns.map((column) => (
+            <MenuCheckboxItem
+              key={column.name}
+              value={column.name}
+              checked={columnList.some((col) => col.name === column.name)}
+              onCheckedChange={() =>
                 columnList.some((col) => col.name === column.name)
                   ? toggleColumnVisibility(column.name)
                   : restoreColumn(column.name)
               }
             >
               {column.name}
-            </Checkbox>
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+            </MenuCheckboxItem>
+          ))}
+        </MenuItemGroup>
+      </MenuContent>
+    </MenuRoot>
   );
 }

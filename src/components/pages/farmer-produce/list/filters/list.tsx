@@ -1,5 +1,6 @@
-import { Accordion } from "@chakra-ui/react";
 import React from "react";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import AmountPaidCalculateFilter from "./amount-paid-calculate";
 import CalculateGrnFilter from "./calculate-grn";
@@ -22,7 +23,7 @@ import TimeFilter from "./time";
 
 export default function FiltersList() {
   return (
-    <Accordion allowMultiple={true}>
+    <AccordionRoot multiple={true} lazyMount>
       <FarmerProduceIdFilter />
       <FarmerIdFilter />
       <FarmerNameFilter />
@@ -41,6 +42,6 @@ export default function FiltersList() {
       <CollectorNameFilter />
       <CollectorSubstrFilter />
       <TimeFilter />
-    </Accordion>
+    </AccordionRoot>
   );
 }

@@ -2,16 +2,10 @@ import ShowPageComponent from "@components/pages/page/show";
 import { axGetPageByID } from "@services/pages.service";
 import React from "react";
 
-// import HomePageComponent from "../components/pages/home";
-
 const HomePage = ({ pageContent }) => (
   <>
     {pageContent.success && (
-      <ShowPageComponent
-        page={pageContent.data}
-        hideOgImage={true} /*preContent={<HomePageComponent />}*/
-        showComments={false}
-      />
+      <ShowPageComponent page={pageContent.data} hideOgImage={true} showComments={false} />
     )}
   </>
 );

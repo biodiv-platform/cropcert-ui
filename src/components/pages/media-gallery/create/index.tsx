@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/react";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -12,6 +11,7 @@ import router from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuCheck } from "react-icons/lu";
 
 import BasicInfo from "./basic-info";
 import MediaGalleryUploader from "./uploader";
@@ -72,7 +72,7 @@ export default function MediaGalleryCreatePageComponent({ licensesList }) {
 
           <MediaGalleryUploader name="resources" licensesList={licensesList} />
 
-          <SubmitButton leftIcon={<CheckIcon />}>{t("common:resource.save.title")}</SubmitButton>
+          <SubmitButton leftIcon={<LuCheck />}>{t("common:resource.save.title")}</SubmitButton>
         </form>
       </FormProvider>
     </Container>

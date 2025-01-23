@@ -1,5 +1,6 @@
 import "react-leaflet-fullscreen/styles.css";
 
+import { Box } from "@chakra-ui/react";
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 import LayerControl from "@components/pages/farmer-member/map/layerControl";
 import L, { divIcon, latLngBounds } from "leaflet";
@@ -8,11 +9,6 @@ import { GeoJSON, MapContainer, useMap } from "react-leaflet";
 import { FullscreenControl } from "react-leaflet-fullscreen";
 
 export default function FarmerMap({ geojsonData }) {
-  const mapStyle = {
-    width: "100%",
-    height: "100%",
-  };
-
   const calculateBounds = (geojsonData) => {
     const boundsArr = geojsonData.map((feature) => {
       const { type, coordinates } = feature.geometry;
@@ -65,18 +61,19 @@ export default function FarmerMap({ geojsonData }) {
   };
 
   return (
-    <MapContainer scrollWheelZoom={true} style={mapStyle} className="markercluster-map">
-      <ZoomOut />
-      <LayerControl />
-      <MarkerClusterGroup key={JSON.stringify(geojsonData)}>
-        <GeoJSON
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          pointToLayer={(point, ll) => {
-            const popupString = `
+    <Box>
+      <MapContainer scrollWheelZoom={true} className="markercluster-map">
+        <ZoomOut />
+        <LayerControl />
+        <MarkerClusterGroup key={JSON.stringify(geojsonData)}>
+          <GeoJSON
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            pointToLayer={(point, ll) => {
+              const popupString = `
             <div>
               <h1 class="popup-heading"><a href="/farmer/show/${point.properties._id}">${
-              point.properties.name
-            }</a></h1>
+                point.properties.name
+              }</a></h1>
               <p><strong>Farmer ID</strong>: ${point.properties.farmerId}</p>
               <p><strong>CC</strong>: ${point.properties.cc}</p>
               <p><strong>No of Farms</strong>: ${point.properties.noOfFarms}</p>
@@ -87,14 +84,15 @@ export default function FarmerMap({ geojsonData }) {
               }
             </div>`;
 
-            return new L.Marker(ll, {
-              icon: createColoredIcon(point.properties.color ?? { insideColor: "#262626" }),
-            }).bindPopup(popupString);
-          }}
-          data={geojsonData}
-        />
-      </MarkerClusterGroup>
-      <FullscreenControl position="topleft" />
-    </MapContainer>
+              return new L.Marker(ll, {
+                icon: createColoredIcon(point.properties.color ?? { insideColor: "#262626" }),
+              }).bindPopup(popupString);
+            }}
+            data={geojsonData}
+          />
+        </MarkerClusterGroup>
+        <FullscreenControl position="topleft" />
+      </MapContainer>
+    </Box>
   );
 }

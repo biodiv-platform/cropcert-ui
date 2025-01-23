@@ -1,15 +1,4 @@
-import {
-  Badge,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Badge, Button, Input } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -22,6 +11,15 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import { Field } from "@/components/ui/field";
 
 export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot, canWrite }) {
   const hForm = useForm<any>({
@@ -69,12 +67,14 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
     );
 
   return (
-    <ModalContent>
+    <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(onSubmit)}>
-          <ModalHeader>🏭 Update milling details</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🏭 Update milling details
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <CoreGrid rows={2}>
               <NumberInputField
                 name="weightArrivingFactory"
@@ -110,10 +110,9 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
                 disabled={isFDisabled}
                 min={lot.timeToFactory}
               />
-              <FormControl mb={4}>
-                <FormLabel>Out Turn</FormLabel>
-                <Input value={`${outTurn} %`} isDisabled={true} />
-              </FormControl>
+              <Field mb={4} label="Out Turn">
+                <Input value={`${outTurn} %`} disabled={true} />
+              </Field>
             </CoreGrid>
 
             <CoreGrid rows={2}>
@@ -129,22 +128,22 @@ export default function LotFactoryDispatchForm({ onSubmit, onClose, unions, lot,
               name="finalizeMillingStatus"
               label={
                 <span>
-                  Dispatch to Union <Badge colorScheme="red">irreversible</Badge>
+                  Dispatch to Union <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={isFCheckbox}
             />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
               Save
             </SubmitButton>
-          </ModalFooter>
+          </DialogFooter>
         </form>
       </FormProvider>
-    </ModalContent>
+    </DialogContent>
   );
 }

@@ -1,25 +1,17 @@
-import { SearchIcon } from "@chakra-ui/icons";
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Checkbox,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Select,
-  Spinner,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Spinner, Stack } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import useInspectionReport from "@hooks/use-inspection-report";
 import useOnlineStatus from "@rehooks/online-status";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
+import { LuSearch } from "react-icons/lu";
 import { debounce } from "ts-debounce";
+
+import { Alert } from "@/components/ui/alert";
+import { Checkbox } from "@/components/ui/checkbox";
+import { InputGroup } from "@/components/ui/input-group";
+import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 
 import Breadcrumbs from "./breadcrumbs";
 import FarmerItem from "./farmer-item";
@@ -70,36 +62,37 @@ export default function FarmerList({ feCCCode }) {
       <Flex flexDirection={{ base: "column", md: "row" }} my={4} justifyContent="space-between">
         <Box mb={4}>
           <Flex flexDirection={{ base: "column", lg: "row" }} mb={4} gap={4}>
-            <InputGroup w="24rem">
-              <InputLeftElement children={<SearchIcon color="gray.300" />} />
+            <InputGroup w="24rem" endElement={<LuSearch color="gray.300" />}>
               <Input bg="white" type="text" placeholder="Find Farmer" onChange={onFilterChange} />
             </InputGroup>
-            <Select
-              w="10rem"
-              bg="white"
-              defaultValue={limit}
-              onChange={(e) => setLimit(e.target.value)}
-            >
-              {LIMITS.map((limit) => (
-                <option value={limit} key={limit}>
-                  {limit} records
-                </option>
-              ))}
-            </Select>
+            <NativeSelectRoot>
+              <NativeSelectField
+                w="10rem"
+                bg="white"
+                defaultValue={limit}
+                onChange={(e) => setLimit(e.target.value)}
+              >
+                {LIMITS.map((limit) => (
+                  <option value={limit} key={limit}>
+                    {limit} records
+                  </option>
+                ))}
+              </NativeSelectField>
+            </NativeSelectRoot>
           </Flex>
           Showing {farmers.length} of {initialFarmers.length} Farmer(s)
         </Box>
         <Box>
           <Button
             mb={4}
-            colorScheme="orange"
+            colorPalette="orange"
             onClick={() => emit(UPLOAD_ALL_INSPECTION)}
-            isDisabled={!isOnline}
+            disabled={!isOnline}
           >
             Upload All Completed Reports
           </Button>
           <Stack>
-            <Checkbox name="completed-only" onChange={(e) => setPendingOnly(e.target.checked)}>
+            <Checkbox name="completed-only" onCheckedChange={(e) => setPendingOnly(!!e.checked)}>
               Show Completed Reports Only
             </Checkbox>
           </Stack>
@@ -108,7 +101,6 @@ export default function FarmerList({ feCCCode }) {
 
       {(added > 0 || updated > 0) && (
         <Alert mb={6} borderRadius="md">
-          <AlertIcon />
           {added > 0 && `${added} Farmers Added, `}
           {updated > 0 && `${updated} Farmers Updated`}
         </Alert>

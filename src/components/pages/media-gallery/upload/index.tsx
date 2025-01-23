@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import { SubmitButton } from "@components/form/submit-button";
@@ -10,6 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuCheck } from "react-icons/lu";
 
 import MediaGalleryUploader from "../create/uploader";
 
@@ -71,7 +71,7 @@ export default function MediaGalleryUploadComponent(props) {
             isMultiUpload={false}
             licensesList={props.licensesList}
           />
-          <SubmitButton leftIcon={<CheckIcon />} isDisabled={isSubmitDisabled}>
+          <SubmitButton leftIcon={<LuCheck />} isDisabled={isSubmitDisabled}>
             {t("common:resource.save.title")}
           </SubmitButton>
         </form>

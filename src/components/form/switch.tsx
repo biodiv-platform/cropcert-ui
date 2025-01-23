@@ -1,20 +1,17 @@
-import {
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Switch,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
+import { Switch } from "../ui/switch";
 
 interface ITextBoxProps {
   name: string;
   label: string;
   mt?: number;
   mb?: number;
+  pl?: number;
   disabled?: boolean;
   color?: string;
   hint?: string;
@@ -24,6 +21,7 @@ export const SwitchField = ({
   name,
   label,
   mb = 4,
+  pl = 4,
   color = "blue",
   hint,
   disabled,
@@ -32,21 +30,29 @@ export const SwitchField = ({
   const { field, fieldState } = useController({ name });
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb} {...props}>
-      <Flex>
-        {label && <FormLabel htmlFor={name} children={label} />}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
+      mb={mb}
+      htmlFor={field.name}
+      {...props}
+    >
+      <Flex align="center">
+        <Box as="label" mr={2}>
+          {label}
+        </Box>
         <Switch
           id={name}
           onBlur={field.onBlur}
           onChange={(e) => field.onChange(e.target["checked"])}
           defaultChecked={field.value}
-          isDisabled={disabled}
-          color={color}
+          disabled={disabled}
+          colorPalette={color}
           name={name}
+          pl={pl}
         />
       </Flex>
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint}></Field>}
+    </Field>
   );
 };

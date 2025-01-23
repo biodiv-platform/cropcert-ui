@@ -12,14 +12,14 @@ export default function BasicInfo({ isEdit }) {
   return (
     <div>
       <Stack flexDirection={["column", "row"]} alignItems="top" mb={1}>
-        <PageHeading as="h2" size="lg" mb={4} mr={4}>
+        <PageHeading mb={4} mr={4}>
           ℹ️ {t("Media Gallery Information")}
         </PageHeading>
       </Stack>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
         <Box>
-          <TextBoxField name="name" label={t("Name")} isRequired={true} />
+          <TextBoxField name="name" label={t("Name")} required={true} />
         </Box>
         {!isEdit && (
           <Box>

@@ -1,13 +1,13 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
 
 import AddAppUserForm from "./app-user-form";
 import ProjectTable from "./app-user-list";
@@ -34,21 +34,21 @@ export default function AppUser({
     setUserProjectList(value);
   };
   return (
-    <Accordion allowToggle={true}>
+    <AccordionRoot p={4} collapsible>
       <AccordionItem
         mb={8}
         bg="white"
         border="1px solid var(--chakra-colors-gray-300)"
         borderRadius="md"
+        value="odk"
       >
-        <AccordionButton _expanded={{ bg: "gray.100" }}>
-          <Box flex={1} textAlign="left" fontSize="lg">
+        <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
+          <Box flex={1} textAlign="left" fontSize="lg" pl={4}>
             🛂 {t("common:action.odk_permission")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
+        </AccordionItemTrigger>
 
-        <AccordionPanel p={4}>
+        <AccordionItemContent p={4}>
           {isCreate ? (
             <AddAppUserForm
               setIsCreate={setIsCreate}
@@ -71,8 +71,8 @@ export default function AppUser({
               isWebUser={isWebUser}
             />
           )}
-        </AccordionPanel>
+        </AccordionItemContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   );
 }

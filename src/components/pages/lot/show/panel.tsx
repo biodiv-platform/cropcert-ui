@@ -35,7 +35,7 @@ export default function LotShowPanel({
         </Box>
       </AccordionItemTrigger>
       <AccordionItemContent>
-        <Box p={noPadding ? 0 : 4} bg="white" style={{ display: isOpen ? "block" : "none" }}>
+        <Box p={noPadding ? 0 : 4} bg="white">
           {children}
         </Box>
       </AccordionItemContent>

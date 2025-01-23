@@ -140,9 +140,12 @@ function BatchComponent() {
 
       {batchListData?.length
         ? showAlert && (
-            <Alert status="success" marginY={2} rounded={"md"}>
-              {t("traceability:batch.batch_ready_for_lot")}
-            </Alert>
+            <Alert
+              status="success"
+              marginY={2}
+              rounded={"md"}
+              title={t("traceability:batch.batch_ready_for_lot")}
+            />
           )
         : null}
 

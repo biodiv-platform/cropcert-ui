@@ -231,13 +231,17 @@ export default function FarmerInfo({ farmer }) {
         </Table.Body>
       </Table.Root>
       {!isLocationVerified ? (
-        <Alert status="warning" mt={2}>
-          {t("traceability:location.farmer_location_not_verified")}
-        </Alert>
+        <Alert
+          status="warning"
+          mt={2}
+          title={t("traceability:location.farmer_location_not_verified")}
+        ></Alert>
       ) : (
-        <Alert status="success" mt={2}>
-          {t("traceability:location.farmer_location_verified")}
-        </Alert>
+        <Alert
+          status="success"
+          mt={2}
+          title={t("traceability:location.farmer_location_verified")}
+        ></Alert>
       )}
       <Flex
         gap={2}

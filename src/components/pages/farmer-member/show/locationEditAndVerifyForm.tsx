@@ -16,17 +16,13 @@ export default function LocationEditAndVerifyForm({
 }: Props) {
   const { t } = useTranslation();
 
-  const handleChange = (value) => {
-    setIsLocationVerified(value === "yes");
+  const handleChange = (e) => {
+    setIsLocationVerified(e.value === "yes");
   };
 
   return (
     <Field display={"flex"} label={t("traceability:location.location_verified_radio_btn_title")}>
-      <RadioGroup
-        onValueChange={handleChange}
-        value={isLocationVerified ? "yes" : "no"}
-        defaultValue="no"
-      >
+      <RadioGroup onValueChange={handleChange} defaultValue={isLocationVerified ? "yes" : "no"}>
         <Stack direction="row">
           <Radio value="yes">Yes</Radio>
           <Radio value="no">No</Radio>

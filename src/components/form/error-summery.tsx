@@ -20,7 +20,6 @@ export default function ErrorSummery() {
         .filter(([key]) => key.endsWith(".message"))
         .map(([key, error]) => (
           <List.Item className="fade" key={key}>
-            {/* mr={2} */}
             <LuTriangle color="red.500" />
             <a href={`#${key.replace(".message", "")}`}>{readableError(key, error)}</a>
           </List.Item>

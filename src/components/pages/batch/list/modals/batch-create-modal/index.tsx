@@ -10,7 +10,6 @@ export default function BatchCreateModal({ update }) {
 
   return (
     <DialogRoot open={open} onOpenChange={onClose} size="lg">
-      {/*  closeOnOverlayClick={false}  size="2xl" <ModalOverlay /> */}
       {open && <BatchCreateForm update={update} onClose={onClose} />}
     </DialogRoot>
   );

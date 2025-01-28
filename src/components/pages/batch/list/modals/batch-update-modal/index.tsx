@@ -27,7 +27,6 @@ export default function BatchUpdateModal({ update }) {
 
   return (
     <DialogRoot open={open} onOpenChange={onClose}>
-      {/*closeOnOverlayClick={false}  size="2xl" <ModalOverlay /> */}
       {open && batch && <BatchUpdateForm batch={batch} update={update} onClose={handleOnClose} />}
     </DialogRoot>
   );

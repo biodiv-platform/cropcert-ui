@@ -114,7 +114,6 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
           )}
           <Flex justifyContent="space-between" alignItems="center">
             <SubmitButton>
-              {/* ml={2} */}
               Sign In <LuArrowRight />
             </SubmitButton>
             <NextLink href="/register/forgotPassword" legacyBehavior>

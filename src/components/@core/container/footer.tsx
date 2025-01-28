@@ -36,7 +36,6 @@ const SocialButton = ({ children, label, href }) => (
     justifyContent="center"
     transition="background 0.3s ease"
     _hover={{ bg: "blackAlpha.200" }}
-    // target="_blank"
     rel="noreferrer noopener"
   >
     <a href={href} />

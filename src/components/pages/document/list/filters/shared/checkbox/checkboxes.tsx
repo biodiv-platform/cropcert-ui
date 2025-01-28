@@ -66,7 +66,6 @@ export default function FilterCheckboxes({
                   display="inline"
                   verticalAlign="center"
                   marginEnd={1}
-                  // ignoreFallback={true}
                 />
               )}
               {skipOptionsTranslation ? label || value : t(translateKey + label)}

@@ -111,13 +111,7 @@ export default function LayerUploadDropzone() {
 
   return (
     <VerticalTabs>
-      <Tabs.Root
-        // variant="unstyled"
-        className="tabs"
-        // index={tabIndex}
-        onChange={handleTabInex}
-        lazyMount
-      >
+      <Tabs.Root className="tabs" onChange={handleTabInex} lazyMount>
         <Tabs.List>
           <Tabs.Trigger value="vector">
             <Tooltip content={t("Vector")}>

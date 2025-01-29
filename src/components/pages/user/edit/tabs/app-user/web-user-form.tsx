@@ -1,4 +1,3 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,6 +6,7 @@ import { generatePassword } from "@utils/basic";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuArrowLeft } from "react-icons/lu";
 import * as Yup from "yup";
 
 export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
@@ -44,8 +44,9 @@ export default function WebUser({ user, setIsCreateWebUser, setPassword }) {
           type="button"
           size="sm"
           onClick={() => setIsCreateWebUser(false)}
-          leftIcon={<ArrowBackIcon />}
+          variant={"subtle"}
         >
+          <LuArrowLeft />
           {t("common:prev")}
         </Button>
         <TextBoxField name="sUserId" label={t("user:id")} disabled={true} hidden={true} />

@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@chakra-ui/react";
+import { Badge, Button } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { NumberInputField } from "@components/form/number";
@@ -19,6 +11,8 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import { DialogBody, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 
 export default function BatchUpdateForm({ batch, update, onClose }) {
   const hForm = useForm<any>({
@@ -63,14 +57,13 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <ModalContent>
-          <ModalHeader pb={0}>
+        <DialogContent>
+          <DialogHeader pb={0}>
             Update Batch
             <br />
             {batch && batch.batchName}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          </DialogHeader>
+          <DialogBody>
             <DateTimeInputField
               name="startTime"
               label="Start Time"
@@ -107,21 +100,21 @@ export default function BatchUpdateForm({ batch, update, onClose }) {
               name="finalizeBatch"
               label={
                 <span>
-                  Ready for Lot <Badge colorScheme="red">irreversible</Badge>
+                  Ready for Lot <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={batch.isReadyForLot || !values.perchmentQuantity}
             />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={batch.isReadyForLot}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

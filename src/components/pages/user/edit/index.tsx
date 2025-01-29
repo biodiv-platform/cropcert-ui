@@ -19,7 +19,7 @@ export default function UserEditPageComponent({
 }: UserEditPageComponentProps) {
   return (
     <Container py={6}>
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 6 }}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 6 }}>
         <SideBar user={user} />
         <UserEditTabs isOdkWebUser={isOdkWebUser} user={user} isAdmin={isAdmin} />
       </SimpleGrid>

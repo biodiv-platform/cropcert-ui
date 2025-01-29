@@ -27,16 +27,16 @@ export default function ClearFilters() {
   };
 
   return filterCount ? (
-    <Tooltip title={message} hasArrow={true}>
+    <Tooltip title={message} showArrow={true}>
       <Button
         onClick={clearFilters}
-        variant="link"
+        variant="plain"
         className="fade"
         size="lg"
-        colorScheme="red"
+        colorPalette="red"
         aria-label={message}
-        leftIcon={<DeleteIcon />}
       >
+        <DeleteIcon />
         {filterCount}
       </Button>
     </Tooltip>

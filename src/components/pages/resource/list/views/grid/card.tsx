@@ -1,10 +1,11 @@
-import { Box, Checkbox, Image, Link } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import CaptionOverlay from "@components/pages/common/caption-overlay";
 import { ResourceListMinimalData } from "@interfaces/media";
 import { RESOURCE_SIZE } from "@static/constants";
 import { getNextResourceThumbnail } from "@utils/media";
 import React, { useState } from "react";
 
+import { Checkbox } from "@/components/ui/checkbox";
 export interface ResourceMinList {
   o: ResourceListMinimalData;
   canEdit: boolean;
@@ -34,23 +35,22 @@ export default function GridViewCard({
       <Box w="full" position="relative" h="16rem">
         {canEdit && getCheckboxProps && (
           <Checkbox
+            colorPalette={"blue"}
             position="absolute"
             bg="white"
             m={2}
             {...getCheckboxProps({ value: String(o.resource?.id) })}
           />
         )}
-        <Link onClick={() => setSelectedImageIndex(index)}>
-          <Image
-            objectFit="cover"
-            bg="gray.100"
-            w="full"
-            h="full"
-            borderTopRadius="md"
-            src={getNextResourceThumbnail(o.resource?.id, RESOURCE_SIZE.DEFAULT)}
-            alt={o.resourceId?.toString()}
-          />
-        </Link>
+        <Image
+          bg="gray.100"
+          h="16rem"
+          w="full"
+          borderTopRadius="md"
+          src={getNextResourceThumbnail(o.resource?.id, RESOURCE_SIZE.DEFAULT)}
+          alt={o.resourceId?.toString()}
+          onClick={() => setSelectedImageIndex(index)}
+        />
 
         {isHovered && <CaptionOverlay caption={o.resource?.description} />}
       </Box>

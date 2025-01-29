@@ -1,14 +1,15 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import { KEYS_TO_ROLES } from "@static/constants";
 import React from "react";
 import Skeleton from "tiny-skeleton-loader-react";
 
+import { Field } from "@/components/ui/field";
+
 const AccesserLoading = ({ roles }) =>
   roles.slice(1).map((role) => (
-    <FormControl key={`${role}-s`} mb={4}>
-      <FormLabel htmlFor={role}>Select {KEYS_TO_ROLES?.[role]?.toLowerCase()}</FormLabel>
+    <Field key={`${role}-s`} mb={4}>
+      <Field htmlFor={role}>Select {KEYS_TO_ROLES?.[role]?.toLowerCase()}</Field>
       <Skeleton height="38px" />
-    </FormControl>
+    </Field>
   ));
 
 export default AccesserLoading;

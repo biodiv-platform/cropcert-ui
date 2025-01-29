@@ -1,9 +1,11 @@
-import { Button, Popover, PopoverBody, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import MenuIcon from "@icons/menu";
 import { generateToC } from "@utils/pages";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useMemo } from "react";
+
+import { Button } from "@/components/ui/button";
+import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from "@/components/ui/popover";
 
 import usePages from "../../common/sidebar/use-pages-sidebar";
 
@@ -37,10 +39,10 @@ export function TableOfContents() {
   }, [currentPage]);
 
   return showToC ? (
-    <Popover placement="bottom-start">
+    <PopoverRoot positioning={{ placement: "bottom-start" }}>
       <PopoverTrigger>
-        <Button variant="outline" size="sm" colorScheme="gray" bg="white" leftIcon={<MenuIcon />}>
-          {t("page:quick_navigation")}
+        <Button variant="outline" size="sm" colorPalette="gray" bg="white" fontWeight={"bold"}>
+          <MenuIcon /> {t("page:quick_navigation")}
         </Button>
       </PopoverTrigger>
       <PopoverContent>
@@ -48,6 +50,6 @@ export function TableOfContents() {
           <ToCContainer className="toc" />
         </PopoverBody>
       </PopoverContent>
-    </Popover>
+    </PopoverRoot>
   ) : null;
 }

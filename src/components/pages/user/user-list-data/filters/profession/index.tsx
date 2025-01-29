@@ -11,7 +11,7 @@ export default function ProfessionFilter() {
     },
   } = useUserFilter();
 
-  const OPTIONS = Object.keys(profession)?.map((val) => ({
+  const OPTIONS = Object?.keys(profession)?.map((val) => ({
     label: stripSpecialCharacters(val),
     value: val,
     stat: profession[val],

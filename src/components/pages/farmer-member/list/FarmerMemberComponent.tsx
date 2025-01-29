@@ -1,5 +1,4 @@
-import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Box, Button, ButtonGroup, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Group, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -15,6 +14,9 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
+import { LuPlus, LuRepeat } from "react-icons/lu";
+
+import { Button } from "@/components/ui/button";
 
 import { farmerMemberColumns } from "./data";
 import MultiMarkerMapModal from "./modals/multi-marker-map";
@@ -29,7 +31,7 @@ function FarmerMemberComponent() {
   const [showTypeError, setShowTypeError] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const { user, union } = useGlobalState();
-  const { isOpen: clearRows } = useDisclosure();
+  const { open: clearRows } = useDisclosure();
   const [selectedFarmerMember, setSelectedFarmerMember] = useState([]); // TODO: add types
   const { t } = useTranslation();
 
@@ -65,32 +67,32 @@ function FarmerMemberComponent() {
 
   const ActionButtons = () => {
     return (
-      <ButtonGroup display={"flex"} flexWrap={"wrap"} gap={4}>
+      <Group display={"flex"} flexWrap={"wrap"} gap={4}>
         <Button
-          colorScheme="green"
+          colorPalette="green"
           variant="solid"
           onClick={handleDrawMap}
-          isDisabled={
+          disabled={
             showTypeError ||
             selectedFarmerMember.length === 0 ||
             !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
-          leftIcon={<AddIcon />}
         >
+          {<LuPlus />}
           Show On Map
         </Button>
         <Button
-          colorScheme="gray"
-          variant="solid"
+          colorPalette="gray"
+          variant="subtle"
           onClick={handleSyncData}
-          isDisabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
-          leftIcon={isSyncing ? <Spinner size="xs" /> : <RepeatIcon />}
+          disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
         >
+          {isSyncing ? <Spinner size="xs" /> : <LuRepeat />}
           {isSyncing
             ? t("traceability:sync_status.syncing")
             : t("traceability:sync_status.sync_now")}
         </Button>
-      </ButtonGroup>
+      </Group>
     );
   };
 

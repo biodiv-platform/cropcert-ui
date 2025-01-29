@@ -2,11 +2,11 @@ import {
   Box,
   Button,
   Flex,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
+  // ModalBody,
+  // ModalCloseButton,
+  // ModalContent,
+  // ModalFooter,
+  // ModalHeader,
 } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -21,6 +21,14 @@ import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import { batchCreateModalCols } from "../../data";
 
@@ -84,12 +92,14 @@ export default function BatchCreateForm({
   }, [cc]);
 
   return (
-    <ModalContent>
+    <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <ModalHeader>✨ Create Batch</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            ✨ Create Batch
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <DateTimeInputField
               name="creationDate"
               label="Creation Date"
@@ -103,15 +113,15 @@ export default function BatchCreateForm({
               </Box>
             </Flex>
             <TextBoxField name="note" label="Note" mb={0} />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<Check2Icon />}>Create Batch</SubmitButton>
-          </ModalFooter>
+          </DialogFooter>
         </form>
       </FormProvider>
-    </ModalContent>
+    </DialogContent>
   );
 }

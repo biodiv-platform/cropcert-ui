@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetCCByCode, axListCCByCoId } from "@services/cc.service";
@@ -6,6 +5,8 @@ import { ROLES } from "@static/constants";
 import { getUserKey } from "@utils/auth";
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
+
+import { Field } from "@/components/ui/field";
 
 function CCMultiSelect({ coId = -1, onChange }) {
   const { authorizedRoles } = useGlobalState();
@@ -38,8 +39,8 @@ function CCMultiSelect({ coId = -1, onChange }) {
   return (
     <>
       {!isCC && (
-        <FormControl mb={2} maxW="308px">
-          <FormLabel htmlFor={ROLES.COLLECTION_CENTER}>{label}</FormLabel>
+        <Field mb={2} maxW="308px">
+          <Field htmlFor={ROLES.COLLECTION_CENTER}>{label}</Field>
           <MultiSelect
             options={cc}
             value={ccSelected}
@@ -48,7 +49,7 @@ function CCMultiSelect({ coId = -1, onChange }) {
             labelledBy={label}
             {...reactSelectProps}
           />
-        </FormControl>
+        </Field>
       )}
     </>
   );

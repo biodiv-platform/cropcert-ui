@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Flex, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react";
 import FlagActionButton from "@components/@core/action-buttons/flag";
 import DocumentIcon from "@components/pages/document/common/document-icon";
 import BookIcon from "@icons/bookmark";
@@ -11,6 +11,8 @@ import { getInjectableHTML, stripTags } from "@utils/text";
 import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
+
+import { Avatar } from "@/components/ui/avatar";
 
 interface InfoTabInterface {
   document;
@@ -27,8 +29,9 @@ interface MetaBlockProps {
 
 const MetaBlock = ({ icon, children, isHtml, tooltip }: MetaBlockProps) =>
   children ? (
-    <HStack w="full" alignItems="center" spacing={2} title={tooltip}>
+    <HStack w="full" alignItems="center" title={tooltip}>
       {icon}
+
       {isHtml ? (
         <div
           className="elipsis"
@@ -44,24 +47,22 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
   const { t } = useTranslation();
 
   return (
-    <Flex direction="column" minH="18rem" justifyContent="space-between" p={4}>
+    <Flex direction="column" minH="18rem" justifyContent="space-between" pl={4} pr={4}>
       <Stack color="gray.600">
         {/* Title + Flag */}
         <Flex justifyContent="space-between" mb={3}>
           <NextLink href={`/document/show/${document.id}`}>
-            <a>
-              <HStack alignItems="center" spacing={4}>
-                <DocumentIcon />
-                <Heading
-                  fontSize="lg"
-                  className="elipsis-2"
-                  dangerouslySetInnerHTML={{
-                    __html: getInjectableHTML(document?.title || t("document:unknown")),
-                  }}
-                />
-                <Badge colorScheme="red">{document.itemtype}</Badge>
-              </HStack>
-            </a>
+            <HStack alignItems="center" gap={4}>
+              <DocumentIcon />
+              <Heading
+                fontSize="lg"
+                className="elipsis-2"
+                dangerouslySetInnerHTML={{
+                  __html: getInjectableHTML(document?.title || t("document:unknown")),
+                }}
+              />
+              <Badge colorPalette="red">{document.itemtype}</Badge>
+            </HStack>
           </NextLink>
           {/* Meta Data */}
           <Box>
@@ -95,18 +96,18 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
           tooltip={t("document:bib.abstract")}
           children={stripTags(document?.notes)}
         />
+        <Link href={`/user/show/${user?.id}`}>
+          <Flex alignItems="center" pt={6}>
+            <Avatar
+              mr={1}
+              size="xs"
+              name={user?.name}
+              src={getUserImage(user?.profilePic, user?.name)}
+            />
+            <Text>{user?.name}</Text>
+          </Flex>
+        </Link>
       </Stack>
-      <Link href={`/user/show/${user?.id}`}>
-        <Flex alignItems="center">
-          <Avatar
-            mr={1}
-            size="sm"
-            name={user?.name}
-            src={getUserImage(user?.profilePic, user?.name)}
-          />
-          <Text>{user?.name}</Text>
-        </Flex>
-      </Link>
     </Flex>
   );
 }

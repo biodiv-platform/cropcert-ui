@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import Badge from "@components/@core/user/badge";
 import useActivity from "@hooks/use-activity";
@@ -9,6 +9,9 @@ import { getUserImage } from "@utils/media";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect } from "react";
 import { useListener } from "react-gbus";
+
+import { Avatar } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 import Tooltip from "../tooltip";
 import ContentBox from "./content-box";
@@ -45,9 +48,9 @@ export default function ActivityList({ resourceId, resourceType }) {
       {activity.data.list.map((a: any) => (
         <Stack
           key={a?.activityIbp?.dateCreated}
-          isInline={true}
-          spacing={3}
-          py={4}
+          direction={"row"}
+          gap={3}
+          p={4}
           borderBottom="1px"
           borderColor="gray.300"
           className="fade"
@@ -64,7 +67,7 @@ export default function ActivityList({ resourceId, resourceType }) {
             <ActivityType type={a.activityIbp.activityType} />
             <ContentBox activity={a} />
             <Box>
-              <Tooltip title={formatTimeStampFromUTC(a.activityIbp.lastUpdated)} hasArrow={true}>
+              <Tooltip title={formatTimeStampFromUTC(a.activityIbp.lastUpdated)} showArrow={true}>
                 <Text color="gray.600" as="small">
                   {timeAgoUTC(a.activityIbp.lastUpdated)}
                 </Text>
@@ -77,8 +80,9 @@ export default function ActivityList({ resourceId, resourceType }) {
         <Button
           w="full"
           rounded={0}
-          isLoading={activity.isLoading}
+          loading={activity.isLoading}
           onClick={() => loadActivity(false)}
+          variant={"subtle"}
         >
           {t("activity:load_more_activity")}
         </Button>

@@ -1,6 +1,5 @@
-import { createIcon } from "@chakra-ui/icon";
+import { createIcon } from "@chakra-ui/react";
 import React from "react";
-
 const YouTubeIcon = createIcon({
   displayName: "YouTube",
   path: (

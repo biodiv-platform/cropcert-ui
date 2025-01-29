@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { Lot } from "@interfaces/traceability";
 import { axUpdateGRN } from "@services/lot.service";
 import { LOT_FLAGS } from "@static/constants";
@@ -6,10 +6,12 @@ import { LOT_GRN } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 
+import { DialogBackdrop, DialogRoot } from "@/components/ui/dialog";
+
 import LotGRNForm from "./form";
 
 export default function LotGRNModal({ update }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const [lot, setLot] = useState<any>();
   const [isDone, setIsDone] = useState(false);
   const [canWrite, setCanWrite] = useState(false);
@@ -42,8 +44,8 @@ export default function LotGRNModal({ update }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleOnClose} closeOnOverlayClick={false}>
-      <ModalOverlay />
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
+      <DialogBackdrop />
       {lot && (
         <LotGRNForm
           onSubmit={handleOnSubmit}
@@ -54,6 +56,6 @@ export default function LotGRNModal({ update }) {
           isDone={isDone}
         />
       )}
-    </Modal>
+    </DialogRoot>
   );
 }

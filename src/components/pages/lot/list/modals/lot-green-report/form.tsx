@@ -1,15 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Button, Text } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -27,6 +16,15 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import { Alert } from "@/components/ui/alert";
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import FormHeading from "../typography";
 import GreenReportSummery from "./summery";
@@ -177,7 +175,7 @@ export default function GreenReportForm({
     return typeof t === "number" ? t : "0";
   };
 
-  const outTurnFAQ = (v) => {
+  const outTurnFAQ = (v: any): number => {
     const iQualityGrading = qualityGrading(v);
     const iSevereDefectsTotal = severeDefectsTotal(v);
     const iLessSevereDefectsTotal = lessSevereDefectsTotal(v);
@@ -187,10 +185,10 @@ export default function GreenReportForm({
       typeof iLessSevereDefectsTotal === "number" &&
       iSevereDefectsTotal + iLessSevereDefectsTotal <= iQualityGrading
     ) {
-      return (
+      const result =
         ((iQualityGrading - (iSevereDefectsTotal + iLessSevereDefectsTotal)) / iQualityGrading) *
-        100
-      ).toFixed(2);
+        100;
+      return parseFloat(result.toFixed(2)); // Ensure the return type is a number
     }
     return -1;
   };
@@ -207,7 +205,6 @@ export default function GreenReportForm({
     ) {
       return (
         <Alert mb={2} status="warning" borderRadius="md">
-          <AlertIcon />
           Severe and Less Severe Defects should be less then {iQualityGrading}
         </Alert>
       );
@@ -236,10 +233,12 @@ export default function GreenReportForm({
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleGreenReportSubmit)}>
-        <ModalContent>
-          <ModalHeader>🧪 Quality/Green Lab Report</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🧪 Quality/Green Lab Report
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <CoreGrid>
               <TextBoxField name="grnNumber" label="GRN Number" disabled={true} />
               <TextBoxField label="Lot Name" name="lotName" disabled={true} />
@@ -327,21 +326,21 @@ export default function GreenReportForm({
               name="finalizeGreenStatus"
               label={
                 <span>
-                  Dispatch to Milling <Badge colorScheme="red">irreversible</Badge>
+                  Dispatch to Milling <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={isFinalizeEnabled}
             />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={outTurnFAQ(values) <= 0 || !canWrite}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

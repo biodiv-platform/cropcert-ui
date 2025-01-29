@@ -1,4 +1,3 @@
-import { AddIcon } from "@chakra-ui/icons";
 import { Box, Button } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { NumberInputField } from "@components/form/number";
@@ -7,6 +6,7 @@ import { SelectInputField } from "@components/form/select";
 import LotShowPanel from "@components/pages/lot/show/panel";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
+import { LuPlus } from "react-icons/lu";
 import DeleteIcon from "src/icons/delete";
 
 import GridRow from "../../../row";
@@ -63,32 +63,23 @@ export default function Animals() {
                 />
               </CoreGrid>
 
-              <Button
-                colorScheme="red"
-                type="button"
-                leftIcon={<DeleteIcon />}
-                mr={4}
-                onClick={() => animals.remove(index)}
-              >
+              <Button colorPalette="red" type="button" mr={4} onClick={() => animals.remove(index)}>
+                <DeleteIcon />
                 Remove Current
               </Button>
               <Button
-                colorScheme="blue"
+                colorPalette="blue"
                 type="button"
-                leftIcon={<AddIcon />}
                 onClick={() => animals.insert(index + 1, {})}
               >
+                <LuPlus />
                 Add Below
               </Button>
             </Box>
           ))
         ) : (
-          <Button
-            colorScheme="blue"
-            type="button"
-            onClick={() => animals.append({})}
-            leftIcon={<AddIcon />}
-          >
+          <Button colorPalette="blue" type="button" onClick={() => animals.append({})}>
+            <LuPlus />
             Add a animal
           </Button>
         )}

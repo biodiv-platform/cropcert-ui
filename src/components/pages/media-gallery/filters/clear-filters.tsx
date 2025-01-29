@@ -12,25 +12,28 @@ const FILTERS_BLACKLIST = [...Object.keys(DEFAULT_MEDIA_GALLERY_FILTER), "lang"]
 
 export default function ClearFilters() {
   const { filter } = useMediaGalleryFilter();
-  const filterCount: any =
-    filter && Object.keys(filter).filter((f) => !FILTERS_BLACKLIST.includes(f)).length > 0;
+
+  const filterCount: number = filter
+    ? Object.keys(filter).filter((f) => filter[f] && !FILTERS_BLACKLIST.includes(f)).length
+    : 0;
   const { t } = useTranslation();
   const message = t("filters:clear", { filterCount });
   const router = useRouter();
 
-  const clearFilters = () => router.push("/media-gallery/list", {});
+  const clearFilters = () =>
+    router.push("/media-gallery/list", {}).then(() => window.location.reload());
 
   return filterCount ? (
-    <Tooltip title={message} hasArrow={true}>
+    <Tooltip title={message} showArrow={true}>
       <Button
         onClick={clearFilters}
-        variant="link"
+        variant="plain"
         className="fade"
         size="lg"
-        colorScheme="red"
+        colorPalette="red"
         aria-label={message}
-        leftIcon={<DeleteIcon />}
       >
+        <DeleteIcon />
         {filterCount}
       </Button>
     </Tooltip>

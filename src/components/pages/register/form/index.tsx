@@ -1,4 +1,3 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, GridItem, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import OTPModal from "@components/auth/otp-modal";
@@ -18,6 +17,7 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuForward } from "react-icons/lu";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 import * as Yup from "yup";
 
@@ -34,7 +34,7 @@ function SignUpForm() {
   const { t } = useTranslation();
   const [hideVerificationMethod, setHideVerificationMethod] = useState(true);
   const [user, setUser] = useState(null);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { open, onClose, onOpen } = useDisclosure();
   const [isOAuth, setIsOAuth] = useState(false);
 
   const hForm = useForm<any>({
@@ -125,7 +125,7 @@ function SignUpForm() {
     <>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={4}>
+          <SimpleGrid columns={{ base: 1, md: 2 }} gapX={4}>
             <GridItem colSpan={{ md: 2 }} hidden={isOAuth || !SITE_CONFIG.TOKENS.OAUTH_GOOGLE}>
               <Oauth text={t("user:autofill_with_google")} onSuccess={onOAuthSuccess} />
             </GridItem>
@@ -194,12 +194,12 @@ function SignUpForm() {
               />
             </CheckBoxField>
           </Box>
-          <SubmitButton rightIcon={<ArrowForwardIcon />} w="full">
+          <SubmitButton rightIcon={<LuForward />} w="full">
             {t("user:register")}
           </SubmitButton>
         </form>
       </FormProvider>
-      <OTPModal isOpen={isOpen} onClose={onClose} user={user} />
+      <OTPModal isOpen={open} onClose={onClose} user={user} />
     </>
   );
 }

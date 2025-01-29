@@ -1,19 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import {
-  AspectRatio,
-  Box,
-  CloseButton,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  IconButton,
-  Image,
-  Input,
-  Select,
-  SimpleGrid,
-  Stack,
-} from "@chakra-ui/react";
+import { AspectRatio, Box, IconButton, Image, Input, SimpleGrid, Stack } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { axUploadResource } from "@services/files.service";
 import { axGetLicenseList } from "@services/resources.service";
@@ -24,6 +9,11 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
+
+import { CloseButton } from "@/components/ui/close-button";
+import { Field } from "@/components/ui/field";
+import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 
 export const getColor = (props) => {
   if (props.isDragAccept) {
@@ -128,17 +118,18 @@ export const PageGalleryField = ({
   }, []);
 
   return (
-    <FormControl
-      isInvalid={!!formState.errors[name]}
+    <Field
+      invalid={!!formState.errors[name]}
+      errorText={formState?.errors?.[name]?.message?.toString()}
       mb={mb}
       hidden={hidden}
-      isRequired={isRequired}
+      required={isRequired}
       {...props}
     >
-      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      {label && <Field htmlFor={name}>{label}</Field>}
 
       {/* Dropzone */}
-      <div id={name}>
+      <Box id={name} width={"full"}>
         <Container {...getRootProps({ isDragActive, isDragAccept, isDragReject })}>
           <input {...getInputProps()} />
           {isProcessing ? (
@@ -147,11 +138,11 @@ export const PageGalleryField = ({
             <p>Drag n drop some images here, or click to select files</p>
           )}
         </Container>
-      </div>
+      </Box>
 
       {/* Preview */}
       {fields && (
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} pt={4} maxW="full">
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={4} pt={4} maxW="full">
           {fields?.map((item: any, index) => (
             <Box
               border="1px solid"
@@ -190,30 +181,34 @@ export const PageGalleryField = ({
                   placeholder={t("form:attribution")}
                 />
                 {licenses && (
-                  <Select
-                    {...register(`${name}.${index}.licenseId`)}
-                    defaultValue={licenses[0].value}
-                  >
-                    {licenses.map((l) => (
-                      <option value={l.value} key={l.value}>
-                        {l.label}
-                      </option>
-                    ))}
-                  </Select>
+                  <NativeSelectRoot>
+                    <NativeSelectField
+                      {...register(`${name}.${index}.licenseId`)}
+                      defaultValue={licenses[0].value}
+                    >
+                      {licenses.map((l) => (
+                        <option value={l.value} key={l.value}>
+                          {l.label}
+                        </option>
+                      ))}
+                    </NativeSelectField>
+                  </NativeSelectRoot>
                 )}
-                <SimpleGrid columns={2} spacing={2}>
+                <SimpleGrid columns={2} gap={2}>
                   <IconButton
                     onClick={() => move(index, index - 1)}
-                    isDisabled={index === 0}
-                    icon={<ArrowBackIcon />}
+                    disabled={index === 0}
                     aria-label={t("common:prev")}
-                  />
+                  >
+                    <LuArrowLeft />
+                  </IconButton>
                   <IconButton
                     onClick={() => move(index, index + 1)}
-                    isDisabled={index === fields.length - 1}
-                    icon={<ArrowForwardIcon />}
+                    disabled={index === fields.length - 1}
                     aria-label={t("common:next")}
-                  />
+                  >
+                    <LuArrowRight />
+                  </IconButton>
                 </SimpleGrid>
               </Stack>
             </Box>
@@ -221,8 +216,7 @@ export const PageGalleryField = ({
         </SimpleGrid>
       )}
 
-      <FormErrorMessage children={formState?.errors?.[name]?.message?.toString()} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

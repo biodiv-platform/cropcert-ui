@@ -14,17 +14,15 @@ export default function Metadata({ bibFields }: MetadataProps) {
 
   return (
     <Box mb={6}>
-      <PageHeading as="h2" size="lg">
-        📖 {t("document:metadata")}
-      </PageHeading>
+      <PageHeading size={"3xl"}>📖 {t("document:metadata")}</PageHeading>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={{ base: 0, md: 4 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gapX={{ base: 0, md: 4 }}>
         {META_BIB_FIELDS.map((name) => (
           <TextBoxField
             key={name}
             name={`bibFieldData.${name}`}
             hidden={!Object.prototype.hasOwnProperty.call(bibFields, name)}
-            isRequired={bibFields[name]}
+            required={bibFields[name]}
             label={t(`document:bib.${name.toLowerCase()}`)}
           />
         ))}

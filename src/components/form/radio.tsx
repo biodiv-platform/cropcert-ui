@@ -1,17 +1,11 @@
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import { CastType } from "@interfaces/custom";
 import { namedFormErrorMessage, typeCastSingle } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "../ui/field";
+import { Radio, RadioGroup } from "../ui/radio";
 
 interface IRadioProps {
   helpText?: string;
@@ -51,10 +45,16 @@ export const RadioInputField = ({
   const handleOnReset = () => field.onChange("");
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb} {...props}>
-      {label && <FormLabel htmlFor={name} children={label} />}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
+      mb={mb}
+      htmlFor={field.name}
+      label={label}
+      {...props}
+    >
       <RadioGroup
-        colorScheme="blue"
+        colorPalette="blue"
         id={name}
         {...field}
         value={String(field.value)}
@@ -75,10 +75,7 @@ export const RadioInputField = ({
         </Button>
       )}
 
-      <FormErrorMessage
-        children={namedFormErrorMessage(fieldState?.error?.message, name, label || placeholder)}
-      />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint}></Field>}
+    </Field>
   );
 };

@@ -1,12 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  ButtonGroup,
-  Spinner,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Group, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -21,6 +13,8 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
+import { Alert } from "@/components/ui/alert";
+
 import { fetchBatchColumns } from "./data";
 import BatchExpand from "./expand";
 import BatchCreateModal from "./modals/batch-create-modal";
@@ -34,7 +28,7 @@ function BatchComponent() {
   const { user } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
-  const { isOpen: clearRows, onToggle } = useDisclosure();
+  const { open: clearRows, onToggle } = useDisclosure();
   const [hideAccessor] = useState<boolean>();
   const [triggerRender, setTriggerRender] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -98,21 +92,21 @@ function BatchComponent() {
   };
 
   const ActionButtons = () => (
-    <ButtonGroup spacing={4}>
+    <Group gap={4}>
       <Button
-        colorScheme="green"
+        colorPalette="green"
         variant="solid"
-        isDisabled={
+        disabled={
           showTypeError ||
           selectedBatches.length === 0 ||
           !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
         }
         onClick={handleOnCreateLot}
-        leftIcon={<AddIcon />}
       >
+        {<AddIcon />}
         Create Lot
       </Button>
-    </ButtonGroup>
+    </Group>
   );
 
   const onBatchUpdate = () => {
@@ -148,10 +142,12 @@ function BatchComponent() {
 
       {batchListData?.length
         ? showAlert && (
-            <Alert status="success" variant="left-accent" marginBottom={2} rounded={"md"}>
-              <AlertIcon />
-              {t("traceability:batch.batch_ready_for_lot")}
-            </Alert>
+            <Alert
+              status="success"
+              marginBottom={2}
+              rounded={"md"}
+              title={t("traceability:batch.batch_ready_for_lot")}
+            />
           )
         : null}
 

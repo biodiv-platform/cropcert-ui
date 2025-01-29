@@ -1,9 +1,11 @@
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { getCoords } from "@utils/basic";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
+
+import { Field } from "../ui/field";
 
 interface IGeolocationInputProps {
   name: string;
@@ -28,22 +30,20 @@ export const GeolocationInputField = ({
   };
 
   return (
-    <FormControl
-      isInvalid={!!fieldState.error}
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb || 4}
-      isRequired={isRequired}
+      required={isRequired}
       id={field.name}
+      htmlFor={field.name}
+      label={label}
     >
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
-      <Button
-        mb={4}
-        onClick={onGetLocationClick}
-        leftIcon={field.value ? <Check2Icon /> : undefined}
-      >
+      <Button mb={4} onClick={onGetLocationClick}>
+        {field.value ? <Check2Icon /> : undefined}
         {field.value || "Click to capture location"}
       </Button>
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

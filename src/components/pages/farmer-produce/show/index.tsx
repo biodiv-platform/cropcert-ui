@@ -1,5 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Accordion, Box, Button } from "@chakra-ui/react";
+import { AccordionRoot, Box, Button } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -9,6 +8,7 @@ import { RESOURCE_TYPE } from "@static/constants";
 import { generateBackBtnStr } from "@utils/basic";
 import { useRouter } from "next/router";
 import React from "react";
+import { LuArrowLeft } from "react-icons/lu";
 
 import FarmerProduceInfo from "./farmer-produce-info";
 import GrnReceiptInfo from "./grn-receip";
@@ -40,13 +40,8 @@ export default function FarmerProduceShowPageComponent({
   const ActionButtons = () => {
     return (
       <Box display={"flex"}>
-        <Button
-          onClick={handleGoBack}
-          leftIcon={<ArrowBackIcon />}
-          variant="solid"
-          rounded="md"
-          colorScheme="gray"
-        >
+        <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+          <LuArrowLeft />
           {backButtonText}
         </Button>
       </Box>
@@ -57,13 +52,21 @@ export default function FarmerProduceShowPageComponent({
     show?.farmer && (
       <Container>
         <PageHeading actions={<ActionButtons />}>🧑‍🌾 {show.farmerProduces.farmerName}</PageHeading>
-        <Accordion defaultIndex={[0]} allowMultiple>
+        <AccordionRoot
+          spaceY="4"
+          defaultValue={["Produce Information", "activity"]}
+          multiple
+          pb={4}
+        >
           <FarmerProduceInfo farmerProduces={show.farmerProduces} />
           {show?.farmerProduces?.grnReceipt && (
             <GrnReceiptInfo farmerProduces={show.farmerProduces} />
           )}
-        </Accordion>
-        <Activity resourceId={show.farmerProduces.id} resourceType={RESOURCE_TYPE.FARMER_PRODUCE} />
+          <Activity
+            resourceId={show.farmerProduces.id}
+            resourceType={RESOURCE_TYPE.FARMER_PRODUCE}
+          />
+        </AccordionRoot>
       </Container>
     )
   );

@@ -1,18 +1,18 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import useUserListFilter from "@components/pages/user/common/use-user-filter";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+  AccordionRoot,
+} from "@/components/ui/accordion";
+
 import EmailFilter from "./email";
 import InstituteFilter from "./institute";
-import Location from "./location/map-area";
+import MapAreaFilter from "./location/map-area";
 import PhoneNumberFilter from "./phone";
 import ProfessionFilter from "./profession";
 import SexTypeFilter from "./sex-type";
@@ -25,29 +25,27 @@ export default function FiltersList() {
   const { isAdmin } = useUserListFilter();
 
   return (
-    <Accordion defaultIndex={[0]} allowMultiple={true}>
-      <AccordionItem>
-        <AccordionButton>
-          <Box flex={1} textAlign="left">
+    <AccordionRoot multiple={true} lazyMount defaultValue={["location"]}>
+      <AccordionItem value="location">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
             {t("filters:location.title")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel>
-          <Location />
-        </AccordionPanel>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <MapAreaFilter />
+        </AccordionItemContent>
       </AccordionItem>
 
-      <AccordionItem>
-        <AccordionButton>
-          <Box flex={1} textAlign="left">
+      <AccordionItem value="time">
+        <AccordionItemTrigger pr={4}>
+          <Box flex={1} textAlign="left" pl={4}>
             {t("filters:time.title")}
           </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel>
+        </AccordionItemTrigger>
+        <AccordionItemContent>
           <TimeFilter />
-        </AccordionPanel>
+        </AccordionItemContent>
       </AccordionItem>
 
       <SexTypeFilter />
@@ -62,19 +60,16 @@ export default function FiltersList() {
 
       {isAdmin && <UserNameFilter />}
 
-      <AccordionItem>
-        {({ isExpanded }) => (
-          <>
-            <AccordionButton>
-              <Box flex={1} textAlign="left">
-                {t("filters:user.title")}
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>{isExpanded && <UserFilter filterKey="user" />}</AccordionPanel>
-          </>
-        )}
+      <AccordionItem value="user" pl={4}>
+        <>
+          <AccordionItemTrigger pr={4}>
+            <Box flex={1} textAlign="left">
+              {t("filters:user.title")}
+            </Box>
+          </AccordionItemTrigger>
+          <AccordionItemContent>{<UserFilter filterKey="user" />}</AccordionItemContent>
+        </>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   );
 }

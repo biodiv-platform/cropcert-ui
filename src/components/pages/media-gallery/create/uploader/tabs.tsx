@@ -1,8 +1,10 @@
-import { FormControl, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Box, Tabs } from "@chakra-ui/react";
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
+
+import { Field } from "@/components/ui/field";
 
 import MediaGalleryDropzone from "./dropzone";
 import useManageMediaGallery from "./media-gallery-upload-provider";
@@ -24,7 +26,7 @@ export default function MediaGalleryUploaderTabs({
   isMultiUpload,
 }: IDropzoneProps) {
   const { t } = useTranslation();
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabValue, setTabValue] = useState("selectedMedia");
   const { mediaGalleryAssets } = useManageMediaGallery();
 
   const { field, fieldState } = useController({ name });
@@ -34,37 +36,38 @@ export default function MediaGalleryUploaderTabs({
   }, []);
 
   useEffect(() => {
-    onTabIndexChanged && onTabIndexChanged(tabIndex);
-  }, [tabIndex]);
+    onTabIndexChanged && onTabIndexChanged(tabValue);
+  }, [tabValue]);
 
   useDidUpdateEffect(() => {
     field.onChange(mediaGalleryAssets);
   }, [mediaGalleryAssets]);
 
-  const onSelectionDone = () => setTabIndex(0);
+  const onSelectionDone = () => setTabValue("selectedMedia");
 
   return (
-    <FormControl hidden={hidden} isInvalid={!!fieldState.error} mb={mb}>
-      <Tabs
-        className="nospace"
-        index={tabIndex}
-        onChange={setTabIndex}
-        variant="soft-rounded"
-        isLazy={true}
-      >
-        <TabList mb={4} overflowX="auto" py={1}>
-          <Tab>✔️ {t("Selected Media")}</Tab>
-          <Tab>☁️ {t("My Uploads")}</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
+    <Field hidden={hidden} invalid={!!fieldState.error} mb={mb}>
+      <Box width={"full"}>
+        <Tabs.Root
+          className="nospace"
+          value={tabValue}
+          onValueChange={(e) => setTabValue(e.value)}
+          variant={"subtle"}
+          lazyMount
+          colorPalette="blue"
+        >
+          <Tabs.List mb={4} overflowX="auto" py={1}>
+            <Tabs.Trigger value="selectedMedia">✔️ {t("Selected Media")}</Tabs.Trigger>
+            <Tabs.Trigger value="myUploads">☁️ {t("My Uploads")}</Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="selectedMedia">
             <MediaGalleryDropzone isMultiUpload={isMultiUpload} />
-          </TabPanel>
-          <TabPanel>
+          </Tabs.Content>
+          <Tabs.Content value="myUploads">
             <MyMediaGalleryUploads onDone={onSelectionDone} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </FormControl>
+          </Tabs.Content>
+        </Tabs.Root>
+      </Box>
+    </Field>
   );
 }

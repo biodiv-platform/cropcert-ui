@@ -1,5 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "@chakra-ui/icons";
-import { Box, Button, Icon, Image } from "@chakra-ui/react";
+import { Box, IconButton, Image } from "@chakra-ui/react";
 import DeleteIcon from "@icons/delete";
 import { axDeleteResource, axGetAllMediaGallery } from "@services/media-gallery.service";
 import { axGetLicenseList } from "@services/resources.service";
@@ -8,6 +7,7 @@ import { getNextResourceRAW } from "@utils/media";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { LuChevronLeft, LuChevronRight, LuX } from "react-icons/lu";
 
 import CarouselResourceInfo from "./resource-info";
 
@@ -86,15 +86,14 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
       justifyContent="center"
       alignItems="center"
       backgroundColor="rgba(0, 0, 0, 0.8)"
-      zIndex={1000}
     >
-      <Button
+      <IconButton
         position="absolute"
         top="50%"
         left={4}
         transform="translateY(-50%)"
         onClick={handlePrev}
-        colorScheme="black"
+        colorPalette="black"
         disabled={currentIndex === 0}
         backgroundColor="#232323"
         _hover={{ backgroundColor: "gray" }}
@@ -103,42 +102,40 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
         height="50px"
         zIndex={1000}
       >
-        <Icon as={ChevronLeftIcon} boxSize={10} />
-      </Button>
-      <Button
+        <LuChevronLeft />
+      </IconButton>
+      <IconButton
         position="absolute"
         top="50%"
         right={4}
         transform="translateY(-50%)"
         onClick={handleNext}
-        colorScheme="black"
+        colorPalette="black"
         disabled={resourceData.n === currentIndex + 1}
         backgroundColor="#232323"
         _hover={{ backgroundColor: "gray" }}
         borderRadius="50%"
         width="50px"
         height="50px"
-        zIndex={1000}
       >
-        <Icon as={ChevronRightIcon} boxSize={10} />
-      </Button>
+        <LuChevronRight />
+      </IconButton>
 
       <Box position="absolute" top={0} right={4}>
-        <Button
+        <IconButton
           position="relative"
           top={5}
           right={4}
           onClick={onClose}
-          colorScheme="black"
+          colorPalette="black"
           borderRadius="50%"
           backgroundColor="#232323"
           _hover={{ backgroundColor: "gray" }}
           width="50px"
           height="50px"
-          zIndex={1000}
         >
-          <Icon as={CloseIcon} />
-        </Button>
+          <LuX />
+        </IconButton>
       </Box>
 
       <Box position="absolute" top={1} right={2}>
@@ -151,21 +148,20 @@ const ImageViewer = ({ resourceData, initialIndex, onClose, loadNextPage }) => {
 
       {hasAccess && (
         <Box position="absolute" top={0} right={4}>
-          <Button
+          <IconButton
             position="relative"
             top={5}
             right={130}
             onClick={handleDelete}
-            colorScheme="black"
+            colorPalette="black"
             borderRadius="50%"
             backgroundColor="#232323"
             _hover={{ backgroundColor: "gray" }}
             width="50px"
             height="50px"
-            zIndex={1000}
           >
-            <Icon as={DeleteIcon} />
-          </Button>
+            <DeleteIcon />
+          </IconButton>
         </Box>
       )}
 

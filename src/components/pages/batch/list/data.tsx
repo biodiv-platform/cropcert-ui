@@ -85,7 +85,7 @@ export const createBatchColumns = (columns) => {
       const ButtonComponent = (row) => {
         const data = row.modalFieldCombined.find((o) => o.modalFieldId == curr.modalFieldId);
 
-        const { canWrite, colorScheme, show } = useActionProps(data?.columnStatus, ROLES.UNION);
+        const { canWrite, colorPalette, show } = useActionProps(data?.columnStatus, ROLES.UNION);
         const isDone = data?.columnStatus === BATCH_FLAGS.DONE;
         const isOptional = data?.isOptional;
 
@@ -100,7 +100,7 @@ export const createBatchColumns = (columns) => {
         return (isOptional && renderButton) || renderButton ? (
           <Button
             {...buttonProps}
-            colorScheme={colorScheme}
+            colorPalette={colorPalette}
             onClick={() => emit(BATCH_UPDATE, batchUpdateWrapper(updatedBatch, canWrite))}
           >
             {data?.columnStatus}

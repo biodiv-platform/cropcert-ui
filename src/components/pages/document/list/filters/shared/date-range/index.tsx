@@ -1,13 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 
-import {
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 import useDocumentFilter from "@components/pages/document/common/use-document-filter";
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import dayjs from "@utils/date";
@@ -24,6 +17,12 @@ interface DateRangeFilterProp {
   filterKey: MinMaxKey;
   translateKey: string;
 }
+
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from "@/components/ui/accordion";
 
 export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFilterProp) {
   const { t } = useTranslation();
@@ -56,14 +55,13 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
   }, [dateRange]);
 
   return (
-    <AccordionItem>
-      <AccordionButton>
+    <AccordionItem value="time">
+      <AccordionItemTrigger>
         <Box flex={1} textAlign="left">
           {t(translateKey)}
         </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel>
+      </AccordionItemTrigger>
+      <AccordionItemContent>
         <DatePicker
           selectsRange={true}
           startDate={dateRange[0]}
@@ -75,7 +73,7 @@ export default function DateRangeFilter({ filterKey, translateKey }: DateRangeFi
             setDateRange(update);
           }}
         />
-      </AccordionPanel>
+      </AccordionItemContent>
     </AccordionItem>
   );
 }

@@ -335,16 +335,16 @@ export const TRACEABILITY_TABS = [
   {
     label: "🚜 Farmer Produce",
     path: "/traceability/farmer-produce",
-    tabIndex: 0,
+    tabIndex: "farmerProduce",
   },
   {
     label: "🧺 Batch(s)",
     path: "/traceability/batch",
-    tabIndex: 1,
+    tabIndex: "batch",
   },
   {
     label: "📦 Lot(s)",
     path: "/traceability/lot",
-    tabIndex: 2,
+    tabIndex: "lot",
   },
 ];

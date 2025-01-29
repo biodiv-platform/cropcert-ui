@@ -1,12 +1,14 @@
-import { Box, CircularProgress, useDisclosure } from "@chakra-ui/react";
+import { Box, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { farmerProduceColumns } from "@components/pages/farmer-produce/list/data";
 import { FarmerProduce } from "@interfaces/traceability";
 import { axListFarmerProduceByBatchId } from "@services/batch.service";
 import React, { useEffect, useState } from "react";
 
+import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+
 function BatchExpand(props) {
-  const { isOpen, onOpen } = useDisclosure();
+  const { open, onOpen } = useDisclosure();
   const [fpList, setfpList] = useState([] as FarmerProduce[]);
   const columns = [...farmerProduceColumns];
 
@@ -17,7 +19,7 @@ function BatchExpand(props) {
     });
   }, [props.data]);
 
-  return isOpen ? (
+  return open ? (
     <Box p={3}>
       <Table
         title={"Farmer Produce"}
@@ -35,7 +37,10 @@ function BatchExpand(props) {
       />
     </Box>
   ) : (
-    <CircularProgress isIndeterminate={true} m={4} size="30px" color="blue"></CircularProgress>
+    // size="30px"
+    <ProgressCircleRoot value={null} m={4} size="md" colorPalette="blue">
+      <ProgressCircleRing cap="round" />
+    </ProgressCircleRoot>
   );
 }
 

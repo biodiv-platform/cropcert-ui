@@ -1,4 +1,3 @@
-import { Accordion } from "@chakra-ui/react";
 import ErrorSummery from "@components/form/error-summery";
 import { SubmitButton } from "@components/form/submit-button";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +9,8 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
 import * as yup from "yup";
+
+import { AccordionRoot } from "@/components/ui/accordion";
 
 import ICSSignature from "./signature";
 
@@ -48,9 +49,9 @@ export default function InspectionReportApprovalForm({ report, version, subVersi
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnICSInspectionFormSubmit)}>
-        <Accordion allowMultiple>
+        <AccordionRoot multiple>
           <ICSSignature />
-        </Accordion>
+        </AccordionRoot>
         <ErrorSummery />
         <SubmitButton leftIcon={<Check2Icon />}>Save</SubmitButton>
       </form>

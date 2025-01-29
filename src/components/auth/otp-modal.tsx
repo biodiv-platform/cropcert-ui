@@ -1,16 +1,4 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import {
-  Flex,
-  Heading,
-  Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalOverlay,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Heading, Link, Text } from "@chakra-ui/react";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,8 +9,10 @@ import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuArrowRight } from "react-icons/lu";
 import * as Yup from "yup";
 
+import { DialogBackdrop, DialogContent, DialogFooter, DialogRoot } from "../ui/dialog";
 import OTPIcon from "./otp-icon";
 
 export default function OTPModal({ isOpen, onClose, user }) {
@@ -66,13 +56,12 @@ export default function OTPModal({ isOpen, onClose, user }) {
   };
 
   return (
-    <Modal size="sm" isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay className="fade">
-        <ModalContent className="fadeInUp" borderRadius="md">
-          <ModalCloseButton />
+    <DialogRoot placement={"top"} size="sm" open={isOpen} onOpenChange={onClose}>
+      <DialogBackdrop className="fade">
+        <DialogContent className="fadeInUp" borderRadius="md">
           <FormProvider {...otpForm}>
             <form onSubmit={otpForm.handleSubmit(handleOtpFormSubmit)}>
-              <ModalBody pt={8}>
+              <DialogContent pt={8}>
                 <Flex direction="column" align="center" mb={8} mt={4}>
                   <OTPIcon />
                 </Flex>
@@ -83,20 +72,20 @@ export default function OTPModal({ isOpen, onClose, user }) {
                   {t("auth:otp.description")} {user?.vt}
                 </Text>
                 <TextBoxField mb={0} name="otp" label={t("auth:otp.form.otp")} />
-              </ModalBody>
+              </DialogContent>
 
-              <ModalFooter justifyContent="space-between">
+              <DialogFooter justifyContent="space-between">
                 <Link as="button" type="button" onClick={handleRegenerate}>
                   {t("auth:otp.resend")}
                 </Link>
-                <SubmitButton rightIcon={<ArrowForwardIcon />}>
+                <SubmitButton rightIcon={<LuArrowRight />}>
                   {t("auth:otp.form.submit")}
                 </SubmitButton>
-              </ModalFooter>
+              </DialogFooter>
             </form>
           </FormProvider>
-        </ModalContent>
-      </ModalOverlay>
-    </Modal>
+        </DialogContent>
+      </DialogBackdrop>
+    </DialogRoot>
   );
 }

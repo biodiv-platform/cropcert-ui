@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import { Spinner, useDisclosure } from "@chakra-ui/react";
 import { PageHeading } from "@components/@core/layout";
 import { SubmitButton } from "@components/form/submit-button";
@@ -15,6 +14,7 @@ import router from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuCheck } from "react-icons/lu";
 import * as Yup from "yup";
 
 import BasicInfo from "../../create/basic-info";
@@ -30,7 +30,7 @@ export default function MediaGalleryEditForm({
   licensesList,
   mId,
 }: IMediaGalleryEditFormProps) {
-  const { isOpen } = useDisclosure({ defaultIsOpen: true });
+  const { open } = useDisclosure({ defaultOpen: true });
 
   const { user } = useGlobalState();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
@@ -94,14 +94,14 @@ export default function MediaGalleryEditForm({
       notification(t("Unable to Edit Media gallery"));
     }
   };
-  return isOpen ? (
+  return open ? (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
         <BasicInfo isEdit={isAdmin} />
         <PageHeading>📷 {t("Edit or Upload Media")}</PageHeading>
         <MediaGalleryUploader name="resources" isMultiUpload={false} licensesList={licensesList} />
 
-        <SubmitButton leftIcon={<CheckIcon />} mb={4}>
+        <SubmitButton leftIcon={<LuCheck />} mb={4}>
           {t("Save")}
         </SubmitButton>
       </form>

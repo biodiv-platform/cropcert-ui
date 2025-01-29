@@ -1,4 +1,3 @@
-import { ArrowForwardIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import { PageHeading } from "@components/@core/layout";
@@ -18,6 +17,7 @@ import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { LuArrowRight, LuChevronRight } from "react-icons/lu";
 import * as Yup from "yup";
 
 import Oauth from "./oauth";
@@ -31,7 +31,7 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { t } = useTranslation();
   const [user, setUser] = useState();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { open, onClose, onOpen } = useDisclosure();
 
   const hForm = useForm<any>({
     mode: "onChange",
@@ -114,15 +114,14 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
           )}
           <Flex justifyContent="space-between" alignItems="center">
             <SubmitButton>
-              Sign In <ArrowForwardIcon ml={2} />
+              Sign In <LuArrowRight />
             </SubmitButton>
-            <NextLink href="/register/forgotPassword">
+            <NextLink href="/register/forgotPassword" legacyBehavior>
               <BlueLink display="block">{t("auth:forgot_password_link")}</BlueLink>
             </NextLink>
           </Flex>
         </form>
       </FormProvider>
-
       {SITE_CONFIG.TOKENS.OAUTH_GOOGLE ? (
         <>
           <Box textAlign="center" color="gray.500" my={4}>
@@ -134,16 +133,14 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
       ) : (
         <Box py={4} />
       )}
-
       {t("auth:sign_up")}
-      <NextLink href="/register">
+      <NextLink href="/register" legacyBehavior>
         <BlueLink ml={2}>
           {t("auth:sign_up_link")}
-          <ChevronRightIcon />
+          <LuChevronRight />
         </BlueLink>
       </NextLink>
-
-      <OTPModal isOpen={isOpen} onClose={onClose} user={user} />
+      <OTPModal isOpen={open} onClose={onClose} user={user} />
     </>
   );
 }

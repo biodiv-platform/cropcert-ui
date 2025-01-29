@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Button,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Button, Text } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -24,6 +15,14 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
+
+import {
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 
 import DiffMessage from "../../diff-message";
 import FormHeading from "../../typography";
@@ -143,10 +142,12 @@ export default function FactoryReportDryModal({
   return (
     <FormProvider {...hForm}>
       <form onSubmit={hForm.handleSubmit(handleFactoryReportSubmit)}>
-        <ModalContent>
-          <ModalHeader>🏭 Factory Report</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+        <DialogContent>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
+            🏭 Factory Report
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <CoreGrid>
               <DateTimeInputField name="date" label="Date" disabled={!canWrite} />
               <NumberInputField name="mcIn" label="MC In (%)" disabled={!canWrite} />
@@ -253,21 +254,21 @@ export default function FactoryReportDryModal({
               mt={4}
               label={
                 <span>
-                  Finalize Factory Report <Badge colorScheme="red">irreversible</Badge>
+                  Finalize Factory Report <Badge colorPalette="red">irreversible</Badge>
                 </span>
               }
               isDisabled={!canWrite}
             />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
             <SubmitButton leftIcon={<SaveIcon />} isDisabled={totalDiff !== 0}>
               Save
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
+          </DialogFooter>
+        </DialogContent>
       </form>
     </FormProvider>
   );

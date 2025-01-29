@@ -1,7 +1,9 @@
-import { FormControl, FormLabel, Skeleton } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { axListUnion } from "@services/entities.service";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+
+import { Field } from "@/components/ui/field";
 
 /**
  * Union Picker Component for Unauthorised Pages
@@ -28,8 +30,8 @@ export default function PlainUnionSelect({ onChange, maxW = "308px" }) {
 
   return (
     <div>
-      <FormControl mb={4} maxW={maxW}>
-        <FormLabel htmlFor="union">Select union</FormLabel>
+      <Field mb={4} maxW={maxW}>
+        <Field htmlFor="union">Select union</Field>
         {unions ? (
           <Select
             id="union"
@@ -48,7 +50,7 @@ export default function PlainUnionSelect({ onChange, maxW = "308px" }) {
         ) : (
           <Skeleton height="38px" />
         )}
-      </FormControl>
+      </Field>
     </div>
   );
 }

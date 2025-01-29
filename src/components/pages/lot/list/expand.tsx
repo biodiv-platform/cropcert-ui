@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Spinner, useDisclosure } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { fetchBatchColumns } from "@components/pages/batch/list/data";
 import BatchExpand from "@components/pages/batch/list/expand";
@@ -6,8 +6,10 @@ import { Batch } from "@interfaces/traceability";
 import { axListBatchByLotId } from "@services/lot.service";
 import React, { useEffect, useState } from "react";
 
+import { ProgressCircleRing, ProgressCircleRoot } from "@/components/ui/progress-circle";
+
 function LotExpand(props) {
-  const { isOpen, onOpen } = useDisclosure();
+  const { open, onOpen } = useDisclosure();
   const [batchList, setBatchList] = useState([] as Batch[]);
 
   const [batchColumns, setBatchColumns] = useState<any[]>([]);
@@ -45,7 +47,7 @@ function LotExpand(props) {
     return <BatchExpand ml={8} {...props} />;
   };
 
-  return isOpen ? (
+  return open ? (
     <Box p={3}>
       {columnsLoading ? (
         <Spinner />
@@ -68,7 +70,9 @@ function LotExpand(props) {
       )}
     </Box>
   ) : (
-    <CircularProgress isIndeterminate={true} m={4} size="30px" color="blue"></CircularProgress>
+    <ProgressCircleRoot value={null} m={4} size="sm" color="blue">
+      <ProgressCircleRing cap="round" />
+    </ProgressCircleRoot>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Box, useToast } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
@@ -10,6 +10,8 @@ import useTranslation from "next-translate/useTranslation";
 import { parseCookies } from "nookies";
 import { stringify } from "querystring";
 import React, { useEffect, useMemo, useState } from "react";
+
+import { toaster } from "@/components/ui/toaster";
 
 const NakshaMapboxList: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxList),
@@ -24,7 +26,7 @@ const defaultViewState = getMapCenter(3.1);
 export default function MapPageComponent({ defaultLayers }) {
   const { t, lang } = useTranslation();
   const { user } = useGlobalState();
-  const toast = useToast();
+  // const toast = useToaster();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
 
@@ -36,7 +38,7 @@ export default function MapPageComponent({ defaultLayers }) {
 
   const handleOnDownload = async (layerId) => {
     console.debug(`Layer download requested ${layerId}`);
-    toast({
+    toaster.create({
       title: t("common:success"),
       description: (
         <div>
@@ -46,10 +48,11 @@ export default function MapPageComponent({ defaultLayers }) {
           </ExternalBlueLink>
         </div>
       ),
-      variant: "left-accent",
-      status: "success",
+      // variant: "left-accent",
+      type: "success",
       duration: 9000,
-      isClosable: true,
+      placement: "top",
+      // isClosable: true,
     });
   };
 

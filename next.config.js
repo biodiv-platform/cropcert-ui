@@ -59,6 +59,7 @@ const withPWA = require("next-pwa")({
 module.exports = withNextTranslate(
   withPWA({
     experimental: {
+      optimizePackageImports: ['@chakra-ui/react'],
       legacyBrowsers: false,
       browsersListForSwc: true,
     },

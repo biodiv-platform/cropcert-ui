@@ -4,7 +4,7 @@ import React from "react";
 
 const Badge = ({ isAdmin }) =>
   isAdmin ? (
-    <Tooltip hasArrow={true} placement="right" shouldWrapChildren={true} title="Administrator">
+    <Tooltip showArrow={true} positioning={{ placement: "right" }} title="Administrator">
       <VerifiedIcon color="green.500" />
     </Tooltip>
   ) : null;

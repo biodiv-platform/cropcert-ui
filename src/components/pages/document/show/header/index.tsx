@@ -44,7 +44,7 @@ export default function DocumentHeader({ document }: DocumentHeaderProps) {
       <Box gridColumn="1 / 4">
         <Heading
           as="h1"
-          size="lg"
+          size="3xl"
           mb={2}
           dangerouslySetInnerHTML={{ __html: getInjectableHTML(document?.document?.title) }}
         />
@@ -55,7 +55,7 @@ export default function DocumentHeader({ document }: DocumentHeaderProps) {
             icon={<EditIcon />}
             title={t("document:edit_document")}
             onClick={handleOnEdit}
-            colorScheme="teal"
+            colorPalette="teal"
           />
         )}
         <FollowActionButton

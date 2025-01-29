@@ -8,6 +8,8 @@
   },
   "coverage": {
     "hint": "once selected from any input press save button below the map to finalize",
+    "last_location": "Use last location",
+    "location_placeholder": "Enter a location",
     "place": "Place Name",
     "spatial": "Spatial Coverage",
     "title": "Coverage",
@@ -27,6 +29,7 @@
     "uploaded_on": "Uploaded on"
   },
   "search_point": "Search Point",
+  "selected_places": "Selected Places",
   "tags": "Tags",
   "tags_hint": "Start typing to search tags",
   "tags_update_error": "There was an error while updating tags",

@@ -1,7 +1,9 @@
-import { Checkbox, FormControl, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
 import { namedFormErrorMessage } from "@utils/field";
 import React from "react";
 import { useController } from "react-hook-form";
+
+import { Checkbox } from "../ui/checkbox";
+import { Field } from "../ui/field";
 
 interface ITextBoxProps {
   name: string;
@@ -28,21 +30,25 @@ export const CheckBoxField = ({
   } = useController({ name });
 
   return (
-    <FormControl isInvalid={!!fieldState.error} mb={mb} {...props}>
+    <Field
+      invalid={!!fieldState.error}
+      errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
+      mb={mb}
+      colorPalette={"blue"}
+      {...props}
+    >
       <Checkbox
         name={name}
         onChange={(e) => onChange(e.target["checked"])}
-        placeholder={label}
         onBlur={onBlur}
         defaultChecked={value}
-        isDisabled={isDisabled}
+        disabled={isDisabled}
         id={name}
       >
         {children || label}
       </Checkbox>
 
-      <FormErrorMessage children={namedFormErrorMessage(fieldState?.error?.message, name, label)} />
-      {hint && <FormHelperText color="gray.600">{hint}</FormHelperText>}
-    </FormControl>
+      {hint && <Field color="gray.600" helperText={hint} />}
+    </Field>
   );
 };

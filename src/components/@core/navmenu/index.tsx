@@ -16,10 +16,8 @@ export default function Navbar() {
     <Box borderBottom="1px solid" borderColor="gray.200">
       <Container>
         <nav id="menu">
-          <NextLink href="/" passHref={true}>
-            <a className="logo">
-              <Image src={SITE_CONFIG.SITE.ICON} pr={2} alt={SITE_TITLE} />
-            </a>
+          <NextLink href="/" passHref={true} className="logo">
+            <Image src={SITE_CONFIG.SITE.ICON} pr={2} alt={SITE_TITLE} />
           </NextLink>
           <input type="checkbox" id="tm" />
           <label htmlFor="tm" id="toggle-menu">

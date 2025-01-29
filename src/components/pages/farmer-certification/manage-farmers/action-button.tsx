@@ -1,10 +1,12 @@
-import { ArrowForwardIcon, DownloadIcon } from "@chakra-ui/icons";
-import { Button, Flex, Stack } from "@chakra-ui/react";
+import { Flex, Stack } from "@chakra-ui/react";
 import useInspectionReport from "@hooks/use-inspection-report";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { LuArrowRight, LuDownload } from "react-icons/lu";
 import DeleteIcon from "src/icons/delete";
+
+import { Button } from "@/components/ui/button";
 
 export default function ActionButton({ ccCode, syncStatus, isOnline, pendingReports }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,20 +44,22 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
           <NextLink
             href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}
             passHref={true}
+            legacyBehavior
           >
-            <Button as="a" colorScheme="blue" size="sm" rightIcon={<ArrowForwardIcon />} mb={4}>
+            <Button as="a" colorPalette="blue" size="sm" mb={4}>
               Farmers List ({syncStatus?.farmersCount})
+              <LuArrowRight />
             </Button>
           </NextLink>
           <Button
             className="download"
-            colorScheme="red"
-            isLoading={isLoading}
+            colorPalette="red"
+            loading={isLoading}
             onClick={handleOnRemove}
             loadingText="Deleting"
-            leftIcon={<DeleteIcon />}
             size="sm"
           >
+            <DeleteIcon />
             Remove Farmers List
           </Button>
         </Stack>
@@ -63,14 +67,14 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
         <Button
           size="sm"
           className="download"
-          colorScheme="teal"
+          colorPalette="teal"
           onClick={handleOnDownload}
-          isLoading={isLoading}
-          isDisabled={!isOnline}
+          loading={isLoading}
+          disabled={!isOnline}
           loadingText="Downloading"
-          leftIcon={<DownloadIcon />}
           w="11rem"
         >
+          <LuDownload />
           Download Farmers
         </Button>
       )}

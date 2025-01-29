@@ -19,14 +19,14 @@ const WRITE_PERMISSIONS = {
 export default function useActionProps(lotStatus, role) {
   const { user } = useGlobalState();
   const [canWrite, setCanWrite] = useState(false);
-  const [colorScheme, setcolorScheme] = useState();
+  const [colorPalette, setcolorPalette] = useState();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     setCanWrite(WRITE_PERMISSIONS[lotStatus] && hasAccess(hierarchicalRoles(role), user));
-    setcolorScheme(VARIANT_MAPPING[lotStatus]);
+    setcolorPalette(VARIANT_MAPPING[lotStatus]);
     setShow(lotStatus !== LOT_FLAGS.NOTAPPLICABLE);
   }, [lotStatus, role]);
 
-  return { canWrite, colorScheme, show };
+  return { canWrite, colorPalette, show };
 }

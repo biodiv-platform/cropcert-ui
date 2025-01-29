@@ -70,10 +70,10 @@ export default function FieldEditor({
         ) : (
           <TextBoxField name={fieldName} mb={2} label={""} />
         )}
-        <Button size="sm" colorScheme="blue" aria-label="Save" type="submit">
+        <Button size="sm" colorPalette="blue" aria-label="Save" type="submit">
           {t("common:save")}
         </Button>
-        <Button size="sm" ml={2} colorScheme="gray" aria-label="Cancel" onClick={onClose}>
+        <Button size="sm" ml={2} colorPalette="gray" aria-label="Cancel" onClick={onClose}>
           {t("common:cancel")}
         </Button>
       </form>

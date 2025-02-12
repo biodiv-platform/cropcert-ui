@@ -1,15 +1,19 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Button, Group, Spinner, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
+import AddIcon from "@icons/add";
 import { axGetColumns } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
+import { CONTAINER_CREATE } from "@static/events";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
+import { emit } from "react-gbus";
 
 import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
+import ContainerCreateModal from "./modals/container-create-modal";
 import LotReportUpdate from "./modals/lot-report-update";
 import useLotFilter from "./use-lot-filter";
 
@@ -17,7 +21,9 @@ function LotComponent() {
   const [union, setUnion] = useState({} as any);
   const [lotExtraColumns, setLotExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
-
+  const { open: clearRows, onToggle } = useDisclosure();
+  const [triggerRender, setTriggerRender] = useState(false);
+  const [selectedLots, setSelectedLots] = useState<any>([]);
   const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
 
   useEffect(() => {
@@ -35,9 +41,50 @@ function LotComponent() {
     lotExtraColumns.length > 0 &&
       setVisibleColumns([...lotColumns, ...lotExtraColumns].filter((col) => col.showDefault));
   }, [lotExtraColumns]);
+
+  const handleOnSelectionChange = ({ selectedRows }) => {
+    setSelectedLots(selectedRows);
+  };
+
+  const handleOnCreateContainer = () => {
+    const prefix = selectedLots[0].lotName.split("_")[0];
+    const quantity = selectedLots.reduce((acc, cv) => selectedLots.length && cv.quantity + acc, 0);
+
+    const payload = {
+      name: `${prefix}_Container_`,
+      selected: selectedLots,
+      coCode: [...new Set(selectedLots.map((r) => r.coCode))].flat(),
+      unionCode: union.value,
+      type: selectedLots[0].type,
+      quantity,
+    };
+
+    emit(CONTAINER_CREATE, payload);
+    setTriggerRender(!triggerRender);
+  };
+
+  const onLotUpdate = () => {
+    onToggle();
+    updateLot();
+    setTriggerRender(!triggerRender);
+  };
+
+  const ActionButtons = () => (
+    <Group gap={4}>
+      <Button
+        colorPalette="green"
+        variant="solid"
+        disabled={selectedLots.length === 0}
+        onClick={handleOnCreateContainer}
+      >
+        {<AddIcon />} Create Container
+      </Button>
+    </Group>
+  );
+
   return (
     <>
-      <PageHeading>📦 {t("traceability:tab_titles.lot")}</PageHeading>
+      <PageHeading actions={<ActionButtons />}>📦 {t("traceability:tab_titles.lot")}</PageHeading>
       <Box mt={2}>
         {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : lotListData?.length}
       </Box>
@@ -79,6 +126,10 @@ function LotComponent() {
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={[...lotColumns, ...lotExtraColumns]}
+          selectableRows={true}
+          onSelectedRowsChange={handleOnSelectionChange}
+          clearSelectedRows={clearRows}
+          selectableRowDisabled={(r) => r.containerId}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>
@@ -86,6 +137,7 @@ function LotComponent() {
         </Box>
       )}
       <LotReportUpdate update={updateLot} />
+      <ContainerCreateModal update={onLotUpdate} />
     </>
   );
 }

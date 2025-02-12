@@ -38,7 +38,8 @@
     "batch": "Batch(s)",
     "farmer_member": "Farmer Member(s)",
     "farmer_produce": "Farmer Produce",
-    "lot": "Lot(s)"
+    "lot": "Lot(s)",
+    "container": "Container(s)"
   },
   "table": {
     "manage_columns": "Manage Columns"

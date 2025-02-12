@@ -109,6 +109,13 @@ export const TYPE_OPTIONS = {
   FAQ: { label: "FAQ", value: BATCH_TYPE.FAQ },
 };
 
+export const CONTAINER_FLAGS = {
+  ADD: "ADD",
+  EDIT: "EDIT",
+  DONE: "DONE",
+  NOTAPPLICABLE: "NOTAPPLICABLE",
+};
+
 export const LOT_FLAGS = {
   ADD: "ADD",
   EDIT: "EDIT",
@@ -147,6 +154,7 @@ export const RESOURCE_TYPE = {
   FARMER: "content.eml.Farmer",
   BATCH: "content.eml.Batch",
   LOT: "content.eml.Lot",
+  CONTAINER: "content.eml.Container",
   FARMER_PRODUCE: "content.eml.FarmerProduce",
 };
 
@@ -249,6 +257,7 @@ export const MODEL = {
   FARMERPRODUCE: "FarmerProduce",
   BATCHES: "Batches",
   LOTS: "Lots",
+  CONTAINERS: "Container",
 };
 
 export const DEFAULT_FARMER_MEMBER_FILTER = {
@@ -265,6 +274,10 @@ export const DEFAULT_BATCH_FILTER = {
 
 export const DEFAULT_LOT_FILTER = {
   lotListData: [],
+};
+
+export const DEFAULT_CONTAINER_FILTER = {
+  containerListData: [],
 };
 
 export const FARMER_FILTER_KEY = {
@@ -331,6 +344,17 @@ export const LOT_FILTER_KEY = {
   },
 };
 
+export const CONTAINER_FILTER_KEY = {
+  containerId: {
+    filterKey: "containerId",
+    model: MODEL.CONTAINERS,
+  },
+  containerName: {
+    filterKey: "containerName",
+    model: MODEL.CONTAINERS,
+  },
+};
+
 export const TRACEABILITY_TABS = [
   {
     label: "🚜 Farmer Produce",
@@ -346,5 +370,10 @@ export const TRACEABILITY_TABS = [
     label: "📦 Lot(s)",
     path: "/traceability/lot",
     tabIndex: "lot",
+  },
+  {
+    label: "🏗️ Container(s)",
+    path: "/traceability/container",
+    tabIndex: "container",
   },
 ];

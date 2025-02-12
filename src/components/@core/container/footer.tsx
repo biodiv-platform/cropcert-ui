@@ -59,7 +59,11 @@ export default function Footer() {
                 src={SITE_CONFIG.SITE.ICON}
                 height={{ base: "30px", md: "40px" }}
               />
-              <Image src="/eu.svg" height={{ base: "30px", md: "40px" }} />
+              <Image
+                src="/eu.svg"
+                alt="european union logo"
+                height={{ base: "30px", md: "40px" }}
+              />
             </Flex>
             <Text fontSize="sm" color="subtle">
               {t("common:license")} (v{packagejson.version})

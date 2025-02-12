@@ -12,6 +12,8 @@ import { BATCH_UPDATE } from "@static/events";
 import React from "react";
 import { emit } from "react-gbus";
 
+import { capitalizeFirstLetter } from "@/utils/basic";
+
 const buttonProps: Partial<ButtonProps> = {
   variant: "outline",
   minWidth: "50px",
@@ -38,7 +40,7 @@ const createBatchColumn = (
 const defaultBatchModalColumns = [
   createBatchColumn("#", (row) => <BatchCell {...row} />, "80px"),
   createBatchColumn("Name", (row) => row.batchName, "210px"),
-  createBatchColumn("Quantity", (row) => row.quantity, "100px"),
+  createBatchColumn("Quantity", (row) => row.quantity, "110px"),
   createBatchColumn("Type", (row) => row.type?.toUpperCase(), "70px"),
   createBatchColumn(
     "Cooperative",
@@ -110,9 +112,18 @@ export const createBatchColumns = (columns) => {
         );
       };
 
+      const optionalColumnName = curr.isOptional
+        ? curr.columnName + " (Optional)"
+        : curr.columnName;
+
       return [
         ...acc,
-        createBatchColumn(curr.columnName, (row) => row[curr.columnName], "180px", ButtonComponent),
+        createBatchColumn(
+          capitalizeFirstLetter(optionalColumnName),
+          (row) => row[curr.columnName],
+          "180px",
+          ButtonComponent
+        ),
       ];
     }, []);
 

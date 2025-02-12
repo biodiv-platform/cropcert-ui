@@ -92,6 +92,9 @@
     "lot_status": {
       "title": "Lot Status"
     },
+    "container_status": {
+      "title": "Container Status"
+    },
     "milling_charge": {
       "title": "Milling Charge"
     },

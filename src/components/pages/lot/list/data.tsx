@@ -1,4 +1,4 @@
-import { Badge, Button, ButtonProps } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
 import CoopCell from "@components/@core/table/coop-cell";

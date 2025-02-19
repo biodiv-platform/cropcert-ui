@@ -1,12 +1,12 @@
 import {
   Box,
   Button,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
   Flex,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
 } from "@chakra-ui/react";
 // import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
@@ -14,7 +14,7 @@ import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateContainer } from "@services/container.service";
-import { CONTAINER } from "@static/messages";
+import { MCONTAINER } from "@static/messages";
 import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
 import React from "react";
@@ -56,7 +56,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, highestDate
       });
       if (success) {
         data.batches.map((b) => update({ ...b, containerStatus: data.container.containerStatus }));
-        notification(CONTAINER.CREATED, NotificationType.Success, data.container);
+        notification(MCONTAINER.CREATED, NotificationType.Success, data.container);
         onClose();
       }
     } catch (e) {
@@ -65,40 +65,38 @@ export function ContainerCreateForm({ update, lots, containerConfig, highestDate
   };
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-        <ModalContent>
-          <ModalHeader>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleSubmit)}>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
             Finalize container: {containerConfig.name}
             {formattedDate(values.creationDate)}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <DateTimeInputField
               name="creationDate"
               label="Creation Date"
               format="dd-MM-yyyy"
               min={highestDate}
             />
-            {/* TODO: do we need this? */}
-            {/* <Table data={batches} columns={[...lotCreateModalCols]} /> */}
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
                 <strong>Total</strong> {containerConfig.quantity} KG(s)
               </Box>
             </Flex>
             <TextBoxField name="note" label="Note" mb={0} />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+          </DialogBody>
+          <DialogFooter>
+            <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
-            <SubmitButton leftIcon={<Check2Icon />} isDisabled={batches.length === 0}>
-              Create container
+            <SubmitButton leftIcon={<Check2Icon />} isDisabled={lots.length === 0}>
+              Create Lot
             </SubmitButton>
-          </ModalFooter>
-        </ModalContent>
-      </form>
-    </FormProvider>
+          </DialogFooter>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

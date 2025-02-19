@@ -1,11 +1,11 @@
 import { Badge, Box, Stack, Text } from "@chakra-ui/react";
 import DataTable from "@components/@core/table";
-import LotCell from "@components/@core/table/lot-cell";
+import ContainerCell from "@components/@core/table/container-cell";
 import tooltipCell from "@components/@core/table/tooltip-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
-import LotShowPanel from "./panel";
+import ContainerShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
 const MultiMarkerMap = dynamic(
@@ -14,18 +14,18 @@ const MultiMarkerMap = dynamic(
   { ssr: false }
 );
 
-export default function LotInfo({ lot, geojsonData }) {
+export default function ContainerInfo({ container, geojsonData }) {
   const basicInfoHeader = [
     {
       name: "#",
-      selector: (row) => row["lotId"],
+      selector: (row) => row["containerId"],
       maxWidth: "100px",
       sortable: true,
-      cell: (row) => <LotCell {...row} />,
+      cell: (row) => <ContainerCell {...row} />,
     },
     {
       name: "Name",
-      selector: (row) => row["lotName"],
+      selector: (row) => row["containerName"],
       width: "280px",
     },
     {
@@ -39,9 +39,9 @@ export default function LotInfo({ lot, geojsonData }) {
       maxWidth: "100px",
     },
     {
-      name: "Lot Status",
-      selector: (row) => row["lotStatus"],
-      cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
+      name: "Container Status",
+      selector: (row) => row["containerStatus"],
+      cell: ({ containerStatus }) => <Badge>{containerStatus?.split("_").join(" ")}</Badge>,
     },
     {
       name: "Created At",
@@ -56,16 +56,15 @@ export default function LotInfo({ lot, geojsonData }) {
   ];
 
   return (
-    <LotShowPanel icon="ℹ️" title="Information" isOpen={true}>
-      <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[lot]} />
-
+    <ContainerShowPanel icon="ℹ️" title="Information" isOpen={true}>
+      <DataTable keyField="_id" columns={basicInfoHeader} noHeader={true} data={[container]} />
       <Stack my={4}>
         <Text as={"b"} pl={2}>
           Parameters:
         </Text>
         <Box>
-          {lot.modalFieldCombined &&
-            lot.modalFieldCombined.map(
+          {container.modalFieldCombined &&
+            container.modalFieldCombined.map(
               (column, index) =>
                 (column.columnStatus === "ADD" ||
                   column.columnStatus === "EDIT" ||
@@ -91,6 +90,6 @@ export default function LotInfo({ lot, geojsonData }) {
           </Box>
         </Stack>
       )}
-    </LotShowPanel>
+    </ContainerShowPanel>
   );
 }

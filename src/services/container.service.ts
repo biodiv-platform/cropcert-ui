@@ -70,3 +70,15 @@ export const axListLotByContainerId = async (containerId) => {
     return { success: false, data: [] };
   }
 };
+
+export const axGetContainerById = async (lotId, ctx?) => {
+  try {
+    const { data } = await http.get(`${ENDPOINT.TRACEABILITY}/container/show/${lotId}`, {
+      params: { ctx },
+    });
+    return { success: true, data };
+  } catch (e) {
+    notification(e);
+    return { success: false, data: {} };
+  }
+};

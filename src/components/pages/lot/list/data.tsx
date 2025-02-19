@@ -121,15 +121,6 @@ export const lotColumns = [
     showDefault: true,
     cell: (row) => <CoopCell coCode={row.coCode} />,
   },
-  {
-    name: "Lot Status",
-    selector: (row) => row.lotStatus,
-    center: true,
-    sortable: true,
-    width: "150px",
-    cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
-    showDefault: false,
-  },
 ];
 
 const lotExtraColumns = [

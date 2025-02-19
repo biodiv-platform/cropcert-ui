@@ -5,9 +5,9 @@ import BatchUpdateModal from "@components/pages/batch/list/modals/batch-update-m
 import useBatchFilter from "@components/pages/batch/list/use-batch-filter";
 import React, { useEffect, useState } from "react";
 
-import LotShowPanel from "./panel";
+import ContainerShowPanel from "./panel";
 
-export default function LotBatches({ rows }) {
+export default function ContainerBatches({ rows }) {
   const [batchColumns, setBatchColumns] = useState<any[]>([]);
   const [columnsLoading, setColumnsLoading] = useState(true);
   const [columnsError, setColumnsError] = useState<Error | null>(null);
@@ -20,7 +20,8 @@ export default function LotBatches({ rows }) {
       try {
         setColumnsLoading(true);
         const columns = await fetchBatchColumns();
-        setBatchColumns(columns);
+        const filteredCol = columns.filter((col) => col.name !== "Cooperative");
+        setBatchColumns(filteredCol);
       } catch (error) {
         setColumnsError(error as Error);
       } finally {
@@ -41,13 +42,13 @@ export default function LotBatches({ rows }) {
   };
 
   return (
-    <LotShowPanel icon="🧺" title="Batch(s)" count={rows.length}>
+    <ContainerShowPanel icon="🧺" title="Batch(s)" count={rows.length}>
       {columnsLoading ? (
         <Spinner />
       ) : (
         <DataTable keyField="batchId" columns={batchColumns} noHeader={true} data={rows} />
       )}
       <BatchUpdateModal update={onBatchUpdate} />
-    </LotShowPanel>
+    </ContainerShowPanel>
   );
 }

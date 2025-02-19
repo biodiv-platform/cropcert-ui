@@ -7,7 +7,7 @@ import {
   AccordionItemTrigger,
 } from "@/components/ui/accordion";
 
-export default function LotShowPanel({
+export default function ContainerShowPanel({
   title,
   children,
   isOpen = false,

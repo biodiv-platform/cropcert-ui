@@ -13,12 +13,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { LuDownload } from "react-icons/lu";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import useGlobalState from "@/hooks/use-global-state";
 
 import { columns } from "./data";
 
 export default function FullReportComponent() {
   const [list, setList] = useState([]);
-  const [union, setUnion] = useState<any>();
+  const { union, setUnion } = useGlobalState();
   const [coCodes, setCoCodes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFiltered, setIsFiltered] = useState(true);

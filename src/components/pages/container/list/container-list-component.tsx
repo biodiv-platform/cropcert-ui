@@ -8,13 +8,15 @@ import { ROLES } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
+import useGlobalState from "@/hooks/use-global-state";
+
 import { containerColumns, createContainerColumns } from "./data";
 import ContainerExpand from "./expand";
 // import ContainerReportUpdate from "./modals/container-report-update";
 import useContainerFilter from "./use-container-filter";
 
 function ContainerComponent() {
-  const [union, setUnion] = useState({} as any);
+  const { union, setUnion } = useGlobalState();
   const [containerExtraColumns, setContainerExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
 

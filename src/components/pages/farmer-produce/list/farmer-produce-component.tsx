@@ -18,6 +18,7 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { LuRepeat } from "react-icons/lu";
 
+import { useTraceability } from "../../common/traceability-tabs";
 import { farmerProduceColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
 import MultipleTypeWarning from "./multiple-warning";
@@ -36,6 +37,7 @@ function FarmerProduceListComponent() {
   const { open: clearRows, onToggle } = useDisclosure();
   const { t } = useTranslation();
   const [isSyncing, setIsSyncing] = useState(false);
+  const { setReRenderTabs } = useTraceability();
 
   const [visibleColumns, setVisibleColumns] = useState(
     farmerProduceColumns.filter((col) => col.showDefault)
@@ -74,6 +76,7 @@ function FarmerProduceListComponent() {
         quantity,
       };
       emit(BATCH_CREATE, payload);
+      setReRenderTabs && setReRenderTabs((prevState) => !prevState);
     }
   };
 
@@ -139,6 +142,7 @@ function FarmerProduceListComponent() {
   const onFarmerUpdate = () => {
     onToggle();
     updateFarmerProduce();
+    setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
   return (

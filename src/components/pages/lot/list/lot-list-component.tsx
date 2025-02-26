@@ -11,6 +11,9 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
+import useGlobalState from "@/hooks/use-global-state";
+
+import { useTraceability } from "../../common/traceability-tabs";
 import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
 import ContainerCreateModal from "./modals/container-create-modal";
@@ -18,13 +21,14 @@ import LotReportUpdate from "./modals/lot-report-update";
 import useLotFilter from "./use-lot-filter";
 
 function LotComponent() {
-  const [union, setUnion] = useState({} as any);
+  const { union, setUnion } = useGlobalState();
   const [lotExtraColumns, setLotExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
   const { open: clearRows, onToggle } = useDisclosure();
   const [triggerRender, setTriggerRender] = useState(false);
   const [selectedLots, setSelectedLots] = useState<any>([]);
   const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
+  const { setReRenderTabs } = useTraceability();
 
   useEffect(() => {
     (async () => {
@@ -61,12 +65,14 @@ function LotComponent() {
 
     emit(CONTAINER_CREATE, payload);
     setTriggerRender(!triggerRender);
+    setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
   const onLotUpdate = () => {
     onToggle();
     updateLot();
     setTriggerRender(!triggerRender);
+    setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
   const ActionButtons = () => (

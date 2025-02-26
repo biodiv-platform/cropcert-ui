@@ -34,3 +34,13 @@ export const axGetLastSyncedTimeFP = async (key) => {
     return { success: false, data: {} };
   }
 };
+
+export const axGetGlobalCount = async (union) => {
+  try {
+    const res = await http.get(`${ENDPOINT.TRACEABILITY}/global/count?union=${union}`);
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};

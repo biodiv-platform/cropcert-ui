@@ -2,6 +2,8 @@
   "added_a_comment": "commented",
   "batch_creation": "batch created",
   "batch_update": "batch updated",
+  "container_creation": "container created",
+  "container_update": "container updated",
   "document_created": "document created",
   "document_tag_updated": "updated tags",
   "document_updated": "document updated",

@@ -34,7 +34,8 @@ export const ENDPOINT = {
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
   RESOURCES: `${API_ENDPOINT}resources-api/api`,
-  TRACEABILITY: `${API_ENDPOINT}traceability-node-api/api/v1`,
+  // TRACEABILITY: `${API_ENDPOINT}traceability-node-api/api/v1`,
+  TRACEABILITY: `http://localhost:5500/traceability-node-api/api/v1`,
   ODK_IMAGES: `${API_ENDPOINT}odk-api/api/`,
   USER: `${API_ENDPOINT}user-api/api`,
   USERGROUP: `${API_ENDPOINT}userGroup-api/api`,
@@ -266,14 +267,17 @@ export const DEFAULT_FARMER_MEMBER_FILTER = {
 
 export const DEFAULT_FARMER_PRODUCE_FILTER = {
   farmerProduceListData: [],
+  produceStatus: "ready for batch",
 };
 
 export const DEFAULT_BATCH_FILTER = {
   batchListData: [],
+  batchStatus: "ready for lot",
 };
 
 export const DEFAULT_LOT_FILTER = {
   lotListData: [],
+  lotStatus: "ready for container",
 };
 
 export const DEFAULT_CONTAINER_FILTER = {

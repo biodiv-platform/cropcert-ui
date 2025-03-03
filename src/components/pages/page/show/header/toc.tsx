@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import MenuIcon from "@icons/menu";
 import { generateToC } from "@utils/pages";
 import useTranslation from "next-translate/useTranslation";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { PopoverBody, PopoverContent, PopoverRoot, PopoverTrigger } from "@/components/ui/popover";
@@ -33,20 +33,25 @@ export function TableOfContents() {
   const { currentPage } = usePages();
   const { t } = useTranslation();
   const showToC = useMemo(() => currentPage?.content?.includes("<h"), [currentPage?.content]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     showToC && generateToC(".article", ".toc");
   }, [currentPage]);
 
   return showToC ? (
-    <PopoverRoot positioning={{ placement: "bottom-start" }}>
+    <PopoverRoot
+      open={isOpen}
+      onOpenChange={() => setIsOpen(true)}
+      positioning={{ placement: "bottom-start" }}
+    >
       <PopoverTrigger>
         <Button variant="outline" size="sm" colorPalette="gray" bg="white" fontWeight={"bold"}>
           <MenuIcon /> {t("page:quick_navigation")}
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverBody maxH="20rem" overflow="auto">
+        <PopoverBody maxH="20rem" overflow="auto" onClick={() => setIsOpen(false)}>
           <ToCContainer className="toc" />
         </PopoverBody>
       </PopoverContent>

@@ -1,20 +1,20 @@
-import { Box, Button, Heading, Link, StatHelpText, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Heading, Link, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetOdkProjectListBysUserIdForAppUser, axIsOdkWebUser } from "@services/odk.service";
 import { ENDPOINT } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
-import { MdWarning } from "react-icons/md";
+import { LuCircleAlert } from "react-icons/lu";
 
 import {
   DialogBackdrop,
   DialogBody,
   DialogCloseTrigger,
+  DialogContent,
   DialogFooter,
-  DialogHeader,
   DialogRoot,
 } from "@/components/ui/dialog";
-import { StatRoot } from "@/components/ui/stat";
+import { StatHelpText, StatRoot } from "@/components/ui/stat";
 
 import AppUserQrModal from "./qr-modal";
 
@@ -31,8 +31,19 @@ function SeeQrModal({ index, item, user }) {
         </Box>
       </td>
       <td>
-        <Button onClick={onQrOpen}>
-          {<MdWarning />}
+        <Button onClick={onQrOpen} variant={"plain"}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            w="20px"
+            h="20px"
+            borderRadius="full"
+            bg="gray.500"
+            color="white"
+          >
+            <LuCircleAlert />
+          </Box>
           {t("common:action.see_code")}
         </Button>
       </td>
@@ -49,27 +60,26 @@ function SeeQrModal({ index, item, user }) {
 
 export default function OdkModal({ open, onClose, odkLink }) {
   const { t } = useTranslation();
-
   const { user } = useGlobalState();
-
   const [isOdkWebUser, setIsOdkWebUser] = useState<any>();
   const [userAppProjectList, setUserAppProjectList] = useState([]);
 
   useEffect(() => {
-    axGetOdkProjectListBysUserIdForAppUser(user.id).then(setUserAppProjectList);
-    axIsOdkWebUser(user.id).then(({ data }) => setIsOdkWebUser(data));
-  }, [user]);
+    if (open) {
+      axGetOdkProjectListBysUserIdForAppUser(user.id).then(setUserAppProjectList);
+      axIsOdkWebUser(user.id).then(({ data }) => setIsOdkWebUser(data));
+    }
+  }, [user, open]);
 
   return (
-    <>
+    <Box>
       <DialogRoot open={open} onOpenChange={onClose}>
         <DialogBackdrop />
-        <DialogBackdrop>
-          <DialogHeader></DialogHeader>
+        <DialogContent>
           <DialogCloseTrigger />
-          <DialogBody>
+          <DialogBody pt={4}>
             {isOdkWebUser && (
-              <Heading size="sm" mb={3}>
+              <Heading size="md" mb={3}>
                 {t("common:actions.odk.odkWebuser")}
                 <StatRoot>
                   <StatHelpText fontSize="md" mb={0}>
@@ -83,23 +93,27 @@ export default function OdkModal({ open, onClose, odkLink }) {
             {userAppProjectList?.length > 0 && (
               <>
                 <p style={{ minWidth: "550px", marginTop: "10px" }}>
-                  <b>{t("common:actions.odk.odkAppuser")}</b>
+                  <Heading size="md">{t("common:actions.odk.odkAppuser")}</Heading>
                 </p>
                 <p>{t("common:actions.odk.qrCodeHelpText")}</p>
 
                 <table
-                  style={{ minWidth: "550px", marginTop: "10px" }}
+                  style={{ minWidth: "650px", marginTop: "10px" }}
                   className="table table-bordered"
                 >
                   <thead>
                     <tr>
-                      <th align="left">{t("common:action.project_title")}</th>
-                      <th align="left">{t("common:actions.odk.qrCode")}</th>
+                      <th align="left">
+                        <Heading size="md"> {t("common:action.project_title")}</Heading>
+                      </th>
+                      <th align="left">
+                        <Heading size="md">{t("common:actions.odk.qrCode")}</Heading>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {userAppProjectList?.map((item, index) => (
-                      <SeeQrModal item={item} index={index} user={user} />
+                      <SeeQrModal key={index} item={item} index={index} user={user} />
                     ))}
                   </tbody>
                 </table>
@@ -112,8 +126,8 @@ export default function OdkModal({ open, onClose, odkLink }) {
               Close
             </Button>
           </DialogFooter>
-        </DialogBackdrop>
+        </DialogContent>
       </DialogRoot>
-    </>
+    </Box>
   );
 }

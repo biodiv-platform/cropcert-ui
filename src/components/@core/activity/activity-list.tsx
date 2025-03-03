@@ -83,6 +83,7 @@ export default function ActivityList({ resourceId, resourceType }) {
           loading={activity.isLoading}
           onClick={() => loadActivity(false)}
           variant={"subtle"}
+          fontWeight={"bold"}
         >
           {t("activity:load_more_activity")}
         </Button>

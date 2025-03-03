@@ -2,7 +2,6 @@ import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import React from "react";
 
 import {
-  DialogBackdrop,
   DialogBody,
   DialogCloseTrigger,
   DialogContent,
@@ -15,7 +14,6 @@ export default function AppUserQrModal({ qrUrl, projectName, isQrOpen, onQrClose
   return (
     <>
       <DialogRoot size="md" open={isQrOpen} onOpenChange={onQrClose}>
-        <DialogBackdrop />
         <DialogContent>
           <DialogHeader>{`${projectName} QR Code for ODK Collect app`}</DialogHeader>
           <DialogCloseTrigger />

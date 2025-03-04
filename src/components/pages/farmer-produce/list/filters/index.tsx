@@ -28,7 +28,7 @@ import ClearFilters from "./clear-filters";
 import FiltersList from "./list";
 
 export const FilterWrapper = styled.div`
-  max-height: 89vh;
+  max-height: calc(100vh - var(--heading-subheading));
   overflow-y: auto;
   border-right: 1px solid var(--chakra-colors-gray-300);
 

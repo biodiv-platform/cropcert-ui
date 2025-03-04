@@ -128,7 +128,7 @@ function LotComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="570px"
+          fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 255px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={[...lotColumns, ...lotExtraColumns]}

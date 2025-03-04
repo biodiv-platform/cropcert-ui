@@ -154,7 +154,7 @@ function FarmerMemberComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="610px"
+          fixedHeaderScrollHeight={`calc(100vh - var(--fm-table-gap, 210px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={farmerMemberColumns}

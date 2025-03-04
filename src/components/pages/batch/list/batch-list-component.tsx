@@ -194,7 +194,7 @@ function BatchComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="520px"
+          fixedHeaderScrollHeight={`calc(100vh - var(--batch-table-gap, 370px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={batchColumns}

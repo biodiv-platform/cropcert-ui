@@ -55,7 +55,9 @@ const batchModalColumnsWithLotInfo = [
     "Lot ID",
     (row) => row.lotId,
     "100px",
-    (row) => <LotCell {...row} />
+    (row) => <LotCell {...row} />,
+    true,
+    false
   ),
   createBatchColumn(
     "Record Created",

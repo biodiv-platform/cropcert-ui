@@ -22,7 +22,7 @@ FarmerProduceListPage.config = {
 };
 
 export const getServerSideProps = async (ctx) => {
-  const CUSTOM_FILTER = { ...DEFAULT_FARMER_PRODUCE_FILTER };
+  const CUSTOM_FILTER = { ...DEFAULT_FARMER_PRODUCE_FILTER, produceStatus: "ready_for_batch" };
 
   const initialFilterParams = {
     ...CUSTOM_FILTER,

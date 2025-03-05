@@ -22,7 +22,7 @@ BatchListPage.config = {
 };
 
 export const getServerSideProps = async (ctx) => {
-  const CUSTOM_FILTER = { ...DEFAULT_BATCH_FILTER };
+  const CUSTOM_FILTER = { ...DEFAULT_BATCH_FILTER, batchStatus: "ready_for_lot,pending" };
 
   const initialFilterParams = {
     ...CUSTOM_FILTER,

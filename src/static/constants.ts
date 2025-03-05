@@ -266,17 +266,14 @@ export const DEFAULT_FARMER_MEMBER_FILTER = {
 
 export const DEFAULT_FARMER_PRODUCE_FILTER = {
   farmerProduceListData: [],
-  produceStatus: "ready_for_batch",
 };
 
 export const DEFAULT_BATCH_FILTER = {
   batchListData: [],
-  batchStatus: "ready_for_lot,pending",
 };
 
 export const DEFAULT_LOT_FILTER = {
   lotListData: [],
-  lotStatus: "ready_for_container,pending",
 };
 
 export const DEFAULT_CONTAINER_FILTER = {

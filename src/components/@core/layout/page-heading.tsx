@@ -35,6 +35,7 @@ export default function PageHeading({
       shadow={floatHeader ? "sm" : undefined}
       my={floatHeader ? 2 : 0}
       px={floatHeader ? 2 : 0}
+      pt={floatHeader ? 2 : 0}
     >
       <Box mb={mb} mt={6}>
         {PreviousPageButton && PreviousPageButton}

@@ -56,7 +56,9 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
 
   return (
     <Container>
-      <PageHeading actions={<ActionButtons />}>🧺 {show.batch.batchName}</PageHeading>
+      <PageHeading actions={<ActionButtons />} floatHeader={true}>
+        🧺 {show.batch.batchName}
+      </PageHeading>
       <AccordionRoot multiple lazyMount defaultValue={["activity", "Batch(s)"]} pb={4} spaceY="4">
         <BatchInfo batch={show.batch} geojsonData={geojsonData} />
         {show.farmerProduceArr && <BatchFarmerProduce rows={show.farmerProduceArr} />}

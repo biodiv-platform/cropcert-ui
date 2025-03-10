@@ -1,67 +1,56 @@
 import { Box, Tabs } from "@chakra-ui/react";
 import { TRACEABILITY_TABS } from "@static/constants";
 import { useRouter } from "next/router";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 import useGlobalState from "@/hooks/use-global-state";
 import { axGetGlobalCount } from "@/services/traceability.service";
 
-const TraceabilityContext = createContext<
-  Partial<{ setReRenderTabs: React.Dispatch<React.SetStateAction<boolean>> }>
->({});
+const TraceabilityContext = createContext<{
+  setReRenderTabs: React.Dispatch<React.SetStateAction<boolean>>;
+} | null>(null);
 
 const TraceabilityTabs = ({ children }) => {
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState("farmerProduce");
-  const [tabs, setTabs] = useState(TRACEABILITY_TABS);
-  const [reRenderTabs, setReRenderTabs] = useState<boolean>(false);
   const { user } = useGlobalState();
+  const [tabs, setTabs] = useState(() =>
+    user.unionCode !== 5
+      ? TRACEABILITY_TABS.filter((tab) => tab.tabIndex !== "container")
+      : TRACEABILITY_TABS
+  );
+  const [reRenderTabs, setReRenderTabs] = useState(false);
 
-  const fetchData = async () => {
-    const res = await axGetGlobalCount(user.unionCode);
-    if (res.success) {
-      const updatedTabs = TRACEABILITY_TABS.map((tab) => {
-        let count = "";
-        switch (tab.tabIndex) {
-          case "batch":
-            count = res.data.count.batchCount;
-            break;
-          case "farmerProduce":
-            count = res.data.count.farmerProduceCount;
-            break;
-          case "container":
-            count = res.data.count.containerCount;
-            break;
-          case "lot":
-            count = res.data.count.lotCount;
-            break;
-          default:
-            break;
-        }
-        return {
-          ...tab,
-          label: `${tab.label.split("(")[0]}(${count ?? 0})`, // Update label with count
-        };
-      });
-      setTabs(updatedTabs); // Update state to trigger re-render
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await axGetGlobalCount(user.unionCode);
+      if (res.success) {
+        setTabs((prevTabs) =>
+          prevTabs.map((tab) => ({
+            ...tab,
+            label: `${tab.label.split("(")[0]}(${res.data.count[`${tab.tabIndex}Count`] ?? 0})`,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching global count:", error);
     }
-  };
+  }, [user.unionCode]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => {
-    fetchData();
-  }, [reRenderTabs]);
+    if (reRenderTabs) {
+      fetchData();
+      setReRenderTabs(false);
+    }
+  }, [reRenderTabs, fetchData]);
 
-  useEffect(() => {
-    const activeTab = tabs.find((tab) => tab.path === router.pathname)?.tabIndex;
-    setSelectedTab(activeTab ?? "farmerProduce");
-  }, [router.pathname, tabs]);
+  const selectedTab = tabs.find((tab) => tab.path === router.pathname)?.tabIndex || "farmerProduce";
 
-  const handleTabChange = (e) => {
-    const selectedPath = tabs.find((tab) => tab.tabIndex === e)?.path;
+  const handleTabChange = (tabIndex) => {
+    const selectedPath = tabs.find((tab) => tab.tabIndex === tabIndex)?.path;
     if (selectedPath) router.push(selectedPath);
   };
 
@@ -94,6 +83,12 @@ const TraceabilityTabs = ({ children }) => {
 };
 
 // Custom hook to access setReRenderTabs
-export const useTraceability = () => useContext(TraceabilityContext);
+export const useTraceability = () => {
+  const context = useContext(TraceabilityContext);
+  if (!context) {
+    throw new Error("useTraceability must be used within a TraceabilityTabs provider.");
+  }
+  return context;
+};
 
 export default TraceabilityTabs;

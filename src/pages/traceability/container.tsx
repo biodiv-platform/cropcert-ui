@@ -1,4 +1,4 @@
-import { RestrictedAccess } from "@components/@core/layout";
+import { ContainerRestrictedAccess } from "@components/@core/layout";
 import ContainerListPageComponent from "@components/pages/container/list";
 import { ContainerFilterProvider } from "@components/pages/container/list/use-container-filter";
 import { DEFAULT_CONTAINER_FILTER } from "@static/constants";
@@ -6,14 +6,14 @@ import React from "react";
 
 function ContainerListPage({ initialFilterParams }) {
   return (
-    <RestrictedAccess>
+    <ContainerRestrictedAccess>
       <ContainerFilterProvider
         filter={initialFilterParams}
         farmerData={initialFilterParams.lotListData}
       >
         <ContainerListPageComponent />
       </ContainerFilterProvider>
-    </RestrictedAccess>
+    </ContainerRestrictedAccess>
   );
 }
 

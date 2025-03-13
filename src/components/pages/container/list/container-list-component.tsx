@@ -12,7 +12,7 @@ import useGlobalState from "@/hooks/use-global-state";
 
 import { containerColumns, createContainerColumns } from "./data";
 import ContainerExpand from "./expand";
-// import ContainerReportUpdate from "./modals/container-report-update";
+import ContainerReportUpdate from "./modals/container-report-update";
 import useContainerFilter from "./use-container-filter";
 
 function ContainerComponent() {
@@ -20,7 +20,8 @@ function ContainerComponent() {
   const [containerExtraColumns, setContainerExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
 
-  const { clearContainer, setCOCodes, containerListData, loading } = useContainerFilter();
+  const { clearContainer, setCOCodes, containerListData, loading, updateContainer } =
+    useContainerFilter();
 
   useEffect(() => {
     (async () => {
@@ -91,7 +92,7 @@ function ContainerComponent() {
         </Box>
       )}
 
-      {/* <ContainerReportUpdate update={updateContainer} /> */}
+      <ContainerReportUpdate update={updateContainer} />
     </>
   );
 }

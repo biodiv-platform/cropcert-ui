@@ -126,8 +126,19 @@ export default function ContainerGRNForm({
 
   const formula = {
     percent: (fieldName) => {
-      const output = ((values[fieldName] / values["input_FAQ_weight"]) * 100).toFixed(2);
-      return values["input_FAQ_weight"] != "" && values[fieldName] != "" ? `(${output} %)` : "";
+      const field = fieldsObj.fields.find((f) => f.name === fieldName);
+
+      if (
+        !field ||
+        !field.percentBaseField ||
+        !values[field.percentBaseField] ||
+        !values[fieldName]
+      ) {
+        return "";
+      }
+
+      const output = ((values[fieldName] / values[field.percentBaseField]) * 100).toFixed(2);
+      return `(${output} %)`;
     },
   };
 
@@ -136,9 +147,9 @@ export default function ContainerGRNForm({
     !isDone && canWrite && isEverythingFilledExcept("finalizeContainerColumn", values);
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <DialogContent>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
           {fieldsObj.fields.map((field, index) => {
             if (field.fieldType === "Title") {
               return (
@@ -172,7 +183,7 @@ export default function ContainerGRNForm({
                       placeholder={field.label}
                       type={field.type}
                       key={index}
-                      disabled={isFormReadOnly}
+                      disabled={isFormReadOnly || field.disabled}
                     />
                   );
                 }
@@ -187,6 +198,23 @@ export default function ContainerGRNForm({
               }
               isDisabled={!isFinalizeEnabled}
             />
+            {fieldsObj.fields.map((field, index) => {
+              if (field.fieldType === "confirmCheckBoxField") {
+                return (
+                  <CheckBoxField
+                    mt={2}
+                    key={index}
+                    name="finalizeContainerColumn"
+                    label={
+                      <span>
+                        {field.label} <Badge colorPalette="red">irreversible</Badge>
+                      </span>
+                    }
+                    isDisabled={!isFinalizeEnabled}
+                  />
+                );
+              }
+            })}
             {errorMessage && (
               <Alert status="error" borderRadius="md">
                 {errorMessage}
@@ -201,8 +229,8 @@ export default function ContainerGRNForm({
               Save
             </SubmitButton>
           </DialogFooter>
-        </DialogContent>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

@@ -18,9 +18,17 @@ export const yupSchemaMapping = {
       "Field cannot be greater than Input Moisture Content"
     )
     .nullable(),
-  "Yup.string()": Yup.string().nullable(),
+  "Yup.string().required()": Yup.string().required("This field is required").nullable(),
+  "Yup.number().min(1).required()": Yup.number()
+    .min(1, "Value must be at least 1")
+    .required("This field is required")
+    .nullable(),
+  "Yup.number().min(1).max(total_quantity_kgs)": Yup.number()
+    .min(1)
+    .max(Yup.ref("total_quantity_kgs"), "Field cannot be greater than Total Quantity in Kgs")
+    .nullable(),
+  "Yup.boolean()": Yup.boolean().nullable(),
   numberFunc: (min, max) => Yup.number().min(min).max(max).nullable(),
   maxBatchQuantity: (quantity) =>
     Yup.number().min(1).max(quantity, "Field cannot exceed Batch Quantity").nullable(),
-  // Add more mappings for other Yup schema strings as needed
 };

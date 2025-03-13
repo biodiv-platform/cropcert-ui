@@ -131,9 +131,9 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
     !isDone && canWrite && isEverythingFilledExcept("finalizeLotColumn", values);
 
   return (
-    <FormProvider {...hForm}>
-      <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
-        <DialogContent>
+    <DialogContent>
+      <FormProvider {...hForm}>
+        <form onSubmit={hForm.handleSubmit(handleOnSubmit)}>
           {fieldsObj.fields.map((field, index) => {
             if (field.fieldType === "Title") {
               return (
@@ -197,8 +197,8 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
               Save
             </SubmitButton>
           </DialogFooter>
-        </DialogContent>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </DialogContent>
   );
 }

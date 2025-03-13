@@ -48,10 +48,9 @@ export const axCreateContainer = async (body) => {
   }
 };
 
-export const axUpdateContainer = async (body) => {
+export const axUpdateContainer = async (payload) => {
   try {
-    // TODO: check path
-    const res = await http.put(`${ENDPOINT.TRACEABILITY}/container/update`, body);
+    const res = await http.put(`${ENDPOINT.TRACEABILITY}/container/${payload.id}`, payload);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

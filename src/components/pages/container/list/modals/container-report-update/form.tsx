@@ -189,15 +189,7 @@ export default function ContainerGRNForm({
                 }
               })}
             </CoreGrid>
-            <CheckBoxField
-              name="finalizeContainerColumn"
-              label={
-                <span>
-                  Finalize GRN Number <Badge colorPalette="red">irreversible</Badge>
-                </span>
-              }
-              isDisabled={!isFinalizeEnabled}
-            />
+
             {fieldsObj.fields.map((field, index) => {
               if (field.fieldType === "confirmCheckBoxField") {
                 return (

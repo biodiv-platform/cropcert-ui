@@ -121,8 +121,19 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
 
   const formula = {
     percent: (fieldName) => {
-      const output = ((values[fieldName] / values["input_FAQ_weight"]) * 100).toFixed(2);
-      return values["input_FAQ_weight"] != "" && values[fieldName] != "" ? `(${output} %)` : "";
+      const field = fieldsObj.fields.find((f) => f.name === fieldName);
+
+      if (
+        !field ||
+        !field.percentBaseField ||
+        !values[field.percentBaseField] ||
+        !values[fieldName]
+      ) {
+        return "";
+      }
+
+      const output = ((values[fieldName] / values[field.percentBaseField]) * 100).toFixed(2);
+      return `(${output} %)`;
     },
   };
 
@@ -174,15 +185,23 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                 }
               })}
             </CoreGrid>
-            <CheckBoxField
-              name="finalizeLotColumn"
-              label={
-                <span>
-                  Finalize GRN Number <Badge colorPalette="red">irreversible</Badge>
-                </span>
+            {fieldsObj.fields.map((field, index) => {
+              if (field.fieldType === "confirmCheckBoxField") {
+                return (
+                  <CheckBoxField
+                    mt={2}
+                    key={index}
+                    name="finalizeLotColumn"
+                    label={
+                      <span>
+                        {field.label} <Badge colorPalette="red">irreversible</Badge>
+                      </span>
+                    }
+                    isDisabled={!isFinalizeEnabled}
+                  />
+                );
               }
-              isDisabled={!isFinalizeEnabled}
-            />
+            })}
             {errorMessage && (
               <Alert status="error" borderRadius="md">
                 {errorMessage}

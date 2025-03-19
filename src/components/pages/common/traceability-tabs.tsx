@@ -35,7 +35,7 @@ const TraceabilityTabs = ({ children }) => {
     if (!union) return;
 
     try {
-      const res = await axGetGlobalCount(user.unionCode);
+      const res = await axGetGlobalCount(union.code);
       if (res.success) {
         setTabs((prevTabs) =>
           prevTabs.map((tab) => ({
@@ -47,7 +47,7 @@ const TraceabilityTabs = ({ children }) => {
     } catch (error) {
       console.error("Error fetching global count:", error);
     }
-  }, [user.unionCode, union]);
+  }, [union]);
 
   useEffect(() => {
     if (tabs.length > 0) {

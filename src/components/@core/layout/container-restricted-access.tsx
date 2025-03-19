@@ -5,9 +5,9 @@ import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import React from "react";
 
 function ContainerRestrictedAccess({ to = ROLES.COLLECTION_CENTER, children }) {
-  const { user } = useGlobalState();
+  const { user, union } = useGlobalState();
   const toHierarchical = hierarchicalRoles(to);
-  const hasPermission = hasAccess(toHierarchical, user) && user.unionCode === 5;
+  const hasPermission = hasAccess(toHierarchical, user) && union.hasContainer;
 
   return hasPermission ? (
     children

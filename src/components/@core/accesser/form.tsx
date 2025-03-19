@@ -1,5 +1,4 @@
 import { reactSelectProps } from "@components/form/configs";
-import useGlobalState from "@hooks/use-global-state";
 import { getByRole } from "@services/accessor.service";
 import { ROLES } from "@static/constants";
 import { setUserKey } from "@utils/auth";
@@ -7,6 +6,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 
 import { Field } from "@/components/ui/field";
+import useGlobalState from "@/hooks/use-global-state";
 
 interface IProps {
   toRole: string;
@@ -21,10 +21,6 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
   const [rolesOptions, setRolesOptions] = useState(initialState.options);
   const [rolesValues, setRolesValues] = useState(initialState.values);
   const { setUnion } = useGlobalState();
-
-  useEffect(() => {
-    setUnion(rolesValues.UNION_PERSON);
-  }, [rolesValues.UNION_PERSON]);
 
   useEffect(() => {
     if (rolesValues[toRole]) {
@@ -73,6 +69,7 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
       setRolesOptions(rolesOptionsT);
       setRolesValues(rolesValuesT);
     });
+    setUnion(selectedItem);
   };
 
   const RoleDropdown = (role, index) => {

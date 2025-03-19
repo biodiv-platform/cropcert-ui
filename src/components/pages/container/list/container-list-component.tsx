@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 
 import useGlobalState from "@/hooks/use-global-state";
 
+import { useTraceability } from "../../common/traceability-tabs";
 import { containerColumns, createContainerColumns } from "./data";
 import ContainerExpand from "./expand";
 import ContainerReportUpdate from "./modals/container-report-update";
@@ -19,6 +20,7 @@ function ContainerComponent() {
   const { union, setUnion } = useGlobalState();
   const [containerExtraColumns, setContainerExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
+  const { setReRenderTabs } = useTraceability();
 
   const { clearContainer, setCOCodes, containerListData, loading, updateContainer } =
     useContainerFilter();
@@ -40,6 +42,11 @@ function ContainerComponent() {
         [...containerColumns, ...containerExtraColumns].filter((col) => col.showDefault)
       );
   }, [containerExtraColumns]);
+
+  useEffect(() => {
+    setReRenderTabs && setReRenderTabs((prev) => !prev);
+  }, [union]);
+
   return (
     <>
       <PageHeading>🏗️ {t("traceability:tab_titles.container")}</PageHeading>

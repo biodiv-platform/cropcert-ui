@@ -12,15 +12,28 @@ const TraceabilityContext = createContext<{
 
 const TraceabilityTabs = ({ children }) => {
   const router = useRouter();
-  const { user } = useGlobalState();
-  const [tabs, setTabs] = useState(() =>
-    user.unionCode !== 5
-      ? TRACEABILITY_TABS.filter((tab) => tab.tabIndex !== "container")
-      : TRACEABILITY_TABS
-  );
+  const { user, union } = useGlobalState();
+  const [tabs, setTabs] = useState<any>([]);
   const [reRenderTabs, setReRenderTabs] = useState(false);
 
+  useEffect(() => {
+    if (!union) return;
+
+    const filteredTabs = TRACEABILITY_TABS.filter((tab) => {
+      if (tab.tabIndex === "farmerProduce") return true;
+      if (tab.tabIndex === "batch") return union.hasBatch;
+      if (tab.tabIndex === "lot") return union.hasLot;
+      if (tab.tabIndex === "container") return union.hasContainer;
+
+      return false;
+    });
+
+    setTabs(filteredTabs);
+  }, [union]);
+
   const fetchData = useCallback(async () => {
+    if (!union) return;
+
     try {
       const res = await axGetGlobalCount(user.unionCode);
       if (res.success) {
@@ -34,18 +47,24 @@ const TraceabilityTabs = ({ children }) => {
     } catch (error) {
       console.error("Error fetching global count:", error);
     }
-  }, [user.unionCode]);
+  }, [user.unionCode, union]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (tabs.length > 0) {
+      fetchData();
+    }
+  }, [fetchData, tabs.length]);
 
   useEffect(() => {
-    if (reRenderTabs) {
+    if (reRenderTabs && union) {
       fetchData();
       setReRenderTabs(false);
     }
-  }, [reRenderTabs, fetchData]);
+  }, [reRenderTabs, fetchData, union]);
+
+  if (!union) {
+    return null;
+  }
 
   const selectedTab = tabs.find((tab) => tab.path === router.pathname)?.tabIndex || "farmerProduce";
 
@@ -82,7 +101,6 @@ const TraceabilityTabs = ({ children }) => {
   );
 };
 
-// Custom hook to access setReRenderTabs
 export const useTraceability = () => {
   const context = useContext(TraceabilityContext);
   if (!context) {

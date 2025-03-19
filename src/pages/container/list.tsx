@@ -13,7 +13,7 @@ function ContainerListPage() {
 
 ContainerListPage.getInitialProps = async () => {
   const { data } = await axListUnion();
-  return { unions: data.map((u) => ({ label: u.name, value: u.code })) };
+  return { unions: data.map((u) => ({ label: u.name, value: u.code, ...u })) };
 };
 
 export default ContainerListPage;

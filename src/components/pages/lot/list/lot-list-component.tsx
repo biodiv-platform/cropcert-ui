@@ -46,6 +46,10 @@ function LotComponent() {
       setVisibleColumns([...lotColumns, ...lotExtraColumns].filter((col) => col.showDefault));
   }, [lotExtraColumns]);
 
+  useEffect(() => {
+    setReRenderTabs && setReRenderTabs((prev) => !prev);
+  }, [union]);
+
   const handleOnSelectionChange = ({ selectedRows }) => {
     setSelectedLots(selectedRows);
   };

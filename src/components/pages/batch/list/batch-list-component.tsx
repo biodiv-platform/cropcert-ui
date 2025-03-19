@@ -122,6 +122,10 @@ function BatchComponent() {
     return <Box>Error loading columns: {columnsError.message}</Box>;
   }
 
+  useEffect(() => {
+    setReRenderTabs && setReRenderTabs((prev) => !prev);
+  }, [union]);
+
   return (
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 {t("traceability:tab_titles.batch")}</PageHeading>

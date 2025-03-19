@@ -18,7 +18,7 @@ export default function PlainUnionSelect({ onChange, maxW = "308px" }) {
   const getAllUnions = async () => {
     const { success, data } = await axListUnion();
     if (success) {
-      const options = data.map((u) => ({ label: u.name, value: u.code }));
+      const options = data.map((u) => ({ label: u.name, value: u.code, ...u }));
       setUnions(options);
       onChange(options[0]);
     }

@@ -12,7 +12,7 @@ const TraceabilityContext = createContext<{
 
 const TraceabilityTabs = ({ children }) => {
   const router = useRouter();
-  const { user, union } = useGlobalState();
+  const { union } = useGlobalState();
   const [tabs, setTabs] = useState<any>([]);
   const [reRenderTabs, setReRenderTabs] = useState(false);
 

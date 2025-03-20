@@ -1,5 +1,4 @@
-import { Badge, Button } from "@chakra-ui/react";
-import { CoreGrid } from "@components/@core/layout";
+import { Badge, Box, Button, Grid } from "@chakra-ui/react";
 import { CheckBoxField } from "@components/form/checkbox";
 import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
@@ -167,52 +166,67 @@ export default function ContainerGRNForm({
           })}
           <DialogCloseTrigger />
           <DialogBody>
-            <CoreGrid rows={2}>
+            <Grid templateColumns="repeat(4, 1fr)" gapX={4} gapY={2}>
               {fieldsObj.fields.map((field, index) => {
-                if (field.fieldType === "input") {
+                const sections = fieldsObj.fields.filter((f) => f.fieldType === "section");
+                const isLastSection = sections[sections.length - 1]?.value === field.value;
+                const isOddSections = sections.length % 2 !== 0;
+
+                if (field.fieldType === "section") {
                   return (
-                    <TextBoxField
-                      mb={2}
-                      name={field.name}
-                      id={field.name}
-                      label={
-                        field?.showPercent
-                          ? `${field.label} ${formula.percent(field.name)}`
-                          : field.label
-                      }
-                      placeholder={field.label}
-                      type={field.type}
+                    <Box
                       key={index}
-                      disabled={isFormReadOnly || field.disabled}
-                    />
+                      gridColumn={isLastSection && isOddSections ? "span 4" : "span 2"}
+                      fontSize="md"
+                      fontWeight="bold"
+                      pb={1}
+                      mt={2}
+                    >
+                      {field.value}
+                    </Box>
+                  );
+                } else if (field.fieldType === "input") {
+                  return (
+                    <Box key={index}>
+                      <TextBoxField
+                        name={field.name}
+                        id={field.name}
+                        label={
+                          field?.showPercent
+                            ? `${field.label} ${formula.percent(field.name)}`
+                            : field.label
+                        }
+                        placeholder={field.label}
+                        type={field.type}
+                        disabled={isFormReadOnly || field.disabled}
+                      />
+                    </Box>
+                  );
+                } else if (field.fieldType === "confirmCheckBoxField") {
+                  return (
+                    <Box key={index} gridColumn="span 4">
+                      <CheckBoxField
+                        name="finalizeContainerColumn"
+                        label={
+                          <span>
+                            {field.label} <Badge colorScheme="red">irreversible</Badge>
+                          </span>
+                        }
+                        isDisabled={!isFinalizeEnabled}
+                      />
+                    </Box>
                   );
                 }
               })}
-            </CoreGrid>
+            </Grid>
 
-            {fieldsObj.fields.map((field, index) => {
-              if (field.fieldType === "confirmCheckBoxField") {
-                return (
-                  <CheckBoxField
-                    mt={2}
-                    key={index}
-                    name="finalizeContainerColumn"
-                    label={
-                      <span>
-                        {field.label} <Badge colorPalette="red">irreversible</Badge>
-                      </span>
-                    }
-                    isDisabled={!isFinalizeEnabled}
-                  />
-                );
-              }
-            })}
             {errorMessage && (
-              <Alert status="error" borderRadius="md">
+              <Alert status="error" borderRadius="md" mt={4}>
                 {errorMessage}
               </Alert>
             )}
           </DialogBody>
+
           <DialogFooter>
             <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close

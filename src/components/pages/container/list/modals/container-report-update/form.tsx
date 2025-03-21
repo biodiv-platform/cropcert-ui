@@ -8,7 +8,7 @@ import { MCONTAINER } from "@static/messages";
 import { isEverythingFilledExcept } from "@utils/basic";
 import { yupSchemaMapping } from "@utils/form";
 import notification, { NotificationType } from "@utils/notification";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
@@ -33,6 +33,34 @@ export default function ContainerGRNForm({
   const fieldsObj = container.modalFieldCombined.find(
     (o) => o.modalFieldId === container.showModalById
   );
+
+  // Find the net weight field name
+  const netWeightField = fieldsObj?.fields.find(
+    (f) => f.name?.includes("net_weight") || f.name === "net_weight_kgs"
+  );
+  const netWeightFieldName = netWeightField?.name;
+
+  // Find all total kgs fields from sections
+  const totalKgsFields = fieldsObj?.fields.filter(
+    (f) =>
+      f.name?.includes("total_kgs") &&
+      f.name !== "total_kgs" &&
+      !f.name.startsWith("net_") &&
+      !f.name.startsWith("gross_")
+  );
+  const totalKgsFieldNames = totalKgsFields?.map((f) => f.name) || [];
+
+  // Create a custom validation function for net weight
+  const validateNetWeight = (value, context) => {
+    if (!netWeightFieldName || totalKgsFieldNames.length === 0) return true;
+
+    const totalSectionKgs = totalKgsFieldNames.reduce((sum, fieldName) => {
+      const fieldValue = context.parent[fieldName];
+      return sum + (Number(fieldValue) || 0);
+    }, 0);
+
+    return Number(value) >= totalSectionKgs;
+  };
 
   const formValues =
     fieldsObj &&
@@ -60,6 +88,19 @@ export default function ContainerGRNForm({
                 [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
               };
             }
+          } else if (currField.name === netWeightFieldName) {
+            // Custom validation for net weight field
+            yupSchema = {
+              ...acc.yupSchema,
+              [currField.name]: Yup.number()
+                .min(1, "Net weight must be at least 1")
+                .test(
+                  "greaterThanOrEqualTotalKgs",
+                  "Net weight must be greater than or equal to the sum of all section total kgs",
+                  validateNetWeight
+                )
+                .required("Net weight is required"),
+            };
           } else {
             if (currField.required) {
               yupSchema = {
@@ -89,7 +130,7 @@ export default function ContainerGRNForm({
     );
 
   const hForm = useForm<any>({
-    mode: "onBlur",
+    mode: "all", // Changed from "onBlur" to "all" to validate on change as well
     resolver: yupResolver(
       Yup.object().shape({
         ...formValues.yupSchema,
@@ -104,7 +145,33 @@ export default function ContainerGRNForm({
 
   const values = hForm.watch();
 
+  // Add effect to trigger validation of net weight when any total kgs field changes
+  useEffect(
+    () => {
+      if (netWeightFieldName && values[netWeightFieldName]) {
+        hForm.trigger(netWeightFieldName);
+      }
+    },
+    totalKgsFieldNames.map((fieldName) => values[fieldName])
+  );
+
   const handleOnSubmit = async (payload) => {
+    // Additional pre-submission validation
+    if (netWeightFieldName && totalKgsFieldNames.length > 0) {
+      const netWeightValue = Number(payload[netWeightFieldName]) || 0;
+      const totalSectionKgs = totalKgsFieldNames.reduce((sum, fieldName) => {
+        return sum + (Number(payload[fieldName]) || 0);
+      }, 0);
+
+      if (netWeightValue < totalSectionKgs) {
+        notification(
+          "Net weight must be greater than or equal to the sum of all section total kgs",
+          NotificationType.Error
+        );
+        return;
+      }
+    }
+
     try {
       const updatedPayload = {
         fields: payload,

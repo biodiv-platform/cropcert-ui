@@ -31,4 +31,29 @@ export const yupSchemaMapping = {
   numberFunc: (min, max) => Yup.number().min(min).max(max).nullable(),
   maxBatchQuantity: (quantity) =>
     Yup.number().min(1).max(quantity, "Field cannot exceed Batch Quantity").nullable(),
+  net_weight_kgs: Yup.number()
+    .min(1, "Net weight must be at least 1")
+    .required("Net weight is required")
+    .test(
+      "greaterThanOrEqualTotalKgs",
+      "Net weight must be greater than or equal to the sum of all section total kgs",
+      function (value) {
+        const {
+          sc18_total_kgs = 0,
+          sc15_total_kgs = 0,
+          sc14_total_kgs = 0,
+          sc12_total_kgs = 0,
+          undergrade_total_kgs = 0,
+        } = this.parent;
+
+        const totalSectionKgs =
+          Number(sc18_total_kgs || 0) +
+          Number(sc15_total_kgs || 0) +
+          Number(sc14_total_kgs || 0) +
+          Number(sc12_total_kgs || 0) +
+          Number(undergrade_total_kgs || 0);
+
+        return Number(value) >= totalSectionKgs;
+      }
+    ),
 };

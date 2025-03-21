@@ -208,9 +208,22 @@ export default function ContainerGRNForm({
     },
   };
 
+  const requiredFieldNames =
+    fieldsObj?.fields
+      .filter((field) => field.fieldType === "input" && field.required)
+      .map((field) => field.name) || [];
+
   const isFormReadOnly = !canWrite || values.finalizeContainerColumn;
+
+  const requiredValues: any = {};
+  requiredFieldNames.forEach((fieldName) => {
+    requiredValues[fieldName] = values[fieldName];
+  });
+
+  requiredValues.finalizeContainerColumn = values.finalizeContainerColumn;
+
   const isFinalizeEnabled =
-    !isDone && canWrite && isEverythingFilledExcept("finalizeContainerColumn", values);
+    !isDone && canWrite && isEverythingFilledExcept("finalizeContainerColumn", requiredValues);
 
   return (
     <DialogContent>

@@ -28,7 +28,12 @@ export const yupSchemaMapping = {
     .max(Yup.ref("total_quantity_kgs"), "Field cannot be greater than Total Quantity in Kgs")
     .nullable(),
   "Yup.boolean()": Yup.boolean().nullable(),
-  numberFunc: (min, max) => Yup.number().min(min).max(max).nullable(),
+  numberFunc: (min, max) =>
+    Yup.number()
+      .min(min)
+      .max(max)
+      .nullable()
+      .transform((value, originalValue) => (originalValue === "" ? undefined : value)),
   maxBatchQuantity: (quantity) =>
     Yup.number().min(1).max(quantity, "Field cannot exceed Batch Quantity").nullable(),
   net_weight_kgs: Yup.number()
@@ -54,6 +59,16 @@ export const yupSchemaMapping = {
           Number(undergrade_total_kgs || 0);
 
         return Number(value) >= totalSectionKgs;
+      }
+    ),
+  grossWeightValid: Yup.number()
+    .min(1)
+    .required()
+    .test(
+      "gross-weight-valid",
+      "Gross Weight must be less than or equal to Total Kgs",
+      function (value) {
+        return Number(value) <= this.parent.total_kgs;
       }
     ),
 };

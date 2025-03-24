@@ -38,7 +38,13 @@ export default function ContainerGRNForm({
   const netWeightField = fieldsObj?.fields.find(
     (f) => f.name?.includes("net_weight") || f.name === "net_weight_kgs"
   );
+
+  const grossWeightField = fieldsObj?.fields.find(
+    (f) => f.name?.includes("gross_weight") || f.name === "gross_weight_kgs"
+  );
+
   const netWeightFieldName = netWeightField?.name;
+  const grossWeightFieldName = grossWeightField?.name;
 
   // Find all total kgs fields from sections
   const totalKgsFields = fieldsObj?.fields.filter(
@@ -89,23 +95,40 @@ export default function ContainerGRNForm({
               };
             }
           } else if (currField.name === netWeightFieldName) {
-            // Custom validation for net weight field
             yupSchema = {
               ...acc.yupSchema,
               [currField.name]: Yup.number()
                 .min(1, "Net weight must be at least 1")
+                .nullable()
                 .test(
                   "greaterThanOrEqualTotalKgs",
                   "Net weight must be greater than or equal to the sum of all section total kgs",
                   validateNetWeight
                 )
-                .required("Net weight is required"),
+                .required(),
+            };
+          } else if (currField.name === grossWeightFieldName) {
+            yupSchema = {
+              ...acc.yupSchema,
+              [currField.name]: Yup.number()
+                .min(1)
+                .required()
+                .nullable()
+                .test(
+                  "gross-weight-valid",
+                  "Gross Weight must be less than or equal to Total Kgs",
+                  function (value) {
+                    return Number(value) <= this.parent.total_kgs;
+                  }
+                ),
             };
           } else {
             if (currField.required) {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema].required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema]
+                  .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+                  .required(),
               };
             } else {
               yupSchema = {

@@ -60,7 +60,9 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             if (currField.required) {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema].required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema]
+                  .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+                  .required(),
               };
             } else {
               yupSchema = {

@@ -2,7 +2,10 @@ import * as Yup from "yup";
 
 export const yupSchemaMapping = {
   "Yup.number()": Yup.number().nullable().typeError("Field must be a number"),
-  "Yup.number().min(1)": Yup.number().min(1).nullable(),
+  "Yup.number().min(1)": Yup.number()
+    .min(1)
+    .nullable()
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value)),
   "Yup.number().min(1).max(weight_arriving_factory)": Yup.number()
     .min(1)
     .max(Yup.ref("weight_arriving_factory"), "Field cannot be greater than Weight Arriving Factory")

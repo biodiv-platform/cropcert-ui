@@ -100,6 +100,7 @@ export default function ContainerGRNForm({
               [currField.name]: Yup.number()
                 .min(1, "Net weight must be at least 1")
                 .nullable()
+                .transform((value, originalValue) => (originalValue === "" ? undefined : value))
                 .test(
                   "greaterThanOrEqualTotalKgs",
                   "Net weight must be greater than or equal to the sum of all section total kgs",
@@ -112,6 +113,7 @@ export default function ContainerGRNForm({
               ...acc.yupSchema,
               [currField.name]: Yup.number()
                 .min(1)
+                .transform((value, originalValue) => (originalValue === "" ? undefined : value))
                 .required()
                 .nullable()
                 .test(

@@ -46,12 +46,14 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             if (currField.required) {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(
+                  `${currField.label} is required`
+                ),
               };
             } else {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
               };
             }
           }
@@ -62,7 +64,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                 ...acc.yupSchema,
                 [currField.name]: yupSchemaMapping[currField.yupSchema]
                   .transform((value, originalValue) => (originalValue === "" ? undefined : value))
-                  .required(),
+                  .required(`${currField.label} is required`),
               };
             } else {
               yupSchema = {

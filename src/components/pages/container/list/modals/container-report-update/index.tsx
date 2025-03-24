@@ -32,12 +32,7 @@ export default function ContainerReportUpdate({ update }) {
   };
 
   return (
-    <DialogRoot
-      open={open}
-      onOpenChange={handleOnClose}
-      closeOnInteractOutside={false}
-      size={"cover"}
-    >
+    <DialogRoot open={open} onOpenChange={handleOnClose} closeOnInteractOutside={false} size={"xl"}>
       <DialogBackdrop />
       {container && (
         <ContainerGRNForm

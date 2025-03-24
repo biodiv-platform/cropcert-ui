@@ -86,12 +86,14 @@ export default function ContainerGRNForm({
             if (currField.required) {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(
+                  `${currField.label} is required`
+                ),
               };
             } else {
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(),
+                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
               };
             }
           } else if (currField.name === netWeightFieldName) {
@@ -106,7 +108,14 @@ export default function ContainerGRNForm({
                   "Net weight must be greater than or equal to the sum of all section total kgs",
                   validateNetWeight
                 )
-                .required(),
+                .test(
+                  "net-less-than-gross",
+                  "Net weight must be less than or equal to Gross Weight",
+                  function (value) {
+                    return Number(value) <= this.parent.gross_weight_kgs;
+                  }
+                )
+                .required(`${currField.label} is required`),
             };
           } else if (currField.name === grossWeightFieldName) {
             yupSchema = {
@@ -114,7 +123,7 @@ export default function ContainerGRNForm({
               [currField.name]: Yup.number()
                 .min(1)
                 .transform((value, originalValue) => (originalValue === "" ? undefined : value))
-                .required()
+                .required(`${currField.label} is required`)
                 .nullable()
                 .test(
                   "gross-weight-valid",
@@ -130,7 +139,7 @@ export default function ContainerGRNForm({
                 ...acc.yupSchema,
                 [currField.name]: yupSchemaMapping[currField.yupSchema]
                   .transform((value, originalValue) => (originalValue === "" ? undefined : value))
-                  .required(),
+                  .required(`${currField.label} is required`),
               };
             } else {
               yupSchema = {

@@ -1,5 +1,4 @@
 import { Button, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
 import React from "react";
 
 export const inspectionReportColumns = [
@@ -26,15 +25,11 @@ export const inspectionReportColumns = [
     selector: (row) => row["version"],
     cell: ({ lastApprovedReportId }) =>
       lastApprovedReportId ? (
-        <NextLink
-          href={`/farmer-certification/inspection-report/show?pid=${lastApprovedReportId}`}
-          passHref={true}
-          legacyBehavior
-        >
+        <Link href={`/farmer-certification/inspection-report/show?pid=${lastApprovedReportId}`}>
           <Button variant="outline" colorPalette="blue" size="xs" as={Link}>
             View Report
           </Button>
-        </NextLink>
+        </Link>
       ) : (
         "No Previous Report"
       ),
@@ -47,15 +42,13 @@ export const inspectionReportColumns = [
       isReportFinalized ? (
         "No Pending Report"
       ) : (
-        <NextLink
+        <Link
           href={`/farmer-certification/inspection-report/show?cid=${reportId}&pid=${lastApprovedReportId}`}
-          passHref={true}
-          legacyBehavior
         >
           <Button variant="outline" colorPalette="blue" size="xs" as={Link}>
             Manage Report
           </Button>
-        </NextLink>
+        </Link>
       ),
   },
 ];

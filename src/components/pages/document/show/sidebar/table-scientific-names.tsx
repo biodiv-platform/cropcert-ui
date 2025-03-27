@@ -1,4 +1,4 @@
-import { Box, Skeleton, Table } from "@chakra-ui/react";
+import { Box, Link, Skeleton, Table } from "@chakra-ui/react";
 import DeleteActionButton from "@components/@core/action-buttons/delete";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import BoxHeading from "@components/@core/layout/box-heading";
@@ -6,7 +6,6 @@ import { stickyTh } from "@components/pages/observation/list/views/stats/common"
 import useGlobalState from "@hooks/use-global-state";
 import { axUpdateScientifcNameToIsDeleted } from "@services/document.service";
 import { adminOrAuthor } from "@utils/auth";
-import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
@@ -48,12 +47,11 @@ export default function ScientificNamesTable({
               <Table.Row>
                 <Table.Cell>
                   {taxonConceptId != null ? (
-                    <NextLink
+                    <Link
                       href={`/taxonomy/list?showTaxon=${taxonConceptId}&taxonId=${taxonConceptId}`}
-                      legacyBehavior
                     >
                       <ExternalBlueLink>{canonicalForm}</ExternalBlueLink>
-                    </NextLink>
+                    </Link>
                   ) : (
                     canonicalForm
                   )}

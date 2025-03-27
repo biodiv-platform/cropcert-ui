@@ -1,8 +1,7 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import BlueLink from "@components/@core/blue-link";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
-import NextLink from "next/link";
 import { NextSeo } from "next-seo";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
@@ -21,12 +20,12 @@ function RegisterComponent() {
           <PageHeading>{t("user:sign_up")}</PageHeading>
           <Text mb={4}>
             {t("user:existing_user")}{" "}
-            <NextLink href="/login" legacyBehavior>
+            <Link href="/login" legacyBehavior>
               <BlueLink>
                 {t("auth:sign_in")}
                 <LuChevronRight />
               </BlueLink>
-            </NextLink>
+            </Link>
           </Text>
           <SignUpForm />
         </Box>

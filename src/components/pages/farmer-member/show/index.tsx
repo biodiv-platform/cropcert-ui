@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, Text } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
@@ -9,7 +9,6 @@ import { RESOURCE_TYPE, ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import { generateBackBtnStr } from "@utils/basic";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
@@ -66,9 +65,9 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
-            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
+            <Link href={`/farmer/edit/${show?.farmer?._id}`}>
               <EditIcon />
-            </NextLink>
+            </Link>
           </Box>
         </Tooltip>
         <Tooltip content="Delete Farmer" showArrow>

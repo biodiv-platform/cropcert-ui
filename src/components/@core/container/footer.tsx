@@ -17,7 +17,6 @@ import MailIcon from "@icons/mail";
 import TwitterIcon from "@icons/twitter";
 import { SITE_TITLE } from "@static/constants";
 import { containerMaxW } from "@static/navmenu";
-import NextLink from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
@@ -74,9 +73,9 @@ export default function Footer() {
               {pages
                 .filter((page) => page.showInFooter !== false)
                 .map((page) => (
-                  <NextLink href={`/page/show/${page.id}`} key={page.id}>
-                    <Link>{page.title}</Link>
-                  </NextLink>
+                  <Link href={`/page/show/${page.id}`} key={page.id}>
+                    {page.title}
+                  </Link>
                 ))}
             </SimpleGrid>
 

@@ -1,8 +1,7 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Link, Text } from "@chakra-ui/react";
 import ResponsiveRow from "@components/@core/layout/responsive-row";
 import useInspectionReport from "@hooks/use-inspection-report";
 import { UPLOAD_ALL_INSPECTION } from "@static/events";
-import NextLink from "next/link";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
 import { LuArrowRight, LuArrowUp, LuCircleCheck } from "react-icons/lu";
@@ -90,12 +89,12 @@ export default function FarmerItem({ farmer, bgGray, isOnline, updateFarmer }) {
             </Button>
           )
         ) : (
-          <NextLink href={`create?feFarmerId=${farmer.id}`} passHref={true} legacyBehavior>
+          <Link href={`create?feFarmerId=${farmer.id}`}>
             <Button className="fade" as="a" colorPalette="blue">
               Create Inspection Report
               <LuArrowRight />
             </Button>
-          </NextLink>
+          </Link>
         )}
       </Box>
     </ResponsiveRow>

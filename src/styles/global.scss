@@ -14,6 +14,11 @@
 :root {
   --heading-height: 55px;
   --footer-height: 110px;
+  --heading-subheading: 105px;
+  --traceability-container-text: 255px;
+  --table-gap: calc(var(--heading-subheading) + var(--traceability-container-text));
+  --fm-table-gap: calc(var(--heading-subheading) + 210px);
+  --batch-table-gap: calc(var(--heading-subheading) + 315px);
   --page-height: calc(100vh - var(--heading-height) - var(--footer-height));
   height: 100%;
   width: 100%;

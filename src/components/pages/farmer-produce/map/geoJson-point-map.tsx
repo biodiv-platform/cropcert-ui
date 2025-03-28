@@ -44,7 +44,7 @@ export default function GeoJsonPointMap({ geojson }) {
   }
 
   return (
-    <MapContainer center={center} zoom={14} ref={mapRef} style={mapStyle}>
+    <MapContainer center={center} zoom={14} ref={mapRef} style={mapStyle} className="map-container">
       <LayersControl>
         <LayersControl.BaseLayer name={MAP_LAYERS.OSM}>
           <TileLayer

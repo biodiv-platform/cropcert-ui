@@ -305,3 +305,34 @@ export interface FarmerProduce {
   needsReview: boolean;
   isDeleted: boolean;
 }
+
+export interface Container {
+  id: any;
+  _id: string;
+  productId: string;
+  containerName: string;
+  type: string;
+  coCode: number[];
+  ccCode: number[];
+  unionCode: number;
+  quantity: number;
+  containerStatus: string;
+  modalFieldCombined: Array<{
+    lastUpdatedAt: string;
+    columnStatus: "ADD" | "EDIT" | "DONE" | "NOTAPPLICABLE";
+    modalFieldId: any;
+    columnName: string;
+    isOptional: boolean;
+    fields: [name: string, value: any];
+  }>;
+  containerId: string;
+  lotIds: string[];
+  batchIds: string[];
+  farmerProduceIds: string[];
+  flag: boolean;
+  flagReason: string[];
+  createdAt: Date;
+  lastUpdatedAt: Date;
+  isDeleted: boolean;
+  note: string | null;
+}

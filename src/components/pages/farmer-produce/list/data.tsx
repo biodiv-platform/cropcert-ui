@@ -20,7 +20,7 @@ export const farmerProduceColumns = [
   {
     name: "Quantity",
     selector: (row) => row["quantity"],
-    maxWidth: "100px",
+    maxWidth: "110px",
     sortable: true,
     right: true,
     showDefault: true,

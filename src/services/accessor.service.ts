@@ -20,6 +20,7 @@ export const getByRole = async (role: string, code = -1) => {
       res = un.data.map((o) => ({
         label: o.name,
         value: o.code,
+        ...o,
       }));
       break;
 

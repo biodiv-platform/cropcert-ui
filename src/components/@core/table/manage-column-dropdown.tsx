@@ -22,6 +22,11 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
 
     if (columnToRestore) {
       setVisibleColumns((prevColumns) => {
+        // Check if the column is already in the visible columns
+        if (prevColumns.some((col) => col.name === columnToRestore.name)) {
+          return prevColumns;
+        }
+
         const newColumns = [...prevColumns, columnToRestore];
         return newColumns.sort(
           (a, b) =>

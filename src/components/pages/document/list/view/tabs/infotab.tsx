@@ -1,4 +1,4 @@
-import { Badge, Box, Flex, Heading, HStack, Link, Stack, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, HStack, Stack, Text } from "@chakra-ui/react";
 import FlagActionButton from "@components/@core/action-buttons/flag";
 import DocumentIcon from "@components/pages/document/common/document-icon";
 import BookIcon from "@icons/bookmark";
@@ -8,7 +8,7 @@ import PeopleIcon from "@icons/people";
 import { axFlagDocument, axUnFlagDocument } from "@services/document.service";
 import { getUserImage } from "@utils/media";
 import { getInjectableHTML, stripTags } from "@utils/text";
-import NextLink from "next/link";
+import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
@@ -51,7 +51,7 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
       <Stack color="gray.600">
         {/* Title + Flag */}
         <Flex justifyContent="space-between" mb={3}>
-          <NextLink href={`/document/show/${document.id}`}>
+          <Link href={`/document/show/${document.id}`}>
             <HStack alignItems="center" gap={4}>
               <DocumentIcon />
               <Heading
@@ -63,7 +63,7 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
               />
               <Badge colorPalette="red">{document.itemtype}</Badge>
             </HStack>
-          </NextLink>
+          </Link>
           {/* Meta Data */}
           <Box>
             <FlagActionButton

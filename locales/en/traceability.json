@@ -38,11 +38,16 @@
     "batch": "Batch(s)",
     "farmer_member": "Farmer Member(s)",
     "farmer_produce": "Farmer Produce",
-    "lot": "Lot(s)"
+    "lot": "Lot(s)",
+    "container": "Container(s)"
   },
   "table": {
     "manage_columns": "Manage Columns"
   },
   "title": "Traceability",
-  "total_records": "Total Records"
+  "total_records": "Total Records",
+  "container": {
+    "restricted_access": "There was an error processing your request. Please contact admin for details",
+    "expand_error": "Error loading columns: "
+  }
 }

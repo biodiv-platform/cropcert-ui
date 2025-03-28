@@ -4,7 +4,7 @@ import useGlobalState from "@hooks/use-global-state";
 import { ROLES } from "@static/constants";
 import { adminOrAuthor, hasAccess } from "@utils/auth";
 import { getUserImage } from "@utils/media";
-import NextLink from "next/link";
+import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
@@ -41,11 +41,11 @@ export default function UserInfoSidebar({ user }) {
           </Text>
         </Box>
       </Flex>
-      <NextLink href={`/user/edit/${user.id}`} legacyBehavior>
+      <Link href={`/user/edit/${user.id}`}>
         <Button as="a" w="full" colorPalette="blue" mb={4} hidden={!canEdit}>
           {t("user:edit_profile")}
         </Button>
-      </NextLink>
+      </Link>
       {canDelete && <DeleteAccount userId={user.id} />}
     </div>
   );

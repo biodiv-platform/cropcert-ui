@@ -212,16 +212,23 @@ export default function BatchUpdateForm({
                 }
               })}
             </CoreGrid>
-            <CheckBoxField
-              name="finalizeBatch"
-              mt={2}
-              label={
-                <span>
-                  Ready for Lot <Badge colorPalette="red">irreversible</Badge>
-                </span>
+            {fieldsObj.fields.map((field, index) => {
+              if (field.fieldType === "confirmCheckBoxField") {
+                return (
+                  <CheckBoxField
+                    mt={2}
+                    key={index}
+                    name="finalizeBatch"
+                    label={
+                      <span>
+                        {field.label} <Badge colorPalette="red">irreversible</Badge>
+                      </span>
+                    }
+                    isDisabled={!isFinalizeEnabled}
+                  />
+                );
               }
-              isDisabled={!isFinalizeEnabled}
-            />
+            })}
             {errorMessage && (
               <Alert status="error" borderRadius="md">
                 {errorMessage}

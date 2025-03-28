@@ -2,6 +2,8 @@ import { axGetTree } from "@services/pages.service";
 import { ROLES } from "@static/constants";
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
+import { axListUnion } from "@/services/entities.service";
+
 interface GlobalStateContextProps {
   pages;
   setPages;
@@ -37,7 +39,7 @@ const GlobalStateContext = createContext<GlobalStateContextProps>({} as GlobalSt
 export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
   const [user, setUser] = useState<any>(props.user || {});
   const [pages, setPages] = useState(props.pages);
-  const [union, setUnion] = useState(null);
+  const [union, setUnion] = useState<any>(null);
   const [multiSelectCo, setMultiSelectCo] = useState(null);
   const [previousPath, setPreviousPath] = useState("");
 
@@ -84,6 +86,30 @@ export const GlobalStateProvider = (props: GlobalStateProviderProps) => {
       window.removeEventListener("popstate", updatePath);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchUnionData = async () => {
+      if (isLoggedIn) {
+        try {
+          const unionData = await axListUnion();
+          if (unionData.success) {
+            const unionWithRules = unionData.data.filter((u) => u.code === user.unionCode);
+
+            if (unionWithRules.length > 0) {
+              setUnion(unionWithRules[0]);
+            } else {
+              setUnion(null);
+            }
+          }
+        } catch (error) {
+          console.error("Error getting union data", error);
+          setUnion(null);
+        }
+      }
+    };
+
+    fetchUnionData();
+  }, [isLoggedIn, user?.unionCode]);
 
   const getPageTree = async () => {
     try {

@@ -51,7 +51,9 @@ export default function FarmerProduceShowPageComponent({
   return (
     show?.farmer && (
       <Container>
-        <PageHeading actions={<ActionButtons />}>🧑‍🌾 {show.farmerProduces.farmerName}</PageHeading>
+        <PageHeading actions={<ActionButtons />} floatHeader={true}>
+          🧑‍🌾 {show.farmerProduces.farmerName}
+        </PageHeading>
         <AccordionRoot
           spaceY="4"
           defaultValue={["Produce Information", "activity"]}

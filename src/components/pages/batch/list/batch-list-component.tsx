@@ -15,6 +15,7 @@ import { emit } from "react-gbus";
 
 import { Alert } from "@/components/ui/alert";
 
+import { useTraceability } from "../../common/traceability-tabs";
 import { fetchBatchColumns } from "./data";
 import BatchExpand from "./expand";
 import BatchCreateModal from "./modals/batch-create-modal";
@@ -24,8 +25,7 @@ import MultipleTypeWarning from "./multiple-warning";
 import useBatchFilter from "./use-batch-filter";
 
 function BatchComponent() {
-  const [union, setUnion] = useState({} as any);
-  const { user } = useGlobalState();
+  const { user, union, setUnion } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
   const [selectedBatches, setSelectedBatches] = useState<Required<Batch>[]>([]);
   const { open: clearRows, onToggle } = useDisclosure();
@@ -37,6 +37,7 @@ function BatchComponent() {
   const [columnsLoading, setColumnsLoading] = useState(true);
   const [columnsError, setColumnsError] = useState<Error | null>(null);
   const { t } = useTranslation();
+  const { setReRenderTabs } = useTraceability();
 
   const { clearBatch, setCOCodes, batchListData, loading, updateBatch, addBatch } =
     useBatchFilter();
@@ -82,6 +83,7 @@ function BatchComponent() {
 
     emit(LOT_CREATE, payload);
     setTriggerRender(!triggerRender);
+    setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
   const handleDisabledRows = (r) => {
@@ -113,11 +115,16 @@ function BatchComponent() {
     onToggle();
     updateBatch();
     setTriggerRender(!triggerRender);
+    setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
   if (columnsError) {
     return <Box>Error loading columns: {columnsError.message}</Box>;
   }
+
+  useEffect(() => {
+    setReRenderTabs && setReRenderTabs((prev) => !prev);
+  }, [union]);
 
   return (
     <Box>
@@ -191,7 +198,7 @@ function BatchComponent() {
           paginationPerPage={20}
           paginationRowsPerPageOptions={[20, 40, 60, 100]}
           fixedHeader
-          fixedHeaderScrollHeight="520px"
+          fixedHeaderScrollHeight={`calc(100vh - var(--batch-table-gap, 370px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={batchColumns}

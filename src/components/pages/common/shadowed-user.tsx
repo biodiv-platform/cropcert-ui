@@ -1,8 +1,8 @@
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { UserIbp } from "@interfaces/activity";
 import { getUserImage } from "@utils/media";
-import NextLink from "next/link";
+import Link from "next/link";
 import React from "react";
 
 import { Avatar } from "@/components/ui/avatar";
@@ -27,22 +27,20 @@ export default function ShadowedUser({
 }) {
   return (
     <UserBox>
-      <NextLink href={`/user/show/${user?.id}`} legacyBehavior>
-        <Link color="white">
-          <Flex alignItems="center">
-            {avatar && (
-              <Avatar
-                mr={2}
-                flexShrink={0}
-                size="sm"
-                name={user?.name}
-                src={getUserImage(user?.profilePic, user?.name)}
-              />
-            )}
-            <div className="elipsis-2">{user?.name}</div>
-          </Flex>
-        </Link>
-      </NextLink>
+      <Link href={`/user/show/${user?.id}`} color="white">
+        <Flex alignItems="center">
+          {avatar && (
+            <Avatar
+              mr={2}
+              flexShrink={0}
+              size="sm"
+              name={user?.name}
+              src={getUserImage(user?.profilePic, user?.name)}
+            />
+          )}
+          <div className="elipsis-2">{user?.name}</div>
+        </Flex>
+      </Link>
     </UserBox>
   );
 }

@@ -1,6 +1,6 @@
 import { Flex, Stack } from "@chakra-ui/react";
 import useInspectionReport from "@hooks/use-inspection-report";
-import NextLink from "next/link";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { LuArrowRight, LuDownload } from "react-icons/lu";
@@ -41,16 +41,12 @@ export default function ActionButton({ ccCode, syncStatus, isOnline, pendingRepo
     <Flex justifyContent="flex-end">
       {syncStatus ? (
         <Stack w={{ base: "full", md: "11rem" }}>
-          <NextLink
-            href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}
-            passHref={true}
-            legacyBehavior
-          >
+          <Link href={`/farmer-certification/inspection-report/select-farmer?feCCCode=${ccCode}`}>
             <Button as="a" colorPalette="blue" size="sm" mb={4}>
               Farmers List ({syncStatus?.farmersCount})
               <LuArrowRight />
             </Button>
-          </NextLink>
+          </Link>
           <Button
             className="download"
             colorPalette="red"

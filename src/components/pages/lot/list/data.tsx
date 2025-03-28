@@ -1,4 +1,4 @@
-import { Badge, Button, ButtonProps } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 import { useActionProps } from "@components/@core/table";
 import BatchCell from "@components/@core/table/batch-cell";
 import CoopCell from "@components/@core/table/coop-cell";
@@ -10,6 +10,8 @@ import { LOT_REPORT_UPDATE } from "@static/events";
 import { capitalizeFirstLetter } from "@utils/basic";
 import React from "react";
 import { emit } from "react-gbus";
+
+import { axGetColumns } from "@/services/traceability.service";
 
 const buttonProps: Partial<ButtonProps> = {
   variant: "outline",
@@ -56,10 +58,14 @@ export const createLotColumns = (columns) => {
         );
       };
 
+      const optionalColumnName = curr.isOptional
+        ? curr.columnName + " (Optional)"
+        : curr.columnName;
+
       return [
         ...acc,
         {
-          name: capitalizeFirstLetter(curr.columnName),
+          name: capitalizeFirstLetter(optionalColumnName),
           selector: (row) => row[curr.columnName],
           center: true,
           maxWidth: "130px",
@@ -97,7 +103,7 @@ export const lotColumns = [
     selector: (row) => row.quantity,
     right: true,
     sortable: true,
-    maxWidth: "100px",
+    maxWidth: "110px",
     showDefault: true,
   },
   {
@@ -114,15 +120,6 @@ export const lotColumns = [
     maxWidth: "250px",
     showDefault: true,
     cell: (row) => <CoopCell coCode={row.coCode} />,
-  },
-  {
-    name: "Lot Status",
-    selector: (row) => row.lotStatus,
-    center: true,
-    sortable: true,
-    width: "150px",
-    cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,
-    showDefault: false,
   },
 ];
 
@@ -174,6 +171,7 @@ export const batchColumns = [
     name: "Quantity",
     selector: (row) => row.quantity,
     maxWidth: "150px",
+    width: "110px",
     sortable: true,
     right: true,
   },
@@ -186,3 +184,27 @@ export const batchColumns = [
 ];
 
 export const batchColumnsWet = [];
+
+export const containerCreateModalCols = [
+  {
+    name: "Name",
+    selector: (row) => row["lotName"],
+    width: "280px",
+  },
+  {
+    name: "Quantity",
+    selector: (row) => row["quantity"],
+    sortable: true,
+    right: true,
+  },
+];
+
+export async function fetchLotColumns(): Promise<any[]> {
+  try {
+    const response = await axGetColumns("LOT");
+    return response.data.length > 0 ? [...lotColumns, ...createLotColumns(response.data)] : [];
+  } catch (error) {
+    console.error("Error fetching batch columns:", error);
+    throw error;
+  }
+}

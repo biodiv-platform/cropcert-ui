@@ -62,7 +62,7 @@ export default function FarmerMap({ geojsonData }) {
 
   return (
     <Box>
-      <MapContainer scrollWheelZoom={true} className="markercluster-map">
+      <MapContainer scrollWheelZoom={true} className="markercluster-map map-container">
         <ZoomOut />
         <LayerControl />
         <MarkerClusterGroup key={JSON.stringify(geojsonData)}>

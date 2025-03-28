@@ -19,7 +19,7 @@ LotListPage.config = {
 };
 
 export const getServerSideProps = async (ctx) => {
-  const CUSTOM_FILTER = { ...DEFAULT_LOT_FILTER };
+  const CUSTOM_FILTER = { ...DEFAULT_LOT_FILTER, lotStatus: "ready_for_container,pending" };
 
   const initialFilterParams = {
     ...CUSTOM_FILTER,

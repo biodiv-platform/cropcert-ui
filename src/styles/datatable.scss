@@ -18,3 +18,16 @@
     background: var(--chakra-colors-gray-50);
   }
 }
+
+// this css snippet is for the header of the table
+#scrollableDiv
+  div:nth-child(1)
+  div:nth-child(1)
+  div:nth-child(1)
+  div:nth-child(1)
+  div:nth-child(1)
+  div:nth-child(1) {
+  overflow: auto !important;
+  white-space: normal !important;
+  text-align: center !important;
+}

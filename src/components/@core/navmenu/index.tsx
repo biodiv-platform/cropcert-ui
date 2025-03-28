@@ -2,7 +2,7 @@ import { Box, Image } from "@chakra-ui/react";
 import SITE_CONFIG from "@configs/site-config";
 import { SITE_TITLE } from "@static/constants";
 import { navmenu } from "@static/navmenu";
-import NextLink from "next/link";
+import Link from "next/link";
 import React from "react";
 
 import Container from "../container";
@@ -16,9 +16,9 @@ export default function Navbar() {
     <Box borderBottom="1px solid" borderColor="gray.200">
       <Container>
         <nav id="menu">
-          <NextLink href="/" passHref={true} className="logo">
+          <Link href="/" className="logo">
             <Image src={SITE_CONFIG.SITE.ICON} pr={2} alt={SITE_TITLE} />
-          </NextLink>
+          </Link>
           <input type="checkbox" id="tm" />
           <label htmlFor="tm" id="toggle-menu">
             <span className="drop-icon">

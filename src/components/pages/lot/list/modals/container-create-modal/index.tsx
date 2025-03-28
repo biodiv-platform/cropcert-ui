@@ -30,7 +30,6 @@ export default function LotUpdateModal({ update }) {
 
   return (
     <DialogRoot open={open} onOpenChange={onClose} size="lg">
-      {/* closeOnOverlayClick={false} size="2xl" <ModalOverlay /> */}
       {data && <ContainerCreateForm update={update} onClose={handleOnClose} {...data} />}
     </DialogRoot>
   );

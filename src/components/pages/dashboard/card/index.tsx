@@ -1,5 +1,5 @@
-import { Box, Flex, Link, useDisclosure } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 
 import { StatHelpText, StatRoot, StatValueText } from "@/components/ui/stat";
@@ -42,9 +42,9 @@ function Card({ title, description, to, tag, external = false }: IProps) {
         {children}
       </Link>
     ) : (
-      <NextLink href={to} passHref={true} legacyBehavior>
-        <Link style={{ textDecoration: "none" }}>{children}</Link>
-      </NextLink>
+      <Link href={to} style={{ textDecoration: "none" }}>
+        {children}
+      </Link>
     );
 
   return (

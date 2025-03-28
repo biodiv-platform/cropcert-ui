@@ -1,4 +1,4 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box, ListItem, Text, VStack } from "@chakra-ui/react";
 import { formattedTimeStamp } from "@utils/basic";
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
@@ -18,24 +18,30 @@ export const Timeline = ({ activities }) => (
 );
 
 const Event = ({ activity }) => (
-  <li className="event">
-    <label className="icon" />
-    <div className="body">
-      <p className="title">{activity.activityType.toUpperCase()}</p>
-      <div className="description">
+  <ListItem display="flex" alignItems="flex-start" className="event">
+    <Box as="span" className="icon" mr={3} />
+    <VStack align="stretch" gap={2} className="body">
+      <Text fontWeight="bold" textTransform="uppercase" className="title">
+        {activity.activityType}
+      </Text>
+
+      <Text className="description">
         {getMessage(activity.activityType, activity.activityValue)}
         {activity.note && (
           <>
             <br />
-            🗒️ {activity.note}
+            <Text as="span" display="inline">
+              🗒️ {activity.note}
+            </Text>
           </>
         )}
-      </div>
-      <div className="user mt-3">
+      </Text>
+
+      <Text color="gray.500" fontSize="sm" className="user">
         &mdash;&emsp;User {activity.userId} on {formattedTimeStamp()}
-      </div>
-    </div>
-  </li>
+      </Text>
+    </VStack>
+  </ListItem>
 );
 
 const getMessage = (type, value) => {

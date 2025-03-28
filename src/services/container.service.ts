@@ -38,9 +38,9 @@ export const axListAggregationContainer = async (coCodes, params) => {
   }
 };
 
-export const axCreateContainer = async (body) => {
+export const axCreateContainer = async (payload) => {
   try {
-    const res = await http.post(`${ENDPOINT.TRACEABILITY}/container/new`, body);
+    const res = await http.post(`${ENDPOINT.TRACEABILITY}/container/new`, payload);
     return { success: true, data: res.data };
   } catch (e) {
     notification(e.message);

@@ -6,7 +6,7 @@ import { stickyTh } from "@components/pages/observation/list/views/stats/common"
 import useGlobalState from "@hooks/use-global-state";
 import { axUpdateScientifcNameToIsDeleted } from "@services/document.service";
 import { adminOrAuthor } from "@utils/auth";
-import NextLink from "next/link";
+import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
@@ -48,12 +48,11 @@ export default function ScientificNamesTable({
               <Table.Row>
                 <Table.Cell>
                   {taxonConceptId != null ? (
-                    <NextLink
+                    <Link
                       href={`/taxonomy/list?showTaxon=${taxonConceptId}&taxonId=${taxonConceptId}`}
-                      legacyBehavior
                     >
                       <ExternalBlueLink>{canonicalForm}</ExternalBlueLink>
-                    </NextLink>
+                    </Link>
                   ) : (
                     canonicalForm
                   )}

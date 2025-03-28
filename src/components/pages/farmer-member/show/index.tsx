@@ -9,7 +9,7 @@ import { RESOURCE_TYPE, ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import { generateBackBtnStr } from "@utils/basic";
-import NextLink from "next/link";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
@@ -60,24 +60,22 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
             paddingY={2}
             paddingX={3}
             rounded="full"
-            color={"green.500"}
-            _hover={{ bg: "green.50", cursor: "pointer" }}
+            _hover={{ color: "yellow.500", bg: "yellow.50", cursor: "pointer" }}
             onClick={() =>
               emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
             }
           >
-            <NextLink href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
+            <Link href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
               <EditIcon />
-            </NextLink>
+            </Link>
           </Box>
         </Tooltip>
         <Tooltip content="Delete Farmer" showArrow>
           <Box
             paddingY={2}
             paddingX={3}
-            color={"red.500"}
             rounded="full"
-            _hover={{ bg: "red.50", cursor: "pointer" }}
+            _hover={{ color: "red.500", bg: "red.50", cursor: "pointer" }}
             onClick={() =>
               emit(FARMER_DELETE, { farmerId: show.farmer._id, hasAccess: hasEditDeleteAccess })
             }

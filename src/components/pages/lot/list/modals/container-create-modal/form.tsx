@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
@@ -82,7 +82,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
             <Table data={lots} columns={[...containerCreateModalCols]} />
             <Flex justifyContent="flex-end" mt={4}>
               <Box>
-                <strong>Total</strong> {containerConfig.quantity} KG(s)
+                <Text fontWeight="bold">Total</Text> {containerConfig.quantity} KG(s)
               </Box>
             </Flex>
             <TextBoxField name="note" label="Note" mb={0} />

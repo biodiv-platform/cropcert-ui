@@ -80,73 +80,81 @@ export default function ContainerGRNForm({
 
           let yupSchema = {};
 
-          if (currField.yupSchema === "numberFunc") {
-            const [min, max] = currField.yupSchemaArgs;
+          switch (currField.yupSchema) {
+            case "numberFunc":
+              const [min, max] = currField.yupSchemaArgs;
 
-            if (currField.required) {
+              if (currField.required) {
+                yupSchema = {
+                  ...acc.yupSchema,
+                  [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(
+                    `${currField.label} is required`
+                  ),
+                };
+              } else {
+                yupSchema = {
+                  ...acc.yupSchema,
+                  [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
+                };
+              }
+              break;
+
+            case netWeightFieldName:
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(
-                  `${currField.label} is required`
-                ),
-              };
-            } else {
-              yupSchema = {
-                ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
-              };
-            }
-          } else if (currField.name === netWeightFieldName) {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: Yup.number()
-                .min(1, "Net weight must be at least 1")
-                .nullable()
-                .transform((value, originalValue) => (originalValue === "" ? undefined : value))
-                .test(
-                  "greaterThanOrEqualTotalKgs",
-                  "Net weight must be greater than or equal to the sum of all section total kgs",
-                  validateNetWeight
-                )
-                .test(
-                  "net-less-than-gross",
-                  "Net weight must be less than or equal to Gross Weight",
-                  function (value) {
-                    return Number(value) <= this.parent.gross_weight_kgs;
-                  }
-                )
-                .required(`${currField.label} is required`),
-            };
-          } else if (currField.name === grossWeightFieldName) {
-            yupSchema = {
-              ...acc.yupSchema,
-              [currField.name]: Yup.number()
-                .min(1)
-                .transform((value, originalValue) => (originalValue === "" ? undefined : value))
-                .required(`${currField.label} is required`)
-                .nullable()
-                .test(
-                  "gross-weight-valid",
-                  "Gross Weight must be less than or equal to Total Kgs",
-                  function (value) {
-                    return Number(value) <= this.parent.total_kgs;
-                  }
-                ),
-            };
-          } else {
-            if (currField.required) {
-              yupSchema = {
-                ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema]
+                [currField.name]: Yup.number()
+                  .min(1, "Net weight must be at least 1")
+                  .nullable()
                   .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+                  .test(
+                    "greaterThanOrEqualTotalKgs",
+                    "Net weight must be greater than or equal to the sum of all section total kgs",
+                    validateNetWeight
+                  )
+                  .test(
+                    "net-less-than-gross",
+                    "Net weight must be less than or equal to Gross Weight",
+                    function (value) {
+                      return Number(value) <= this.parent.gross_weight_kgs;
+                    }
+                  )
                   .required(`${currField.label} is required`),
               };
-            } else {
+              break;
+
+            case grossWeightFieldName:
               yupSchema = {
                 ...acc.yupSchema,
-                [currField.name]: yupSchemaMapping[currField.yupSchema],
+                [currField.name]: Yup.number()
+                  .min(1)
+                  .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+                  .required(`${currField.label} is required`)
+                  .nullable()
+                  .test(
+                    "gross-weight-valid",
+                    "Gross Weight must be less than or equal to Total Kgs",
+                    function (value) {
+                      return Number(value) <= this.parent.total_kgs;
+                    }
+                  ),
               };
-            }
+              break;
+
+            default:
+              if (currField.required) {
+                yupSchema = {
+                  ...acc.yupSchema,
+                  [currField.name]: yupSchemaMapping[currField.yupSchema]
+                    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+                    .required(`${currField.label} is required`),
+                };
+              } else {
+                yupSchema = {
+                  ...acc.yupSchema,
+                  [currField.name]: yupSchemaMapping[currField.yupSchema],
+                };
+              }
+              break;
           }
 
           return {

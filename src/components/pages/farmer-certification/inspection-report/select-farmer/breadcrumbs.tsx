@@ -1,4 +1,4 @@
-import NextLink from "next/link";
+import Link from "next/link";
 import React from "react";
 
 import { BreadcrumbCurrentLink, BreadcrumbLink, BreadcrumbRoot } from "@/components/ui/breadcrumb";
@@ -17,11 +17,11 @@ export default function Breadcrumbs({ ccName, coName, unionName }) {
       <BreadcrumbCurrentLink>
         Union: <b>{unionName}</b>
       </BreadcrumbCurrentLink>
-      <NextLink passHref={true} href="/farmer-certification/manage-farmers" legacyBehavior>
+      <Link href="/farmer-certification/manage-farmers">
         <BreadcrumbLink>
           Cooperative: <b>{coName}</b>
         </BreadcrumbLink>
-      </NextLink>
+      </Link>
       <BreadcrumbCurrentLink as="span">
         Collection Center: <b>{ccName}</b>
       </BreadcrumbCurrentLink>

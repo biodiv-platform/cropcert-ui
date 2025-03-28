@@ -1,6 +1,6 @@
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex, Link as ChakraLink } from "@chakra-ui/react";
 import { axGetFarmerDetailsByUUID } from "@services/farmer.service";
-import NextLink from "next/link";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { LuArrowRight } from "react-icons/lu";
 
@@ -22,8 +22,8 @@ export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
   }, []);
 
   return farmerId ? (
-    <NextLink href={`/farmer/show/${id}`} passHref={true} legacyBehavior>
-      <Link>
+    <Link href={`/farmer/show/${id}`} passHref={true} legacyBehavior>
+      <ChakraLink>
         <Tooltip content={content} aria-label={content}>
           <span>
             <Flex gap={2} alignItems={"center"}>
@@ -31,7 +31,7 @@ export default function FarmerCell({ farmerId, _id }: { farmerId?; _id? }) {
             </Flex>
           </span>
         </Tooltip>
-      </Link>
-    </NextLink>
+      </ChakraLink>
+    </Link>
   ) : null;
 }

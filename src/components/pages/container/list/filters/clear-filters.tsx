@@ -19,7 +19,6 @@ export default function ClearFilters() {
 
   setFilterCount(filterCount);
   const { t } = useTranslation();
-  const message = t("filters:clear", { filterCount });
   const router = useRouter();
 
   const clearFilters = () => {
@@ -27,14 +26,14 @@ export default function ClearFilters() {
   };
 
   return filterCount ? (
-    <Tooltip title={message} showArrow={true}>
+    <Tooltip title={t("filters:clear", { filterCount })} showArrow={true}>
       <Button
         onClick={clearFilters}
         variant="plain"
         className="fade"
         size="lg"
         colorPalette="red"
-        aria-label={message}
+        aria-label={t("filters:clear", { filterCount })}
       >
         <DeleteIcon />
         {filterCount}

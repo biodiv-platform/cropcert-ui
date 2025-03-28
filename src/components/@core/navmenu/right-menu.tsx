@@ -1,7 +1,7 @@
-import { IconButton, Link } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 import { List } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
-import NextLink from "next/link";
+import Link from "next/link";
 import React, { useMemo } from "react";
 import LogoutIcon from "src/icons/logout";
 
@@ -27,34 +27,25 @@ function NavbarRightMenu() {
       {isLoggedIn ? (
         <>
           <List.Item>
-            <NextLink href={`/user/show/${user.id}`} passHref={true} legacyBehavior>
-              <Link className="user">
-                <Tooltip
-                  title={`${user.name} (${visualRole})`}
-                  positioning={{ placement: "bottom" }}
-                >
-                  <Avatar size="sm" name={user.name} />
-                </Tooltip>
-              </Link>
-            </NextLink>
+            <Link className="user" href={`/user/show/${user.id}`}>
+              <Tooltip title={`${user.name} (${visualRole})`} positioning={{ placement: "bottom" }}>
+                <Avatar size="sm" name={user.name} />
+              </Tooltip>
+            </Link>
           </List.Item>
           <List.Item px={2}>
-            <NextLink href="/logout" passHref={true} legacyBehavior>
-              <Link className="user">
-                <Tooltip title={`${user.name}`}>
-                  <IconButton variant={"ghost"} size="sm">
-                    <LogoutIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>
-            </NextLink>
+            <Link href="/logout" className="user">
+              <Tooltip title={`${user.name}`}>
+                <IconButton variant={"ghost"} size="sm">
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
+            </Link>
           </List.Item>
         </>
       ) : (
         <List.Item>
-          <NextLink href="/login" passHref={true} legacyBehavior>
-            <Link>Sign In</Link>
-          </NextLink>
+          <Link href="/login">Sign In</Link>
         </List.Item>
       )}
     </List.Root>

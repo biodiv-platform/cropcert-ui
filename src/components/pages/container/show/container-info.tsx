@@ -8,13 +8,18 @@ import React from "react";
 import ContainerShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
-const MultiMarkerMap = dynamic(
-  () =>
-    import("@components/pages/farmer-member/list/modals/multi-marker-map/geojson-multi-marker-map"),
+const FarmerMap = dynamic(
+  () => import("@components/pages/farmer-member/map/geoJson-featureCollection-map"),
   { ssr: false }
 );
 
 export default function ContainerInfo({ container, geojsonData }) {
+  const geojsonWithFeatColl = Array.isArray(geojsonData)
+    ? {
+        type: "FeatureCollection",
+        features: geojsonData,
+      }
+    : geojsonData;
   const basicInfoHeader = [
     {
       name: "#",
@@ -75,7 +80,7 @@ export default function ContainerInfo({ container, geojsonData }) {
         </Box>
       </Stack>
 
-      {geojsonData && (
+      {geojsonWithFeatColl && (
         <Stack direction={"column"} gap={2} width={"full"} my={4} mb={8} height={"400px"}>
           <Box
             rounded="md"
@@ -86,7 +91,7 @@ export default function ContainerInfo({ container, geojsonData }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <MultiMarkerMap geojsonData={geojsonData} />
+            <FarmerMap geojson={geojsonWithFeatColl} setGeojson={null} mode={"view"} />
           </Box>
         </Stack>
       )}

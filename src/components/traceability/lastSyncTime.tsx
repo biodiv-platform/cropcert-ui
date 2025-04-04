@@ -13,13 +13,13 @@ export default function LastSyncTime({ type, isSyncing }) {
   const queryKey = type === "FM" ? ["lastSyncedTimeFM"] : ["lastSyncedTimeFP"];
   const queryFn =
     type === "FM"
-      ? () => axGetLastSyncedTimeFM(union?.value)
-      : () => axGetLastSyncedTimeFP(union?.value);
+      ? () => axGetLastSyncedTimeFM(union?.code)
+      : () => axGetLastSyncedTimeFP(union?.code);
 
   const { data } = useQuery({
     queryKey,
     queryFn,
-    enabled: !!union?.value || isSyncing,
+    enabled: !!union?.code || isSyncing,
     refetchInterval: 60 * 60 * 1000,
   });
 
@@ -32,7 +32,7 @@ export default function LastSyncTime({ type, isSyncing }) {
       // Cleanup interval on component unmount
       return () => clearInterval(interval);
     }
-  }, [data?.data]);
+  }, [data?.data, union?.code]);
   return (
     <>
       {t("traceability:sync_status.last_synced")} {timeString}

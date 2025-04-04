@@ -77,7 +77,7 @@ function BatchComponent() {
       selected: selectedBatches,
       coCode: [...new Set(selectedBatches.map((r) => r.coCode))].flat(),
       ccCode: [...new Set(selectedBatches.map((r) => r.ccCode))].flat(),
-      unionCode: union.value,
+      unionCode: union?.code,
       quantity,
     };
 

@@ -7,13 +7,18 @@ import React from "react";
 import BatchShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
-const MultiMarkerMap = dynamic(
-  () =>
-    import("@components/pages/farmer-member/list/modals/multi-marker-map/geojson-multi-marker-map"),
+const FarmerMap = dynamic(
+  () => import("@components/pages/farmer-member/map/geoJson-featureCollection-map"),
   { ssr: false }
 );
 
 export default function BatchInfo({ batch, geojsonData }) {
+  const geojsonWithFeatColl = Array.isArray(geojsonData)
+    ? {
+        type: "FeatureCollection",
+        features: geojsonData,
+      }
+    : geojsonData;
   const batchColumns = [
     {
       name: "#",
@@ -83,7 +88,7 @@ export default function BatchInfo({ batch, geojsonData }) {
         </Box>
       </Stack>
 
-      {geojsonData && (
+      {geojsonWithFeatColl && (
         <Stack direction={"column"} gap={2} width={"full"} my={4} mb={8} height={"400px"}>
           <Box
             rounded="md"
@@ -94,7 +99,7 @@ export default function BatchInfo({ batch, geojsonData }) {
             overflow={"hidden"}
             boxShadow="md"
           >
-            <MultiMarkerMap geojsonData={geojsonData} />
+            <FarmerMap geojson={geojsonWithFeatColl} setGeojson={null} mode={"view"} />
           </Box>
         </Stack>
       )}

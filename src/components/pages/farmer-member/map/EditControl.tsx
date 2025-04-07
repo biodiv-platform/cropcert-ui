@@ -27,7 +27,9 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
 
             popupContent += Object.entries(feature.properties)
               .splice(1)
-              .map(([key, value]) => `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}`)
+              .map(([key, value]) =>
+                key !== "color" ? `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}` : null
+              )
               .join("<br>");
 
             // Add approximate area for Polygon features
@@ -45,9 +47,14 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
           if (
             layer instanceof L.Polyline ||
             layer instanceof L.Polygon ||
-            layer instanceof L.Marker
+            layer instanceof L.Marker ||
+            (layer.feature &&
+              layer.feature.geometry &&
+              layer.feature.geometry.type === "MultiPoint")
           ) {
             ref.current?.addLayer(layer);
+          } else {
+            console.error("Unknown layer type:", layer);
           }
         },
       });

@@ -114,7 +114,7 @@ export default function MarketingPageComponent() {
       <Container py={6}>
         <CoreGrid>
           <PlainUnionSelect onChange={setUnion} />
-          <CoMultiSelect unionId={union?.value} onChange={setCoCodes} />
+          <CoMultiSelect unionId={union?.code} onChange={setCoCodes} />
 
           <Checkbox
             defaultChecked={isFiltered}

@@ -63,7 +63,7 @@ function ContainerComponent() {
             clearContainer();
           }}
         />
-        <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
+        <CoMultiSelect unionId={union?.code} onChange={setCOCodes} />
       </CoreGrid>
 
       {loading ? (

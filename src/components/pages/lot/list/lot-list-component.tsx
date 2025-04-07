@@ -62,7 +62,7 @@ function LotComponent() {
       name: `${prefix}_Container_`,
       selected: selectedLots,
       coCode: [...new Set(selectedLots.map((r) => r.coCode))].flat(),
-      unionCode: union.value,
+      unionCode: union?.code,
       type: selectedLots[0].type,
       quantity,
     };
@@ -107,7 +107,7 @@ function LotComponent() {
             clearLot();
           }}
         />
-        <CoMultiSelect unionId={union?.value} onChange={setCOCodes} />
+        <CoMultiSelect unionId={union?.code} onChange={setCOCodes} />
       </CoreGrid>
 
       {loading ? (

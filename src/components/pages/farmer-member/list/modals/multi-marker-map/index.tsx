@@ -35,7 +35,7 @@ const MultiMarkerMapModal = () => {
   const [fetchData, setFetchData] = useState(false);
   const { data, error, isLoading } = useQuery({
     queryKey: ["AllFarmerByUnion"],
-    queryFn: () => axGetAllFarmerByUnion(union?.value),
+    queryFn: () => axGetAllFarmerByUnion(union?.code),
     enabled: fetchData,
     staleTime: 1000 * 60 * 60 * 24 * 2, // 2 days in milliseconds
     gcTime: 1000 * 60 * 60 * 24 * 20, // 20 days in milliseconds
@@ -109,7 +109,7 @@ const MultiMarkerMapModal = () => {
           </DialogHeader>
           <Box width={"240px"}>
             <Flex alignItems={"center"}>
-              {!isLoading && union?.value && (
+              {!isLoading && union?.code && (
                 <Button
                   colorPalette="teal"
                   size="md"

@@ -157,7 +157,7 @@ function FarmerProduceListComponent() {
         </Box>
         <Box
           fontSize={"xs"}
-          visibility={union?.value ? "visible" : "hidden"}
+          visibility={union?.code ? "visible" : "hidden"}
           display={"flex"}
           gap={2}
         >

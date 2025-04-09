@@ -27,7 +27,6 @@ interface ILotShowProps {
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
-  console.log("show", show);
   const router = useRouter();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Lot List");

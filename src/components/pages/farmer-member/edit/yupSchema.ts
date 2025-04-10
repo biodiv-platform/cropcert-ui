@@ -16,10 +16,10 @@ const schema = yup.object().shape({
   noOfDependents: yup.number(),
   village: yup.string(),
   cc: yup.string().required("CC Name is required"),
-  landAcreage: yup.number().min(1, "Land acreage must be greater than zero"),
+  landAcreage: yup.number().min(0.0001, "Land acreage must be greater than zero"),
   coffeeAcreage: yup
     .number()
-    .min(0.01, "Coffee acreage must be greater than zero")
+    .min(0.00001, "Coffee acreage must be greater than zero")
     .test(
       "lessThanLandAcreage",
       "Coffee acreage must be less than land acreage",

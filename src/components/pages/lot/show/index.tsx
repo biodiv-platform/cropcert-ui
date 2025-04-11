@@ -24,7 +24,6 @@ interface ILotShowProps {
   farmerProduceArr: any[];
   farmerLocationArr: any[];
   farmerArr: any[];
-  activityArr: any[];
 }
 
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {

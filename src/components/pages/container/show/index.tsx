@@ -26,7 +26,6 @@ interface IContainerShowProps {
   farmerProduceArr: any[];
   farmerLocationArr: any[];
   farmerArr: any[];
-  activityArr: any[];
 }
 
 export default function ContainerShowPageComponent({ show }: { show: IContainerShowProps }) {

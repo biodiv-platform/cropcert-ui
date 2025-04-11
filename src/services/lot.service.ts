@@ -55,7 +55,11 @@ export const axUpdateLot = async (payload) => {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/${payload.id}`, payload);
     return { success: true, data };
   } catch (e) {
-    notification(e.message);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };
@@ -82,7 +86,11 @@ export const axCreateLot = async (payload) => {
     const { data } = await http.post(`${ENDPOINT.TRACEABILITY}/lot/new`, payload);
     return { success: true, data };
   } catch (e) {
-    notification(e.message);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };

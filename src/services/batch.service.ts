@@ -7,7 +7,11 @@ export const axCreateBatch = async (body) => {
     const res = await http.post(`${ENDPOINT.TRACEABILITY}/batch/new`, body);
     return { success: true, data: res.data };
   } catch (e) {
-    notification(e.message);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };
@@ -78,7 +82,11 @@ export const axUpdateBatch = async (payload) => {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/batch/${payload.id}`, payload); //TODO:check if we want to keep this route
     return { success: true, data };
   } catch (e) {
-    notification(e.message);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false };
   }
 };

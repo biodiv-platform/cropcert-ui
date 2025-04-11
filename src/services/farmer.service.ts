@@ -154,7 +154,11 @@ export const axUpdateFarmerById = async (farmerId, payload) => {
     const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`, payload);
     return { success: true, data };
   } catch (e) {
-    notification(e);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };
@@ -164,7 +168,11 @@ export const axDeleteFarmerById = async (farmerId) => {
     const { data } = await http.delete(`${ENDPOINT.TRACEABILITY}/farmer/${farmerId}`);
     return { success: true, data };
   } catch (e) {
-    notification(e);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };
@@ -176,7 +184,11 @@ export const axSyncFMDataOnDemand = async (key) => {
     );
     return { success: true, data };
   } catch (e) {
-    notification(e);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };
@@ -188,7 +200,11 @@ export const axSyncFPDataOnDemand = async (key) => {
     );
     return { success: true, data };
   } catch (e) {
-    notification(e);
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
     return { success: false, data: {} };
   }
 };

@@ -29,7 +29,6 @@ interface IFarmerShowProps {
   batches: any[];
   farmerProduces: any[];
   farmer: FarmerMember;
-  activityArr?: any[];
 }
 
 export default function FarmerShowPageComponent({ show }: { show: IFarmerShowProps }) {

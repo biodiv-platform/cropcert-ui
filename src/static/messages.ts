@@ -16,6 +16,7 @@ export const BATCH = {
 export const MLOT = {
   CREATED: "Lot ${lotId}. ${lotName} created successfully",
   UPDATED: "Lot updated successfully",
+  SPLITTED: "Lot splitted successfully",
   FACTORY_REPORT_CREATED: "Factory Report ${id} created/updated successfully",
   GREEN_REPORT_CREATED: "Green Report ${id} created/updated successfully",
 };

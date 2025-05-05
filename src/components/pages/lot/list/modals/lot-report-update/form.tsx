@@ -1,17 +1,15 @@
 import { Badge, Button } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
-import { SubmitButton } from "@components/form/submit-button";
 import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { axUpdateLot } from "@services/lot.service";
+import { axSplitLot, axUpdateLot } from "@services/lot.service";
 import { MLOT } from "@static/messages";
 import { isEverythingFilledExcept } from "@utils/basic";
 import { yupSchemaMapping } from "@utils/form";
 import notification, { NotificationType } from "@utils/notification";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import SaveIcon from "src/icons/save";
 import * as Yup from "yup";
 
 import { Alert } from "@/components/ui/alert";
@@ -24,7 +22,13 @@ import {
 } from "@/components/ui/dialog";
 
 export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDone, update }) {
+  const [submitAction, setSubmitAction] = useState<"save" | "split">("save");
+
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);
+
+  // Fields that should be summed and compared to input_FAQ_weight
+  const faqSumFields = ["SC_18", "SC_15", "SC_12", "dust", "UG", "all_bhp", "defects_various"];
+  const faqWeightField = "input_FAQ_weight";
 
   // reducer to generate defaultValues and yupSchema dynamically
   const formValues =
@@ -56,6 +60,23 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                 [currField.name]: yupSchemaMapping[currField.yupSchema](min, max),
               };
             }
+          } else if (currField.name === faqWeightField) {
+            yupSchema = {
+              ...acc.yupSchema,
+              [currField.name]: Yup.number()
+                .min(0)
+                .required(`${currField.label} is required`)
+                .test(
+                  "faq-weight-check",
+                  "Sum of SC_18, SC_15, SC_12, dust, UG, all bhp, defects various must not exceed FAQ weight",
+                  function (value) {
+                    const total = faqSumFields.reduce((sum, field) => {
+                      return sum + (Number(this.parent[field]) || 0);
+                    }, 0);
+                    return total <= value;
+                  }
+                ),
+            };
           }
           // condition for remaining fields
           else {
@@ -112,11 +133,21 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
         id: lot._id,
         selectedModalFieldId: fieldsObj.modalFieldId,
       };
-      const { success, data } = await axUpdateLot({ ...updatedPayload });
-      if (success) {
-        update(data);
-        onClose();
-        notification(MLOT.UPDATED, NotificationType.Success, data);
+
+      if (submitAction === "save") {
+        const { success, data } = await axUpdateLot({ ...updatedPayload });
+        if (success) {
+          update(data);
+          onClose();
+          notification(MLOT.UPDATED, NotificationType.Success, data);
+        }
+      } else if (submitAction === "split") {
+        const { success, data } = await axSplitLot({ ...updatedPayload });
+        if (success) {
+          update(data);
+          onClose();
+          notification(MLOT.SPLITTED, NotificationType.Success, data);
+        }
       }
     } catch (e) {
       notification(e.message);
@@ -125,25 +156,38 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
 
   const formula = {
     percent: (fieldName) => {
-      const field = fieldsObj.fields.find((f) => f.name === fieldName);
+      try {
+        const field = fieldsObj.fields.find((f) => f.name === fieldName);
+        if (!field || !field.percentBaseField) return "";
 
-      if (
-        !field ||
-        !field.percentBaseField ||
-        !values[field.percentBaseField] ||
-        !values[fieldName]
-      ) {
+        const baseValue = Number(values[field.percentBaseField]);
+        const currentValue = Number(values[fieldName]);
+
+        if (isNaN(baseValue) || isNaN(currentValue) || baseValue === 0) {
+          return "";
+        }
+
+        const output = ((currentValue / baseValue) * 100).toFixed(2);
+        return `(${output} %)`;
+      } catch (error) {
+        console.error("Percentage calculation error:", error);
         return "";
       }
-
-      const output = ((values[fieldName] / values[field.percentBaseField]) * 100).toFixed(2);
-      return `(${output} %)`;
     },
   };
 
   const isFormReadOnly = !canWrite || values.finalizeLotColumn;
   const isFinalizeEnabled =
     !isDone && canWrite && isEverythingFilledExcept("finalizeLotColumn", values);
+
+  useEffect(
+    () => {
+      if (values[faqWeightField]) {
+        hForm.trigger(faqWeightField);
+      }
+    },
+    faqSumFields.map((field) => values[field])
+  );
 
   return (
     <DialogContent>
@@ -177,13 +221,15 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                       id={field.name}
                       label={
                         field?.showPercent
-                          ? `${field.label} ${formula.percent(field.name)}`
-                          : field.label
+                          ? `${field.label}${field.required ? " *" : ""} ${formula.percent(
+                              field.name
+                            )}`
+                          : `${field.label}${field.required ? " *" : ""}`
                       }
                       placeholder={field.label}
                       type={field.type}
                       key={index}
-                      disabled={isFormReadOnly}
+                      disabled={isFormReadOnly || field.disabled}
                     />
                   );
                 }
@@ -216,9 +262,28 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             <Button mr={3} onClick={onClose} variant={"subtle"}>
               Close
             </Button>
-            <SubmitButton leftIcon={<SaveIcon />} isDisabled={!canWrite}>
+
+            <Button
+              disabled={!canWrite}
+              variant={"solid"}
+              onClick={() => {
+                setSubmitAction("save");
+                hForm.handleSubmit(handleOnSubmit)();
+              }}
+            >
               Save
-            </SubmitButton>
+            </Button>
+
+            <Button
+              disabled={!canWrite}
+              variant={"solid"}
+              onClick={() => {
+                setSubmitAction("split");
+                hForm.handleSubmit(handleOnSubmit)();
+              }}
+            >
+              Split & Save
+            </Button>
           </DialogFooter>
         </form>
       </FormProvider>

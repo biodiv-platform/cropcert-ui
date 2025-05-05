@@ -139,7 +139,7 @@ function LotComponent() {
           selectableRows={true}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
-          selectableRowDisabled={(r) => r.containerId}
+          selectableRowDisabled={(r) => r.containerId || r.isSubLotCreated}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

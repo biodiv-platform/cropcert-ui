@@ -73,7 +73,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                     const total = faqSumFields.reduce((sum, field) => {
                       return sum + (Number(this.parent[field]) || 0);
                     }, 0);
-                    return total <= value;
+                    return value !== undefined && total <= value;
                   }
                 ),
             };

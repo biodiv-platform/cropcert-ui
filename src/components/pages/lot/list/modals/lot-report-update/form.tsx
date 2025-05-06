@@ -68,7 +68,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
                 .required(`${currField.label} is required`)
                 .test(
                   "faq-weight-check",
-                  "Sum of SC_18, SC_15, SC_12, dust, UG, all bhp, defects various must not exceed FAQ weight",
+                  "Sum of SC_18, SC_15, SC_12, dust, UG, all bhp, defects various must not exceed Input FAQ weight",
                   function (value) {
                     const total = faqSumFields.reduce((sum, field) => {
                       return sum + (Number(this.parent[field]) || 0);
@@ -189,6 +189,32 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
     faqSumFields.map((field) => values[field])
   );
 
+  useEffect(() => {
+    const input = Number(values[faqWeightField]);
+    const denom =
+      Number(values.SC_18) +
+      Number(values.SC_15) +
+      Number(values.SC_12) +
+      Number(values.all_bhp) +
+      Number(values.dust);
+
+    if (input && denom) {
+      const result = ((denom / input) * 100).toFixed(2);
+      hForm.setValue("outturn", parseFloat(result));
+    } else {
+      hForm.setValue("outturn", null);
+    }
+  }, [
+    values[faqWeightField],
+    values.SC_18,
+    values.SC_15,
+    values.SC_12,
+    values.all_bhp,
+    values.dust,
+  ]);
+
+  const isSubLot = lot.lotId.includes("SL");
+
   return (
     <DialogContent>
       <FormProvider {...hForm}>
@@ -197,7 +223,8 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             if (field.fieldType === "Title") {
               return (
                 <DialogHeader key={index} px={5} fontWeight={"bold"} fontSize={"lg"}>
-                  {field.value}
+                  {field.value} for {isSubLot ? "Sub Lot: " : "Lot: "}
+                  {lot.lotId}
                 </DialogHeader>
               );
             } else if (field.fieldType === "SubTitle") {
@@ -266,9 +293,9 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             <Button
               disabled={!canWrite}
               variant={"solid"}
+              type="submit"
               onClick={() => {
                 setSubmitAction("save");
-                hForm.handleSubmit(handleOnSubmit)();
               }}
             >
               Save
@@ -277,9 +304,9 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             <Button
               disabled={!canWrite}
               variant={"solid"}
+              type="submit"
               onClick={() => {
                 setSubmitAction("split");
-                hForm.handleSubmit(handleOnSubmit)();
               }}
             >
               Split & Save

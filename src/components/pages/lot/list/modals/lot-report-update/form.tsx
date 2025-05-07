@@ -1,4 +1,4 @@
-import { Badge, Button } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { TextBoxField } from "@components/form/text";
@@ -13,6 +13,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
 import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -21,8 +22,17 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 
-export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDone, update }) {
+export default function LotGRNForm({
+  onClose,
+  lot,
+  canWrite,
+  errorMessage,
+  isDone,
+  update,
+  canSplit,
+}) {
   const [submitAction, setSubmitAction] = useState<"save" | "split">("save");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);
 
@@ -126,6 +136,7 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
   const values = hForm.watch();
 
   const handleOnSubmit = async (payload) => {
+    setIsSubmitting(true);
     try {
       const updatedPayload = {
         fields: payload,
@@ -151,6 +162,8 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
       }
     } catch (e) {
       notification(e.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -286,13 +299,16 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             )}
           </DialogBody>
           <DialogFooter>
-            <Button mr={3} onClick={onClose} variant={"subtle"}>
+            <Button mr={3} onClick={onClose} variant={"subtle"} colorPalette={"gray"}>
               Close
             </Button>
 
             <Button
-              disabled={!canWrite}
-              variant={"solid"}
+              loading={isSubmitting && submitAction === "save"}
+              loadingText="Saving..."
+              disabled={!isFinalizeEnabled || isSubmitting}
+              variant={"subtle"}
+              colorPalette={"blue"}
               type="submit"
               onClick={() => {
                 setSubmitAction("save");
@@ -302,8 +318,11 @@ export default function LotGRNForm({ onClose, lot, canWrite, errorMessage, isDon
             </Button>
 
             <Button
-              disabled={!canWrite}
-              variant={"solid"}
+              loading={isSubmitting && submitAction === "split"}
+              loadingText="Splitting..."
+              disabled={!canSplit || isSubmitting || !values.finalizeLotColumn}
+              variant={"surface"}
+              colorPalette={"blue"}
               type="submit"
               onClick={() => {
                 setSubmitAction("split");

@@ -26,8 +26,8 @@ export const createLotColumns = (columns) => {
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
 
     const lotModalFieldColumns = columns.reduce((acc, curr) => {
-      const printCurrRow = (lot, canWrite) => {
-        return { lot, canWrite };
+      const printCurrRow = (lot, canWrite, isDone) => {
+        return { lot, canWrite, isDone };
       };
 
       const ButtonComponent = (row) => {
@@ -49,7 +49,7 @@ export const createLotColumns = (columns) => {
           <Button
             {...buttonProps}
             colorPalette={colorPalette}
-            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite))}
+            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite, isDone))}
           >
             {data?.columnStatus}
           </Button>

@@ -1,5 +1,4 @@
 import { useDisclosure } from "@chakra-ui/react";
-import { LOT_FLAGS } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";

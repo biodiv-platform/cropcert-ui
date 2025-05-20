@@ -42,7 +42,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
   const handleSubmit = async (payload) => {
     try {
       const { success, data } = await axCreateLot({
-        lotName: lotConfig.name + formattedDate(payload.creationDate),
+        lotName: lotConfig.name,
         type: lotConfig.type,
         coCode: lotConfig.coCode,
         ccCode: lotConfig.ccCode,

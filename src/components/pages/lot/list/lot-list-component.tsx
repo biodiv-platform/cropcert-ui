@@ -127,6 +127,26 @@ function LotComponent() {
               },
             },
           }}
+          conditionalRowStyles={[
+            {
+              when: (row) => row.lotCategory === "lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-gray-500)",
+              },
+            },
+            {
+              when: (row) => row.lotCategory === "sub_lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-green-500)",
+              },
+            },
+            {
+              when: (row) => row.lotCategory === "remaining_lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-yellow-500)",
+              },
+            },
+          ]}
           expandableRowsComponent={LotExpand}
           pagination
           paginationPerPage={20}

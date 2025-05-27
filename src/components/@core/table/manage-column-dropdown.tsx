@@ -38,7 +38,7 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
   };
 
   return (
-    <MenuRoot positioning={{ placement: "top-end" }}>
+    <MenuRoot positioning={{ placement: "top-end" }} closeOnSelect={false}>
       <MenuTrigger asChild position={"absolute"} bottom="8px" left="10px">
         <Button variant="outline" size="sm">
           {t("traceability:table.manage_columns")}

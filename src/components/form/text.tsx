@@ -1,5 +1,5 @@
 import { Input } from "@chakra-ui/react";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useController } from "react-hook-form";
 
 import { Field } from "../ui/field";
@@ -7,7 +7,7 @@ import { Field } from "../ui/field";
 interface ITextBoxProps {
   id?: string;
   name: string;
-  label?: string;
+  label?: string | ReactNode;
   type?: string;
   mb?: number;
   mt?: number;

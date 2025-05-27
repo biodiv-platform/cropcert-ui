@@ -1,4 +1,4 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Text } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { TextBoxField } from "@components/form/text";
@@ -76,16 +76,30 @@ export default function LotGRNForm({
               [currField.name]: Yup.number()
                 .min(0)
                 .required(`${currField.label} is required`)
-                .test(
-                  "faq-weight-check",
-                  "Sum of SC_18, SC_15, SC_12, dust, UG, all bhp, defects various must not exceed Input FAQ weight",
-                  function (value) {
+                .test({
+                  name: "faq-weight-check",
+                  message: "FAQ weight validation failed",
+                  test: function (value) {
+                    // Get form values safely
+                    const formValues = this.parent || {};
+
                     const total = faqSumFields.reduce((sum, field) => {
-                      return sum + (Number(this.parent[field]) || 0);
+                      return sum + (Number(formValues[field]) || 0);
                     }, 0);
-                    return value !== undefined && total <= value;
-                  }
-                ),
+
+                    const isValid = value !== undefined && total <= value;
+
+                    if (!isValid) {
+                      return this.createError({
+                        message: `Sum of SC_18, SC_15, SC_12, dust, UG, all bhp, defects various i.e. ${total} must not exceed Input FAQ weight i.e. ${
+                          value || 0
+                        }`,
+                      });
+                    }
+
+                    return true;
+                  },
+                }),
             };
           }
           // condition for remaining fields
@@ -260,11 +274,28 @@ export default function LotGRNForm({
                       name={field.name}
                       id={field.name}
                       label={
-                        field?.showPercent
-                          ? `${field.label}${field.required ? " *" : ""} ${formula.percent(
-                              field.name
-                            )}`
-                          : `${field.label}${field.required ? " *" : ""}`
+                        field?.showPercent ? (
+                          <>
+                            {field.label}
+                            {field.required && (
+                              <Text as="span" color="red.500">
+                                {" "}
+                                *
+                              </Text>
+                            )}
+                            {" " + formula.percent(field.name)}
+                          </>
+                        ) : (
+                          <>
+                            {field.label}
+                            {field.required && (
+                              <Text as="span" color="red.500">
+                                {" "}
+                                *
+                              </Text>
+                            )}
+                          </>
+                        )
                       }
                       placeholder={field.label}
                       type={field.type}

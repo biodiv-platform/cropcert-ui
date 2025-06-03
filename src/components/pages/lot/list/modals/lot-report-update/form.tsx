@@ -178,6 +178,7 @@ export default function LotGRNForm({
       notification(e.message);
     } finally {
       setIsSubmitting(false);
+      onClose();
     }
   };
 

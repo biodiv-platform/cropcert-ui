@@ -1,5 +1,6 @@
 import { Button, Flex } from "@chakra-ui/react";
 import React from "react";
+import { LuMinus, LuPlus } from "react-icons/lu";
 
 export default function WeightInputStepper({
   value,
@@ -34,7 +35,7 @@ export default function WeightInputStepper({
   return (
     <Flex align="center">
       <Button size="xs" onClick={handleDecrement} disabled={value <= min}>
-        −
+        <LuMinus />
       </Button>
       <input
         className="custom-weight-input"
@@ -50,7 +51,7 @@ export default function WeightInputStepper({
         }}
       />
       <Button size="xs" onClick={handleIncrement} disabled={value >= max}>
-        +
+        <LuPlus />
       </Button>
     </Flex>
   );

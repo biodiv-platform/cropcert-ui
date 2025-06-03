@@ -8,6 +8,7 @@ import { axCreateContainer } from "@services/container.service";
 import { MCONTAINER } from "@static/messages";
 import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import Check2Icon from "src/icons/check2";
@@ -27,10 +28,9 @@ import { containerCreateModalCols } from "../../data";
 
 export function ContainerCreateForm({ update, lots, containerConfig, latestDate, onClose }) {
   const [restructureConfirmed, setRestructureConfirmed] = useState(false);
-  // Track if weights have been modified by the user
   const [weightsModified, setWeightsModified] = useState(false);
-  // State to store original lot weights for comparison
   const [originalLotWeights, setOriginalLotWeights] = useState({});
+  const { t } = useTranslation();
 
   const hForm = useForm({
     mode: "onBlur",
@@ -296,8 +296,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
                   borderStartColor="colorPalette.solid"
                   alignItems="center"
                 >
-                  Container size is less than total quantity. You&apos;ll need to restructure the
-                  selected lots.
+                  {t("traceability:lot.container_create.creation_size_error")}
                 </Alert>
               </Box>
             )}
@@ -312,7 +311,8 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
                   borderStartColor="colorPalette.solid"
                   alignItems="center"
                 >
-                  Restructuring confirmed. New total weight: {updatedTotal} KG(s)
+                  {t("traceability:lot.container_create.restructuring_confirm_message")}{" "}
+                  {updatedTotal} KG(s)
                 </Alert>
               </Box>
             )}
@@ -340,8 +340,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
                   borderColor="blue.200"
                 >
                   <Text fontSize="sm">
-                    These lots have remaining quantities and will be available again in the lot list
-                    page.
+                    {t("traceability:lot.container_create.remaining_quantity_warning")}
                   </Text>
                 </Box>
               </Box>

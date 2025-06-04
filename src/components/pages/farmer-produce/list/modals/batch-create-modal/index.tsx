@@ -24,7 +24,7 @@ export default function BatchCreateModal({ update }) {
   );
 
   return (
-    <DialogRoot open={open} onOpenChange={onClose} closeOnInteractOutside={false} size="xl">
+    <DialogRoot open={open} onOpenChange={onClose} closeOnInteractOutside={false} size="lg">
       <DialogBackdrop />
       {data && <BatchCreateForm update={update} onClose={onClose} {...data} />}
     </DialogRoot>

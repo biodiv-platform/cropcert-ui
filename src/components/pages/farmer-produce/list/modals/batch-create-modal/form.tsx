@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  // ModalBody,
-  // ModalCloseButton,
-  // ModalContent,
-  // ModalFooter,
-  // ModalHeader,
-} from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import Table from "@components/@core/table";
 import { DateTimeInputField } from "@components/form/datepicker";
 import { SubmitButton } from "@components/form/submit-button";
@@ -15,7 +6,6 @@ import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateBatch } from "@services/batch.service";
 import { BATCH } from "@static/messages";
-import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -63,9 +53,7 @@ export default function BatchCreateForm({
       const unionCode = farmerProduceArr[0].unionCode;
       const prefix = farmerProduceArr[0].farmerId.split("-")[0];
       const updatedPayload = {
-        batchName: `${prefix}_${batchConfig.type.charAt(0).toUpperCase()}_${formattedDate(
-          payload.creationDate
-        )}`,
+        batchName: `${prefix}_${batchConfig.type.charAt(0).toUpperCase()}`,
         type: batchConfig.type,
         ccCode: uniqueCCs,
         coCode: uniqueCOs,

@@ -129,6 +129,8 @@ const lotExtraColumns = [
     selector: (row) => new Date(row.createdAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.createdAt).getTime() - new Date(rowB.createdAt).getTime(),
     showDefault: true,
   },
   {
@@ -136,6 +138,8 @@ const lotExtraColumns = [
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
     showDefault: true,
   },
   {
@@ -180,6 +184,9 @@ export const batchColumns = [
     selector: (row) => row.lastUpdatedAt,
     maxWidth: "180px",
     cell: (row) => timeCell(row.lastUpdatedAt),
+    sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
   },
 ];
 

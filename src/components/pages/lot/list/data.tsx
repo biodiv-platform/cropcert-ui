@@ -189,13 +189,15 @@ export const containerCreateModalCols = [
   {
     name: "Name",
     selector: (row) => row["lotName"],
-    width: "380px",
+    width: "280px",
+    wrap: false,
   },
   {
     name: "Quantity",
     selector: (row) => row["quantity"],
     sortable: true,
     right: true,
+    maxWidth: "110px",
   },
 ];
 

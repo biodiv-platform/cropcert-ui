@@ -114,7 +114,8 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
       {
         name: "Selected Weight (KG)",
         selector: (row) => Number(updatedWeights?.[row._id]) || 0,
-        width: "150px",
+        width: "120px",
+        right: true,
       },
     ];
   }, [containerCreateModalCols, updatedWeights]);
@@ -124,14 +125,16 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
     return [
       ...containerCreateModalCols,
       {
-        name: "Used Weight (KG)",
-        selector: (row) => row.updatedWeight,
-        width: "130px",
-      },
-      {
         name: "Remaining Weight (KG)",
         selector: (row) => row.weight,
-        width: "150px",
+        width: "120px",
+        right: true,
+      },
+      {
+        name: "Used Weight (KG)",
+        selector: (row) => row.updatedWeight,
+        width: "120px",
+        right: true,
       },
     ];
   }, [containerCreateModalCols]);
@@ -382,7 +385,9 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
             </Button>
             <SubmitButton
               leftIcon={<Check2Icon />}
-              isDisabled={lots.length === 0 || (isSplitting && !restructureConfirmed)}
+              isDisabled={
+                lots.length === 0 || !values.maxWeight || (isSplitting && !restructureConfirmed)
+              }
             >
               Create Container
             </SubmitButton>

@@ -131,7 +131,7 @@ export const batchCreateModalCols = [
     name: "#",
     selector: (row) => row["farmerProduceId"],
     width: "100px",
-    cell: (row) => `FP-${row.farmerProduceId}`,
+    cell: (row) => row.farmerProduceId,
   },
   {
     name: "Name",

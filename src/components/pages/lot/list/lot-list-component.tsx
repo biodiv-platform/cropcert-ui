@@ -63,7 +63,7 @@ function LotComponent() {
     const quantity = selectedLots.reduce((acc, cv) => selectedLots.length && cv.quantity + acc, 0);
 
     const payload = {
-      name: `${prefix}_Container_`,
+      name: `${prefix}_${selectedLots[0].type.charAt(0).toUpperCase()}`,
       selected: selectedLots,
       coCode: [...new Set(selectedLots.map((r) => r.coCode))].flat(),
       unionCode: union?.code,

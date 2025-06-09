@@ -240,7 +240,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
 
       const { success, data } = await axCreateContainer({
         containerData: {
-          containerName: containerConfig.name + formattedDate(payload.creationDate),
+          containerName: containerConfig.name,
           type: containerConfig.type,
           coCode: containerConfig.coCode,
           ccCode: containerConfig.ccCode,
@@ -269,8 +269,7 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
           <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
-            Finalize Container: {containerConfig.name}
-            {formattedDate(values.creationDate)}
+            ✨ Create Container
           </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>

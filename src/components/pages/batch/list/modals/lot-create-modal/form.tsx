@@ -63,7 +63,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
     <DialogContent>
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
-          <DialogHeader fontWeight={"bold"} fontSize={"4xl"}>
+          <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
             ✨ Create Lot
           </DialogHeader>
           <DialogCloseTrigger />

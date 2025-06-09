@@ -6,7 +6,6 @@ import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateContainer } from "@services/container.service";
 import { MCONTAINER } from "@static/messages";
-import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";

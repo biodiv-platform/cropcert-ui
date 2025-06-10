@@ -25,76 +25,76 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
     },
     {
       name: "Contact Number",
-      selector: farmerProduces["contactNo"],
+      selector: farmerProduces["contactNo"] || "N/A",
     },
     {
       name: "Produce Type",
-      selector: farmerProduces["produceType"].toUpperCase(),
+      selector: farmerProduces["produceType"]?.toUpperCase() || "N/A",
     },
     {
       name: "Quantity",
-      selector: farmerProduces["quantity"],
+      selector: farmerProduces["quantity"] || "N/A",
     },
     {
       name: "No Of Bags",
-      selector: farmerProduces["noOfBags"],
+      selector: farmerProduces["noOfBags"] || "N/A",
     },
     {
       name: "Deduction",
-      selector: farmerProduces["deduction"],
+      selector: farmerProduces["deduction"] || "N/A",
     },
     {
       name: "Deduction Reason",
-      selector: farmerProduces["deductionReason"],
+      selector: farmerProduces["deductionReason"] || "N/A",
     },
     {
       name: "Net Collection",
-      selector: farmerProduces["netCollection"],
+      selector: farmerProduces["netCollection"] || "N/A",
     },
     {
       name: "Price Per Kg",
-      selector: farmerProduces["pricePerKg"],
+      selector: farmerProduces["pricePerKg"] || "N/A",
     },
     {
       name: "Amount Paid",
-      selector: farmerProduces["amountPaidCalculate"],
+      selector: farmerProduces["amountPaidCalculate"] || "N/A",
     },
     {
       name: "Milling Charge",
-      selector: farmerProduces["millingCharge"],
+      selector: farmerProduces["millingCharge"] || "N/A",
     },
     {
       name: "Collection Date",
-      selector: dateOfCollection,
+      selector: dateOfCollection || "N/A",
     },
     {
       name: "Collector Name",
-      selector: farmerProduces["collectorName"],
+      selector: farmerProduces["collectorName"] || "N/A",
     },
     {
       name: "Collector Substr",
-      selector: farmerProduces["collectorSubstr"],
+      selector: farmerProduces["collectorSubstr"] || "N/A",
     },
     {
       name: "Calculate GRN",
-      selector: farmerProduces["calculateGrn"],
+      selector: farmerProduces["calculateGrn"] || "N/A",
     },
     {
       name: "ODK Instance ID",
-      selector: farmerProduces["instanceID"].split(":")[1],
+      selector: farmerProduces["instanceID"].split(":")[1] || "N/A",
     },
 
     {
       name: "Farmer Member ODK Instance ID",
-      selector: farmerProduces["farmerEID"].split(":")[1],
+      selector: farmerProduces["farmerEID"].split(":")[1] || "N/A",
     },
     {
       name: "Created At",
-      selector: new Date(farmerProduces["createdAt"]).toLocaleString(),
+      selector: new Date(farmerProduces["createdAt"]).toLocaleString() || "N/A",
     },
     {
       name: "Form Version",
-      selector: farmerProduces["formVersion"],
+      selector: farmerProduces["formVersion"] || "N/A",
     },
   ];
 

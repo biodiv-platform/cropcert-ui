@@ -15,6 +15,10 @@ export default function GrnReceiptInfo({ farmerProduces }) {
       projectId: 2,
       xmlFormId: "Buzaaya-Farmer-Collection",
     },
+    6: {
+      projectId: 4,
+      xmlFormId: "NorthernUganda-Farmer-Collection",
+    },
   };
 
   const [rotationAngle, setRotationAngle] = useState(-90);

@@ -26,8 +26,8 @@ export const createLotColumns = (columns) => {
     columns.sort((col1, col2) => col1.modalIndex - col2.modalIndex);
 
     const lotModalFieldColumns = columns.reduce((acc, curr) => {
-      const printCurrRow = (lot, canWrite) => {
-        return { lot, canWrite };
+      const printCurrRow = (lot, canWrite, isDone) => {
+        return { lot, canWrite, isDone };
       };
 
       const ButtonComponent = (row) => {
@@ -49,7 +49,7 @@ export const createLotColumns = (columns) => {
           <Button
             {...buttonProps}
             colorPalette={colorPalette}
-            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite))}
+            onClick={() => emit(LOT_REPORT_UPDATE, printCurrRow(updatedLot, canWrite, isDone))}
           >
             {data?.columnStatus}
           </Button>
@@ -87,7 +87,7 @@ export const lotColumns = [
     name: "#",
     selector: (row) => row.lotId,
     sortable: true,
-    width: "80px",
+    width: "200px",
     cell: (row) => <LotCell {...row} type="l" />,
     showDefault: true,
   },
@@ -109,15 +109,15 @@ export const lotColumns = [
   {
     name: "Type",
     selector: (row) => row.type?.toUpperCase(),
-    center: true,
     sortable: true,
-    maxWidth: "150px",
+    maxWidth: "480px",
     showDefault: true,
+    center: true,
   },
   {
     name: "Cooperative",
     selector: (row) => row.coCode,
-    maxWidth: "250px",
+    maxWidth: "200px",
     showDefault: true,
     cell: (row) => <CoopCell coCode={row.coCode} />,
   },
@@ -129,6 +129,8 @@ const lotExtraColumns = [
     selector: (row) => new Date(row.createdAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.createdAt).getTime() - new Date(rowB.createdAt).getTime(),
     showDefault: true,
   },
   {
@@ -136,6 +138,8 @@ const lotExtraColumns = [
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     maxWidth: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
     showDefault: true,
   },
   {
@@ -180,6 +184,9 @@ export const batchColumns = [
     selector: (row) => row.lastUpdatedAt,
     maxWidth: "180px",
     cell: (row) => timeCell(row.lastUpdatedAt),
+    sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
   },
 ];
 
@@ -190,12 +197,14 @@ export const containerCreateModalCols = [
     name: "Name",
     selector: (row) => row["lotName"],
     width: "280px",
+    wrap: false,
   },
   {
     name: "Quantity",
     selector: (row) => row["quantity"],
     sortable: true,
     right: true,
+    maxWidth: "110px",
   },
 ];
 

@@ -49,5 +49,12 @@
   "container": {
     "restricted_access": "There was an error processing your request. Please contact admin for details",
     "expand_error": "Error loading columns: "
+  },
+  "lot": {
+    "container_create": {
+      "creation_size_error": "Container size is less than total quantity. You'll need to restructure the selected lots.",
+      "restructuring_confirm_message": "Restructuring confirmed. New total weight: ",
+      "remaining_quantity_warning": "These lots have remaining quantities and will be available again in the lot list page."
+    }
   }
 }

@@ -208,3 +208,29 @@ h6,
 .dropdown-content {
   z-index: 99 !important;
 }
+
+.custom-weight-input {
+  text-align: center;
+  margin: 0 4px;
+  min-width: 12px;
+  width: fit-content;
+  height: 32px;
+  font-size: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+
+  /* Remove default number input spinner */
+  appearance: textfield;
+}
+
+.custom-weight-input::-webkit-outer-spin-button,
+.custom-weight-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-weight-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #3182ce; /* Chakra UI blue-ish */
+  border-color: #3182ce;
+}

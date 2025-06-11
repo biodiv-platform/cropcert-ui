@@ -1,5 +1,4 @@
 import { useDisclosure } from "@chakra-ui/react";
-import { LOT_FLAGS } from "@static/constants";
 import { LOT_REPORT_UPDATE } from "@static/events";
 import React, { useState } from "react";
 import { useListener } from "react-gbus";
@@ -14,14 +13,16 @@ export default function LotReportUpdate({ update }) {
   const [isDone, setIsDone] = useState(false);
   const [canWrite, setCanWrite] = useState(false);
   const [errorMessage, setErrorMessage] = useState<any>();
+  const [canSplit, setCanSplit] = useState(false);
 
   useListener(
-    ({ lot, canWrite }) => {
+    ({ lot, canWrite, isDone }) => {
       onOpen();
       setLot(lot);
       setCanWrite(canWrite);
       setErrorMessage(undefined);
-      setIsDone(lot?.columnStatus === LOT_FLAGS.DONE);
+      setIsDone(isDone);
+      setCanSplit(!lot.lotId.includes("SL"));
     },
     [LOT_REPORT_UPDATE]
   );
@@ -42,6 +43,7 @@ export default function LotReportUpdate({ update }) {
           errorMessage={errorMessage}
           isDone={isDone}
           update={update}
+          canSplit={canSplit}
         />
       )}
     </DialogRoot>

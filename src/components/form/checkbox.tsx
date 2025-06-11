@@ -41,8 +41,8 @@ export const CheckBoxField = ({
         name={name}
         onChange={(e) => onChange(e.target["checked"])}
         onBlur={onBlur}
-        defaultChecked={value}
         disabled={isDisabled}
+        checked={value}
         id={name}
       >
         {children || label}

@@ -72,7 +72,7 @@ function BatchComponent() {
     );
 
     const payload = {
-      name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}_`,
+      name: `${prefix}_${selectedBatches[0].type.charAt(0).toUpperCase()}`,
       type: selectedBatches[0].type,
       selected: selectedBatches,
       coCode: [...new Set(selectedBatches.map((r) => r.coCode))].flat(),

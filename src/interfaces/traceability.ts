@@ -150,6 +150,9 @@ export interface Lot {
     | "AT_FACTORY"
     | "AT_UNION";
   deleted?: boolean;
+  lotCategory?: "lot" | "sub_lot" | "remaining_lot";
+  isReadyForContainer: boolean;
+  isSubLotCreated: boolean;
 }
 export interface LotList {
   id?: number; // int64

@@ -64,6 +64,20 @@ export const axUpdateLot = async (payload) => {
   }
 };
 
+export const axSplitLot = async (payload) => {
+  try {
+    const { data } = await http.put(`${ENDPOINT.TRACEABILITY}/lot/${payload.id}/split`, payload);
+    return { success: true, data };
+  } catch (e) {
+    const backendMsg = e?.response?.data?.message;
+    const backendCode = e?.response?.status;
+    notification(
+      backendMsg ? `Error: ${backendMsg}${backendCode ? ` (Code: ${backendCode})` : ""}` : e.message
+    );
+    return { success: false, data: {} };
+  }
+};
+
 export const axListMarketingLot = async (coCodes, offset = 0, limit = PAGINATION_LIMIT) => {
   try {
     const res = await plainHttp.get(`${ENDPOINT.TRACEABILITY}/lot/all/marketing`, {

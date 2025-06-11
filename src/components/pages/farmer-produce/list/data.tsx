@@ -74,6 +74,8 @@ export const farmerProduceColumns = [
     name: "Date of Collection",
     selector: (row) => new Date(row.dateOfCollection).toLocaleString(),
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.dateOfCollection).getTime() - new Date(rowB.dateOfCollection).getTime(),
     showDefault: true,
     maxWidth: "210px",
   },
@@ -129,7 +131,7 @@ export const batchCreateModalCols = [
     name: "#",
     selector: (row) => row["farmerProduceId"],
     width: "100px",
-    cell: (row) => `FP-${row.farmerProduceId}`,
+    cell: (row) => row.farmerProduceId,
   },
   {
     name: "Name",

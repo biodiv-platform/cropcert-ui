@@ -6,6 +6,10 @@ export const yupSchemaMapping = {
     .min(1)
     .nullable()
     .transform((value, originalValue) => (originalValue === "" ? undefined : value)),
+  "Yup.number().min(0.0001)": Yup.number()
+    .min(0.0001)
+    .nullable()
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value)),
   "Yup.number().min(1).max(weight_arriving_factory)": Yup.number()
     .min(1)
     .max(Yup.ref("weight_arriving_factory"), "Field cannot be greater than Weight Arriving Factory")
@@ -14,8 +18,8 @@ export const yupSchemaMapping = {
     .min(1)
     .max(Yup.ref("input_FAQ_weight"), "Field cannot be greater than Input FAQ Weight")
     .nullable(),
-  "Yup.number().min(1).max(input_FAQ_moisture_content)": Yup.number()
-    .min(1)
+  "Yup.number().min(0.0001).max(input_FAQ_moisture_content)": Yup.number()
+    .min(0.0001)
     .max(
       Yup.ref("input_FAQ_moisture_content"),
       "Field cannot be greater than Input Moisture Content"
@@ -74,4 +78,5 @@ export const yupSchemaMapping = {
         return Number(value) <= this.parent.total_kgs;
       }
     ),
+  "Yup.number().nullable()": Yup.number().nullable(),
 };

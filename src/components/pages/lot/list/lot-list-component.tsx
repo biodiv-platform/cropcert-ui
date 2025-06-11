@@ -12,16 +12,18 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
 import useGlobalState from "@/hooks/use-global-state";
+import { hasAccess } from "@/utils/auth";
 
 import { useTraceability } from "../../common/traceability-tabs";
 import { createLotColumns, lotColumns } from "./data";
 import LotExpand from "./expand";
 import ContainerCreateModal from "./modals/container-create-modal";
 import LotReportUpdate from "./modals/lot-report-update";
+import MultipleTypeWarning from "./multiple-warning";
 import useLotFilter from "./use-lot-filter";
 
 function LotComponent() {
-  const { union, setUnion } = useGlobalState();
+  const { user, union, setUnion } = useGlobalState();
   const [lotExtraColumns, setLotExtraColumns] = useState<any>([]);
   const { t } = useTranslation();
   const { open: clearRows, onToggle } = useDisclosure();
@@ -29,6 +31,7 @@ function LotComponent() {
   const [selectedLots, setSelectedLots] = useState<any>([]);
   const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
   const { setReRenderTabs } = useTraceability();
+  const [showTypeError, setShowTypeError] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -52,6 +55,7 @@ function LotComponent() {
 
   const handleOnSelectionChange = ({ selectedRows }) => {
     setSelectedLots(selectedRows);
+    setShowTypeError([...new Set(selectedRows.map((r) => r.type))].length === 2 ? true : false);
   };
 
   const handleOnCreateContainer = () => {
@@ -59,7 +63,7 @@ function LotComponent() {
     const quantity = selectedLots.reduce((acc, cv) => selectedLots.length && cv.quantity + acc, 0);
 
     const payload = {
-      name: `${prefix}_Container_`,
+      name: `${prefix}_${selectedLots[0].type.charAt(0).toUpperCase()}`,
       selected: selectedLots,
       coCode: [...new Set(selectedLots.map((r) => r.coCode))].flat(),
       unionCode: union?.code,
@@ -84,7 +88,11 @@ function LotComponent() {
       <Button
         colorPalette="green"
         variant="solid"
-        disabled={selectedLots.length === 0}
+        disabled={
+          showTypeError ||
+          selectedLots.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
         onClick={handleOnCreateContainer}
       >
         {<AddIcon />} Create Container
@@ -110,6 +118,8 @@ function LotComponent() {
         <CoMultiSelect unionId={union?.code} onChange={setCOCodes} />
       </CoreGrid>
 
+      <MultipleTypeWarning show={showTypeError} />
+
       {loading ? (
         <Spinner />
       ) : lotListData?.length > 0 ? (
@@ -127,6 +137,26 @@ function LotComponent() {
               },
             },
           }}
+          conditionalRowStyles={[
+            {
+              when: (row) => row.lotCategory === "lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-gray-500)",
+              },
+            },
+            {
+              when: (row) => row.lotCategory === "sub_lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-green-500)",
+              },
+            },
+            {
+              when: (row) => row.lotCategory === "remaining_lot",
+              style: {
+                borderLeft: "2px solid var(--chakra-colors-yellow-500)",
+              },
+            },
+          ]}
           expandableRowsComponent={LotExpand}
           pagination
           paginationPerPage={20}
@@ -139,7 +169,7 @@ function LotComponent() {
           selectableRows={true}
           onSelectedRowsChange={handleOnSelectionChange}
           clearSelectedRows={clearRows}
-          selectableRowDisabled={(r) => r.containerId}
+          selectableRowDisabled={(r) => r.containerId || r.isSubLotCreated}
         />
       ) : (
         <Box mt={2} minHeight={"300px"}>

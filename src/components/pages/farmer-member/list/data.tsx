@@ -60,6 +60,8 @@ export const farmerMemberColumns = [
     selector: (row) => new Date(row.submittedOnODK).toLocaleString(),
     width: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.submittedOnODK).getTime() - new Date(rowB.submittedOnODK).getTime(),
     showDefault: true,
   },
   {
@@ -67,6 +69,8 @@ export const farmerMemberColumns = [
     selector: (row) => new Date(row.lastUpdatedAt).toLocaleString(),
     width: "210px",
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
     showDefault: true,
   },
   {

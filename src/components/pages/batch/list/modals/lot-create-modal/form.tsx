@@ -6,7 +6,6 @@ import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axCreateLot } from "@services/lot.service";
 import { MLOT } from "@static/messages";
-import { formattedDate } from "@utils/basic";
 import notification, { NotificationType } from "@utils/notification";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -37,12 +36,10 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
     },
   });
 
-  const values = hForm.watch();
-
   const handleSubmit = async (payload) => {
     try {
       const { success, data } = await axCreateLot({
-        lotName: lotConfig.name + formattedDate(payload.creationDate),
+        lotName: lotConfig.name,
         type: lotConfig.type,
         coCode: lotConfig.coCode,
         ccCode: lotConfig.ccCode,
@@ -67,8 +64,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
       <FormProvider {...hForm}>
         <form onSubmit={hForm.handleSubmit(handleSubmit)}>
           <DialogHeader fontWeight={"bold"} fontSize={"lg"}>
-            Finalize Lot: {lotConfig.name}
-            {formattedDate(values.creationDate)}
+            ✨ Create Lot
           </DialogHeader>
           <DialogCloseTrigger />
           <DialogBody>

@@ -46,6 +46,8 @@ export default function FarmerLots({ rows }) {
       cell: (row) => new Date(row.createdAt).toLocaleString(),
       maxWidth: "180px",
       sortable: true,
+      sortFunction: (rowA, rowB) =>
+        new Date(rowA.createdAt).getTime() - new Date(rowB.createdAt).getTime(),
     },
     {
       name: "Note",

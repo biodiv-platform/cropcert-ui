@@ -64,6 +64,8 @@ export const columns = [
     maxWidth: "160px",
     cell: (row) => timeCell(row.createdOn),
     sortable: true,
+    sortFunction: (rowA, rowB) =>
+      new Date(rowA.createdOn).getTime() - new Date(rowB.createdOn).getTime(),
   },
   {
     name: "Contact",

@@ -52,6 +52,9 @@ export default function LotInfo({ lot, geojsonData }) {
       name: "Created At",
       selector: (row) => row["createdAt"],
       cell: (row) => new Date(row.createdAt).toLocaleString(),
+      sortable: true,
+      sortFunction: (rowA, rowB) =>
+        new Date(rowA.createdAt).getTime() - new Date(rowB.createdAt).getTime(),
     },
     {
       name: "Note",

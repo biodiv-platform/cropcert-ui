@@ -50,6 +50,8 @@ export default function BatchInfo({ batch, geojsonData }) {
       maxWidth: "150px",
       cell: (row) => timeCell(row.lastUpdatedAt),
       sortable: true,
+      sortFunction: (rowA, rowB) =>
+        new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
     },
     {
       name: "Lot ID",

@@ -19,6 +19,7 @@ const notification = (message, type = NotificationType.Error, variables = {}) =>
     toaster.create({
       description: typeof message === "string" ? compiledMessage(`${message}`, variables) : message,
       type: type,
+      closable: true,
     });
   }
 };

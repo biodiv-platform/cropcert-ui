@@ -12,7 +12,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { LuArrowRight } from "react-icons/lu";
 import * as Yup from "yup";
 
-import { DialogBackdrop, DialogContent, DialogFooter, DialogRoot } from "../ui/dialog";
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogRoot,
+} from "../ui/dialog";
 import OTPIcon from "./otp-icon";
 
 export default function OTPModal({ isOpen, onClose, user }) {
@@ -59,9 +66,10 @@ export default function OTPModal({ isOpen, onClose, user }) {
     <DialogRoot placement={"top"} size="sm" open={isOpen} onOpenChange={onClose}>
       <DialogBackdrop className="fade">
         <DialogContent className="fadeInUp" borderRadius="md">
+          <DialogCloseTrigger />
           <FormProvider {...otpForm}>
             <form onSubmit={otpForm.handleSubmit(handleOtpFormSubmit)}>
-              <DialogContent pt={8}>
+              <DialogBody pt={8}>
                 <Flex direction="column" align="center" mb={8} mt={4}>
                   <OTPIcon />
                 </Flex>
@@ -72,7 +80,7 @@ export default function OTPModal({ isOpen, onClose, user }) {
                   {t("auth:otp.description")} {user?.vt}
                 </Text>
                 <TextBoxField mb={0} name="otp" label={t("auth:otp.form.otp")} />
-              </DialogContent>
+              </DialogBody>
 
               <DialogFooter justifyContent="space-between">
                 <Link as="button" type="button" onClick={handleRegenerate}>

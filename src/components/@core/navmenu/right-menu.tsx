@@ -1,4 +1,4 @@
-import { IconButton } from "@chakra-ui/react";
+import { Box, IconButton } from "@chakra-ui/react";
 import { List } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import Link from "next/link";
@@ -29,13 +29,15 @@ function NavbarRightMenu() {
           <List.Item>
             <Link className="user" href={`/user/show/${user.id}`}>
               <Tooltip title={`${user.name} (${visualRole})`} positioning={{ placement: "bottom" }}>
-                <Avatar size="sm" name={user.name} />
+                <Box display="inline-block">
+                  <Avatar size="sm" name={user.name} />{" "}
+                </Box>
               </Tooltip>
             </Link>
           </List.Item>
           <List.Item px={2}>
             <Link href="/logout" className="user">
-              <Tooltip title={`${user.name}`}>
+              <Tooltip title="Logout">
                 <IconButton variant={"ghost"} size="sm">
                   <LogoutIcon />
                 </IconButton>

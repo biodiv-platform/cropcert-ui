@@ -76,8 +76,6 @@ export default function LayerUploadDropzone() {
   const { updateMapFile, mapFileType, setMapFileType } = useLayerUpload();
   const { t } = useTranslation();
 
-  // const [tabIndex, setTabIndex] = useState(0);
-
   const onDrop = async (files) => {
     for (const file of files) {
       if (file.name.endsWith(FILE_TYPES.DBF)) {
@@ -92,10 +90,10 @@ export default function LayerUploadDropzone() {
 
   const handleTabInex = (val) => {
     switch (val) {
-      case 0:
+      case "vector":
         setMapFileType(MapFileType.vector);
         break;
-      case 1:
+      case "raster":
         setMapFileType(MapFileType.raster);
         break;
     }
@@ -111,7 +109,13 @@ export default function LayerUploadDropzone() {
 
   return (
     <VerticalTabs>
-      <Tabs.Root className="tabs" onChange={handleTabInex} lazyMount>
+      <Tabs.Root
+        className="tabs"
+        onValueChange={(e) => handleTabInex(e.value)}
+        lazyMount
+        defaultValue={"vector"}
+        variant={"outline"}
+      >
         <Tabs.List>
           <Tabs.Trigger value="vector">
             <Tooltip content={t("Vector")}>
@@ -126,8 +130,8 @@ export default function LayerUploadDropzone() {
           <Box borderLeft="1px" borderColor="gray.300" flexGrow={1} />
         </Tabs.List>
         <Flex ml={2} height={["100%"]} className="tab-content" position="relative">
-          {Object.keys(MapFileType).map(() => (
-            <Tabs.Content value="vector" h="inherit">
+          {Object.keys(MapFileType).map((index) => (
+            <Tabs.Content value={index} h="inherit">
               <SimpleGrid columns={{ base: 1, md: 7 }} gap={4} h="100%">
                 <Flex
                   {...getRootProps()}

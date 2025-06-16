@@ -26,7 +26,6 @@ const defaultViewState = getMapCenter(3.1);
 export default function MapPageComponent({ defaultLayers }) {
   const { t, lang } = useTranslation();
   const { user } = useGlobalState();
-  // const toast = useToaster();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
 
@@ -48,11 +47,9 @@ export default function MapPageComponent({ defaultLayers }) {
           </ExternalBlueLink>
         </div>
       ),
-      // variant: "left-accent",
       type: "success",
       duration: 9000,
-      placement: "top",
-      // isClosable: true,
+      closable: true,
     });
   };
 

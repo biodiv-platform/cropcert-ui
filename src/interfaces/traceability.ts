@@ -1,9 +1,9 @@
 export interface Activity {
-  id?: number; // int64
+  id?: number;
   objectType?: string;
-  objectId?: number; // int64
+  objectId?: number;
   userId?: string;
-  timestamp?: string; // date-time
+  timestamp?: string;
   activityType?: string;
   activityValue?: string;
   note?: string;
@@ -16,25 +16,25 @@ export interface Batch {
   lotStatus: any;
   batchId: any;
   lastUpdatedAt: any;
-  _id?: string; // int64
+  _id?: string;
   batchName?: string;
-  ccCode?: number[]; // int64
-  coCode?: number[]; // int64
-  unionCode?: number; // int64
+  ccCode?: number[];
+  coCode?: number[];
+  unionCode?: number;
   type?: "DRY" | "WET" | "FAQ";
-  quantity?: number; // float
-  date?: string; // date-time
-  createdOn?: string; // date-time
+  quantity?: number;
+  date?: string;
+  createdOn?: string;
   note?: string;
-  startTime?: string; // date-time
-  fermentationEndTime?: string; // date-time
-  dryingEndTime?: string; // date-time
-  perchmentQuantity?: number; // float
+  startTime?: string;
+  fermentationEndTime?: string;
+  dryingEndTime?: string;
+  perchmentQuantity?: number;
   isReadyForLot?: boolean;
-  lotId?: number; // int64
+  lotId?: number;
   batchStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   isDeleted?: boolean;
-  createdAt?: string; // date-time
+  createdAt?: string;
   modalFieldCombined?: {
     columnName: string;
     isOptional: boolean;
@@ -43,104 +43,105 @@ export interface Batch {
   }[];
 }
 export interface CoopActionData {
-  id?: number; // int64
-  weightLeavingCooperative?: number; // float
-  mcLeavingCooperative?: number; // float
-  timeToFactory?: string; // date-time
+  id?: number;
+  weightLeavingCooperative?: number;
+  mcLeavingCooperative?: number;
+  timeToFactory?: string;
   finalizeCoopStatus?: boolean;
 }
 export interface Cupping {
-  id?: number; // int64
+  id?: number;
   lotName?: string;
-  date?: string; // date-time
-  timestamp?: string; // date-time
+  date?: string;
+  timestamp?: string;
   cfa?: string;
   ccName?: string;
   cupper?: string;
   sampleType?: string;
-  fragranceAroma?: number; // float
-  flavour?: number; // float
-  acidity?: number; // float
-  body?: number; // float
-  afterTaste?: number; // float
-  balance?: number; // float
-  sweetness?: number; // float
-  uniformity?: number; // float
-  cleanCup?: number; // float
-  overAll?: number; // float
-  taint?: number; // float
-  fault?: number; // float
+  fragranceAroma?: number;
+  flavour?: number;
+  acidity?: number;
+  body?: number;
+  afterTaste?: number;
+  balance?: number;
+  sweetness?: number;
+  uniformity?: number;
+  cleanCup?: number;
+  overAll?: number;
+  taint?: number;
+  fault?: number;
   notes?: string;
   status?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   isDeleted?: boolean;
 }
 export interface FactoryReport {
-  id?: number; // int64
-  lotId?: number; // int64
-  date?: string; // date-time
-  mcIn?: number; // float
-  mcOut?: number; // float
-  inputWeight?: number; // float
-  spillPrivBatch?: number; // float
-  spillCF?: number; // float
-  netInputWeight?: number; // float
-  gradeAA?: number; // float
-  gradeAB?: number; // float
-  gradeCAndPB?: number; // float
-  highGradeWeight?: number; // float
-  triage?: number; // float
-  pods?: number; // float
-  arabica1899?: number; // float
-  sweeppingsOrSpillages?: number; // float
-  lowGradeWeight?: number; // float
-  blackBeansAA?: number; // float
-  blackBeansAB?: number; // float
-  blackBeansC?: number; // float
-  totalBlackBeans?: number; // float
-  stone?: number; // float
-  preCleaner?: number; // float
-  graderHusks?: number; // float
-  wasteSubTotal?: number; // float
-  handlingLoss?: number; // float
-  dryingLoss?: number; // float
-  otherLossSubTotal?: number; // float
+  id?: number;
+  lotId?: number;
+  date?: string;
+  mcIn?: number;
+  mcOut?: number;
+  inputWeight?: number;
+  spillPrivBatch?: number;
+  spillCF?: number;
+  netInputWeight?: number;
+  gradeAA?: number;
+  gradeAB?: number;
+  gradeCAndPB?: number;
+  highGradeWeight?: number;
+  triage?: number;
+  pods?: number;
+  arabica1899?: number;
+  sweeppingsOrSpillages?: number;
+  lowGradeWeight?: number;
+  blackBeansAA?: number;
+  blackBeansAB?: number;
+  blackBeansC?: number;
+  totalBlackBeans?: number;
+  stone?: number;
+  preCleaner?: number;
+  graderHusks?: number;
+  wasteSubTotal?: number;
+  handlingLoss?: number;
+  dryingLoss?: number;
+  otherLossSubTotal?: number;
   isDeleted?: boolean;
 }
 export interface GRNNumberData {
-  id?: number; // int64
+  id?: number;
   grnNumber?: string;
-  grnTimestamp?: string; // date-time
-  weightAtGrn?: number; // float
-  mcAtGrn?: number; // float
+  grnTimestamp?: string;
+  weightAtGrn?: number;
+  mcAtGrn?: number;
   finalizeGrnStatus?: boolean;
 }
 export interface Lot {
-  id?: number; // int64
+  _id?: string;
+  id?: number;
   lotName?: string;
-  coCode?: number; // int64
-  unionCode?: number; // int64
-  quantity?: number; // float
+  coCode?: number;
+  unionCode?: number;
+  quantity?: number;
   type?: string;
-  createdOn?: string; // date-time
-  timeToFactory?: string; // date-time
-  weightLeavingCooperative?: number; // float
-  mcLeavingCooperative?: number; // float
+  createdOn?: string;
+  timeToFactory?: string;
+  weightLeavingCooperative?: number;
+  mcLeavingCooperative?: number;
   coopStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
-  weightArrivingFactory?: number; // float
-  mcArrivingFactory?: number; // float
-  millingTime?: string; // date-time
-  weightLeavingFactory?: number; // float
-  mcLeavingFactory?: number; // float
-  outTurn?: number; // float
+  weightArrivingFactory?: number;
+  mcArrivingFactory?: number;
+  millingTime?: string;
+  weightLeavingFactory?: number;
+  mcLeavingFactory?: number;
+  outTurn?: number;
   millingStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   grnNumber?: string;
-  grnTimestamp?: string; // date-time
-  weightAtGrn?: number; // float
-  mcAtGrn?: number; // float
+  grnTimestamp?: string;
+  weightAtGrn?: number;
+  mcAtGrn?: number;
   grnStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
-  factoryReportId?: number; // int64
+  factoryReportId?: number;
   factoryStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
-  greenAnalysisId?: number; // int64
+  greenAnalysisId?: number;
   greenAnalysisStatus?: "NOTAPPLICABLE" | "ADD" | "EDIT" | "DONE";
   cuppings?: Cupping[];
   lotStatus?:
@@ -155,11 +156,11 @@ export interface Lot {
   isSubLotCreated: boolean;
 }
 export interface LotList {
-  id?: number; // int64
+  id?: number;
   lotName?: string;
-  coCode?: number; // int64
-  inputWeightInFactory?: number; // float
-  highGradeWeight?: number; // float
+  coCode?: number;
+  inputWeightInFactory?: number;
+  highGradeWeight?: number;
   lotStatus?:
     | "AT_COLLECTION_CENTER"
     | "AT_CO_OPERATIVE"
@@ -168,57 +169,57 @@ export interface LotList {
     | "AT_UNION";
   qualityScores?: number /* float */[];
   grnNumber?: string;
-  createdOn?: string; // date-time
+  createdOn?: string;
   cooperativeName?: string;
   cooperativeFullName?: string;
   manager?: string;
   contact?: string;
 }
 export interface MillingActionData {
-  id?: number; // int64
-  weightArrivingFactory?: number; // float
-  weightLeavingFactory?: number; // float
-  mcArrivingFactory?: number; // float
-  mcLeavingFactory?: number; // float
-  millingTime?: string; // date-time
+  id?: number;
+  weightArrivingFactory?: number;
+  weightLeavingFactory?: number;
+  mcArrivingFactory?: number;
+  mcLeavingFactory?: number;
+  millingTime?: string;
   finalizeMillingStatus?: boolean;
-  unionCode?: number; // int64
+  unionCode?: number;
 }
 export interface QualityReport {
-  id?: number; // int64
-  lotId?: number; // int64
+  id?: number;
+  lotId?: number;
   lotName?: string;
-  date?: string; // date-time
-  timestamp?: string; // date-time
+  date?: string;
+  timestamp?: string;
   cfa?: string;
   ccName?: string;
   coffeeType?: string;
-  overTurnPercentage?: number; // float
-  mc?: number; // float
-  gradeAA?: number; // float
-  gradeA?: number; // float
-  gradeB?: number; // float
-  gradeAB?: number; // float
-  gradeC?: number; // float
-  gradePB?: number; // float
-  gradeTriage?: number; // float
-  fullBlack?: number; // float
-  fullSour?: number; // float
-  pods?: number; // float
-  fungasDamaged?: number; // float
-  em?: number; // float
-  severeInsect?: number; // float
-  partialBlack?: number; // float
-  partialSour?: number; // float
-  patchment?: number; // float
-  floatersChalky?: number; // float
-  immature?: number; // float
-  withered?: number; // float
-  shells?: number; // float
-  brokenChipped?: number; // float
-  husks?: number; // float
-  pinHole?: number; // float
-  percentageOutTurn?: number; // float
+  overTurnPercentage?: number;
+  mc?: number;
+  gradeAA?: number;
+  gradeA?: number;
+  gradeB?: number;
+  gradeAB?: number;
+  gradeC?: number;
+  gradePB?: number;
+  gradeTriage?: number;
+  fullBlack?: number;
+  fullSour?: number;
+  pods?: number;
+  fungasDamaged?: number;
+  em?: number;
+  severeInsect?: number;
+  partialBlack?: number;
+  partialSour?: number;
+  patchment?: number;
+  floatersChalky?: number;
+  immature?: number;
+  withered?: number;
+  shells?: number;
+  brokenChipped?: number;
+  husks?: number;
+  pinHole?: number;
+  percentageOutTurn?: number;
   isDeleted?: boolean;
 }
 

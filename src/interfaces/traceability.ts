@@ -270,6 +270,7 @@ export interface FarmerMember {
 }
 
 export interface FarmerProduce {
+  _id: string;
   id: any;
   product: string;
   farmerProduceId: string;

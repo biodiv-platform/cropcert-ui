@@ -13,6 +13,15 @@ export const formattedDate = (d, emptyOnUndefined = false) => {
   return dayjs(d || new Date().getTime()).format(DATEFORMATS.DAYJS_DATE);
 };
 
+// Utility to get current timestamp in YYYYMMDD_HHmmss format
+export function getCurrentTimestamp() {
+  const now = new Date();
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(
+    now.getHours()
+  )}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+}
+
 /*
  * Returns UTC date object from given local timestamp
  * If not passed returns ready to send UTC timestamp

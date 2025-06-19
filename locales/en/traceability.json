@@ -56,5 +56,10 @@
       "restructuring_confirm_message": "Restructuring confirmed. New total weight: ",
       "remaining_quantity_warning": "These lots have remaining quantities and will be available again in the lot list page."
     }
+  },
+  "download": {
+    "no_records_selected": "No records selected for download.",
+    "download_error": "Error occurred while downloading data.",
+    "download_data": "Download Data"
   }
 }

@@ -16,7 +16,12 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import { LuRepeat } from "react-icons/lu";
+import { LuDownload, LuRepeat } from "react-icons/lu";
+
+import { Tooltip } from "@/components/ui/tooltip";
+import { axGetDataInCSV } from "@/services/traceability.service";
+import { getCurrentTimestamp } from "@/utils/basic";
+import { sendFileFromResponse } from "@/utils/download";
 
 import { useTraceability } from "../../common/traceability-tabs";
 import { farmerProduceColumns } from "./data";
@@ -93,6 +98,26 @@ function FarmerProduceListComponent() {
     }
   };
 
+  const handleOnDownloadData = async () => {
+    try {
+      const selectedProduceIds = selectedFarmerProduce.map((r) => r._id);
+      if (selectedProduceIds.length === 0) {
+        return notification(
+          t("traceability:download.no_records_selected"),
+          NotificationType.Warning
+        );
+      }
+      const response = await axGetDataInCSV("produce", selectedProduceIds);
+      if (response.success) {
+        sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
+      }
+    } catch (error) {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    } finally {
+      setSelectedFarmerProduce([]);
+    }
+  };
+
   const ActionButtons = () => {
     const quantity = selectedFarmerProduce.reduce(
       (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
@@ -112,7 +137,7 @@ function FarmerProduceListComponent() {
           {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
-          colorPalette="blue"
+          colorPalette="green"
           variant="solid"
           onClick={handleOnCreateBatch}
           disabled={
@@ -135,6 +160,20 @@ function FarmerProduceListComponent() {
             ? t("traceability:sync_status.syncing")
             : t("traceability:sync_status.sync_now")}
         </Button>
+        <Tooltip content={t("traceability:download.download_data")}>
+          <Button
+            colorPalette="gray"
+            variant="surface"
+            disabled={
+              showTypeError ||
+              selectedFarmerProduce.length === 0 ||
+              !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+            }
+            onClick={handleOnDownloadData}
+          >
+            <LuDownload />
+          </Button>
+        </Tooltip>
       </Group>
     );
   };

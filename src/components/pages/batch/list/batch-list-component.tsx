@@ -12,8 +12,14 @@ import { hasAccess } from "@utils/auth";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
+import { LuDownload } from "react-icons/lu";
 
 import { Alert } from "@/components/ui/alert";
+import { Tooltip } from "@/components/ui/tooltip";
+import { axGetDataInCSV } from "@/services/traceability.service";
+import { getCurrentTimestamp } from "@/utils/basic";
+import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import { useTraceability } from "../../common/traceability-tabs";
 import { fetchBatchColumns } from "./data";
@@ -93,6 +99,26 @@ function BatchComponent() {
     return r.lotId;
   };
 
+  const handleOnDownloadData = async () => {
+    try {
+      const selectedBatchIds = selectedBatches.map((r) => r._id);
+      if (selectedBatchIds.length === 0) {
+        return notification(
+          t("traceability:download.no_records_selected"),
+          NotificationType.Warning
+        );
+      }
+      const response = await axGetDataInCSV("batch", selectedBatchIds);
+      if (response.success) {
+        sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
+      }
+    } catch (error) {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    } finally {
+      setSelectedBatches([]);
+    }
+  };
+
   const ActionButtons = () => (
     <Group gap={4}>
       <Button
@@ -108,6 +134,20 @@ function BatchComponent() {
         {<AddIcon />}
         Create Lot
       </Button>
+      <Tooltip content={t("traceability:download.download_data")}>
+        <Button
+          colorPalette="gray"
+          variant="surface"
+          disabled={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        >
+          <LuDownload />
+        </Button>
+      </Tooltip>
     </Group>
   );
 

@@ -1,14 +1,20 @@
-import { AccordionRoot, Button } from "@chakra-ui/react";
+import { AccordionRoot, Button, Group } from "@chakra-ui/react";
 import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import useGlobalState from "@hooks/use-global-state";
 import { Container as ContainerType, Cupping, Lot, QualityReport } from "@interfaces/traceability";
-import { CC_COLOR_MAPPING, RESOURCE_TYPE } from "@static/constants";
-import { generateBackBtnStr } from "@utils/basic";
+import { CC_COLOR_MAPPING, RESOURCE_TYPE, ROLES } from "@static/constants";
+import { generateBackBtnStr, getCurrentTimestamp } from "@utils/basic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
-import { LuArrowLeft } from "react-icons/lu";
+import { LuArrowLeft, LuDownload } from "react-icons/lu";
+
+import { Tooltip } from "@/components/ui/tooltip";
+import { axGetDataInCSV } from "@/services/traceability.service";
+import { hasAccess } from "@/utils/auth";
+import { sendFileFromResponse } from "@/utils/download";
 
 import ContainerBatches from "./container-batches";
 import ContainerFarmerMember from "./container-farmerMember";
@@ -30,6 +36,8 @@ interface IContainerShowProps {
 
 export default function ContainerShowPageComponent({ show }: { show: IContainerShowProps }) {
   const router = useRouter();
+  const { user } = useGlobalState();
+  const { t } = useTranslation();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Container List");
 
@@ -42,12 +50,35 @@ export default function ContainerShowPageComponent({ show }: { show: IContainerS
     router.push(backLink);
   };
 
+  const handleOnDownloadData = async () => {
+    try {
+      const response = await axGetDataInCSV("container", [show.container._id]);
+      if (response.success) {
+        sendFileFromResponse(response.data, `container_${getCurrentTimestamp()}.csv`);
+      }
+    } catch (error) {
+      console.error("Error downloading data:", error);
+    }
+  };
+
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
-        <LuArrowLeft />
-        {backButtonText}
-      </Button>
+      <Group gap={4}>
+        <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+          <LuArrowLeft />
+          {backButtonText}
+        </Button>
+        <Tooltip content={t("traceability:download.download_data")}>
+          <Button
+            colorPalette="gray"
+            variant="surface"
+            disabled={!hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)}
+            onClick={handleOnDownloadData}
+          >
+            <LuDownload />
+          </Button>
+        </Tooltip>
+      </Group>
     );
   };
 

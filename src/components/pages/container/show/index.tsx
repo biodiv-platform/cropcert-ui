@@ -63,7 +63,7 @@ export default function ContainerShowPageComponent({ show }: { show: IContainerS
 
   const ActionButtons = () => {
     return (
-      <Group gap={4}>
+      <Group gap={2}>
         <Button onClick={handleGoBack} variant="subtle" rounded="md">
           <LuArrowLeft />
           {backButtonText}

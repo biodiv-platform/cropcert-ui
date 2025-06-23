@@ -57,7 +57,7 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
 
   const ActionButtons = () => {
     return (
-      <Group gap={4}>
+      <Group gap={2}>
         <Button onClick={handleGoBack} variant="subtle" rounded="md">
           <LuArrowLeft />
           {backButtonText}

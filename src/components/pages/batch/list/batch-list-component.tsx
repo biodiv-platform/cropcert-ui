@@ -14,7 +14,12 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
 import { Alert } from "@/components/ui/alert";
+import { axGetDataInCSV } from "@/services/traceability.service";
+import { getCurrentTimestamp } from "@/utils/basic";
+import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
+import { DownloadButtonWithTooltip } from "../../../@core/action-buttons/DownloadButtonWithTooltip";
 import { useTraceability } from "../../common/traceability-tabs";
 import { fetchBatchColumns } from "./data";
 import BatchExpand from "./expand";
@@ -93,6 +98,25 @@ function BatchComponent() {
     return r.lotId;
   };
 
+  const handleOnDownloadData = async () => {
+    const selectedBatchIds = selectedBatches.map((r) => r._id);
+
+    if (selectedBatchIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
+    }
+
+    const response = await axGetDataInCSV("batch", selectedBatchIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedBatches([]);
+  };
+
   const ActionButtons = () => (
     <Group gap={4}>
       <Button
@@ -108,6 +132,14 @@ function BatchComponent() {
         {<AddIcon />}
         Create Lot
       </Button>
+      <DownloadButtonWithTooltip
+        disabled={
+          showTypeError ||
+          selectedBatches.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
+        onClick={handleOnDownloadData}
+      />
     </Group>
   );
 

@@ -4,15 +4,19 @@ import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
 import Table from "@components/@core/table";
 import AddIcon from "@icons/add";
-import { axGetColumns } from "@services/traceability.service";
+import { axGetColumns, axGetDataInCSV } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import { CONTAINER_CREATE } from "@static/events";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 
+import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/DownloadButtonWithTooltip";
 import useGlobalState from "@/hooks/use-global-state";
 import { hasAccess } from "@/utils/auth";
+import { getCurrentTimestamp } from "@/utils/basic";
+import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import { useTraceability } from "../../common/traceability-tabs";
 import { createLotColumns, lotColumns } from "./data";
@@ -83,6 +87,25 @@ function LotComponent() {
     setReRenderTabs && setReRenderTabs((prevState) => !prevState);
   };
 
+  const handleOnDownloadData = async () => {
+    const selectedLotIds = selectedLots.map((r) => r._id);
+
+    if (selectedLotIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
+    }
+
+    const response = await axGetDataInCSV("lot", selectedLotIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `lot_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedLots([]);
+  };
+
   const ActionButtons = () => (
     <Group gap={4}>
       <Button
@@ -97,6 +120,14 @@ function LotComponent() {
       >
         {<AddIcon />} Create Container
       </Button>
+      <DownloadButtonWithTooltip
+        disabled={
+          showTypeError ||
+          selectedLots.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
+        onClick={handleOnDownloadData}
+      />
     </Group>
   );
 

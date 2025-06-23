@@ -18,6 +18,11 @@ import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
 import { LuRepeat } from "react-icons/lu";
 
+import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/DownloadButtonWithTooltip";
+import { axGetDataInCSV } from "@/services/traceability.service";
+import { getCurrentTimestamp } from "@/utils/basic";
+import { sendFileFromResponse } from "@/utils/download";
+
 import { useTraceability } from "../../common/traceability-tabs";
 import { farmerProduceColumns } from "./data";
 import BatchCreateModal from "./modals/batch-create-modal";
@@ -93,6 +98,25 @@ function FarmerProduceListComponent() {
     }
   };
 
+  const handleOnDownloadData = async () => {
+    const selectedProduceIds = selectedFarmerProduce.map((r) => r._id);
+
+    if (selectedProduceIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
+    }
+
+    const response = await axGetDataInCSV("produce", selectedProduceIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedFarmerProduce([]);
+  };
+
   const ActionButtons = () => {
     const quantity = selectedFarmerProduce.reduce(
       (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
@@ -112,7 +136,7 @@ function FarmerProduceListComponent() {
           {t("traceability:selected_quantity")}: {quantity}(Kgs)
         </Box>
         <Button
-          colorPalette="blue"
+          colorPalette="green"
           variant="solid"
           onClick={handleOnCreateBatch}
           disabled={
@@ -125,7 +149,6 @@ function FarmerProduceListComponent() {
           Create Batch
         </Button>
         <Button
-          colorPalette="gray"
           variant="subtle"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
@@ -135,6 +158,14 @@ function FarmerProduceListComponent() {
             ? t("traceability:sync_status.syncing")
             : t("traceability:sync_status.sync_now")}
         </Button>
+        <DownloadButtonWithTooltip
+          disabled={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
       </Group>
     );
   };

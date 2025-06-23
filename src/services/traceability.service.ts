@@ -44,3 +44,15 @@ export const axGetGlobalCount = async (union) => {
     return { success: false, data: {} };
   }
 };
+
+export const axGetDataInCSV = async (level, selectedProduceIds) => {
+  try {
+    const res = await http.post(`${ENDPOINT.TRACEABILITY}/global/download/${level}`, {
+      ids: selectedProduceIds,
+    });
+    return { success: true, data: res.data };
+  } catch (e) {
+    notification(e.message);
+    return { success: false, data: {} };
+  }
+};

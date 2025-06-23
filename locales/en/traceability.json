@@ -2,6 +2,15 @@
   "batch": {
     "batch_ready_for_lot": "Batch is ready for lot creation. Select the batch and click on Create Lot button."
   },
+  "container": {
+    "expand_error": "Error loading columns: ",
+    "restricted_access": "There was an error processing your request. Please contact admin for details"
+  },
+  "download": {
+    "download_data": "Download Data",
+    "download_error": "Error occurred while downloading data.",
+    "no_records_selected": "No records selected for download."
+  },
   "farmer": {
     "delete_farmer_cancel": "Cancel",
     "delete_farmer_confirm": "Confirm Delete",
@@ -18,11 +27,18 @@
   },
   "location": {
     "edit_marker_location": "Edit Marker Location",
-    "location_heading": "Location :",
-    "save_marker_location": "Save Marker Location",
     "farmer_location_not_verified": "Location is yet to be verified!",
     "farmer_location_verified": "Location is verified!",
-    "location_verified_radio_btn_title": "Location verified?"
+    "location_heading": "Location :",
+    "location_verified_radio_btn_title": "Location verified?",
+    "save_marker_location": "Save Marker Location"
+  },
+  "lot": {
+    "container_create": {
+      "creation_size_error": "Container size is less than total quantity. You'll need to restructure the selected lots.",
+      "remaining_quantity_warning": "These lots have remaining quantities and will be available again in the lot list page.",
+      "restructuring_confirm_message": "Restructuring confirmed. New total weight: "
+    }
   },
   "no_records": "No Records Found",
   "selected_quantity": "Selected Quantity",
@@ -36,25 +52,14 @@
   },
   "tab_titles": {
     "batch": "Batch(s)",
+    "container": "Container(s)",
     "farmer_member": "Farmer Member(s)",
     "farmer_produce": "Farmer Produce",
-    "lot": "Lot(s)",
-    "container": "Container(s)"
+    "lot": "Lot(s)"
   },
   "table": {
     "manage_columns": "Manage Columns"
   },
   "title": "Traceability",
-  "total_records": "Total Records",
-  "container": {
-    "restricted_access": "There was an error processing your request. Please contact admin for details",
-    "expand_error": "Error loading columns: "
-  },
-  "lot": {
-    "container_create": {
-      "creation_size_error": "Container size is less than total quantity. You'll need to restructure the selected lots.",
-      "restructuring_confirm_message": "Restructuring confirmed. New total weight: ",
-      "remaining_quantity_warning": "These lots have remaining quantities and will be available again in the lot list page."
-    }
-  }
+  "total_records": "Total Records"
 }

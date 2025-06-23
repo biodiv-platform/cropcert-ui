@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/tooltip";
 
 type DownloadButtonWithTooltipProps = {
+  variant?: "subtle" | "solid" | "outline" | "surface" | "ghost" | "plain";
   disabled?: boolean;
   onClick?: () => void;
 };
 
 export const DownloadButtonWithTooltip: React.FC<DownloadButtonWithTooltipProps> = ({
+  variant = "subtle",
   disabled,
   onClick,
 }) => {
@@ -18,7 +20,7 @@ export const DownloadButtonWithTooltip: React.FC<DownloadButtonWithTooltipProps>
 
   return (
     <Tooltip content={t("traceability:download.download_data")}>
-      <Button variant="surface" disabled={disabled} onClick={onClick}>
+      <Button variant={variant} disabled={disabled} onClick={onClick}>
         <LuDownload />
       </Button>
     </Tooltip>

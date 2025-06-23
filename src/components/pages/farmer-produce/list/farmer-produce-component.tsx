@@ -149,7 +149,7 @@ function FarmerProduceListComponent() {
           Create Batch
         </Button>
         <Button
-          variant="subtle"
+          variant="surface"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
         >
@@ -159,6 +159,7 @@ function FarmerProduceListComponent() {
             : t("traceability:sync_status.sync_now")}
         </Button>
         <DownloadButtonWithTooltip
+          variant="surface"
           disabled={
             showTypeError ||
             selectedFarmerProduce.length === 0 ||

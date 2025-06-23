@@ -82,7 +82,6 @@ function FarmerMemberComponent() {
           Show On Map
         </Button>
         <Button
-          colorPalette="gray"
           variant="subtle"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}

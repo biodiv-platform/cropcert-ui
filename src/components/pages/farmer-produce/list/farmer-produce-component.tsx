@@ -16,9 +16,9 @@ import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import { LuDownload, LuRepeat } from "react-icons/lu";
+import { LuRepeat } from "react-icons/lu";
 
-import { Tooltip } from "@/components/ui/tooltip";
+import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/DownloadButtonWithTooltip";
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { getCurrentTimestamp } from "@/utils/basic";
 import { sendFileFromResponse } from "@/utils/download";
@@ -150,7 +150,6 @@ function FarmerProduceListComponent() {
           Create Batch
         </Button>
         <Button
-          colorPalette="gray"
           variant="subtle"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
@@ -160,20 +159,14 @@ function FarmerProduceListComponent() {
             ? t("traceability:sync_status.syncing")
             : t("traceability:sync_status.sync_now")}
         </Button>
-        <Tooltip content={t("traceability:download.download_data")}>
-          <Button
-            colorPalette="gray"
-            variant="surface"
-            disabled={
-              showTypeError ||
-              selectedFarmerProduce.length === 0 ||
-              !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-            }
-            onClick={handleOnDownloadData}
-          >
-            <LuDownload />
-          </Button>
-        </Tooltip>
+        <DownloadButtonWithTooltip
+          disabled={
+            showTypeError ||
+            selectedFarmerProduce.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
       </Group>
     );
   };

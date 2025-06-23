@@ -12,15 +12,14 @@ import { hasAccess } from "@utils/auth";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import { LuDownload } from "react-icons/lu";
 
 import { Alert } from "@/components/ui/alert";
-import { Tooltip } from "@/components/ui/tooltip";
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { getCurrentTimestamp } from "@/utils/basic";
 import { sendFileFromResponse } from "@/utils/download";
 import notification, { NotificationType } from "@/utils/notification";
 
+import { DownloadButtonWithTooltip } from "../../../@core/action-buttons/DownloadButtonWithTooltip";
 import { useTraceability } from "../../common/traceability-tabs";
 import { fetchBatchColumns } from "./data";
 import BatchExpand from "./expand";
@@ -134,20 +133,14 @@ function BatchComponent() {
         {<AddIcon />}
         Create Lot
       </Button>
-      <Tooltip content={t("traceability:download.download_data")}>
-        <Button
-          colorPalette="gray"
-          variant="surface"
-          disabled={
-            showTypeError ||
-            selectedBatches.length === 0 ||
-            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-          }
-          onClick={handleOnDownloadData}
-        >
-          <LuDownload />
-        </Button>
-      </Tooltip>
+      <DownloadButtonWithTooltip
+        disabled={
+          showTypeError ||
+          selectedBatches.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
+        onClick={handleOnDownloadData}
+      />
     </Group>
   );
 

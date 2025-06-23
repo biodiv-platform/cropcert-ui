@@ -26,7 +26,7 @@ export default function FarmerEditPageComponent({ edit }) {
 
   const ActionButtons = () => {
     return (
-      <Button onClick={handleGoBack} variant="subtle" rounded="md" colorPalette="gray">
+      <Button onClick={handleGoBack} variant="subtle" rounded="md">
         <LuArrowLeft />
         {t("common:back")}
       </Button>

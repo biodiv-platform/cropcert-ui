@@ -10,9 +10,8 @@ import { CONTAINER_CREATE } from "@static/events";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { emit } from "react-gbus";
-import { LuDownload } from "react-icons/lu";
 
-import { Tooltip } from "@/components/ui/tooltip";
+import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/DownloadButtonWithTooltip";
 import useGlobalState from "@/hooks/use-global-state";
 import { hasAccess } from "@/utils/auth";
 import { getCurrentTimestamp } from "@/utils/basic";
@@ -122,20 +121,14 @@ function LotComponent() {
       >
         {<AddIcon />} Create Container
       </Button>
-      <Tooltip content={t("traceability:download.download_data")}>
-        <Button
-          colorPalette="gray"
-          variant="surface"
-          disabled={
-            showTypeError ||
-            selectedLots.length === 0 ||
-            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-          }
-          onClick={handleOnDownloadData}
-        >
-          <LuDownload />
-        </Button>
-      </Tooltip>
+      <DownloadButtonWithTooltip
+        disabled={
+          showTypeError ||
+          selectedLots.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
+        onClick={handleOnDownloadData}
+      />
     </Group>
   );
 

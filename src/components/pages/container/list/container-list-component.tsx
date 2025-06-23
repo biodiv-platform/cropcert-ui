@@ -1,4 +1,4 @@
-import { Box, Button, Group, Spinner } from "@chakra-ui/react";
+import { Box, Group, Spinner } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -7,9 +7,8 @@ import { axGetColumns, axGetDataInCSV } from "@services/traceability.service";
 import { ROLES } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
-import { LuDownload } from "react-icons/lu";
 
-import { Tooltip } from "@/components/ui/tooltip";
+import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/DownloadButtonWithTooltip";
 import useGlobalState from "@/hooks/use-global-state";
 import { Container } from "@/interfaces/traceability";
 import { hasAccess } from "@/utils/auth";
@@ -83,19 +82,13 @@ function ContainerComponent() {
 
   const ActionButtons = () => (
     <Group gap={4}>
-      <Tooltip content={t("traceability:download.download_data")}>
-        <Button
-          colorPalette="gray"
-          variant="surface"
-          disabled={
-            selectedContainers.length === 0 ||
-            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-          }
-          onClick={handleOnDownloadData}
-        >
-          <LuDownload />
-        </Button>
-      </Tooltip>
+      <DownloadButtonWithTooltip
+        disabled={
+          selectedContainers.length === 0 ||
+          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+        }
+        onClick={handleOnDownloadData}
+      />
     </Group>
   );
 

@@ -99,23 +99,22 @@ function BatchComponent() {
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const selectedBatchIds = selectedBatches.map((r) => r._id);
-      if (selectedBatchIds.length === 0) {
-        return notification(
-          t("traceability:download.no_records_selected"),
-          NotificationType.Warning
-        );
-      }
-      const response = await axGetDataInCSV("batch", selectedBatchIds);
-      if (response.success) {
-        sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      notification(t("traceability:download.download_error"), NotificationType.Error);
-    } finally {
-      setSelectedBatches([]);
+    const selectedBatchIds = selectedBatches.map((r) => r._id);
+
+    if (selectedBatchIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
     }
+
+    const response = await axGetDataInCSV("batch", selectedBatchIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedBatches([]);
   };
 
   const ActionButtons = () => (

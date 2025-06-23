@@ -88,23 +88,22 @@ function LotComponent() {
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const selectedLotIds = selectedLots.map((r) => r._id);
-      if (selectedLotIds.length === 0) {
-        return notification(
-          t("traceability:download.no_records_selected"),
-          NotificationType.Warning
-        );
-      }
-      const response = await axGetDataInCSV("lot", selectedLotIds);
-      if (response.success) {
-        sendFileFromResponse(response.data, `lot_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      notification(t("traceability:download.download_error"), NotificationType.Error);
-    } finally {
-      setSelectedLots([]);
+    const selectedLotIds = selectedLots.map((r) => r._id);
+
+    if (selectedLotIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
     }
+
+    const response = await axGetDataInCSV("lot", selectedLotIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `lot_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedLots([]);
   };
 
   const ActionButtons = () => (

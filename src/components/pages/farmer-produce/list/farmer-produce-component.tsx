@@ -99,23 +99,22 @@ function FarmerProduceListComponent() {
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const selectedProduceIds = selectedFarmerProduce.map((r) => r._id);
-      if (selectedProduceIds.length === 0) {
-        return notification(
-          t("traceability:download.no_records_selected"),
-          NotificationType.Warning
-        );
-      }
-      const response = await axGetDataInCSV("produce", selectedProduceIds);
-      if (response.success) {
-        sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      notification(t("traceability:download.download_error"), NotificationType.Error);
-    } finally {
-      setSelectedFarmerProduce([]);
+    const selectedProduceIds = selectedFarmerProduce.map((r) => r._id);
+
+    if (selectedProduceIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
     }
+
+    const response = await axGetDataInCSV("produce", selectedProduceIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setSelectedFarmerProduce([]);
   };
 
   const ActionButtons = () => {

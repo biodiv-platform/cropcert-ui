@@ -7,6 +7,7 @@ import { FarmerMember, FarmerProduce } from "@interfaces/traceability";
 import { RESOURCE_TYPE, ROLES } from "@static/constants";
 import { generateBackBtnStr, getCurrentTimestamp } from "@utils/basic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { LuArrowLeft } from "react-icons/lu";
 
@@ -14,6 +15,7 @@ import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/Dow
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { hasAccess } from "@/utils/auth";
 import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import FarmerProduceInfo from "./farmer-produce-info";
 import GrnReceiptInfo from "./grn-receip";
@@ -30,6 +32,7 @@ export default function FarmerProduceShowPageComponent({
 }) {
   const router = useRouter();
   const { user } = useGlobalState();
+  const { t } = useTranslation();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Produce List");
 
@@ -43,13 +46,11 @@ export default function FarmerProduceShowPageComponent({
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const response = await axGetDataInCSV("produce", [show.farmerProduces._id]);
-      if (response.success) {
-        sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      console.error("Error downloading data:", error);
+    const response = await axGetDataInCSV("produce", [show.farmerProduces._id]);
+    if (response.success) {
+      sendFileFromResponse(response.data, `produce_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
     }
   };
 

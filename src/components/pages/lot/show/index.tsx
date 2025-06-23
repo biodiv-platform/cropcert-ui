@@ -7,6 +7,7 @@ import { Cupping, Lot, QualityReport } from "@interfaces/traceability";
 import { CC_COLOR_MAPPING, RESOURCE_TYPE, ROLES } from "@static/constants";
 import { generateBackBtnStr, getCurrentTimestamp } from "@utils/basic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { LuArrowLeft } from "react-icons/lu";
 
@@ -14,6 +15,7 @@ import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/Dow
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { hasAccess } from "@/utils/auth";
 import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import LotBatches from "./lot-batches";
 import LotFarmerMember from "./lot-farmerMember";
@@ -34,6 +36,7 @@ interface ILotShowProps {
 export default function LotShowPageComponent({ show }: { show: ILotShowProps }) {
   const router = useRouter();
   const { user } = useGlobalState();
+  const { t } = useTranslation();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Lot List");
 
@@ -47,13 +50,11 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const response = await axGetDataInCSV("lot", [show.lot._id]);
-      if (response.success) {
-        sendFileFromResponse(response.data, `lot_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      console.error("Error downloading data:", error);
+    const response = await axGetDataInCSV("lot", [show.lot._id]);
+    if (response.success) {
+      sendFileFromResponse(response.data, `lot_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
     }
   };
 

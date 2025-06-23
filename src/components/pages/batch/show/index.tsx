@@ -7,6 +7,7 @@ import { Batch } from "@interfaces/traceability";
 import { CC_COLOR_MAPPING, RESOURCE_TYPE, ROLES } from "@static/constants";
 import { generateBackBtnStr, getCurrentTimestamp } from "@utils/basic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { LuArrowLeft } from "react-icons/lu";
 
@@ -15,6 +16,7 @@ import { AccordionRoot } from "@/components/ui/accordion";
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { hasAccess } from "@/utils/auth";
 import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import BatchFarmerMember from "./batch-farmerMember";
 import BatchFarmerProduce from "./batch-farmerProduce";
@@ -30,6 +32,7 @@ interface IBatchShowProps {
 export default function BatchShowPageComponent({ show }: { show: IBatchShowProps }) {
   const router = useRouter();
   const { user } = useGlobalState();
+  const { t } = useTranslation();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Batch List");
 
@@ -43,13 +46,12 @@ export default function BatchShowPageComponent({ show }: { show: IBatchShowProps
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const response = await axGetDataInCSV("batch", [show.batch._id]);
-      if (response.success) {
-        sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      console.error("Error downloading data:", error);
+    const response = await axGetDataInCSV("batch", [show.batch._id]);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `batch_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
     }
   };
 

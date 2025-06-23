@@ -60,24 +60,23 @@ function ContainerComponent() {
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const selectedContainerIds = selectedContainers.map((r) => r._id);
-      if (selectedContainerIds.length === 0) {
-        return notification(
-          t("traceability:download.no_records_selected"),
-          NotificationType.Warning
-        );
-      }
-      const response = await axGetDataInCSV("container", selectedContainerIds);
-      if (response.success) {
-        sendFileFromResponse(response.data, `container_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      notification(t("traceability:download.download_error"), NotificationType.Error);
-    } finally {
-      setClearRows(true);
-      setSelectedContainers([]);
+    const selectedContainerIds = selectedContainers.map((r) => r._id);
+
+    if (selectedContainerIds.length === 0) {
+      notification(t("traceability:download.no_records_selected"), NotificationType.Warning);
+      return;
     }
+
+    const response = await axGetDataInCSV("container", selectedContainerIds);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `container_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
+    }
+
+    setClearRows(true);
+    setSelectedContainers([]);
   };
 
   const ActionButtons = () => (

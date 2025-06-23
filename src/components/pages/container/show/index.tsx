@@ -7,6 +7,7 @@ import { Container as ContainerType, Cupping, Lot, QualityReport } from "@interf
 import { CC_COLOR_MAPPING, RESOURCE_TYPE, ROLES } from "@static/constants";
 import { generateBackBtnStr, getCurrentTimestamp } from "@utils/basic";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { LuArrowLeft } from "react-icons/lu";
 
@@ -14,6 +15,7 @@ import { DownloadButtonWithTooltip } from "@/components/@core/action-buttons/Dow
 import { axGetDataInCSV } from "@/services/traceability.service";
 import { hasAccess } from "@/utils/auth";
 import { sendFileFromResponse } from "@/utils/download";
+import notification, { NotificationType } from "@/utils/notification";
 
 import ContainerBatches from "./container-batches";
 import ContainerFarmerMember from "./container-farmerMember";
@@ -36,6 +38,7 @@ interface IContainerShowProps {
 export default function ContainerShowPageComponent({ show }: { show: IContainerShowProps }) {
   const router = useRouter();
   const { user } = useGlobalState();
+  const { t } = useTranslation();
   const { previousPath, setPreviousPath } = useGlobalState();
   const { backButtonText, backLink } = generateBackBtnStr(previousPath, "Back to Container List");
 
@@ -49,13 +52,12 @@ export default function ContainerShowPageComponent({ show }: { show: IContainerS
   };
 
   const handleOnDownloadData = async () => {
-    try {
-      const response = await axGetDataInCSV("container", [show.container._id]);
-      if (response.success) {
-        sendFileFromResponse(response.data, `container_${getCurrentTimestamp()}.csv`);
-      }
-    } catch (error) {
-      console.error("Error downloading data:", error);
+    const response = await axGetDataInCSV("container", [show.container._id]);
+
+    if (response.success) {
+      sendFileFromResponse(response.data, `container_${getCurrentTimestamp()}.csv`);
+    } else {
+      notification(t("traceability:download.download_error"), NotificationType.Error);
     }
   };
 

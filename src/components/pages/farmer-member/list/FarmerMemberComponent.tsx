@@ -82,7 +82,7 @@ function FarmerMemberComponent() {
           Show On Map
         </Button>
         <Button
-          variant="subtle"
+          variant="surface"
           onClick={handleSyncData}
           disabled={showTypeError || isSyncing || !hasAccess([ROLES.ADMIN, ROLES.UNION], user)}
         >

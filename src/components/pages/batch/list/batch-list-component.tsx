@@ -133,6 +133,7 @@ function BatchComponent() {
         Create Lot
       </Button>
       <DownloadButtonWithTooltip
+        variant="surface"
         disabled={
           showTypeError ||
           selectedBatches.length === 0 ||

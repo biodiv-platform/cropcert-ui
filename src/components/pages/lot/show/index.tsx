@@ -60,7 +60,7 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
 
   const ActionButtons = () => {
     return (
-      <Group gap={4}>
+      <Group gap={2}>
         <Button onClick={handleGoBack} variant="subtle" rounded="md">
           <LuArrowLeft />
           {backButtonText}

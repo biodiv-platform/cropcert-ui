@@ -121,8 +121,8 @@ function LotComponent() {
         {<AddIcon />} Create Container
       </Button>
       <DownloadButtonWithTooltip
+        variant="surface"
         disabled={
-          showTypeError ||
           selectedLots.length === 0 ||
           !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
         }

@@ -82,6 +82,7 @@ function ContainerComponent() {
   const ActionButtons = () => (
     <Group gap={4}>
       <DownloadButtonWithTooltip
+        variant="surface"
         disabled={
           selectedContainers.length === 0 ||
           !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)

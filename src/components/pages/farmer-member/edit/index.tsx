@@ -99,7 +99,9 @@ export default function FarmerEditPageComponent({ edit }) {
 
   return (
     <Container>
-      <PageHeading actions={<ActionButtons />}>🧑‍🌾 Edit Farmer</PageHeading>
+      <PageHeading actions={<ActionButtons />} floatHeader={true}>
+        🧑‍🌾 Edit Farmer
+      </PageHeading>
       <AccordionRoot multiple defaultValue={["Information"]}>
         <FarmerEditForm initialData={farmer} handleSubmit={handleSubmit} ref={ref} />
         <Flex justifyContent={"flex-end"} gap={2} my={8}>

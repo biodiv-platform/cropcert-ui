@@ -3,21 +3,18 @@ import Activity from "@components/@core/activity";
 import Container from "@components/@core/container";
 import { PageHeading } from "@components/@core/layout";
 import useGlobalState from "@hooks/use-global-state";
-import DeleteIcon from "@icons/delete";
 import { FarmerMember } from "@interfaces/traceability";
 import { RESOURCE_TYPE, ROLES } from "@static/constants";
 import { FARMER_DELETE, FARMER_EDIT } from "@static/events";
 import { hasAccess, hierarchicalRoles } from "@utils/auth";
 import { generateBackBtnStr } from "@utils/basic";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { emit } from "react-gbus";
-import { LuArrowLeft } from "react-icons/lu";
+import { LuArrowLeft, LuPencil, LuTrash2 } from "react-icons/lu";
 
 import Tooltip from "@/components/@core/tooltip";
 import { AccordionRoot } from "@/components/ui/accordion";
-import EditIcon from "@/icons/edit";
 
 import FarmerBatches from "./farmer-batches";
 import FarmerInfo from "./farmer-info";
@@ -49,38 +46,33 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
 
   const ActionButtons = ({ hasEditDeleteAccess }) => {
     return (
-      <Box display={"flex"}>
+      <Box display={"flex"} gap={2}>
         <Button onClick={handleGoBack} variant="subtle" rounded="md">
           {<LuArrowLeft />}
           {backButtonText}
         </Button>
-        <Tooltip content="Edit Farmer" showArrow>
-          <Box
-            paddingY={2}
-            paddingX={3}
-            rounded="full"
+        <Tooltip openDelay={100} content="Edit Farmer" showArrow>
+          <Button
+            variant={"subtle"}
             _hover={{ color: "yellow.500", bg: "yellow.50", cursor: "pointer" }}
-            onClick={() =>
-              emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess })
-            }
+            onClick={() => {
+              emit(FARMER_EDIT, { farmer: show.farmer, hasAccess: hasEditDeleteAccess });
+              router.push(`/farmer/edit/${show?.farmer?._id}`);
+            }}
           >
-            <Link href={`/farmer/edit/${show?.farmer?._id}`} passHref={true} legacyBehavior>
-              <EditIcon />
-            </Link>
-          </Box>
+            <LuPencil />
+          </Button>
         </Tooltip>
-        <Tooltip content="Delete Farmer" showArrow>
-          <Box
-            paddingY={2}
-            paddingX={3}
-            rounded="full"
+        <Tooltip openDelay={100} content="Delete Farmer" showArrow>
+          <Button
+            variant={"subtle"}
             _hover={{ color: "red.500", bg: "red.50", cursor: "pointer" }}
             onClick={() =>
               emit(FARMER_DELETE, { farmerId: show.farmer._id, hasAccess: hasEditDeleteAccess })
             }
           >
-            <DeleteIcon />
-          </Box>
+            <LuTrash2 />
+          </Button>
         </Tooltip>
       </Box>
     );

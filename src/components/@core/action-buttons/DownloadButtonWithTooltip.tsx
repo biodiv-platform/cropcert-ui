@@ -19,7 +19,7 @@ export const DownloadButtonWithTooltip: React.FC<DownloadButtonWithTooltipProps>
   const { t } = useTranslation();
 
   return (
-    <Tooltip content={t("traceability:download.download_data")}>
+    <Tooltip openDelay={100} showArrow content={t("traceability:download.download_data")}>
       <Button variant={variant} disabled={disabled} onClick={onClick}>
         <LuDownload />
       </Button>

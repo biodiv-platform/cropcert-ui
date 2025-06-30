@@ -58,7 +58,10 @@
     "lot": "Lot(s)"
   },
   "table": {
-    "manage_columns": "Manage Columns"
+    "columns": "Columns",
+    "manage_columns": "Manage Columns",
+    "restore_columns": "Default Columns",
+    "select_all": "Select All"
   },
   "title": "Traceability",
   "total_records": "Total Records"

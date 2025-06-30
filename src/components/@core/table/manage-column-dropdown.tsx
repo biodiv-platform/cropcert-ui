@@ -1,6 +1,7 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { LuUndoDot } from "react-icons/lu";
 
 import {
   MenuCheckboxItem,
@@ -9,9 +10,26 @@ import {
   MenuRoot,
   MenuTrigger,
 } from "@/components/ui/menu";
+import { Tooltip } from "@/components/ui/tooltip";
 
 export default function ManageColumnDropdown({ columnList, allColumns, setVisibleColumns }) {
   const { t } = useTranslation();
+  const [defaultColumns, setDefaultColumns] = useState(columnList);
+
+  useEffect(() => {
+    setDefaultColumns([...columnList]);
+  }, []);
+
+  const isAllSelected = columnList.length === allColumns.length;
+  const isIndeterminate = columnList.length > 0 && columnList.length < allColumns.length;
+
+  const toggleAll = () => {
+    if (isAllSelected) {
+      setVisibleColumns([]);
+    } else {
+      setVisibleColumns(allColumns);
+    }
+  };
 
   const toggleColumnVisibility = (columnName) => {
     setVisibleColumns((prevColumns) => prevColumns.filter((column) => column.name !== columnName));
@@ -44,8 +62,36 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
           {t("traceability:table.manage_columns")}
         </Button>
       </MenuTrigger>
-      <MenuContent maxHeight={"400px"} overflowY={"scroll"} shadow={"md"}>
-        <MenuItemGroup title="Features">
+      <MenuContent
+        maxHeight={"400px"}
+        maxWidth={"200px"}
+        overflowY={"scroll"}
+        shadow={"md"}
+        borderWidth={1}
+        borderColor={"gray.200"}
+      >
+        <MenuItemGroup>
+          <Flex justifyContent="space-between" alignItems="center" py={1} pl={1}>
+            <Text fontWeight={"bold"}>{t("traceability:table.columns")}</Text>
+            <Tooltip showArrow openDelay={100} content={t("traceability:table.restore_columns")}>
+              <Button
+                variant="ghost"
+                onClick={() => setVisibleColumns([...defaultColumns])}
+                size="xs"
+                focusRingStyle={"none"}
+              >
+                <LuUndoDot />
+              </Button>
+            </Tooltip>
+          </Flex>
+          <MenuCheckboxItem
+            value="select-all"
+            checked={isAllSelected}
+            onCheckedChange={toggleAll}
+            className={isIndeterminate ? "indeterminate" : ""}
+          >
+            {t("traceability:table.select_all")}
+          </MenuCheckboxItem>
           {allColumns.map((column) => (
             <MenuCheckboxItem
               key={column.name}

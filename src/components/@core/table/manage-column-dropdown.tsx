@@ -27,12 +27,7 @@ export default function ManageColumnDropdown({ columnList, allColumns, setVisibl
     if (isAllSelected) {
       setVisibleColumns([]);
     } else {
-      const sortedColumns = [...allColumns].sort(
-        (a, b) =>
-          allColumns.findIndex((col) => col.name === a.name) -
-          allColumns.findIndex((col) => col.name === b.name)
-      );
-      setVisibleColumns(sortedColumns);
+      setVisibleColumns(allColumns);
     }
   };
 

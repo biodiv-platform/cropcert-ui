@@ -112,7 +112,7 @@
     "@types/node": "18.11.18",
     "@types/react": "18.3.17",
     "@types/react-dom": "18.3.5",
-    "@types/react-infinite-scroller": "^1.2.3",
+    "@types/react-infinite-scroller": "^1.2.5",
     "@types/react-leaflet": "^2.8.2",
     "@typescript-eslint/eslint-plugin": "5.39.0",
     "@typescript-eslint/parser": "^5.39.0",

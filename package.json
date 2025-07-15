@@ -34,7 +34,7 @@
     "dayjs": "^1.11.10",
     "debounce-promise": "^3.1.2",
     "dompurify": "^2.4.0",
-    "dotenv-load": "^2.0.1",
+    "dotenv-load": "^3.0.0",
     "fetch-opengraph": "^1.0.35",
     "flat": "^5.0.2",
     "flatpickr": "^4.6.13",

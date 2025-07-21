@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { reactSelectProps } from "@components/form/configs";
 import { getByRole } from "@services/accessor.service";
 import { ROLES } from "@static/constants";
@@ -78,20 +79,22 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
     const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
 
     return (
-      <Field key={index} mb={1}>
-        <Field htmlFor={role}>Select {roleName?.toLowerCase()}</Field>
-        <Select
-          id={role}
-          options={rolesOptions[role]}
-          isSearchable={true}
-          onChange={(e) => {
-            onOptionChange(role, index, e);
-          }}
-          components={{ IndicatorSeparator: () => null }}
-          value={rolesValues[role]}
-          {...reactSelectProps}
-        />
-      </Field>
+      <Box zIndex={99}>
+        <Field key={index} mb={1}>
+          <Field htmlFor={role}>Select {roleName?.toLowerCase()}</Field>
+          <Select
+            id={role}
+            options={rolesOptions[role]}
+            isSearchable={true}
+            onChange={(e) => {
+              onOptionChange(role, index, e);
+            }}
+            components={{ IndicatorSeparator: () => null }}
+            value={rolesValues[role]}
+            {...reactSelectProps}
+          />
+        </Field>
+      </Box>
     );
   };
 

@@ -1,10 +1,7 @@
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { axListAggregationBatch, axListBatch } from "@services/batch.service";
 import { isBrowser } from "@static/constants";
-import {
-  DEFAULT_MEDIA_GALLERY_FILTER,
-  MEDIA_GALLERY_LIST_PAGINATION_LIMIT,
-} from "@static/media-gallery-list";
+import { DEFAULT_MEDIA_GALLERY_FILTER } from "@static/media-gallery-list";
 import NProgress from "nprogress";
 import { stringify } from "query-string";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -34,10 +31,15 @@ interface BatchFilterContextProps {
   loading: boolean;
   clearBatch: () => void;
   aggregations?: any;
-  updateBatch;
-  addBatch;
+  updateBatch: () => void;
+  addBatch: (batch: any) => void;
   filterCount: number;
-  setFilterCount;
+  setFilterCount: (count: number) => void;
+  page: number;
+  perPage: number;
+  totalRows: number;
+  handlePageChange: (page: number) => void;
+  handlePerRowsChange: (newPerPage, page) => void;
 }
 
 const BatchFilterContext = createContext<BatchFilterContextProps>({} as BatchFilterContextProps);
@@ -51,6 +53,9 @@ export const BatchFilterProvider = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [filterCount, setFilterCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+  const [totalRows, setTotalRows] = useState(0);
 
   const updateBatch = () => {
     fetchListData();
@@ -68,9 +73,25 @@ export const BatchFilterProvider = (props) => {
     setLoading(true);
     NProgress.start();
     try {
-      const batchData = await axListBatch(coCodes, { ...filter.f });
+      const batchData = await axListBatch(coCodes, {
+        ...filter.f,
+        page,
+        limit: perPage,
+      });
       const dataMapAggregation = await axListAggregationBatch(coCodes, { ...filter.f });
-      setBatchListData(batchData.data);
+      if (batchData.success && typeof batchData.data !== "undefined" && "data" in batchData.data) {
+        setBatchListData(batchData.data.data);
+        setTotalRows(batchData.data.totalCount);
+      } else {
+        setBatchListData({
+          length: 0,
+          offset: 0,
+          hasMore: false,
+          isLoading: false,
+          batch: [],
+        });
+        setTotalRows(0);
+      }
       setBatchListAggregationData(dataMapAggregation.data);
 
       NProgress.done();
@@ -84,7 +105,7 @@ export const BatchFilterProvider = (props) => {
 
   useDidUpdateEffect(() => {
     fetchListData();
-  }, [coCodes, filter.f]);
+  }, [coCodes, filter.f, page, perPage]);
 
   useEffect(() => {
     if (isBrowser && filterCount > 0) {
@@ -104,10 +125,17 @@ export const BatchFilterProvider = (props) => {
     });
   };
 
-  const nextPage = (max = MEDIA_GALLERY_LIST_PAGINATION_LIMIT) => {
-    setFilter((draft) => {
-      draft.f.offset = Number(draft.f.offset) + max;
-    });
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handlePerRowsChange = async (newPerPage, newPage) => {
+    setPage(newPage);
+    setPerPage(newPerPage);
   };
 
   const resetFilter = () => {
@@ -145,6 +173,11 @@ export const BatchFilterProvider = (props) => {
         addBatch,
         filterCount,
         setFilterCount,
+        page,
+        perPage,
+        totalRows,
+        handlePageChange,
+        handlePerRowsChange,
       }}
     >
       {props.children}

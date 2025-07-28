@@ -44,8 +44,19 @@ function BatchComponent() {
   const { t } = useTranslation();
   const { setReRenderTabs } = useTraceability();
 
-  const { clearBatch, setCOCodes, batchListData, loading, updateBatch, addBatch } =
-    useBatchFilter();
+  const {
+    clearBatch,
+    setCOCodes,
+    batchListData,
+    loading,
+    updateBatch,
+    addBatch,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useBatchFilter();
 
   useEffect(() => {
     async function loadColumns() {
@@ -228,8 +239,17 @@ function BatchComponent() {
           ]}
           expandableRowsComponent={BatchExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight={`calc(100vh - var(--batch-table-gap, 370px))`}
           showManageColumnDropdown={true}

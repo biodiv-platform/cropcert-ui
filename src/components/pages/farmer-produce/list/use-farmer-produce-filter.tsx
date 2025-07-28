@@ -1,10 +1,7 @@
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { axListAggregationFarmerProduce, axListFarmerProduce } from "@services/farmer.service";
 import { isBrowser } from "@static/constants";
-import {
-  DEFAULT_MEDIA_GALLERY_FILTER,
-  MEDIA_GALLERY_LIST_PAGINATION_LIMIT,
-} from "@static/media-gallery-list";
+import { DEFAULT_MEDIA_GALLERY_FILTER } from "@static/media-gallery-list";
 import NProgress from "nprogress";
 import { stringify } from "query-string";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -25,7 +22,7 @@ interface FarmerProduceFilterContextProps {
   setFilter: (filter: any) => void;
   addFilter: (key: string, value: any) => void;
   removeFilter: (key: string) => void;
-  nextPage: (max?: number) => void;
+  nextPage: () => void;
   resetFilter: () => void;
   selectAll: boolean;
   setSelectAll: (selectAll: boolean) => void;
@@ -37,6 +34,11 @@ interface FarmerProduceFilterContextProps {
   updateFarmerProduce;
   filterCount: number;
   setFilterCount;
+  page: number;
+  perPage: number;
+  totalRows: number;
+  handlePageChange: (page: number) => void;
+  handlePerRowsChange: (newPerPage, page) => void;
 }
 
 const FarmerProduceFilterContext = createContext<FarmerProduceFilterContextProps>(
@@ -48,6 +50,9 @@ export const FarmerProduceFilterProvider = (props) => {
   const [farmerProduceListData, setFarmerProduceListData] = useImmer<FARMER_PRODUCE_LIST_DATA>(
     props.farmerProduceListData
   );
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+  const [totalRows, setTotalRows] = useState(0);
   const [aggregations, setFarmerProduceListAggregationData] = useState({});
   const [selectAll, setSelectAll] = useState(false);
   const [ccCodes, setCCCodes] = useState<any[]>([]);
@@ -63,9 +68,29 @@ export const FarmerProduceFilterProvider = (props) => {
     setLoading(true);
     NProgress.start();
     try {
-      const farmerProduceData = await axListFarmerProduce(ccCodes, { ...filter.f });
+      const farmerProduceData = await axListFarmerProduce(ccCodes, {
+        ...filter.f,
+        page,
+        limit: perPage,
+      });
       const dataMapAggregation = await axListAggregationFarmerProduce(ccCodes, { ...filter.f });
-      setFarmerProduceListData(farmerProduceData.data);
+      if (
+        farmerProduceData.success &&
+        typeof farmerProduceData.data !== "undefined" &&
+        "data" in farmerProduceData.data
+      ) {
+        setFarmerProduceListData(farmerProduceData.data.data);
+        setTotalRows(farmerProduceData.data.totalCount);
+      } else {
+        setFarmerProduceListData({
+          length: 0,
+          offset: 0,
+          hasMore: false,
+          isLoading: false,
+          farmerProduce: [],
+        });
+        setTotalRows(0);
+      }
       setFarmerProduceListAggregationData(dataMapAggregation.data);
 
       NProgress.done();
@@ -79,7 +104,7 @@ export const FarmerProduceFilterProvider = (props) => {
 
   useDidUpdateEffect(() => {
     fetchListData();
-  }, [ccCodes, filter.f]);
+  }, [ccCodes, filter.f, page, perPage]);
 
   useEffect(() => {
     if (isBrowser && filterCount > 0) {
@@ -99,10 +124,17 @@ export const FarmerProduceFilterProvider = (props) => {
     });
   };
 
-  const nextPage = (max = MEDIA_GALLERY_LIST_PAGINATION_LIMIT) => {
-    setFilter((draft) => {
-      draft.f.offset = Number(draft.f.offset) + max;
-    });
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handlePerRowsChange = async (newPerPage, newPage) => {
+    setPage(newPage);
+    setPerPage(newPerPage);
+  };
+
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
   };
 
   const resetFilter = () => {
@@ -139,6 +171,11 @@ export const FarmerProduceFilterProvider = (props) => {
         updateFarmerProduce,
         filterCount,
         setFilterCount,
+        page,
+        perPage,
+        totalRows,
+        handlePageChange,
+        handlePerRowsChange,
       }}
     >
       {props.children}

@@ -30,8 +30,18 @@ function ContainerComponent() {
   const { t } = useTranslation();
   const { setReRenderTabs } = useTraceability();
 
-  const { clearContainer, setCOCodes, containerListData, loading, updateContainer } =
-    useContainerFilter();
+  const {
+    clearContainer,
+    setCOCodes,
+    containerListData,
+    loading,
+    updateContainer,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useContainerFilter();
 
   useEffect(() => {
     (async () => {
@@ -135,8 +145,17 @@ function ContainerComponent() {
           }}
           expandableRowsComponent={ContainerExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight="570px"
           showManageColumnDropdown={true}

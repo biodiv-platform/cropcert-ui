@@ -7,7 +7,11 @@ export const axListFarmerProduce = async (ccCodes, params) => {
     const { data } = await http.get(
       `${ENDPOINT.TRACEABILITY}/farmerProduce/all?ccCodes=${ccCodes}`,
       {
-        params,
+        params: {
+          ...params,
+          page: params.page || 1,
+          limit: params.limit || 20,
+        },
       }
     );
     return {

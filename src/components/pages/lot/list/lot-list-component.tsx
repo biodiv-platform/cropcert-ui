@@ -33,7 +33,18 @@ function LotComponent() {
   const { open: clearRows, onToggle } = useDisclosure();
   const [triggerRender, setTriggerRender] = useState(false);
   const [selectedLots, setSelectedLots] = useState<any>([]);
-  const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
+  const {
+    clearLot,
+    setCOCodes,
+    lotListData,
+    loading,
+    updateLot,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useLotFilter();
   const { setReRenderTabs } = useTraceability();
   const [showTypeError, setShowTypeError] = useState(false);
 
@@ -190,8 +201,17 @@ function LotComponent() {
           ]}
           expandableRowsComponent={LotExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 255px))`}
           showManageColumnDropdown={true}

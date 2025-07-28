@@ -33,8 +33,18 @@ function FarmerProduceListComponent() {
   const [co, setCo] = useState({} as any);
   const [ccs, setCCs] = useState([] as any);
 
-  const { clearFarmerProduce, setCCCodes, farmerProduceListData, loading, updateFarmerProduce } =
-    useFarmerProduceFilter();
+  const {
+    clearFarmerProduce,
+    setCCCodes,
+    farmerProduceListData,
+    loading,
+    updateFarmerProduce,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useFarmerProduceFilter();
 
   const { user, union } = useGlobalState();
   const [showTypeError, setShowTypeError] = useState(false);
@@ -233,8 +243,18 @@ function FarmerProduceListComponent() {
             },
           ]}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
+          progressPending={loading}
           fixedHeader
           fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 255px))`}
           showManageColumnDropdown={true}

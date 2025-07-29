@@ -9,7 +9,7 @@ function ContainerRestrictedAccess({ to = ROLES.COLLECTION_CENTER, children }) {
   const { user, union } = useGlobalState();
   const toHierarchical = hierarchicalRoles(to);
   const { t } = useTranslation();
-  const hasPermission = hasAccess(toHierarchical, user) && union.hasContainer;
+  const hasPermission = hasAccess(toHierarchical, user) && union?.hasContainer;
 
   return hasPermission ? (
     children

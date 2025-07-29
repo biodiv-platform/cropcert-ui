@@ -4,7 +4,7 @@ import React from "react";
 const NoSSRI = (props) => <React.Fragment>{props.children}</React.Fragment>;
 
 const NoSSR = dynamic(() => Promise.resolve(NoSSRI), {
-  ssr: false
+  ssr: false,
 });
 
 export default NoSSR;

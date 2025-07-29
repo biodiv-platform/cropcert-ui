@@ -86,7 +86,13 @@ export default function FarmerShowPageComponent({ show }: { show: IFarmerShowPro
       >
         🧑‍🌾 {show.farmer.farmerName}
       </PageHeading>
-      <AccordionRoot multiple defaultValue={["Information", "activity"]} spaceY="4" pb={4}>
+      <AccordionRoot
+        multiple
+        defaultValue={["Information", "activity"]}
+        spaceY="4"
+        pb={4}
+        lazyMount
+      >
         <FarmerInfo farmer={show.farmer} />
         {show.farmerProduces && <FarmerProduce rows={show.farmerProduces} />}
         {show.batches && <FarmerBatches rows={show.batches} />}

@@ -89,7 +89,13 @@ export default function ContainerShowPageComponent({ show }: { show: IContainerS
       <PageHeading actions={<ActionButtons />} floatHeader={true}>
         📦 {show.container.containerName}
       </PageHeading>
-      <AccordionRoot defaultValue={["Information", "activity"]} multiple pb={4} spaceY="4">
+      <AccordionRoot
+        defaultValue={["Information", "activity"]}
+        multiple
+        pb={4}
+        spaceY="4"
+        lazyMount
+      >
         <ContainerInfo container={show.container} geojsonData={geojsonData} />
         {show.lotArr && <ContainerLots rows={show.lotArr} />}
         {show.batches && <ContainerBatches rows={show.batches} />}

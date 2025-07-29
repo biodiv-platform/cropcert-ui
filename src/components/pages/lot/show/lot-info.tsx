@@ -5,6 +5,8 @@ import tooltipCell from "@components/@core/table/tooltip-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
+import NoSSR from "@/components/@core/no-ssr";
+
 import LotShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
@@ -51,7 +53,7 @@ export default function LotInfo({ lot, geojsonData }) {
     {
       name: "Created At",
       selector: (row) => row["createdAt"],
-      cell: (row) => new Date(row.createdAt).toLocaleString(),
+      cell: (row) => <NoSSR>{new Date(row.createdAt).toLocaleString()}</NoSSR>,
       sortable: true,
       sortFunction: (rowA, rowB) =>
         new Date(rowA.createdAt).getTime() - new Date(rowB.createdAt).getTime(),
@@ -71,17 +73,19 @@ export default function LotInfo({ lot, geojsonData }) {
         <Text as={"b"} pl={2}>
           Parameters:
         </Text>
-        <Box>
-          {lot.modalFieldCombined &&
-            lot.modalFieldCombined.map(
-              (column, index) =>
-                (column.columnStatus === "ADD" ||
-                  column.columnStatus === "EDIT" ||
-                  column.columnStatus === "DONE") && (
-                  <SubAccordionPanel key={index} column={column} index={index} />
-                )
-            )}
-        </Box>
+        <NoSSR>
+          <Box>
+            {lot.modalFieldCombined &&
+              lot.modalFieldCombined.map(
+                (column, index) =>
+                  (column.columnStatus === "ADD" ||
+                    column.columnStatus === "EDIT" ||
+                    column.columnStatus === "DONE") && (
+                    <SubAccordionPanel key={index} column={column} index={index} />
+                  )
+              )}
+          </Box>
+        </NoSSR>
       </Stack>
 
       {geojsonWithFeatColl && (

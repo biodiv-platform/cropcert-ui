@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
+import NoSSR from "@/components/@core/no-ssr";
+
 import usePages from "../../common/sidebar/use-pages-sidebar";
 import { TableOfContents } from "./toc";
 
@@ -34,7 +36,11 @@ export function PageOptions({ title, pageId }) {
     >
       <Container>
         <Flex alignItems="center" justifyContent="space-between">
-          <TableOfContents />
+          <Box>
+            <NoSSR>
+              <TableOfContents />
+            </NoSSR>
+          </Box>
           <Flex alignItems="center" gap={2}>
             <ShareActionButton text={title} title={t("page:share")} />
             {canEdit && (

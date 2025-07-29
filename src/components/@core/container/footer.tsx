@@ -23,24 +23,24 @@ import React from "react";
 import packagejson from "../../../../package.json";
 
 const SocialButton = ({ children, label, href }) => (
-  <chakra.button
-    bg="blackAlpha.100"
-    rounded="full"
-    w={8}
-    h={8}
-    cursor="pointer"
-    as="a"
-    display="inline-flex"
-    alignItems="center"
-    justifyContent="center"
-    transition="background 0.3s ease"
-    _hover={{ bg: "blackAlpha.200" }}
-    rel="noreferrer noopener"
-  >
-    <a href={href} />
-    <VisuallyHidden>{label}</VisuallyHidden>
-    {children}
-  </chakra.button>
+  <Link href={href} key={label}>
+    <chakra.button
+      bg="blackAlpha.100"
+      rounded="full"
+      w={8}
+      h={8}
+      cursor="pointer"
+      display="inline-flex"
+      alignItems="center"
+      justifyContent="center"
+      transition="background 0.3s ease"
+      _hover={{ bg: "blackAlpha.200" }}
+      rel="noreferrer noopener"
+    >
+      <VisuallyHidden>{label}</VisuallyHidden>
+      {children}
+    </chakra.button>
+  </Link>
 );
 
 export default function Footer() {

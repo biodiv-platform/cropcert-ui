@@ -77,22 +77,22 @@ export default function InfoTab({ document, flags, user }: InfoTabInterface) {
           </Box>
         </Flex>
         <MetaBlock
-          icon={<PeopleIcon />}
+          icon={<PeopleIcon size={"sm"} />}
           tooltip={t("document:bib.author")}
           children={document?.author}
         />
         <MetaBlock
-          icon={<CalendarIcon />}
+          icon={<CalendarIcon size={"sm"} />}
           tooltip={t("document:bib.year")}
           children={document?.year}
         />
         <MetaBlock
-          icon={<BookIcon />}
+          icon={<BookIcon size={"sm"} />}
           tooltip={t("document:bib.journal")}
           children={stripTags(document?.journal)}
         />
         <MetaBlock
-          icon={<MessageIcon />}
+          icon={<MessageIcon size={"sm"} />}
           tooltip={t("document:bib.abstract")}
           children={stripTags(document?.notes)}
         />

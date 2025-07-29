@@ -1,5 +1,5 @@
-import ListIcon from "@icons/list";
 import React from "react";
+import { LuList } from "react-icons/lu";
 
 export const LIST_PAGINATION_LIMIT = 12;
 
@@ -13,7 +13,7 @@ export const DEFAULT_FILTER = {
 export const viewTabs = [
   {
     name: "common:list.view_type.list",
-    icon: <ListIcon />,
+    icon: <LuList />,
     key: "list",
   },
 ];

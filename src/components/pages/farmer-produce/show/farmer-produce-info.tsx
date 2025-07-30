@@ -3,6 +3,8 @@ import FarmerCell from "@components/@core/table/farmer-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
+import NoSSR from "@/components/@core/no-ssr";
+
 import FarmerProduceShowPanel from "./panel";
 
 export default function farmerProducesProduceInfo({ farmerProduces }) {
@@ -65,7 +67,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
     },
     {
       name: "Collection Date",
-      selector: dateOfCollection || "N/A",
+      selector: <NoSSR>{dateOfCollection}</NoSSR>,
     },
     {
       name: "Collector Name",
@@ -90,7 +92,7 @@ export default function farmerProducesProduceInfo({ farmerProduces }) {
     },
     {
       name: "Created At",
-      selector: new Date(farmerProduces["createdAt"]).toLocaleString() || "N/A",
+      selector: <NoSSR>{new Date(farmerProduces["createdAt"]).toLocaleString() || "N/A"} </NoSSR>,
     },
     {
       name: "Form Version",

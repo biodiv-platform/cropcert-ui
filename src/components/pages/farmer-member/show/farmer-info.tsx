@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
+import NoSSR from "@/components/@core/no-ssr";
 import { Alert } from "@/components/ui/alert";
 
 import LocationEditAndVerifyForm from "./locationEditAndVerifyForm";
@@ -46,7 +47,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Date of Birth",
-      selector: farmerDob.toLocaleDateString(),
+      selector: <NoSSR>{farmerDob.toLocaleDateString()} </NoSSR>,
     },
     {
       name: "Contact Number",
@@ -103,7 +104,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Date of Survey",
-      selector: dateOfSurvey,
+      selector: <NoSSR>{dateOfSurvey} </NoSSR>,
     },
     {
       name: "Enumerator",
@@ -124,7 +125,7 @@ export default function FarmerInfo({ farmer }) {
     },
     {
       name: "Created At",
-      selector: new Date(farmer["createdAt"]).toLocaleString(),
+      selector: <NoSSR>{new Date(farmer["createdAt"]).toLocaleString()}</NoSSR>,
     },
     {
       name: "Form Version",

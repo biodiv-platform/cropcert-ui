@@ -86,7 +86,13 @@ export default function LotShowPageComponent({ show }: { show: ILotShowProps }) 
       <PageHeading actions={<ActionButtons />} floatHeader={true}>
         📦 {show.lot.lotName}
       </PageHeading>
-      <AccordionRoot defaultValue={["Information", "activity"]} multiple pb={4} spaceY="4">
+      <AccordionRoot
+        defaultValue={["Information", "activity"]}
+        multiple
+        pb={4}
+        spaceY="4"
+        lazyMount
+      >
         <LotInfo lot={show.lot} geojsonData={geojsonData} />
         {show.batches && <LotBatches rows={show.batches} />}
         {show.farmerProduceArr && <LotFarmerProduce rows={show.farmerProduceArr} />}

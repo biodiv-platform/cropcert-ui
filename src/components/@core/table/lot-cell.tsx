@@ -1,4 +1,3 @@
-import { Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
@@ -21,13 +20,11 @@ export default function LotCell({
   const id = batchStatus === undefined ? _id : lotIdMongo;
   return finalLotId ? (
     <Link href={`/lot/show/${id}`}>
-      <ChakraLink>
-        <Tooltip content={content} aria-label={content}>
-          <span>
-            {finalLotId} <LuArrowRight />
-          </span>
-        </Tooltip>
-      </ChakraLink>
+      <Tooltip content={content} aria-label={content}>
+        <span>
+          {finalLotId} <LuArrowRight />
+        </span>
+      </Tooltip>
     </Link>
   ) : null;
 }

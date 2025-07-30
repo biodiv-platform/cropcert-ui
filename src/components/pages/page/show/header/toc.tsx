@@ -45,7 +45,7 @@ export function TableOfContents() {
       onOpenChange={() => setIsOpen(true)}
       positioning={{ placement: "bottom-start" }}
     >
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant="outline" size="sm" colorPalette="gray" bg="white" fontWeight={"bold"}>
           <MenuIcon /> {t("page:quick_navigation")}
         </Button>

@@ -4,6 +4,8 @@ import timeCell from "@components/@core/table/time-cell";
 import dynamic from "next/dynamic";
 import React from "react";
 
+import NoSSR from "@/components/@core/no-ssr";
+
 import BatchShowPanel from "./panel";
 import SubAccordionPanel from "./sub-panel";
 
@@ -48,7 +50,7 @@ export default function BatchInfo({ batch, geojsonData }) {
       name: "Last Updated",
       selector: (row) => row["lastUpdatedAt"],
       maxWidth: "150px",
-      cell: (row) => timeCell(row.lastUpdatedAt),
+      cell: (row) => <NoSSR>{timeCell(row.lastUpdatedAt)} </NoSSR>,
       sortable: true,
       sortFunction: (rowA, rowB) =>
         new Date(rowA.lastUpdatedAt).getTime() - new Date(rowB.lastUpdatedAt).getTime(),
@@ -76,18 +78,20 @@ export default function BatchInfo({ batch, geojsonData }) {
         <Text as={"b"} pl={2}>
           Parameters:
         </Text>
-        <Box>
-          {batch.modalFieldCombined &&
-            batch.modalFieldCombined.map(
-              (column, index) =>
-                column.columnStatus === "ADD" ||
-                column.columnStatus === "EDIT" ||
-                column.columnStatus === "DONE" ||
-                (column.columnStatus === "NOTAPPLICABLE" && (
-                  <SubAccordionPanel key={index} column={column} index={index} />
-                ))
-            )}
-        </Box>
+        <NoSSR>
+          <Box>
+            {batch.modalFieldCombined &&
+              batch.modalFieldCombined.map(
+                (column, index) =>
+                  column.columnStatus === "ADD" ||
+                  column.columnStatus === "EDIT" ||
+                  column.columnStatus === "DONE" ||
+                  (column.columnStatus === "NOTAPPLICABLE" && (
+                    <SubAccordionPanel key={index} column={column} index={index} />
+                  ))
+              )}
+          </Box>
+        </NoSSR>
       </Stack>
 
       {geojsonWithFeatColl && (

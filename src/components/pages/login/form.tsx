@@ -13,7 +13,6 @@ import { VERIFICATION_MODE } from "@static/constants";
 import { SIGN_IN } from "@static/messages";
 import { forwardRedirect, registerSW, removeCache, setCookies, unregisterSW } from "@utils/auth";
 import notification from "@utils/notification";
-import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -116,9 +115,9 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
             <SubmitButton>
               Sign In <LuArrowRight />
             </SubmitButton>
-            <Link href="/register/forgotPassword">
-              <BlueLink display="block">{t("auth:forgot_password_link")}</BlueLink>
-            </Link>
+            <BlueLink display="block" href="/register/forgotPassword">
+              {t("auth:forgot_password_link")}
+            </BlueLink>
           </Flex>
         </form>
       </FormProvider>
@@ -134,12 +133,10 @@ function LoginForm({ onSuccess, redirect = true, forward }: ISignInFormProps) {
         <Box py={4} />
       )}
       {t("auth:sign_up")}
-      <Link href="/register">
-        <BlueLink ml={2}>
-          {t("auth:sign_up_link")}
-          <LuChevronRight />
-        </BlueLink>
-      </Link>
+      <BlueLink href="/register" ml={2}>
+        {t("auth:sign_up_link")}
+        <LuChevronRight />
+      </BlueLink>
       <OTPModal isOpen={open} onClose={onClose} user={user} />
     </>
   );

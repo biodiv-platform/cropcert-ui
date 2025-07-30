@@ -41,11 +41,9 @@ export default function UserInfoSidebar({ user }) {
           </Text>
         </Box>
       </Flex>
-      <Link href={`/user/edit/${user.id}`}>
-        <Button as="a" w="full" colorPalette="blue" mb={4} hidden={!canEdit}>
-          {t("user:edit_profile")}
-        </Button>
-      </Link>
+      <Button w="full" colorPalette="blue" mb={4} hidden={!canEdit}>
+        <Link href={`/user/edit/${user.id}`}>{t("user:edit_profile")}</Link>
+      </Button>
       {canDelete && <DeleteAccount userId={user.id} />}
     </div>
   );

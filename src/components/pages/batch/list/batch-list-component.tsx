@@ -1,4 +1,4 @@
-import { Box, Button, Group, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Group, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -128,32 +128,68 @@ function BatchComponent() {
     setSelectedBatches([]);
   };
 
-  const ActionButtons = () => (
-    <Group gap={4}>
-      <Button
-        colorPalette="green"
-        variant="solid"
-        disabled={
-          showTypeError ||
-          selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnCreateLot}
-      >
-        {<AddIcon />}
-        Create Lot
-      </Button>
-      <DownloadButtonWithTooltip
-        variant="surface"
-        disabled={
-          showTypeError ||
-          selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnDownloadData}
-      />
-    </Group>
-  );
+  const ActionButtons = () => {
+    const { quantity, amount } = selectedBatches.reduce(
+      (acc, cv) => {
+        return {
+          quantity: acc.quantity + (cv.quantity || 0),
+          amount: acc.amount + (cv.amountPaidCalculate || 0),
+        };
+      },
+      { quantity: 0, amount: 0 }
+    );
+    return (
+      <Group display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          fontSize={"xs"}
+          borderWidth="1px"
+          paddingX="6px"
+          paddingY="3px"
+          rounded={"md"}
+          hidden={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          <Box fontWeight={"semibold"}>Stock Card</Box>
+          <Box display={"flex"} gap={1}>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:selected_quantity")}: {quantity}(Kgs)
+            </Text>
+            <Text>|</Text>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:amount_paid")}: {amount !== null ? `Ugx ${amount}` : "N/A"}
+            </Text>
+          </Box>
+        </Box>
+        <Button
+          colorPalette="green"
+          variant="solid"
+          disabled={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnCreateLot}
+        >
+          {<AddIcon />}
+          Create Lot
+        </Button>
+        <DownloadButtonWithTooltip
+          variant="surface"
+          disabled={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
+      </Group>
+    );
+  };
 
   const onBatchUpdate = () => {
     onToggle();

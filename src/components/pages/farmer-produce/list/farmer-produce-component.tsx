@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Group, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Flex, Group, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CCMultiSelect from "@components/@core/accesser/cc-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -128,22 +128,42 @@ function FarmerProduceListComponent() {
   };
 
   const ActionButtons = () => {
-    const quantity = selectedFarmerProduce.reduce(
-      (acc, cv) => selectedFarmerProduce.length && cv.quantity + acc,
-      0
+    const { quantity, amount } = selectedFarmerProduce.reduce(
+      (acc, cv) => {
+        return {
+          quantity: acc.quantity + (cv.quantity || 0),
+          amount: acc.amount + (cv.amountPaidCalculate || 0),
+        };
+      },
+      { quantity: 0, amount: 0 }
     );
+
     return (
-      <Group display={"flex"} flexWrap={"wrap"} gap={4}>
+      <Group display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={4}>
         <Box
           display="flex"
-          alignItems="center"
+          flexDirection="column"
+          fontSize={"xs"}
+          borderWidth="1px"
+          paddingX="6px"
+          paddingY="3px"
+          rounded={"md"}
           hidden={
             showTypeError ||
             selectedFarmerProduce.length === 0 ||
             !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
           }
         >
-          {t("traceability:selected_quantity")}: {quantity}(Kgs)
+          <Box fontWeight={"semibold"}>Stock Card</Box>
+          <Box display={"flex"} gap={1}>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:selected_quantity")}: {quantity}(Kgs)
+            </Text>
+            <Text>|</Text>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:amount_paid")}: {amount !== null ? `Ugx ${amount}` : "N/A"}
+            </Text>
+          </Box>
         </Box>
         <Button
           colorPalette="green"
@@ -256,7 +276,7 @@ function FarmerProduceListComponent() {
           onChangeRowsPerPage={handlePerRowsChange}
           progressPending={loading}
           fixedHeader
-          fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 255px))`}
+          fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 260px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={farmerProduceColumns}

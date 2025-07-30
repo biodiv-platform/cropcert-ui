@@ -108,8 +108,9 @@ function ContainerComponent() {
           flexDirection="column"
           fontSize={"xs"}
           borderWidth="1px"
-          paddingX="6px"
-          paddingY="3px"
+          backgroundColor={"gray.50"}
+          paddingX="8px"
+          paddingY="2px"
           rounded={"md"}
           hidden={
             selectedContainers.length === 0 ||

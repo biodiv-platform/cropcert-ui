@@ -165,9 +165,7 @@ function FarmerMemberComponent() {
           paginationPerPage={perPage}
           paginationDefaultPage={page}
           paginationRowsPerPageOptions={
-            totalRows > 10000
-              ? [10, 20, 50, 100, 10000, Number(totalRows)]
-              : [10, 20, 50, 100, 10000]
+            totalRows > 100 ? [10, 20, 50, 100, Number(totalRows)] : [10, 20, 50, 100]
           }
           onChangePage={handlePageChange}
           onChangeRowsPerPage={handlePerRowsChange}

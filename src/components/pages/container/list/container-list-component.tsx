@@ -1,4 +1,4 @@
-import { Box, Group, Spinner } from "@chakra-ui/react";
+import { Box, Group, Spinner, Text } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -30,8 +30,18 @@ function ContainerComponent() {
   const { t } = useTranslation();
   const { setReRenderTabs } = useTraceability();
 
-  const { clearContainer, setCOCodes, containerListData, loading, updateContainer } =
-    useContainerFilter();
+  const {
+    clearContainer,
+    setCOCodes,
+    containerListData,
+    loading,
+    updateContainer,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useContainerFilter();
 
   useEffect(() => {
     (async () => {
@@ -79,18 +89,56 @@ function ContainerComponent() {
     setSelectedContainers([]);
   };
 
-  const ActionButtons = () => (
-    <Group gap={4}>
-      <DownloadButtonWithTooltip
-        variant="surface"
-        disabled={
-          selectedContainers.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnDownloadData}
-      />
-    </Group>
-  );
+  const ActionButtons = () => {
+    const { quantity, amount } = selectedContainers.reduce(
+      (acc, { quantity = 0, amountPaidCalculate }) => ({
+        quantity: acc.quantity + quantity,
+        amount:
+          acc.amount === null || amountPaidCalculate === null
+            ? null
+            : acc.amount + (amountPaidCalculate || 0),
+      }),
+      { quantity: 0, amount: 0 as number | null }
+    );
+
+    return (
+      <Group display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          fontSize={"xs"}
+          borderWidth="1px"
+          backgroundColor={"gray.50"}
+          paddingX="8px"
+          paddingY="2px"
+          rounded={"md"}
+          hidden={
+            selectedContainers.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          <Box fontWeight={"semibold"}>Stock Card</Box>
+          <Box display={"flex"} gap={1}>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:selected_quantity")}: {quantity}(Kgs)
+            </Text>
+            <Text>|</Text>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:amount_paid")}: {amount !== null ? `Ugx ${amount}` : "N/A"}
+            </Text>
+          </Box>
+        </Box>
+        <DownloadButtonWithTooltip
+          variant="surface"
+          disabled={
+            selectedContainers.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
+      </Group>
+    );
+  };
 
   return (
     <>
@@ -135,8 +183,17 @@ function ContainerComponent() {
           }}
           expandableRowsComponent={ContainerExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight="570px"
           showManageColumnDropdown={true}

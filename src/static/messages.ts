@@ -9,7 +9,7 @@ export const SIGN_IN = {
 
 export const BATCH = {
   UPDATED: "Batch updated successfully",
-  MULTIPLE_TYPE_SELECTED: "Please choose only one coffee type to create batches.",
+  MULTIPLE_TYPE_SELECTED: "Please choose only one coffee type to create lots.",
   CREATED: "Batch ${batchId}. ${batchName} created successfully",
 };
 
@@ -19,7 +19,7 @@ export const MLOT = {
   SPLITTED: "Lot splitted successfully",
   FACTORY_REPORT_CREATED: "Factory Report ${id} created/updated successfully",
   GREEN_REPORT_CREATED: "Green Report ${id} created/updated successfully",
-  MULTIPLE_TYPE_SELECTED: "Please choose only one coffee type to create lots.",
+  MULTIPLE_TYPE_SELECTED: "Please choose only one coffee type to create containers.",
 };
 
 export const MCONTAINER = {

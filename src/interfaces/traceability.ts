@@ -23,6 +23,7 @@ export interface Batch {
   unionCode?: number;
   type?: "DRY" | "WET" | "FAQ";
   quantity?: number;
+  amountPaidCalculate: number | null;
   date?: string;
   createdOn?: string;
   note?: string;
@@ -121,6 +122,7 @@ export interface Lot {
   coCode?: number;
   unionCode?: number;
   quantity?: number;
+  amountPaidCalculate?: number | null;
   type?: string;
   createdOn?: string;
   timeToFactory?: string;
@@ -284,7 +286,7 @@ export interface FarmerProduce {
   deductionReason?: string;
   netCollection?: number;
   pricePerKg?: number;
-  amountPaidCalculate?: number;
+  amountPaidCalculate?: number | null;
   millingCharge?: number;
   dateOfCollection?: Date;
   collectorName?: string;
@@ -321,6 +323,7 @@ export interface Container {
   ccCode: number[];
   unionCode: number;
   quantity: number;
+  amountPaidCalculate: number | null;
   containerStatus: string;
   modalFieldCombined: Array<{
     lastUpdatedAt: string;

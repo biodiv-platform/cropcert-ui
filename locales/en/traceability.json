@@ -1,4 +1,5 @@
 {
+  "amount_paid": "Amount Paid",
   "batch": {
     "batch_ready_for_lot": "Batch is ready for lot creation. Select the batch and click on Create Lot button."
   },

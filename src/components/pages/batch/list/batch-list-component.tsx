@@ -1,4 +1,4 @@
-import { Box, Button, Group, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Group, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -44,8 +44,19 @@ function BatchComponent() {
   const { t } = useTranslation();
   const { setReRenderTabs } = useTraceability();
 
-  const { clearBatch, setCOCodes, batchListData, loading, updateBatch, addBatch } =
-    useBatchFilter();
+  const {
+    clearBatch,
+    setCOCodes,
+    batchListData,
+    loading,
+    updateBatch,
+    addBatch,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useBatchFilter();
 
   useEffect(() => {
     async function loadColumns() {
@@ -117,32 +128,69 @@ function BatchComponent() {
     setSelectedBatches([]);
   };
 
-  const ActionButtons = () => (
-    <Group gap={4}>
-      <Button
-        colorPalette="green"
-        variant="solid"
-        disabled={
-          showTypeError ||
-          selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnCreateLot}
-      >
-        {<AddIcon />}
-        Create Lot
-      </Button>
-      <DownloadButtonWithTooltip
-        variant="surface"
-        disabled={
-          showTypeError ||
-          selectedBatches.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnDownloadData}
-      />
-    </Group>
-  );
+  const ActionButtons = () => {
+    const { quantity, amount } = selectedBatches.reduce(
+      (acc, cv) => {
+        return {
+          quantity: acc.quantity + (cv.quantity || 0),
+          amount: acc.amount + (cv.amountPaidCalculate || 0),
+        };
+      },
+      { quantity: 0, amount: 0 }
+    );
+    return (
+      <Group display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          fontSize={"xs"}
+          borderWidth="1px"
+          backgroundColor={"gray.50"}
+          paddingX="8px"
+          paddingY="2px"
+          rounded={"md"}
+          hidden={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          <Box fontWeight={"semibold"}>Stock Card</Box>
+          <Box display={"flex"} gap={1}>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:selected_quantity")}: {quantity}(Kgs)
+            </Text>
+            <Text>|</Text>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:amount_paid")}: {amount !== null ? `Ugx ${amount}` : "N/A"}
+            </Text>
+          </Box>
+        </Box>
+        <Button
+          colorPalette="green"
+          variant="solid"
+          disabled={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnCreateLot}
+        >
+          {<AddIcon />}
+          Create Lot
+        </Button>
+        <DownloadButtonWithTooltip
+          variant="surface"
+          disabled={
+            showTypeError ||
+            selectedBatches.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
+      </Group>
+    );
+  };
 
   const onBatchUpdate = () => {
     onToggle();
@@ -228,8 +276,17 @@ function BatchComponent() {
           ]}
           expandableRowsComponent={BatchExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight={`calc(100vh - var(--batch-table-gap, 370px))`}
           showManageColumnDropdown={true}

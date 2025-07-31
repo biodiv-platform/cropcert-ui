@@ -26,7 +26,17 @@ import useFarmerFilter from "./use-farmer-filter";
 function FarmerMemberComponent() {
   const [ccs, setCCs] = useState([] as any);
   const [co, setCo] = useState<any>();
-  const { clearFarmerMember, setCCCodes, farmerListData, loading } = useFarmerFilter();
+  const {
+    clearFarmerMember,
+    setCCCodes,
+    farmerListData,
+    loading,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useFarmerFilter();
 
   const [showTypeError, setShowTypeError] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -150,8 +160,17 @@ function FarmerMemberComponent() {
             },
           ]}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
           fixedHeaderScrollHeight={`calc(100vh - var(--fm-table-gap, 210px))`}
           showManageColumnDropdown={true}

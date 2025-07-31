@@ -1,10 +1,7 @@
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { axListAggregationLot, axListLot } from "@services/lot.service";
 import { isBrowser } from "@static/constants";
-import {
-  DEFAULT_MEDIA_GALLERY_FILTER,
-  MEDIA_GALLERY_LIST_PAGINATION_LIMIT,
-} from "@static/media-gallery-list";
+import { DEFAULT_MEDIA_GALLERY_FILTER } from "@static/media-gallery-list";
 import NProgress from "nprogress";
 import { stringify } from "query-string";
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -25,7 +22,7 @@ interface LotFilterContextProps {
   setFilter: (filter: any) => void;
   addFilter: (key: string, value: any) => void;
   removeFilter: (key: string) => void;
-  nextPage: (max?: number) => void;
+  nextPage: () => void;
   resetFilter: () => void;
   selectAll: boolean;
   setSelectAll: (selectAll: boolean) => void;
@@ -37,6 +34,11 @@ interface LotFilterContextProps {
   updateLot;
   filterCount: number;
   setFilterCount;
+  page: number;
+  perPage: number;
+  totalRows: number;
+  handlePageChange: (page: number) => void;
+  handlePerRowsChange: (newPerPage, page) => void;
 }
 
 const LotFilterContext = createContext<LotFilterContextProps>({} as LotFilterContextProps);
@@ -48,6 +50,9 @@ export const LotFilterProvider = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [coCodes, setCOCodes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(20);
+  const [totalRows, setTotalRows] = useState(0);
 
   const [filterCount, setFilterCount] = useState(0);
 
@@ -60,9 +65,21 @@ export const LotFilterProvider = (props) => {
     setLoading(true);
     NProgress.start();
     try {
-      const lotData = await axListLot(coCodes, { ...filter.f });
+      const lotData = await axListLot(coCodes, { ...filter.f, page, limit: perPage });
       const dataMapAggregation = await axListAggregationLot(coCodes, { ...filter.f });
-      setLotListData(lotData.data);
+      if (lotData.success && typeof lotData.data !== "undefined" && "data" in lotData.data) {
+        setLotListData(lotData.data.data);
+        setTotalRows(lotData.data.totalCount);
+      } else {
+        setLotListData({
+          length: 0,
+          offset: 0,
+          hasMore: false,
+          isLoading: false,
+          lot: [],
+        });
+        setTotalRows(0);
+      }
       setLotListAggregationData(dataMapAggregation.data);
 
       NProgress.done();
@@ -76,7 +93,7 @@ export const LotFilterProvider = (props) => {
 
   useDidUpdateEffect(() => {
     fetchListData();
-  }, [coCodes, filter.f]);
+  }, [coCodes, filter.f, page, perPage]);
 
   useEffect(() => {
     if (isBrowser && filterCount > 0) {
@@ -96,10 +113,17 @@ export const LotFilterProvider = (props) => {
     });
   };
 
-  const nextPage = (max = MEDIA_GALLERY_LIST_PAGINATION_LIMIT) => {
-    setFilter((draft) => {
-      draft.f.offset = Number(draft.f.offset) + max;
-    });
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handlePerRowsChange = async (newPerPage, newPage) => {
+    setPage(newPage);
+    setPerPage(newPerPage);
+  };
+
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
   };
 
   const resetFilter = () => {
@@ -136,6 +160,11 @@ export const LotFilterProvider = (props) => {
         updateLot,
         filterCount,
         setFilterCount,
+        page,
+        perPage,
+        totalRows,
+        handlePageChange,
+        handlePerRowsChange,
       }}
     >
       {props.children}

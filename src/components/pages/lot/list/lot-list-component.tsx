@@ -1,4 +1,4 @@
-import { Box, Button, Group, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Group, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import Accesser from "@components/@core/accesser";
 import CoMultiSelect from "@components/@core/accesser/co-multi-select";
 import { CoreGrid, PageHeading } from "@components/@core/layout";
@@ -33,7 +33,18 @@ function LotComponent() {
   const { open: clearRows, onToggle } = useDisclosure();
   const [triggerRender, setTriggerRender] = useState(false);
   const [selectedLots, setSelectedLots] = useState<any>([]);
-  const { clearLot, setCOCodes, lotListData, loading, updateLot } = useLotFilter();
+  const {
+    clearLot,
+    setCOCodes,
+    lotListData,
+    loading,
+    updateLot,
+    page,
+    perPage,
+    totalRows,
+    handlePageChange,
+    handlePerRowsChange,
+  } = useLotFilter();
   const { setReRenderTabs } = useTraceability();
   const [showTypeError, setShowTypeError] = useState(false);
 
@@ -106,30 +117,69 @@ function LotComponent() {
     setSelectedLots([]);
   };
 
-  const ActionButtons = () => (
-    <Group gap={4}>
-      <Button
-        colorPalette="green"
-        variant="solid"
-        disabled={
-          showTypeError ||
-          selectedLots.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnCreateContainer}
-      >
-        {<AddIcon />} Create Container
-      </Button>
-      <DownloadButtonWithTooltip
-        variant="surface"
-        disabled={
-          selectedLots.length === 0 ||
-          !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
-        }
-        onClick={handleOnDownloadData}
-      />
-    </Group>
-  );
+  const ActionButtons = () => {
+    const { quantity, amount } = selectedLots.reduce(
+      (acc, { quantity = 0, amountPaidCalculate }) => ({
+        quantity: acc.quantity + quantity,
+        amount:
+          acc.amount === null || amountPaidCalculate === null
+            ? null
+            : acc.amount + (amountPaidCalculate || 0),
+      }),
+      { quantity: 0, amount: 0 as number | null }
+    );
+
+    return (
+      <Group display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={4}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          fontSize={"xs"}
+          borderWidth="1px"
+          backgroundColor={"gray.50"}
+          paddingX="8px"
+          paddingY="2px"
+          rounded={"md"}
+          hidden={
+            showTypeError ||
+            selectedLots.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE, ROLES.COLLECTION_CENTER], user)
+          }
+        >
+          <Box fontWeight={"semibold"}>Stock Card</Box>
+          <Box display={"flex"} gap={1}>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:selected_quantity")}: {quantity}(Kgs)
+            </Text>
+            <Text>|</Text>
+            <Text display={"flex"} alignItems={"center"} gap={1}>
+              {t("traceability:amount_paid")}: {amount !== null ? `Ugx ${amount}` : "N/A"}
+            </Text>
+          </Box>
+        </Box>
+        <Button
+          colorPalette="green"
+          variant="solid"
+          disabled={
+            showTypeError ||
+            selectedLots.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnCreateContainer}
+        >
+          {<AddIcon />} Create Container
+        </Button>
+        <DownloadButtonWithTooltip
+          variant="surface"
+          disabled={
+            selectedLots.length === 0 ||
+            !hasAccess([ROLES.ADMIN, ROLES.UNION, ROLES.COOPERATIVE], user)
+          }
+          onClick={handleOnDownloadData}
+        />
+      </Group>
+    );
+  };
 
   return (
     <>
@@ -190,10 +240,19 @@ function LotComponent() {
           ]}
           expandableRowsComponent={LotExpand}
           pagination
-          paginationPerPage={20}
-          paginationRowsPerPageOptions={[20, 40, 60, 100]}
+          paginationServer
+          paginationTotalRows={totalRows}
+          paginationPerPage={perPage}
+          paginationDefaultPage={page}
+          paginationRowsPerPageOptions={
+            totalRows > 10000
+              ? [10, 20, 50, 100, 10000, Number(totalRows)]
+              : [10, 20, 50, 100, 10000]
+          }
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
           fixedHeader
-          fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 255px))`}
+          fixedHeaderScrollHeight={`calc(100vh - var(--table-gap, 260px))`}
           showManageColumnDropdown={true}
           setVisibleColumns={setVisibleColumns}
           allColumns={[...lotColumns, ...lotExtraColumns]}

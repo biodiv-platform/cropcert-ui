@@ -46,6 +46,11 @@ export default function ContainerInfo({ container, geojsonData }) {
       maxWidth: "100px",
     },
     {
+      name: "Amount Paid",
+      selector: (row) => row["amountPaidCalculate"] || "N/A",
+      maxWidth: "100px",
+    },
+    {
       name: "Container Status",
       selector: (row) => row["containerStatus"],
       cell: ({ containerStatus }) => <Badge>{containerStatus?.split("_").join(" ")}</Badge>,

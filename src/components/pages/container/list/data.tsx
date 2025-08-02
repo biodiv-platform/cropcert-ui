@@ -130,6 +130,15 @@ export const containerColumns = [
     cell: ({ containerStatus }) => <Badge>{containerStatus?.split("_").join(" ")}</Badge>,
     showDefault: false,
   },
+  {
+    name: "Amount Paid",
+    selector: (row) => row.amountPaidCalculate,
+    maxWidth: "170px",
+    sortable: true,
+    right: true,
+    showDefault: true,
+    cell: (row) => row.amountPaidCalculate || "N/A",
+  },
 ];
 
 const containerExtraColumns = [

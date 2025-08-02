@@ -47,6 +47,11 @@ export default function BatchInfo({ batch, geojsonData }) {
       sortable: true,
     },
     {
+      name: "Amount Paid",
+      selector: (row) => row["amountPaidCalculate"] || "N/A",
+      maxWidth: "100px",
+    },
+    {
       name: "Last Updated",
       selector: (row) => row["lastUpdatedAt"],
       maxWidth: "150px",

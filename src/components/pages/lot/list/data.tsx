@@ -121,6 +121,15 @@ export const lotColumns = [
     showDefault: true,
     cell: (row) => <CoopCell coCode={row.coCode} />,
   },
+  {
+    name: "Amount Paid",
+    selector: (row) => row.amountPaidCalculate,
+    maxWidth: "170px",
+    sortable: true,
+    right: true,
+    showDefault: false,
+    cell: (row) => row.amountPaidCalculate || "N/A",
+  },
 ];
 
 const lotExtraColumns = [

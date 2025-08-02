@@ -27,7 +27,8 @@ const createBatchColumn = (
   maxWidth: string,
   cell?: (row: Batch) => JSX.Element,
   sortable = true,
-  showDefault = true
+  showDefault = true,
+  right = false
 ) => ({
   name,
   selector,
@@ -35,6 +36,7 @@ const createBatchColumn = (
   cell,
   sortable,
   showDefault,
+  right,
 });
 
 const defaultBatchModalColumns = [
@@ -47,6 +49,15 @@ const defaultBatchModalColumns = [
     (row) => row.coCode,
     "200px",
     (row) => <CoopCell coCode={row.coCode || []} />
+  ),
+  createBatchColumn(
+    "Amount Paid",
+    (row) => row["amountPaidCalculate"],
+    "170px",
+    undefined,
+    true,
+    false,
+    true
   ),
 ];
 

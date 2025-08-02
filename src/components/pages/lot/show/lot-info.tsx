@@ -46,6 +46,11 @@ export default function LotInfo({ lot, geojsonData }) {
       maxWidth: "100px",
     },
     {
+      name: "Amount Paid",
+      selector: (row) => row["amountPaidCalculate"] || "N/A",
+      maxWidth: "100px",
+    },
+    {
       name: "Lot Status",
       selector: (row) => row["lotStatus"],
       cell: ({ lotStatus }) => <Badge>{lotStatus?.split("_").join(" ")}</Badge>,

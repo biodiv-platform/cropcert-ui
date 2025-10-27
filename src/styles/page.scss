@@ -2,8 +2,9 @@
 
 .epc {
   display: inline-block;
-  width: calc(50% - 0.15rem);
+  width: 45%;
   border: 1px solid var(--chakra-colors-gray-300);
+  margin-right: 1rem;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   overflow: hidden;

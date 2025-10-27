@@ -19,6 +19,7 @@ interface IWYSIWYGFieldProps {
   mb?: number;
   hint?: string;
   uploadHandler?;
+  fileUploadHandler?;
 }
 
 export const WYSIWYGField = ({
@@ -30,6 +31,8 @@ export const WYSIWYGField = ({
   mb = 4,
   hint,
   uploadHandler,
+  fileUploadHandler,
+
   ...props
 }: IWYSIWYGFieldProps) => {
   const { field, fieldState } = useController({ name });
@@ -52,6 +55,7 @@ export const WYSIWYGField = ({
         placeholder={label}
         onBlur={field.onBlur}
         uploadHandler={uploadHandler}
+        fileUploadHandler={fileUploadHandler}
       >
         {label}
       </WYSIWYGEditor>

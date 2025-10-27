@@ -4,29 +4,34 @@ import { SubmitButton } from "@components/form/submit-button";
 import { SwitchField } from "@components/form/switch";
 import { TextBoxField } from "@components/form/text";
 import { TextAreaField } from "@components/form/textarea";
-import { WYSIWYGField } from "@components/form/wysiwyg";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { axRemovePageGalleryImage, axUploadEditorPageResource } from "@services/pages.service";
+import {
+  axRemovePageGalleryImage,
+  axUploadEditorPageResource,
+  axUploadMediaEditorPageResource
+} from "@services/pages.service";
 import { translateOptions } from "@utils/i18n";
 import useTranslation from "next-translate/useTranslation";
 import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 
+import { WYSIWYGField } from "@/components/form/wysiwyg";
 import {
   AccordionItem,
   AccordionItemContent,
   AccordionItemTrigger,
-  AccordionRoot,
+  AccordionRoot
 } from "@/components/ui/accordion";
+import { PageShowMinimal } from "@/interfaces/page";
 
 import { PAGE_TYPE_OPTIONS, PAGE_TYPES } from "../data";
-import usePages from "../sidebar/use-pages-sidebar";
+import usePagesSidebar from "../sidebar/use-pages-sidebar";
 import { PageGalleryField } from "./gallery-field";
 import { SocialPreviewField } from "./social-preview";
 
 interface PageFormProps {
-  defaultValues;
+  defaultValues: Partial<PageShowMinimal>;
   submitLabel: string;
   onSubmit;
   hideParentId: boolean;
@@ -36,18 +41,23 @@ export default function PageForm({
   defaultValues,
   submitLabel,
   onSubmit,
-  hideParentId,
+  hideParentId
 }: PageFormProps) {
   const { t } = useTranslation();
-  const { pages } = usePages();
+  const { pages } = usePagesSidebar();
+
+  const getPageShowInMenu = (pages, id) => {
+    const { showInMenu = true } = pages.find((page) => page.id === id) || {};
+    return showInMenu;
+  };
 
   const [parentOptions, contentTypeOptions] = useMemo(
     () => [
       [
         { label: t("page:no_parent"), value: 0 },
-        ...pages.map((p) => ({ label: `${p.title}`, value: p.id })),
+        ...pages.map((p) => ({ label: `${p.title}`, value: p.id }))
       ],
-      translateOptions(t, PAGE_TYPE_OPTIONS),
+      translateOptions(t, PAGE_TYPE_OPTIONS)
     ],
     [pages]
   );
@@ -62,29 +72,29 @@ export default function PageForm({
         galleryData: Yup.array().of(
           Yup.object().shape({
             id: Yup.mixed().nullable(),
-            fileName: Yup.string().required(),
+            fileName: Yup.string().required()
           })
         ),
         url: Yup.string()
           .nullable()
           .when("pageType", {
             is: (v) => v === PAGE_TYPES.REDIRECT,
-            then: Yup.string().required("URL is required"),
+            then: Yup.string().required("URL is required")
           }),
         content: Yup.string()
           .nullable()
           .when("pageType", {
             is: (v) => v === PAGE_TYPES.CONTENT,
-            then: Yup.string().required("Content is required"),
+            then: Yup.string().required("Content is required")
           }),
         parentId: hideParentId ? Yup.number().notRequired() : Yup.number().required(),
         sticky: Yup.boolean().required(),
         showInFooter: Yup.boolean(),
         showInMenu: Yup.boolean(),
-        allowComments: Yup.boolean().required(),
+        allowComments: Yup.boolean().required()
       })
     ),
-    defaultValues,
+    defaultValues
   });
 
   const isPageTypeRedirect = hForm.watch("pageType") === PAGE_TYPES.REDIRECT;
@@ -111,6 +121,7 @@ export default function PageForm({
             name="content"
             label={t("page:form.content")}
             uploadHandler={axUploadEditorPageResource}
+            fileUploadHandler={axUploadMediaEditorPageResource}
           />
         </Box>
 
@@ -125,10 +136,10 @@ export default function PageForm({
               bg="white"
               border="1px solid var(--chakra-colors-gray-300)"
               borderRadius="md"
-              value={"1"}
+              value={"gallery"}
             >
-              <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
-                <Box flex={1} textAlign="left" pl={4}>
+              <AccordionItemTrigger _expanded={{ bg: "gray.100" }} pl={4} pr={4}>
+                <Box flex={1} textAlign="left">
                   🖼️ {t("page:form.gallery")}
                 </Box>
               </AccordionItemTrigger>
@@ -140,7 +151,6 @@ export default function PageForm({
                     onRemoveCallback={axRemovePageGalleryImage}
                   />
                 </Box>
-                <SocialPreviewField name="socialPreview" label={t("page:form.social_preview")} />
               </AccordionItemContent>
             </AccordionItem>
           </AccordionRoot>
@@ -151,15 +161,14 @@ export default function PageForm({
             bg="white"
             border="1px solid var(--chakra-colors-gray-300)"
             borderRadius="md"
-            value={"2"}
+            value={"metaData"}
           >
-            <AccordionItemTrigger _expanded={{ bg: "gray.100" }}>
-              <Box flex={1} textAlign="left" pl={4}>
+            <AccordionItemTrigger _expanded={{ bg: "gray.100" }} pl={4} pr={4}>
+              <Box flex={1} textAlign="left">
                 📝 {t("page:form.meta_data")}
               </Box>
             </AccordionItemTrigger>
-            <AccordionItemContent pl={4}>
-              <TextAreaField name="description" label={t("page:form.description")} />
+            <AccordionItemContent p={4}>
               {!hideParentId && (
                 <SelectInputField
                   name="parentId"
@@ -168,14 +177,24 @@ export default function PageForm({
                   shouldPortal={true}
                 />
               )}
+              <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>
+                <Box gridColumn="1/4">
+                  <TextAreaField name="description" label={t("page:form.description")} />
+                </Box>
+                <SocialPreviewField name="socialPreview" label={t("form:social_preview")} />
+              </SimpleGrid>
               <SwitchField name="sticky" mb={2} label={t("page:form.is_sidebar")} />
-              <SwitchField name="showInMenu" mb={2} label={t("page:form.is_menu")} />
+              <SwitchField
+                name="showInMenu"
+                mb={2}
+                label={t("page:form.is_menu")}
+                disabled={!getPageShowInMenu(pages, defaultValues?.parentId)}
+              />
               <SwitchField name="showInFooter" mb={2} label={t("page:form.is_footer")} />
               <SwitchField name="allowComments" mb={2} label={t("page:form.is_allow_comments")} />
             </AccordionItemContent>
           </AccordionItem>
         </AccordionRoot>
-
         <SubmitButton>{submitLabel}</SubmitButton>
       </form>
     </FormProvider>

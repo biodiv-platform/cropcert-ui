@@ -22,7 +22,7 @@ import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 
 import { RESOURCE_SIZE } from "@/static/constants";
-import { getCropThumbnail, RESOURCE_CTX } from "@/utils/media";
+import { getResourceThumbnail, RESOURCE_CTX } from "@/utils/media";
 
 interface DocumentHeaderProps {
   document: ShowDocument;
@@ -45,7 +45,7 @@ export default function DocumentHeader({ document }: DocumentHeaderProps) {
 
   const handleOnEdit = () => router.push(`/document/edit/${documentId}`);
 
-  const ogImage = getCropThumbnail(
+  const ogImage = getResourceThumbnail(
     RESOURCE_CTX.DOCUMENT_SOCIAL_PREVIEW,
     document?.document?.documentSocialPreview,
     RESOURCE_SIZE.TWITTER

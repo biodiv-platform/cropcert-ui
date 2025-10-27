@@ -33,12 +33,6 @@ export const getNextResourceRAW = (resourceId) => {
   return resourceId ? `${ENDPOINT.RESOURCES}/v1/resource/image/${resourceId}` : undefined;
 };
 
-export const getCropThumbnail = (resourceType, resourceUrl, size) => {
-  return resourceUrl
-    ? `${ENDPOINT.FILES}/get/crop/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}${size}`
-    : undefined;
-};
-
 export const getUserImage = (resourceUrl, name, w = 50) => {
   return resourceUrl
     ? resourceUrl.startsWith("http")

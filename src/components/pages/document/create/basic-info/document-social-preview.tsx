@@ -3,9 +3,8 @@ import {
   Container,
   ITPageGalleryFieldProps,
 } from "@components/pages/page/common/form/gallery-field";
-import { axUploadResource } from "@services/files.service";
 import { resizeImage } from "@utils/image";
-import { getCropThumbnail, RESOURCE_CTX } from "@utils/media";
+import { getResourceThumbnail, RESOURCE_CTX } from "@utils/media";
 import notification from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
@@ -13,6 +12,7 @@ import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
 
 import { Field } from "@/components/ui/field";
+import { axUploadResource } from "@/services/files.service";
 
 export const DocumentSocialPreviewField = ({
   helpText,
@@ -81,7 +81,11 @@ export const DocumentSocialPreviewField = ({
           {field.value ? (
             <div>
               <Image
-                src={getCropThumbnail(RESOURCE_CTX.DOCUMENT_SOCIAL_PREVIEW, field.value, "?h=200")}
+                src={getResourceThumbnail(
+                  RESOURCE_CTX.DOCUMENT_SOCIAL_PREVIEW,
+                  field.value,
+                  "?h=200"
+                )}
                 alt={field.value}
                 maxH="120px"
                 objectFit="cover"

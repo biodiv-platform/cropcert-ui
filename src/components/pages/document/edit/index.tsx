@@ -79,6 +79,7 @@ export default function DocumentEditPageComponent({
         : null,
 
       docCoverage: initialDocument.docCoverage,
+      documentSocialPreview: initialDocument.documentSocialPreview,
     },
   });
 

@@ -5,17 +5,19 @@ import React, { useEffect } from "react";
 import { Prose } from "@/components/ui/prose";
 
 export function Content({ html }) {
-  const getCards = async () => {
-    document.querySelectorAll(".epc").forEach(async (el: any) => {
+  const getCards = async (selector, cardType) => {
+    const elements = document.querySelectorAll(selector);
+    const promises = Array.from(elements).map(async (el) => {
       const { success, data } = await axGetOpenGraphMeta(el.href);
       if (success) {
-        el.outerHTML = getLinkCard(data, el.id);
+        el.outerHTML = getLinkCard(data, el.id, cardType);
       }
     });
+    await Promise.all(promises);
   };
 
   useEffect(() => {
-    getCards();
+    Promise.all([getCards(".epc", "epc"), getCards(".banner", "banner")]);
   }, [html]);
 
   return (

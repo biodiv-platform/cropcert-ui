@@ -11,46 +11,65 @@ import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/table";
 import "tinymce/themes/silver/theme";
+import "tinymce/plugins/media";
 
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
 
 interface WYSIWYGEditorProps {
+  fileUploadHandler?;
   uploadHandler?;
   [key: string]: any;
 }
 
-export default function WYSIWYGEditor({ uploadHandler, ...props }: WYSIWYGEditorProps) {
+export default function WYSIWYGEditor({
+  fileUploadHandler,
+  uploadHandler,
+  ...props
+}: WYSIWYGEditorProps) {
   return (
-    <>
-      <Editor
-        {...props}
-        init={{
-          skin: false,
-          width: "100%",
-          height: "600px",
-          relative_urls: false,
-          convert_urls: false,
-          plugins: ["link", "table", "code", "lists", uploadHandler ? "image" : "na"],
-          toolbar:
-            "undo redo | bold italic numlist bullist | alignleft aligncenter alignright alignjustify | link image table | code",
-          images_upload_handler: uploadHandler,
-          images_upload_base_path: "/",
-          link_class_list: [
-            { title: "None", value: "" },
-            { title: "Card", value: "preview-card" },
-          ],
-          image_class_list: [
-            { title: "None", value: "" },
-            { title: "Left", value: "img-wrap-left" },
-            { title: "Right", value: "img-wrap-right" },
-          ],
-          content_style: `
+    <Editor
+      {...props}
+      init={{
+        skin: false,
+        width: "100%",
+        height: "600px",
+        relative_urls: false,
+        convert_urls: false,
+        plugins: [
+          "link",
+          "table",
+          "code",
+          "lists",
+          uploadHandler ? "image" : "na",
+          uploadHandler ? "media" : "na",
+        ],
+        toolbar:
+          "image media undo paste-as-text redo  bold italic alignleft aligncenter alignright alignjustify numlist bullist link table outdent indent help code ",
+        images_upload_handler: uploadHandler,
+        images_upload_base_path: "/",
+        file_picker_types: "media",
+        file_picker_callback: fileUploadHandler,
+
+        link_class_list: [
+          { title: "None", value: "" },
+          { title: "Card", value: "preview-card" },
+          { title: "Banner", value: "banner-card" },
+        ],
+        image_class_list: [
+          { title: "None", value: "" },
+          { title: "Left", value: "img-wrap-left" },
+          { title: "Right", value: "img-wrap-right" },
+        ],
+        content_style: `
           .img-wrap-left { float: left; margin-right: 40px; }
           .img-wrap-right { float: right; margin-left: 40px; }
         `,
-        }}
-      />
-    </>
+        valid_elements: "*[*]",
+        valid_children: "+body[style]",
+        verify_html: false,
+        extended_valid_elements: "style[type|media],link[rel|type|media|href]",
+      }}
+    />
   );
 }

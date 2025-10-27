@@ -3,12 +3,14 @@ import { ENDPOINT } from "@static/constants";
 export const RESOURCE_CTX = {
   MY_UPLOADS: "MY_UPLOADS",
   PAGES: "PAGES",
+  DOCUMENT_SOCIAL_PREVIEW: "DOCUMENT_SOCIAL_PREVIEW",
 };
 
 const RESOURCE_CTX_MAP = {
   MY_UPLOADS: "myUploads",
   PAGES: "pages",
   RESOURCE: "resources",
+  DOCUMENT_SOCIAL_PREVIEW: "documentSocialPreview",
 };
 
 export const getResourceThumbnail = (resourceType, resourceUrl, size) => {
@@ -29,6 +31,12 @@ export const getNextResourceThumbnail = (resourceId, size) => {
 
 export const getNextResourceRAW = (resourceId) => {
   return resourceId ? `${ENDPOINT.RESOURCES}/v1/resource/image/${resourceId}` : undefined;
+};
+
+export const getCropThumbnail = (resourceType, resourceUrl, size) => {
+  return resourceUrl
+    ? `${ENDPOINT.FILES}/get/crop/${RESOURCE_CTX_MAP[resourceType]}/${resourceUrl}${size}`
+    : undefined;
 };
 
 export const getUserImage = (resourceUrl, name, w = 50) => {

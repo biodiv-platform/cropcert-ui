@@ -12,6 +12,7 @@ import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 import BibImportButton from "../bib-import";
+import { DocumentSocialPreviewField } from "./document-social-preview";
 import TagsInput from "./tags-input";
 
 interface BasicInfoProps {
@@ -51,10 +52,10 @@ export default function BasicInfo({
   return (
     <div>
       <Stack flexDirection={["column", "row"]} alignItems="top" mb={1}>
-        <PageHeading mb={4} mr={4} size={"3xl"}>
+        <PageHeading as="h2" size="lg" mb={4} mr={4}>
           ℹ️ {t("document:basic_information")}
-          {canImport && <BibImportButton />}
         </PageHeading>
+        {canImport && <BibImportButton />}
       </Stack>
 
       <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>
@@ -71,27 +72,29 @@ export default function BasicInfo({
         />
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
-        <div>
-          <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
-            <Box width={"full"}>
-              <DateTimeInputField name="fromDate" label={t("document:publication_date")} />
-            </Box>
-            <SelectInputField
-              name="licenseId"
-              label={t("form:license")}
-              options={licensesList}
-              isRequired={true}
-              isControlled={true}
-              shouldPortal={true}
-            />
-          </SimpleGrid>
-          {showTags && <TagsInput />}
-        </div>
-        <div>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={{ base: 0, md: 4 }}>
+        <Box gridColumn="1/4" width={"full"}>
           <RichTextareaField name="bibFieldData.abstract" label={t("document:description")} />
-        </div>
+        </Box>
+
+        <DocumentSocialPreviewField
+          name="documentSocialPreview"
+          label={t("document:social_preview")}
+        />
       </SimpleGrid>
+
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 0, md: 4 }}>
+        <DateTimeInputField name="fromDate" label={t("document:publication_date")} />
+        <SelectInputField
+          name="licenseId"
+          label={t("form:license")}
+          options={licensesList}
+          isRequired={true}
+          isControlled={true}
+          shouldPortal={true}
+        />
+      </SimpleGrid>
+      {showTags && <TagsInput />}
     </div>
   );
 }

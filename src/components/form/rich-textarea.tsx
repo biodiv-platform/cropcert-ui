@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import React from "react";
 import { useController } from "react-hook-form";
@@ -21,15 +22,11 @@ export const RichTextareaField = ({ name, label, hint, mb = 4, ...props }: IRich
   const { field, fieldState } = useController({ name });
 
   return (
-    <Field
-      invalid={!!fieldState.error}
-      errorText={fieldState?.error?.message}
-      mb={mb}
-      htmlFor={field.name}
-      label={label}
-      {...props}
-    >
-      <DefaultEditor placeholder={label} {...field} title={label} />
+    <Field invalid={!!fieldState.error} errorText={fieldState?.error?.message} mb={mb} {...props}>
+      {label && <Field label={label} />}
+      <Box width={"full"}>
+        <DefaultEditor placeholder={label} {...field} title={label} />
+      </Box>
       {hint && <Field color="gray.600" helperText={hint} />}
     </Field>
   );

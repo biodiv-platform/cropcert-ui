@@ -16,6 +16,12 @@ export const navmenu = [
     access: [ROLES.UNAUTHORIZED],
     children: [
       {
+        id: 10001,
+        title: "Growing Robusta",
+        url: "/page/show/15434",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
         id: 10002,
         title: "Documents",
         url: "/document/list",

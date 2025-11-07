@@ -23,18 +23,24 @@ export const navmenu = [
       },
       {
         id: 10002,
+        title: "Growing Arabica",
+        url: "/page/show/15395",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 10003,
         title: "Documents",
         url: "/document/list",
         access: [ROLES.UNAUTHORIZED],
       },
       {
-        id: 10003,
+        id: 10004,
         title: "Maps",
         url: "/map",
         access: [ROLES.UNAUTHORIZED],
       },
       {
-        id: 10004,
+        id: 10005,
         title: "Users",
         url: "/user/list",
         access: [ROLES.UNAUTHORIZED],

@@ -22,35 +22,35 @@ const links = [
       },
     ],
   },
-  {
-    title: "Certification",
-    children: [
-      {
-        title: "📝 Inspection Report",
-        // description: "Manage Inspection Report",
-        // to: "/farmer-certification/manage-farmers",
-        to: "#",
-        description: "To be done.",
-        access: [ROLES.INSPECTOR, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ICS_MANAGER, ROLES.ADMIN],
-      },
-      {
-        title: "📝 ICS Reports",
-        // description: "Approve ICS Reports",
-        // to: "/farmer-certification/inspection-report/list",
-        to: "#",
-        description: "To be done.",
-        access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
-      },
-      {
-        title: "📑 Report Generation",
-        // description: "Download Report",
-        // to: "/farmer-certification/full-report",
-        to: "#",
-        description: "To be done.",
-        access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
-      },
-    ],
-  },
+  // {
+  //   title: "Certification",
+  //   children: [
+  //     {
+  //       title: "📝 Inspection Report",
+  //       // description: "Manage Inspection Report",
+  //       // to: "/farmer-certification/manage-farmers",
+  //       to: "#",
+  //       description: "To be done.",
+  //       access: [ROLES.INSPECTOR, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ICS_MANAGER, ROLES.ADMIN],
+  //     },
+  //     {
+  //       title: "📝 ICS Reports",
+  //       // description: "Approve ICS Reports",
+  //       // to: "/farmer-certification/inspection-report/list",
+  //       to: "#",
+  //       description: "To be done.",
+  //       access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
+  //     },
+  //     {
+  //       title: "📑 Report Generation",
+  //       // description: "Download Report",
+  //       // to: "/farmer-certification/full-report",
+  //       to: "#",
+  //       description: "To be done.",
+  //       access: [ROLES.ICS_MANAGER, ROLES.UNION, ROLES.COOPERATIVE, ROLES.ADMIN],
+  //     },
+  //   ],
+  // },
   {
     title: "General",
     children: [

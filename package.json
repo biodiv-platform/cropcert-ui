@@ -33,7 +33,7 @@
     "cogo-toast": "^4.2.3",
     "dayjs": "^1.11.13",
     "debounce-promise": "^3.1.2",
-    "dompurify": "^3.2.6",
+    "dompurify": "^3.3.1",
     "dotenv-load": "^3.0.0",
     "fetch-opengraph": "^1.0.35",
     "flat": "^5.0.2",

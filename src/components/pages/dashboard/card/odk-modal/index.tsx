@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Link, useDisclosure } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { axGetOdkProjectListBysUserIdForAppUser, axIsOdkWebUser } from "@services/odk.service";
-import { ENDPOINT } from "@static/constants";
+import { ENDPOINT, ROLES } from "@static/constants";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import { LuCircleAlert } from "react-icons/lu";
@@ -15,6 +15,7 @@ import {
   DialogRoot,
 } from "@/components/ui/dialog";
 import { StatHelpText, StatRoot } from "@/components/ui/stat";
+import { hasAccess } from "@/utils/auth";
 
 import AppUserQrModal from "./qr-modal";
 
@@ -64,6 +65,12 @@ export default function OdkModal({ open, onClose, odkLink }) {
   const [isOdkWebUser, setIsOdkWebUser] = useState<any>();
   const [userAppProjectList, setUserAppProjectList] = useState([]);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(hasAccess([ROLES.ADMIN], user));
+  }, []);
+
   useEffect(() => {
     if (open) {
       axGetOdkProjectListBysUserIdForAppUser(user.id).then(setUserAppProjectList);
@@ -73,21 +80,22 @@ export default function OdkModal({ open, onClose, odkLink }) {
 
   return (
     <Box>
-      <DialogRoot open={open} onOpenChange={onClose}>
+      <DialogRoot open={open} onOpenChange={onClose} size={"lg"}>
         <DialogBackdrop />
         <DialogContent>
           <DialogCloseTrigger />
           <DialogBody pt={4}>
-            {isOdkWebUser && (
-              <Heading size="md" mb={3}>
-                {t("common:actions.odk.odkWebuser")}
-                <StatRoot>
-                  <StatHelpText fontSize="md" mb={0}>
-                    <Link href={`${odkLink}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
-                  </StatHelpText>
-                </StatRoot>
-              </Heading>
-            )}
+            {isOdkWebUser ||
+              (isAdmin && (
+                <Heading size="md" mb={3}>
+                  {t("common:actions.odk.odkWebuser")}
+                  <StatRoot>
+                    <StatHelpText fontSize="md" mb={0}>
+                      <Link href={`${odkLink}#/login`}>{t("common:actions.odk.title")} &rarr;</Link>
+                    </StatHelpText>
+                  </StatRoot>
+                </Heading>
+              ))}
 
             <hr></hr>
             {userAppProjectList?.length > 0 && (

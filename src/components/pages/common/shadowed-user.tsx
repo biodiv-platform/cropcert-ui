@@ -1,8 +1,7 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { UserIbp } from "@interfaces/activity";
 import { getUserImage } from "@utils/media";
-import Link from "next/link";
 import React from "react";
 
 import { Avatar } from "@/components/ui/avatar";

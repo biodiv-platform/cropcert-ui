@@ -118,7 +118,7 @@
     "@typescript-eslint/parser": "^5.39.0",
     "eslint": "^8.25.0",
     "eslint-config-next": "14.2.20",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.31.9",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "prettier": "^2.7.1",

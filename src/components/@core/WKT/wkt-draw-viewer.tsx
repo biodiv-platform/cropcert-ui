@@ -14,7 +14,6 @@ import React, { useEffect, useRef, useState } from "react";
 import wkt from "wkt";
 
 import { Field } from "@/components/ui/field";
-import { InputGroup } from "@/components/ui/input-group";
 
 import GeoJSONPreview from "../map-preview/geojson";
 import SaveButton from "./save-button";
@@ -65,6 +64,7 @@ export default function WKTDrawViewer({
   const defaultViewState = React.useMemo(() => getMapCenter(2), []);
   const { t } = useTranslation();
   const [geojson, setGeojson] = useState<any>();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const handleOnSave = () => {
     if (TitleInputRef.current.value && geojson) {
@@ -149,41 +149,39 @@ export default function WKTDrawViewer({
           />
         </Field>
         <Field gridColumn="3/5">
-          <Field htmlFor={nameTopology}>{labelTopology}</Field>
+          <Field htmlFor={nameTopology} label={labelTopology} />
           <HStack gap="10" width="full">
-            <InputGroup flex="1">
-              <Input
-                name={nameTopology}
-                id={nameTopology}
-                ref={WKTInputRef}
-                placeholder={labelTopology}
-                onChange={onWKTInputChange}
-                disabled={disabled}
-              />
-            </InputGroup>
+            <Input
+              name={nameTopology}
+              id={nameTopology}
+              ref={WKTInputRef}
+              placeholder={labelTopology}
+              onChange={onWKTInputChange}
+              disabled={disabled}
+            />
+
             {geojson && (
-              <InputGroup flex="1">
-                <Input ps="4.75em">
-                  <IconButton
-                    className="left"
-                    aria-label={t("common:clear")}
-                    color="red.300"
-                    colorPalette="red.300"
-                    onClick={clearWktForm}
-                    disabled={disabled}
-                  />
-                  <DeleteIcon />
-                </Input>
-              </InputGroup>
+              <IconButton
+                className="left"
+                aria-label={t("common:clear")}
+                colorPalette="red"
+                onClick={clearWktForm}
+                disabled={disabled}
+                type="button" // Explicitly set type
+              >
+                <DeleteIcon />
+              </IconButton>
             )}
           </HStack>
         </Field>
+
         <SaveButton disabled={disabled} onClick={handleOnSave} />
       </SimpleGrid>
+
       {geojson ? (
         <GeoJSONPreview data={geojson} />
       ) : (
-        <Box position="relative" h="22rem">
+        <Box position="relative" h="22rem" ref={mapContainerRef}>
           <NakshaMapboxDraw
             defaultViewState={defaultViewState}
             mapboxAccessToken={SITE_CONFIG.TOKENS.MAPBOX}

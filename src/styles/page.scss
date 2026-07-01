@@ -60,7 +60,7 @@
 .banner img {
   flex: 0 0 70%;
   max-width: 30%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .banner > div {

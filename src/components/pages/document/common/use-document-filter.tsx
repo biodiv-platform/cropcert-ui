@@ -1,7 +1,7 @@
 import useDidUpdateEffect from "@hooks/use-did-update-effect";
 import { DocumentData } from "@interfaces/custom";
 import { UserGroupIbp } from "@interfaces/document";
-import { axGetListData } from "@services/document.service";
+import { axGetDocumentTypes, axGetListData } from "@services/document.service";
 import { axGetLandscapeList } from "@services/landscape.service";
 import { isBrowser } from "@static/constants";
 import { DEFAULT_FILTER, LIST_PAGINATION_LIMIT } from "@static/documnet-list";
@@ -24,6 +24,7 @@ interface DocumentFilterContextProps {
   resetFilter?;
   loggedInUserGroups?: UserGroupIbp[];
   protectedAreas?: any[];
+  documentTypes?: any[];
 }
 
 const DocumentFilterContext = createContext<DocumentFilterContextProps>(
@@ -35,6 +36,7 @@ export const DocumentFilterProvider = (props) => {
   const [filter, setFilter] = useImmer({ f: props.filter });
   const [documentData, setDocumentData] = useImmer(props.documentData);
   const [protectedAreas, setProtectedAreas] = useState([]);
+  const [documentTypes, setDocumentTypes] = useState([]);
 
   useEffect(() => {
     if (isBrowser) {
@@ -43,6 +45,10 @@ export const DocumentFilterProvider = (props) => {
 
     axGetLandscapeList({}).then(({ data: protectedAreas }) => {
       setProtectedAreas(protectedAreas);
+    });
+
+    axGetDocumentTypes().then(({ data: documentTypes }) => {
+      setDocumentTypes(documentTypes);
     });
   }, [filter]);
 
@@ -117,6 +123,7 @@ export const DocumentFilterProvider = (props) => {
         nextPage,
         resetFilter,
         protectedAreas,
+        documentTypes,
       }}
     >
       {props.children}

@@ -1,13 +1,16 @@
-import { DOCUMNET_ITEM_TYPE } from "@static/document";
 import React from "react";
 
+import useDocumentFilter from "../../../common/use-document-filter";
 import CheckboxFilterPanel from "../shared/checkbox";
 
 export default function ItemTypeFilter() {
-  const itemTypeList = DOCUMNET_ITEM_TYPE?.map((i) => ({
-    label: i,
-    value: i,
-  }));
+  const { documentTypes } = useDocumentFilter();
+
+  const itemTypeList =
+    documentTypes?.map((item) => ({
+      label: item.label,
+      value: item.label.toLowerCase(),
+    })) ?? [];
 
   return (
     <CheckboxFilterPanel

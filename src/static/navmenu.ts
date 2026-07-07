@@ -13,6 +13,7 @@ export const navmenu = [
   {
     id: 10001,
     title: "Modules",
+    url: "/",
     access: [ROLES.UNAUTHORIZED],
     children: [
       {
@@ -64,6 +65,27 @@ export const navmenu = [
         title: "Media Gallery Create",
         url: "/media-gallery/create",
         access: [ROLES.ADMIN],
+      },
+    ],
+  },
+
+  {
+    id: 7,
+    title: "Results",
+    access: [ROLES.UNAUTHORIZED],
+    url: "/",
+    children: [
+      {
+        id: 8,
+        title: "Participatory Action",
+        url: "/page/show/15984",
+        access: [ROLES.UNAUTHORIZED],
+      },
+      {
+        id: 9,
+        title: "Research Action",
+        url: "/page/show/15920",
+        access: [ROLES.UNAUTHORIZED],
       },
     ],
   },

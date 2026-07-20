@@ -79,8 +79,8 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
     const roleName = useMemo(() => role.replace("_PERSON", ""), [role]);
 
     return (
-      <Box zIndex={99}>
-        <Field key={index} mb={1}>
+      <Box zIndex={99} width="100%">
+        <Field key={index} mb={1} width="100%">
           <Field htmlFor={role}>Select {roleName?.toLowerCase()}</Field>
           <Select
             id={role}
@@ -92,11 +92,18 @@ export default function AccesserForm({ toRole, roles, initialState, onChange, on
             components={{ IndicatorSeparator: () => null }}
             value={rolesValues[role]}
             {...reactSelectProps}
+            styles={{
+              ...reactSelectProps?.styles,
+              container: (base) => ({
+                ...base,
+                ...((reactSelectProps?.styles as any)?.container?.(base) ?? {}),
+                width: "100%",
+              }),
+            }}
           />
         </Field>
       </Box>
     );
   };
-
   return <>{roles.map(RoleDropdown)}</>;
 }

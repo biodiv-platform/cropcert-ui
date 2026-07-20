@@ -211,7 +211,7 @@ function BatchComponent() {
     <Box>
       <PageHeading actions={<ActionButtons />}>🧺 {t("traceability:tab_titles.batch")}</PageHeading>
       <Box mt={2}>
-        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : batchListData?.length}
+        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : totalRows}
       </Box>
       <CoreGrid hidden={hideAccessor}>
         <Accesser

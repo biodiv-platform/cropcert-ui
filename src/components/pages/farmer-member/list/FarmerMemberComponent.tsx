@@ -112,8 +112,7 @@ function FarmerMemberComponent() {
       </PageHeading>
       <Flex justifyContent={"space-between"} alignItems={"center"} wrap={"wrap"}>
         <Box my={2}>
-          {t("traceability:total_records")}:{" "}
-          {loading ? <Spinner size="xs" /> : farmerListData?.length}
+          {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : totalRows}
         </Box>
         <Box
           fontSize={"xs"}

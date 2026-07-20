@@ -146,8 +146,7 @@ function ContainerComponent() {
         🏗️ {t("traceability:tab_titles.container")}
       </PageHeading>
       <Box mt={2}>
-        {t("traceability:total_records")}:{" "}
-        {loading ? <Spinner size="xs" /> : containerListData?.length}
+        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : totalRows}
       </Box>
 
       <CoreGrid>

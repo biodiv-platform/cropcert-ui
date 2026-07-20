@@ -185,7 +185,7 @@ function LotComponent() {
     <>
       <PageHeading actions={<ActionButtons />}>📦 {t("traceability:tab_titles.lot")}</PageHeading>
       <Box mt={2}>
-        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : lotListData?.length}
+        {t("traceability:total_records")}: {loading ? <Spinner size="xs" /> : totalRows}
       </Box>
 
       <CoreGrid>

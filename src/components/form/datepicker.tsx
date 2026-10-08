@@ -34,6 +34,8 @@ interface DateTimeInputFieldProps {
   min?;
   max?;
   className?: string;
+  isRequired?: boolean;
+  required?: boolean;
   [x: string]: any;
 }
 
@@ -50,6 +52,8 @@ export const DateTimeInputField = ({
   min,
   max,
   className,
+  isRequired,
+  required,
   ...props
 }: DateTimeInputFieldProps) => {
   const { field, fieldState } = useController({ name });
@@ -83,6 +87,7 @@ export const DateTimeInputField = ({
       id={field.name}
       htmlFor={field.name}
       label={label}
+      required={required ?? isRequired}
     >
       <Flex width={"full"}>
         <Box flex={1}>

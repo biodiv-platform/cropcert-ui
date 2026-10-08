@@ -13,6 +13,8 @@ interface ITextBoxProps {
   isDisabled?;
   hint?: string;
   children?;
+  isRequired?: boolean;
+  required?: boolean;
 }
 
 export const CheckBoxField = ({
@@ -22,6 +24,8 @@ export const CheckBoxField = ({
   hint,
   isDisabled,
   children,
+  isRequired,
+  required,
   ...props
 }: ITextBoxProps) => {
   const {
@@ -34,6 +38,7 @@ export const CheckBoxField = ({
       invalid={!!fieldState.error}
       errorText={namedFormErrorMessage(fieldState?.error?.message, name, label)}
       mb={mb}
+      required={required ?? isRequired}
       colorPalette={"blue"}
       {...props}
     >

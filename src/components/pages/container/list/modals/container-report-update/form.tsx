@@ -321,6 +321,7 @@ export default function ContainerGRNForm({
                         placeholder={field.label}
                         type={field.type}
                         disabled={isFormReadOnly || field.disabled}
+                        required={field.required}
                       />
                     </Box>
                   );

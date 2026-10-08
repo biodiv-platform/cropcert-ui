@@ -191,6 +191,7 @@ export default function BatchUpdateForm({
                       type={field.type}
                       key={index}
                       disabled={isFormReadOnly}
+                      required={field.required}
                     />
                   );
                 } else if (field.fieldType === "auto") {

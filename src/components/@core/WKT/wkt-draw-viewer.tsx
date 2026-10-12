@@ -1,7 +1,6 @@
 import { Box, HStack, Input, SimpleGrid } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/react";
 import { SelectAsyncInputField } from "@components/form/select-async";
-import SITE_CONFIG from "@configs/site-config";
 import DeleteIcon from "@icons/delete";
 import { axQueryGeoEntitiesByPlaceName } from "@services/geoentities.service";
 import center from "@turf/center";
@@ -18,8 +17,8 @@ import { Field } from "@/components/ui/field";
 import GeoJSONPreview from "../map-preview/geojson";
 import SaveButton from "./save-button";
 
-const NakshaMapboxDraw: any = dynamic(
-  () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxDraw),
+const NakshaMaplibreDraw: any = dynamic(
+  () => import("naksha-components-react").then((mod: any) => mod.NakshaMaplibreDraw),
   {
     ssr: false,
     loading: () => <p>Loading...</p>,
@@ -182,9 +181,8 @@ export default function WKTDrawViewer({
         <GeoJSONPreview data={geojson} />
       ) : (
         <Box position="relative" h="22rem" ref={mapContainerRef}>
-          <NakshaMapboxDraw
+          <NakshaMaplibreDraw
             defaultViewState={defaultViewState}
-            mapboxAccessToken={SITE_CONFIG.TOKENS.MAPBOX}
             onFeaturesChange={handleMapDraw}
             isReadOnly={disabled}
           />

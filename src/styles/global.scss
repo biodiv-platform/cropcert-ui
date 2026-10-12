@@ -8,8 +8,7 @@
 @import "./map.scss";
 
 @import "~keen-slider/keen-slider.min.css";
-@import "~mapbox-gl/dist/mapbox-gl.css";
-@import "~@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 :root {
   --heading-height: 55px;

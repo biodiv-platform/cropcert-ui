@@ -69,7 +69,6 @@ const SITE_CONFIG_EXAMPLE = {
   },
   TOKENS: {
     GMAP: "x",
-    MAPBOX: "pk.x",
     OAUTH_GOOGLE: "x.apps.googleusercontent.com",
     RECAPTCHA: "x",
     SENTRY_DSN: false,

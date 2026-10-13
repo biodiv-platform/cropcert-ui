@@ -274,12 +274,14 @@ export function ContainerCreateForm({ update, lots, containerConfig, latestDate,
           <DialogBody>
             <Flex gap={4} flexDirection={{ base: "column", md: "row" }}>
               <TextBoxField
+                isRequired={true}
                 name="maxWeight"
                 label="Max Weight of Container (KG)"
                 type="number"
                 mb={4}
               />
               <DateTimeInputField
+                isRequired={true}
                 name="creationDate"
                 label="Creation Date"
                 format="dd-MM-yyyy"

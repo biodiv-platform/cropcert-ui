@@ -1,4 +1,4 @@
-import { Badge, Text } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { CoreGrid } from "@components/@core/layout";
 import { CheckBoxField } from "@components/form/checkbox";
 import { TextBoxField } from "@components/form/text";
@@ -275,33 +275,15 @@ export default function LotGRNForm({
                       name={field.name}
                       id={field.name}
                       label={
-                        field?.showPercent ? (
-                          <>
-                            {field.label}
-                            {field.required && (
-                              <Text as="span" color="red.500">
-                                {" "}
-                                *
-                              </Text>
-                            )}
-                            {" " + formula.percent(field.name)}
-                          </>
-                        ) : (
-                          <>
-                            {field.label}
-                            {field.required && (
-                              <Text as="span" color="red.500">
-                                {" "}
-                                *
-                              </Text>
-                            )}
-                          </>
-                        )
+                        field?.showPercent
+                          ? `${field.label} ${formula.percent(field.name)}`
+                          : field.label
                       }
                       placeholder={field.label}
                       type={field.type}
                       key={index}
                       disabled={isFormReadOnly || field.disabled}
+                      required={field.required}
                     />
                   );
                 }

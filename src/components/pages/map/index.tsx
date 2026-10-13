@@ -13,13 +13,14 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { toaster } from "@/components/ui/toaster";
 
-const NakshaMapboxList: any = dynamic(
-  () => import("naksha-components-react").then((mod: any) => mod.NakshaMapboxList),
+const NakshaMaplibreLayers: any = dynamic(
+  () => import("naksha-components-react").then((mod: any) => mod.NakshaMaplibreLayers),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
+    loading: () => <p>Loading...</p>
   }
 );
+
 
 const defaultViewState = getMapCenter(3.1);
 
@@ -61,7 +62,7 @@ export default function MapPageComponent({ defaultLayers }) {
 
   return (
     <Box height="calc(100vh - var(--heading-height))" overflow="hidden" position="relative">
-      <NakshaMapboxList
+      <NakshaMaplibreLayers
         lang={lang}
         defaultViewState={defaultViewState}
         loadToC={true}
@@ -69,7 +70,6 @@ export default function MapPageComponent({ defaultLayers }) {
         selectedLayers={defaultLayers}
         onSelectedLayersChange={setSelectedLayers}
         nakshaEndpointToken={accessToken}
-        mapboxAccessToken={SITE_CONFIG.TOKENS.MAPBOX}
         nakshaApiEndpoint={ENDPOINT.NAKSHA}
         onLayerDownload={handleOnDownload}
         canLayerShare={true}

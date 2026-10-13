@@ -77,9 +77,9 @@ export default function BatchCreateForm({ update, onClose }) {
               <Accesser toRole={ROLES.COLLECTION_CENTER} onChange={setCc} />
             </CoreGrid>
             <CoreGrid rows={3}>
-              <SelectInputField name="type" label="Batch Type" options={batchType} />
-              <DateTimeInputField name="date" label="Date" />
-              <NumberInputField name="quantity" label="Quantity" />
+              <SelectInputField isRequired={true} name="type" label="Batch Type" options={batchType} />
+              <DateTimeInputField isRequired={true} name="date" label="Date" />
+              <NumberInputField isRequired={true} name="quantity" label="Quantity" />
             </CoreGrid>
             <TextBoxField name="note" label="Note" mb={0} />
           </DialogBody>

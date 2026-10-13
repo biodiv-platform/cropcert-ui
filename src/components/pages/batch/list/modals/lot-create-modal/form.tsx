@@ -69,6 +69,7 @@ export function LotCreateForm({ update, batches, lotConfig, highestDate, onClose
           <DialogCloseTrigger />
           <DialogBody>
             <DateTimeInputField
+              isRequired={true}
               name="creationDate"
               label="Creation Date"
               format="dd-MM-yyyy"

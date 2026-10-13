@@ -17,6 +17,7 @@ interface ITextBoxProps {
   style?;
   maxLength?;
   required?: boolean;
+  isRequired?: boolean;
   showLabel?: boolean;
   hidden?;
   autoComplete?;
@@ -34,6 +35,7 @@ export const TextBoxField = ({
   disabled,
   hint,
   required,
+  isRequired,
   showLabel = true,
   maxLength,
   hidden,
@@ -55,7 +57,7 @@ export const TextBoxField = ({
       mb={mb}
       mt={mt}
       hidden={hidden}
-      required={required}
+      required={required ?? isRequired}
       colorPalette={"blue"}
       {...props}
     >

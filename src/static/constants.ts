@@ -29,7 +29,7 @@ export const ENDPOINT = {
   GEOSERVER: `${API_ENDPOINT}geoserver`,
   INTEGRATOR: `${API_ENDPOINT}integrator-api/api`,
   LANDSCAPE: `${API_ENDPOINT}landscape-api/api`,
-  NAKSHA: `${API_ENDPOINT}naksha-api/api`,
+  NAKSHA: `${API_ENDPOINT}nakshaIntegrator-api/api`,
   ODK: `${API_ENDPOINT}odk-api/api/v1`,
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,

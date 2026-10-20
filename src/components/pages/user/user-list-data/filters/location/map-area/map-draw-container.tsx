@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import userUserListFilter from "@components/pages/user/common/use-user-filter";
+import { mapStyles } from "@static/constants";
 import { getMapCenter, stringToFeature } from "@utils/location";
 import dynamic from "next/dynamic";
 import React, { useMemo } from "react";
@@ -10,9 +11,9 @@ const NakshaMaplibreDraw: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMaplibreDraw),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>
+    loading: () => <p>Loading...</p>,
   }
-);;
+);
 
 export default function MapDrawContainer() {
   const { filter, addFilter, removeFilter } = userUserListFilter();
@@ -35,6 +36,7 @@ export default function MapDrawContainer() {
         defaultViewState={defaultViewState}
         features={defaultFeatures}
         onFeaturesChange={handleOnFeatureChange}
+        mapStyles={mapStyles}
       />
     </Box>
   );

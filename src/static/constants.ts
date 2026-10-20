@@ -15,7 +15,7 @@ export const DATEFORMATS = {
   DATETIME: "dd-MM-yyyy HH:mm",
 };
 
-const API_ENDPOINT = SITE_CONFIG.SITE.API_ENDPOINT_SSR;
+const API_ENDPOINT = isBrowser ? SITE_CONFIG.SITE.API_ENDPOINT : SITE_CONFIG.SITE.API_ENDPOINT_SSR;
 
 export const ENDPOINT = {
   ROOT: `${API_ENDPOINT}`,
@@ -375,5 +375,13 @@ export const TRACEABILITY_TABS = [
     label: "🏗️ Container(s)",
     path: "/traceability/container",
     tabIndex: "container",
+  },
+];
+
+export const mapStyles = [
+  {
+    text: "OSM",
+    key: "0",
+    style: "https://unpkg.com/maplibre-gl-styles@0.0.1/styles/osm-mapnik/v8/india.json",
   },
 ];

@@ -3,6 +3,7 @@ import { IconButton } from "@chakra-ui/react";
 import { SelectAsyncInputField } from "@components/form/select-async";
 import DeleteIcon from "@icons/delete";
 import { axQueryGeoEntitiesByPlaceName } from "@services/geoentities.service";
+import { mapStyles } from "@static/constants";
 import center from "@turf/center";
 import { feature } from "@turf/helpers";
 import { getMapCenter } from "@utils/location";
@@ -185,6 +186,7 @@ export default function WKTDrawViewer({
             defaultViewState={defaultViewState}
             onFeaturesChange={handleMapDraw}
             isReadOnly={disabled}
+            mapStyles={mapStyles}
           />
         </Box>
       )}

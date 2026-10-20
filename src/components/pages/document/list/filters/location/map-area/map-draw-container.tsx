@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import useDocumentFilter from "@components/pages/document/common/use-document-filter";
+import { mapStyles } from "@static/constants";
 import { getMapCenter, stringToFeature } from "@utils/location";
 import dynamic from "next/dynamic";
 import React, { useMemo } from "react";
@@ -10,7 +11,7 @@ const NakshaMaplibreDraw: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMaplibreDraw),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>
+    loading: () => <p>Loading...</p>,
   }
 );
 
@@ -36,6 +37,7 @@ export default function MapDrawContainer() {
         features={defaultFeatures}
         onFeaturesChange={handleOnFeatureChange}
         isPolygon={true}
+        mapStyles={mapStyles}
       />
     </Box>
   );

@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { mapStyles } from "@static/constants";
 import { getMapCenter } from "@utils/location";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
@@ -38,7 +39,11 @@ export default function DocumentSidebarMap({ documentCoverages }) {
       mb={4}
     >
       {documentCoverages?.length ? (
-        <NakshaMaplibreView data={geojson} defaultViewState={defaultViewState} />
+        <NakshaMaplibreView
+          data={geojson}
+          defaultViewState={defaultViewState}
+          mapStyles={mapStyles}
+        />
       ) : (
         t("document:no_geodata")
       )}

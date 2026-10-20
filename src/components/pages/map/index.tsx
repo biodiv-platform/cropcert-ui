@@ -2,14 +2,13 @@ import { Box } from "@chakra-ui/react";
 import ExternalBlueLink from "@components/@core/blue-link/external";
 import SITE_CONFIG from "@configs/site-config";
 import useGlobalState from "@hooks/use-global-state";
-import { ENDPOINT, isBrowser, ROLES, TOKEN } from "@static/constants";
+import { ENDPOINT, isBrowser, mapStyles, ROLES } from "@static/constants";
 import { hasAccess } from "@utils/auth";
 import { getMapCenter } from "@utils/location";
 import dynamic from "next/dynamic";
 import useTranslation from "next-translate/useTranslation";
-import { parseCookies } from "nookies";
 import { stringify } from "querystring";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { toaster } from "@/components/ui/toaster";
 
@@ -17,10 +16,9 @@ const NakshaMaplibreLayers: any = dynamic(
   () => import("naksha-components-react").then((mod: any) => mod.NakshaMaplibreLayers),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>
+    loading: () => <p>Loading...</p>,
   }
 );
-
 
 const defaultViewState = getMapCenter(3.1);
 
@@ -29,12 +27,6 @@ export default function MapPageComponent({ defaultLayers }) {
   const { user } = useGlobalState();
   const isAdmin = hasAccess([ROLES.ADMIN], user);
   const [selectedLayers, setSelectedLayers] = useState(defaultLayers);
-
-  const accessToken = useMemo(() => {
-    const pk = parseCookies();
-    const token = pk[TOKEN.ACCESS];
-    return token ? `Bearer ${token}` : "";
-  }, [user]);
 
   const handleOnDownload = async (layerId) => {
     console.debug(`Layer download requested ${layerId}`);
@@ -69,7 +61,8 @@ export default function MapPageComponent({ defaultLayers }) {
         showToC={true}
         selectedLayers={defaultLayers}
         onSelectedLayersChange={setSelectedLayers}
-        nakshaEndpointToken={accessToken}
+        nakshaEndpointToken={`Bearer ${user.accessToken}`}
+        mapStyles={mapStyles}
         nakshaApiEndpoint={ENDPOINT.NAKSHA}
         onLayerDownload={handleOnDownload}
         canLayerShare={true}

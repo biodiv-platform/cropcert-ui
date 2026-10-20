@@ -21,7 +21,7 @@ const SITE_CONFIG_EXAMPLE = {
   },
   GEOSERVER: {
     STORE: "naksha",
-    WORKSPACE: "robust",
+    WORKSPACE: "biodiv",
   },
   LANDSCAPE: {
     ACTIVE: false,

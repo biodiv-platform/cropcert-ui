@@ -87,7 +87,7 @@
     "react-leaflet": "^4.2.1",
     "react-leaflet-draw": "^0.20.4",
     "react-leaflet-fullscreen": "^4.1.1",
-    "react-map-gl": "^7.0.19",
+    "react-map-gl": "^8.0.4",
     "react-mentions": "^4.4.10",
     "react-multi-select-component": "^4.3.4",
     "react-phone-number-input": "^3.4.12",

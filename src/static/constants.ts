@@ -15,7 +15,7 @@ export const DATEFORMATS = {
   DATETIME: "dd-MM-yyyy HH:mm",
 };
 
-const API_ENDPOINT = SITE_CONFIG.SITE.API_ENDPOINT_SSR;
+const API_ENDPOINT = isBrowser ? SITE_CONFIG.SITE.API_ENDPOINT : SITE_CONFIG.SITE.API_ENDPOINT_SSR;
 
 export const ENDPOINT = {
   ROOT: `${API_ENDPOINT}`,
@@ -26,10 +26,10 @@ export const ENDPOINT = {
   ESMODULE: `${API_ENDPOINT}esmodule-api/api`,
   FILES: `${API_ENDPOINT}files-api/api`,
   GEOENTITIES: `${API_ENDPOINT}geoentities-api/api`,
-  GEOSERVER: `${API_ENDPOINT}geoserver`,
+  GEOSERVER: `${SITE_CONFIG.GEOSERVER_BASE_PATH}/geoserver`,
   INTEGRATOR: `${API_ENDPOINT}integrator-api/api`,
   LANDSCAPE: `${API_ENDPOINT}landscape-api/api`,
-  NAKSHA: `${API_ENDPOINT}naksha-api/api`,
+  NAKSHA: `${API_ENDPOINT}nakshaIntegrator-api/api`,
   ODK: `${API_ENDPOINT}odk-api/api/v1`,
   PAGES: `${API_ENDPOINT}pages-api/api`,
   RAW: `${API_ENDPOINT}biodiv`,
@@ -375,5 +375,13 @@ export const TRACEABILITY_TABS = [
     label: "🏗️ Container(s)",
     path: "/traceability/container",
     tabIndex: "container",
+  },
+];
+
+export const mapStyles = [
+  {
+    text: "OSM",
+    key: "0",
+    style: "https://unpkg.com/maplibre-gl-styles@0.0.1/styles/osm-mapnik/v8/india.json",
   },
 ];

@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { mapStyles } from "@static/constants";
 import { getMapCenter } from "@utils/location";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -31,7 +32,11 @@ export default function GeoJSONPreview({
 
   return (
     <Box position="relative" h={h} overflow="hidden" mb={mb} borderRadius="md">
-      <NakshaMaplibreView defaultViewState={defaultViewState} data={data} />
+      <NakshaMaplibreView
+        defaultViewState={defaultViewState}
+        data={data}
+        mapStyles={mapStyles}
+      />
     </Box>
   );
 }

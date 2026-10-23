@@ -5,7 +5,6 @@ import { TextBoxField } from "@components/form/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { axSplitLot, axUpdateLot } from "@services/lot.service";
 import { MLOT } from "@static/messages";
-import { isEverythingFilledExcept } from "@utils/basic";
 import { yupSchemaMapping } from "@utils/form";
 import notification, { NotificationType } from "@utils/notification";
 import React, { useEffect, useState } from "react";
@@ -22,6 +21,17 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 
+// Fields that should be summed and compared to input_FAQ_weight
+const faqSumFields = ["SC_18", "SC_15", "SC_12", "dust", "UG", "all_bhp", "defects_various"];
+const faqWeightField = "input_FAQ_weight";
+
+// every input is compulsory except the auto-calculated outturn
+const isFieldRequired = (field) => field.fieldType === "input" && field.name !== "outturn";
+
+// 0 is a valid value; only blank / null / undefined / NaN count as "not filled"
+const isFilled = (v: unknown) =>
+  v !== undefined && v !== null && v !== "" && !(typeof v === "number" && Number.isNaN(v));
+
 export default function LotGRNForm({
   onClose,
   lot,
@@ -35,10 +45,6 @@ export default function LotGRNForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fieldsObj = lot.modalFieldCombined.find((o) => o.modalFieldId === lot.showModalById);
-
-  // Fields that should be summed and compared to input_FAQ_weight
-  const faqSumFields = ["SC_18", "SC_15", "SC_12", "dust", "UG", "all_bhp", "defects_various"];
-  const faqWeightField = "input_FAQ_weight";
 
   // reducer to generate defaultValues and yupSchema dynamically
   const formValues =
@@ -57,7 +63,7 @@ export default function LotGRNForm({
           if (currField.yupSchema === "numberFunc") {
             const [min, max] = currField.yupSchemaArgs;
 
-            if (currField.required) {
+            if (isFieldRequired(currField)) {
               yupSchema = {
                 ...acc.yupSchema,
                 [currField.name]: yupSchemaMapping[currField.yupSchema](min, max).required(
@@ -104,7 +110,7 @@ export default function LotGRNForm({
           }
           // condition for remaining fields
           else {
-            if (currField.required) {
+            if (isFieldRequired(currField)) {
               yupSchema = {
                 ...acc.yupSchema,
                 [currField.name]: yupSchemaMapping[currField.yupSchema]
@@ -205,10 +211,13 @@ export default function LotGRNForm({
   };
 
   const isFormReadOnly = !canWrite || values.finalizeLotColumn;
-  const isFinalizeEnabled =
-    !isDone &&
-    canWrite &&
-    isEverythingFilledExcept(["finalizeLotColumn", "outturn"], values, { allowZero: true });
+
+  // Save / finalize are enabled only when every compulsory field has a value (0 is allowed)
+  const allRequiredFilled = fieldsObj.fields
+    .filter(isFieldRequired)
+    .every((f) => isFilled(values[f.name]));
+
+  const isFinalizeEnabled = !isDone && canWrite && allRequiredFilled;
 
   useEffect(
     () => {
@@ -285,7 +294,7 @@ export default function LotGRNForm({
                       type={field.type}
                       key={index}
                       disabled={isFormReadOnly || field.disabled}
-                      required={field.required}
+                      required={isFieldRequired(field)}
                     />
                   );
                 }

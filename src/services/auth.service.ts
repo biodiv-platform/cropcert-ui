@@ -7,11 +7,11 @@ import axios from "axios";
 /**
  * Acquires initial tokens against provided credentials
  *
- * @param {userName: string, password: string} body
+ * @param {username: string, password: string} body
  * @returns {*}
  */
 export const axLogin = async (body) => {
-  const res = await axios.post(`${ENDPOINT.USER}/v1/authenticate/login`, stringify(body));
+  const res = await axios.post(`${ENDPOINT.USERGROUP}/v1/group/login`, stringify(body));
   return res.data;
 };
 

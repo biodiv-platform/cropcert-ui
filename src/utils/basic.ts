@@ -55,13 +55,23 @@ export const compiledMessage = (templateString: string, templateVariables) =>
 
 export const nonZeroFalsy = (num) => (num || num === 0 ? num : "");
 
-export const isEverythingFilledExcept = (exceptionKey, values) => {
-  for (const [key, value] of Object.entries(values)) {
-    if (key !== exceptionKey && !value) {
-      return false;
-    }
-  }
-  return true;
+const isEmptyValue = (v: unknown) =>
+  v === undefined ||
+  v === null ||
+  (typeof v === "string" && v.trim() === "") ||
+  (typeof v === "number" && Number.isNaN(v));
+
+export const isEverythingFilledExcept = (
+  exceptionKey: string | string[],
+  values: Record<string, any>,
+  { allowZero = false }: { allowZero?: boolean } = {}
+) => {
+  const exceptions = Array.isArray(exceptionKey) ? exceptionKey : [exceptionKey];
+
+  return Object.entries(values).every(([key, value]) => {
+    if (exceptions.includes(key)) return true;
+    return allowZero ? !isEmptyValue(value) : !!value;
+  });
 };
 
 export const flatten = (data: any[] = []) => {

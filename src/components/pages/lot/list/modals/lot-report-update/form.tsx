@@ -206,7 +206,9 @@ export default function LotGRNForm({
 
   const isFormReadOnly = !canWrite || values.finalizeLotColumn;
   const isFinalizeEnabled =
-    !isDone && canWrite && isEverythingFilledExcept("finalizeLotColumn", values);
+    !isDone &&
+    canWrite &&
+    isEverythingFilledExcept(["finalizeLotColumn", "outturn"], values, { allowZero: true });
 
   useEffect(
     () => {

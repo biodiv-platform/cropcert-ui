@@ -17,7 +17,9 @@ export default function ClearFilters() {
     ? Object.keys(filter).filter((f) => filter[f] && !FILTERS_BLACKLIST.includes(f)).length
     : 0;
 
-  setFilterCount(filterCount);
+  React.useEffect(() => {
+    setFilterCount(filterCount);
+  }, [filterCount, setFilterCount]);
   const { t } = useTranslation();
   const message = t("filters:clear", { filterCount });
   const router = useRouter();

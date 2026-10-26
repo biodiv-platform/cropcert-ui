@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   axRemovePageGalleryImage,
   axUploadEditorPageResource,
-  axUploadMediaEditorPageResource
+  axUploadMediaEditorPageResource,
 } from "@services/pages.service";
 import { translateOptions } from "@utils/i18n";
 import useTranslation from "next-translate/useTranslation";
@@ -21,7 +21,7 @@ import {
   AccordionItem,
   AccordionItemContent,
   AccordionItemTrigger,
-  AccordionRoot
+  AccordionRoot,
 } from "@/components/ui/accordion";
 import { PageShowMinimal } from "@/interfaces/page";
 
@@ -41,7 +41,7 @@ export default function PageForm({
   defaultValues,
   submitLabel,
   onSubmit,
-  hideParentId
+  hideParentId,
 }: PageFormProps) {
   const { t } = useTranslation();
   const { pages } = usePagesSidebar();
@@ -55,9 +55,9 @@ export default function PageForm({
     () => [
       [
         { label: t("page:no_parent"), value: 0 },
-        ...pages.map((p) => ({ label: `${p.title}`, value: p.id }))
+        ...pages.map((p) => ({ label: `${p.title}`, value: p.id })),
       ],
-      translateOptions(t, PAGE_TYPE_OPTIONS)
+      translateOptions(t, PAGE_TYPE_OPTIONS),
     ],
     [pages]
   );
@@ -72,29 +72,29 @@ export default function PageForm({
         galleryData: Yup.array().of(
           Yup.object().shape({
             id: Yup.mixed().nullable(),
-            fileName: Yup.string().required()
+            fileName: Yup.string().required(),
           })
         ),
         url: Yup.string()
           .nullable()
           .when("pageType", {
             is: (v) => v === PAGE_TYPES.REDIRECT,
-            then: Yup.string().required("URL is required")
+            then: Yup.string().required("URL is required"),
           }),
         content: Yup.string()
           .nullable()
           .when("pageType", {
             is: (v) => v === PAGE_TYPES.CONTENT,
-            then: Yup.string().required("Content is required")
+            then: Yup.string().required("Content is required"),
           }),
         parentId: hideParentId ? Yup.number().notRequired() : Yup.number().required(),
         sticky: Yup.boolean().required(),
         showInFooter: Yup.boolean(),
         showInMenu: Yup.boolean(),
-        allowComments: Yup.boolean().required()
+        allowComments: Yup.boolean().required(),
       })
     ),
-    defaultValues
+    defaultValues,
   });
 
   const isPageTypeRedirect = hForm.watch("pageType") === PAGE_TYPES.REDIRECT;

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const withNextTranslate = require("next-translate");
+const nextTranslate = require("next-translate-plugin");
 const packageJSON = require("./package.json");
 const withPWA = require("next-pwa")({
   dest: "public",
@@ -56,12 +55,12 @@ const withPWA = require("next-pwa")({
   ],
 });
 
-module.exports = withNextTranslate(
+module.exports = nextTranslate(
   withPWA({
     experimental: {
-      optimizePackageImports: ['@chakra-ui/react'],
-      legacyBrowsers: false,
-      browsersListForSwc: true,
+      optimizePackageImports: ["@chakra-ui/react"],
+      nextScriptWorkers: false,
     },
-  })
+  }),
+  { turbopack: true }
 );

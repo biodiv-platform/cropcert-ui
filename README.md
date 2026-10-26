@@ -3,21 +3,21 @@
 ## 🔧 Prerequisites
 
 1. Install [Node.js LTS](https://nodejs.org/)
-2. Install [Yarn 🧶](https://yarnpkg.com/)
+2. Install [pnpm 📦](https://pnpm.io/)
 
 ### 📦 Getting Started
 
 ```sh
-yarn install
+pnpm install
 cp src/configs/site-config.example.js src/configs/site-config.js  # setup with appropriate properties
-yarn dev # will start development server on port 3000
+pnpm dev # will start development server on port 3000
 ```
 
 ### 👷 Production Build
 
 ```sh
-yarn build
-yarn serve           # will start production server
+pnpm build
+pnpm serve           # will start production server
 ```
 
 ### 📄 License

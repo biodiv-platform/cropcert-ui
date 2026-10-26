@@ -1,14 +1,14 @@
-@import "./progress.scss";
-@import "./datatable.scss";
-@import "./transitions.scss";
-@import "./react-datetime-picker.scss";
-@import "./navmenu.scss";
-@import "./timeline.scss";
-@import "./page.scss";
-@import "./map.scss";
+@use "./progress.scss";
+@use "./datatable.scss";
+@use "./transitions.scss";
+@use "./react-datetime-picker.scss";
+@use "./navmenu.scss";
+@use "./timeline.scss";
+@use "./page.scss";
+@use "./map.scss";
 
-@import "keen-slider/keen-slider.min.css";
-@import "maplibre-gl/dist/maplibre-gl.css";
+@use "keen-slider/keen-slider.min.css";
+@use "maplibre-gl/dist/maplibre-gl.css";
 
 :root {
   --heading-height: 55px;

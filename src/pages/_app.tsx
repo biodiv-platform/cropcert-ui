@@ -7,6 +7,7 @@ import Metadata from "@components/@core/container/metadata";
 import Navbar from "@components/@core/navmenu";
 import SITE_CONFIG from "@configs/site-config";
 import { GlobalStateProvider } from "@hooks/use-global-state";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { axGetTree } from "@services/pages.service";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getParsedUser } from "@utils/auth";
@@ -29,22 +30,28 @@ function MainApp({ Component, pageProps, user, pages, languageId }) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider value={customTheme}>
-        <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
-          <BusProvider>
-            <Toaster />
-            <Metadata />
-            <Navbar />
-            <main>
-              <Component {...pageProps} />
-            </main>
-            {config?.footer && <Footer />}
-            <AuthWall />
-          </BusProvider>
-        </GlobalStateProvider>
-      </ChakraProvider>
-    </QueryClientProvider>
+    <GoogleOAuthProvider
+      clientId={
+        typeof SITE_CONFIG.TOKENS.OAUTH_GOOGLE === "string" ? SITE_CONFIG.TOKENS.OAUTH_GOOGLE : ""
+      }
+    >
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider value={customTheme}>
+          <GlobalStateProvider user={user} pages={pages} languageId={languageId}>
+            <BusProvider>
+              <Toaster />
+              <Metadata />
+              <Navbar />
+              <main>
+                <Component {...pageProps} />
+              </main>
+              {config?.footer && <Footer />}
+              <AuthWall />
+            </BusProvider>
+          </GlobalStateProvider>
+        </ChakraProvider>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
 

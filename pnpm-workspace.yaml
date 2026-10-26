@@ -1,5 +1,6 @@
 allowBuilds:
   "@parcel/watcher": true
+  core-js: true
   next-translate-plugin: true
   sharp: true
   styled-components: true

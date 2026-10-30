@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import useGlobalState from "@hooks/use-global-state";
 import { ENDPOINT, TOKEN } from "@static/constants";
+import { parseCookies } from "@utils/auth";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
-import { parseCookies } from "nookies";
 import React, { useMemo } from "react";
 
 import { NakshaLayerUpload } from "./naksha-upload";

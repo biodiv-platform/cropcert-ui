@@ -1,9 +1,46 @@
 import { COMPAT_USERKEY_MAP, isBrowser, ROLE_HIERARCHY, ROLES, TOKEN } from "@static/constants";
 import { AUTHWALL } from "@static/events";
 import B64URL from "base64-url";
+import { parseCookie, stringifySetCookie } from "cookie";
 import JWTDecode from "jwt-decode";
-import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { emit } from "react-gbus";
+
+const setCookie = (ctx, name: string, value: string, opts: any) => {
+  const serialized = stringifySetCookie({ name, value, ...opts });
+
+  if (ctx?.res) {
+    const existing = ctx.res.getHeader("Set-Cookie");
+    const existingArr = existing ? (Array.isArray(existing) ? existing : [existing]) : [];
+    ctx.res.setHeader("Set-Cookie", [...existingArr, serialized]);
+    return;
+  }
+
+  if (typeof document !== "undefined") {
+    document.cookie = serialized;
+  }
+};
+
+const destroyCookie = (ctx, name: string, opts: any) => {
+  setCookie(ctx, name, "", { ...opts, maxAge: 0 });
+};
+
+export const parseCookies = (ctx?): Record<string, string> => {
+  const header = ctx?.req
+    ? ctx.req.headers?.cookie || ""
+    : typeof document !== "undefined"
+    ? document.cookie || ""
+    : "";
+  return parseCookie(header) as Record<string, string>;
+};
+
+export const getClientCookies = (): Record<string, string> => {
+  const header = typeof document !== "undefined" ? document.cookie || "" : "";
+  return parseCookie(header) as Record<string, string>;
+};
+
+export const setClientCookie = (name: string, value: string, opts: any = {}) => {
+  document.cookie = stringifySetCookie({ name, value, ...opts });
+};
 
 export const cookieOpts = {
   maxAge: 60 * 60 * 24 * 7, // 1 Week

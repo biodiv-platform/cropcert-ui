@@ -1,5 +1,4 @@
-import "leaflet-geometryutil";
-
+import { area } from "@turf/turf";
 import { capitalizeFirstLetter } from "@utils/basic";
 import type { FeatureCollection } from "geojson";
 import * as L from "leaflet";
@@ -33,10 +32,8 @@ export default function EditControlFC({ geojson, setGeojson, mode }: Props) {
               .join("<br>");
 
             // Add approximate area for Polygon features
-            if (feature.geometry.type === "Polygon") {
-              const areaInSquareMeters = (L.GeometryUtil as any).geodesicArea(
-                layer.getLatLngs()[0]
-              );
+            if (feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon") {
+              const areaInSquareMeters = area(feature);
               popupContent += `<br><strong>Approximate Area:</strong> ${Math.round(
                 areaInSquareMeters
               )} m²`;

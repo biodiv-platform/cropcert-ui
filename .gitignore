@@ -23,8 +23,8 @@ src/configs/site-config.js*
 
 # debug
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
+pnpm-error.log*
 
 # SW
 /public/*.js

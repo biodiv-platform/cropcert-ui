@@ -32,11 +32,7 @@ export default function GeoJSONPreview({
 
   return (
     <Box position="relative" h={h} overflow="hidden" mb={mb} borderRadius="md">
-      <NakshaMaplibreView
-        defaultViewState={defaultViewState}
-        data={data}
-        mapStyles={mapStyles}
-      />
+      <NakshaMaplibreView defaultViewState={defaultViewState} data={data} mapStyles={mapStyles} />
     </Box>
   );
 }

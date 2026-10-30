@@ -5,7 +5,6 @@ import { hasAccess } from "@utils/auth";
 import notification, { NotificationType } from "@utils/notification";
 import useTranslation from "next-translate/useTranslation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { toggleExpandedForAll } from "react-sortable-tree";
 
 interface UsePagesContextProps {
   pages;
@@ -30,6 +29,14 @@ interface UsePagesSidebarProviderProps {
 
 const GlobalStateContext = createContext<UsePagesContextProps>({} as UsePagesContextProps);
 
+function expandAll<T extends { children?: T[] }>(items: T[]): T[] {
+  return items.map((item) => ({
+    ...item,
+    collapsed: false,
+    children: item.children ? expandAll(item.children) : item.children,
+  }));
+}
+
 export const UsePagesProvider = ({
   linkType,
   currentPage,
@@ -43,7 +50,7 @@ export const UsePagesProvider = ({
   const [iPages, setIPages] = useState([]);
 
   useEffect(() => {
-    setIPages(toggleExpandedForAll({ treeData: pages, expanded: true }));
+    setIPages(expandAll(pages));
   }, [pages]);
 
   useEffect(() => {
